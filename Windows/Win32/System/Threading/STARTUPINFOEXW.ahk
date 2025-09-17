@@ -38,7 +38,7 @@ class STARTUPINFOEXW extends Win32Struct
 
     /**
      * An attribute list. This list is created by the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-initializeprocthreadattributelist">InitializeProcThreadAttributeList</a> function.
-     * @type {Pointer<LPPROC_THREAD_ATTRIBUTE_LIST>}
+     * @type {Pointer<Void>}
      */
     lpAttributeList {
         get => NumGet(this, 104, "ptr")

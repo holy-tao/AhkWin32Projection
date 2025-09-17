@@ -28,7 +28,7 @@ class COR_PRF_ASSEMBLY_REFERENCE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     szName {
         get => NumGet(this, 16, "ptr")

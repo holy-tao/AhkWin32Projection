@@ -24,7 +24,7 @@ class WSD_SOAP_FAULT extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_soap_fault_reason">WSD_SOAP_FAULT_REASON</a> structure that contains localized human readable explanations of the fault.
-     * @type {Pointer<WSD_SOAP_FAULT_REASON>}
+     * @type {Pointer<TypeHandle>}
      */
     Reason {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class WSD_SOAP_FAULT extends Win32Struct
 
     /**
      * The SOAP node on the SOAP message path that caused the fault.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     Node {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class WSD_SOAP_FAULT extends Win32Struct
 
     /**
      * The SOAP role in which the <b>Node</b> was acting at the time the fault occurred.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     Role {
         get => NumGet(this, 24, "ptr")

@@ -16,7 +16,7 @@ class CRYPT_SMIME_CAPABILITY extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">Object identifier</a> (OID) for a capability. Capabilities include signature algorithms, <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">symmetric algorithms</a>, and key enciphering algorithms. Also included are non-algorithm capabilities, which are the preference for <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">signed data</a> and the preference for unencrypted messages.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszObjId {
         get => NumGet(this, 0, "ptr")

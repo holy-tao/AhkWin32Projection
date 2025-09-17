@@ -41,7 +41,7 @@ class MPR_INTERFACE_3 extends Win32Struct
 
     /**
      * A handle to the interface.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hInterface {
         get => NumGet(this, 520, "ptr")
@@ -351,7 +351,7 @@ class MPR_INTERFACE_3 extends Win32Struct
 
     /**
      * A pointer to a list of consecutive null-terminated Unicode strings. The last string is terminated by two consecutive null characters. The strings are alternate phone numbers that the router dials, in the order listed, if the primary number fails to connect. For more information, see <b>szLocalPhoneNumber</b>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     szAlternates {
         get => NumGet(this, 816, "ptr")

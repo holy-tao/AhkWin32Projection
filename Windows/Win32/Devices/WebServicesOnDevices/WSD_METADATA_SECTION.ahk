@@ -53,7 +53,7 @@ class WSD_METADATA_SECTION extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     Dialect {
         get => NumGet(this, 0, "ptr")
@@ -62,7 +62,7 @@ class WSD_METADATA_SECTION extends Win32Struct
 
     /**
      * The dialect-specific identifier for the scope/domain/namespace of the metadata section.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     Identifier {
         get => NumGet(this, 8, "ptr")
@@ -89,7 +89,7 @@ class WSD_METADATA_SECTION extends Win32Struct
 
     /**
      * A URI that specifies the location from which metadata can be retrieved.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     Location {
         get => NumGet(this, 32, "ptr")

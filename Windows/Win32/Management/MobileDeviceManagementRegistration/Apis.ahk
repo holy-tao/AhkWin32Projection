@@ -361,7 +361,7 @@ class MobileDeviceManagementRegistration {
      * @param {Pointer<Int32>} pfIsDeviceRegisteredWithManagement Address of a <b>BOOL</b> indicates whether the device is registered.
      * @param {Integer} cchUPN Contains the maximum length that can be returned through the <i>pszUPN</i> 
      *       parameter.
-     * @param {Pointer<PWSTR>} pszUPN Optional address of a buffer that receives the  <b>NULL</b>-terminated Unicode string 
+     * @param {Pointer<Char>} pszUPN Optional address of a buffer that receives the  <b>NULL</b>-terminated Unicode string 
      *       containing the UPN of the user registered with the management service. If <i>pszUPN</i> is 
      *       <b>NULL</b> then the <b>BOOL</b> pointed to by the 
      *       <i>pfIsDeviceRegisteredWithManagement</i> parameter is updated to indicate whether the device 
@@ -384,7 +384,7 @@ class MobileDeviceManagementRegistration {
     static IsDeviceRegisteredWithManagement(pfIsDeviceRegisteredWithManagement, cchUPN, pszUPN) {
         pszUPN := pszUPN is String? StrPtr(pszUPN) : pszUPN
 
-        result := DllCall("MDMRegistration.dll\IsDeviceRegisteredWithManagement", "ptr", pfIsDeviceRegisteredWithManagement, "uint", cchUPN, "ptr", pszUPN, "int")
+        result := DllCall("MDMRegistration.dll\IsDeviceRegisteredWithManagement", "int*", pfIsDeviceRegisteredWithManagement, "uint", cchUPN, "ptr", pszUPN, "int")
         return result
     }
 
@@ -400,7 +400,7 @@ class MobileDeviceManagementRegistration {
      * @since windows8.1
      */
     static IsManagementRegistrationAllowed(pfIsManagementRegistrationAllowed) {
-        result := DllCall("MDMRegistration.dll\IsManagementRegistrationAllowed", "ptr", pfIsManagementRegistrationAllowed, "int")
+        result := DllCall("MDMRegistration.dll\IsManagementRegistrationAllowed", "int*", pfIsManagementRegistrationAllowed, "int")
         return result
     }
 
@@ -410,7 +410,7 @@ class MobileDeviceManagementRegistration {
      * @returns {Integer} 
      */
     static IsMdmUxWithoutAadAllowed(isEnrollmentAllowed) {
-        result := DllCall("MDMRegistration.dll\IsMdmUxWithoutAadAllowed", "ptr", isEnrollmentAllowed, "int")
+        result := DllCall("MDMRegistration.dll\IsMdmUxWithoutAadAllowed", "int*", isEnrollmentAllowed, "int")
         return result
     }
 
@@ -435,7 +435,7 @@ class MobileDeviceManagementRegistration {
      * Discovers the MDM service.
      * @remarks
      * The caller of this function must be running as an elevated process.
-     * @param {Pointer<PWSTR>} pszUPN Address of a <b>NULL</b>-terminated Unicode string containing the user principal name 
+     * @param {Pointer<Char>} pszUPN Address of a <b>NULL</b>-terminated Unicode string containing the user principal name 
      *       (UPN) of the user requesting registration.
      * @param {Pointer<MANAGEMENT_SERVICE_INFO>} ppMgmtInfo Address of a <a href="https://docs.microsoft.com/windows/win32/api/mdmregistration/ns-mdmregistration-management_service_info">MANAGEMENT_SERVICE_INFO</a> 
      *       structure that contains pointers to the URIs of the management and authentication services.
@@ -457,7 +457,7 @@ class MobileDeviceManagementRegistration {
      * Registers a device with a MDM service, using Azure Active Directory (AAD) credentials.
      * @remarks
      * The caller of this function must be running as an elevated process.
-     * @param {Pointer<HANDLE>} UserToken The User to impersonate when attempting to get AAD token
+     * @param {Pointer<Void>} UserToken The User to impersonate when attempting to get AAD token
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. If the function fails, the returned value describes the error. Possible 
      *       values include those listed at 
      *       <a href="https://docs.microsoft.com/windows/desktop/MDMReg/mdm-registration-constants">MDM Registration Error Values</a>.
@@ -484,7 +484,7 @@ class MobileDeviceManagementRegistration {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} MDMApplicationID 
+     * @param {Pointer<Char>} MDMApplicationID 
      * @returns {Integer} 
      */
     static RegisterDeviceWithManagementUsingAADDeviceCredentials2(MDMApplicationID) {
@@ -498,13 +498,13 @@ class MobileDeviceManagementRegistration {
      * Registers a device with a MDM service, using the [MS-MDE]:\_Mobile Device Enrollment Protocol.
      * @remarks
      * The caller of this function must be running as an elevated process.
-     * @param {Pointer<PWSTR>} pszUPN Address of a <b>NULL</b>-terminated Unicode string containing the user principal name 
+     * @param {Pointer<Char>} pszUPN Address of a <b>NULL</b>-terminated Unicode string containing the user principal name 
      *       (UPN) of the user requesting the registration.
      * 
      * <b>Windows 8.1:  </b>This parameter was located after the <i>ppszMDMServiceUri</i> parameter in Windows 8.1.
-     * @param {Pointer<PWSTR>} ppszMDMServiceUri Address of a <b>NULL</b>-terminated Unicode string containing the URI of the MDM 
+     * @param {Pointer<Char>} ppszMDMServiceUri Address of a <b>NULL</b>-terminated Unicode string containing the URI of the MDM 
      *       service.
-     * @param {Pointer<PWSTR>} ppzsAccessToken Address of a <b>NULL</b>-terminated Unicode string containing a token acquired from 
+     * @param {Pointer<Char>} ppzsAccessToken Address of a <b>NULL</b>-terminated Unicode string containing a token acquired from 
      *       a Secure Token Service which the management service will use to validate the user.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. If the function fails, the returned value describes the error. Possible 
      *       values include those listed at 
@@ -525,7 +525,7 @@ class MobileDeviceManagementRegistration {
      * Unregisters a device with the MDM service.
      * @remarks
      * The caller of this function must be running as an elevated process.
-     * @param {Pointer<PWSTR>} enrollmentID 
+     * @param {Pointer<Char>} enrollmentID 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. If the function 
      *       fails, the returned value describes the error. Possible 
      *       values include those listed at 
@@ -542,13 +542,13 @@ class MobileDeviceManagementRegistration {
 
     /**
      * Gets the config info associated with the provider ID.
-     * @param {Pointer<PWSTR>} providerID Type: \_In\_ **[PCWSTR](/windows/win32/winprog/windows-data-types)**
+     * @param {Pointer<Char>} providerID Type: \_In\_ **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * A string containing the provider ID.
      * @param {Pointer<UInt32>} configStringBufferLength Type: \_Inout\_ **[DWORD](/windows/win32/winprog/windows-data-types)\***
      * 
      * A pointer to the buffer length (the size of *configString* in chars).
-     * @param {Pointer<PWSTR>} configString Type: \_Out\_writes\_to\_opt\_(*configStringBufferLength, *configStringBufferLength) **[PWSTR](/windows/win32/winprog/windows-data-types)**
+     * @param {Pointer<Char>} configString Type: \_Out\_writes\_to\_opt\_(*configStringBufferLength, *configStringBufferLength) **[PWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * A buffer which, if the function completes successfully, will contain the config info.
      * 
@@ -562,16 +562,16 @@ class MobileDeviceManagementRegistration {
         providerID := providerID is String? StrPtr(providerID) : providerID
         configString := configString is String? StrPtr(configString) : configString
 
-        result := DllCall("MDMRegistration.dll\GetDeviceManagementConfigInfo", "ptr", providerID, "ptr", configStringBufferLength, "ptr", configString, "int")
+        result := DllCall("MDMRegistration.dll\GetDeviceManagementConfigInfo", "ptr", providerID, "uint*", configStringBufferLength, "ptr", configString, "int")
         return result
     }
 
     /**
      * Sets the config info associated with the provider ID.
-     * @param {Pointer<PWSTR>} providerID Type: \_In\_ **[PCWSTR](/windows/win32/winprog/windows-data-types)**
+     * @param {Pointer<Char>} providerID Type: \_In\_ **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * A string containing the provider ID.
-     * @param {Pointer<PWSTR>} configString Type: \_In\_ **[PCWSTR](/windows/win32/winprog/windows-data-types)**
+     * @param {Pointer<Char>} configString Type: \_In\_ **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * A string containing containing the config info (the data to write).
      * @returns {Integer} Type: **[HRESULT](/windows/win32/com/structure-of-com-error-codes)**
@@ -593,7 +593,7 @@ class MobileDeviceManagementRegistration {
      * The caller of this function must be running as an elevated process.
      * @param {Integer} cchHyperlink Contains the maximum length that can be returned through the <i>pszHyperlink</i> 
      *       parameter.
-     * @param {Pointer<PWSTR>} pszHyperlink Address of a buffer that receives the <b>NULL</b>-terminated Unicode string with the 
+     * @param {Pointer<Char>} pszHyperlink Address of a buffer that receives the <b>NULL</b>-terminated Unicode string with the 
      *       hyperlink of the management app associated with the management service.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. If the function 
      *       fails, the returned value describes the error. Possible values include those listed at 
@@ -614,9 +614,9 @@ class MobileDeviceManagementRegistration {
      * The caller of this function must be running as an elevated process.
      * 
      * This function is not available before Windows Server 2012 R2 Update and Windows 8.1 Update.
-     * @param {Pointer<PWSTR>} pszUPN Address of a <b>NULL</b>-terminated Unicode string containing the user principal name 
+     * @param {Pointer<Char>} pszUPN Address of a <b>NULL</b>-terminated Unicode string containing the user principal name 
      *       (UPN) of the user requesting registration.
-     * @param {Pointer<PWSTR>} pszDiscoveryServiceCandidate Address of a <b>NULL</b>-terminated Unicode string containing the discovery service 
+     * @param {Pointer<Char>} pszDiscoveryServiceCandidate Address of a <b>NULL</b>-terminated Unicode string containing the discovery service 
      *       candidate to use in lieu of automatic discovery.
      * @param {Pointer<MANAGEMENT_SERVICE_INFO>} ppMgmtInfo Address of a <a href="https://docs.microsoft.com/windows/win32/api/mdmregistration/ns-mdmregistration-management_service_info">MANAGEMENT_SERVICE_INFO</a> 
      *       structure that contains pointers to the URIs of the management and authentication services.
@@ -641,19 +641,18 @@ class MobileDeviceManagementRegistration {
      * @returns {Integer} 
      */
     static RegisterDeviceWithLocalManagement(alreadyRegistered) {
-        result := DllCall("MDMLocalManagement.dll\RegisterDeviceWithLocalManagement", "ptr", alreadyRegistered, "int")
+        result := DllCall("MDMLocalManagement.dll\RegisterDeviceWithLocalManagement", "int*", alreadyRegistered, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} syncMLRequest 
-     * @param {Pointer<PWSTR>} syncMLResult 
+     * @param {Pointer<Char>} syncMLRequest 
+     * @param {Pointer<Char>} syncMLResult 
      * @returns {Integer} 
      */
     static ApplyLocalManagementSyncML(syncMLRequest, syncMLResult) {
         syncMLRequest := syncMLRequest is String? StrPtr(syncMLRequest) : syncMLRequest
-        syncMLResult := syncMLResult is String? StrPtr(syncMLResult) : syncMLResult
 
         result := DllCall("MDMLocalManagement.dll\ApplyLocalManagementSyncML", "ptr", syncMLRequest, "ptr", syncMLResult, "int")
         return result

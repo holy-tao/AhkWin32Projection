@@ -20,7 +20,7 @@ class SPSEMANTICERRORINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszScriptLine {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class SPSEMANTICERRORINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszSource {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class SPSEMANTICERRORINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszDescription {
         get => NumGet(this, 24, "ptr")

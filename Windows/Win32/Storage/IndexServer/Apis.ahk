@@ -742,7 +742,7 @@ class IndexServer {
 ;@region Methods
     /**
      * Retrieves IFilter from path name for object.
-     * @param {Pointer<PWSTR>} pwcsPath A pointer to the full path of an object for which an <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface pointer is to be returned. The path can include a full filename or only the file name extension; for example, ".ext".
+     * @param {Pointer<Char>} pwcsPath A pointer to the full path of an object for which an <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface pointer is to be returned. The path can include a full filename or only the file name extension; for example, ".ext".
      * @param {Pointer<IUnknown>} pUnkOuter A pointer to the controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the aggregate in which this storage object exists.
      * @param {Pointer<Void>} ppIUnk A pointer to a variable that receives the <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface pointer.
      * @returns {Integer} This function can return one of these values.
@@ -831,7 +831,7 @@ class IndexServer {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pwcsPath 
+     * @param {Pointer<Char>} pwcsPath 
      * @param {Integer} dwFlags 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Void>} ppIUnk 

@@ -33,7 +33,7 @@ class FEATURE_ERROR extends Win32Struct
 
     /**
      * Infrastructure use only.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     file {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class FEATURE_ERROR extends Win32Struct
 
     /**
      * Infrastructure use only.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     process {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +51,7 @@ class FEATURE_ERROR extends Win32Struct
 
     /**
      * Infrastructure use only.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     module {
         get => NumGet(this, 24, "ptr")
@@ -69,7 +69,7 @@ class FEATURE_ERROR extends Win32Struct
 
     /**
      * Infrastructure use only.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     callerModule {
         get => NumGet(this, 40, "ptr")
@@ -78,7 +78,7 @@ class FEATURE_ERROR extends Win32Struct
 
     /**
      * Infrastructure use only.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     message {
         get => NumGet(this, 48, "ptr")
@@ -96,7 +96,7 @@ class FEATURE_ERROR extends Win32Struct
 
     /**
      * Infrastructure use only.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     originFile {
         get => NumGet(this, 64, "ptr")
@@ -105,7 +105,7 @@ class FEATURE_ERROR extends Win32Struct
 
     /**
      * Infrastructure use only.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     originModule {
         get => NumGet(this, 72, "ptr")
@@ -123,7 +123,7 @@ class FEATURE_ERROR extends Win32Struct
 
     /**
      * Infrastructure use only.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     originCallerModule {
         get => NumGet(this, 88, "ptr")
@@ -132,7 +132,7 @@ class FEATURE_ERROR extends Win32Struct
 
     /**
      * Infrastructure use only.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     originName {
         get => NumGet(this, 96, "ptr")

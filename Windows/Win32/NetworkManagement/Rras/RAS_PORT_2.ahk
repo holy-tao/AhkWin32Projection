@@ -12,7 +12,7 @@ class RAS_PORT_2 extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hPort {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class RAS_PORT_2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hConnection {
         get => NumGet(this, 8, "ptr")

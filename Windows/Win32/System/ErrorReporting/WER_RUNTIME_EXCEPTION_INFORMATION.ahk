@@ -27,7 +27,7 @@ class WER_RUNTIME_EXCEPTION_INFORMATION extends Win32Struct
 
     /**
      * The handle to the process that crashed.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hProcess {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class WER_RUNTIME_EXCEPTION_INFORMATION extends Win32Struct
 
     /**
      * The handle to the thread that crashed.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hThread {
         get => NumGet(this, 16, "ptr")
@@ -69,7 +69,7 @@ class WER_RUNTIME_EXCEPTION_INFORMATION extends Win32Struct
 
     /**
      * A pointer to a constant, null-terminated string that contains the size of the exception information.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszReportId {
         get => NumGet(this, 832, "ptr")

@@ -110,7 +110,7 @@ class WSADATA extends Win32Struct
      * 
      * The <b>lpVendorInfo</b> member is retained for compatibility with Windows Sockets specification 1.1. The architecture of Windows Sockets changed in version 2 to support multiple providers, and the <b>WSADATA</b> structure no longer applies to a single vendor's stack. Applications needing to access vendor-specific configuration information should use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getsockopt">getsockopt</a> to retrieve the value of option PVD_CONFIG for vendor-specific information.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpVendorInfo {
         get => NumGet(this, 784, "ptr")

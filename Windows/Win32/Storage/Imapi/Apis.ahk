@@ -1476,7 +1476,7 @@ class Imapi {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/openimsgsession
      */
     static OpenIMsgSession(lpMalloc, ulFlags, lppMsgSess) {
-        result := DllCall("MAPI32.dll\OpenIMsgSession", "ptr", lpMalloc, "uint", ulFlags, "ptr", lppMsgSess, "int")
+        result := DllCall("MAPI32.dll\OpenIMsgSession", "ptr", lpMalloc, "uint", ulFlags, "ptr*", lppMsgSess, "int")
         return result
     }
 
@@ -1487,11 +1487,12 @@ class Imapi {
      *   
      * A message session keeps track of all **IMessage**-on- **IStorage** objects opened during the duration of the session, in addition to all the attachments and other properties of the messages. When a client or provider calls **CloseIMsgSession**, it closes all these objects. Calling **CloseIMsgSession** is the only way to close **IMessage**-on- **IStorage** objects.
      * @param {Pointer} lpMsgSess > [in] Pointer to the message session object obtained using the [OpenIMsgSession](openimsgsession.md) function at the start of the message session.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} None.
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/closeimsgsession
      */
     static CloseIMsgSession(lpMsgSess) {
-        DllCall("MAPI32.dll\CloseIMsgSession", "ptr", lpMsgSess)
+        result := DllCall("MAPI32.dll\CloseIMsgSession", "ptr", lpMsgSess)
+        return result
     }
 
     /**

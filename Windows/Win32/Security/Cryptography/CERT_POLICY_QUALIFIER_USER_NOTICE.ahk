@@ -20,7 +20,7 @@ class CERT_POLICY_QUALIFIER_USER_NOTICE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszDisplayText {
         get => NumGet(this, 8, "ptr")

@@ -399,7 +399,7 @@ class NCB extends Win32Struct
      * Specifies a handle to an event object that is set to the nonsignaled state when an asynchronous command is accepted, and it is set to the signaled state when the asynchronous command is completed. The event is signaled if the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/nb30/nf-nb30-netbios">Netbios</a> function returns a nonzero value. Only manual reset events should be used for synchronization. A specified event should not be associated with more than one active asynchronous command.
      * 
      * The <b>ncb_event</b> member must be zero if the <b>ncb_command</b> member does not have the <b>ASYNCH</b> flag set or if <b>ncb_post</b> is nonzero. Otherwise, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/nb30/nf-nb30-netbios">Netbios</a> returns the <b>NRC_ILLCMD</b> error code.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     ncb_event {
         get => NumGet(this, 80, "ptr")

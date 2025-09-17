@@ -32,7 +32,7 @@ class ITEMPROP extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszName {
         get => NumGet(this, 16, "ptr")

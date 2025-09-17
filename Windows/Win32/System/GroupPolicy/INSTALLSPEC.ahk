@@ -14,7 +14,7 @@ class INSTALLSPEC extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     Name {
         get => NumGet(this, 0, "ptr")
@@ -34,7 +34,7 @@ class INSTALLSPEC extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  <a href="https://docs.microsoft.com/windows/desktop/api/appmgmt/nf-appmgmt-installapplication">InstallApplication</a> fails if the <b>Type</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/appmgmt/ns-appmgmt-installdata">INSTALLDATA</a> equals <b>FILEEXT</b> and there is no application deployed to the user with this file name extension.</div>
      * <div> </div>
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     FileExt {
         get => NumGet(this, 0, "ptr")
@@ -43,7 +43,7 @@ class INSTALLSPEC extends Win32Struct
 
     /**
      * This parameter is reserved and should not be used.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ProgId {
         get => NumGet(this, 0, "ptr")

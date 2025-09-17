@@ -32,7 +32,7 @@ class PROPSHEETPAGEA_V3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HINSTANCE>}
+     * @type {Pointer<Void>}
      */
     hInstance {
         get => NumGet(this, 8, "ptr")
@@ -40,7 +40,7 @@ class PROPSHEETPAGEA_V3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszTemplate {
         get => NumGet(this, 16, "ptr")
@@ -56,7 +56,7 @@ class PROPSHEETPAGEA_V3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HICON>}
+     * @type {Pointer<Void>}
      */
     hIcon {
         get => NumGet(this, 24, "ptr")
@@ -64,7 +64,7 @@ class PROPSHEETPAGEA_V3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszIcon {
         get => NumGet(this, 24, "ptr")
@@ -72,7 +72,7 @@ class PROPSHEETPAGEA_V3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszTitle {
         get => NumGet(this, 32, "ptr")
@@ -124,7 +124,7 @@ class PROPSHEETPAGEA_V3 extends Win32Struct
      * <li>Set the PSH_WIZARD97 flag in the <b>dwFlags</b> member of the page's <a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetheadera_v2">PROPSHEETHEADER</a> structure.</li>
      * <li>Make sure that the PSP_HIDEHEADER flag in the <b>dwFlags</b> member is not set.</li>
      * </ul>
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszHeaderTitle {
         get => NumGet(this, 72, "ptr")
@@ -146,7 +146,7 @@ class PROPSHEETPAGEA_V3 extends Win32Struct
      * </ul>
      * <div class="alert"><b>Note</b>  This member is ignored when using the Aero-style wizard (<a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetheadera_v2">PSH_AEROWIZARD</a>).</div>
      * <div> </div>
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszHeaderSubTitle {
         get => NumGet(this, 80, "ptr")
@@ -158,7 +158,7 @@ class PROPSHEETPAGEA_V3 extends Win32Struct
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 6.0</a> or later. An activation context handle. Set this member to the handle that is returned when you create the activation context with <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createactctxa">CreateActCtx</a>. The system will activate this context before creating the dialog box. You do not need to use this member if you use a global manifest. See the Remarks.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hActCtx {
         get => NumGet(this, 88, "ptr")

@@ -1628,29 +1628,31 @@ class Dhcp {
     /**
      * The Dhcpv6CApiInitialize function must be the first function call made by users of DHCPv6.
      * @param {Pointer<UInt32>} Version Pointer to the DHCPv6 version implemented by the client.  If a valid pointer is passed, the DHCPv6 client will be returned through it.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} Returns ERROR_SUCCESS upon successful completion.
      * @see https://learn.microsoft.com/windows/win32/api/dhcpv6csdk/nf-dhcpv6csdk-dhcpv6capiinitialize
      * @since windows6.0.6000
      */
     static Dhcpv6CApiInitialize(Version) {
-        DllCall("dhcpcsvc6.dll\Dhcpv6CApiInitialize", "ptr", Version)
+        result := DllCall("dhcpcsvc6.dll\Dhcpv6CApiInitialize", "uint*", Version)
+        return result
     }
 
     /**
      * The Dhcpv6CApiCleanup function enables DHCPv6 to properly clean up resources allocated throughout the use of DHCPv6 function calls. The Dhcpv6CApiCleanup function must only be called if a previous call to Dhcpv6CApiInitialize executed successfully.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/dhcpv6csdk/nf-dhcpv6csdk-dhcpv6capicleanup
      * @since windows6.0.6000
      */
     static Dhcpv6CApiCleanup() {
-        DllCall("dhcpcsvc6.dll\Dhcpv6CApiCleanup")
+        result := DllCall("dhcpcsvc6.dll\Dhcpv6CApiCleanup")
+        return result
     }
 
     /**
      * Requests options from the DHCPv6 client cache or directly from the DHCPv6 server.
      * @param {Integer} forceNewInform If this value is set to <b>TRUE</b>, any available cached information will be ignored and new information will be requested.  Otherwise, the request is only sent if there is no cached information.
      * @param {Pointer<Void>} reserved Reserved for future use.  Must be set to <b>NULL</b>.
-     * @param {Pointer<PWSTR>} adapterName GUID of the adapter for which this request is meant.  This parameter must not be <b>NULL</b>.
+     * @param {Pointer<Char>} adapterName GUID of the adapter for which this request is meant.  This parameter must not be <b>NULL</b>.
      * @param {Pointer<DHCPV6CAPI_CLASSID>} classId Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpv6csdk/ns-dhcpv6csdk-dhcpv6capi_classid">DHCPV6CAPI_CLASSID</a> structure that contains the binary ClassId information to use to send on the wire. This parameter is optional.
      * @param {Pointer} recdParams A <a href="https://docs.microsoft.com/windows/desktop/api/dhcpv6csdk/ns-dhcpv6csdk-dhcpv6capi_params_array">DHCPV6CAPI_PARAMS_ARRAY</a> structure that contains the parameters to be received from the DHCPV6 server.
      * @param {Pointer<Byte>} buffer A buffer to contain information returned by some pointers in <i>recdParams</i>.
@@ -1710,13 +1712,13 @@ class Dhcp {
     static Dhcpv6RequestParams(forceNewInform, reserved, adapterName, classId, recdParams, buffer, pSize) {
         adapterName := adapterName is String? StrPtr(adapterName) : adapterName
 
-        result := DllCall("dhcpcsvc6.dll\Dhcpv6RequestParams", "int", forceNewInform, "ptr", reserved, "ptr", adapterName, "ptr", classId, "ptr", recdParams, "ptr", buffer, "ptr", pSize, "uint")
+        result := DllCall("dhcpcsvc6.dll\Dhcpv6RequestParams", "int", forceNewInform, "ptr", reserved, "ptr", adapterName, "ptr", classId, "ptr", recdParams, "char*", buffer, "uint*", pSize, "uint")
         return result
     }
 
     /**
      * Requests a specific prefix.
-     * @param {Pointer<PWSTR>} adapterName GUID of the adapter on which the prefix request must be sent.
+     * @param {Pointer<Char>} adapterName GUID of the adapter on which the prefix request must be sent.
      * @param {Pointer<DHCPV6CAPI_CLASSID>} pclassId Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpv6csdk/ns-dhcpv6csdk-dhcpv6capi_classid">DHCPV6CAPI_CLASSID</a> structure that contains the binary ClassId information to  send on the wire. This parameter is optional.
      * 
      * <div class="alert"><b>Note</b>  DHCPv6 Option Code 15 (0x000F) is not supported by this API. Typically, the User Class option is used by a client to identify the type or category of user or application it represents. A server selects the configuration information for the client based on the classes identified in this option.</div>
@@ -1809,13 +1811,13 @@ class Dhcp {
     static Dhcpv6RequestPrefix(adapterName, pclassId, prefixleaseInfo, pdwTimeToWait) {
         adapterName := adapterName is String? StrPtr(adapterName) : adapterName
 
-        result := DllCall("dhcpcsvc6.dll\Dhcpv6RequestPrefix", "ptr", adapterName, "ptr", pclassId, "ptr", prefixleaseInfo, "ptr", pdwTimeToWait, "uint")
+        result := DllCall("dhcpcsvc6.dll\Dhcpv6RequestPrefix", "ptr", adapterName, "ptr", pclassId, "ptr", prefixleaseInfo, "uint*", pdwTimeToWait, "uint")
         return result
     }
 
     /**
      * Renews a prefix.
-     * @param {Pointer<PWSTR>} adapterName GUID of the adapter on which the prefix renewal must be sent.
+     * @param {Pointer<Char>} adapterName GUID of the adapter on which the prefix renewal must be sent.
      * @param {Pointer<DHCPV6CAPI_CLASSID>} pclassId Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpv6csdk/ns-dhcpv6csdk-dhcpv6capi_classid">DHCPV6CAPI_CLASSID</a> structure that contains the binary ClassId information to send on the wire. This parameter is can be <b>NULL</b>.
      * 
      * <div class="alert"><b>Note</b>  DHCPv6 Option Code 15 (0x000F) is not supported by this API. Typically, the User Class option is used by a client to identify the type or category of user or application it represents. A server selects the configuration information for the client based on the classes identified in this option.</div>
@@ -1877,7 +1879,7 @@ class Dhcp {
     static Dhcpv6RenewPrefix(adapterName, pclassId, prefixleaseInfo, pdwTimeToWait, bValidatePrefix) {
         adapterName := adapterName is String? StrPtr(adapterName) : adapterName
 
-        result := DllCall("dhcpcsvc6.dll\Dhcpv6RenewPrefix", "ptr", adapterName, "ptr", pclassId, "ptr", prefixleaseInfo, "ptr", pdwTimeToWait, "uint", bValidatePrefix, "uint")
+        result := DllCall("dhcpcsvc6.dll\Dhcpv6RenewPrefix", "ptr", adapterName, "ptr", pclassId, "ptr", prefixleaseInfo, "uint*", pdwTimeToWait, "uint", bValidatePrefix, "uint")
         return result
     }
 
@@ -1891,7 +1893,7 @@ class Dhcp {
      * <li><b>T2</b>: the rebind time of the prefix, in seconds specified as absolute time values.
      * </li>
      * </ul>
-     * @param {Pointer<PWSTR>} adapterName Name of the adapter on which the PD request must be sent.
+     * @param {Pointer<Char>} adapterName Name of the adapter on which the PD request must be sent.
      * @param {Pointer<DHCPV6CAPI_CLASSID>} classId Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpv6csdk/ns-dhcpv6csdk-dhcpv6capi_classid">DHCPV6CAPI_CLASSID</a> structure that contains the binary ClassId information to use to send on the wire.
      * 
      * <div class="alert"><b>Note</b>   DHCPv6 Option Code 15 (0x000F) is not supported by this API. Typically, the User Class option is used by a client to identify the type or category of user or application it represents. A server selects the configuration information for the client based on the classes identified in this option.</div>
@@ -1951,18 +1953,19 @@ class Dhcp {
      * @since windows5.0
      */
     static DhcpCApiInitialize(Version) {
-        result := DllCall("dhcpcsvc.dll\DhcpCApiInitialize", "ptr", Version, "uint")
+        result := DllCall("dhcpcsvc.dll\DhcpCApiInitialize", "uint*", Version, "uint")
         return result
     }
 
     /**
      * The DhcpCApiCleanup function enables DHCP to properly clean up resources allocated throughout the use of DHCP function calls. The DhcpCApiCleanup function must only be called if a previous call to DhcpCApiInitialize executed successfully.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/dhcpcsdk/nf-dhcpcsdk-dhcpcapicleanup
      * @since windows5.0
      */
     static DhcpCApiCleanup() {
-        DllCall("dhcpcsvc.dll\DhcpCApiCleanup")
+        result := DllCall("dhcpcsvc.dll\DhcpCApiCleanup")
+        return result
     }
 
     /**
@@ -2014,19 +2017,19 @@ class Dhcp {
      * </tr>
      * </table>
      * @param {Pointer<Void>} Reserved Reserved for future use. Must be set to <b>NULL</b>.
-     * @param {Pointer<PWSTR>} AdapterName GUID of the adapter on which requested data is being made. Must be under 256 characters.
+     * @param {Pointer<Char>} AdapterName GUID of the adapter on which requested data is being made. Must be under 256 characters.
      * @param {Pointer<DHCPCAPI_CLASSID>} ClassId Class identifier (ID) that should be used if DHCP INFORM messages are being transmitted onto the network. This parameter is optional.
      * @param {Pointer} SendParams Optional data to be requested, in addition to the data requested in the <i>RecdParams</i> array. The <i>SendParams</i> parameter cannot contain any of the standard options that the DHCP client sends by default.
      * @param {Pointer} RecdParams Array of DHCP data the caller is interested in receiving. This array must be empty prior to the 
      * <b>DhcpRequestParams</b> function call.
-     * @param {Pointer<Byte>} Buffer Buffer used for storing the data associated with requests made in <i>RecdParams</i>.
+     * @param {Pointer} Buffer Buffer used for storing the data associated with requests made in <i>RecdParams</i>.
      * @param {Pointer<UInt32>} pSize Size of <i>Buffer</i>. 
      * 
      * 
      * 
      * 
      * Required size of the buffer, if it is insufficiently sized to hold the data, otherwise indicates size of the buffer which was successfully filled.
-     * @param {Pointer<PWSTR>} RequestIdStr Application identifier (ID) used to facilitate a persistent request. Must be a printable string with no special characters (commas, backslashes, colons, or other illegal characters may not be used). The specified application identifier (ID) is used in a subsequent 
+     * @param {Pointer<Char>} RequestIdStr Application identifier (ID) used to facilitate a persistent request. Must be a printable string with no special characters (commas, backslashes, colons, or other illegal characters may not be used). The specified application identifier (ID) is used in a subsequent 
      * <b>DhcpUndoRequestParams</b> function call to clear the persistent request, as necessary.
      * @returns {Integer} Returns ERROR_SUCCESS upon successful completion.
      * 
@@ -2070,7 +2073,7 @@ class Dhcp {
         AdapterName := AdapterName is String? StrPtr(AdapterName) : AdapterName
         RequestIdStr := RequestIdStr is String? StrPtr(RequestIdStr) : RequestIdStr
 
-        result := DllCall("dhcpcsvc.dll\DhcpRequestParams", "uint", Flags, "ptr", Reserved, "ptr", AdapterName, "ptr", ClassId, "ptr", SendParams, "ptr", RecdParams, "ptr", Buffer, "ptr", pSize, "ptr", RequestIdStr, "uint")
+        result := DllCall("dhcpcsvc.dll\DhcpRequestParams", "uint", Flags, "ptr", Reserved, "ptr", AdapterName, "ptr", ClassId, "ptr", SendParams, "ptr", RecdParams, "ptr", Buffer, "uint*", pSize, "ptr", RequestIdStr, "uint")
         return result
     }
 
@@ -2079,11 +2082,11 @@ class Dhcp {
      * @remarks
      * Persistent requests are typically made by the setup or installer process associated with the application. When appropriate, the setup or installer process would likely make the 
      * <b>DhcpUndoRequestParams</b> function call to cancel its associated persistent request.
-     * @param {Pointer<PWSTR>} AdapterName GUID of the adapter for which information is no longer required.  Must be under 256 characters.
+     * @param {Pointer<Char>} AdapterName GUID of the adapter for which information is no longer required.  Must be under 256 characters.
      * 
      * <div class="alert"><b>Note</b>  This parameter is no longer used.</div>
      * <div> </div>
-     * @param {Pointer<PWSTR>} RequestIdStr Application identifier (ID) originally used to make a persistent request. This string must match the <i>RequestIdStr</i> parameter used in the 
+     * @param {Pointer<Char>} RequestIdStr Application identifier (ID) originally used to make a persistent request. This string must match the <i>RequestIdStr</i> parameter used in the 
      * <b>DhcpRequestParams</b> function call that obtained the corresponding persistent request. Note that this must match the previous application identifier (ID) used, and must be a printable string with no special characters (commas, backslashes, colons, or other illegal characters may not be used).
      * @returns {Integer} Returns ERROR_SUCCESS upon successful completion. Otherwise, returns a Windows error code.
      * @see https://learn.microsoft.com/windows/win32/api/dhcpcsdk/nf-dhcpcsdk-dhcpundorequestparams
@@ -2104,7 +2107,7 @@ class Dhcp {
      * @remarks
      * Version 2 of the DHCP Client API provides only event-based notification. With event-based notification in DHCP, clients enable notification by having <i>Handle</i> point to a variable that, upon successful return, holds the EVENT handles that are signaled whenever changes occur to the parameters requested in <i>Params</i>.
      * @param {Integer} Flags Reserved. Must be set to DHCPCAPI_REGISTER_HANDLE_EVENT. If it is not set to this flag value, the API call will not be successful.
-     * @param {Pointer<PWSTR>} AdapterName GUID of the adapter for which event notification is being requested.  Must be under 256 characters.
+     * @param {Pointer<Char>} AdapterName GUID of the adapter for which event notification is being requested.  Must be under 256 characters.
      * @param {Pointer<DHCPCAPI_CLASSID>} ClassId Reserved. Must be set to <b>NULL</b>.
      * @param {Pointer} Params Parameters for which the client is interested in registering for notification, in the form of a <a href="https://docs.microsoft.com/windows/win32/api/dhcpcsdk/ns-dhcpcsdk-dhcpcapi_params_array">DHCPCAPI_PARAMS_ARRAY</a> structure.
      * @param {Pointer<Void>} Handle Attributes of <i>Handle</i> are determined by the value of <i>Flags</i>. In version 2 of the DHCP API, <i>Flags</i> must be set to DHCPCAPI_REGISTER_HANDLE_EVENT, and therefore, <i>Handle</i> must be a pointer to a <b>HANDLE</b> variable that will hold the handle to a Windows event that gets signaled when parameters specified in <i>Params</i> change. Note that this <b>HANDLE</b> variable is used in a subsequent call to the 
@@ -2175,14 +2178,14 @@ class Dhcp {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} sAdapterName 
+     * @param {Pointer<Char>} sAdapterName 
      * @param {Pointer<UInt32>} dwSubnetMask 
      * @returns {Integer} 
      */
     static DhcpGetOriginalSubnetMask(sAdapterName, dwSubnetMask) {
         sAdapterName := sAdapterName is String? StrPtr(sAdapterName) : sAdapterName
 
-        result := DllCall("dhcpcsvc.dll\DhcpGetOriginalSubnetMask", "ptr", sAdapterName, "ptr", dwSubnetMask, "uint")
+        result := DllCall("dhcpcsvc.dll\DhcpGetOriginalSubnetMask", "ptr", sAdapterName, "uint*", dwSubnetMask, "uint")
         return result
     }
 
@@ -2190,7 +2193,7 @@ class Dhcp {
      * Adds a link-layer address or address pattern to the allow/deny lists.
      * @remarks
      * This API allows DHCP clients whose addresses have been added to the allow list to obtain leases, and blocks those added to the deny list. The respective lists must be enabled with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcpsetfilterv4">DhcpSetFilterV4</a>.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_FILTER_ADD_INFO>} AddFilterInfo Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_filter_add_info">DHCP_FILTER_ADD_INFO</a> structure that contains a link-layer address or address pattern to add to the DHCP server's allow/deny list.
      * @param {Integer} ForceFlag If <b>TRUE</b>, any existing matching filter is overwritten; if <b>FALSE</b>, the call fails with <b>ERROR_DHCP_LINKLAYER_ADDRESS_EXISTS</b>.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -2246,7 +2249,7 @@ class Dhcp {
 
     /**
      * Deletes a link-layer address or address pattern from a DHCP server's allow/deny lists.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_ADDR_PATTERN>} DeleteFilterInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_addr_pattern">DHCP_ADDR_PATTERN</a> structure that contains the link-layer address or address pattern filter to remove from the DHCP server database.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * 
@@ -2314,7 +2317,7 @@ class Dhcp {
      * Enables or disables the allow and deny lists on a DHCP server.
      * @remarks
      * When filtering is enabled, the DHCP server allows the DHCP clients associated with link-layer addresses in the 'allow' list to be provided with leases, and blocks DHCP clients associated with addresses in the 'deny' list.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_FILTER_GLOBAL_INFO>} GlobalFilterInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_filter_global_info">DHCP_FILTER_GLOBAL_INFO</a> structure that contains information used to enable or disable allow and deny lists.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * 
@@ -2369,7 +2372,7 @@ class Dhcp {
 
     /**
      * Retrieves the enable/disable settings for the DHCPv4 server's allow/deny lists.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_FILTER_GLOBAL_INFO>} GlobalFilterInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_filter_global_info">DHCP_FILTER_GLOBAL_INFO</a> structure that contains the enable/disable settings for the DHCPv6 server's allow/deny lists.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * 
@@ -2413,7 +2416,7 @@ class Dhcp {
 
     /**
      * Enumerates all of the filter records from the DHCP server's allow or deny list.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_ADDR_PATTERN>} ResumeHandle Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_addr_pattern">DHCP_ADDR_PATTERN</a> structure that identifies the enumeration operation. Initially this parameter must be set to zero (0), with a successful call returning the address/pattern value used for subsequent enumeration requests.
      * @param {Integer} PreferredMaximum A DWORD value that specifies the preferred maximum number of bytes to return. If the number of remaining unenumerated filter information size is less than this value, then all the filters configured on the particular list on the DHCP server are returned. The maximum value for this is 64 (kilobytes), and the minimum value is 1 (kilobyte).
      * @param {Integer} ListType A <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ne-dhcpsapi-dhcp_filter_list_type">DHCP_FILTER_LIST_TYPE</a> that specifies the list of filters to be enumerated.
@@ -2478,13 +2481,13 @@ class Dhcp {
     static DhcpEnumFilterV4(ServerIpAddress, ResumeHandle, PreferredMaximum, ListType, EnumFilterInfo, ElementsRead, ElementsTotal) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpEnumFilterV4", "ptr", ServerIpAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "int", ListType, "ptr", EnumFilterInfo, "ptr", ElementsRead, "ptr", ElementsTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpEnumFilterV4", "ptr", ServerIpAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "int", ListType, "ptr", EnumFilterInfo, "uint*", ElementsRead, "uint*", ElementsTotal, "uint")
         return result
     }
 
     /**
      * The DhcpCreateSubnet function creates a new subnet on the DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> value that contains the IP address of the subnet's gateway.
      * @param {Pointer<DHCP_SUBNET_INFO>} SubnetInfo <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_subnet_info">DHCP_SUBNET_INFO</a> structure that contains specific settings for the subnet, including the subnet mask and IP address of the  subnet gateway.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -2500,7 +2503,7 @@ class Dhcp {
 
     /**
      * The DhcpSetSubnetInfo function sets information about a subnet defined on the DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> value that specifies the IP address of the subnet gateway, as well as uniquely identifies the subnet.
      * @param {Pointer<DHCP_SUBNET_INFO>} SubnetInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_subnet_info">DHCP_SUBNET_INFO</a> structure that contains the information about the subnet.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -2518,7 +2521,7 @@ class Dhcp {
      * The DhcpGetSubnetInfo function returns information on a specific subnet.
      * @remarks
      * This function uses host byte ordering for all <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> values in the <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_subnet_info">DHCP_SUBNET_INFO</a> structure passed back to the caller in the <i>SubnetInfo</i> parameter. However, this function uses network byte order for the <b>IpAddress</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_host_info">DHCP_HOST_INFO</a> structure within the <b>DHCP_SUBNET_INFO</b> structure.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> value that specifies the subnet ID.
      * @param {Pointer<DHCP_SUBNET_INFO>} SubnetInfo <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_subnet_info">DHCP_SUBNET_INFO</a> structure that contains the returned information for the subnet matching the ID specified by <i>SubnetAddress</i>.
      * 
@@ -2543,7 +2546,7 @@ class Dhcp {
      * When no longer needed, the resources consumed for the  enumerated data, and all pointers contained within, should be released with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcprpcfreememory">DhcpRpcFreeMemory</a>.
      * 
      * This function requires host byte ordering for all <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> values in parameter structures.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<UInt32>} ResumeHandle Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_RESUME_HANDLE</a> value that identifies the enumeration operation. Initially, this value should be zero, with a successful call returning the handle value used for subsequent enumeration requests. For example, if <i>PreferredMaximum</i> is set to 100, and 200 subnet addresses  are stored on the server, the resume handle can be used after the first 100 subnets are retrieved to obtain the next 100 on a subsequent call, and so forth.
      * @param {Integer} PreferredMaximum Specifies the preferred maximum number of subnet addresses to return. If the number of remaining unenumerated options is less than this value, then that amount will be returned.
      * @param {Pointer<DHCP_IP_ARRAY>} EnumInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_ip_array">DHCP_IP_ARRAY</a> structure that contains the subnet IDs available on the DHCP server. If no subnets are defined, this value will be null.
@@ -2556,13 +2559,13 @@ class Dhcp {
     static DhcpEnumSubnets(ServerIpAddress, ResumeHandle, PreferredMaximum, EnumInfo, ElementsRead, ElementsTotal) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpEnumSubnets", "ptr", ServerIpAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", EnumInfo, "ptr", ElementsRead, "ptr", ElementsTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpEnumSubnets", "ptr", ServerIpAddress, "uint*", ResumeHandle, "uint", PreferredMaximum, "ptr", EnumInfo, "uint*", ElementsRead, "uint*", ElementsTotal, "uint")
         return result
     }
 
     /**
      * Adds an element describing a feature or aspect of the subnet to the subnet entry in the DHCP database.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that contains the IPv4 address of the subnet DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that contains the IPv4 address of the subnet DHCP server.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> structure that contains the IPv4 address of the subnet.
      * @param {Pointer<DHCP_SUBNET_ELEMENT_DATA>} AddElementInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_subnet_element_data">DHCP_SUBNET_ELEMENT_DATA</a> structure that contains information about the subnet element corresponding to the IPv4 subnet specified in <i>SubnetAddress</i>.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -2684,7 +2687,7 @@ class Dhcp {
 
     /**
      * Returns an enumerated list of elements for a specific DHCP subnet.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IPv4 address of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IPv4 address of the DHCP server.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> value that specifies the address of the IPv4 subnet whose elements will be enumerated.
      * @param {Integer} EnumElementType <a href="https://docs.microsoft.com/windows/win32/api/dhcpsapi/ne-dhcpsapi-dhcp_subnet_element_type">DHCP_SUBNET_ELEMENT_TYPE</a> enumeration value that indicates the type of subnet element to enumerate.
      * @param {Pointer<UInt32>} ResumeHandle Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_RESUME_HANDLE</a> value that identifies the enumeration operation. Initially, this value should be zero, with a successful call returning the handle value used for subsequent enumeration requests. For example, if <i>PreferredMaximum</i> is set to 1000 bytes, and 2000 bytes worth of subnet elements  are stored on the server, the resume handle can be used after the first 1000 bytes are retrieved to obtain the next 1000 on a subsequent call, and so forth.
@@ -2754,13 +2757,13 @@ class Dhcp {
     static DhcpEnumSubnetElements(ServerIpAddress, SubnetAddress, EnumElementType, ResumeHandle, PreferredMaximum, EnumElementInfo, ElementsRead, ElementsTotal) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetElements", "ptr", ServerIpAddress, "uint", SubnetAddress, "int", EnumElementType, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", EnumElementInfo, "ptr", ElementsRead, "ptr", ElementsTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetElements", "ptr", ServerIpAddress, "uint", SubnetAddress, "int", EnumElementType, "uint*", ResumeHandle, "uint", PreferredMaximum, "ptr", EnumElementInfo, "uint*", ElementsRead, "uint*", ElementsTotal, "uint")
         return result
     }
 
     /**
      * Removes an IPv4 subnet element from an IPv4 subnet defined on the DHCPv4 server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCPv4 server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCPv4 server.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> value that specifies the IPv4 address of the subnet gateway from which elements are to be removed.
      * @param {Pointer<DHCP_SUBNET_ELEMENT_DATA>} RemoveElementInfo <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_subnet_element_data">DHCP_SUBNET_ELEMENT_DATA</a> structure that contains information used to find the element that will be removed from subnet specified in <i>SubnetAddress</i>.
      * @param {Integer} ForceFlag <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ne-dhcpsapi-dhcp_force_flag">DHCP_FORCE_FLAG</a> enumeration value that indicates whether or not the clients affected by the removal of the subnet element should also be deleted.
@@ -2844,7 +2847,7 @@ class Dhcp {
      * The DhcpDeleteSubnet function deletes a subnet from the DHCP server.
      * @remarks
      * Usually, you will use either <b>DhcpFullForce</b> or <b>DhcpNoForce</b> as the value for <i>ForceFlag</i>. The <b>DhcpFailoverForce</b> value is intended for use when cleaning up a broken or improperly configured DHCP failover configuration. In that case, use of <b>DhcpFailoverForce</b> ensures that the entire DNS configuration isn't improperly deleted while cleaning up the DHCP failover configuration. Note that the minimum server OS requirement for <b>DhcpFailoverForce</b> is Windows Server 2012 R2 with KB 3100473 installed.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address of the subnet to delete.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address of the subnet to delete.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> value that contains the IP address of the subnet gateway used to identify the subnet.
      * @param {Integer} ForceFlag <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ne-dhcpsapi-dhcp_force_flag">DHCP_FORCE_FLAG</a> enumeration value that indicates the type of delete operation to perform (full force, failover force, or no force).
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -2862,7 +2865,7 @@ class Dhcp {
      * Creates an option definition for the default user and vendor class at the default option level.
      * @remarks
      * An option is a client configuration parameter assigned by a DHCP server to DHCP and BOOTP clients. For example, some commonly used options include IP addresses for gateways (subnet routers), WINS servers, and DNS servers. Typically, these options are enabled and configured for a particular scope, but default options can be created for all scopes served by a given DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string containing the IPv4 address of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string containing the IPv4 address of the DHCP server.
      * @param {Integer} OptionID <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_OPTION_ID</a> value that contains the unique option ID number (also called an "option code") of the new option. Many of these option ID numbers are defined; a complete list of standard DHCP and BOOTP option codes can be found in  <a href="https://www.ietf.org/rfc/rfc2132.txt">DHCP Options and BOOTP Vendor Extensions</a>.
      * @param {Pointer<DHCP_OPTION>} OptionInfo <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option">DHCP_OPTION</a> structure that contains information describing the new   DHCP option, including the name, an optional comment, and any related data items.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -2907,7 +2910,7 @@ class Dhcp {
 
     /**
      * Modifies the option definition of the specified option for the default user class and vendor class at the default option level.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} OptionID <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_OPTION_ID</a> value that contains the code uniquely identifying a specific DHCP option.
      * @param {Pointer<DHCP_OPTION>} OptionInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option">DHCP_OPTION</a> structure that contains  information on the option specified by <i>OptionID</i>.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -2952,7 +2955,7 @@ class Dhcp {
 
     /**
      * Returns information on a specific DHCP option for the default user and vendor class.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IPv4 address of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IPv4 address of the DHCP server.
      * @param {Integer} OptionID <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_OPTION_ID</a> value that specifies the code for the option to retrieve information on.
      * @param {Pointer<DHCP_OPTION>} OptionInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option">DHCP_OPTION</a> structure that contains the returned information on the option specified by <i>OptionID</i>.
      * 
@@ -3004,7 +3007,7 @@ class Dhcp {
      * Returns an enumerated set of options stored on the DHCPv4 server.
      * @remarks
      * The caller of this function must free the memory pointed to by <i>Options</i> after the call completes.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IPv4 address of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IPv4 address of the DHCP server.
      * @param {Pointer<UInt32>} ResumeHandle Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_RESUME_HANDLE</a> value that identifies the enumeration operation. Initially, this value should be zero, with a successful call returning the handle value used for subsequent enumeration requests. For example, if <i>PreferredMaximum</i> is set to 1000 bytes, and 2000 bytes worth of options are stored on the server, the resume handle can be used after the first 1000 bytes are retrieved to obtain the next 1000 on a subsequent call, and so forth. 
      * 
      * The presence of additional enumerable data is indicated when this function returns ERROR_MORE_DATA. If no additional enumerable data is available on the DHCPv4 server, ERROR_NO_MORE_ITEMS is returned.
@@ -3061,13 +3064,13 @@ class Dhcp {
     static DhcpEnumOptions(ServerIpAddress, ResumeHandle, PreferredMaximum, Options, OptionsRead, OptionsTotal) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpEnumOptions", "ptr", ServerIpAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", Options, "ptr", OptionsRead, "ptr", OptionsTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpEnumOptions", "ptr", ServerIpAddress, "uint*", ResumeHandle, "uint", PreferredMaximum, "ptr", Options, "uint*", OptionsRead, "uint*", OptionsTotal, "uint")
         return result
     }
 
     /**
      * Removes the definition of a specific option for the default user class and vendor class at the default option level on the DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} OptionID <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_OPTION_ID</a> value that contains the code uniquely identifying the specific option to remove from the DHCP server.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * 
@@ -3113,7 +3116,7 @@ class Dhcp {
      * Sets information for a specific option value on the DHCP server.
      * @remarks
      * When this function is called for the first time, it creates the supplied option value in the DHCP server database. Otherwise, it modifies the option value for a specific option associated with the default user class and vendor class. These values can be set for the default, server, scope, or IPv4 reservation level on the DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} OptionID <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_OPTION_ID</a> value that specifies the unique code for a DHCP option.
      * @param {Pointer<DHCP_OPTION_SCOPE_INFO>} ScopeInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_scope_info">DHCP_OPTION_SCOPE_INFO</a> structure that contains information describing the level (default, server, scope, or IPv4 reservation) at which this option value will be set.
      * @param {Pointer<DHCP_OPTION_DATA>} OptionValue Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_data">DHCP_OPTION_DATA</a> structure that contains the data value corresponding to the DHCP option code specified by <i>OptionID</i>.
@@ -3194,7 +3197,7 @@ class Dhcp {
      * Sets option codes and their associated data values for a specific scope defined on the DHCP server.
      * @remarks
      * When this function is called for the first time, it creates the supplied option values in the DHCP server database. Otherwise, it modifies the option values for one or more options   associated with the default user class and vendor class. These values can be set for the default, server, scope, or IPv4 reservation level on the DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_OPTION_SCOPE_INFO>} ScopeInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_scope_info">DHCP_OPTION_SCOPE_INFO</a> structure that contains information describing the level (default, server, scope, or IPv4 reservation) at which this option value will be set.
      * @param {Pointer<DHCP_OPTION_VALUE_ARRAY>} OptionValues Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_value_array">DHCP_OPTION_VALUE_ARRAY</a> structure that contains a list of option codes and the corresponding data value that will be set for them.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -3274,7 +3277,7 @@ class Dhcp {
      * The DhcpGetOptionValue function retrieves a DHCP option value (the option code and associated data) for a particular scope.
      * @remarks
      * This function requires host byte ordering for all <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> values in parameter structures.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} OptionID <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_OPTION_ID</a> value that specifies the code for the option value to retrieve.
      * @param {Pointer<DHCP_OPTION_SCOPE_INFO>} ScopeInfo <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_scope_info">DHCP_OPTION_SCOPE_INFO</a> structure that contains information on the scope where the option value is set.
      * @param {Pointer<DHCP_OPTION_VALUE>} OptionValue <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_value">DHCP_OPTION_VALUE</a> structure that contains the returned option code and data.
@@ -3296,7 +3299,7 @@ class Dhcp {
 
     /**
      * Returns an enumerated list of option values (just the option data and the associated ID number) for a given scope.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_OPTION_SCOPE_INFO>} ScopeInfo <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_scope_info">DHCP_OPTION_SCOPE_INFO</a> structure that contains the  level (specifically: default, server, scope, or IPv4 reservation level) for which the option values are defined and should be enumerated.
      * @param {Pointer<UInt32>} ResumeHandle Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_RESUME_HANDLE</a> value that identifies the enumeration operation. Initially, this value should be zero, with a successful call returning the handle value used for subsequent enumeration requests. For example, if <i>PreferredMaximum</i> is set to 1000 bytes, and 2000 bytes worth of option values  are stored on the server, the resume handle can be used after the first 1000 bytes are retrieved to obtain the next 1000 on a subsequent call, and so forth.
      * 
@@ -3376,13 +3379,13 @@ class Dhcp {
     static DhcpEnumOptionValues(ServerIpAddress, ScopeInfo, ResumeHandle, PreferredMaximum, OptionValues, OptionsRead, OptionsTotal) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpEnumOptionValues", "ptr", ServerIpAddress, "ptr", ScopeInfo, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", OptionValues, "ptr", OptionsRead, "ptr", OptionsTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpEnumOptionValues", "ptr", ServerIpAddress, "ptr", ScopeInfo, "uint*", ResumeHandle, "uint", PreferredMaximum, "ptr", OptionValues, "uint*", OptionsRead, "uint*", OptionsTotal, "uint")
         return result
     }
 
     /**
      * Removes the option value for a specific option on the DHCP4 server for the default user class and vendor class, for the specified scope.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} OptionID <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_OPTION_ID</a> value that contains the code uniquely identifying the specific option to remove from the DHCP server.
      * @param {Pointer<DHCP_OPTION_SCOPE_INFO>} ScopeInfo <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_scope_info">DHCP_OPTION_SCOPE_INFO</a> structure that contains information describing the specific scope (default, server, scope, or IPv4 reservation level) from which to remove the option value.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -3451,7 +3454,7 @@ class Dhcp {
      * Creates the provided DHCP client lease record in the DHCP server database.
      * @remarks
      * Additionally, this API marks the specified client IP address as unavailable (or distributed) to avoid IP collisions.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_CLIENT_INFO_VQ>} ClientInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info_vq">DHCP_CLIENT_INFO_VQ</a> structure that contains the DHCP client lease record information to set on the DHCP server. The caller must populate the <b>ClientIPAddress</b> and <b>ClientHardwareAddress</b> fields of this structure; all others are optional.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * 
@@ -3506,7 +3509,7 @@ class Dhcp {
 
     /**
      * Sets or modifies an existing DHCP client lease record in the DHCP server record database.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_CLIENT_INFO_VQ>} ClientInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info_vq">DHCP_CLIENT_INFO_VQ</a> structure that contains the DHCP client lease record to add to or modify in the DHCP server database.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * 
@@ -3563,7 +3566,7 @@ class Dhcp {
      * Retrieves DHCP client lease record information from the DHCP server database. (DhcpGetClientInfoVQ)
      * @remarks
      * The caller of this function must release the memory used by the <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info_vq">DHCP_CLIENT_INFO_VQ</a> structure returned in <i>ClientInfo</i>.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_SEARCH_INFO>} SearchInfo Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_search_info">DHCP_SEARCH_INFO</a> structure that defines the key used to search the client lease record database on the DHCP server for a particular client record.
      * @param {Pointer<DHCP_CLIENT_INFO_VQ>} ClientInfo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info_vq">DHCP_CLIENT_INFO_VQ</a> structure returned by a successful search operation.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -3612,7 +3615,7 @@ class Dhcp {
      * If <i>SubnetAddress</i> is set to zero (0), then all of the DHCP clients from all known IPv4 subnets.
      * 
      * The caller of this function must free the data pointed to by <i>ClientInfo</i>.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> value that contains the IPv4 subnet for which the DHCP clients are returned. If this parameter is set to 0, the DHCP clients for all known IPv4 subnets are returned.
      * @param {Pointer<UInt32>} ResumeHandle Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_RESUME_HANDLE</a> value that identifies the enumeration operation on the DHCP server. Initially, this value must be set to 0. A successful call will return a handle value in this parameter, which can be passed to subsequent enumeration requests. The returned handle value is the last IPv4 address retrieved in the enumeration operation.
      * @param {Integer} PreferredMaximum Specifies the preferred maximum number of bytes to return in the enumeration operation. the minimum value is 1024 bytes, and the maximum value is 65536 bytes.
@@ -3666,13 +3669,13 @@ class Dhcp {
     static DhcpEnumSubnetClientsVQ(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClientsVQ", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", ClientInfo, "ptr", ClientsRead, "ptr", ClientsTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClientsVQ", "ptr", ServerIpAddress, "uint", SubnetAddress, "uint*", ResumeHandle, "uint", PreferredMaximum, "ptr", ClientInfo, "uint*", ClientsRead, "uint*", ClientsTotal, "uint")
         return result
     }
 
     /**
      * Enumerates all of the DHCP clients serviced on the specified subnet, and includes link-layer filter status for each of them.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> value that contains the IPv4 subnet for which the DHCP clients are returned. If this parameter is set to 0, the DHCP clients for all known IPv4 subnets are returned.
      * @param {Pointer<UInt32>} ResumeHandle Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_RESUME_HANDLE</a> value that identifies the enumeration operation on the DHCP server. Initially, this value must be set to 0. A successful call will return a handle value in this parameter, which can be passed to subsequent enumeration requests. The returned handle value is the last IPv4 address retrieved in the enumeration operation.
      * @param {Integer} PreferredMaximum Specifies the preferred maximum number of bytes to return in the enumeration operation. the minimum value is 1024 bytes, and the maximum value is 65536 bytes.
@@ -3726,7 +3729,7 @@ class Dhcp {
     static DhcpEnumSubnetClientsFilterStatusInfo(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClientsFilterStatusInfo", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", ClientInfo, "ptr", ClientsRead, "ptr", ClientsTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClientsFilterStatusInfo", "ptr", ServerIpAddress, "uint", SubnetAddress, "uint*", ResumeHandle, "uint", PreferredMaximum, "ptr", ClientInfo, "uint*", ClientsRead, "uint*", ClientsTotal, "uint")
         return result
     }
 
@@ -3734,7 +3737,7 @@ class Dhcp {
      * The DhcpCreateClientInfo function creates a client information record on the DHCP server.
      * @remarks
      * This function requires host byte ordering for all <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> values in parameter structures.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_CLIENT_INFO>} ClientInfo <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info">DHCP_CLIENT_INFO</a> structure that contains information about the DHCP client, including the assigned IP address, subnet mask, and host.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpcreateclientinfo
@@ -3751,7 +3754,7 @@ class Dhcp {
      * The DhcpSetClientInfo function sets information on a client whose IP address lease is administrated by the DHCP server.
      * @remarks
      * This function requires host byte ordering for all <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> values in parameter structures.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_CLIENT_INFO>} ClientInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info">DHCP_CLIENT_INFO</a> structure that contains the information on a client in a subnet served by the DHCP server.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpsetclientinfo
@@ -3768,7 +3771,7 @@ class Dhcp {
      * The DhcpGetClientInfo function returns information about a specific DHCP client.
      * @remarks
      * This function requires host byte ordering for all <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> values in parameter structures.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_SEARCH_INFO>} SearchInfo <a href="https://docs.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_search_info">DHCP_SEARCH_INFO</a> structure that contains the parameters for the search.
      * @param {Pointer<DHCP_CLIENT_INFO>} ClientInfo Pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info">DHCP_CLIENT_INFO</a> structure that contains information describing the DHCP client that most closely matches the provided search parameters. If no client is found, this parameter will be null.
      * 
@@ -3791,7 +3794,7 @@ class Dhcp {
      * The DhcpDeleteClientInfo function deletes a client information record from the DHCP server.
      * @remarks
      * This function requires host byte ordering for all <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> values in parameter structures.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_SEARCH_INFO>} ClientInfo <a href="https://docs.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_search_info">DHCP_SEARCH_INFO</a> union structure that contains one of the following items used to search the DHCP client record database: the client IP address, the client MAC address, or the client network name. All records matching the value will be deleted; for example, if a client IP address of 192.1.1.10 is supplied, all records with this address in the <b>ClientIpAddress</b> field will be deleted.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpdeleteclientinfo
@@ -3808,7 +3811,7 @@ class Dhcp {
      * The DhcpEnumSubnetClients function returns an enumerated list of clients with served IP addresses in the specified subnet.
      * @remarks
      * This function requires host byte ordering for all <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> values in parameter structures.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> value that contains the subnet ID. See <a href="https://www.ietf.org/rfc/rfc0950.txt">RFC 950</a> for more information about subnet ID.
      * @param {Pointer<UInt32>} ResumeHandle Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_RESUME_HANDLE</a> value that identifies the enumeration operation. Initially, this value should be zero, with a successful call returning the handle value used for subsequent enumeration requests. For example, if <i>PreferredMaximum</i> is set to 1000 bytes, and 2000 bytes worth of subnet client information structures  are stored on the server, the resume handle can be used after the first 1000 bytes are retrieved to obtain the next 1000 on a subsequent call, and so forth.
      * @param {Integer} PreferredMaximum Specifies the preferred maximum number of bytes of subnet client information structures to return. If the number of remaining unenumerated options (in bytes) is less than this value, then that amount will be returned.   
@@ -3827,13 +3830,13 @@ class Dhcp {
     static DhcpEnumSubnetClients(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClients", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", ClientInfo, "ptr", ClientsRead, "ptr", ClientsTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClients", "ptr", ServerIpAddress, "uint", SubnetAddress, "uint*", ResumeHandle, "uint", PreferredMaximum, "ptr", ClientInfo, "uint*", ClientsRead, "uint*", ClientsTotal, "uint")
         return result
     }
 
     /**
      * Returns only ERROR_NOT_IMPLEMENTED, as it is not used or supported.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} ClientIpAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> value that specifies the IP address or hostname of the DHCP client  whose option values will be returned.
      * @param {Integer} ClientSubnetMask <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_MASK</a> value that specifies the subnet mask of the DHCP client whose option values will be returned.
      * @param {Pointer<DHCP_OPTION_LIST>} ClientOptions Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_list">DHCP_OPTION_LIST</a> structure that contains the returned option values for the DHCP client.
@@ -3873,7 +3876,7 @@ class Dhcp {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ServerIpAddress 
+     * @param {Pointer<Char>} ServerIpAddress 
      * @param {Pointer<DHCP_MIB_INFO>} MibInfo 
      * @returns {Integer} 
      */
@@ -3894,7 +3897,7 @@ class Dhcp {
      * <li>Set_DatabaseLoggingFlag</li>
      * <li>Set_RestoreFlag</li>
      * </ul>
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} FieldsToSet Specifies a set of bit flags that indicate which fields in <i>ConfigInfo</i> are set. If a flag is present, the corresponding field must also be populated in the <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_server_config_info">DHCP_SERVER_CONFIG_INFO</a> structure referenced by <i>ConfigInfo</i>, and will be used to set the same value on the DHCP server,
      * 
      * <table>
@@ -4016,7 +4019,7 @@ class Dhcp {
 
     /**
      * Returns the specific configuration settings of a DHCP server. (DhcpServerGetConfig)
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_SERVER_CONFIG_INFO>} ConfigInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_server_config_info">DHCP_SERVER_CONFIG_INFO</a> structure that contains the specific configuration information for the DHCP server.
      * 
      * <div class="alert"><b>Note</b>  <p class="note">The memory for this parameter must be free using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcprpcfreememory">DhcpRpcFreeMemory</a>.
@@ -4040,7 +4043,7 @@ class Dhcp {
      * Each  leased DHCPv4 client IPv4 address defined on a DHCPv4 server has an entry in both an in-memory store, which serves as a cache for speeding up lease retrieval, and in the client lease database proper. <b>DhcpScanDatabase</b> enumerates either the DHCPv4 client IPv4 addresses that are present in the in-memory store and are not present in the database, or those that are present in database but not present in the in-memory store.
      * 
      * This process is necessary as the DHCPv4 server maintains an in-memory cache of frequently-accessed client leases used to improve performance, but it can become desynchronized relative to the server's persistent client lease database. Therefore, it is necessary to reconcile the two stores, and update either the in-memory version of a client lease IP address, or the client lease IP address stored in the database.  The <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_scan_list">DHCP_SCAN_LIST</a> structure returned by this operation contains the "definitive" client leases as specified by the preferred location set in the <i>FixFlag</i> parameter.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> value that specifies the subnet whose leases will be scanned for desynchronized client lease IP addresses.
      * @param {Integer} FixFlag Specifies a set of bit flags that indicate whether the in-memory cache or the client lease database should be the definitive source for fixes when synchronizing the two on the DHCPv4 server. These flags are enumerated in <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ne-dhcpsapi-dhcp_scan_flag">DHCP_SCAN_FLAG</a>.
      * @param {Pointer<DHCP_SCAN_LIST>} ScanList <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_scan_list">DHCP_SCAN_LIST</a> structure that contains the returned list of leased client IP addresses that are not in sync.
@@ -4100,17 +4103,18 @@ class Dhcp {
      * @remarks
      * This function should be called to release the memory consumed by any structures.
      * @param {Pointer<Void>} BufferPointer Pointer to an address that contains a structure (or structures, in the case of an array) returned as a parameter.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} This function does not return a value.
      * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcprpcfreememory
      * @since windowsserver2000
      */
     static DhcpRpcFreeMemory(BufferPointer) {
-        DllCall("DHCPSAPI.dll\DhcpRpcFreeMemory", "ptr", BufferPointer)
+        result := DllCall("DHCPSAPI.dll\DhcpRpcFreeMemory", "ptr", BufferPointer)
+        return result
     }
 
     /**
      * The DhcpGetVersion function returns the major and minor version numbers of the DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<UInt32>} MajorVersion Specifies the major version number of the DHCP server.
      * @param {Pointer<UInt32>} MinorVersion Specifies the minor version number of the DHCP server.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -4120,13 +4124,13 @@ class Dhcp {
     static DhcpGetVersion(ServerIpAddress, MajorVersion, MinorVersion) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpGetVersion", "ptr", ServerIpAddress, "ptr", MajorVersion, "ptr", MinorVersion, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpGetVersion", "ptr", ServerIpAddress, "uint*", MajorVersion, "uint*", MinorVersion, "uint")
         return result
     }
 
     /**
      * Adds an element describing a feature or aspect of the subnet to the subnet entry in the DHCP database. This function extends DhcpAddSubnetElement by incorporating subnet elements that consider client type.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that contains the IP address of the subnet DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that contains the IP address of the subnet DHCP server.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> structure that contains the IP address of the subnet.
      * @param {Pointer<DHCP_SUBNET_ELEMENT_DATA_V4>} AddElementInfo <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_subnet_element_data_v4">DHCP_SUBNET_ELEMENT_DATA_V4</a> structure that contains the element data to add to the subnet. The V4 structure adds support for differentiation between DHCP and BOOTP clients.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -4259,7 +4263,7 @@ class Dhcp {
 
     /**
      * Returns an enumerated list of elements for a specific DHCP subnet. This function extends DhcpEnumSubnetElements by returning a list of DHCP_SUBNET_ELEMENT_DATA_V4 structures, which can contain IP reservations based on client type.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IPv4 address of the DHCPv4 server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IPv4 address of the DHCPv4 server.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> value that specifies the address of the IPv4 subnet whose elements will be enumerated.
      * @param {Integer} EnumElementType <a href="https://docs.microsoft.com/windows/win32/api/dhcpsapi/ne-dhcpsapi-dhcp_subnet_element_type">DHCP_SUBNET_ELEMENT_TYPE</a> enumeration value that indicates the type of subnet element to enumerate.
      * @param {Pointer<UInt32>} ResumeHandle Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_RESUME_HANDLE</a> value that identifies the enumeration operation. Initially, this value should be zero, with a successful call returning the handle value used for subsequent enumeration requests. For example, if <i>PreferredMaximum</i> is set to 1000 bytes, and 2000 bytes worth of subnet elements  are stored on the server, the resume handle can be used after the first 1000 bytes are retrieved to obtain the next 1000 on a subsequent call, and so forth.
@@ -4329,13 +4333,13 @@ class Dhcp {
     static DhcpEnumSubnetElementsV4(ServerIpAddress, SubnetAddress, EnumElementType, ResumeHandle, PreferredMaximum, EnumElementInfo, ElementsRead, ElementsTotal) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetElementsV4", "ptr", ServerIpAddress, "uint", SubnetAddress, "int", EnumElementType, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", EnumElementInfo, "ptr", ElementsRead, "ptr", ElementsTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetElementsV4", "ptr", ServerIpAddress, "uint", SubnetAddress, "int", EnumElementType, "uint*", ResumeHandle, "uint", PreferredMaximum, "ptr", EnumElementInfo, "uint*", ElementsRead, "uint*", ElementsTotal, "uint")
         return result
     }
 
     /**
      * Removes an IPv4 subnet element from an IPv4 subnet defined on the DHCPv4 server. The function extends the functionality provided by DhcpRemoveSubnetElement by allowing the specification of a subnet that contains client type (DHCP or BOOTP) information.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> value that specifies the IP address of the subnet gateway and uniquely identifies it.
      * @param {Pointer<DHCP_SUBNET_ELEMENT_DATA_V4>} RemoveElementInfo <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_subnet_element_data_v4">DHCP_SUBNET_ELEMENT_DATA_V4</a> structure that contains information used to find the element that will be removed from subnet specified in <i>SubnetAddress</i>.
      * @param {Integer} ForceFlag <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ne-dhcpsapi-dhcp_force_flag">DHCP_FORCE_FLAG</a> enumeration value that indicates whether or not the clients affected by the removal of the subnet element should also be deleted.
@@ -4419,7 +4423,7 @@ class Dhcp {
      * Creates a client information record on the DHCP server, extending the functionality of DhcpCreateClientInfo by including the client type (DHCP or BOOTP) in the record.
      * @remarks
      * When successful, a call to this additionally marks the specified DHCP client IPv4 address as unavailable, in order to avoid IP duplication.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_CLIENT_INFO_V4>} ClientInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info_v4">DHCP_CLIENT_INFO_V4</a> structure that contains information about the DHCP client, including the assigned IP address, the subnet mask, the  host, and the client type (DHCP and/or BOOTP).
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * 
@@ -4452,7 +4456,7 @@ class Dhcp {
 
     /**
      * Sets information on a client whose IP address lease is administrated by the DHCP server. This function extends the functionality provided by DhcpSetClientInfo by allowing the caller to specify the client type (DHCP or BOOTP).
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_CLIENT_INFO_V4>} ClientInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info_v4">DHCP_CLIENT_INFO_V4</a> structure that contains the information, including client type, for a client in a subnet served by the DHCP server.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * 
@@ -4496,7 +4500,7 @@ class Dhcp {
 
     /**
      * Returns information on a specific DHCP client. This function extends DhcpGetClientInfo by returning a DHCP_CLIENT_INFO_V4 structure that contains client type information.
-     * @param {Pointer<PWSTR>} ServerIpAddress Specifies the IP address of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Specifies the IP address of the DHCP server.
      * @param {Pointer<DHCP_SEARCH_INFO>} SearchInfo <a href="https://docs.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_search_info">DHCP_SEARCH_INFO</a> structure that contains the search parameters used to select a specific DHCP client.
      * @param {Pointer<DHCP_CLIENT_INFO_V4>} ClientInfo <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info_v4">DHCP_CLIENT_INFO_V4</a> structure that contains information that describes the DHCP client that most closely matches the provided search parameters. If no client could be found, this parameter will be null.
      * 
@@ -4548,7 +4552,7 @@ class Dhcp {
      * Returns an enumerated list of client lease records with served IP addresses in the specified subnet.
      * @remarks
      * The caller of this function must free the memory for <i>ClientInfo</i> after the call completes.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> value containing the IP address of the subnet gateway.
      * @param {Pointer<UInt32>} ResumeHandle Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_RESUME_HANDLE</a> value that identifies the enumeration operation. Initially, this value should be zero, with a successful call returning the handle value used for subsequent enumeration requests. This parameter contains the last last IPv4 address retrieved from the DHCPv4 client.
      * 
@@ -4617,13 +4621,13 @@ class Dhcp {
     static DhcpEnumSubnetClientsV4(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClientsV4", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", ClientInfo, "ptr", ClientsRead, "ptr", ClientsTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClientsV4", "ptr", ServerIpAddress, "uint", SubnetAddress, "uint*", ResumeHandle, "uint", PreferredMaximum, "ptr", ClientInfo, "uint*", ClientsRead, "uint*", ClientsTotal, "uint")
         return result
     }
 
     /**
      * The DhcpServerSetConfigV4 function configures a DHCP server with specific settings, including information on the JET database used to store subnet and client lease information, and the supported protocols.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} FieldsToSet Specifies a set of bit flags that indicate which fields in <i>ConfigInfo</i> are set. If a flag is present, the corresponding field must also be populated in the <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_server_config_info_v4">DHCP_SERVER_CONFIG_INFO_V4</a> structure referenced by <i>ConfigInfo</i>, and will be used to set the same value on the DHCP server,
      * 
      * <table>
@@ -4818,7 +4822,7 @@ class Dhcp {
 
     /**
      * Returns the specific configuration settings of a DHCP server. (DhcpServerGetConfigV4)
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_SERVER_CONFIG_INFO_V4>} ConfigInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_server_config_info_v4">DHCP_SERVER_CONFIG_INFO_V4</a> structure that contains the specific configuration information for the DHCP server.
      * 
      * <div class="alert"><b>Note</b>  <p class="note">The memory for this parameter must be free using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcprpcfreememory">DhcpRpcFreeMemory</a>.
@@ -4880,9 +4884,9 @@ class Dhcp {
      * Sets a subnet as the superscope on a DHCP server.
      * @remarks
      * A <i>superscope</i> is a subnet that contains the complete scope of all addresses available for lease (or are already leased) across the subnet scopes defined on the DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> value that contains the IP address of the subnet that will be defined as the superscope.
-     * @param {Pointer<PWSTR>} SuperScopeName Pointer to a Unicode string that specifies the new name of the superscope.
+     * @param {Pointer<Char>} SuperScopeName Pointer to a Unicode string that specifies the new name of the superscope.
      * @param {Integer} ChangeExisting Specifies whether or not to change an existing superscope to the supplied subnet. If this parameter is <b>TRUE</b> and another subnet is set as the superscope, change the superscope to the supplied subnet; otherwise, if set to <b>FALSE</b> and  another subnet is defined as the superscope, do not change it.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * 
@@ -4940,8 +4944,8 @@ class Dhcp {
      * Deletes a superscope from the DHCP server.
      * @remarks
      * Deleting a superscope does not delete the subnets present in the superscope; it simply removes the table that groups the subnets into a superscope. Individual subnets should be deleted using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcpdeletesubnet">DhcpDeleteSubnet</a>.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
-     * @param {Pointer<PWSTR>} SuperScopeName Unicode string that specifies the name of the superscope to delete.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} SuperScopeName Unicode string that specifies the name of the superscope to delete.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * 
      * <table>
@@ -4998,7 +5002,7 @@ class Dhcp {
      * Returns information on the superscope of a DHCP server.
      * @remarks
      * A superscope is the set of all subnets defined on a DHCP server, and hence all scopes along with the IP address ranges each serves. Taken altogether, a superscope provides a complete set of all IP addresses served by the DHCP server. The superscope table provides the IP addresses associated with each subnet. To obtain the IP ranges served by each, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcpgetsubnetinfo">DhcpGetSubnetInfo</a> should be called on the IP address provided in each <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_super_scope_table_entry">DHCP_SUPER_SCOPE_TABLE_ENTRY</a> structure of the table.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_SUPER_SCOPE_TABLE>} SuperScopeTable <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_super_scope_table">DHCP_SUPER_SCOPE_TABLE</a> structure that contains the returned information for the superscope of the supplied DHCP server.
      * 
      * <div class="alert"><b>Note</b>  <p class="note">The memory for this parameter must be free using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcprpcfreememory">DhcpRpcFreeMemory</a>.
@@ -5038,7 +5042,7 @@ class Dhcp {
      * Returns an enumerated list of clients with served IP addresses in the specified subnet.
      * @remarks
      * The caller of this function must release the memory used by the <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info_array_v5">DHCP_CLIENT_INFO_ARRAY_V5</a> structure returned in buffer pointed to by the <i>ClientInfo</i> parameter when the information is no longer needed.
-     * @param {Pointer<PWSTR>} ServerIpAddress A UNICODE string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress A UNICODE string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} SubnetAddress A  value containing the IP address of the subnet gateway. If this parameter is set to 0, then the DHCP clients for all IPv4 subnets defined on the DHCP server are returned.
      * @param {Pointer<UInt32>} ResumeHandle A pointer to a handle that identifies the enumeration operation. Initially, this value should be zero, with a successful call returning the handle value used for subsequent enumeration requests. For example, if <i>PreferredMaximum</i> is set to 1000 bytes, and 2000 bytes worth of subnet client information structures  are stored on the server, the resume handle can be used after the first 1000 bytes are retrieved to obtain the next 1000 on a subsequent call, and so forth.
      * @param {Integer} PreferredMaximum The preferred maximum number of bytes of subnet client information structures to return. If the number of remaining unenumerated options (in bytes) is less than this value, then that amount will be returned.
@@ -5094,13 +5098,13 @@ class Dhcp {
     static DhcpEnumSubnetClientsV5(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClientsV5", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", ClientInfo, "ptr", ClientsRead, "ptr", ClientsTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClientsV5", "ptr", ServerIpAddress, "uint", SubnetAddress, "uint*", ResumeHandle, "uint", PreferredMaximum, "ptr", ClientInfo, "uint*", ClientsRead, "uint*", ClientsTotal, "uint")
         return result
     }
 
     /**
      * Creates a DHCP option.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Flag value that indicates whether the option is for a specific or default vendor class.
      * 
      * <table>
@@ -5132,8 +5136,8 @@ class Dhcp {
      * </tr>
      * </table>
      * @param {Integer} OptionId <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_OPTION_ID</a> value that contains the unique option ID number (also called an "option code") of the new option. Many of these option ID numbers are defined; a complete list of standard DHCP and BOOTP option codes can be found in  <a href="https://www.ietf.org/rfc/rfc2132.txt">DHCP Options and BOOTP Vendor Extensions</a>.
-     * @param {Pointer<PWSTR>} ClassName Unicode string that specifies the name of the DHCP class that will contain this option. This field is optional.
-     * @param {Pointer<PWSTR>} VendorName Unicode string that contains a vendor name string if the class specified in <i>ClassName</i> is a vendor-specific class.
+     * @param {Pointer<Char>} ClassName Unicode string that specifies the name of the DHCP class that will contain this option. This field is optional.
+     * @param {Pointer<Char>} VendorName Unicode string that contains a vendor name string if the class specified in <i>ClassName</i> is a vendor-specific class.
      * @param {Pointer<DHCP_OPTION>} OptionInfo <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option">DHCP_OPTION</a> structure that contains information describing the new   DHCP option, including the name, an optional comment, and any related data items.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * 
@@ -5201,7 +5205,7 @@ class Dhcp {
 
     /**
      * Sets information for a specific DHCP option.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Specifies a bit flag that indicates whether or not the option is vendor-specific. If it is not, this parameter should be 0.
      * 
      * <table>
@@ -5221,8 +5225,8 @@ class Dhcp {
      * </tr>
      * </table>
      * @param {Integer} OptionID <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_OPTION_ID</a> value that specifies the code for a specific DHCP option.
-     * @param {Pointer<PWSTR>} ClassName Pointer to a  Unicode string that specifies the DHCP  class name of the option. This parameter is optional.
-     * @param {Pointer<PWSTR>} VendorName Pointer to a Unicode string that specifies the vendor of the option. This parameter is optional, and should be <b>NULL</b> when <i>Flags</i> is not set to DHCP_FLAGS_OPTION_IS_VENDOR.
+     * @param {Pointer<Char>} ClassName Pointer to a  Unicode string that specifies the DHCP  class name of the option. This parameter is optional.
+     * @param {Pointer<Char>} VendorName Pointer to a Unicode string that specifies the vendor of the option. This parameter is optional, and should be <b>NULL</b> when <i>Flags</i> is not set to DHCP_FLAGS_OPTION_IS_VENDOR.
      * @param {Pointer<DHCP_OPTION>} OptionInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option">DHCP_OPTION</a> structure that contains the information on the option specified by <i>OptionID</i>.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * 
@@ -5279,7 +5283,7 @@ class Dhcp {
 
     /**
      * The DhcpGetOptionInfoV5 function returns information on a specific DHCP option.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Specifies a bit flag that indicates whether or not the option is vendor-specific. If it is not, this parameter should be 0.
      * 
      * <table>
@@ -5311,8 +5315,8 @@ class Dhcp {
      * </tr>
      * </table>
      * @param {Integer} OptionID <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_OPTION_ID</a> value that specifies the code for the option to retrieve information on.
-     * @param {Pointer<PWSTR>} ClassName Unicode string that specifies the DHCP  class name of the option. This parameter is optional.
-     * @param {Pointer<PWSTR>} VendorName Unicode string that specifies the vendor of the option. This parameter is optional, and must be null when <i>Flags</i> is not set to DHCP_FLAGS_OPTION_IS_VENDOR. If it is not set, then the option definition for the default vendor class is returned.
+     * @param {Pointer<Char>} ClassName Unicode string that specifies the DHCP  class name of the option. This parameter is optional.
+     * @param {Pointer<Char>} VendorName Unicode string that specifies the vendor of the option. This parameter is optional, and must be null when <i>Flags</i> is not set to DHCP_FLAGS_OPTION_IS_VENDOR. If it is not set, then the option definition for the default vendor class is returned.
      * @param {Pointer<DHCP_OPTION>} OptionInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option">DHCP_OPTION</a> structure that contains the returned information on the option specified by <i>OptionID</i>.
      * 
      * <div class="alert"><b>Note</b>  <p class="note">The memory for this parameter must be free using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcprpcfreememory">DhcpRpcFreeMemory</a>.
@@ -5396,7 +5400,7 @@ class Dhcp {
 
     /**
      * The DhcpEnumOptionsV5 function returns an enumerated list of DHCP options for a given user or vendor class.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} Flags A set of flags that indicate the option definition for enumeration.
      * 
      * <table>
@@ -5427,8 +5431,8 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PWSTR>} ClassName Pointer to a Unicode string that contains the name of the class whose options will be enumerated. This parameter is optional.
-     * @param {Pointer<PWSTR>} VendorName Pointer to a Unicode string that contains the name of the vendor for the class. This parameter is optional. If a vendor class name is not provided, the default vendor class name is used.
+     * @param {Pointer<Char>} ClassName Pointer to a Unicode string that contains the name of the class whose options will be enumerated. This parameter is optional.
+     * @param {Pointer<Char>} VendorName Pointer to a Unicode string that contains the name of the vendor for the class. This parameter is optional. If a vendor class name is not provided, the default vendor class name is used.
      * @param {Pointer<UInt32>} ResumeHandle Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_RESUME_HANDLE</a> value that identifies the enumeration operation. Initially, this value should be zero, with a successful call returning the handle value used for subsequent enumeration requests. For example, if <i>PreferredMaximum</i> is set to 1000 bytes, and 2000 bytes of option definitions are stored on the server, the resume handle can be used after the first 1000 bytes are retrieved to obtain the next 1000 on a subsequent call, and so forth.
      * @param {Integer} PreferredMaximum Specifies the preferred maximum number of bytes of options to return. If the number of remaining unenumerated option definitions (in bytes) is less than this value, all option definitions are returned.
      * @param {Pointer<DHCP_OPTION_ARRAY>} Options Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_array">DHCP_OPTION_ARRAY</a> structure containing the returned option definitions. If there are no option definitions available on the DHCP server, this parameter will return null.
@@ -5472,13 +5476,13 @@ class Dhcp {
         ClassName := ClassName is String? StrPtr(ClassName) : ClassName
         VendorName := VendorName is String? StrPtr(VendorName) : VendorName
 
-        result := DllCall("DHCPSAPI.dll\DhcpEnumOptionsV5", "ptr", ServerIpAddress, "uint", Flags, "ptr", ClassName, "ptr", VendorName, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", Options, "ptr", OptionsRead, "ptr", OptionsTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpEnumOptionsV5", "ptr", ServerIpAddress, "uint", Flags, "ptr", ClassName, "ptr", VendorName, "uint*", ResumeHandle, "uint", PreferredMaximum, "ptr", Options, "uint*", OptionsRead, "uint*", OptionsTotal, "uint")
         return result
     }
 
     /**
      * Removes the definition of a specific option for a specific user class and vendor class at the default option level on the DHCP server. This extends the functionality in DhcpRemoveOption with support for specific class and vendor names.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Specifies a bit flag that indicates whether or not the option is vendor-specific. If it is not, this parameter should be 0.
      * 
      * <table>
@@ -5510,8 +5514,8 @@ class Dhcp {
      * </tr>
      * </table>
      * @param {Integer} OptionID <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_OPTION_ID</a> value that specifies the code for the option  to remove.
-     * @param {Pointer<PWSTR>} ClassName Unicode string that specifies the DHCP  class name of the option. This parameter is optional.
-     * @param {Pointer<PWSTR>} VendorName Unicode string that specifies the vendor of the option. This parameter is optional, and should be <b>NULL</b> when <i>Flags</i> is not set to DHCP_FLAGS_OPTION_IS_VENDOR.
+     * @param {Pointer<Char>} ClassName Unicode string that specifies the DHCP  class name of the option. This parameter is optional.
+     * @param {Pointer<Char>} VendorName Unicode string that specifies the vendor of the option. This parameter is optional, and should be <b>NULL</b> when <i>Flags</i> is not set to DHCP_FLAGS_OPTION_IS_VENDOR.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * 
      * <table>
@@ -5578,7 +5582,7 @@ class Dhcp {
 
     /**
      * The DhcpSetOptionValueV5 function sets information for a specific option value on the DHCP server. This function extends the functionality provided by DhcpSetOptionValue by allowing the caller to specify a class and/or vendor for the option.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Specifies a bit flag that indicates whether or not the option is vendor-specific. If it is not, this 
      *       parameter should be 0.
      * 
@@ -5602,8 +5606,8 @@ class Dhcp {
      *       option being set. Many of these option ID numbers are defined; a complete list of standard DHCP and BOOTP 
      *       option codes can be found at 
      *       <a href="http://www.ietf.org/rfc/rfc2132.txt">http://www.ietf.org/rfc/rfc2132.txt</a>.
-     * @param {Pointer<PWSTR>} ClassName Unicode string that specifies the DHCP  class  of the option. This parameter is optional.
-     * @param {Pointer<PWSTR>} VendorName Unicode string that specifies the vendor of the option. This parameter is optional, and should be <b>NULL</b> 
+     * @param {Pointer<Char>} ClassName Unicode string that specifies the DHCP  class  of the option. This parameter is optional.
+     * @param {Pointer<Char>} VendorName Unicode string that specifies the vendor of the option. This parameter is optional, and should be <b>NULL</b> 
      *       when <i>Flags</i> is not set to DHCP_FLAGS_OPTION_IS_VENDOR.
      * @param {Pointer<DHCP_OPTION_SCOPE_INFO>} ScopeInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_scope_info">DHCP_OPTION_SCOPE_INFO</a> 
      *       structure that contains information describing the DHCP scope this option value will be set on.
@@ -5629,10 +5633,10 @@ class Dhcp {
      * Sets option codes and their associated data values for a specific scope defined on the DHCP server. This function extends the functionality provided by DhcpSetOptionValues by allowing the caller to specify a class and/or vendor for the options.
      * @remarks
      * The caller of this function must release the memory pointed to by <i>OptionValues</i> after the call completes.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IPv4 address of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IPv4 address of the DHCP server.
      * @param {Integer} Flags This parameter must be set to 0 and ignored upon receipt.
-     * @param {Pointer<PWSTR>} ClassName Unicode string that specifies the DHCP  class  of the options. This parameter is optional.
-     * @param {Pointer<PWSTR>} VendorName Unicode string that specifies the vendor of the options. If no vendor class is specified, then the option value is set for the default vendor class. This parameter is optional.
+     * @param {Pointer<Char>} ClassName Unicode string that specifies the DHCP  class  of the options. This parameter is optional.
+     * @param {Pointer<Char>} VendorName Unicode string that specifies the vendor of the options. If no vendor class is specified, then the option value is set for the default vendor class. This parameter is optional.
      * @param {Pointer<DHCP_OPTION_SCOPE_INFO>} ScopeInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_scope_info">DHCP_OPTION_SCOPE_INFO</a> structure that contains information describing the DHCP scope these option values will be set on. This parameter indicates whether the option value is set for the default, server, or scope level, or for an IPv4 reservation.
      * @param {Pointer<DHCP_OPTION_VALUE_ARRAY>} OptionValues Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_value_array">DHCP_OPTION_VALUE_ARRAY</a> structure that contains a list of option codes and the corresponding data value that will be set for them.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -5712,7 +5716,7 @@ class Dhcp {
 
     /**
      * The DhcpGetOptionValueV5 function retrieves a DHCP option value (the option code and associated data) for a particular scope.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Flag value that indicates whether the option is for a specific or default vendor class.
      * 
      * <table>
@@ -5744,8 +5748,8 @@ class Dhcp {
      * </tr>
      * </table>
      * @param {Integer} OptionID <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_OPTION_ID</a> value that specifies the code for the option value to retrieve.
-     * @param {Pointer<PWSTR>} ClassName Unicode string that specifies the DHCP  class name of the option. This parameter is optional.
-     * @param {Pointer<PWSTR>} VendorName Unicode string that specifies the vendor of the option. This parameter is optional, and should be null when <i>Flags</i> is not set to DHCP_FLAGS_OPTION_IS_VENDOR. If the vendor class is not specified, the option value is returned for the default vendor class.
+     * @param {Pointer<Char>} ClassName Unicode string that specifies the DHCP  class name of the option. This parameter is optional.
+     * @param {Pointer<Char>} VendorName Unicode string that specifies the vendor of the option. This parameter is optional, and should be null when <i>Flags</i> is not set to DHCP_FLAGS_OPTION_IS_VENDOR. If the vendor class is not specified, the option value is returned for the default vendor class.
      * @param {Pointer<DHCP_OPTION_SCOPE_INFO>} ScopeInfo <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_scope_info">DHCP_OPTION_SCOPE_INFO</a> structure that contains information on the scope where the option value is set.
      * @param {Pointer<DHCP_OPTION_VALUE>} OptionValue <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_value">DHCP_OPTION_VALUE</a> structure that contains the returned option code and data.
      * 
@@ -5832,7 +5836,7 @@ class Dhcp {
      * Retrieves the option value for a specific option defined on the DHCPv6 server for a specific user or vendor class.
      * @remarks
      * The caller of this function must release the memory pointed to by <i>OptionValue</i>.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IPv6 address or hostname of the DHCPv6 server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IPv6 address or hostname of the DHCPv6 server.
      * @param {Integer} Flags Flag value that indicates whether the option is for a specific or default vendor class.
      * 
      * <table>
@@ -5864,8 +5868,8 @@ class Dhcp {
      * </tr>
      * </table>
      * @param {Integer} OptionID <b>DHCP_OPTION_ID</b> value that specifies the option identifier for the option being retrieved.
-     * @param {Pointer<PWSTR>} ClassName Pointer to a null-terminated Unicode string that contains the name of the user class for which the option value is being requested. This parameter is optional.
-     * @param {Pointer<PWSTR>} VendorName Pointer to a null-terminated Unicode string that contains the name of the vendor class for which the option value is being requested. This parameter is optional; if no value is specified, the default vendor class is assumed.
+     * @param {Pointer<Char>} ClassName Pointer to a null-terminated Unicode string that contains the name of the user class for which the option value is being requested. This parameter is optional.
+     * @param {Pointer<Char>} VendorName Pointer to a null-terminated Unicode string that contains the name of the vendor class for which the option value is being requested. This parameter is optional; if no value is specified, the default vendor class is assumed.
      * @param {Pointer<DHCP_OPTION_SCOPE_INFO6>} ScopeInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_scope_info6">DHCP_OPTION_SCOPE_INFO6</a> structure that contains information about the DHCPv6 scope for which the option is value is requested. Specifically, it defines whether the option is being retrieved for the default, server, or scope level, or for a specific IPv6 reservation.
      * @param {Pointer<DHCP_OPTION_VALUE>} OptionValue Pointer to the address of a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_value">DHCP_OPTION_VALUE</a> structure returned by the operation, and which contains the option value corresponding to <i>OptionID</i>.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -5945,7 +5949,7 @@ class Dhcp {
 
     /**
      * The DhcpEnumOptionValuesV5 function returns an enumerated list of option values (just the option data and the associated ID number) for a specific scope within a given user or vendor class.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Specifies a bit flag that indicates whether or not the option is vendor specific. If it is not vendor specific, this parameter must be 0.
      * 
      * <table>
@@ -5976,8 +5980,8 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PWSTR>} ClassName Pointer to a Unicode string that contains the name of the class whose scope option values will be enumerated.
-     * @param {Pointer<PWSTR>} VendorName Pointer to a Unicode string that contains the name of the vendor for the class. This parameter is optional. If a vendor class name is not provided, the option values enumerated for a default vendor class.
+     * @param {Pointer<Char>} ClassName Pointer to a Unicode string that contains the name of the class whose scope option values will be enumerated.
+     * @param {Pointer<Char>} VendorName Pointer to a Unicode string that contains the name of the vendor for the class. This parameter is optional. If a vendor class name is not provided, the option values enumerated for a default vendor class.
      * @param {Pointer<DHCP_OPTION_SCOPE_INFO>} ScopeInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_scope_info">DHCP_OPTION_SCOPE_INFO</a> structure that contains the  scope for which the option values are defined. This value defines the option values that will be retrieved from the server, scope, or default level, or for an IPv4 reservation.
      * @param {Pointer<UInt32>} ResumeHandle Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_RESUME_HANDLE</a> value that identifies the enumeration operation. Initially, this value should be zero, with a successful call returning the handle value used for subsequent enumeration requests. For example, if <i>PreferredMaximum</i> is set to 1000 bytes, and 2000 bytes' worth of option values  are stored on the server, the resume handle can be used after the first 1000 bytes are retrieved to obtain the next 1000 on a subsequent call, and so forth.
      * @param {Integer} PreferredMaximum Specifies the preferred maximum number of bytes of option values to return. If the number of remaining unenumerated options (in bytes) is less than this value, all option values are returned.
@@ -6044,13 +6048,13 @@ class Dhcp {
         ClassName := ClassName is String? StrPtr(ClassName) : ClassName
         VendorName := VendorName is String? StrPtr(VendorName) : VendorName
 
-        result := DllCall("DHCPSAPI.dll\DhcpEnumOptionValuesV5", "ptr", ServerIpAddress, "uint", Flags, "ptr", ClassName, "ptr", VendorName, "ptr", ScopeInfo, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", OptionValues, "ptr", OptionsRead, "ptr", OptionsTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpEnumOptionValuesV5", "ptr", ServerIpAddress, "uint", Flags, "ptr", ClassName, "ptr", VendorName, "ptr", ScopeInfo, "uint*", ResumeHandle, "uint", PreferredMaximum, "ptr", OptionValues, "uint*", OptionsRead, "uint*", OptionsTotal, "uint")
         return result
     }
 
     /**
      * The DhcpRemoveOptionValueV5 function removes an option value from a scope defined on the DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Specifies a bit flag that indicates whether or not the option is vendor-specific. If it is not, this parameter should be zero.
      * 
      * <table>
@@ -6070,8 +6074,8 @@ class Dhcp {
      * </tr>
      * </table>
      * @param {Integer} OptionID <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_OPTION_ID</a> value that specifies the code for the option value to remove.
-     * @param {Pointer<PWSTR>} ClassName Unicode string that specifies the DHCP  class name of the option value. This parameter is optional.
-     * @param {Pointer<PWSTR>} VendorName Unicode string that specifies the vendor of the option. This parameter is optional, and should be <b>NULL</b> when <i>Flags</i> is not set to DHCP_FLAGS_OPTION_IS_VENDOR.
+     * @param {Pointer<Char>} ClassName Unicode string that specifies the DHCP  class name of the option value. This parameter is optional.
+     * @param {Pointer<Char>} VendorName Unicode string that specifies the vendor of the option. This parameter is optional, and should be <b>NULL</b> when <i>Flags</i> is not set to DHCP_FLAGS_OPTION_IS_VENDOR.
      * @param {Pointer<DHCP_OPTION_SCOPE_INFO>} ScopeInfo <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_scope_info">DHCP_OPTION_SCOPE_INFO</a> structure that contains information describing the specific scope to remove the option value from.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpremoveoptionvaluev5
@@ -6088,7 +6092,7 @@ class Dhcp {
 
     /**
      * Creates a custom option class.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} ReservedMustBeZero Reserved. This field must be set to zero.
      * @param {Pointer<DHCP_CLASS_INFO>} ClassInfo <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_class_info">DHCP_CLASS_INFO</a> structure that contains the specific option class data.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -6144,7 +6148,7 @@ class Dhcp {
 
     /**
      * Modifies a DHCP class defined on the server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} ReservedMustBeZero Reserved. This value must be set to 0.
      * @param {Pointer<DHCP_CLASS_INFO>} ClassInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_class_info">DHCP_CLASS_INFO</a> structure that contains the new information for the class.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -6222,9 +6226,9 @@ class Dhcp {
 
     /**
      * Deletes a DHCP class from the DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that contains the IPv6 address of the DHCP server. This string is used as a handle for resolving RPC API calls.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that contains the IPv6 address of the DHCP server. This string is used as a handle for resolving RPC API calls.
      * @param {Integer} ReservedMustBeZero Reserved. This parameter must be set to 0.
-     * @param {Pointer<PWSTR>} ClassName Unicode string that specifies the name of the DHCP class to delete.
+     * @param {Pointer<Char>} ClassName Unicode string that specifies the name of the DHCP class to delete.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * 
      * <table>
@@ -6292,7 +6296,7 @@ class Dhcp {
      * The DhcpGetClassInfo function returns the user or vendor class information configured on a specific DHCP server.
      * @remarks
      * A DHCP class is a specific category of client, defined either by the vendor or by a user. An example of a vendor-defined class would be all Windows 8 clients, with Microsoft as the vendor. A user-defined class consists of those clients with specific attributes selected by a user or administrator, such as all laptops or clients that support wireless connections.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} ReservedMustBeZero Reserved. This parameter must be set to 0.
      * @param {Pointer<DHCP_CLASS_INFO>} PartialClassInfo <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_class_info">DHCP_CLASS_INFO</a> structure that contains data provided by the caller for the following members, with all other fields initialized. 
      * 
@@ -6361,7 +6365,7 @@ class Dhcp {
 
     /**
      * Enumerates the user or vendor classes configured for the DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} ReservedMustBeZero Reserved. This field must be set to zero.
      * @param {Pointer<UInt32>} ResumeHandle Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_RESUME_HANDLE</a> value that identifies the enumeration operation. Initially, this value should be zero, with a successful call returning the handle value used for subsequent enumeration requests. For example, if <i>PreferredMaximum</i> is set to 100 classes, and 200 classes are stored on the server, the resume handle can be used after the first 100 classes are retrieved to obtain the next 100 on a subsequent call, and so forth.
      * @param {Integer} PreferredMaximum Specifies the preferred maximum number of classes to return. If the number of remaining unenumerated classes is less than this value, then that amount will be returned. To retrieve all classes available on the DHCP server, set this parameter to 0xFFFFFFFF.
@@ -6404,7 +6408,7 @@ class Dhcp {
     static DhcpEnumClasses(ServerIpAddress, ReservedMustBeZero, ResumeHandle, PreferredMaximum, ClassInfoArray, nRead, nTotal) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpEnumClasses", "ptr", ServerIpAddress, "uint", ReservedMustBeZero, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", ClassInfoArray, "ptr", nRead, "ptr", nTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpEnumClasses", "ptr", ServerIpAddress, "uint", ReservedMustBeZero, "uint*", ResumeHandle, "uint", PreferredMaximum, "ptr", ClassInfoArray, "uint*", nRead, "uint*", nTotal, "uint")
         return result
     }
 
@@ -6412,7 +6416,7 @@ class Dhcp {
      * Returns an array that contains all options defined on the DHCP server.
      * @remarks
      * There will be one option element in the array specified by <i>OptionStruct</i> for each vendor/class pair defined on the DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Specifies a bit flag that indicates whether or not the options are vendor-specific. If the qualification of vendor options is not necessary, this parameter should be 0.
      * 
      * <table>
@@ -6468,7 +6472,7 @@ class Dhcp {
 
     /**
      * The DhcpGetAllOptionsV6 function returns an array that contains all options defined on the DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Specifies a bit flag that indicates whether or not the options are vendor-specific. If the qualification of vendor options is not necessary, this parameter should be 0.
      * 
      * <table>
@@ -6559,7 +6563,7 @@ class Dhcp {
      * Returns an array that contains all option values defined for a specific scope on the DHCP server.
      * @remarks
      * There will be one option value in the array specified by <i>Values</i> for each vendor/class pair defined on the DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Specifies a bit flag that indicates whether the options are vendor-specific. If the qualification of vendor options is not necessary, this parameter should be 0.
      * 
      * <table>
@@ -6638,7 +6642,7 @@ class Dhcp {
 
     /**
      * The DhcpGetAllOptionValuesV6 function returns an array that contains all option values defined for a specific scope on the DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Specifies a bit flag that indicates whether or not the options are vendor-specific. If the qualification of vendor options is not necessary, this parameter should be 0.
      * 
      * <table>
@@ -6778,7 +6782,7 @@ class Dhcp {
      * The DhcpGetServerBindingInfo function returns endpoint bindings set on the DHCP server.
      * @remarks
      * This function requires network byte ordering for all <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> values in parameter structures.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Specifies a set of flags describing the endpoints to return.
      * 
      * <table>
@@ -6819,7 +6823,7 @@ class Dhcp {
      * The DhcpSetServerBindingInfo function sets endpoint bindings for the DHCP server.
      * @remarks
      * This function requires network byte ordering for all <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> values in parameter structures.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Specifies a set of flags describing endpoint properties.
      * 
      * <table>
@@ -6855,7 +6859,7 @@ class Dhcp {
      * The DhcpAddSubnetElementV5 function adds an element describing a feature or aspect of the subnet to the subnet entry in the DHCP database. Windows 2000 and earlier:  This function is not available.
      * @remarks
      * This API emulates the RPC interface used by the Windows NT 4.0 DHCP server. It is provided for backward compatibility with older versions of the DHCP Administrator application.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that contains the IP address or hostname of the subnet DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that contains the IP address or hostname of the subnet DHCP server.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> structure that contains the IP address of the subnet.
      * @param {Pointer<DHCP_SUBNET_ELEMENT_DATA_V5>} AddElementInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_subnet_element_data_v5">DHCP_SUBNET_ELEMENT_DATA_V5</a> structure that contains the element data to add to the subnet. The V5 structure adds support for BOOTP clients.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -6873,7 +6877,7 @@ class Dhcp {
      * The DhcpEnumSubnetElementsV5 function returns an enumerated list of elements for a specific DHCP subnet.
      * @remarks
      * When no longer needed, the resources consumed for the  enumerated data, and all pointers contained within, should be released with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcprpcfreememory">DhcpRpcFreeMemory</a>.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> value that specifies the address of the IP subnet whose elements will be enumerated.
      * @param {Integer} EnumElementType <a href="https://docs.microsoft.com/windows/win32/api/dhcpsapi/ne-dhcpsapi-dhcp_subnet_element_type">DHCP_SUBNET_ELEMENT_TYPE</a> enumeration value that indicates the type of subnet element to enumerate.
      * @param {Pointer<UInt32>} ResumeHandle Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_RESUME_HANDLE</a> value that identifies the enumeration operation. Initially, this value should be zero, with a successful call returning the handle value used for subsequent enumeration requests. For example, if <i>PreferredMaximum</i> is set to 1000 bytes, and 2000 bytes worth of subnet elements  are stored on the server, the resume handle can be used after the first 1000 bytes are retrieved to obtain the next 1000 on a subsequent call, and so forth.
@@ -6932,7 +6936,7 @@ class Dhcp {
     static DhcpEnumSubnetElementsV5(ServerIpAddress, SubnetAddress, EnumElementType, ResumeHandle, PreferredMaximum, EnumElementInfo, ElementsRead, ElementsTotal) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetElementsV5", "ptr", ServerIpAddress, "uint", SubnetAddress, "int", EnumElementType, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", EnumElementInfo, "ptr", ElementsRead, "ptr", ElementsTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetElementsV5", "ptr", ServerIpAddress, "uint", SubnetAddress, "int", EnumElementType, "uint*", ResumeHandle, "uint", PreferredMaximum, "ptr", EnumElementInfo, "uint*", ElementsRead, "uint*", ElementsTotal, "uint")
         return result
     }
 
@@ -6940,7 +6944,7 @@ class Dhcp {
      * The DhcpRemoveSubnetElementV5 function removes an element from a subnet defined on the DHCP server.
      * @remarks
      * This function emulates the RPC interface used by the Windows NT 4.0 DHCP server. It is provided for backward compatibility with older versions of the DHCP Administrator application.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> value that specifies the IP address of the subnet gateway and uniquely identifies it.
      * @param {Pointer<DHCP_SUBNET_ELEMENT_DATA_V5>} RemoveElementInfo <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_subnet_element_data_v5">DHCP_SUBNET_ELEMENT_DATA_V5</a> structure that contains information used to find the element that will be removed from subnet specified in <i>SubnetAddress</i>.
      * @param {Integer} ForceFlag <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ne-dhcpsapi-dhcp_force_flag">DHCP_FORCE_FLAG</a> enumeration value that indicates whether or not the clients affected by the removal of the subnet element should also be deleted.
@@ -6959,7 +6963,7 @@ class Dhcp {
      * Enumerates the reservations for a specific DHCP IPv4 subnet.
      * @remarks
      * <i>EnumElementInfo</i> should be free using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcprpcfreememory">DhcpRpcFreeMemory</a>.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> structure that contains the IPv4 subnet address of the reservations to enumerate.
      * @param {Pointer<UInt32>} ResumeHandle Pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_RESUME_HANDLE</a> structure that identifies this enumeration for use in subsequent calls to this function.
      * 
@@ -7028,13 +7032,13 @@ class Dhcp {
     static DhcpV4EnumSubnetReservations(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, EnumElementInfo, ElementsRead, ElementsTotal) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpV4EnumSubnetReservations", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", EnumElementInfo, "ptr", ElementsRead, "ptr", ElementsTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpV4EnumSubnetReservations", "ptr", ServerIpAddress, "uint", SubnetAddress, "uint*", ResumeHandle, "uint", PreferredMaximum, "ptr", EnumElementInfo, "uint*", ElementsRead, "uint*", ElementsTotal, "uint")
         return result
     }
 
     /**
      * The DhcpCreateOptionV6 function creates a DHCP option.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Specifies a bit flag that indicates whether or not the option is vendor-specific. If it is not, this parameter should be 0.
      * 
      * <table>
@@ -7054,8 +7058,8 @@ class Dhcp {
      * </tr>
      * </table>
      * @param {Integer} OptionId <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_OPTION_ID</a> value that contains the unique option ID number (also called an "option code") of the new option. Many of these option ID numbers are defined; a complete list of standard DHCP and BOOTP option codes can be found at <a href="https://www.ietf.org/rfc/rfc3315.txt">http://www.ietf.org/rfc/rfc3315.txt</a>.
-     * @param {Pointer<PWSTR>} ClassName Unicode string that specifies the name of the DHCP class that will contain this option. This field is optional.
-     * @param {Pointer<PWSTR>} VendorName Unicode string that contains a vendor name string if the class specified in <i>ClassName</i> is a vendor-specific class.
+     * @param {Pointer<Char>} ClassName Unicode string that specifies the name of the DHCP class that will contain this option. This field is optional.
+     * @param {Pointer<Char>} VendorName Unicode string that contains a vendor name string if the class specified in <i>ClassName</i> is a vendor-specific class.
      * @param {Pointer<DHCP_OPTION>} OptionInfo <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option">DHCP_OPTION</a> structure that contains information describing the new   DHCP option, including the name, an optional comment, and any related data items.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * 
@@ -7112,7 +7116,7 @@ class Dhcp {
 
     /**
      * The DhcpRemoveOptionV6 function removes an option defined on the DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Specifies a bit flag that indicates whether or not the option is vendor-specific. If it is not, this parameter should be 0.
      * 
      * <table>
@@ -7132,8 +7136,8 @@ class Dhcp {
      * </tr>
      * </table>
      * @param {Integer} OptionID <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_OPTION_ID</a> value that specifies the code for the option  to remove.
-     * @param {Pointer<PWSTR>} ClassName Unicode string that specifies the DHCP  class name of the option. This parameter is optional.
-     * @param {Pointer<PWSTR>} VendorName Unicode string that specifies the vendor of the option. This parameter is optional, and should be <b>NULL</b> when <i>Flags</i> is not set to DHCP_FLAGS_OPTION_IS_VENDOR.
+     * @param {Pointer<Char>} ClassName Unicode string that specifies the DHCP  class name of the option. This parameter is optional.
+     * @param {Pointer<Char>} VendorName Unicode string that specifies the vendor of the option. This parameter is optional, and should be <b>NULL</b> when <i>Flags</i> is not set to DHCP_FLAGS_OPTION_IS_VENDOR.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * 
      * <table>
@@ -7178,7 +7182,7 @@ class Dhcp {
 
     /**
      * The DhcpEnumOptionsV6 function returns an enumerated list of DHCP options for a given class and/or vendor.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Specifies a bit flag that indicates whether or not the option is vendor-specific. If it is not, this parameter should be 0.
      * 
      * <table>
@@ -7197,8 +7201,8 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PWSTR>} ClassName Unicode string that contains the name of the class whose options will be enumerated.
-     * @param {Pointer<PWSTR>} VendorName Unicode string that contains the name of the vendor for the class. This parameter is optional.
+     * @param {Pointer<Char>} ClassName Unicode string that contains the name of the class whose options will be enumerated.
+     * @param {Pointer<Char>} VendorName Unicode string that contains the name of the vendor for the class. This parameter is optional.
      * @param {Pointer<UInt32>} ResumeHandle Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_RESUME_HANDLE</a> value that identifies the enumeration operation. Initially, this value should be zero, with a successful call returning the handle value used for subsequent enumeration requests. For example, if <i>PreferredMaximum</i> is set to 1000 bytes, and 2000 bytes worth of options are stored on the server, the resume handle can be used after the first 1000 bytes are retrieved to obtain the next 1000 on a subsequent call, and so forth.
      * @param {Integer} PreferredMaximum Specifies the preferred maximum number of bytes of options to return. If the number of remaining unenumerated options (in bytes) is less than this value, then that amount will be returned.
      * @param {Pointer<DHCP_OPTION_ARRAY>} Options Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_array">DHCP_OPTION_ARRAY</a> structure containing the returned options. If there are no options available on the DHCP server, this parameter will return null.
@@ -7264,13 +7268,13 @@ class Dhcp {
         ClassName := ClassName is String? StrPtr(ClassName) : ClassName
         VendorName := VendorName is String? StrPtr(VendorName) : VendorName
 
-        result := DllCall("DHCPSAPI.dll\DhcpEnumOptionsV6", "ptr", ServerIpAddress, "uint", Flags, "ptr", ClassName, "ptr", VendorName, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", Options, "ptr", OptionsRead, "ptr", OptionsTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpEnumOptionsV6", "ptr", ServerIpAddress, "uint", Flags, "ptr", ClassName, "ptr", VendorName, "uint*", ResumeHandle, "uint", PreferredMaximum, "ptr", Options, "uint*", OptionsRead, "uint*", OptionsTotal, "uint")
         return result
     }
 
     /**
      * The DhcpRemoveOptionValueV6 function removes an option value from a scope defined on the DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Specifies a bit flag that indicates whether or not the option is vendor-specific. If it is not, this parameter should be zero.
      * 
      * <table>
@@ -7290,8 +7294,8 @@ class Dhcp {
      * </tr>
      * </table>
      * @param {Integer} OptionID <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_OPTION_ID</a> value that specifies the code for the option value to remove.
-     * @param {Pointer<PWSTR>} ClassName Unicode string that specifies the DHCP  class name of the option value. This parameter is optional.
-     * @param {Pointer<PWSTR>} VendorName Unicode string that specifies the vendor of the option. This parameter is optional, and should be <b>NULL</b> when <i>Flags</i> is not set to DHCP_FLAGS_OPTION_IS_VENDOR.
+     * @param {Pointer<Char>} ClassName Unicode string that specifies the DHCP  class name of the option value. This parameter is optional.
+     * @param {Pointer<Char>} VendorName Unicode string that specifies the vendor of the option. This parameter is optional, and should be <b>NULL</b> when <i>Flags</i> is not set to DHCP_FLAGS_OPTION_IS_VENDOR.
      * @param {Pointer<DHCP_OPTION_SCOPE_INFO6>} ScopeInfo DHCP_OPTION_SCOPE_INFO6 structure that contains information describing the specific scope to remove the option value from.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * 
@@ -7337,7 +7341,7 @@ class Dhcp {
 
     /**
      * The DhcpGetOptionInfoV6 function returns information on a specific DHCP option.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Specifies a bit flag that indicates whether or not the option is vendor-specific. If it is not, this parameter should be 0.
      * 
      * <table>
@@ -7357,8 +7361,8 @@ class Dhcp {
      * </tr>
      * </table>
      * @param {Integer} OptionID <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_OPTION_ID</a> value that specifies the code for the option to retrieve information on.
-     * @param {Pointer<PWSTR>} ClassName Unicode string that specifies the DHCP  class name of the option. This parameter is optional.
-     * @param {Pointer<PWSTR>} VendorName Unicode string that specifies the vendor of the option. This parameter is optional, and should be null when <i>Flags</i> is not set to DHCP_FLAGS_OPTION_IS_VENDOR.
+     * @param {Pointer<Char>} ClassName Unicode string that specifies the DHCP  class name of the option. This parameter is optional.
+     * @param {Pointer<Char>} VendorName Unicode string that specifies the vendor of the option. This parameter is optional, and should be null when <i>Flags</i> is not set to DHCP_FLAGS_OPTION_IS_VENDOR.
      * @param {Pointer<DHCP_OPTION>} OptionInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option">DHCP_OPTION</a> structure that contains the returned information on the option specified by <i>OptionID</i>.
      * 
      * <div class="alert"><b>Note</b>  <p class="note">The memory for this parameter must be free using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcprpcfreememory">DhcpRpcFreeMemory</a>.
@@ -7431,7 +7435,7 @@ class Dhcp {
 
     /**
      * The DhcpSetOptionInfoV6 function sets information for a specific DHCP option.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Specifies a bit flag that indicates whether or not the option is vendor-specific. If it is not, this parameter should be 0.
      * 
      * <table>
@@ -7451,8 +7455,8 @@ class Dhcp {
      * </tr>
      * </table>
      * @param {Integer} OptionID <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_OPTION_ID</a> value that specifies the code for a specific DHCP option.
-     * @param {Pointer<PWSTR>} ClassName Unicode string that specifies the DHCP  class name of the option. This parameter is optional.
-     * @param {Pointer<PWSTR>} VendorName Unicode string that specifies the vendor of the option. This parameter is optional, and should be <b>NULL</b> when <i>Flags</i> is not set to DHCP_FLAGS_OPTION_IS_VENDOR.
+     * @param {Pointer<Char>} ClassName Unicode string that specifies the DHCP  class name of the option. This parameter is optional.
+     * @param {Pointer<Char>} VendorName Unicode string that specifies the vendor of the option. This parameter is optional, and should be <b>NULL</b> when <i>Flags</i> is not set to DHCP_FLAGS_OPTION_IS_VENDOR.
      * @param {Pointer<DHCP_OPTION>} OptionInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option">DHCP_OPTION</a> structure that contains the information on the option specified by <i>OptionID</i>.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * 
@@ -7498,7 +7502,7 @@ class Dhcp {
 
     /**
      * The DhcpSetOptionValueV6 function sets information for a specific option value on the DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Specifies a bit flag that indicates whether or not the option is vendor-specific. If it is not, this parameter should be 0.
      * 
      * <table>
@@ -7518,8 +7522,8 @@ class Dhcp {
      * </tr>
      * </table>
      * @param {Integer} OptionId DHCP_OPTION_ID value that contains the unique option ID number (also called an "option code") of the option being set. Many of these option ID numbers are defined; a complete list of standard DHCP and BOOTP option codes can be found at <a href="http://www.ietf.org/rfc/rfc2132.txt">http://www.ietf.org/rfc/rfc2132.txt</a>.
-     * @param {Pointer<PWSTR>} ClassName Unicode string that specifies the DHCP  class  of the option. This parameter is optional.
-     * @param {Pointer<PWSTR>} VendorName Unicode string that specifies the vendor of the option. This parameter is optional, and should be <b>NULL</b> when <i>Flags</i> is not set to DHCP_FLAGS_OPTION_IS_VENDOR.
+     * @param {Pointer<Char>} ClassName Unicode string that specifies the DHCP  class  of the option. This parameter is optional.
+     * @param {Pointer<Char>} VendorName Unicode string that specifies the vendor of the option. This parameter is optional, and should be <b>NULL</b> when <i>Flags</i> is not set to DHCP_FLAGS_OPTION_IS_VENDOR.
      * @param {Pointer<DHCP_OPTION_SCOPE_INFO6>} ScopeInfo Pointer to a DHCP_OPTION_SCOPE_INFO6 structure that contains information describing the DHCP scope this option value will be set on.
      * @param {Pointer<DHCP_OPTION_DATA>} OptionValue Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_data">DHCP_OPTION_DATA</a> structure that contains the data value corresponding to the DHCP option code specified by <i>OptionID</i>.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -7566,7 +7570,7 @@ class Dhcp {
 
     /**
      * Retrieves the information about a specific IPv4 subnet defined on the DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} SubnetAddress <b>DHCP_IP_ADDRESS</b> structure that contains the IPv4 address of the subnet for which the information will be modified.
      * @param {Pointer<DHCP_SUBNET_INFO_VQ>} SubnetInfo A <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_subnet_info_vq">DHCP_SUBNET_INFO_VQ</a> structure that contains the returned information for the subnet matching the IPv4 address specified by <i>SubnetAddress</i>.
      * 
@@ -7638,7 +7642,7 @@ class Dhcp {
 
     /**
      * The DhcpCreateSubnetVQ function creates a new IPv4 subnet and its associated NAP state information on the DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} SubnetAddress A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> value that contains the IPv4 address of the subnet's gateway.
      * @param {Pointer<DHCP_SUBNET_INFO_VQ>} SubnetInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_subnet_info_vq">DHCP_SUBNET_INFO_VQ</a> structure that contains specific settings for the subnet, including the subnet mask and IPv4 address of the  subnet gateway.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>. Commonly returned error codes include:
@@ -7694,7 +7698,7 @@ class Dhcp {
 
     /**
      * Sets information about a subnet defined on the DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> value that specifies the IP address of the subnet gateway, as well as uniquely identifies the subnet.
      * @param {Pointer<DHCP_SUBNET_INFO_VQ>} SubnetInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_subnet_info_vq">DHCP_SUBNET_INFO_VQ</a> structure that contains the information about the subnet.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -7750,7 +7754,7 @@ class Dhcp {
 
     /**
      * The DhcpEnumOptionValuesV6 function returns an enumerated list of option values (the option data and the associated ID number) for a specific scope within a given class.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Specifies a bit flag that indicates whether or not the option is vendor specific. If it is not vendor specific, this parameter should be 0.
      * 
      * <table>
@@ -7769,8 +7773,8 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PWSTR>} ClassName Unicode string that contains the name of the class whose scope's option values will be enumerated.
-     * @param {Pointer<PWSTR>} VendorName Unicode string that contains the name of the vendor for the class. This parameter is optional.
+     * @param {Pointer<Char>} ClassName Unicode string that contains the name of the class whose scope's option values will be enumerated.
+     * @param {Pointer<Char>} VendorName Unicode string that contains the name of the vendor for the class. This parameter is optional.
      * @param {Pointer<DHCP_OPTION_SCOPE_INFO6>} ScopeInfo DHCP_OPTION_SCOPE_INFO6 structure that contains the  scope for which the option values are defined.
      * @param {Pointer<UInt32>} ResumeHandle Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_RESUME_HANDLE</a> value that identifies the enumeration operation. Initially, this value should be zero, with a successful call returning the handle value used for subsequent enumeration requests. For example, if <i>PreferredMaximum</i> is set to 1000 bytes, and 2000 bytes worth of option values  are stored on the server, the resume handle can be used after the first 1000 bytes are retrieved to obtain the next 1000 on a subsequent call, and so forth.
      * @param {Integer} PreferredMaximum Specifies the preferred maximum number of bytes of option values to return. If the number of remaining unenumerated options (in bytes) is less than this value, then that amount will be returned.
@@ -7837,7 +7841,7 @@ class Dhcp {
         ClassName := ClassName is String? StrPtr(ClassName) : ClassName
         VendorName := VendorName is String? StrPtr(VendorName) : VendorName
 
-        result := DllCall("DHCPSAPI.dll\DhcpEnumOptionValuesV6", "ptr", ServerIpAddress, "uint", Flags, "ptr", ClassName, "ptr", VendorName, "ptr", ScopeInfo, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", OptionValues, "ptr", OptionsRead, "ptr", OptionsTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpEnumOptionValuesV6", "ptr", ServerIpAddress, "uint", Flags, "ptr", ClassName, "ptr", VendorName, "ptr", ScopeInfo, "uint*", ResumeHandle, "uint", PreferredMaximum, "ptr", OptionValues, "uint*", OptionsRead, "uint*", OptionsTotal, "uint")
         return result
     }
 
@@ -7856,12 +7860,13 @@ class Dhcp {
 
     /**
      * The DhcpDsCleanup function frees up directory service resources allocated for DHCP services by DhcpDsInit. This function should be called exactly once for each corresponding DHCP service process, and only when the process is terminated.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpdscleanup
      * @since windowsserver2000
      */
     static DhcpDsCleanup() {
-        DllCall("DHCPSAPI.dll\DhcpDsCleanup")
+        result := DllCall("DHCPSAPI.dll\DhcpDsCleanup")
+        return result
     }
 
     /**
@@ -7944,7 +7949,7 @@ class Dhcp {
      * @since windowsserver2008
      */
     static DhcpGetThreadOptions(pFlags, Reserved) {
-        result := DllCall("DHCPSAPI.dll\DhcpGetThreadOptions", "ptr", pFlags, "ptr", Reserved, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpGetThreadOptions", "uint*", pFlags, "ptr", Reserved, "uint")
         return result
     }
 
@@ -7954,7 +7959,7 @@ class Dhcp {
      * A DHCP server attribute is a value that can be queried to determine supported and available features.
      * 
      * Callers of this function should free the memory pointed to by <i>pDhcpAttrib</i> after use.
-     * @param {Pointer<PWSTR>} ServerIpAddr Unicode string that contains the IP address of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddr Unicode string that contains the IP address of the DHCP server.
      * @param {Integer} dwReserved Reserved. This value must be zero.
      * @param {Integer} DhcpAttribId <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_ATTRIB_ID</a> value that specifies the particular DHCP server attribute to retrieve.
      * @param {Pointer<DHCP_ATTRIB>} pDhcpAttrib Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_attrib">DHCP_ATTRIB</a> structure that contains the location and type of the queried DHCP server attribute.
@@ -7975,7 +7980,7 @@ class Dhcp {
      * A DHCP server attribute is a value that can be queried to determine supported and available features.
      * 
      * Callers of this function should free the memory pointed to by <i>pDhcpAttribs</i> and <i>pDhcpAttribArr</i> after use.
-     * @param {Pointer<PWSTR>} ServerIpAddr Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddr Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} dwReserved Reserved. This value must be set to zero.
      * @param {Integer} dwAttribCount Specifies the number of attributes listed in <i>pDhcpAttribArr</i>.
      * @param {Pointer<UInt32>} pDhcpAttribs Specifies an array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_ATTRIB_ID</a> values (of length <i>dwAttribCount</i>) to retrieve the corresponding attribute information from.
@@ -7987,7 +7992,7 @@ class Dhcp {
     static DhcpServerQueryAttributes(ServerIpAddr, dwReserved, dwAttribCount, pDhcpAttribs, pDhcpAttribArr) {
         ServerIpAddr := ServerIpAddr is String? StrPtr(ServerIpAddr) : ServerIpAddr
 
-        result := DllCall("DHCPSAPI.dll\DhcpServerQueryAttributes", "ptr", ServerIpAddr, "uint", dwReserved, "uint", dwAttribCount, "ptr", pDhcpAttribs, "ptr", pDhcpAttribArr, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpServerQueryAttributes", "ptr", ServerIpAddr, "uint", dwReserved, "uint", dwAttribCount, "uint*", pDhcpAttribs, "ptr", pDhcpAttribArr, "uint")
         return result
     }
 
@@ -7995,7 +8000,7 @@ class Dhcp {
      * The DhcpServerRedoAuthorization function attempts to determine whether the DHCP server is authorized and restores leasing operations if it is not.
      * @remarks
      * An "authorized" DHCP server is a server currently leasing IP addresses for the subnets it has been set to administer. If a DHCP server has stopped leasing addresses, calling this method attempts to "redo" the authorization, and if <b>ERROR_SUCCESS</b> is returned, IP address leasing resumes.
-     * @param {Pointer<PWSTR>} ServerIpAddr Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddr Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} dwReserved Reserved. This parameter should be set to 0.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpserverredoauthorization
@@ -8010,9 +8015,9 @@ class Dhcp {
 
     /**
      * Sets the parameters for audit log generation on a DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Specifies a set of bit flags for filtering the audit log. Currently, this parameter is reserved and should be set to 0.
-     * @param {Pointer<PWSTR>} AuditLogDir Unicode string that contains the specific directory and file name  where the audit log will be stored. This string should contain the absolute path within the file system; for example, "C:\logs\dhcp\20031020.log".
+     * @param {Pointer<Char>} AuditLogDir Unicode string that contains the specific directory and file name  where the audit log will be stored. This string should contain the absolute path within the file system; for example, "C:\logs\dhcp\20031020.log".
      * @param {Integer} DiskCheckInterval Specifies the disk check interval for attempting to write the audit log to the specified file as the number of logged DHCP server events that should occur between checks. The default is 50 DHCP server events between checks.
      * @param {Integer} MaxLogFilesSize Specifies the maximum log file size, in bytes.
      * @param {Integer} MinSpaceOnDisk Specifies the minimum required disk space, in bytes, for  audit log storage.
@@ -8048,9 +8053,9 @@ class Dhcp {
 
     /**
      * Returns the audit log configuration settings from the DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Specifies a set of bit flags for filtering the audit log. Currently, this parameter is reserved and should be set to 0.
-     * @param {Pointer<PWSTR>} AuditLogDir Unicode string that contains the directory   where the audit log is stored as an absolute path within the file system.
+     * @param {Pointer<Char>} AuditLogDir Unicode string that contains the directory   where the audit log is stored as an absolute path within the file system.
      * @param {Pointer<UInt32>} DiskCheckInterval Specifies the disk check interval for attempting to write the audit log to the specified file as the number of logged DHCP server events that should occur between checks. The default is 50 DHCP server events between checks.
      * @param {Pointer<UInt32>} MaxLogFilesSize Specifies the maximum log file size, in bytes.
      * @param {Pointer<UInt32>} MinSpaceOnDisk Specifies the minimum required disk space, in bytes,  for  audit log storage.
@@ -8089,9 +8094,8 @@ class Dhcp {
      */
     static DhcpAuditLogGetParams(ServerIpAddress, Flags, AuditLogDir, DiskCheckInterval, MaxLogFilesSize, MinSpaceOnDisk) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
-        AuditLogDir := AuditLogDir is String? StrPtr(AuditLogDir) : AuditLogDir
 
-        result := DllCall("DHCPSAPI.dll\DhcpAuditLogGetParams", "ptr", ServerIpAddress, "uint", Flags, "ptr", AuditLogDir, "ptr", DiskCheckInterval, "ptr", MaxLogFilesSize, "ptr", MinSpaceOnDisk, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpAuditLogGetParams", "ptr", ServerIpAddress, "uint", Flags, "ptr", AuditLogDir, "uint*", DiskCheckInterval, "uint*", MaxLogFilesSize, "uint*", MinSpaceOnDisk, "uint")
         return result
     }
 
@@ -8099,11 +8103,11 @@ class Dhcp {
      * Retrieves the current Domain Name System (DNS) credentials used by the DHCP server for client dynamic DNS registration.
      * @remarks
      * DNS credentials can be set on the DHCP server by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcpserversetdnsregcredentialsv5">DhcpServerSetDnsRegCredentialsV5</a> function.
-     * @param {Pointer<PWSTR>} ServerIpAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_SRV_HANDLE</a> that specifies the RPC binding to the DHCP server that will be queried.
+     * @param {Pointer<Char>} ServerIpAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_SRV_HANDLE</a> that specifies the RPC binding to the DHCP server that will be queried.
      * @param {Integer} UnameSize Unsigned 32-bit integer that indicates the size, in bytes, to allocate for the data returned in the <i>Uname</i> buffer.
-     * @param {Pointer<PWSTR>} Uname Pointer to a null-terminated Unicode string that contains the user name for the DNS server credentials. The size of this value cannot be larger than the size specified in <i>UnameSize</i>.
+     * @param {Pointer<Char>} Uname Pointer to a null-terminated Unicode string that contains the user name for the DNS server credentials. The size of this value cannot be larger than the size specified in <i>UnameSize</i>.
      * @param {Integer} DomainSize Unsigned 32-bit integer that indicates the size, in bytes, to allocate for the data returned in the <i>Domain</i> buffer.
-     * @param {Pointer<PWSTR>} Domain Pointer to a null-terminated Unicode string that contains the domain name for the DNS server credentials. The size of this value cannot be larger than the size specified in <i>DomainSize</i>.
+     * @param {Pointer<Char>} Domain Pointer to a null-terminated Unicode string that contains the domain name for the DNS server credentials. The size of this value cannot be larger than the size specified in <i>DomainSize</i>.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpserverquerydnsregcredentials
      * @since windowsserver2008
@@ -8119,10 +8123,10 @@ class Dhcp {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ServerIpAddress 
-     * @param {Pointer<PWSTR>} Uname 
-     * @param {Pointer<PWSTR>} Domain 
-     * @param {Pointer<PWSTR>} Passwd 
+     * @param {Pointer<Char>} ServerIpAddress 
+     * @param {Pointer<Char>} Uname 
+     * @param {Pointer<Char>} Domain 
+     * @param {Pointer<Char>} Passwd 
      * @returns {Integer} 
      */
     static DhcpServerSetDnsRegCredentials(ServerIpAddress, Uname, Domain, Passwd) {
@@ -8137,10 +8141,10 @@ class Dhcp {
 
     /**
      * Sets the credentials used by the DHCP server to create Domain Name System (DNS) registrations for the DHCP client lease record.
-     * @param {Pointer<PWSTR>} ServerIpAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_SRV_HANDLE</a> that specifies the RPC binding to the DHCP server  on which the DNS credentials will be set.
-     * @param {Pointer<PWSTR>} Uname Pointer to a null-terminated Unicode string that specifies the user name for the DNS credentials.
-     * @param {Pointer<PWSTR>} Domain Pointer to a null-terminated Unicode string that specifies the domain name for the DNS credentials.
-     * @param {Pointer<PWSTR>} Passwd Pointer to a null-terminated   Unicode string that specifies the password for the DNS credentials. The password can be unencrypted.
+     * @param {Pointer<Char>} ServerIpAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_SRV_HANDLE</a> that specifies the RPC binding to the DHCP server  on which the DNS credentials will be set.
+     * @param {Pointer<Char>} Uname Pointer to a null-terminated Unicode string that specifies the user name for the DNS credentials.
+     * @param {Pointer<Char>} Domain Pointer to a null-terminated Unicode string that specifies the domain name for the DNS credentials.
+     * @param {Pointer<Char>} Passwd Pointer to a null-terminated   Unicode string that specifies the password for the DNS credentials. The password can be unencrypted.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpserversetdnsregcredentialsv5
      * @since windowsserver2008
@@ -8157,8 +8161,8 @@ class Dhcp {
 
     /**
      * Backs up the DHCP server database configuration, settings, and DHCP client lease record to a specified file location.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
-     * @param {Pointer<PWSTR>} Path Unicode string that specifies the absolute path to the file where the DHCP server database will be backed up.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} Path Unicode string that specifies the absolute path to the file where the DHCP server database will be backed up.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * 
      * <table>
@@ -8202,8 +8206,8 @@ class Dhcp {
 
     /**
      * Restores the settings, configuration, and records for a client lease database from a specific backup location (path).
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
-     * @param {Pointer<PWSTR>} Path Unicode string that specifies the full absolute path and filename to the backup file from which the registry configuration file and client lease database will be restored. Note that this operation will overwrite any database currently held in memory.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} Path Unicode string that specifies the full absolute path and filename to the backup file from which the registry configuration file and client lease database will be restored. Note that this operation will overwrite any database currently held in memory.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * 
      * <table>
@@ -8257,7 +8261,7 @@ class Dhcp {
      * <li>Set_DatabaseLoggingPath</li>
      * <li>Set_RestoreFlag</li>
      * </ul>
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} FieldsToSet Specifies a bitmask of the fields to set in the <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_server_config_info_vq">DHCP_SERVER_CONFIG_INFO_VQ</a> structure passed to <i>ConfigInfo</i>.
      * @param {Pointer<DHCP_SERVER_CONFIG_INFO_VQ>} ConfigInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_server_config_info_vq">DHCP_SERVER_CONFIG_INFO_VQ</a> structure that contains the new or updated settings for the DHCP server.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -8293,7 +8297,7 @@ class Dhcp {
      * Retrieves the current DHCP server configuration settings.
      * @remarks
      * The caller of this function must free the memory pointed to by <i>ConfigInfo</i> by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcprpcfreememory">DhcpRpcFreeMemory</a>.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_SERVER_CONFIG_INFO_VQ>} ConfigInfo Pointer to the address of a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_server_config_info_vq">DHCP_SERVER_CONFIG_INFO_VQ</a> structure that contains the returned DHCP server configuration settings.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * 
@@ -8326,7 +8330,7 @@ class Dhcp {
 
     /**
      * Retrieves the names of the default vendor class and user class.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IPv4 address of the DHCPv4 server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IPv4 address of the DHCPv4 server.
      * @param {Pointer<DHCP_SERVER_SPECIFIC_STRINGS>} ServerSpecificStrings Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_server_specific_strings">DHCP_SERVER_SPECIFIC_STRINGS</a> structure that receives the information for the default vendor class and user class name strings.
      * 
      * <div class="alert"><b>Note</b>  <p class="note">The memory for this parameter must be free using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcprpcfreememory">DhcpRpcFreeMemory</a>.
@@ -8365,15 +8369,16 @@ class Dhcp {
     /**
      * 
      * @param {Pointer<DHCP_SERVER_CONFIG_INFO_VQ>} ConfigInfo 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static DhcpServerAuditlogParamsFree(ConfigInfo) {
-        DllCall("DHCPSAPI.dll\DhcpServerAuditlogParamsFree", "ptr", ConfigInfo)
+        result := DllCall("DHCPSAPI.dll\DhcpServerAuditlogParamsFree", "ptr", ConfigInfo)
+        return result
     }
 
     /**
      * The DhcpCreateSubnetV6 function creates a new subnet on the DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer} SubnetAddress DHCP_IPV6_ADDRESS value that contains the IP address of the subnet's gateway.
      * @param {Pointer<DHCP_SUBNET_INFO_V6>} SubnetInfo DHCP_SUBNET_INFO_V6 structure that contains specific settings for the subnet, including the subnet mask and IP address of the  subnet gateway.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -8418,7 +8423,7 @@ class Dhcp {
 
     /**
      * The DhcpDeleteSubnetV6 function deletes a subnet from the DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer} SubnetAddress DHCP_IPV6_ADDRESS value that contains the IP address of the subnet gateway used to identify the subnet.
      * @param {Integer} ForceFlag <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ne-dhcpsapi-dhcp_force_flag">DHCP_FORCE_FLAG</a> enumeration value that indicates the type of delete operation to perform (full force or no force).
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -8463,7 +8468,7 @@ class Dhcp {
 
     /**
      * The DhcpEnumSubnetsV6 function returns an enumerated list of subnets defined on the DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<UInt32>} ResumeHandle Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_RESUME_HANDLE</a> value that identifies the enumeration operation. Initially, this value should be zero, with a successful call returning the handle value used for subsequent enumeration requests. For example, if <i>PreferredMaximum</i> is set to 100, and 200 subnet addresses  are stored on the server, the resume handle can be used after the first 100 subnets are retrieved to obtain the next 100 on a subsequent call, and so forth.
      * @param {Integer} PreferredMaximum Specifies the preferred maximum number of subnet addresses to return. If the number of remaining unenumerated options is less than this value, then that amount will be returned.
      * @param {Pointer<DHCPV6_IP_ARRAY>} EnumInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcpv6_ip_array">DHCPV6_IP_ARRAY</a> structure that contains the subnet IDs available on the DHCP server. If no subnets are defined, this value will be null.
@@ -8527,13 +8532,13 @@ class Dhcp {
     static DhcpEnumSubnetsV6(ServerIpAddress, ResumeHandle, PreferredMaximum, EnumInfo, ElementsRead, ElementsTotal) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetsV6", "ptr", ServerIpAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", EnumInfo, "ptr", ElementsRead, "ptr", ElementsTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetsV6", "ptr", ServerIpAddress, "uint*", ResumeHandle, "uint", PreferredMaximum, "ptr", EnumInfo, "uint*", ElementsRead, "uint*", ElementsTotal, "uint")
         return result
     }
 
     /**
      * The DhcpAddSubnetElementV6 function adds an element describing a feature or aspect of the subnet to the subnet entry in the DHCP database.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer} SubnetAddress DHCP_IPV6_ADDRESS structure that contains the IP address of the subnet.
      * @param {Pointer<DHCP_SUBNET_ELEMENT_DATA_V6>} AddElementInfo Pointer to a DHCP_SUBNET_ELEMENT_DATA_V6 structure that contains the element data to add to the subnet. The V5 structure adds support for BOOTP clients.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -8578,7 +8583,7 @@ class Dhcp {
 
     /**
      * The DhcpRemoveSubnetElementV6 function removes an element from a subnet defined on the DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer} SubnetAddress DHCP_IPV6_ADDRESS value that specifies the IP address of the subnet gateway and uniquely identifies it.
      * @param {Pointer<DHCP_SUBNET_ELEMENT_DATA_V6>} RemoveElementInfo DHCP_SUBNET_ELEMENT_DATA_V6 structure that contains information used to find the element that will be removed from subnet specified in <i>SubnetAddress</i>.
      * @param {Integer} ForceFlag <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ne-dhcpsapi-dhcp_force_flag">DHCP_FORCE_FLAG</a> enumeration value that indicates whether or not the clients affected by the removal of the subnet element should also be deleted.
@@ -8624,7 +8629,7 @@ class Dhcp {
 
     /**
      * The DhcpEnumSubnetElementsV6 function returns an enumerated list of elements for a specific DHCP subnet.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer} SubnetAddress DHCP_IPV6_ADDRESS value that specifies the subnet whose elements will be enumerated.
      * @param {Integer} EnumElementType DHCP_SUBNET_ELEMENT_TYPE_V6 enumeration value that indicates the type of subnet element to enumerate.
      * @param {Pointer<UInt32>} ResumeHandle Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_RESUME_HANDLE</a> value that identifies the enumeration operation. Initially, this value should be zero, with a successful call returning the handle value used for subsequent enumeration requests. For example, if <i>PreferredMaximum</i> is set to 1000 bytes, and 2000 bytes worth of subnet elements  are stored on the server, the resume handle can be used after the first 1000 bytes are retrieved to obtain the next 1000 on a subsequent call, and so forth.
@@ -8690,13 +8695,13 @@ class Dhcp {
     static DhcpEnumSubnetElementsV6(ServerIpAddress, SubnetAddress, EnumElementType, ResumeHandle, PreferredMaximum, EnumElementInfo, ElementsRead, ElementsTotal) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetElementsV6", "ptr", ServerIpAddress, "ptr", SubnetAddress, "int", EnumElementType, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", EnumElementInfo, "ptr", ElementsRead, "ptr", ElementsTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetElementsV6", "ptr", ServerIpAddress, "ptr", SubnetAddress, "int", EnumElementType, "uint*", ResumeHandle, "uint", PreferredMaximum, "ptr", EnumElementInfo, "uint*", ElementsRead, "uint*", ElementsTotal, "uint")
         return result
     }
 
     /**
      * The DhcpGetSubnetInfoV6 function returns information on a specific subnet.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer} SubnetAddress DHCP_IPV6_ADDRESS value that specifies the subnet ID.
      * @param {Pointer<DHCP_SUBNET_INFO_V6>} SubnetInfo DHCP_SUBNET_INFO_V6 structure that contains the returned information for the subnet matching the ID specified by <i>SubnetAddress</i>.
      * 
@@ -8717,7 +8722,7 @@ class Dhcp {
 
     /**
      * The DhcpEnumSubnetClientsV6 function returns an enumerated list of clients with served IP addresses in the specified subnet.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer} SubnetAddress <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_ipv6_address">DHCP_IPV6_ADDRESS</a> value containing the IP address of the subnet gateway.
      * @param {Pointer<DHCP_IPV6_ADDRESS>} ResumeHandle Pointer to a DHCP_RESUME_IPV6_HANDLE value that identifies the enumeration operation. Initially, this value should be zero, with a successful call returning the handle value used for subsequent enumeration requests. For example, if <i>PreferredMaximum</i> is set to 1000 bytes, and 2000 bytes worth of subnet client information structures  are stored on the server, the resume handle can be used after the first 1000 bytes are retrieved to obtain the next 1000 on a subsequent call, and so forth.
      * @param {Integer} PreferredMaximum Specifies the preferred maximum number of bytes of subnet client information structures to return. If the number of remaining unenumerated options (in bytes) is less than this value, then that amount will be returned.
@@ -8782,13 +8787,13 @@ class Dhcp {
     static DhcpEnumSubnetClientsV6(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClientsV6", "ptr", ServerIpAddress, "ptr", SubnetAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", ClientInfo, "ptr", ClientsRead, "ptr", ClientsTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClientsV6", "ptr", ServerIpAddress, "ptr", SubnetAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", ClientInfo, "uint*", ClientsRead, "uint*", ClientsTotal, "uint")
         return result
     }
 
     /**
      * Retrieves the configuration information for the DHCPv6 server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_OPTION_SCOPE_INFO6>} ScopeInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_scope_info6">DHCP_OPTION_SCOPE_INFO6</a> structure used to identify the DHCPv6 scope for which configuration information will be retrieved.
      * @param {Pointer<DHCP_SERVER_CONFIG_INFO_V6>} ConfigInfo Pointer to the address of a  <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_server_config_info_v6">DHCP_SERVER_CONFIG_INFO_V6</a> structure that contains the requested configuration information.
      * 
@@ -8838,7 +8843,7 @@ class Dhcp {
 
     /**
      * Sets the DHCPv6 server configuration data at the scope or server level.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_OPTION_SCOPE_INFO6>} ScopeInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_scope_info6">DHCP_OPTION_SCOPE_INFO6</a> structure that contains the configuration information at the scope or server level.
      * @param {Integer} FieldsToSet Specifies the set of value that indicate the type of configuration information provided in <i>ConfigInfo</i>. Only one of these values may be set per call.
      * 
@@ -8990,7 +8995,7 @@ class Dhcp {
 
     /**
      * Sets or updates the information for an IPv6 subnet defined on the DHCPv6 server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer} SubnetAddress <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_ipv6_address">DHCP_IPV6_ADDRESS</a> structure that contains the IPv6 address of the subnet for which the information will be modified.
      * @param {Pointer<DHCP_SUBNET_INFO_V6>} SubnetInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_subnet_info_v6">DHCP_SUBNET_INFO_V6</a> structure that contains the new or updated information for the IPv6 subnet identified by <i>SubnetAddress</i>.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -9046,7 +9051,7 @@ class Dhcp {
 
     /**
      * Retrieves the IPv6 counter values of the DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCPv6 server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCPv6 server.
      * @param {Pointer<DHCP_MIB_INFO_V6>} MibInfo Pointed to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_mib_info_v6">DHCP_MIB_INFO_V6</a> structure that points to the location containing the IPv6 MIB information about the DHCP server.
      * 
      * <div class="alert"><b>Note</b>  <p class="note">The memory for this parameter must be free using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcprpcfreememory">DhcpRpcFreeMemory</a>.
@@ -9108,7 +9113,7 @@ class Dhcp {
      * Retrieves an array of IPv6 interface binding information specific to the DHCPv6 server.
      * @remarks
      * The caller of this function must free the memory pointed to by <i>BindElementsInfo</i>.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} Flags This parameter is not used, and must be set to 0.
      * @param {Pointer<DHCPV6_BIND_ELEMENT_ARRAY>} BindElementsInfo Pointer to the address of a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcpv6_bind_element_array">DHCPV6_BIND_ELEMENT_ARRAY</a> structure that contains the information about the IPv6 interface bindings for the DHCPv6 server.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -9153,7 +9158,7 @@ class Dhcp {
 
     /**
      * Sets or modifies the IPv6 interface bindings for the DHCPv6 server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} Flags This parameter is not used and must be set to 0.
      * @param {Pointer<DHCPV6_BIND_ELEMENT_ARRAY>} BindElementInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcpv6_bind_element_array">DHCPV6_BIND_ELEMENT_ARRAY</a> structure that contains the IPv6 interface bindings for the DHCPv6 server.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -9223,7 +9228,7 @@ class Dhcp {
      * @remarks
      * <div class="alert"><b>Note</b>  This method must be called only after the DHCPv6 client has been added by previously calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcpaddsubnetelementv6">DhcpAddSubnetElementV6</a>.</div>
      * <div> </div>
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_CLIENT_INFO_V6>} ClientInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info_v6">DHCP_CLIENT_INFO_V6</a> structure that contains the updated DHCPv6 client leaser record information.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * 
@@ -9267,7 +9272,7 @@ class Dhcp {
 
     /**
      * Retrieves IPv6 address lease information for a specific IPv6 client reservation from the DHCPv6 server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_SEARCH_INFO_V6>} SearchInfo Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_search_info_v6">DHCP_SEARCH_INFO_V6</a> structure that contains the search parameters for finding the specific IPv6 lease information for a client. The <b>SearchType</b> member of this structure must be set to <b>Dhcpv6ClientIpAddress</b>.
      * @param {Pointer<DHCP_CLIENT_INFO_V6>} ClientInfo Pointer to the address of a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info_v6">DHCP_CLIENT_INFO_V6</a> structure that contains the IPv6 address lease information that matched the parameters supplied in <i>SearchInfo</i>.
      * 
@@ -9328,7 +9333,7 @@ class Dhcp {
 
     /**
      * Deletes the specified DHCPv6 client address release record from the DHCPv6 server database.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_SEARCH_INFO_V6>} ClientInfo Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_search_info_v6">DHCP_SEARCH_INFO_V6</a> structure that contains the key used to search for the DHCPv6 client lease record that will be deleted.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>. Commonly returned error codes include:
      * 
@@ -9394,7 +9399,7 @@ class Dhcp {
 
     /**
      * Creates a custom DHCPv6 option class.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} ReservedMustBeZero Reserved. This field must be set to zero.
      * @param {Pointer<DHCP_CLASS_INFO_V6>} ClassInfo <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_class_info_v6">DHCP_CLASS_INFO_V6</a> structure that contains the specific option class data.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -9450,7 +9455,7 @@ class Dhcp {
 
     /**
      * Modifies a DHCPv6 user or vendor class defined on the server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} ReservedMustBeZero Reserved. This value must be set to 0.
      * @param {Pointer<DHCP_CLASS_INFO_V6>} ClassInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_class_info_v6">DHCP_CLASS_INFO_V6</a> structure that contains the new information for the class.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -9528,9 +9533,9 @@ class Dhcp {
 
     /**
      * Deletes a DHCP class from the DHCPv6 server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that contains the IPv6 address of the DHCPv6 server. This string is used as a handle for resolving RPC API calls.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that contains the IPv6 address of the DHCPv6 server. This string is used as a handle for resolving RPC API calls.
      * @param {Integer} ReservedMustBeZero Reserved. This parameter must be set to 0.
-     * @param {Pointer<PWSTR>} ClassName Unicode string that specifies the name of the DHCPv6 class to delete.
+     * @param {Pointer<Char>} ClassName Unicode string that specifies the name of the DHCPv6 class to delete.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * 
      * <table>
@@ -9598,7 +9603,7 @@ class Dhcp {
      * Enumerates the user or vendor classes configured for the DHCPv6 server.
      * @remarks
      * The caller of this function must free the memory pointed to by <i>ClassInfoArray</i>.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCPv6 server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCPv6 server.
      * @param {Integer} ReservedMustBeZero Reserved. This field must be set to zero.
      * @param {Pointer<UInt32>} ResumeHandle Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_RESUME_HANDLE</a> value that identifies the enumeration operation. Initially, this value should be zero, with a successful call returning the handle value used for subsequent enumeration requests. For example, if <i>PreferredMaximum</i> is set to 100 classes, and 200 classes are stored on the server, the resume handle can be used after the first 100 classes are retrieved to obtain the next 100 on a subsequent call, and so forth.
      * @param {Integer} PreferredMaximum Specifies the preferred maximum number of classes to return. If the number of remaining unenumerated classes is less than this value, then that amount will be returned. To retrieve all classes available on the DHCPv6 server, set this parameter to 0xFFFFFFFF.
@@ -9641,13 +9646,13 @@ class Dhcp {
     static DhcpEnumClassesV6(ServerIpAddress, ReservedMustBeZero, ResumeHandle, PreferredMaximum, ClassInfoArray, nRead, nTotal) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpEnumClassesV6", "ptr", ServerIpAddress, "uint", ReservedMustBeZero, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", ClassInfoArray, "ptr", nRead, "ptr", nTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpEnumClassesV6", "ptr", ServerIpAddress, "uint", ReservedMustBeZero, "uint*", ResumeHandle, "uint", PreferredMaximum, "ptr", ClassInfoArray, "uint*", nRead, "uint*", nTotal, "uint")
         return result
     }
 
     /**
      * Sets the delay period for DHCP OFFER messages after a DISCOVER message is received, for a specific DHCP scope.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} SubnetAddress <b>DHCP_IP_ADDRESS</b> value that contains the IP address of the subnet gateway.
      * @param {Integer} TimeDelayInMilliseconds Unsigned 16-bit integer value that specifies the time to delay an OFFER message after receiving a DISCOVER message, in milliseconds, and set for a particular scope. This value must be between 0 and 1000 (milliseconds). The default value is 0.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -9714,7 +9719,7 @@ class Dhcp {
 
     /**
      * Obtains the delay period for DHCP OFFER messages after a DISCOVER message is received.
-     * @param {Pointer<PWSTR>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> value that contains the IP address of the subnet gateway.
      * @param {Pointer<UInt16>} TimeDelayInMilliseconds Unsigned 16-bit integer value that receive the time to delay an OFFER message after receiving a DISCOVER message as configured on the DHCP server, in milliseconds.
      * 
@@ -9769,13 +9774,13 @@ class Dhcp {
     static DhcpGetSubnetDelayOffer(ServerIpAddress, SubnetAddress, TimeDelayInMilliseconds) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpGetSubnetDelayOffer", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", TimeDelayInMilliseconds, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpGetSubnetDelayOffer", "ptr", ServerIpAddress, "uint", SubnetAddress, "ushort*", TimeDelayInMilliseconds, "uint")
         return result
     }
 
     /**
      * Obtains a MIB data structure that contains current statistics about the specified DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a zero-delimited string that contains the IPv4 address of the DHCP server for which statistical information is to be retrieved. This value is specified in the format "*.*.*.*". 
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a zero-delimited string that contains the IPv4 address of the DHCP server for which statistical information is to be retrieved. This value is specified in the format "*.*.*.*". 
      * 
      * If this parameter is <b>NULL</b>, then the local DHCP server process is queried.
      * @param {Pointer<DHCP_MIB_INFO_V5>} MibInfo Pointer to the address of a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_mib_info_v5">DHCP_MIB_INFO_V5</a> structure that contains statistical information about the DHCP server specified in the <i>ServerIpAddress</i> parameter.
@@ -9837,7 +9842,7 @@ class Dhcp {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pServer 
+     * @param {Pointer<Char>} pServer 
      * @returns {Integer} 
      */
     static DhcpAddSecurityGroup(pServer) {
@@ -9851,7 +9856,7 @@ class Dhcp {
      * Retrieves a DHCP option value (the option code and associated data) for a particular scope. This function extends the functionality provided by DhcpGetOptionValueV5 by allowing the caller to specify a policy for the option.
      * @remarks
      * <i>OptionValue</i> should be free using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcprpcfreememory">DhcpRpcFreeMemory</a>.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Indicates whether the option is for a specific or default vendor.
      * 
      * <table>
@@ -9883,8 +9888,8 @@ class Dhcp {
      * </tr>
      * </table>
      * @param {Integer} OptionID <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_OPTION_ID</a> structure that specifies the unique option code for the option value to retrieve. A complete list of standard DHCP and BOOTP option codes can be found at <a href="http://www.ietf.org/rfc/rfc2132.txt">http://www.ietf.org/rfc/rfc2132.txt</a>
-     * @param {Pointer<PWSTR>} PolicyName A null-terminated Unicode string that represents the name of the policy inside the subnet of the option value to retrieve. The subnet is identified by the <b>SubnetScopeInfo</b> member of <i>ScopeInfo</i>.
-     * @param {Pointer<PWSTR>} VendorName A null-terminated Unicode string that represents the vendor  of the option. This parameter is optional, and should be <b>NULL</b> when <i>Flags</i> is not <b>DHCP_FLAGS_OPTION_IS_VENDOR</b>. If the vendor is not specified, the option value is returned for the default vendor.
+     * @param {Pointer<Char>} PolicyName A null-terminated Unicode string that represents the name of the policy inside the subnet of the option value to retrieve. The subnet is identified by the <b>SubnetScopeInfo</b> member of <i>ScopeInfo</i>.
+     * @param {Pointer<Char>} VendorName A null-terminated Unicode string that represents the vendor  of the option. This parameter is optional, and should be <b>NULL</b> when <i>Flags</i> is not <b>DHCP_FLAGS_OPTION_IS_VENDOR</b>. If the vendor is not specified, the option value is returned for the default vendor.
      * @param {Pointer<DHCP_OPTION_SCOPE_INFO>} ScopeInfo <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_scope_info">DHCP_OPTION_SCOPE_INFO</a> structure that contains information on the scope of the option value to retrieve.
      * @param {Pointer<DHCP_OPTION_VALUE>} OptionValue Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_data">DHCP_OPTION_DATA</a> structure that contains the data value corresponding to the DHCP option code specified by <i>OptionID</i>.
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
@@ -9966,7 +9971,7 @@ class Dhcp {
 
     /**
      * Sets information for a specific option value on the DHCP server. This function extends the functionality provided by DhcpSetOptionValueV5 by allowing the caller to specify a policy for the option.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Indicates whether the option is for a specific or default vendor.
      * 
      * <table>
@@ -9998,8 +10003,8 @@ class Dhcp {
      * </tr>
      * </table>
      * @param {Integer} OptionId <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_OPTION_ID</a> structure that specifies the unique option code for the option value to retrieve. A complete list of standard DHCP and BOOTP option codes can be found at <a href="http://www.ietf.org/rfc/rfc2132.txt">http://www.ietf.org/rfc/rfc2132.txt</a>
-     * @param {Pointer<PWSTR>} PolicyName A null-terminated Unicode string that represents the name of the policy inside the subnet of the option value to set. The subnet is identified by the <b>SubnetScopeInfo</b> member of <i>ScopeInfo</i>.
-     * @param {Pointer<PWSTR>} VendorName A null-terminated Unicode string that represents the vendor  of the option. This parameter is optional, and should be <b>NULL</b> when <i>Flags</i> is not <b>DHCP_FLAGS_OPTION_IS_VENDOR</b>. If the vendor is not specified, the option value is set for the default vendor.
+     * @param {Pointer<Char>} PolicyName A null-terminated Unicode string that represents the name of the policy inside the subnet of the option value to set. The subnet is identified by the <b>SubnetScopeInfo</b> member of <i>ScopeInfo</i>.
+     * @param {Pointer<Char>} VendorName A null-terminated Unicode string that represents the vendor  of the option. This parameter is optional, and should be <b>NULL</b> when <i>Flags</i> is not <b>DHCP_FLAGS_OPTION_IS_VENDOR</b>. If the vendor is not specified, the option value is set for the default vendor.
      * @param {Pointer<DHCP_OPTION_SCOPE_INFO>} ScopeInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_scope_info">DHCP_OPTION_SCOPE_INFO</a> structure that contains information on the scope of the option value to set.
      * @param {Pointer<DHCP_OPTION_DATA>} OptionValue Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_data">DHCP_OPTION_DATA</a> structure that contains the data value corresponding to the DHCP option code specified by <i>OptionID</i>.
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
@@ -10083,10 +10088,10 @@ class Dhcp {
      * Sets option codes and their associated data values for a specific scope defined on the DHCP server. This function extends the functionality provided by DhcpSetOptionValuesV5 by allowing the caller to specify a policy for the options.
      * @remarks
      * <i>OptionValues</i> and its member, <b>Values</b>, should be free using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcprpcfreememory">DhcpRpcFreeMemory</a>.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Reserved. Must be 0.
-     * @param {Pointer<PWSTR>} PolicyName A null-terminated Unicode string that represents the name of the policy inside the subnet of the option value to set. The subnet is identified by the <b>SubnetScopeInfo</b> member of <i>ScopeInfo</i>.
-     * @param {Pointer<PWSTR>} VendorName A null-terminated Unicode string that represents the vendor  of the option. This parameter is optional, and if <b>NULL</b>, the option value is set for the default vendor.
+     * @param {Pointer<Char>} PolicyName A null-terminated Unicode string that represents the name of the policy inside the subnet of the option value to set. The subnet is identified by the <b>SubnetScopeInfo</b> member of <i>ScopeInfo</i>.
+     * @param {Pointer<Char>} VendorName A null-terminated Unicode string that represents the vendor  of the option. This parameter is optional, and if <b>NULL</b>, the option value is set for the default vendor.
      * @param {Pointer<DHCP_OPTION_SCOPE_INFO>} ScopeInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_scope_info">DHCP_OPTION_SCOPE_INFO</a> structure that contains information describing the DHCP scope of the option values to set. This parameter specifies whether the option value is set for the default, server, or scope level, or for an IPv4 reservation.
      * @param {Pointer<DHCP_OPTION_VALUE_ARRAY>} OptionValues Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_value_array">DHCP_OPTION_VALUE_ARRAY</a> structure that contains a list of option codes and the corresponding data value that will be set.
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
@@ -10179,7 +10184,7 @@ class Dhcp {
 
     /**
      * Removes an option value from a scope defined on the DHCP server. This function extends the functionality provided by DhcpRemoveOptionValueV5 by allowing the caller to specify a policy for the option.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Indicates whether the option value is for a specific or default vendor.
      * 
      * <table>
@@ -10211,8 +10216,8 @@ class Dhcp {
      * </tr>
      * </table>
      * @param {Integer} OptionID <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_OPTION_ID</a> structure that specifies the option code for the option value to remove. A complete list of standard DHCP and BOOTP option codes can be found at <a href="http://www.ietf.org/rfc/rfc2132.txt">http://www.ietf.org/rfc/rfc2132.txt</a>
-     * @param {Pointer<PWSTR>} PolicyName A null-terminated Unicode string that represents the name of the policy inside the subnet of the option value to remove. The subnet is identified by the <b>SubnetScopeInfo</b> member of <i>ScopeInfo</i>.
-     * @param {Pointer<PWSTR>} VendorName A null-terminated Unicode string that represents the vendor  of the option. This parameter is optional, and should be <b>NULL</b> when <i>Flags</i> is not <b>DHCP_FLAGS_OPTION_IS_VENDOR</b>. If the vendor is not specified, the option value is set for the default vendor.
+     * @param {Pointer<Char>} PolicyName A null-terminated Unicode string that represents the name of the policy inside the subnet of the option value to remove. The subnet is identified by the <b>SubnetScopeInfo</b> member of <i>ScopeInfo</i>.
+     * @param {Pointer<Char>} VendorName A null-terminated Unicode string that represents the vendor  of the option. This parameter is optional, and should be <b>NULL</b> when <i>Flags</i> is not <b>DHCP_FLAGS_OPTION_IS_VENDOR</b>. If the vendor is not specified, the option value is set for the default vendor.
      * @param {Pointer<DHCP_OPTION_SCOPE_INFO>} ScopeInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_scope_info">DHCP_OPTION_SCOPE_INFO</a> structure that contains information on the scope of the option value to remove
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
@@ -10295,7 +10300,7 @@ class Dhcp {
      * Retrieves an array of DHCP option values (the option code and associated data) for a particular scope.
      * @remarks
      * <i>Values</i> should be free using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcprpcfreememory">DhcpRpcFreeMemory</a>.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Integer} Flags Indicates whether the option values are for a specific or default vendor.
      * 
      * <table>
@@ -10363,7 +10368,7 @@ class Dhcp {
 
     /**
      * Creates a new DHCPv4 failover relationship between two servers.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_FAILOVER_RELATIONSHIP>} pRelationship Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_failover_relationship">DHCP_FAILOVER_RELATIONSHIP</a> structure that contains information about the DHCPv4 failover relationship to create.
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
@@ -10453,7 +10458,7 @@ class Dhcp {
 
     /**
      * Sets or modifies the parameters of a DHCPv4 server failover relationship.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Integer} Flags A bitmask that specifies the fields to update in <i>pRelationship</i>. Each value specifies a member of the <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_failover_relationship">DHCP_FAILOVER_RELATIONSHIP</a> structure to be modified. 
      * 
      * <table>
@@ -10573,8 +10578,8 @@ class Dhcp {
 
     /**
      * Deletes a DHCPv4 failover relationship between two servers.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
-     * @param {Pointer<PWSTR>} pRelationshipName Pointer to null-terminated Unicode string that represents the name of the relationship to delete.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} pRelationshipName Pointer to null-terminated Unicode string that represents the name of the relationship to delete.
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, it returns one of the following or an error code from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -10620,8 +10625,8 @@ class Dhcp {
 
     /**
      * Retrieves relationship details for a specific relationship name.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
-     * @param {Pointer<PWSTR>} pRelationshipName Pointer to a null-terminated Unicode string which represents the name of the relationship to retrieve.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} pRelationshipName Pointer to a null-terminated Unicode string which represents the name of the relationship to retrieve.
      * @param {Pointer<DHCP_FAILOVER_RELATIONSHIP>} pRelationship Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_failover_relationship">DHCP_FAILOVER_RELATIONSHIP</a> structure that contains information about the retrieved failover relationship.
      * 
      * <div class="alert"><b>Note</b>  <p class="note">The memory for this parameter must be free using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcprpcfreememory">DhcpRpcFreeMemory</a>.
@@ -10673,7 +10678,7 @@ class Dhcp {
 
     /**
      * Enumerates all failover relationships present on the server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Pointer<UInt32>} ResumeHandle Pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_RESUME_HANDLE</a> structure that identifies this enumeration for use in subsequent calls to this function.
      * 
      * Initially, this value should be zero on input. If successful, the returned value should be used for subsequent enumeration requests. For example, if <i>PreferredMaximum</i> is set to 100, and 200 reservation elements are configured on the server, the resume handle can be used after the first 100 policies are retrieved to obtain the next 100 on a subsequent call.
@@ -10731,13 +10736,13 @@ class Dhcp {
     static DhcpV4FailoverEnumRelationship(ServerIpAddress, ResumeHandle, PreferredMaximum, pRelationship, RelationshipRead, RelationshipTotal) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpV4FailoverEnumRelationship", "ptr", ServerIpAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", pRelationship, "ptr", RelationshipRead, "ptr", RelationshipTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpV4FailoverEnumRelationship", "ptr", ServerIpAddress, "uint*", ResumeHandle, "uint", PreferredMaximum, "ptr", pRelationship, "uint*", RelationshipRead, "uint*", RelationshipTotal, "uint")
         return result
     }
 
     /**
      * Adds a DHCPv4 scope to the specified failover relationship.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_FAILOVER_RELATIONSHIP>} pRelationship Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_failover_relationship">DHCP_FAILOVER_RELATIONSHIP</a> structure that contains both the scope information to add and the failover relationship to modify.
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
@@ -10816,7 +10821,7 @@ class Dhcp {
 
     /**
      * Deletes a DHCPv4 scope from the specified failover relationship.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_FAILOVER_RELATIONSHIP>} pRelationship Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_failover_relationship">DHCP_FAILOVER_RELATIONSHIP</a> structure that contains  the scopes to delete. The scopes are defined in the <b>pScopes</b> member of this structure.
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
@@ -10884,7 +10889,7 @@ class Dhcp {
 
     /**
      * Retrieves the failover relationship that is configured on a specified DHCPv4 scope.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Integer} ScopeId A <b>DHCP_IP_ADDRESS</b> field that contains the IPv4 scope address for which the relationship details are to be retrieved.
      * @param {Pointer<DHCP_FAILOVER_RELATIONSHIP>} pRelationship Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_failover_relationship">DHCP_FAILOVER_RELATIONSHIP</a> structure that contains information about the retrieved failover relationship which contains <b>scopeId</b> field in its <b>pScopes</b> member.
      * 
@@ -10936,7 +10941,7 @@ class Dhcp {
 
     /**
      * Retrieves the address usage statistics of a specific scope that is part of a failover relationship.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Integer} ScopeId <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> structure that contains the IPv4 scope address of the address usage statistics to retrieve.
      * @param {Pointer<DHCP_FAILOVER_STATISTICS>} pStats Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_failover_statistics">DHCP_FAILOVER_STATISTICS</a> structure that contains the address usage information for <i>scopeId</i>.
      * 
@@ -10977,7 +10982,7 @@ class Dhcp {
 
     /**
      * Retrieves the DHCPv4 client lease information.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_SEARCH_INFO>} SearchInfo Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_search_info">DHCP_SEARCH_INFO</a> structure that defines the key used to search the DHCPv4 client lease record on the server. 
      * If the <b>SearchType</b> member of <i>SearchInfo</i> is <b>DhcpClientName</b> and there are multiple lease records with the same client name, the server will return client information for the client with the lowest numerical IP address.
      * @param {Pointer<DHCPV4_FAILOVER_CLIENT_INFO>} ClientInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcpv4_failover_client_info">DHCPV4_FAILOVER_CLIENT_INFO</a> structure that contains the retrieved DHCPv4 client lease record.
@@ -11030,7 +11035,7 @@ class Dhcp {
 
     /**
      * Returns the current time on the DHCP server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Pointer<UInt32>} pTime Pointer to a <b>DWORD</b> that returns the current time, in seconds, elapsed since midnight, January 1, 1970, Coordinated Universal Time (UTC), on the DHCP server.
      * @param {Pointer<UInt32>} pMaxAllowedDeltaTime The maximum allowed delta time.
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
@@ -11060,13 +11065,13 @@ class Dhcp {
     static DhcpV4FailoverGetSystemTime(ServerIpAddress, pTime, pMaxAllowedDeltaTime) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpV4FailoverGetSystemTime", "ptr", ServerIpAddress, "ptr", pTime, "ptr", pMaxAllowedDeltaTime, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpV4FailoverGetSystemTime", "ptr", ServerIpAddress, "uint*", pTime, "uint*", pMaxAllowedDeltaTime, "uint")
         return result
     }
 
     /**
      * Returns the status of a IPv4 address.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> structure that contains the IPv4 address whose status is being requested.
      * @param {Pointer<UInt32>} pStatus Pointer to a DWORD that returns the status of the IPv4 address as specified in the table below:
      * 
@@ -11129,14 +11134,14 @@ class Dhcp {
     static DhcpV4FailoverGetAddressStatus(ServerIpAddress, SubnetAddress, pStatus) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpV4FailoverGetAddressStatus", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", pStatus, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpV4FailoverGetAddressStatus", "ptr", ServerIpAddress, "uint", SubnetAddress, "uint*", pStatus, "uint")
         return result
     }
 
     /**
      * Redistributes the free addresses between the primary server and the secondary server that are part of a failover relationship.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
-     * @param {Pointer<PWSTR>} pFailRelName Pointer to a null-terminated Unicode string that represents the name of the failover relationship for which free addresses are to be redistributed.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} pFailRelName Pointer to a null-terminated Unicode string that represents the name of the failover relationship for which free addresses are to be redistributed.
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, it returns one of the following or an error code from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
@@ -11193,12 +11198,12 @@ class Dhcp {
 
     /**
      * Allocates and initializes a DHCP server policy structure.
-     * @param {Pointer<PWSTR>} PolicyName A null-terminated unicode string that contains the name of the DHCP server policy to create.
+     * @param {Pointer<Char>} PolicyName A null-terminated unicode string that contains the name of the DHCP server policy to create.
      * @param {Integer} fGlobalPolicy If <b>TRUE</b> a server level policy is created. Otherwise, a scope level policy is created
      * @param {Integer} Subnet <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> structure that contains the IPv4 subnet address of the scope level policy to create.
      * @param {Integer} ProcessingOrder Integer that specifies the processing order of the DHCP server policy. 1 indicates the highest priority and <b>MAX_DWORD</b> indicates the lowest.
      * @param {Integer} RootOperator <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/ne-dhcpsapi-dhcp_pol_logic_oper">DHCP_POL_LOGIC_OPER</a> enumeration that defines how the policy condition is to be evaluated in terms of the results of its constituents.
-     * @param {Pointer<PWSTR>} Description A pointer to a null-terminated Unicode string that contains the description of the DHCP server policy.
+     * @param {Pointer<Char>} Description A pointer to a null-terminated Unicode string that contains the description of the DHCP server policy.
      * @param {Integer} Enabled <b>TRUE</b> if the policy is enabled. Otherwise, it is <b>FALSE</b>.
      * @param {Pointer<DHCP_POLICY>} Policy Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_policy">DHCP_POLICY</a> structure that contains the parameters of the policy to create.
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
@@ -11246,12 +11251,12 @@ class Dhcp {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} PolicyName 
+     * @param {Pointer<Char>} PolicyName 
      * @param {Integer} fGlobalPolicy 
      * @param {Integer} Subnet 
      * @param {Integer} ProcessingOrder 
      * @param {Integer} RootOperator 
-     * @param {Pointer<PWSTR>} Description 
+     * @param {Pointer<Char>} Description 
      * @param {Integer} Enabled 
      * @param {Pointer<DHCP_POLICY_EX>} Policy 
      * @returns {Integer} 
@@ -11317,7 +11322,7 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpHlprAddV4PolicyExpr(Policy, ParentExpr, Operator, ExprIndex) {
-        result := DllCall("DHCPSAPI.dll\DhcpHlprAddV4PolicyExpr", "ptr", Policy, "uint", ParentExpr, "int", Operator, "ptr", ExprIndex, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpHlprAddV4PolicyExpr", "ptr", Policy, "uint", ParentExpr, "int", Operator, "uint*", ExprIndex, "uint")
         return result
     }
 
@@ -11328,9 +11333,9 @@ class Dhcp {
      * @param {Integer} Type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/ne-dhcpsapi-dhcp_pol_attr_type">DHCP_POL_ATTR_TYPE</a> enumeration that specifies the attribute type for this condition.
      * @param {Integer} OptionID <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_OPTION_ID</a> value that specifies the unique option identifier for criteria based on DHCP options or sub-options.
      * @param {Integer} SubOptionID <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_OPTION_ID</a> value that specifies the unique sub-option identifier for criteria based on DHCP sub-options.
-     * @param {Pointer<PWSTR>} VendorName A pointer to a null-terminated Unicode string that represents the vendor name.
+     * @param {Pointer<Char>} VendorName A pointer to a null-terminated Unicode string that represents the vendor name.
      * @param {Integer} Operator <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/ne-dhcpsapi-dhcp_pol_comparator">DHCP_POL_COMPARATOR</a> enumeration that specifies the comparison operator for the condition.
-     * @param {Pointer<Byte>} Value Pointer to an array of bytes that contains the value to be used for the comparison.
+     * @param {Pointer} Value Pointer to an array of bytes that contains the value to be used for the comparison.
      * @param {Integer} ValueLength Integer that specifies the length of <b>Value</b>.
      * @param {Pointer<UInt32>} ConditionIndex Pointer to a <b>DWORD</b> that contains the newly created condition's index in the DHCP server policy.
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
@@ -11382,7 +11387,7 @@ class Dhcp {
     static DhcpHlprAddV4PolicyCondition(Policy, ParentExpr, Type, OptionID, SubOptionID, VendorName, Operator, Value, ValueLength, ConditionIndex) {
         VendorName := VendorName is String? StrPtr(VendorName) : VendorName
 
-        result := DllCall("DHCPSAPI.dll\DhcpHlprAddV4PolicyCondition", "ptr", Policy, "uint", ParentExpr, "int", Type, "uint", OptionID, "uint", SubOptionID, "ptr", VendorName, "int", Operator, "ptr", Value, "uint", ValueLength, "ptr", ConditionIndex, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpHlprAddV4PolicyCondition", "ptr", Policy, "uint", ParentExpr, "int", Type, "uint", OptionID, "uint", SubOptionID, "ptr", VendorName, "int", Operator, "ptr", Value, "uint", ValueLength, "uint*", ConditionIndex, "uint")
         return result
     }
 
@@ -11498,57 +11503,63 @@ class Dhcp {
     /**
      * Frees the memory of all the data structures within a DHCP server policy structure.
      * @param {Pointer<DHCP_POLICY>} Policy Pointer to <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_policy">DHCP_POLICY</a> structure that contains the policy structure  to free.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} This function does not return a value.
      * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcphlprfreev4policy
      * @since windowsserver2012
      */
     static DhcpHlprFreeV4Policy(Policy) {
-        DllCall("DHCPSAPI.dll\DhcpHlprFreeV4Policy", "ptr", Policy)
+        result := DllCall("DHCPSAPI.dll\DhcpHlprFreeV4Policy", "ptr", Policy)
+        return result
     }
 
     /**
      * 
      * @param {Pointer<DHCP_POLICY_ARRAY>} PolicyArray 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static DhcpHlprFreeV4PolicyArray(PolicyArray) {
-        DllCall("DHCPSAPI.dll\DhcpHlprFreeV4PolicyArray", "ptr", PolicyArray)
+        result := DllCall("DHCPSAPI.dll\DhcpHlprFreeV4PolicyArray", "ptr", PolicyArray)
+        return result
     }
 
     /**
      * 
      * @param {Pointer<DHCP_POLICY_EX>} PolicyEx 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static DhcpHlprFreeV4PolicyEx(PolicyEx) {
-        DllCall("DHCPSAPI.dll\DhcpHlprFreeV4PolicyEx", "ptr", PolicyEx)
+        result := DllCall("DHCPSAPI.dll\DhcpHlprFreeV4PolicyEx", "ptr", PolicyEx)
+        return result
     }
 
     /**
      * 
      * @param {Pointer<DHCP_POLICY_EX_ARRAY>} PolicyExArray 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static DhcpHlprFreeV4PolicyExArray(PolicyExArray) {
-        DllCall("DHCPSAPI.dll\DhcpHlprFreeV4PolicyExArray", "ptr", PolicyExArray)
+        result := DllCall("DHCPSAPI.dll\DhcpHlprFreeV4PolicyExArray", "ptr", PolicyExArray)
+        return result
     }
 
     /**
      * 
      * @param {Pointer<DHCP_PROPERTY>} Property 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static DhcpHlprFreeV4DhcpProperty(Property) {
-        DllCall("DHCPSAPI.dll\DhcpHlprFreeV4DhcpProperty", "ptr", Property)
+        result := DllCall("DHCPSAPI.dll\DhcpHlprFreeV4DhcpProperty", "ptr", Property)
+        return result
     }
 
     /**
      * 
      * @param {Pointer<DHCP_PROPERTY_ARRAY>} PropertyArray 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static DhcpHlprFreeV4DhcpPropertyArray(PropertyArray) {
-        DllCall("DHCPSAPI.dll\DhcpHlprFreeV4DhcpPropertyArray", "ptr", PropertyArray)
+        result := DllCall("DHCPSAPI.dll\DhcpHlprFreeV4DhcpPropertyArray", "ptr", PropertyArray)
+        return result
     }
 
     /**
@@ -11577,7 +11588,7 @@ class Dhcp {
 
     /**
      * Retrieves the policy enforcement state on the server or the specified IPv4 subnet from the DHCP Server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Integer} fGlobalPolicy If <b>TRUE</b> the policy enforcement state of the server is retrieved. Otherwise, the policy enforcement state of specified Ipv4 scope is retrieved.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> structure that contains the IPv4 subnet address of the policy enforcement state to retrieve.
      * @param {Pointer<Int32>} Enabled Pointer to a <b>BOOL</b> that indicates the state of policy enforcement. If  <b>TRUE</b> the policy enforcement state is enabled. Otherwise, the policy enforcement state is disabled.
@@ -11624,13 +11635,13 @@ class Dhcp {
     static DhcpV4QueryPolicyEnforcement(ServerIpAddress, fGlobalPolicy, SubnetAddress, Enabled) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpV4QueryPolicyEnforcement", "ptr", ServerIpAddress, "int", fGlobalPolicy, "uint", SubnetAddress, "ptr", Enabled, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpV4QueryPolicyEnforcement", "ptr", ServerIpAddress, "int", fGlobalPolicy, "uint", SubnetAddress, "int*", Enabled, "uint")
         return result
     }
 
     /**
      * Sets the policy enforcement state of the server or the specified IPv4 subnet on the DHCP Server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Integer} fGlobalPolicy If <b>TRUE</b> the policy enforcement state of the server is set. Otherwise, the policy enforcement state of specified Ipv4 scope is set.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> structure that contains the IPv4 subnet address of the policy enforcement state to set.
      * @param {Integer} Enable If  <b>TRUE</b> the policy enforcement state is enabled. Otherwise, the policy enforcement state is disabled.
@@ -11789,7 +11800,7 @@ class Dhcp {
 
     /**
      * Creates a new policy on the DHCP Server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_POLICY>} pPolicy Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_policy">DHCP_POLICY</a> structure that contains the parameters of the policy to create.
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
@@ -11914,10 +11925,10 @@ class Dhcp {
      * Retrieves a policy from the DHCP Server.
      * @remarks
      * <i>Policy</i> should be free using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcprpcfreememory">DhcpRpcFreeMemory</a>.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Integer} fGlobalPolicy If <b>TRUE</b> the server level policy is retrieved. Otherwise, the scope level policy is retrieved.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> structure that contains the IPv4 subnet address of the policy to retrieve.
-     * @param {Pointer<PWSTR>} PolicyName A null-terminated Unicode string that represents the name of the policy to retrieve.
+     * @param {Pointer<Char>} PolicyName A null-terminated Unicode string that represents the name of the policy to retrieve.
      * @param {Pointer<DHCP_POLICY>} Policy Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_policy">DHCP_POLICY</a> structure that contains the parameters of the policy requested in <i>PolicyName</i>.
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
@@ -11975,11 +11986,11 @@ class Dhcp {
 
     /**
      * Updates one or more parameters of an existing policy.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Integer} FieldsModified A value from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/ne-dhcpsapi-dhcp_policy_fields_to_update">DHCP_POLICY_FIELDS_TO_UPDATE</a> enumeration that defines the DHCPv4 policy fields to modify.
      * @param {Integer} fGlobalPolicy If <b>TRUE</b> the server level policy is set. Otherwise, the scope level policy is set.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> structure that contains the IPv4 subnet address of the policy to modify.
-     * @param {Pointer<PWSTR>} PolicyName A null-terminated Unicode string that represents the name of the policy to modify.
+     * @param {Pointer<Char>} PolicyName A null-terminated Unicode string that represents the name of the policy to modify.
      * @param {Pointer<DHCP_POLICY>} Policy Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_policy">DHCP_POLICY</a> structure that contains the parameters of the policy to modify.
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
@@ -12092,10 +12103,10 @@ class Dhcp {
 
     /**
      * Deletes an existing policy from the DHCP Server.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Integer} fGlobalPolicy If <b>TRUE</b> the server level policy is deleted. Otherwise, the scope level policy is deleted.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> structure that contains the IPv4 subnet address of the policy to delete.
-     * @param {Pointer<PWSTR>} PolicyName A null-terminated Unicode string that represents the name of the policy to delete.
+     * @param {Pointer<Char>} PolicyName A null-terminated Unicode string that represents the name of the policy to delete.
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, it returns one of the following error codes.
@@ -12156,7 +12167,7 @@ class Dhcp {
      * <i>EnumInfo</i> should be free using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcprpcfreememory">DhcpRpcFreeMemory</a>.
      * 
      * <i>SubnetAddress</i> must be in host-byte ordering.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Pointer<UInt32>} ResumeHandle Pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_RESUME_HANDLE</a> structure that identifies this enumeration for use in subsequent calls to this function.
      * 
      * Initially, this value should be zero on input. If successful, the returned value should be used for subsequent enumeration requests. For example, if <i>PreferredMaximum</i> is set to 100, and 200 policies are configured on the server, the resume handle can be used after the first 100 policies are retrieved to obtain the next 100 on a subsequent call.
@@ -12204,15 +12215,15 @@ class Dhcp {
     static DhcpV4EnumPolicies(ServerIpAddress, ResumeHandle, PreferredMaximum, fGlobalPolicy, SubnetAddress, EnumInfo, ElementsRead, ElementsTotal) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpV4EnumPolicies", "ptr", ServerIpAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "int", fGlobalPolicy, "uint", SubnetAddress, "ptr", EnumInfo, "ptr", ElementsRead, "ptr", ElementsTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpV4EnumPolicies", "ptr", ServerIpAddress, "uint*", ResumeHandle, "uint", PreferredMaximum, "int", fGlobalPolicy, "uint", SubnetAddress, "ptr", EnumInfo, "uint*", ElementsRead, "uint*", ElementsTotal, "uint")
         return result
     }
 
     /**
      * Adds an IP address range to a policy.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> structure that contains the IPv4 subnet address of the policy IP address range to add.
-     * @param {Pointer<PWSTR>} PolicyName A null-terminated Unicode string that represents the name of the policy IP address range to add.
+     * @param {Pointer<Char>} PolicyName A null-terminated Unicode string that represents the name of the policy IP address range to add.
      * @param {Pointer<DHCP_IP_RANGE>} Range A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_ip_range">DHCP_IP_RANGE</a> structure that  contains the policy IP address range to add.
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
@@ -12281,9 +12292,9 @@ class Dhcp {
 
     /**
      * Removes the specified IP address range from the list of IP address ranges of the policy.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> structure that contains the IPv4 subnet address of the policy IP address range to remove.
-     * @param {Pointer<PWSTR>} PolicyName A null-terminated Unicode string that represents the name of the policy IP address range to remove.
+     * @param {Pointer<Char>} PolicyName A null-terminated Unicode string that represents the name of the policy IP address range to remove.
      * @param {Pointer<DHCP_IP_RANGE>} Range A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_ip_range">DHCP_IP_RANGE</a> structure that  contains the policy IP address range to remove.
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
@@ -12352,7 +12363,7 @@ class Dhcp {
 
     /**
      * Sets the DHCPv6 stateless client inventory configuration settings at the server or scope level.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} fServerLevel If <b>TRUE</b> the stateless client inventory configuration settings at server level are modified. Otherwise, the scope level configuration settings are modified.
      * @param {Pointer} SubnetAddress A <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_ipv6_address">DHCP_IPV6_ADDRESS</a> structure that contains the IPv6 subnet address of the stateless client inventory configuration settings to be modified. 
      * If the value of <i>fServerLevel</i> is <b>TRUE</b>, this must be 0.
@@ -12404,7 +12415,7 @@ class Dhcp {
      * Retrieves the current DHCPv6 stateless client inventory configuration settings at the server or scope level.
      * @remarks
      * <i>Params</i> should be free using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcprpcfreememory">DhcpRpcFreeMemory</a>.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Integer} fServerLevel If <b>TRUE</b> the stateless client inventory configuration settings at server level are retrieved. Otherwise, the scope level configuration settings are retrieved.
      * @param {Pointer} SubnetAddress A <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_ipv6_address">DHCP_IPV6_ADDRESS</a> structure that contains the IPv6 subnet address of the stateless client inventory configuration settings to be retrieved. 
      * If the value of <i>fServerLevel</i> is <b>TRUE</b>, this must be 0.
@@ -12455,7 +12466,7 @@ class Dhcp {
      * Retrieves the stateless server IPv6 subnet statistics.
      * @remarks
      * <i>StatelessStats</i> and its member, <b>ScopeStats</b>, should be free using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcprpcfreememory">DhcpRpcFreeMemory</a>.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCPV6_STATELESS_STATS>} StatelessStats Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcpv6_stateless_stats">DHCPV6_STATELESS_STATS</a> structure that contain DHCPv6 stateless server IPv6 subnet statistics.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv6getstatelessstatistics
@@ -12474,7 +12485,7 @@ class Dhcp {
      * This function does not allow creation of leases if there is no scope corresponding to the <i>ClientIpAddress</i> configured on the server and instead returns <b>ERROR_DHCP_SUBNET_NOT_PRESENT</b>. It marks the specified client IP address as unavailable (or distributed) to avoid IP collisions. The addresses thus marked are also reflected in the scope’s address statistics.
      * 
      * Unlike <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcpcreateclientinfovq">DhcpCreateClientInfoVQ</a>, this function uses the <b>bClientType</b>, <b>AddressState</b>, <b>Status</b>, <b>ProbationEnds</b> and <b>QuarantineCapable</b> fields passed within the <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info">DHCP_CLIENT_INFO_PB</a> structure to <i>ClientInfo</i> when creating the lease record. It also adds the new field <b>PolicyName</b> if passed within <i>ClientInfo</i> in the new lease record. There is no validation of whether the <b>PolicyName</b> corresponds to a valid policy configured on the DHCP server or corresponding scope.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_CLIENT_INFO_PB>} ClientInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info">DHCP_CLIENT_INFO_PB</a> structure that contains the DHCP client lease record information. The <b>ClientIpAddress</b> and <b>ClientHardwareAddress</b> fields of this structure are required, all others are optional.
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
@@ -12544,7 +12555,7 @@ class Dhcp {
      * Enumerates all DHCP client records serviced from the specified IPv4 subnet.
      * @remarks
      * <i>ClientInfo</i> should be free using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcprpcfreememory">DhcpRpcFreeMemory</a>.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> structure that contains the IPv4 subnet address of the DHCP client records to enumerate. If set to 0, the DHCP client records for all known IPv4 subnets are returned.
      * @param {Pointer<UInt32>} ResumeHandle Pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_RESUME_HANDLE</a> structure that identifies this enumeration for use in subsequent calls to this function. Initially, this value should be zero on input. If successful, the returned value should be used for subsequent enumeration requests. The returned handle value is the last IPv4 address retrieved in the enumeration operation.
      * @param {Integer} PreferredMaximum The maximum number of bytes of client records to return in <i>ClientInfo</i>. The minimum value is 1024 bytes, and the maximum value is 65536 bytes.
@@ -12611,7 +12622,7 @@ class Dhcp {
     static DhcpV4EnumSubnetClients(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpV4EnumSubnetClients", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", ClientInfo, "ptr", ClientsRead, "ptr", ClientsTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpV4EnumSubnetClients", "ptr", ServerIpAddress, "uint", SubnetAddress, "uint*", ResumeHandle, "uint", PreferredMaximum, "ptr", ClientInfo, "uint*", ClientsRead, "uint*", ClientsTotal, "uint")
         return result
     }
 
@@ -12621,7 +12632,7 @@ class Dhcp {
      * If the <b>SearchType</b> member of the structure passed to <i>SearchInfo</i> is <b>DhcpClientName</b> and there are multiple lease records with the same client hostnames, the lease record returned is indeterminate.
      * 
      * <i>ClientInfo</i> should be free using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcprpcfreememory">DhcpRpcFreeMemory</a>.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_SEARCH_INFO>} SearchInfo Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_search_info">DHCP_SEARCH_INFO</a> structure that defines the key used to search for the client lease record on the DHCP server.
      * @param {Pointer<DHCP_CLIENT_INFO_PB>} ClientInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info_pb">DHCP_CLIENT_INFO_PB</a> structure that returns the DHCP client lease record information.
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
@@ -12679,7 +12690,7 @@ class Dhcp {
 
     /**
      * Creates a DHCPv6 client lease record in the DHCP server database.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_CLIENT_INFO_V6>} ClientInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info_v6">DHCP_CLIENT_INFO_V6</a> structure that contains the DHCP client lease record information. The <b>ClientIpAddress</b>, <b>ClientDUID</b> and <b>IAID</b> fields of this structure are required, all others are optional.
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
@@ -12753,7 +12764,7 @@ class Dhcp {
      * The maximum number of IPv4 addresses returned is 1024. To retrieve more that 1024 IPv4 addresses, multiple calls to  <b>DhcpV4GetFreeIPAddress</b> must be made. After the initial call, each subsequent call to <b>DhcpV4GetFreeIPAddress</b> must set <i>startIP</i> to the last address in the list received in <i>IPAddrList</i> from the previous call to <b>DhcpV4GetFreeIPAddress</b>.
      * 
      * When the number of free IPv4 addresses available on the DHCP server is less than that requested, the list of free IPv4 addresses available are returned to the caller with error code <b>ERROR_DHCP_REACHED_END_OF_SELECTION</b>.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Integer} ScopeId <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> structure that specifies the IPv4 subnet ID from which available addresses to lease to clients are retrieved.
      * @param {Integer} StartIP <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> structure that specifies the scope IPv4 range's starting point address from where the available addresses are retrieved. If this parameter is 0, the start address of the IPv4 subnet specified by <i>ScopeId</i> is the default.
      * @param {Integer} EndIP <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> structure that specifies the scope IPv4 range's end point address from where the available addresses are retrieved. If this parameter is 0, the end address of the IPv4 subnet specified by <i>ScopeId</i> parameter is taken as the default.
@@ -12820,7 +12831,7 @@ class Dhcp {
      * The maximum number of IPv6 addresses returned is 1024. To retrieve more that 1024 IPv6 addresses, multiple calls to  <b>DhcpV6GetFreeIPAddress</b> must be made. After the initial call, each subsequent call to <b>DhcpV6GetFreeIPAddress</b> must set <i>startIP</i> to the last address in the list received in <i>IPAddrList</i> from the previous call to <b>DhcpV6GetFreeIPAddress</b>.
      * 
      * When the number of free IPv6 addresses available on the DHCP server is less than that requested, the list of free IPv6 addresses available are returned to the caller with error code <b>ERROR_DHCP_REACHED_END_OF_SELECTION</b>.
-     * @param {Pointer<PWSTR>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
+     * @param {Pointer<Char>} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Pointer} ScopeId <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_ipv6_address">DHCP_IPV6_ADDRESS</a> structure that specifies the IPv6 subnet ID from which available addresses to lease to clients are retrieved.
      * @param {Pointer} StartIP <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_ipv6_address">DHCP_IPV6_ADDRESS</a> structure that specifies the scope IPv6 range's starting point address from where the available addresses are retrieved. If this parameter is 0, the start address of the IPv6 subnet specified by <i>ScopeId</i> is the default.
      * @param {Pointer} EndIP <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_ipv6_address">DHCP_IPV6_ADDRESS</a> structure that specifies the scope IPv6 range's end point address from where the available addresses are retrieved. If this parameter is 0, the end address of the IPv6 subnet specified by <i>ScopeId</i> parameter is taken as the default.
@@ -12881,7 +12892,7 @@ class Dhcp {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ServerIpAddress 
+     * @param {Pointer<Char>} ServerIpAddress 
      * @param {Pointer<DHCP_CLIENT_INFO_EX>} ClientInfo 
      * @returns {Integer} 
      */
@@ -12894,7 +12905,7 @@ class Dhcp {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ServerIpAddress 
+     * @param {Pointer<Char>} ServerIpAddress 
      * @param {Integer} SubnetAddress 
      * @param {Pointer<UInt32>} ResumeHandle 
      * @param {Integer} PreferredMaximum 
@@ -12906,13 +12917,13 @@ class Dhcp {
     static DhcpV4EnumSubnetClientsEx(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpV4EnumSubnetClientsEx", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "ptr", ClientInfo, "ptr", ClientsRead, "ptr", ClientsTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpV4EnumSubnetClientsEx", "ptr", ServerIpAddress, "uint", SubnetAddress, "uint*", ResumeHandle, "uint", PreferredMaximum, "ptr", ClientInfo, "uint*", ClientsRead, "uint*", ClientsTotal, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ServerIpAddress 
+     * @param {Pointer<Char>} ServerIpAddress 
      * @param {Pointer<DHCP_SEARCH_INFO>} SearchInfo 
      * @param {Pointer<DHCP_CLIENT_INFO_EX>} ClientInfo 
      * @returns {Integer} 
@@ -12926,7 +12937,7 @@ class Dhcp {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ServerIpAddress 
+     * @param {Pointer<Char>} ServerIpAddress 
      * @param {Pointer<DHCP_POLICY_EX>} PolicyEx 
      * @returns {Integer} 
      */
@@ -12939,10 +12950,10 @@ class Dhcp {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ServerIpAddress 
+     * @param {Pointer<Char>} ServerIpAddress 
      * @param {Integer} GlobalPolicy 
      * @param {Integer} SubnetAddress 
-     * @param {Pointer<PWSTR>} PolicyName 
+     * @param {Pointer<Char>} PolicyName 
      * @param {Pointer<DHCP_POLICY_EX>} Policy 
      * @returns {Integer} 
      */
@@ -12956,11 +12967,11 @@ class Dhcp {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ServerIpAddress 
+     * @param {Pointer<Char>} ServerIpAddress 
      * @param {Integer} FieldsModified 
      * @param {Integer} GlobalPolicy 
      * @param {Integer} SubnetAddress 
-     * @param {Pointer<PWSTR>} PolicyName 
+     * @param {Pointer<Char>} PolicyName 
      * @param {Pointer<DHCP_POLICY_EX>} Policy 
      * @returns {Integer} 
      */
@@ -12974,7 +12985,7 @@ class Dhcp {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ServerIpAddress 
+     * @param {Pointer<Char>} ServerIpAddress 
      * @param {Pointer<UInt32>} ResumeHandle 
      * @param {Integer} PreferredMaximum 
      * @param {Integer} GlobalPolicy 
@@ -12987,7 +12998,7 @@ class Dhcp {
     static DhcpV4EnumPoliciesEx(ServerIpAddress, ResumeHandle, PreferredMaximum, GlobalPolicy, SubnetAddress, EnumInfo, ElementsRead, ElementsTotal) {
         ServerIpAddress := ServerIpAddress is String? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpV4EnumPoliciesEx", "ptr", ServerIpAddress, "ptr", ResumeHandle, "uint", PreferredMaximum, "int", GlobalPolicy, "uint", SubnetAddress, "ptr", EnumInfo, "ptr", ElementsRead, "ptr", ElementsTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpV4EnumPoliciesEx", "ptr", ServerIpAddress, "uint*", ResumeHandle, "uint", PreferredMaximum, "int", GlobalPolicy, "uint", SubnetAddress, "ptr", EnumInfo, "uint*", ElementsRead, "uint*", ElementsTotal, "uint")
         return result
     }
 

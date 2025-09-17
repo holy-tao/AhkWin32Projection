@@ -43,7 +43,7 @@ class ENCRYPTION_CERTIFICATE_HASH extends Win32Struct
 
     /**
      * User-displayable information for the certificate.  This is usually the user's common name and universal principal name (UPN).
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpDisplayInformation {
         get => NumGet(this, 24, "ptr")

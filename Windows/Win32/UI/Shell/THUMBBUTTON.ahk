@@ -69,7 +69,7 @@ class THUMBBUTTON extends Win32Struct
      * Type: <b>HICON</b>
      * 
      * The handle of an icon to use as the button image.
-     * @type {Pointer<HICON>}
+     * @type {Pointer<Void>}
      */
     hIcon {
         get => NumGet(this, 16, "ptr")

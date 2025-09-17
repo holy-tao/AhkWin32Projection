@@ -44,7 +44,7 @@ class MONLINKSTRUCT extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * A handle to a task (application instance) that is a partner in the advise loop.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hTask {
         get => NumGet(this, 8, "ptr")
@@ -77,7 +77,7 @@ class MONLINKSTRUCT extends Win32Struct
      * Type: <b>HSZ</b>
      * 
      * A handle to the service name of the server in the advise loop.
-     * @type {Pointer<HSZ>}
+     * @type {Pointer<Void>}
      */
     hszSvc {
         get => NumGet(this, 24, "ptr")
@@ -88,7 +88,7 @@ class MONLINKSTRUCT extends Win32Struct
      * Type: <b>HSZ</b>
      * 
      * A handle to the topic name on which the advise loop is established.
-     * @type {Pointer<HSZ>}
+     * @type {Pointer<Void>}
      */
     hszTopic {
         get => NumGet(this, 32, "ptr")
@@ -99,7 +99,7 @@ class MONLINKSTRUCT extends Win32Struct
      * Type: <b>HSZ</b>
      * 
      * A handle to the item name that is the subject of the advise loop.
-     * @type {Pointer<HSZ>}
+     * @type {Pointer<Void>}
      */
     hszItem {
         get => NumGet(this, 40, "ptr")
@@ -132,7 +132,7 @@ class MONLINKSTRUCT extends Win32Struct
      * Type: <b>HCONV</b>
      * 
      * A handle to the server conversation.
-     * @type {Pointer<HCONV>}
+     * @type {Pointer<Void>}
      */
     hConvServer {
         get => NumGet(this, 56, "ptr")
@@ -143,7 +143,7 @@ class MONLINKSTRUCT extends Win32Struct
      * Type: <b>HCONV</b>
      * 
      * A handle to the client conversation.
-     * @type {Pointer<HCONV>}
+     * @type {Pointer<Void>}
      */
     hConvClient {
         get => NumGet(this, 64, "ptr")

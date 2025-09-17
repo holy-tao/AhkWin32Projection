@@ -16,7 +16,7 @@ class PEER_PNRP_ENDPOINT_INFO extends Win32Struct
 
     /**
      * The peer name associated with this peer endpoint.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwzPeerName {
         get => NumGet(this, 0, "ptr")
@@ -43,7 +43,7 @@ class PEER_PNRP_ENDPOINT_INFO extends Win32Struct
 
     /**
      * Pointer to a zero-terminated Unicode string that contains a comment for this peer endpoint.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwzComment {
         get => NumGet(this, 24, "ptr")

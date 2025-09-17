@@ -28,7 +28,7 @@ class PROPSHEETPAGEW_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HINSTANCE>}
+     * @type {Pointer<Void>}
      */
     hInstance {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class PROPSHEETPAGEW_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszTemplate {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +52,7 @@ class PROPSHEETPAGEW_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HICON>}
+     * @type {Pointer<Void>}
      */
     hIcon {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +60,7 @@ class PROPSHEETPAGEW_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszIcon {
         get => NumGet(this, 24, "ptr")
@@ -68,7 +68,7 @@ class PROPSHEETPAGEW_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszTitle {
         get => NumGet(this, 32, "ptr")

@@ -65,7 +65,7 @@ class COLORMATCHSETUPA extends Win32Struct
 
     /**
      * The window handle to the owner of the dialog box, or **NULL** if the dialog box has no owner.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndOwner {
         get => NumGet(this, 16, "ptr")
@@ -74,7 +74,7 @@ class COLORMATCHSETUPA extends Win32Struct
 
     /**
      * Pointer to an application-specified string which describes the source profile of the item for which color management is to be performed. If this is **NULL**, the Image Source control displays the name of the Windows default color profile.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pSourceName {
         get => NumGet(this, 24, "ptr")
@@ -83,7 +83,7 @@ class COLORMATCHSETUPA extends Win32Struct
 
     /**
      * Points to a string naming the monitor to be used for color management. If this is not the name of a valid monitor, the first enumerated monitor is used.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pDisplayName {
         get => NumGet(this, 32, "ptr")
@@ -92,7 +92,7 @@ class COLORMATCHSETUPA extends Win32Struct
 
     /**
      * Points to a string naming the printer on which the image is to be rendered. If this is not a valid printer name, the default printer is used and named in the dialog.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pPrinterName {
         get => NumGet(this, 40, "ptr")
@@ -139,7 +139,7 @@ class COLORMATCHSETUPA extends Win32Struct
 
     /**
      * Pointer to a buffer in which to place the name of the user-selected monitor profile. If the CMS\_SETMONITORPROFILE flag is used, this flag can also be used to select a profile other than the monitor default when the dialog is first displayed.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pMonitorProfile {
         get => NumGet(this, 56, "ptr")
@@ -157,7 +157,7 @@ class COLORMATCHSETUPA extends Win32Struct
 
     /**
      * Points to a buffer in which to place the name of the user-selected printer profile. If the CMS\_SETPRINTERPROFILE flag is used, this flag can also be used to select a profile other than the printer default when the dialog is first displayed.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pPrinterProfile {
         get => NumGet(this, 72, "ptr")
@@ -175,7 +175,7 @@ class COLORMATCHSETUPA extends Win32Struct
 
     /**
      * Points to a buffer in which to place the name of the user-selected target profile for proofing. If the CMS\_SETTARGETPROFILE flag is used, this flag can also be used to select a profile other than the printer default when the dialog is first displayed.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pTargetProfile {
         get => NumGet(this, 88, "ptr")

@@ -24,7 +24,7 @@ class WINTRUST_SGNR_INFO extends Win32Struct
 
     /**
      * String with the name representing the signer to be checked.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pcwszDisplayName {
         get => NumGet(this, 8, "ptr")
@@ -52,7 +52,7 @@ class WINTRUST_SGNR_INFO extends Win32Struct
 
     /**
      * An array of open <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate stores</a> to be added to the list of stores that the policy provider uses to find certificates while building a trust chain.
-     * @type {Pointer<HCERTSTORE>}
+     * @type {Pointer<Void>}
      */
     pahStores {
         get => NumGet(this, 32, "ptr")

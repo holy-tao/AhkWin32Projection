@@ -48,7 +48,7 @@ class DHCP_CLIENT_FILTER_STATUS_INFO extends Win32Struct
 
     /**
      * Ppointer to a null-terminated Unicode string that represents the DHCPv4 client's machine name.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ClientName {
         get => NumGet(this, 24, "ptr")
@@ -57,7 +57,7 @@ class DHCP_CLIENT_FILTER_STATUS_INFO extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that represents the description given to the DHCPv4 client.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ClientComment {
         get => NumGet(this, 32, "ptr")

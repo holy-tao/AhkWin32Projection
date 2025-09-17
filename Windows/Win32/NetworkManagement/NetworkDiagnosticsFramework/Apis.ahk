@@ -162,7 +162,7 @@ class NetworkDiagnosticsFramework {
 ;@region Methods
     /**
      * To test the NDF functionality incorporated into their application.
-     * @param {Pointer<PWSTR>} helperClassName Type: <b>LPCWSTR</b>
+     * @param {Pointer<Char>} helperClassName Type: <b>LPCWSTR</b>
      * 
      * The name of the helper class to be used in the diagnoses of the incident.
      * @param {Integer} celt Type: <b>ULONG</b>
@@ -243,13 +243,13 @@ class NetworkDiagnosticsFramework {
      * @param {Pointer} sock Type: <b>SOCKET</b>
      * 
      * A descriptor identifying a connected socket.
-     * @param {Pointer<PWSTR>} host Type: <b>LPCWSTR</b>
+     * @param {Pointer<Char>} host Type: <b>LPCWSTR</b>
      * 
      * A pointer to the local host.
      * @param {Integer} port Type: <b>USHORT</b>
      * 
      * The port providing Winsock access.
-     * @param {Pointer<PWSTR>} appId Type: <b>LPCWSTR</b>
+     * @param {Pointer<Char>} appId Type: <b>LPCWSTR</b>
      * 
      * Unique identifier associated with the application.
      * @param {Pointer<SID>} userId Type: <b>SID*</b>
@@ -325,7 +325,7 @@ class NetworkDiagnosticsFramework {
 
     /**
      * Diagnoses web connectivity problems. (NdfCreateWebIncident)
-     * @param {Pointer<PWSTR>} url Type: <b>LPCWSTR</b>
+     * @param {Pointer<Char>} url Type: <b>LPCWSTR</b>
      * 
      * The URL with which there is a connectivity issue.
      * @param {Pointer<Void>} handle Type: <b>NDFHANDLE*</b>
@@ -397,13 +397,13 @@ class NetworkDiagnosticsFramework {
 
     /**
      * Diagnoses web connectivity problems. (NdfCreateWebIncidentEx)
-     * @param {Pointer<PWSTR>} url Type: <b>LPCWSTR</b>
+     * @param {Pointer<Char>} url Type: <b>LPCWSTR</b>
      * 
      * The URL with which there is a connectivity issue.
      * @param {Integer} useWinHTTP Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if diagnosis will be performed using the WinHTTP APIs;  <b>FALSE</b> if the WinInet APIs will be used.
-     * @param {Pointer<PWSTR>} moduleName Type: <b>LPWSTR</b>
+     * @param {Pointer<Char>} moduleName Type: <b>LPWSTR</b>
      * 
      * The module name to use when checking against application-specific filtering rules (for example, "C:\Program Files\Internet Explorer\iexplorer.exe").  If <b>NULL</b>, the value is autodetected during the diagnosis.
      * @param {Pointer<Void>} handle Type: <b>NDFHANDLE*</b>
@@ -476,7 +476,7 @@ class NetworkDiagnosticsFramework {
 
     /**
      * Diagnoses network problems in accessing a specific network share.
-     * @param {Pointer<PWSTR>} UNCPath Type: <b>LPCWSTR</b>
+     * @param {Pointer<Char>} UNCPath Type: <b>LPCWSTR</b>
      * 
      * The full UNC string (for example, "\\server\folder\file.ext") for the shared asset with which there is a connectivity issue.
      * @param {Pointer<Void>} handle Type: <b>NDFHANDLE*</b>
@@ -548,7 +548,7 @@ class NetworkDiagnosticsFramework {
 
     /**
      * Diagnoses name resolution issues in resolving a specific host name.
-     * @param {Pointer<PWSTR>} hostname Type: <b>LPCWSTR</b>
+     * @param {Pointer<Char>} hostname Type: <b>LPCWSTR</b>
      * 
      * The host name  with which there is a name resolution issue.
      * @param {Integer} queryType Type: <b>WORD</b>
@@ -769,16 +769,16 @@ class NetworkDiagnosticsFramework {
      * <li>If <i>peername</i> is specified, NDF will validate the availability of that peer in the PNRP network.</li>
      * <li>If <i>diagnosePublish</i> is specified, NDF will validate the ability to publish a name in PNRP.</li>
      * </ul>
-     * @param {Pointer<PWSTR>} cloudname Type: <b>LPCWSTR</b>
+     * @param {Pointer<Char>} cloudname Type: <b>LPCWSTR</b>
      * 
      * The name of the cloud to be diagnosed.
-     * @param {Pointer<PWSTR>} peername Type: <b>LPCWSTR</b>
+     * @param {Pointer<Char>} peername Type: <b>LPCWSTR</b>
      * 
      * Optional name of a peer node which PNRP can attempt to resolve. The results will be used to help diagnose any problems.
      * @param {Integer} diagnosePublish Type: <b>BOOL</b>
      * 
      * Specifies whether the helper class should verify that the node can publish IDs. If <b>FALSE</b>, this diagnostic step will be skipped.
-     * @param {Pointer<PWSTR>} appId Type: <b>LPCWSTR</b>
+     * @param {Pointer<Char>} appId Type: <b>LPCWSTR</b>
      * 
      * Application ID for the calling application.
      * @param {Pointer<Void>} handle Type: <b>NDFHANDLE*</b>
@@ -840,22 +840,22 @@ class NetworkDiagnosticsFramework {
      * <li>If <i>Invitation</i> is specified, the <i>GroupName</i> will be derived from the Invitation (if a <i>GroupName</i> was not also specified) and NDF will validate the invitation's format and status.</li>
      * <li>If <i>Addresses</i> is specified, NDF will validate whether Windows can connect to up to three of these addresses.</li>
      * </ul>
-     * @param {Pointer<PWSTR>} CloudName Type: <b>LPCWSTR</b>
+     * @param {Pointer<Char>} CloudName Type: <b>LPCWSTR</b>
      * 
      * The name of the Peer Name Resolution Protocol (PNRP) cloud where the group is created. If  <b>NULL</b>, the session will  not attempt to diagnose issues related to PNRP.
-     * @param {Pointer<PWSTR>} GroupName Type: <b>LPCWSTR</b>
+     * @param {Pointer<Char>} GroupName Type: <b>LPCWSTR</b>
      * 
      * The name of the group to be diagnosed. If <b>NULL</b>, the session will  not attempt to diagnose issues related to group availability.
-     * @param {Pointer<PWSTR>} Identity Type: <b>LPCWSTR</b>
+     * @param {Pointer<Char>} Identity Type: <b>LPCWSTR</b>
      * 
      * The identity that a peer uses to access the group. If  <b>NULL</b>, the session will  not attempt to diagnose issues related to the group's ability to register in PNRP.
-     * @param {Pointer<PWSTR>} Invitation Type: <b>LPCWSTR</b>
+     * @param {Pointer<Char>} Invitation Type: <b>LPCWSTR</b>
      * 
      * An XML invitation granted by another peer. An invitation is created when the inviting peer calls <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreateinvitation">PeerGroupCreateInvitation</a> or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupissuecredentials">PeerGroupIssueCredentials</a>. If this value is present, the invitation will be checked to ensure its format and expiration are valid.
      * @param {Pointer<SOCKET_ADDRESS_LIST>} Addresses Type: <b>SOCKET_ADDRESS_LIST*</b>
      * 
      * Optional list of addresses of the peers to which the application is trying to connect. If this parameter is used, the helper class will diagnose connectivity to these addresses.
-     * @param {Pointer<PWSTR>} appId Type: <b>LPCWSTR</b>
+     * @param {Pointer<Char>} appId Type: <b>LPCWSTR</b>
      * 
      * Application ID for the calling application.
      * @param {Pointer<Void>} handle Type: <b>NDFHANDLE*</b>
@@ -913,7 +913,7 @@ class NetworkDiagnosticsFramework {
      * @param {Pointer<Void>} handle Type: <b>NDFHANDLE</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
-     * @param {Pointer<HWND>} hwnd Type: <b>HWND</b>
+     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
      * 
      * Handle to the window that is intended to display the diagnostic information. If specified, the NDF UI is modal to the window.  If <b>NULL</b>, the UI is non-modal.
      * @returns {Integer} Type: <b>HRESULT</b>
@@ -1118,7 +1118,7 @@ class NetworkDiagnosticsFramework {
      * @since windows6.1
      */
     static NdfDiagnoseIncident(Handle, RootCauseCount, RootCauses, dwWait, dwFlags) {
-        result := DllCall("NDFAPI.dll\NdfDiagnoseIncident", "ptr", Handle, "ptr", RootCauseCount, "ptr", RootCauses, "uint", dwWait, "uint", dwFlags, "int")
+        result := DllCall("NDFAPI.dll\NdfDiagnoseIncident", "ptr", Handle, "uint*", RootCauseCount, "ptr", RootCauses, "uint", dwWait, "uint", dwFlags, "int")
         return result
     }
 
@@ -1255,7 +1255,7 @@ class NetworkDiagnosticsFramework {
      * @param {Pointer<Void>} Handle Type: <b>NDFHANDLE</b>
      * 
      * Handle to a Network Diagnostics Framework incident. This handle should match the handle of an existing incident.
-     * @param {Pointer<PWSTR>} TraceFileLocation Type: <b>LPCWSTR*</b>
+     * @param {Pointer<Char>} TraceFileLocation Type: <b>LPCWSTR*</b>
      * 
      * The location of the trace file.
      * @returns {Integer} Type: <b>HRESULT</b>
@@ -1286,8 +1286,6 @@ class NetworkDiagnosticsFramework {
      * @since windows6.1
      */
     static NdfGetTraceFile(Handle, TraceFileLocation) {
-        TraceFileLocation := TraceFileLocation is String? StrPtr(TraceFileLocation) : TraceFileLocation
-
         result := DllCall("NDFAPI.dll\NdfGetTraceFile", "ptr", Handle, "ptr", TraceFileLocation, "int")
         return result
     }

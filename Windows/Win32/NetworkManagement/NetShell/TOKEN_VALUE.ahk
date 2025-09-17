@@ -12,7 +12,7 @@ class TOKEN_VALUE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszToken {
         get => NumGet(this, 0, "ptr")

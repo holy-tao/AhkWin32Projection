@@ -32,7 +32,7 @@ class ISCSI_CONNECTION_INFOA extends Win32Struct
 
     /**
      * A string that represents the IP address of the initiator.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     InitiatorAddress {
         get => NumGet(this, 16, "ptr")
@@ -41,7 +41,7 @@ class ISCSI_CONNECTION_INFOA extends Win32Struct
 
     /**
      * A string that represents the IP address of the target.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     TargetAddress {
         get => NumGet(this, 24, "ptr")

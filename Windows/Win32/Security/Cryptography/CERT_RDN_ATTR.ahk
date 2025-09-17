@@ -483,7 +483,7 @@ class CERT_RDN_ATTR extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszObjId {
         get => NumGet(this, 0, "ptr")

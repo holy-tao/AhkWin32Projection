@@ -20,7 +20,7 @@ class WER_REPORT_INFORMATION_V3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hProcess {
         get => NumGet(this, 8, "ptr")
@@ -68,7 +68,7 @@ class WER_REPORT_INFORMATION_V3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndParent {
         get => NumGet(this, 2200, "ptr")

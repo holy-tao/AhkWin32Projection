@@ -124,7 +124,7 @@ class DDRAWI_DIRECTDRAW_LCL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HINSTANCE>}
+     * @type {Pointer<Void>}
      */
     hD3DInstance {
         get => NumGet(this, 96, "ptr")

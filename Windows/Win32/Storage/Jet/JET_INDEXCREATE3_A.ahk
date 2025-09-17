@@ -21,7 +21,7 @@ class JET_INDEXCREATE3_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     szIndexName {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +29,7 @@ class JET_INDEXCREATE3_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     szKey {
         get => NumGet(this, 16, "ptr")

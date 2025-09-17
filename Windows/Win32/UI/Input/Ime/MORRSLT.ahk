@@ -20,7 +20,7 @@ class MORRSLT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwchOutput {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class MORRSLT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwchRead {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class MORRSLT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwchComp {
         get => NumGet(this, 24, "ptr")

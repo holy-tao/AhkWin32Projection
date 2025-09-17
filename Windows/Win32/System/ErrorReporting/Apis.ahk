@@ -248,10 +248,10 @@ class ErrorReporting {
      * Applications can also indicate that they would like the opportunity to recover data or restart on failure. For more information, see <a href="https://docs.microsoft.com/windows/desktop/wsw/portal">Application Recovery and Restart</a>.
      * 
      * To view the reports submitted by your application, go to Windows Quality Online Services.
-     * @param {Pointer<PWSTR>} pwzEventType A pointer to a Unicode string that specifies the name of the event.
+     * @param {Pointer<Char>} pwzEventType A pointer to a Unicode string that specifies the name of the event.
      * @param {Integer} repType 
      * @param {Pointer<WER_REPORT_INFORMATION>} pReportInformation A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/werapi/ns-werapi-wer_report_information">WER_REPORT_INFORMATION</a> structure that specifies information for the report.
-     * @param {Pointer<HREPORT>} phReportHandle A handle to the report. If the function fails, this handle is <b>NULL</b>.
+     * @param {Pointer<Void>} phReportHandle A handle to the report. If the function fails, this handle is <b>NULL</b>.
      * @returns {Integer} This function returns <b>S_OK</b> on success or an error code on failure.
      * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werreportcreate
      * @since windows6.0.6000
@@ -267,10 +267,10 @@ class ErrorReporting {
      * Sets the parameters that uniquely identify an event for the specified report.
      * @remarks
      * Each report supports parameters P0 through P9. This function sets one parameter at a time. If parameter P<i>x</i> is set, then all parameters from P0 and P<i>x</i> must be set.
-     * @param {Pointer<HREPORT>} hReportHandle A handle to the report. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werreportcreate">WerReportCreate</a> function.
+     * @param {Pointer<Void>} hReportHandle A handle to the report. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werreportcreate">WerReportCreate</a> function.
      * @param {Integer} dwparamID 
-     * @param {Pointer<PWSTR>} pwzName A pointer to a Unicode string that contains the name of the parameter. If this parameter is <b>NULL</b>, the default name is P<i>x</i>, where <i>x</i> matches the integer portion of the value specified in <i>dwparamID</i>.
-     * @param {Pointer<PWSTR>} pwzValue The parameter value.
+     * @param {Pointer<Char>} pwzName A pointer to a Unicode string that contains the name of the parameter. If this parameter is <b>NULL</b>, the default name is P<i>x</i>, where <i>x</i> matches the integer portion of the value specified in <i>dwparamID</i>.
+     * @param {Pointer<Char>} pwzValue The parameter value.
      * @returns {Integer} This function returns <b>S_OK</b> on success or an error code on failure, including the following error code.
      * 
      * <table>
@@ -316,8 +316,8 @@ class ErrorReporting {
      * Adds a file to the specified report.
      * @remarks
      * Although this function can also be used to add memory dumps (using specific flags) to the error report, the preferred function to use for adding memory dumps is <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werreportadddump">WerReportAddDump</a>. You should use this function only if you want to collect the dump yourself and then add it to the report.
-     * @param {Pointer<HREPORT>} hReportHandle A handle to the report. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werreportcreate">WerReportCreate</a> function.
-     * @param {Pointer<PWSTR>} pwzPath A pointer to a Unicode string that contains the full path to the file to be added. This path can use environment variables. The maximum length of this path is MAX_PATH characters.
+     * @param {Pointer<Void>} hReportHandle A handle to the report. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werreportcreate">WerReportCreate</a> function.
+     * @param {Pointer<Char>} pwzPath A pointer to a Unicode string that contains the full path to the file to be added. This path can use environment variables. The maximum length of this path is MAX_PATH characters.
      * @param {Integer} repFileType 
      * @param {Integer} dwFileFlags 
      * @returns {Integer} This function returns <b>S_OK</b> on success or an error code on failure, including the following error code.
@@ -362,9 +362,9 @@ class ErrorReporting {
 
     /**
      * Sets the user interface options for the specified report.
-     * @param {Pointer<HREPORT>} hReportHandle A handle to the report. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werreportcreate">WerReportCreate</a> function.
+     * @param {Pointer<Void>} hReportHandle A handle to the report. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werreportcreate">WerReportCreate</a> function.
      * @param {Integer} repUITypeID 
-     * @param {Pointer<PWSTR>} pwzValue A pointer to a Unicode string that specifies the custom text. For more information, see the description of <i>repUITypeID</i>.
+     * @param {Pointer<Char>} pwzValue A pointer to a Unicode string that specifies the custom text. For more information, see the description of <i>repUITypeID</i>.
      * @returns {Integer} This function returns <b>S_OK</b> on success or an error code on failure.
      * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werreportsetuioption
      * @since windows6.0.6000
@@ -390,7 +390,7 @@ class ErrorReporting {
      * <li>The report was submitted with the WER_SUBMIT_REPORT_MACHINE_ID flag set.</li>
      * </ul>
      * To view the reports submitted by your application, go to Windows Quality Online Services.
-     * @param {Pointer<HREPORT>} hReportHandle A handle to the report. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werreportcreate">WerReportCreate</a> function.
+     * @param {Pointer<Void>} hReportHandle A handle to the report. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werreportcreate">WerReportCreate</a> function.
      * @param {Integer} consent 
      * @param {Integer} dwFlags 
      * @param {Pointer<Int32>} pSubmitResult 
@@ -399,7 +399,7 @@ class ErrorReporting {
      * @since windows6.0.6000
      */
     static WerReportSubmit(hReportHandle, consent, dwFlags, pSubmitResult) {
-        result := DllCall("wer.dll\WerReportSubmit", "ptr", hReportHandle, "int", consent, "uint", dwFlags, "ptr", pSubmitResult, "int")
+        result := DllCall("wer.dll\WerReportSubmit", "ptr", hReportHandle, "int", consent, "uint", dwFlags, "int*", pSubmitResult, "int")
         return result
     }
 
@@ -409,9 +409,9 @@ class ErrorReporting {
      * Use this function only for generic reporting—it has no effect on operating system crash or no-response reporting.
      * 
      * If the server asks for a mini dump and you specify <b>WerDumpTypeHeapDump</b> for the <i>dumpType</i> parameter, WER will not send the heap dump to the Watson server. However, if the server asks for a heap dump and the <i>dumpType</i> is <b>WerDumpTypeMiniDump</b>, WER will send the mini dump to the server. Thus, it is recommended that you set <i>dumpType</i> to <b>WerDumpTypeMiniDump</b>.
-     * @param {Pointer<HREPORT>} hReportHandle A handle to the report. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werreportcreate">WerReportCreate</a> function.
-     * @param {Pointer<HANDLE>} hProcess A handle to the process for which the report is being generated. This handle must have the STANDARD_RIGHTS_READ and PROCESS_QUERY_INFORMATION access rights.
-     * @param {Pointer<HANDLE>} hThread A handle to the thread of <i>hProcess</i> for which the report is being generated. If <i>dumpType</i> is WerDumpTypeMicro, this parameter is required. For other dump types, this parameter may be <b>NULL</b>.
+     * @param {Pointer<Void>} hReportHandle A handle to the report. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werreportcreate">WerReportCreate</a> function.
+     * @param {Pointer<Void>} hProcess A handle to the process for which the report is being generated. This handle must have the STANDARD_RIGHTS_READ and PROCESS_QUERY_INFORMATION access rights.
+     * @param {Pointer<Void>} hThread A handle to the thread of <i>hProcess</i> for which the report is being generated. If <i>dumpType</i> is WerDumpTypeMicro, this parameter is required. For other dump types, this parameter may be <b>NULL</b>.
      * @param {Integer} dumpType 
      * @param {Pointer<WER_EXCEPTION_INFORMATION>} pExceptionParam A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/werapi/ns-werapi-wer_exception_information">WER_EXCEPTION_INFORMATION</a> structure that specifies exception information.
      * @param {Pointer<WER_DUMP_CUSTOM_OPTIONS>} pDumpCustomOptions A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/werapi/ns-werapi-wer_dump_custom_options">WER_DUMP_CUSTOM_OPTIONS</a> structure that specifies custom minidump options. If this parameter is <b>NULL</b>, the standard minidump information is collected.
@@ -444,7 +444,7 @@ class ErrorReporting {
 
     /**
      * Closes the specified report.
-     * @param {Pointer<HREPORT>} hReportHandle A handle to the report. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werreportcreate">WerReportCreate</a> function.
+     * @param {Pointer<Void>} hReportHandle A handle to the report. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werreportcreate">WerReportCreate</a> function.
      * @returns {Integer} This function returns <b>S_OK</b> on success or an error code on failure.
      * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werreportclosehandle
      * @since windows6.0.6000
@@ -466,7 +466,7 @@ class ErrorReporting {
      * 
      * 
      * To remove the file from the list, call the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werunregisterfile">WerUnregisterFile</a> function.
-     * @param {Pointer<PWSTR>} pwzFile The full path to the file. The maximum length of this path is MAX_PATH characters.
+     * @param {Pointer<Char>} pwzFile The full path to the file. The maximum length of this path is MAX_PATH characters.
      * @param {Integer} regFileType 
      * @param {Integer} dwFlags 
      * @returns {Integer} This function returns <b>S_OK</b> on success or an error code on failure, including the following error codes.
@@ -511,7 +511,7 @@ class ErrorReporting {
 
     /**
      * Removes a file from the list of files to be added to reports generated for the current process.
-     * @param {Pointer<PWSTR>} pwzFilePath The full path to the file. This file must have been registered using the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werregisterfile">WerRegisterFile</a> function.
+     * @param {Pointer<Char>} pwzFilePath The full path to the file. This file must have been registered using the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werregisterfile">WerRegisterFile</a> function.
      * @returns {Integer} This function returns <b>S_OK</b> on success or an error code on failure, including the following error code.
      * 
      * <table>
@@ -744,8 +744,8 @@ class ErrorReporting {
      * Registers app-specific metadata to be collected (in the form of key/value strings) when WER creates an error report.
      * @remarks
      * This API allows apps to integrate their own app-level telemetry with system-level telemetry (WER) by associating app metadata with crash reports corresponding to their processes.
-     * @param {Pointer<PWSTR>} key The "key" string for the metadata element being registered.
-     * @param {Pointer<PWSTR>} value The value string for the metadata element being registered.
+     * @param {Pointer<Char>} key The "key" string for the metadata element being registered.
+     * @param {Pointer<Char>} value The value string for the metadata element being registered.
      * @returns {Integer} This function returns <b>S_OK</b> on success or an error code on failure, including the following error codes.
      * 
      * <table>
@@ -811,7 +811,7 @@ class ErrorReporting {
 
     /**
      * Removes an item of app-specific metadata being collected during error reporting for the application.
-     * @param {Pointer<PWSTR>} key The "key" string for the metadata element being removed. It must have been previously registered with the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werregistercustommetadata">WerRegisterCustomMetadata</a> function.
+     * @param {Pointer<Char>} key The "key" string for the metadata element being removed. It must have been previously registered with the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werregistercustommetadata">WerRegisterCustomMetadata</a> function.
      * @returns {Integer} This function returns <b>S_OK</b> on success or an error code on failure, including the following error codes.
      * 
      * <table>
@@ -965,7 +965,7 @@ class ErrorReporting {
      * A packaged application calls **WerRegisterAppLocalDump** when the application launches to request a copy of the diagnostic memory dump that WER collects  if or when one of the processes  for the application stops responding.
      * 
      * WER does not manage storage at the location that the relative path specifies or the number of memory dumps that are collected for the application.
-     * @param {Pointer<PWSTR>} localAppDataRelativePath The path relative to the local app store for the calling application where WER should save a copy of the diagnostic memory dump that WER collects when one of the processes for the application stops responding. The maximum length for this relative path in characters is **WER_MAX_LOCAL_DUMP_SUBPATH_LENGTH**, which has a value of 64. This maximum length includes the null-termination character.
+     * @param {Pointer<Char>} localAppDataRelativePath The path relative to the local app store for the calling application where WER should save a copy of the diagnostic memory dump that WER collects when one of the processes for the application stops responding. The maximum length for this relative path in characters is **WER_MAX_LOCAL_DUMP_SUBPATH_LENGTH**, which has a value of 64. This maximum length includes the null-termination character.
      * @returns {Integer} This function returns **S_OK** on success or an error code on failure, including the following error codes.
      * 
      * <table>
@@ -1031,14 +1031,14 @@ class ErrorReporting {
 
     /**
      * Retrieves the fault reporting settings for the specified process.
-     * @param {Pointer<HANDLE>} hProcess A handle to the process. This handle must have the PROCESS_VM_READ or PROCESS_QUERY_INFORMATION access right.
+     * @param {Pointer<Void>} hProcess A handle to the process. This handle must have the PROCESS_VM_READ or PROCESS_QUERY_INFORMATION access right.
      * @param {Pointer<UInt32>} pdwFlags 
      * @returns {Integer} This function returns <b>S_OK</b> on success or an error code on failure.
      * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-wergetflags
      * @since windows6.0.6000
      */
     static WerGetFlags(hProcess, pdwFlags) {
-        result := DllCall("KERNEL32.dll\WerGetFlags", "ptr", hProcess, "ptr", pdwFlags, "int")
+        result := DllCall("KERNEL32.dll\WerGetFlags", "ptr", hProcess, "uint*", pdwFlags, "int")
         return result
     }
 
@@ -1049,7 +1049,7 @@ class ErrorReporting {
      * If <i>bAllUsers</i> is <b>FALSE</b>, the list of excluded applications is stored under the HKEY_CURRENT_USER registry hive.
      * 
      * To remove the application from the list of excluded applications, call the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werremoveexcludedapplication">WerRemoveExcludedApplication</a> function.
-     * @param {Pointer<PWSTR>} pwzExeName A pointer to a Unicode string that specifies the name of the executable file for the application, including the file name extension. The maximum length of this path is MAX_PATH characters.
+     * @param {Pointer<Char>} pwzExeName A pointer to a Unicode string that specifies the name of the executable file for the application, including the file name extension. The maximum length of this path is MAX_PATH characters.
      * @param {Integer} bAllUsers If this parameter is <b>TRUE</b>, the application name is added to the list of excluded applications for all users. Otherwise, it is only added to the list of excluded applications for the current user.
      * @returns {Integer} This function returns <b>S_OK</b> on success or an error code on failure, including the following error code.
      * 
@@ -1087,7 +1087,7 @@ class ErrorReporting {
      * 
      * If <i>bAllUsers</i> is <b>TRUE</b>, the list of excluded applications is stored under the HKEY_LOCAL_MACHINE registry hive. The calling process must have permissions to write to HKLM registry hive.
      * If <i>bAllUsers</i> is <b>FALSE</b>, the list of excluded applications is stored under the HKEY_CURRENT_USER registry hive.
-     * @param {Pointer<PWSTR>} pwzExeName A pointer to a Unicode string that specifies the name of the executable file for the application, including the file name extension. The maximum length of this path is MAX_PATH characters.
+     * @param {Pointer<Char>} pwzExeName A pointer to a Unicode string that specifies the name of the executable file for the application, including the file name extension. The maximum length of this path is MAX_PATH characters.
      * 
      * This file must have been excluded using the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-weraddexcludedapplication">WerAddExcludedApplication</a> function or <b>WerRemoveExcludedApplication</b> fails.
      * @param {Integer} bAllUsers If this parameter is <b>TRUE</b>, the application name is removed from the list of excluded applications for all users. Otherwise, it is only removed from the list of excluded applications for the current user.
@@ -1147,7 +1147,7 @@ class ErrorReporting {
      * After the handler has provided the event name, reporting parameters and debugger launch settings, the rest of the error reporting flow continues in the usual way.
      * 
      * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werunregisterruntimeexceptionmodule">WerUnregisterRuntimeExceptionModule</a> function to remove the registration before your process exits. A process can register up to WER_MAX_REGISTERED_RUNTIME_EXCEPTION_MODULES handlers.
-     * @param {Pointer<PWSTR>} pwszOutOfProcessCallbackDll The name of the exception handler DLL to register.
+     * @param {Pointer<Char>} pwszOutOfProcessCallbackDll The name of the exception handler DLL to register.
      * @param {Pointer<Void>} pContext A pointer to arbitrary context information that is passed to the handler's callback functions.
      * @returns {Integer} This function returns <b>S_OK</b> on success or an error code on failure, including the following error codes.
      * 
@@ -1193,7 +1193,7 @@ class ErrorReporting {
      * Removes the registration of your WER exception handler.
      * @remarks
      * To register your runtime exception handler, call the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werregisterruntimeexceptionmodule">WerRegisterRuntimeExceptionModule</a> function.
-     * @param {Pointer<PWSTR>} pwszOutOfProcessCallbackDll The name of the exception handler DLL whose registration you want to remove.
+     * @param {Pointer<Char>} pwszOutOfProcessCallbackDll The name of the exception handler DLL whose registration you want to remove.
      * @param {Pointer<Void>} pContext A pointer to arbitrary context information that was passed to the callback.
      * @returns {Integer} This function returns <b>S_OK</b> on success or an error code on failure, including the following error code.
      * 
@@ -1242,7 +1242,7 @@ class ErrorReporting {
      * 
      * The Windows Error Report (WER) Store is the queue of error reports that have been marked to be sent to Microsoft but have not yet been uploaded. The upload of an error report can be postponed under a number of circumstances. The WerStore functions allow developers to access the stored reports and query the status of each one.
      * @param {Integer} repStoreType The type of report store to open. See Remarks for details.
-     * @param {Pointer<HREPORTSTORE>} phReportStore A pointer to a report store. On a successful call, this will point to the retrieved report store.
+     * @param {Pointer<Void>} phReportStore A pointer to a report store. On a successful call, this will point to the retrieved report store.
      * @returns {Integer} This function returns <b>S_OK</b> on success or an error code on failure, including the following error code.
      * 
      * <table>
@@ -1272,19 +1272,20 @@ class ErrorReporting {
 
     /**
      * Closes the collection of stored reports.
-     * @param {Pointer<HREPORTSTORE>} hReportStore The error report store to close (previously retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoreopen">WerStoreOpen</a>).
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Void>} hReportStore The error report store to close (previously retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoreopen">WerStoreOpen</a>).
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werstoreclose
      * @since windows10.0.15063
      */
     static WerStoreClose(hReportStore) {
-        DllCall("wer.dll\WerStoreClose", "ptr", hReportStore)
+        result := DllCall("wer.dll\WerStoreClose", "ptr", hReportStore)
+        return result
     }
 
     /**
      * Gets a reference to the first report in the report store.
-     * @param {Pointer<HREPORTSTORE>} hReportStore The error report store (previously retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoreopen">WerStoreOpen</a>).
-     * @param {Pointer<PWSTR>} ppszReportKey A pointer to the report key string. On a successful call, this will point to the retrieved report key.
+     * @param {Pointer<Void>} hReportStore The error report store (previously retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoreopen">WerStoreOpen</a>).
+     * @param {Pointer<Char>} ppszReportKey A pointer to the report key string. On a successful call, this will point to the retrieved report key.
      * @returns {Integer} This function returns <b>S_OK</b> on success or an error code on failure, including the following error code.
      * 
      * <table>
@@ -1319,16 +1320,14 @@ class ErrorReporting {
      * @since windows10.0.15063
      */
     static WerStoreGetFirstReportKey(hReportStore, ppszReportKey) {
-        ppszReportKey := ppszReportKey is String? StrPtr(ppszReportKey) : ppszReportKey
-
         result := DllCall("wer.dll\WerStoreGetFirstReportKey", "ptr", hReportStore, "ptr", ppszReportKey, "int")
         return result
     }
 
     /**
      * Gets a reference to the next report in the error report store.
-     * @param {Pointer<HREPORTSTORE>} hReportStore The error report store (previously retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoreopen">WerStoreOpen</a>).
-     * @param {Pointer<PWSTR>} ppszReportKey A pointer to the report key string. On a successful call, this will point to the retrieved report key.
+     * @param {Pointer<Void>} hReportStore The error report store (previously retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoreopen">WerStoreOpen</a>).
+     * @param {Pointer<Char>} ppszReportKey A pointer to the report key string. On a successful call, this will point to the retrieved report key.
      * @returns {Integer} This function returns <b>S_OK</b> on success or an error code on failure, including the following error code.
      * 
      * <table>
@@ -1363,16 +1362,14 @@ class ErrorReporting {
      * @since windows10.0.15063
      */
     static WerStoreGetNextReportKey(hReportStore, ppszReportKey) {
-        ppszReportKey := ppszReportKey is String? StrPtr(ppszReportKey) : ppszReportKey
-
         result := DllCall("wer.dll\WerStoreGetNextReportKey", "ptr", hReportStore, "ptr", ppszReportKey, "int")
         return result
     }
 
     /**
      * Retrieves metadata about a report in the store.
-     * @param {Pointer<HREPORTSTORE>} hReportStore The error report store (previously retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoreopen">WerStoreOpen</a>).
-     * @param {Pointer<PWSTR>} pszReportKey The string identifying which report is being queried (previously retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoregetfirstreportkey">WerStoreGetFirstReportKey</a> or <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoregetnextreportkey">WerStoreGetNextReportKey</a>).
+     * @param {Pointer<Void>} hReportStore The error report store (previously retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoreopen">WerStoreOpen</a>).
+     * @param {Pointer<Char>} pszReportKey The string identifying which report is being queried (previously retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoregetfirstreportkey">WerStoreGetFirstReportKey</a> or <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoregetnextreportkey">WerStoreGetNextReportKey</a>).
      * @param {Pointer<WER_REPORT_METADATA_V2>} pReportMetadata A pointer to the report store metadata in the form of a <a href="https://docs.microsoft.com/windows/desktop/api/werapi/ns-werapi-wer_report_metadata_v2">WER_REPORT_METADATA_V2</a> structure. The field <b>SizeOfFileNames</b> should be set to 0 during the first call. The function updates this field with the required size to hold the file names associated with the report. The field <b>FileNames</b> should then be allocated with <b>SizeOfFileNames</b> bytes and the function should be called again to get all of the file names.
      * @returns {Integer} This function returns <b>S_OK</b> on success or an error code on failure, including the following error code.
      * 
@@ -1416,8 +1413,8 @@ class ErrorReporting {
 
     /**
      * 
-     * @param {Pointer<HREPORTSTORE>} hReportStore 
-     * @param {Pointer<PWSTR>} pszReportKey 
+     * @param {Pointer<Void>} hReportStore 
+     * @param {Pointer<Char>} pszReportKey 
      * @param {Pointer<WER_REPORT_METADATA_V3>} pReportMetadata 
      * @returns {Integer} 
      */
@@ -1430,15 +1427,16 @@ class ErrorReporting {
 
     /**
      * Frees up the memory used to store a report key string. This should be called after each successive call to WerStoreGetFirstReportKey or WerStoreGetNextReportKey, once the particular report key string has been used and is no longer needed.
-     * @param {Pointer<PWSTR>} pwszStr The string to be freed (value set to <b>NULL</b>).
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Char>} pwszStr The string to be freed (value set to <b>NULL</b>).
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werfreestring
      * @since windows10.0.15063
      */
     static WerFreeString(pwszStr) {
         pwszStr := pwszStr is String? StrPtr(pwszStr) : pwszStr
 
-        DllCall("wer.dll\WerFreeString", "ptr", pwszStr)
+        result := DllCall("wer.dll\WerFreeString", "ptr", pwszStr)
+        return result
     }
 
     /**
@@ -1452,30 +1450,30 @@ class ErrorReporting {
 
     /**
      * 
-     * @param {Pointer<HREPORTSTORE>} hReportStore 
+     * @param {Pointer<Void>} hReportStore 
      * @param {Pointer<UInt32>} pdwReportCount 
      * @returns {Integer} 
      */
     static WerStoreGetReportCount(hReportStore, pdwReportCount) {
-        result := DllCall("wer.dll\WerStoreGetReportCount", "ptr", hReportStore, "ptr", pdwReportCount, "int")
+        result := DllCall("wer.dll\WerStoreGetReportCount", "ptr", hReportStore, "uint*", pdwReportCount, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<HREPORTSTORE>} hReportStore 
+     * @param {Pointer<Void>} hReportStore 
      * @param {Pointer<UInt64>} pqwSizeInBytes 
      * @returns {Integer} 
      */
     static WerStoreGetSizeOnDisk(hReportStore, pqwSizeInBytes) {
-        result := DllCall("wer.dll\WerStoreGetSizeOnDisk", "ptr", hReportStore, "ptr", pqwSizeInBytes, "int")
+        result := DllCall("wer.dll\WerStoreGetSizeOnDisk", "ptr", hReportStore, "uint*", pqwSizeInBytes, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<HREPORTSTORE>} hReportStore 
-     * @param {Pointer<PWSTR>} pszReportKey 
+     * @param {Pointer<Void>} hReportStore 
+     * @param {Pointer<Char>} pszReportKey 
      * @param {Pointer<WER_REPORT_METADATA_V1>} pReportMetadata 
      * @returns {Integer} 
      */
@@ -1488,8 +1486,8 @@ class ErrorReporting {
 
     /**
      * 
-     * @param {Pointer<HREPORTSTORE>} hReportStore 
-     * @param {Pointer<PWSTR>} pszReportKey 
+     * @param {Pointer<Void>} hReportStore 
+     * @param {Pointer<Char>} pszReportKey 
      * @param {Integer} dwFlags 
      * @param {Pointer<Int32>} pSubmitResult 
      * @returns {Integer} 
@@ -1497,7 +1495,7 @@ class ErrorReporting {
     static WerStoreUploadReport(hReportStore, pszReportKey, dwFlags, pSubmitResult) {
         pszReportKey := pszReportKey is String? StrPtr(pszReportKey) : pszReportKey
 
-        result := DllCall("wer.dll\WerStoreUploadReport", "ptr", hReportStore, "ptr", pszReportKey, "uint", dwFlags, "ptr", pSubmitResult, "int")
+        result := DllCall("wer.dll\WerStoreUploadReport", "ptr", hReportStore, "ptr", pszReportKey, "uint", dwFlags, "int*", pSubmitResult, "int")
         return result
     }
 
@@ -1508,12 +1506,111 @@ class ErrorReporting {
      * @param {Pointer<EXCEPTION_POINTERS>} pep A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-exception_pointers">EXCEPTION_POINTERS</a> structure.
      * @param {Integer} dwOpt This parameter is reserved for system use and should be set to zero.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} This function returns one of the following values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>frrvErr</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function failed but the error reporting client was launched.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>frrvErrNoDW</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The error reporting client was unable to launch. The system will perform its default actions, such as displaying the standard exception dialog box and launching the debugger.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>frrvErrTimeout</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function timed out.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>frrvLaunchDebugger</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function succeeded and the user launched the debugger.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>frrvOk</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>frrvOkHeadless</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function succeeded and the error reporting client was launched in silent reporting mode (no UI is used).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>frrvOkManifest</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function succeeded and the error reporting client was launched in manifest reporting mode.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>frrvOkQueued</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function succeeded and the fault report was queued for later reporting.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * These return values indicate whether the reporting application was successfully launched. A successful return value does not necessarily indicate that the fault was successfully reported.
      * @see https://learn.microsoft.com/windows/win32/api/errorrep/nf-errorrep-reportfault
      * @since windows5.1.2600
      */
     static ReportFault(pep, dwOpt) {
-        DllCall("faultrep.dll\ReportFault", "ptr", pep, "uint", dwOpt)
+        result := DllCall("faultrep.dll\ReportFault", "ptr", pep, "uint", dwOpt)
+        return result
     }
 
     /**
@@ -1527,7 +1624,7 @@ class ErrorReporting {
      * 
      * > [!NOTE]
      * > The errorrep.h header defines AddERExcludedApplication as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} szApplication The name of the executable file for the application, including the file name extension. The name cannot contain path information.
+     * @param {Pointer<Byte>} szApplication The name of the executable file for the application, including the file name extension. The name cannot contain path information.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, see 
@@ -1554,7 +1651,7 @@ class ErrorReporting {
      * 
      * > [!NOTE]
      * > The errorrep.h header defines AddERExcludedApplication as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} wszApplication The name of the executable file for the application, including the file name extension. The name cannot contain path information.
+     * @param {Pointer<Char>} wszApplication The name of the executable file for the application, including the file name extension. The name cannot contain path information.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, see <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1590,8 +1687,8 @@ class ErrorReporting {
      * <li>Confirm that the user wants to terminate the child window that is not responding before calling this function.</li>
      * <li>To have the no-response reporting UI appear in front of the window that is not responding, the application should call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-allowsetforegroundwindow">AllowSetForegroundWindow</a> (passing ASFW_ANY for the process identifier) function from the top-level window's process.</li>
      * </ul>
-     * @param {Pointer<HWND>} hwndHungApp Handle to the window that is not responding.
-     * @param {Pointer<PWSTR>} pwzHungApplicationName The name of the not-responding application to be shown in the Hang Reporting UI. The name is limited to 128 characters including the <b>NULL</b> terminator. If <b>NULL</b>, WER tries to get the name from the target image resources. If it cannot get the name from the image, the image name will be used.
+     * @param {Pointer<Void>} hwndHungApp Handle to the window that is not responding.
+     * @param {Pointer<Char>} pwzHungApplicationName The name of the not-responding application to be shown in the Hang Reporting UI. The name is limited to 128 characters including the <b>NULL</b> terminator. If <b>NULL</b>, WER tries to get the name from the target image resources. If it cannot get the name from the image, the image name will be used.
      * @returns {Integer} Returns S_OK if the function was able to initiate the reporting or an error code on failure. Note that S_OK does not necessarily mean that "no response" reporting has completed successfully, only that it was initiated.
      * @see https://learn.microsoft.com/windows/win32/api/errorrep/nf-errorrep-werreporthang
      * @since windows6.0.6000

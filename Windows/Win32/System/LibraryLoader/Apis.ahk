@@ -90,7 +90,7 @@ class LibraryLoader {
      * Do not call this function from a DLL that is linked to the static C run-time library (CRT). The static CRT requires DLL_THREAD_ATTACH and DLL_THREAD_DETATCH notifications to function properly.
      * 
      * This function does not perform any optimizations if static [Thread Local Storage (TLS)](/windows/win32/procthread/thread-local-storage) is enabled. Static TLS is enabled when using **thread_local** variables, **__declspec( thread )** variables, or function-local **static**.
-     * @param {Pointer<HMODULE>} hLibModule A handle to the DLL module for which the DLL_THREAD_ATTACH and DLL_THREAD_DETACH notifications are to be disabled. The 
+     * @param {Pointer<Void>} hLibModule A handle to the DLL module for which the DLL_THREAD_ATTACH and DLL_THREAD_DETACH notifications are to be disabled. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a>, <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>,  or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a> function returns this handle. Note that you cannot call <b>GetModuleHandle</b> with NULL because this returns the base address of the executable image, not the DLL image.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -174,13 +174,13 @@ class LibraryLoader {
      * For example, an application can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadiconw">LoadIcon</a> function to load an icon for display on the screen. However, the application should use <b>FindResourceEx</b> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadresource">LoadResource</a> if it is loading the icon to copy its data to another application.
      * 
      * String resources are stored in sections of up to 16 strings per section. The strings in each section are stored as a sequence of counted (not necessarily null-terminated) Unicode strings. The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadstringw">LoadString</a> function will extract the string resource from its corresponding section.
-     * @param {Pointer<HMODULE>} hModule Type: <b>HMODULE</b>
+     * @param {Pointer<Void>} hModule Type: <b>HMODULE</b>
      * 
      * A handle to the module whose portable executable file or an accompanying MUI file contains the resource. If this parameter is <b>NULL</b>, the function searches the module used to create the current process.
-     * @param {Pointer<PWSTR>} lpType Type: <b>LPCTSTR</b>
+     * @param {Pointer<Char>} lpType Type: <b>LPCTSTR</b>
      * 
      * The resource type. Alternately, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcew">MAKEINTRESOURCE</a>(ID), where ID is the integer identifier of the given resource type. For standard resource types, see <a href="https://docs.microsoft.com/windows/desktop/menurc/resource-types">Resource Types</a>. For more information, see the Remarks section below.
-     * @param {Pointer<PWSTR>} lpName Type: <b>LPCTSTR</b>
+     * @param {Pointer<Char>} lpName Type: <b>LPCTSTR</b>
      * 
      * The name of the resource. Alternately, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcew">MAKEINTRESOURCE</a>(ID), where ID is the integer identifier of the resource. For more information, see the Remarks section below.
      * @param {Integer} wLanguage Type: <b>WORD</b>
@@ -188,7 +188,7 @@ class LibraryLoader {
      * The language of the resource. If this parameter is <c>MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL)</c>, the current language associated with the calling thread is used.
      * 
      * To specify a language other than the current language, use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelangid">MAKELANGID</a> macro to create this parameter. For more information, see <b>MAKELANGID</b>.
-     * @returns {Pointer<HRSRC>} Type: <b>HRSRC</b>
+     * @returns {Pointer<Void>} Type: <b>HRSRC</b>
      * 
      * If the function succeeds, the return value is a handle to the specified resource's information block. To obtain a handle to the resource, pass this handle to the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadresource">LoadResource</a> function.
      * 
@@ -199,7 +199,7 @@ class LibraryLoader {
         lpType := lpType is String? StrPtr(lpType) : lpType
         lpName := lpName is String? StrPtr(lpName) : lpName
 
-        result := DllCall("KERNEL32.dll\FindResourceExW", "ptr", hModule, "ptr", lpType, "ptr", lpName, "ushort", wLanguage, "ptr")
+        result := DllCall("KERNEL32.dll\FindResourceExW", "ptr", hModule, "ptr", lpType, "ptr", lpName, "ushort", wLanguage)
         return result
     }
 
@@ -211,18 +211,19 @@ class LibraryLoader {
      * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-freelibrary">FreeLibrary</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-exitthread">ExitThread</a> separately, a race condition would exist. The library could be unloaded before 
      * <b>ExitThread</b> is called.
-     * @param {Pointer<HMODULE>} hLibModule A handle to the DLL module whose reference count the function decrements. The 
+     * @param {Pointer<Void>} hLibModule A handle to the DLL module whose reference count the function decrements. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandleexa">GetModuleHandleEx</a> function returns this handle.
      * 
      * Do not call this function with a handle returned by either the <b>GetModuleHandleEx</b> function (with the GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT flag) or the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a> function, as they do not maintain a reference count for the module.
      * @param {Integer} dwExitCode The exit code for the calling thread.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-freelibraryandexitthread
      * @since windows5.1.2600
      */
     static FreeLibraryAndExitThread(hLibModule, dwExitCode) {
-        DllCall("KERNEL32.dll\FreeLibraryAndExitThread", "ptr", hLibModule, "uint", dwExitCode)
+        result := DllCall("KERNEL32.dll\FreeLibraryAndExitThread", "ptr", hLibModule, "uint", dwExitCode)
+        return result
     }
 
     /**
@@ -271,7 +272,7 @@ class LibraryLoader {
      * The reference count for a resource is incremented (increased by one) each time an application calls the <a href="https://docs.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-loadresource">LoadResource</a> function for the resource.
      * 
      * The system automatically deletes these resources when the process that created them terminates. However, calling the appropriate function saves memory.  For more information, see <a href="https://docs.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-loadresource">LoadResource</a>.
-     * @param {Pointer<HGLOBAL>} hResData Type: <b>HGLOBAL</b>
+     * @param {Pointer<Void>} hResData Type: <b>HGLOBAL</b>
      * 
      * A handle of the resource. It is assumed that <i>hglbResource</i> was created by <a href="https://docs.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-loadresource">LoadResource</a>.
      * @returns {Integer} Type: <b>BOOL</b>
@@ -293,11 +294,11 @@ class LibraryLoader {
      * If a DLL is loaded in two processes, its file name in one process may differ in case from its file name in the other process.
      * 
      * The global variable <c>_pgmptr</c> is automatically initialized to the full path of the executable file, and can be used to retrieve the full path name of an executable file.
-     * @param {Pointer<HMODULE>} hModule A handle to the loaded module whose path is being requested. If this parameter is <b>NULL</b>, 
+     * @param {Pointer<Void>} hModule A handle to the loaded module whose path is being requested. If this parameter is <b>NULL</b>, 
      * <b>GetModuleFileName</b> retrieves the path of the executable file of the current process.
      * 
      * The <b>GetModuleFileName</b> function does not retrieve the path for modules  that were loaded using the <b>LOAD_LIBRARY_AS_DATAFILE</b> flag. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>.
-     * @param {Pointer<PSTR>} lpFilename A pointer to a buffer that receives the fully qualified path of the module. If the length of the path is less than the size that the <i>nSize</i> parameter specifies, the function succeeds and the path is returned as a null-terminated string. 
+     * @param {Pointer<Byte>} lpFilename A pointer to a buffer that receives the fully qualified path of the module. If the length of the path is less than the size that the <i>nSize</i> parameter specifies, the function succeeds and the path is returned as a null-terminated string. 
      * 
      * If the length of the path exceeds the size that  the <i>nSize</i> parameter specifies, the function succeeds and the string is truncated to <i>nSize</i>  characters including the terminating null character.
      * 
@@ -333,11 +334,11 @@ class LibraryLoader {
      * If a DLL is loaded in two processes, its file name in one process may differ in case from its file name in the other process.
      * 
      * The global variable <c>_pgmptr</c> is automatically initialized to the full path of the executable file, and can be used to retrieve the full path name of an executable file.
-     * @param {Pointer<HMODULE>} hModule A handle to the loaded module whose path is being requested. If this parameter is <b>NULL</b>, 
+     * @param {Pointer<Void>} hModule A handle to the loaded module whose path is being requested. If this parameter is <b>NULL</b>, 
      * <b>GetModuleFileName</b> retrieves the path of the executable file of the current process.
      * 
      * The <b>GetModuleFileName</b> function does not retrieve the path for modules  that were loaded using the <b>LOAD_LIBRARY_AS_DATAFILE</b> flag. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>.
-     * @param {Pointer<PWSTR>} lpFilename A pointer to a buffer that receives the fully qualified path of the module. If the length of the path is less than the size that the <i>nSize</i> parameter specifies, the function succeeds and the path is returned as a null-terminated string. 
+     * @param {Pointer<Char>} lpFilename A pointer to a buffer that receives the fully qualified path of the module. If the length of the path is less than the size that the <i>nSize</i> parameter specifies, the function succeeds and the path is returned as a null-terminated string. 
      * 
      * If the length of the path exceeds the size that  the <i>nSize</i> parameter specifies, the function succeeds and the string is truncated to <i>nSize</i>  characters including the terminating null character.
      * 
@@ -378,7 +379,7 @@ class LibraryLoader {
      * <b>FreeLibrary</b> function. Doing so can cause a DLL module to be unmapped prematurely.
      * 
      * This function must be used carefully in a multithreaded application. There is no guarantee that the module handle remains valid between the time this function returns the handle and the time it is used. For example, suppose that a thread retrieves a module handle, but before it uses the handle, a second thread frees the module. If the system loads another module, it could reuse the module handle that was recently freed. Therefore, the first thread would have a handle to a different module  than the one intended.
-     * @param {Pointer<PSTR>} lpModuleName The name of the loaded module (either a .dll or .exe file). If the file name extension is omitted, the default library extension .dll is appended. The file name string can include a trailing point character (.) to indicate that the module name has no extension. The string does not have to specify a path. When specifying a path, be sure to use backslashes (\\), not forward slashes (/). The name is compared (case independently) to the names of modules currently mapped into the address space of the calling process. 
+     * @param {Pointer<Byte>} lpModuleName The name of the loaded module (either a .dll or .exe file). If the file name extension is omitted, the default library extension .dll is appended. The file name string can include a trailing point character (.) to indicate that the module name has no extension. The string does not have to specify a path. When specifying a path, be sure to use backslashes (\\), not forward slashes (/). The name is compared (case independently) to the names of modules currently mapped into the address space of the calling process. 
      * 
      * 
      * 
@@ -387,7 +388,7 @@ class LibraryLoader {
      * <b>GetModuleHandle</b> returns a handle to the file used to create the calling process (.exe file).
      * 
      * The <b>GetModuleHandle</b> function does not retrieve handles for modules that were loaded using the <b>LOAD_LIBRARY_AS_DATAFILE</b> flag. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>.
-     * @returns {Pointer<HMODULE>} If the function succeeds, the return value is a handle to the specified module.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the specified module.
      * 
      * If the function fails, the return value is NULL. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -399,7 +400,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetModuleHandleA", "ptr", lpModuleName, "ptr")
+        result := DllCall("KERNEL32.dll\GetModuleHandleA", "ptr", lpModuleName)
         if(A_LastError)
             throw OSError()
 
@@ -418,7 +419,7 @@ class LibraryLoader {
      * <b>FreeLibrary</b> function. Doing so can cause a DLL module to be unmapped prematurely.
      * 
      * This function must be used carefully in a multithreaded application. There is no guarantee that the module handle remains valid between the time this function returns the handle and the time it is used. For example, suppose that a thread retrieves a module handle, but before it uses the handle, a second thread frees the module. If the system loads another module, it could reuse the module handle that was recently freed. Therefore, the first thread would have a handle to a different module  than the one intended.
-     * @param {Pointer<PWSTR>} lpModuleName The name of the loaded module (either a .dll or .exe file). If the file name extension is omitted, the default library extension .dll is appended. The file name string can include a trailing point character (.) to indicate that the module name has no extension. The string does not have to specify a path. When specifying a path, be sure to use backslashes (\\), not forward slashes (/). The name is compared (case independently) to the names of modules currently mapped into the address space of the calling process. 
+     * @param {Pointer<Char>} lpModuleName The name of the loaded module (either a .dll or .exe file). If the file name extension is omitted, the default library extension .dll is appended. The file name string can include a trailing point character (.) to indicate that the module name has no extension. The string does not have to specify a path. When specifying a path, be sure to use backslashes (\\), not forward slashes (/). The name is compared (case independently) to the names of modules currently mapped into the address space of the calling process. 
      * 
      * 
      * 
@@ -427,7 +428,7 @@ class LibraryLoader {
      * <b>GetModuleHandle</b> returns a handle to the file used to create the calling process (.exe file).
      * 
      * The <b>GetModuleHandle</b> function does not retrieve handles for modules that were loaded using the <b>LOAD_LIBRARY_AS_DATAFILE</b> flag. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>.
-     * @returns {Pointer<HMODULE>} If the function succeeds, the return value is a handle to the specified module.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the specified module.
      * 
      * If the function fails, the return value is NULL. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -439,7 +440,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetModuleHandleW", "ptr", lpModuleName, "ptr")
+        result := DllCall("KERNEL32.dll\GetModuleHandleW", "ptr", lpModuleName)
         if(A_LastError)
             throw OSError()
 
@@ -468,7 +469,7 @@ class LibraryLoader {
      * > [!NOTE]
      * > The libloaderapi.h header defines GetModuleHandleEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that is not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} dwFlags 
-     * @param {Pointer<PSTR>} lpModuleName The name of the loaded module (either a .dll or .exe file), or an address in the module (if <i>dwFlags</i> is GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS). 
+     * @param {Pointer<Byte>} lpModuleName The name of the loaded module (either a .dll or .exe file), or an address in the module (if <i>dwFlags</i> is GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS). 
      * 
      * 
      * 
@@ -476,7 +477,7 @@ class LibraryLoader {
      * For a module name, if the file name extension is omitted, the default library extension .dll is appended. The file name string can include a trailing point character (.) to indicate that the module name has no extension. The string does not have to specify a path. When specifying a path, be sure to use backslashes (\\), not forward slashes (/). The name is compared (case independently) to the names of modules currently mapped into the address space of the calling process.
      * 
      * If this parameter is NULL, the function returns a handle to the file used to create the calling process (.exe file).
-     * @param {Pointer<HMODULE>} phModule A handle to the specified module. If the function fails, this parameter is NULL.
+     * @param {Pointer<Void>} phModule A handle to the specified module. If the function fails, this parameter is NULL.
      * 
      * The <b>GetModuleHandleEx</b> function does not retrieve handles for modules that were loaded using the <b>LOAD_LIBRARY_AS_DATAFILE</b> flag. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -520,7 +521,7 @@ class LibraryLoader {
      * > [!NOTE]
      * > The libloaderapi.h header defines GetModuleHandleEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} dwFlags 
-     * @param {Pointer<PWSTR>} lpModuleName The name of the loaded module (either a .dll or .exe file), or an address in the module (if <i>dwFlags</i> is GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS). 
+     * @param {Pointer<Char>} lpModuleName The name of the loaded module (either a .dll or .exe file), or an address in the module (if <i>dwFlags</i> is GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS). 
      * 
      * 
      * 
@@ -528,7 +529,7 @@ class LibraryLoader {
      * For a module name, if the file name extension is omitted, the default library extension .dll is appended. The file name string can include a trailing point character (.) to indicate that the module name has no extension. The string does not have to specify a path. When specifying a path, be sure to use backslashes (\\), not forward slashes (/). The name is compared (case independently) to the names of modules currently mapped into the address space of the calling process.
      * 
      * If this parameter is NULL, the function returns a handle to the file used to create the calling process (.exe file).
-     * @param {Pointer<HMODULE>} phModule A handle to the specified module. If the function fails, this parameter is NULL.
+     * @param {Pointer<Void>} phModule A handle to the specified module. If the function fails, this parameter is NULL.
      * 
      * The <b>GetModuleHandleEx</b> function does not retrieve handles for modules that were loaded using the <b>LOAD_LIBRARY_AS_DATAFILE</b> flag. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -593,12 +594,12 @@ class LibraryLoader {
      * 
      * 
      * For the complete example that contains this code fragment, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/getting-the-system-version">Getting the System Version</a>.
-     * @param {Pointer<HMODULE>} hModule A handle to the DLL module that contains the function or variable. The 
+     * @param {Pointer<Void>} hModule A handle to the DLL module that contains the function or variable. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a>, <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-loadpackagedlibrary">LoadPackagedLibrary</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a> function returns this handle. 
      * 
      * The <b>GetProcAddress</b> function does not retrieve addresses from modules that were loaded using the <b>LOAD_LIBRARY_AS_DATAFILE</b> flag. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>.
-     * @param {Pointer<PSTR>} lpProcName The function or variable name, or the function's ordinal value. If this parameter is an ordinal value, it must be in the low-order word; the high-order word must be zero.
+     * @param {Pointer<Byte>} lpProcName The function or variable name, or the function's ordinal value. If this parameter is an ordinal value, it must be in the low-order word; the high-order word must be zero.
      * @returns {Pointer<FARPROC>} If the function succeeds, the return value is the address of the exported function or variable.
      * 
      * If the function fails, the return value is NULL. To get extended error information, call 
@@ -699,7 +700,7 @@ class LibraryLoader {
      * 
      * 
      * ```cpp
-     * @param {Pointer<PSTR>} lpLibFileName A string that specifies the file name of the module to load. This name is not related to the name stored in a
+     * @param {Pointer<Byte>} lpLibFileName A string that specifies the file name of the module to load. This name is not related to the name stored in a
      *        library module itself, as specified by the <b>LIBRARY</b> keyword in the module-definition
      *        (.def) file.
      * 
@@ -729,7 +730,7 @@ class LibraryLoader {
      * If the function cannot find the  module or one of its dependencies, the function fails.
      * @param {Integer} dwFlags The action to be taken when loading the module. If no flags are specified, the behavior of this function is
      *       identical to that of the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function. This
-     * @returns {Pointer<HMODULE>} If the function succeeds, the return value is a handle to the loaded module.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the loaded module.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information,
      *        call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -743,7 +744,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\LoadLibraryExA", "ptr", lpLibFileName, "ptr", hFile, "uint", dwFlags, "ptr")
+        result := DllCall("KERNEL32.dll\LoadLibraryExA", "ptr", lpLibFileName, "ptr", hFile, "uint", dwFlags)
         if(A_LastError)
             throw OSError()
 
@@ -831,7 +832,7 @@ class LibraryLoader {
      * 
      * 
      * ```cpp
-     * @param {Pointer<PWSTR>} lpLibFileName A string that specifies the file name of the module to load. This name is not related to the name stored in a
+     * @param {Pointer<Char>} lpLibFileName A string that specifies the file name of the module to load. This name is not related to the name stored in a
      *        library module itself, as specified by the <b>LIBRARY</b> keyword in the module-definition
      *        (.def) file.
      * 
@@ -862,7 +863,7 @@ class LibraryLoader {
      * If the function cannot find the  module or one of its dependencies, the function fails.
      * @param {Integer} dwFlags The action to be taken when loading the module. If no flags are specified, the behavior of this function is
      *       identical to that of the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function. This
-     * @returns {Pointer<HMODULE>} If the function succeeds, the return value is a handle to the loaded module.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the loaded module.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information,
      *        call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -876,7 +877,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\LoadLibraryExW", "ptr", lpLibFileName, "ptr", hFile, "uint", dwFlags, "ptr")
+        result := DllCall("KERNEL32.dll\LoadLibraryExW", "ptr", lpLibFileName, "ptr", hFile, "uint", dwFlags)
         if(A_LastError)
             throw OSError()
 
@@ -961,13 +962,13 @@ class LibraryLoader {
      *  
      * 
      * For example, an application can use the <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-loadicona">LoadIcon</a> function to load an icon for display on the screen, followed by <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-destroyicon">DestroyIcon</a> when done.
-     * @param {Pointer<HMODULE>} hModule Type: <b>HMODULE</b>
+     * @param {Pointer<Void>} hModule Type: <b>HMODULE</b>
      * 
      * A handle to the module whose executable file contains the resource. If <i>hModule</i> is <b>NULL</b>, the system loads the resource from the module that was used to create the current process.
-     * @param {Pointer<HRSRC>} hResInfo Type: <b>HRSRC</b>
+     * @param {Pointer<Void>} hResInfo Type: <b>HRSRC</b>
      * 
      * A handle to the resource to be loaded. This handle is returned by the <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-findresourcea">FindResource</a> or <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-findresourceexa">FindResourceEx</a> function.
-     * @returns {Pointer<HGLOBAL>} Type: <b>HGLOBAL</b>
+     * @returns {Pointer<Void>} Type: <b>HGLOBAL</b>
      * 
      * If the function succeeds, the return value is a handle to the data associated with the resource.
      * 
@@ -978,7 +979,7 @@ class LibraryLoader {
     static LoadResource(hModule, hResInfo) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\LoadResource", "ptr", hModule, "ptr", hResInfo, "ptr")
+        result := DllCall("KERNEL32.dll\LoadResource", "ptr", hModule, "ptr", hResInfo)
         if(A_LastError)
             throw OSError()
 
@@ -994,23 +995,26 @@ class LibraryLoader {
      * 
      * > [!Note]
      * > **LockResource** does not actually lock memory; it is just used to obtain a pointer to the memory containing the resource data. The name of the function comes from versions prior to Windows XP, when it was used to lock a global memory block allocated by [LoadResource](nf-libloaderapi-loadresource.md).
-     * @param {Pointer<HGLOBAL>} hResData Type: **HGLOBAL**
+     * @param {Pointer<Void>} hResData Type: **HGLOBAL**
      * 
      * A handle to the resource to be accessed. The [LoadResource function](nf-libloaderapi-loadresource.md) returns this handle. Note that this parameter is listed as an **HGLOBAL** variable only for backward compatibility. Do not pass any value as a parameter other than a successful return value from the **LoadResource** function.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} Type: **LPVOID**
+     * 
+     * If the loaded resource is available, the return value is a pointer to the first byte of the resource; otherwise, it is **NULL**.
      * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-lockresource
      * @since windows5.0
      */
     static LockResource(hResData) {
-        DllCall("KERNEL32.dll\LockResource", "ptr", hResData)
+        result := DllCall("KERNEL32.dll\LockResource", "ptr", hResData)
+        return result
     }
 
     /**
      * Retrieves the size, in bytes, of the specified resource.
-     * @param {Pointer<HMODULE>} hModule Type: <b>HMODULE</b>
+     * @param {Pointer<Void>} hModule Type: <b>HMODULE</b>
      * 
      * A handle to the module whose executable file contains the resource. Default is the module used to create the current process.
-     * @param {Pointer<HRSRC>} hResInfo Type: <b>HRSRC</b>
+     * @param {Pointer<Void>} hResInfo Type: <b>HRSRC</b>
      * 
      * A handle to the resource. This handle must be created by using the <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-findresourcea">FindResource</a> or <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-findresourceexa">FindResourceEx</a> function.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -1055,10 +1059,15 @@ class LibraryLoader {
      *       from Kernel32.dll. 
      *       <a href="https://support.microsoft.com/kb/2533623">KB2533623</a> must be 
      *       installed on the target platform.
-     * @param {Pointer<PWSTR>} NewDirectory An absolute path to the directory to add to the search path. For example, to add the directory 
+     * @param {Pointer<Char>} NewDirectory An absolute path to the directory to add to the search path. For example, to add the directory 
      *       Dir2 to the process DLL search path, specify \Dir2. For more information about paths, 
      *       see <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} If the function succeeds, the return value is an opaque pointer that can be passed to 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-removedlldirectory">RemoveDllDirectory</a> to remove the DLL from the 
+     *       process DLL search path.
+     * 
+     * If the function fails, the return value is zero. To get extended error 
+     *       information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-adddlldirectory
      * @since windows8.0
      */
@@ -1067,10 +1076,11 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        DllCall("KERNEL32.dll\AddDllDirectory", "ptr", NewDirectory)
+        result := DllCall("KERNEL32.dll\AddDllDirectory", "ptr", NewDirectory)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -1198,19 +1208,19 @@ class LibraryLoader {
      * If the <i>LangId</i> is nonzero, then only the .mui file corresponding to that language identifier will be searched. Language fallbacks will not be used. If an .mui file for that language does not exist, the enumeration will be empty (unless resources for that language exist in the LN file, and the flag is set to search the LN file as well).
      * 
      * The enumeration never includes duplicates: if resources for a particular language are contained in both the LN file and in an .mui file, the type will only be enumerated once.
-     * @param {Pointer<HMODULE>} hModule Type: <b>HMODULE</b>
+     * @param {Pointer<Void>} hModule Type: <b>HMODULE</b>
      * 
      * The handle to a module to search. Typically this is a <a href="https://docs.microsoft.com/windows/desktop/Intl/mui-resource-management">language-neutral Portable Executable</a> (LN file), and if flag <b>RESOURCE_ENUM_MUI</b> is set, then appropriate .mui files are included in the search. Alternately, this can be a handle to an .mui file or other LN file. If this is a specific .mui file, only that file is searched for resources.
      *     
      *                     
      * 
      * If this parameter is <b>NULL</b>, it is equivalent to passing in a handle to the module used to create the current process.
-     * @param {Pointer<PSTR>} lpType Type: <b>LPCTSTR</b>
+     * @param {Pointer<Byte>} lpType Type: <b>LPCTSTR</b>
      * 
      * The type of the resource for which the language is being enumerated. Alternately, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(ID), where ID is an integer value representing a predefined resource type. For a list of predefined resource types, see <a href="https://docs.microsoft.com/windows/desktop/menurc/resource-types">Resource Types</a>. For more 
      * 
      * information, see the Remarks section below.
-     * @param {Pointer<PSTR>} lpName Type: <b>LPCTSTR</b>
+     * @param {Pointer<Byte>} lpName Type: <b>LPCTSTR</b>
      * 
      * The name of the resource for which the language is being enumerated. Alternately, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(ID), where ID is the integer identifier of the resource. For more information, see the Remarks section below.
      * @param {Pointer<ENUMRESLANGPROCA>} lpEnumFunc Type: <b>ENUMRESLANGPROC</b>
@@ -1321,19 +1331,19 @@ class LibraryLoader {
      * If the <i>LangId</i> is nonzero, then only the .mui file corresponding to that language identifier will be searched. Language fallbacks will not be used. If an .mui file for that language does not exist, the enumeration will be empty (unless resources for that language exist in the LN file, and the flag is set to search the LN file as well).
      * 
      * The enumeration never includes duplicates: if resources for a particular language are contained in both the LN file and in an .mui file, the type will only be enumerated once.
-     * @param {Pointer<HMODULE>} hModule Type: <b>HMODULE</b>
+     * @param {Pointer<Void>} hModule Type: <b>HMODULE</b>
      * 
      * The handle to a module to search. Typically this is a <a href="https://docs.microsoft.com/windows/desktop/Intl/mui-resource-management">language-neutral Portable Executable</a> (LN file), and if flag <b>RESOURCE_ENUM_MUI</b> is set, then appropriate .mui files are included in the search. Alternately, this can be a handle to an .mui file or other LN file. If this is a specific .mui file, only that file is searched for resources.
      *     
      *                     
      * 
      * If this parameter is <b>NULL</b>, it is equivalent to passing in a handle to the module used to create the current process.
-     * @param {Pointer<PWSTR>} lpType Type: <b>LPCTSTR</b>
+     * @param {Pointer<Char>} lpType Type: <b>LPCTSTR</b>
      * 
      * The type of the resource for which the language is being enumerated. Alternately, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(ID), where ID is an integer value representing a predefined resource type. For a list of predefined resource types, see <a href="https://docs.microsoft.com/windows/desktop/menurc/resource-types">Resource Types</a>. For more 
      * 
      * information, see the Remarks section below.
-     * @param {Pointer<PWSTR>} lpName Type: <b>LPCTSTR</b>
+     * @param {Pointer<Char>} lpName Type: <b>LPCTSTR</b>
      * 
      * The name of the resource for which the language is being enumerated. Alternately, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(ID), where ID is the integer identifier of the resource. For more information, see the Remarks section below.
      * @param {Pointer<ENUMRESLANGPROCW>} lpEnumFunc Type: <b>ENUMRESLANGPROC</b>
@@ -1440,12 +1450,12 @@ class LibraryLoader {
      * If <i>LangId</i> is nonzero, then only the .mui file corresponding to that Language identifier will be searched. Language fallbacks will not be used. If an .mui file for that language does not exist, the enumeration will be empty (unless resources for that language exist in the LN file, and the flag is set to search the LN file as well).
      * 
      * The enumeration never includes duplicates: if resources for a particular language are contained in both the LN file and in an .mui file, the name will only be enumerated once.
-     * @param {Pointer<HMODULE>} hModule Type: <b>HMODULE</b>
+     * @param {Pointer<Void>} hModule Type: <b>HMODULE</b>
      * 
      * The handle to a module to search. Typically this is an LN file, and if flag <b>RESOURCE_ENUM_MUI</b> is set, then appropriate .mui files are included in the search. Alternately, this can be a handle to an .mui file or other LN file.
      * 
      * If this parameter is <b>NULL</b>, it is equivalent to passing in a handle to the module used to create the current process.
-     * @param {Pointer<PSTR>} lpType Type: <b>LPCSTR</b>
+     * @param {Pointer<Byte>} lpType Type: <b>LPCSTR</b>
      * 
      * The type of the resource for which the name is being enumerated. Alternately, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(ID), where ID is an integer value representing a predefined resource type. For a list of predefined resource types, see <a href="https://msdn.microsoft.com/8d27f79a-8165-4565-a975-f25b2344efdc">Resource Types</a>. For more information, see the Remarks section below.
      * @param {Pointer<ENUMRESNAMEPROCA>} lpEnumFunc Type: <b>ENUMRESNAMEPROC</b>
@@ -1540,12 +1550,12 @@ class LibraryLoader {
      * If <i>LangId</i> is nonzero, then only the .mui file corresponding to that Language identifier will be searched. Language fallbacks will not be used. If an .mui file for that language does not exist, the enumeration will be empty (unless resources for that language exist in the LN file, and the flag is set to search the LN file as well).
      * 
      * The enumeration never includes duplicates: if resources for a particular language are contained in both the LN file and in an .mui file, the name will only be enumerated once.
-     * @param {Pointer<HMODULE>} hModule Type: <b>HMODULE</b>
+     * @param {Pointer<Void>} hModule Type: <b>HMODULE</b>
      * 
      * The handle to a module to search. Typically this is an LN file, and if flag <b>RESOURCE_ENUM_MUI</b> is set, then appropriate .mui files are included in the search. Alternately, this can be a handle to an .mui file or other LN file.
      * 
      * If this parameter is <b>NULL</b>, it is equivalent to passing in a handle to the module used to create the current process.
-     * @param {Pointer<PWSTR>} lpType Type: <b>LPCTSTR</b>
+     * @param {Pointer<Char>} lpType Type: <b>LPCTSTR</b>
      * 
      * The type of the resource for which the name is being enumerated. Alternately, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(ID), where ID is an integer value representing a predefined resource type. For a list of predefined resource types, see <a href="https://msdn.microsoft.com/8d27f79a-8165-4565-a975-f25b2344efdc">Resource Types</a>. For more information, see the Remarks section below.
      * @param {Pointer<ENUMRESNAMEPROCW>} lpEnumFunc Type: <b>ENUMRESNAMEPROC</b>
@@ -1630,7 +1640,7 @@ class LibraryLoader {
      * If <i>LangId</i> is nonzero, then only the .mui file corresponding to that language identifier will be searched. Language fallbacks will not be used. If an .mui file for that language does not exist, the enumeration will be empty (unless resources for that language exist in the LN file, and the flag is set to search the LN file as well).
      * 
      * The enumeration never includes duplicates: if resources for a particular language are contained in both the LN file and in an .mui file, the type will only be enumerated once.
-     * @param {Pointer<HMODULE>} hModule Type: <b>HMODULE</b>
+     * @param {Pointer<Void>} hModule Type: <b>HMODULE</b>
      * 
      * The handle to a module to be searched. Typically this is an LN file, and if flag <b>RESOURCE_ENUM_MUI</b> is set, then appropriate .mui files can be included in the search. Alternately, this can be a handle to an .mui file or other LN file.
      * 
@@ -1715,7 +1725,7 @@ class LibraryLoader {
      * If <i>LangId</i> is nonzero, then only the .mui file corresponding to that language identifier will be searched. Language fallbacks will not be used. If an .mui file for that language does not exist, the enumeration will be empty (unless resources for that language exist in the LN file, and the flag is set to search the LN file as well).
      * 
      * The enumeration never includes duplicates: if resources for a particular language are contained in both the LN file and in an .mui file, the type will only be enumerated once.
-     * @param {Pointer<HMODULE>} hModule Type: <b>HMODULE</b>
+     * @param {Pointer<Void>} hModule Type: <b>HMODULE</b>
      * 
      * The handle to a module to be searched. Typically this is an LN file, and if flag <b>RESOURCE_ENUM_MUI</b> is set, then appropriate .mui files can be included in the search. Alternately, this can be a handle to an .mui file or other LN file.
      * 
@@ -1851,18 +1861,18 @@ class LibraryLoader {
      * For example, an application can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadiconw">LoadIcon</a> function to load an icon for display on the screen. However, the application should use <b>FindResource</b> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadresource">LoadResource</a> if it is loading the icon to copy its data to another application.
      * 
      * String resources are stored in sections of up to 16 strings per section. The strings in each section are stored as a sequence of counted (not necessarily null-terminated) Unicode strings. The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadstringw">LoadString</a> function will extract the string resource from its corresponding section.
-     * @param {Pointer<HMODULE>} hModule Type: <b>HMODULE</b>
+     * @param {Pointer<Void>} hModule Type: <b>HMODULE</b>
      * 
      * A handle to the module whose portable executable file or an accompanying MUI file contains the resource. If this parameter is <b>NULL</b>, the function searches the module used to create the current process.
-     * @param {Pointer<PWSTR>} lpName Type: <b>LPCTSTR</b>
+     * @param {Pointer<Char>} lpName Type: <b>LPCTSTR</b>
      * 
      * The name of the resource. Alternately, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(ID), where ID is the integer identifier of the resource. For more information, see the Remarks section below.
-     * @param {Pointer<PWSTR>} lpType Type: <b>LPCTSTR</b>
+     * @param {Pointer<Char>} lpType Type: <b>LPCTSTR</b>
      * 
      * The resource type. Alternately, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcew">MAKEINTRESOURCE</a>(ID), where ID is the integer identifier of the given 
      * 
      * resource type. For standard resource types, see <a href="https://docs.microsoft.com/windows/desktop/menurc/resource-types">Resource Types</a>. For more information, see the Remarks section below.
-     * @returns {Pointer<HRSRC>} Type: <b>HRSRC</b>
+     * @returns {Pointer<Void>} Type: <b>HRSRC</b>
      * 
      * If the function succeeds, the return value is a handle to the specified resource's information block. To obtain a handle to the resource, pass this handle to the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadresource">LoadResource</a> function.
      * 
@@ -1873,7 +1883,7 @@ class LibraryLoader {
         lpName := lpName is String? StrPtr(lpName) : lpName
         lpType := lpType is String? StrPtr(lpType) : lpType
 
-        result := DllCall("KERNEL32.dll\FindResourceW", "ptr", hModule, "ptr", lpName, "ptr", lpType, "ptr")
+        result := DllCall("KERNEL32.dll\FindResourceW", "ptr", hModule, "ptr", lpName, "ptr", lpType)
         return result
     }
 
@@ -1985,7 +1995,7 @@ class LibraryLoader {
      *       the DLL is in the search path, the malicious version of the DLL may be loaded. Instead, use the recommended
      *       techniques described in
      *       <a href="https://docs.microsoft.com/windows/desktop/SysInfo/getting-the-system-version">Getting the System Version</a>.
-     * @param {Pointer<PSTR>} lpLibFileName The name of the module. This can be either a library module (a .dll file) or an executable
+     * @param {Pointer<Byte>} lpLibFileName The name of the module. This can be either a library module (a .dll file) or an executable
      * module (an .exe file).
      * If the specified module is an executable module, static imports are not loaded;
      * instead, the module is loaded as if by
@@ -2008,7 +2018,7 @@ class LibraryLoader {
      * If the string specifies a module name without a path and the file name extension is omitted, the function
      *        appends the default library extension ".DLL" to the module name. To prevent the function from appending
      *        ".DLL" to the module name, include a trailing point character (.) in the module name string.
-     * @returns {Pointer<HMODULE>} If the function succeeds, the return value is a handle to the module.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the module.
      * 
      * If the function fails, the return value is NULL. To get extended error information, call
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2020,7 +2030,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\LoadLibraryA", "ptr", lpLibFileName, "ptr")
+        result := DllCall("KERNEL32.dll\LoadLibraryA", "ptr", lpLibFileName)
         if(A_LastError)
             throw OSError()
 
@@ -2135,7 +2145,7 @@ class LibraryLoader {
      *       the DLL is in the search path, the malicious version of the DLL may be loaded. Instead, use the recommended
      *       techniques described in
      *       <a href="https://docs.microsoft.com/windows/desktop/SysInfo/getting-the-system-version">Getting the System Version</a>.
-     * @param {Pointer<PWSTR>} lpLibFileName The name of the module. This can be either a library module (a .dll file) or an executable
+     * @param {Pointer<Char>} lpLibFileName The name of the module. This can be either a library module (a .dll file) or an executable
      * module (an .exe file).
      * If the specified module is an executable module, static imports are not loaded;
      * instead, the module is loaded as if by
@@ -2158,7 +2168,7 @@ class LibraryLoader {
      * If the string specifies a module name without a path and the file name extension is omitted, the function
      *        appends the default library extension ".DLL" to the module name. To prevent the function from appending
      *        ".DLL" to the module name, include a trailing point character (.) in the module name string.
-     * @returns {Pointer<HMODULE>} If the function succeeds, the return value is a handle to the module.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the module.
      * 
      * If the function fails, the return value is NULL. To get extended error information, call
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2170,7 +2180,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\LoadLibraryW", "ptr", lpLibFileName, "ptr")
+        result := DllCall("KERNEL32.dll\LoadLibraryW", "ptr", lpLibFileName)
         if(A_LastError)
             throw OSError()
 
@@ -2193,12 +2203,12 @@ class LibraryLoader {
      * Starting with Windows Vista, if *hModule* specifies an LN file, then the resources enumerated can reside either in the LN file or in a .mui file associated with it. If no .mui files are found, only resources from the LN file are returned. The order in which .mui files are searched is the usual Resource Loader search order; see [User Interface Language Management](/windows/desktop/Intl/user-interface-language-management) for details. Once one appropriate .mui file is found, the .mui file search stops. Because all .mui files that correspond to a single LN file have the same resource types, only the resources in the found .mui file need to be enumerated.
      * 
      * The enumeration never includes duplicates: if resources with the same name are contained in both the LN file and in an .mui file, the resource will only be enumerated once.
-     * @param {Pointer<HMODULE>} hModule Type: **HMODULE**
+     * @param {Pointer<Void>} hModule Type: **HMODULE**
      * 
      * A handle to a module to be searched. Starting with Windows Vista, if this is an LN file, then appropriate .mui files (if any exist) are included in the search.
      * 
      * If this parameter is **NULL**, that is equivalent to passing in a handle to the module used to create the current process.
-     * @param {Pointer<PWSTR>} lpType Type: **LPCTSTR**
+     * @param {Pointer<Char>} lpType Type: **LPCTSTR**
      * 
      * The type of the resource for which the name is being enumerated. Alternately, rather than a pointer, this parameter can be [MAKEINTRESOURCE](/windows/desktop/api/winuser/nf-winuser-makeintresourcea)(ID), where ID is an integer value representing a predefined resource type. For a list of predefined resource types, see [Resource Types](/windows/win32/menurc/resource-types). For more information, see the [Remarks](#remarks) section below.
      * @param {Pointer<ENUMRESNAMEPROCW>} lpEnumFunc Type: **ENUMRESNAMEPROC**
@@ -2235,12 +2245,12 @@ class LibraryLoader {
      * Starting with Windows Vista, if *hModule* specifies an LN file, then the resources enumerated can reside either in the LN file or in a .mui file associated with it. If no .mui files are found, only resources from the LN file are returned. The order in which .mui files are searched is the usual Resource Loader search order; see [User Interface Language Management](/windows/desktop/Intl/user-interface-language-management) for details. Once one appropriate .mui file is found, the .mui file search stops. Because all .mui files that correspond to a single LN file have the same resource types, only the resources in the found .mui file need to be enumerated.
      * 
      * The enumeration never includes duplicates: if resources with the same name are contained in both the LN file and in an .mui file, the resource will only be enumerated once.
-     * @param {Pointer<HMODULE>} hModule Type: **HMODULE**
+     * @param {Pointer<Void>} hModule Type: **HMODULE**
      * 
      * A handle to a module to be searched. Starting with Windows Vista, if this is an LN file, then appropriate .mui files (if any exist) are included in the search.
      * 
      * If this parameter is **NULL**, that is equivalent to passing in a handle to the module used to create the current process.
-     * @param {Pointer<PSTR>} lpType Type: **LPCTSTR**
+     * @param {Pointer<Byte>} lpType Type: **LPCTSTR**
      * 
      * The type of the resource for which the name is being enumerated. Alternately, rather than a pointer, this parameter can be [MAKEINTRESOURCE](/windows/desktop/api/winuser/nf-winuser-makeintresourcea)(ID), where ID is an integer value representing a predefined resource type. For a list of predefined resource types, see [Resource Types](/windows/win32/menurc/resource-types). For more information, see the [Remarks](#remarks) section below.
      * @param {Pointer<ENUMRESNAMEPROCA>} lpEnumFunc Type: **ENUMRESNAMEPROC**
@@ -2290,7 +2300,7 @@ class LibraryLoader {
      * 
      * > [!NOTE]
      * On Windows Phone, **LoadPackagedLibrary** must be called from `PhoneAppModelHost.dll`. Using `Kernel32.dll` is not supported.
-     * @param {Pointer<PWSTR>} lpwLibFileName The file name of the packaged module to load. The module can be a library module (a .dll file) or an executable module (an .exe file).  
+     * @param {Pointer<Char>} lpwLibFileName The file name of the packaged module to load. The module can be a library module (a .dll file) or an executable module (an .exe file).  
      * 
      * If this parameter specifies a module name without a path and the file name extension is omitted, the function appends the default library extension .dll to the module name. To prevent the function from appending .dll to the module name, include a trailing point character (.) in the module name string. 
      * 
@@ -2299,7 +2309,7 @@ class LibraryLoader {
      * If the specified module is already loaded in the process, the function returns a handle to the loaded module. The module must have been originally loaded  from the package dependency graph of the process.
      * 
      * If loading the specified module causes the system to load other associated modules, the function first searches loaded modules, then it searches the package dependency graph of the process.  For more information, see Remarks.
-     * @returns {Pointer<HMODULE>} If the function succeeds, the return value is a handle to the loaded module.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the loaded module.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-loadpackagedlibrary
@@ -2312,7 +2322,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\LoadPackagedLibrary", "ptr", lpwLibFileName, "uint", Reserved, "ptr")
+        result := DllCall("KERNEL32.dll\LoadPackagedLibrary", "ptr", lpwLibFileName, "uint", Reserved)
         if(A_LastError)
             throw OSError()
 
@@ -2329,11 +2339,11 @@ class LibraryLoader {
      * A desktop application can use delayed loading as an alternative to runtime dynamic linking that uses  <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> or <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a> to load a DLL and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> to get a pointer to a function. A Windows Store app cannot use <b>LoadLibrary</b> or <b>LoadLibraryEx</b>, so to get the benefits to runtime dynamic linking, a Windows Store app must use the delayed loading mechanism.
      * 
      * To check whether a function in a delay-loaded DLL is available on the system, the application calls <b>QueryOptionalDelayLoadedAPI</b> with the specified function. If <b>QueryOptionalDelayLoadedAPI</b> succeeds, the application can safely call the specified function.
-     * @param {Pointer<HMODULE>} hParentModule A handle to the calling module. Desktop applications can use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a> or <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandleexa">GetModuleHandleEx</a> function to get this handle. Windows Store apps should set this parameter to <c>static_cast&lt;HMODULE&gt;(&amp;__ImageBase)</c>.
-     * @param {Pointer<PSTR>} lpDllName The file name of the delay-loaded DLL that exports the specified function. This parameter is case-insensitive.
+     * @param {Pointer<Void>} hParentModule A handle to the calling module. Desktop applications can use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a> or <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandleexa">GetModuleHandleEx</a> function to get this handle. Windows Store apps should set this parameter to <c>static_cast&lt;HMODULE&gt;(&amp;__ImageBase)</c>.
+     * @param {Pointer<Byte>} lpDllName The file name of the delay-loaded DLL that exports the specified function. This parameter is case-insensitive.
      * 
      * Windows Store apps should specify API sets, rather than monolithic DLLs. For example,   api-ms-win-core-memory-l1-1-1.dll, rather than kernel32.dll.
-     * @param {Pointer<PSTR>} lpProcName The name of the function to query. This parameter is case-sensitive.
+     * @param {Pointer<Byte>} lpProcName The name of the function to query. This parameter is case-sensitive.
      * @returns {Integer} TRUE if the specified function is available on the system. If the specified function is not available on the system, this function returns FALSE. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/libloaderapi2/nf-libloaderapi2-queryoptionaldelayloadedapi
@@ -2454,7 +2464,7 @@ class LibraryLoader {
      * <td>The handle is immediately closed.</td>
      * </tr>
      * </table>
-     * @param {Pointer<PSTR>} lpModuleName The file name of the application to be run. When specifying a path, be sure to use backslashes (\\), not forward slashes (/). If the <i>lpModuleName</i> parameter does not contain a directory path, the system searches for the executable file in this order: 
+     * @param {Pointer<Byte>} lpModuleName The file name of the application to be run. When specifying a path, be sure to use backslashes (\\), not forward slashes (/). If the <i>lpModuleName</i> parameter does not contain a directory path, the system searches for the executable file in this order: 
      * 
      * 
      * 
@@ -2607,16 +2617,16 @@ class LibraryLoader {
      * For example, an application can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadicona">LoadIcon</a> function to load an icon for display on the screen. However, the application should use <b>FindResource</b> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadresource">LoadResource</a> if it is loading the icon to copy its data to another application. 
      * 
      * String resources are stored in sections of up to 16 strings per section. The strings in each section are stored as a sequence of counted (not necessarily null-terminated) Unicode strings. The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadstringa">LoadString</a> function will extract the string resource from its corresponding section.
-     * @param {Pointer<HMODULE>} hModule Type: <b>HMODULE</b>
+     * @param {Pointer<Void>} hModule Type: <b>HMODULE</b>
      * 
      * A handle to the module whose portable executable file or an accompanying MUI file contains the resource. If this parameter is <b>NULL</b>, the function searches the module used to create the current process.
-     * @param {Pointer<PSTR>} lpName Type: <b>LPCTSTR</b>
+     * @param {Pointer<Byte>} lpName Type: <b>LPCTSTR</b>
      * 
      * The name of the resource. Alternately, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(ID), where ID is the integer identifier of the resource. For more information, see the Remarks section below.
-     * @param {Pointer<PSTR>} lpType Type: <b>LPCTSTR</b>
+     * @param {Pointer<Byte>} lpType Type: <b>LPCTSTR</b>
      * 
      * The resource type. Alternately, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(ID), where ID is the integer identifier of the given resource type. For standard resource types, see <a href="https://docs.microsoft.com/windows/desktop/menurc/resource-types">Resource Types</a>. For more information, see the Remarks section below.
-     * @returns {Pointer<HRSRC>} Type: <b>HRSRC</b>
+     * @returns {Pointer<Void>} Type: <b>HRSRC</b>
      * 
      * If the function succeeds, the return value is a handle to the specified resource's information block. To obtain a handle to the resource, pass this handle to the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadresource">LoadResource</a> function.
      * 
@@ -2630,7 +2640,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindResourceA", "ptr", hModule, "ptr", lpName, "ptr", lpType, "ptr")
+        result := DllCall("KERNEL32.dll\FindResourceA", "ptr", hModule, "ptr", lpName, "ptr", lpType)
         if(A_LastError)
             throw OSError()
 
@@ -2701,15 +2711,15 @@ class LibraryLoader {
      * For example, an application can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadicona">LoadIcon</a> function to load an icon for display on the screen. However, the application should use <b>FindResourceEx</b> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadresource">LoadResource</a> if it is loading the icon to copy its data to another application. 
      * 
      * String resources are stored in sections of up to 16 strings per section. The strings in each section are stored as a sequence of counted (not necessarily null-terminated) Unicode strings. The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadstringa">LoadString</a> function will extract the string resource from its corresponding section.
-     * @param {Pointer<HMODULE>} hModule Type: <b>HMODULE</b>
+     * @param {Pointer<Void>} hModule Type: <b>HMODULE</b>
      * 
      * A handle to the module whose portable executable file or an accompanying MUI file contains the resource. If this parameter is <b>NULL</b>, the function searches the module used to create the current process.
-     * @param {Pointer<PSTR>} lpType Type: <b>LPCTSTR</b>
+     * @param {Pointer<Byte>} lpType Type: <b>LPCTSTR</b>
      * 
      * The resource type. Alternately, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(ID), where ID is the integer identifier of the given 
      * 
      * resource type. For standard resource types, see <a href="https://docs.microsoft.com/windows/desktop/menurc/resource-types">Resource Types</a>. For more information, see the Remarks section below.
-     * @param {Pointer<PSTR>} lpName Type: <b>LPCTSTR</b>
+     * @param {Pointer<Byte>} lpName Type: <b>LPCTSTR</b>
      * 
      * The name of the resource. Alternately, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(ID), where ID is the integer identifier of the resource. For more information, see the Remarks section below.
      * @param {Integer} wLanguage Type: <b>WORD</b>
@@ -2718,7 +2728,7 @@ class LibraryLoader {
      *         
      * 
      * To specify a language other than the current language, use the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelangid">MAKELANGID</a> macro to create this parameter. For more information, see <b>MAKELANGID</b>.
-     * @returns {Pointer<HRSRC>} Type: <b>HRSRC</b>
+     * @returns {Pointer<Void>} Type: <b>HRSRC</b>
      * 
      * If the function succeeds, the return value is a handle to the specified resource's information block. To obtain a handle to the resource, pass this handle to the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadresource">LoadResource</a> function.
      *                     
@@ -2733,7 +2743,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindResourceExA", "ptr", hModule, "ptr", lpType, "ptr", lpName, "ushort", wLanguage, "ptr")
+        result := DllCall("KERNEL32.dll\FindResourceExA", "ptr", hModule, "ptr", lpType, "ptr", lpName, "ushort", wLanguage)
         if(A_LastError)
             throw OSError()
 
@@ -2750,7 +2760,7 @@ class LibraryLoader {
      * Starting with Windows Vista, if <i>hModule</i> specifies an LN file, then the types enumerated correspond to resources that reside in the LN file and in the .mui file associated with it. If no .mui files are found, only types from the LN file are returned. The order in which .mui files are searched is the usual Resource Loader search order; see <a href="https://docs.microsoft.com/windows/desktop/Intl/user-interface-language-management">User Interface Language Management</a> for details. After one appropriate .mui file is found, the search does not continue further to other .mui files associated with the LN file, because all .mui files that correspond to a single LN file have the same set of resource types.
      * 
      * The enumeration never includes duplicates: if a given resource type is contained in both the LN file and in an .mui file, the type is enumerated only once.
-     * @param {Pointer<HMODULE>} hModule Type: <b>HMODULE</b>
+     * @param {Pointer<Void>} hModule Type: <b>HMODULE</b>
      * 
      * A handle to a module to be searched. This handle must be obtained through <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> or <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>.
      * 					
@@ -2789,7 +2799,7 @@ class LibraryLoader {
      * Starting with Windows Vista, if <i>hModule</i> specifies an LN file, then the types enumerated correspond to resources that reside in the LN file and in the .mui file associated with it. If no .mui files are found, only types from the LN file are returned. The order in which .mui files are searched is the usual Resource Loader search order; see <a href="https://docs.microsoft.com/windows/desktop/Intl/user-interface-language-management">User Interface Language Management</a> for details. After one appropriate .mui file is found, the search does not continue further to other .mui files associated with the LN file, because all .mui files that correspond to a single LN file have the same set of resource types.
      * 
      * The enumeration never includes duplicates: if a given resource type is contained in both the LN file and in an .mui file, the type is enumerated only once.
-     * @param {Pointer<HMODULE>} hModule Type: <b>HMODULE</b>
+     * @param {Pointer<Void>} hModule Type: <b>HMODULE</b>
      * 
      * A handle to a module to be searched. This handle must be obtained through <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> or <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>.
      * 					
@@ -2836,17 +2846,17 @@ class LibraryLoader {
      * In Windows Vista and later, if  <i>hModule</i> specifies an LN file, then the resources enumerated can reside either in the LN file or in an .mui file associated with it.  If no .mui files are found, only resources from the LN file are returned.  Unlike <a href="https://docs.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-enumresourcenamesa">EnumResourceNames</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-enumresourcetypesa">EnumResourceTypes</a>, this search will look at multiple .mui files. The enumeration begins with .mui files in the folders associated with <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumuilanguagesa">EnumUILanguages</a>. These are followed by any other .mui files whose paths conform to the scheme described at <a href="https://docs.microsoft.com/windows/desktop/Intl/mui-resource-management">MUI Resource Management</a>. Finally, the file designated by <i>hModule</i> is also searched.
      * 
      * The enumeration never includes duplicates: if a resource with the same name, type, and language is contained in both the LN file and in an .mui file, the resource will only be enumerated once.
-     * @param {Pointer<HMODULE>} hModule Type: <b>HMODULE</b>
+     * @param {Pointer<Void>} hModule Type: <b>HMODULE</b>
      * 
      * The handle to a module to be searched. Starting with Windows Vista, if this is a <a href="https://docs.microsoft.com/windows/desktop/Intl/mui-resource-management">language-neutral Portable Executable</a> (LN file), then appropriate .mui files (if any exist) are included in the search. If this is a specific .mui file, only that file is searched for resources.
      * 				
      *                     
      * 
      * If this parameter is <b>NULL</b>, that is equivalent to passing in a handle to the module used to create the current process.
-     * @param {Pointer<PSTR>} lpType Type: <b>LPCTSTR</b>
+     * @param {Pointer<Byte>} lpType Type: <b>LPCTSTR</b>
      * 
      * The type of resource for which the language is being enumerated. Alternately, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(ID), where ID is an integer value representing a predefined resource type. For a list of predefined resource types, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">Resource Types</a>. For more information, see the Remarks section below.
-     * @param {Pointer<PSTR>} lpName Type: <b>LPCTSTR</b>
+     * @param {Pointer<Byte>} lpName Type: <b>LPCTSTR</b>
      * 
      * The name of the resource for which the language is being enumerated. Alternately, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(ID), where ID is the integer identifier of the resource. For more information, see the Remarks section below.
      * @param {Pointer<ENUMRESLANGPROCA>} lpEnumFunc Type: <b>ENUMRESLANGPROC</b>
@@ -2892,17 +2902,17 @@ class LibraryLoader {
      * In Windows Vista and later, if  <i>hModule</i> specifies an LN file, then the resources enumerated can reside either in the LN file or in an .mui file associated with it.  If no .mui files are found, only resources from the LN file are returned.  Unlike <a href="https://docs.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-enumresourcenamesa">EnumResourceNames</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-enumresourcetypesa">EnumResourceTypes</a>, this search will look at multiple .mui files. The enumeration begins with .mui files in the folders associated with <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumuilanguagesa">EnumUILanguages</a>. These are followed by any other .mui files whose paths conform to the scheme described at <a href="https://docs.microsoft.com/windows/desktop/Intl/mui-resource-management">MUI Resource Management</a>. Finally, the file designated by <i>hModule</i> is also searched.
      * 
      * The enumeration never includes duplicates: if a resource with the same name, type, and language is contained in both the LN file and in an .mui file, the resource will only be enumerated once.
-     * @param {Pointer<HMODULE>} hModule Type: <b>HMODULE</b>
+     * @param {Pointer<Void>} hModule Type: <b>HMODULE</b>
      * 
      * The handle to a module to be searched. Starting with Windows Vista, if this is a <a href="https://docs.microsoft.com/windows/desktop/Intl/mui-resource-management">language-neutral Portable Executable</a> (LN file), then appropriate .mui files (if any exist) are included in the search. If this is a specific .mui file, only that file is searched for resources.
      * 				
      *                     
      * 
      * If this parameter is <b>NULL</b>, that is equivalent to passing in a handle to the module used to create the current process.
-     * @param {Pointer<PWSTR>} lpType Type: <b>LPCTSTR</b>
+     * @param {Pointer<Char>} lpType Type: <b>LPCTSTR</b>
      * 
      * The type of resource for which the language is being enumerated. Alternately, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(ID), where ID is an integer value representing a predefined resource type. For a list of predefined resource types, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">Resource Types</a>. For more information, see the Remarks section below.
-     * @param {Pointer<PWSTR>} lpName Type: <b>LPCTSTR</b>
+     * @param {Pointer<Char>} lpName Type: <b>LPCTSTR</b>
      * 
      * The name of the resource for which the language is being enumerated. Alternately, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(ID), where ID is the integer identifier of the resource. For more information, see the Remarks section below.
      * @param {Pointer<ENUMRESLANGPROCW>} lpEnumFunc Type: <b>ENUMRESLANGPROC</b>
@@ -2938,13 +2948,13 @@ class LibraryLoader {
      * There are some restrictions on resource updates in files that contain  Resource Configuration(RC Config) data: LN files and the associated .mui files. Details on which types of resources are allowed to be updated in these files are in the Remarks section for the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-updateresourcea">UpdateResource</a> function.
      * 
      * This function can update resources within modules that contain both code and resources. As noted above, there are restrictions on resource updates in LN files and .mui files, both of which contain RC Config data; details of the restrictions are in the reference for the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-updateresourcea">UpdateResource</a> function.
-     * @param {Pointer<PSTR>} pFileName Type: <b>LPCTSTR</b>
+     * @param {Pointer<Byte>} pFileName Type: <b>LPCTSTR</b>
      * 
      * The binary file in which to update resources. An application must be able to obtain write-access to this file; the file referenced by <i>pFileName</i> cannot be currently executing. If <i>pFileName</i> does not specify a full path, the system searches for the file in the current directory.
      * @param {Integer} bDeleteExistingResources Type: <b>BOOL</b>
      * 
      * Indicates whether to delete the <i>pFileName</i> parameter's existing resources. If this parameter is <b>TRUE</b>, existing resources are deleted and the updated file includes only resources added with the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-updateresourcea">UpdateResource</a> function. If this parameter is <b>FALSE</b>, the updated file includes existing resources unless they are explicitly deleted or replaced by using <b>UpdateResource</b>.
-     * @returns {Pointer<HANDLE>} Type: <b>HANDLE</b>
+     * @returns {Pointer<Void>} Type: <b>HANDLE</b>
      * 
      * If the function succeeds, the return value is a handle that can be used by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-updateresourcea">UpdateResource</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-endupdateresourcea">EndUpdateResource</a> functions. The return value is <b>NULL</b> if the specified file is not a PE, the file does not exist, or the file cannot be opened for writing. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-beginupdateresourcea
@@ -2955,7 +2965,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\BeginUpdateResourceA", "ptr", pFileName, "int", bDeleteExistingResources, "ptr")
+        result := DllCall("KERNEL32.dll\BeginUpdateResourceA", "ptr", pFileName, "int", bDeleteExistingResources)
         if(A_LastError)
             throw OSError()
 
@@ -2970,13 +2980,13 @@ class LibraryLoader {
      * There are some restrictions on resource updates in files that contain  Resource Configuration(RC Config) data: LN files and the associated .mui files. Details on which types of resources are allowed to be updated in these files are in the Remarks section for the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-updateresourcea">UpdateResource</a> function.
      * 
      * This function can update resources within modules that contain both code and resources. As noted above, there are restrictions on resource updates in LN files and .mui files, both of which contain RC Config data; details of the restrictions are in the reference for the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-updateresourcea">UpdateResource</a> function.
-     * @param {Pointer<PWSTR>} pFileName Type: <b>LPCTSTR</b>
+     * @param {Pointer<Char>} pFileName Type: <b>LPCTSTR</b>
      * 
      * The binary file in which to update resources. An application must be able to obtain write-access to this file; the file referenced by <i>pFileName</i> cannot be currently executing. If <i>pFileName</i> does not specify a full path, the system searches for the file in the current directory.
      * @param {Integer} bDeleteExistingResources Type: <b>BOOL</b>
      * 
      * Indicates whether to delete the <i>pFileName</i> parameter's existing resources. If this parameter is <b>TRUE</b>, existing resources are deleted and the updated file includes only resources added with the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-updateresourcea">UpdateResource</a> function. If this parameter is <b>FALSE</b>, the updated file includes existing resources unless they are explicitly deleted or replaced by using <b>UpdateResource</b>.
-     * @returns {Pointer<HANDLE>} Type: <b>HANDLE</b>
+     * @returns {Pointer<Void>} Type: <b>HANDLE</b>
      * 
      * If the function succeeds, the return value is a handle that can be used by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-updateresourcea">UpdateResource</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-endupdateresourcea">EndUpdateResource</a> functions. The return value is <b>NULL</b> if the specified file is not a PE, the file does not exist, or the file cannot be opened for writing. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-beginupdateresourcew
@@ -2987,7 +2997,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\BeginUpdateResourceW", "ptr", pFileName, "int", bDeleteExistingResources, "ptr")
+        result := DllCall("KERNEL32.dll\BeginUpdateResourceW", "ptr", pFileName, "int", bDeleteExistingResources)
         if(A_LastError)
             throw OSError()
 
@@ -3054,21 +3064,21 @@ class LibraryLoader {
      * <td>Can be done but the integrity of the RC Config data is not checked.</td>
      * </tr>
      * </table>
-     * @param {Pointer<HANDLE>} hUpdate Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} hUpdate Type: <b>HANDLE</b>
      * 
      * A module handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-beginupdateresourcea">BeginUpdateResource</a> function, referencing the file to be updated.
-     * @param {Pointer<PSTR>} lpType Type: <b>LPCTSTR</b>
+     * @param {Pointer<Byte>} lpType Type: <b>LPCTSTR</b>
      * 
      * The resource type to be updated. Alternatively, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(ID), where ID is an integer value representing a predefined resource type. If the first character of the string is a pound sign (#), then the remaining characters represent a decimal number that specifies the integer identifier of the resource type. For example, the string "#258" represents the identifier 258.
      * 
      * For a list of predefined resource types, see <a href="https://docs.microsoft.com/windows/win32/menurc/resource-types">Resource Types</a>.
-     * @param {Pointer<PSTR>} lpName Type: <b>LPCTSTR</b>
+     * @param {Pointer<Byte>} lpName Type: <b>LPCTSTR</b>
      * 
      * The name of the resource to be updated. Alternatively, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(ID), where ID is a resource ID. When creating a new resource do not use a string that begins with a '#' character for this parameter.
      * @param {Integer} wLanguage Type: <b>WORD</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifiers">language identifier</a> of the resource to be updated. For a list of the primary language identifiers and sublanguage identifiers that make up a language identifier, see the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelangid">MAKELANGID</a>  macro.
-     * @param {Pointer<Void>} lpData Type: <b>LPVOID</b>
+     * @param {Pointer} lpData Type: <b>LPVOID</b>
      * 
      * The resource data to be inserted into the file indicated by <i>hUpdate</i>. If the resource is one of the predefined types, the data must be valid and properly aligned. Note that this is the raw binary data to be stored in the file indicated by <i>hUpdate</i>, not the data provided by <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadicona">LoadIcon</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadstringa">LoadString</a>, or other resource-specific load functions. All data containing strings or text must be in Unicode format. <i>lpData</i> must not point to ANSI data.
      * 
@@ -3157,21 +3167,21 @@ class LibraryLoader {
      * <td>Can be done but the integrity of the RC Config data is not checked.</td>
      * </tr>
      * </table>
-     * @param {Pointer<HANDLE>} hUpdate Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} hUpdate Type: <b>HANDLE</b>
      * 
      * A module handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-beginupdateresourcea">BeginUpdateResource</a> function, referencing the file to be updated.
-     * @param {Pointer<PWSTR>} lpType Type: <b>LPCTSTR</b>
+     * @param {Pointer<Char>} lpType Type: <b>LPCTSTR</b>
      * 
      * The resource type to be updated. Alternatively, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(ID), where ID is an integer value representing a predefined resource type. If the first character of the string is a pound sign (#), then the remaining characters represent a decimal number that specifies the integer identifier of the resource type. For example, the string "#258" represents the identifier 258.
      * 
      * For a list of predefined resource types, see <a href="https://docs.microsoft.com/windows/win32/menurc/resource-types">Resource Types</a>.
-     * @param {Pointer<PWSTR>} lpName Type: <b>LPCTSTR</b>
+     * @param {Pointer<Char>} lpName Type: <b>LPCTSTR</b>
      * 
      * The name of the resource to be updated. Alternatively, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(ID), where ID is a resource ID. When creating a new resource do not use a string that begins with a '#' character for this parameter.
      * @param {Integer} wLanguage Type: <b>WORD</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifiers">language identifier</a> of the resource to be updated. For a list of the primary language identifiers and sublanguage identifiers that make up a language identifier, see the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelangid">MAKELANGID</a>  macro.
-     * @param {Pointer<Void>} lpData Type: <b>LPVOID</b>
+     * @param {Pointer} lpData Type: <b>LPVOID</b>
      * 
      * The resource data to be inserted into the file indicated by <i>hUpdate</i>. If the resource is one of the predefined types, the data must be valid and properly aligned. Note that this is the raw binary data to be stored in the file indicated by <i>hUpdate</i>, not the data provided by <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadicona">LoadIcon</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadstringa">LoadString</a>, or other resource-specific load functions. All data containing strings or text must be in Unicode format. <i>lpData</i> must not point to ANSI data.
      * 
@@ -3206,7 +3216,7 @@ class LibraryLoader {
      * Before you call this function, make sure all file handles other than the one returned by <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-beginupdateresourcea">BeginUpdateResource</a> are closed.
      * 
      * This function can update resources within modules that contain both code and resources. There are restrictions on resource updates in LN files and .mui files, both of which contain Resource Configuration data; details of the restrictions are in the reference for the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-updateresourcea">UpdateResource</a> function.
-     * @param {Pointer<HANDLE>} hUpdate Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} hUpdate Type: <b>HANDLE</b>
      * 
      * A module handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-beginupdateresourcea">BeginUpdateResource</a> function, and used by <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-updateresourcea">UpdateResource</a>, referencing the file to be updated.
      * @param {Integer} fDiscard Type: <b>BOOL</b>
@@ -3234,7 +3244,7 @@ class LibraryLoader {
      * Before you call this function, make sure all file handles other than the one returned by <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-beginupdateresourcea">BeginUpdateResource</a> are closed.
      * 
      * This function can update resources within modules that contain both code and resources. There are restrictions on resource updates in LN files and .mui files, both of which contain Resource Configuration data; details of the restrictions are in the reference for the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-updateresourcea">UpdateResource</a> function.
-     * @param {Pointer<HANDLE>} hUpdate Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} hUpdate Type: <b>HANDLE</b>
      * 
      * A module handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-beginupdateresourcea">BeginUpdateResource</a> function, and used by <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-updateresourcea">UpdateResource</a>, referencing the file to be updated.
      * @param {Integer} fDiscard Type: <b>BOOL</b>
@@ -3296,7 +3306,7 @@ class LibraryLoader {
      * 
      * > [!NOTE]
      * > The winbase.h header defines SetDllDirectory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpPathName The directory to be added to the search path. If this parameter is an empty string (""), the call removes the current directory from the default DLL search order. If this parameter is NULL, the function restores the default search order.
+     * @param {Pointer<Byte>} lpPathName The directory to be added to the search path. If this parameter is an empty string (""), the call removes the current directory from the default DLL search order. If this parameter is NULL, the function restores the default search order.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -3356,7 +3366,7 @@ class LibraryLoader {
      * 
      * > [!NOTE]
      * > The winbase.h header defines SetDllDirectory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpPathName The directory to be added to the search path. If this parameter is an empty string (""), the call removes the current directory from the default DLL search order. If this parameter is NULL, the function restores the default search order.
+     * @param {Pointer<Char>} lpPathName The directory to be added to the search path. If this parameter is an empty string (""), the call removes the current directory from the default DLL search order. If this parameter is NULL, the function restores the default search order.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -3390,7 +3400,7 @@ class LibraryLoader {
      * > [!NOTE]
      * > The winbase.h header defines GetDllDirectory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} nBufferLength The size of the output buffer, in characters.
-     * @param {Pointer<PSTR>} lpBuffer A pointer to a buffer that receives the application-specific portion of the search path.
+     * @param {Pointer<Byte>} lpBuffer A pointer to a buffer that receives the application-specific portion of the search path.
      * @returns {Integer} If the function succeeds, the return value is the length of the string copied to 
      *        <i>lpBuffer</i>, in characters, not including the terminating null character. If the return 
      *        value is greater than <i>nBufferLength</i>, it specifies the size of the buffer required for 
@@ -3427,7 +3437,7 @@ class LibraryLoader {
      * > [!NOTE]
      * > The winbase.h header defines GetDllDirectory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} nBufferLength The size of the output buffer, in characters.
-     * @param {Pointer<PWSTR>} lpBuffer A pointer to a buffer that receives the application-specific portion of the search path.
+     * @param {Pointer<Char>} lpBuffer A pointer to a buffer that receives the application-specific portion of the search path.
      * @returns {Integer} If the function succeeds, the return value is the length of the string copied to 
      *        <i>lpBuffer</i>, in characters, not including the terminating null character. If the return 
      *        value is greater than <i>nBufferLength</i>, it specifies the size of the buffer required for 

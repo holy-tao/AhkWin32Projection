@@ -20,7 +20,7 @@ class DNS_SVCB_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszTargetName {
         get => NumGet(this, 8, "ptr")

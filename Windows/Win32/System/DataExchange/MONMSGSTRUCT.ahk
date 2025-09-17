@@ -29,7 +29,7 @@ class MONMSGSTRUCT extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window that receives the DDE message.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndTo {
         get => NumGet(this, 8, "ptr")
@@ -51,7 +51,7 @@ class MONMSGSTRUCT extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * A handle to the task (application instance) containing the window that receives the DDE message.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hTask {
         get => NumGet(this, 24, "ptr")

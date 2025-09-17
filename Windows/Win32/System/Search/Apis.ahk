@@ -17424,7 +17424,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlbindcol-function
      */
     static SQLBindCol(StatementHandle, ColumnNumber, TargetType, TargetValue, BufferLength, StrLen_or_Ind) {
-        result := DllCall("ODBC32.dll\SQLBindCol", "ptr", StatementHandle, "ushort", ColumnNumber, "short", TargetType, "ptr", TargetValue, "int64", BufferLength, "ptr", StrLen_or_Ind, "short")
+        result := DllCall("ODBC32.dll\SQLBindCol", "ptr", StatementHandle, "ushort", ColumnNumber, "short", TargetType, "ptr", TargetValue, "int64", BufferLength, "int64*", StrLen_or_Ind, "short")
         return result
     }
 
@@ -17442,7 +17442,7 @@ class Search {
      * @deprecated
      */
     static SQLBindParam(StatementHandle, ParameterNumber, ValueType, ParameterType, LengthPrecision, ParameterScale, ParameterValue, StrLen_or_Ind) {
-        result := DllCall("ODBC32.dll\SQLBindParam", "ptr", StatementHandle, "ushort", ParameterNumber, "short", ValueType, "short", ParameterType, "uint", LengthPrecision, "short", ParameterScale, "ptr", ParameterValue, "ptr", StrLen_or_Ind, "short")
+        result := DllCall("ODBC32.dll\SQLBindParam", "ptr", StatementHandle, "ushort", ParameterNumber, "short", ValueType, "short", ParameterType, "uint", LengthPrecision, "short", ParameterScale, "ptr", ParameterValue, "int64*", StrLen_or_Ind, "short")
         return result
     }
 
@@ -17463,7 +17463,7 @@ class Search {
      *   
      *  Column 0 can be specified in this argument, but all values except SQL_DESC_TYPE and SQL_DESC_OCTET_LENGTH will return undefined values.
      * @param {Integer} FieldIdentifier [Input] The descriptor handle. This handle defines which field in the IRD should be queried (for example, SQL_COLUMN_TABLE_NAME).
-     * @param {Pointer<Void>} CharacterAttribute 
+     * @param {Pointer} CharacterAttribute 
      * @param {Integer} BufferLength [Input] If *FieldIdentifier* is an ODBC-defined field and *CharacterAttributePtr* points to a character string or binary buffer, this argument should be the length of \**CharacterAttributePtr*. If *FieldIdentifier* is an ODBC-defined field and \**CharacterAttribute*Ptr is an integer, this field is ignored. If the *\*CharacterAttributePtr* is a Unicode string (when calling **SQLColAttributeW**), the *BufferLength* argument must be an even number. If *FieldIdentifier* is a driver-defined field, the application indicates the nature of the field to the Driver Manager by setting the *BufferLength* argument. *BufferLength* can have the following values:  
      *   
      * -   If *CharacterAttributePtr* is a pointer to a pointer, *BufferLength* should have the value SQL_IS_POINTER.  
@@ -17479,7 +17479,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlcolattribute-function
      */
     static SQLColAttribute(StatementHandle, ColumnNumber, FieldIdentifier, CharacterAttribute, BufferLength, StringLength, NumericAttribute) {
-        result := DllCall("ODBC32.dll\SQLColAttribute", "ptr", StatementHandle, "ushort", ColumnNumber, "ushort", FieldIdentifier, "ptr", CharacterAttribute, "short", BufferLength, "ptr", StringLength, "ptr", NumericAttribute, "short")
+        result := DllCall("ODBC32.dll\SQLColAttribute", "ptr", StatementHandle, "ushort", ColumnNumber, "ushort", FieldIdentifier, "ptr", CharacterAttribute, "short", BufferLength, "short*", StringLength, "int64*", NumericAttribute, "short")
         return result
     }
 
@@ -17507,7 +17507,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqldescribecol-function
      */
     static SQLDescribeCol(StatementHandle, ColumnNumber, ColumnName, BufferLength, NameLength, DataType, ColumnSize, DecimalDigits, Nullable) {
-        result := DllCall("ODBC32.dll\SQLDescribeCol", "ptr", StatementHandle, "ushort", ColumnNumber, "ptr", ColumnName, "short", BufferLength, "ptr", NameLength, "ptr", DataType, "ptr", ColumnSize, "ptr", DecimalDigits, "ptr", Nullable, "short")
+        result := DllCall("ODBC32.dll\SQLDescribeCol", "ptr", StatementHandle, "ushort", ColumnNumber, "char*", ColumnName, "short", BufferLength, "short*", NameLength, "short*", DataType, "uint*", ColumnSize, "short*", DecimalDigits, "short*", Nullable, "short")
         return result
     }
 
@@ -17572,7 +17572,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetdata-function
      */
     static SQLGetData(StatementHandle, ColumnNumber, TargetType, TargetValue, BufferLength, StrLen_or_IndPtr) {
-        result := DllCall("ODBC32.dll\SQLGetData", "ptr", StatementHandle, "ushort", ColumnNumber, "short", TargetType, "ptr", TargetValue, "int64", BufferLength, "ptr", StrLen_or_IndPtr, "short")
+        result := DllCall("ODBC32.dll\SQLGetData", "ptr", StatementHandle, "ushort", ColumnNumber, "short", TargetType, "ptr", TargetValue, "int64", BufferLength, "int64*", StrLen_or_IndPtr, "short")
         return result
     }
 
@@ -17625,7 +17625,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetdescrec-function
      */
     static SQLGetDescRec(DescriptorHandle, RecNumber, Name, BufferLength, StringLengthPtr, TypePtr, SubTypePtr, LengthPtr, PrecisionPtr, ScalePtr, NullablePtr) {
-        result := DllCall("ODBC32.dll\SQLGetDescRec", "ptr", DescriptorHandle, "short", RecNumber, "ptr", Name, "short", BufferLength, "ptr", StringLengthPtr, "ptr", TypePtr, "ptr", SubTypePtr, "ptr", LengthPtr, "ptr", PrecisionPtr, "ptr", ScalePtr, "ptr", NullablePtr, "short")
+        result := DllCall("ODBC32.dll\SQLGetDescRec", "ptr", DescriptorHandle, "short", RecNumber, "char*", Name, "short", BufferLength, "short*", StringLengthPtr, "short*", TypePtr, "short*", SubTypePtr, "int64*", LengthPtr, "short*", PrecisionPtr, "short*", ScalePtr, "short*", NullablePtr, "short")
         return result
     }
 
@@ -17671,7 +17671,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlrowcount-function
      */
     static SQLRowCount(StatementHandle, RowCount) {
-        result := DllCall("ODBC32.dll\SQLRowCount", "ptr", StatementHandle, "ptr", RowCount, "short")
+        result := DllCall("ODBC32.dll\SQLRowCount", "ptr", StatementHandle, "int64*", RowCount, "short")
         return result
     }
 
@@ -17729,14 +17729,14 @@ class Search {
      * @param {Integer} Length [Input] The value to which to set the SQL_DESC_OCTET_LENGTH field for the descriptor record.
      * @param {Integer} Precision [Input] The value to which to set the SQL_DESC_PRECISION field for the descriptor record.
      * @param {Integer} Scale [Input] The value to which to set the SQL_DESC_SCALE field for the descriptor record.
-     * @param {Pointer<Void>} Data 
+     * @param {Pointer} Data 
      * @param {Pointer<Int64>} StringLength 
      * @param {Pointer<Int64>} Indicator 
      * @returns {Integer} SQL_SUCCESS, SQL_SUCCESS_WITH_INFO, SQL_ERROR, or SQL_INVALID_HANDLE.
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlsetdescrec-function
      */
     static SQLSetDescRec(DescriptorHandle, RecNumber, Type, SubType, Length, Precision, Scale, Data, StringLength, Indicator) {
-        result := DllCall("ODBC32.dll\SQLSetDescRec", "ptr", DescriptorHandle, "short", RecNumber, "short", Type, "short", SubType, "int64", Length, "short", Precision, "short", Scale, "ptr", Data, "ptr", StringLength, "ptr", Indicator, "short")
+        result := DllCall("ODBC32.dll\SQLSetDescRec", "ptr", DescriptorHandle, "short", RecNumber, "short", Type, "short", SubType, "int64", Length, "short", Precision, "short", Scale, "ptr", Data, "int64*", StringLength, "int64*", Indicator, "short")
         return result
     }
 
@@ -17757,7 +17757,7 @@ class Search {
      * @deprecated
      */
     static SQLSetParam(StatementHandle, ParameterNumber, ValueType, ParameterType, LengthPrecision, ParameterScale, ParameterValue, StrLen_or_Ind) {
-        result := DllCall("ODBC32.dll\SQLSetParam", "ptr", StatementHandle, "ushort", ParameterNumber, "short", ValueType, "short", ParameterType, "uint", LengthPrecision, "short", ParameterScale, "ptr", ParameterValue, "ptr", StrLen_or_Ind, "short")
+        result := DllCall("ODBC32.dll\SQLSetParam", "ptr", StatementHandle, "ushort", ParameterNumber, "short", ValueType, "short", ParameterType, "uint", LengthPrecision, "short", ParameterScale, "ptr", ParameterValue, "int64*", StrLen_or_Ind, "short")
         return result
     }
 
@@ -17790,7 +17790,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlcolattributes-function
      */
     static SQLColAttributes(hstmt, icol, fDescType, rgbDesc, cbDescMax, pcbDesc, pfDesc) {
-        result := DllCall("ODBC32.dll\SQLColAttributes", "ptr", hstmt, "ushort", icol, "ushort", fDescType, "ptr", rgbDesc, "short", cbDescMax, "ptr", pcbDesc, "ptr", pfDesc, "short")
+        result := DllCall("ODBC32.dll\SQLColAttributes", "ptr", hstmt, "ushort", icol, "ushort", fDescType, "ptr", rgbDesc, "short", cbDescMax, "short*", pcbDesc, "int64*", pfDesc, "short")
         return result
     }
 
@@ -17812,7 +17812,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqldescribeparam-function
      */
     static SQLDescribeParam(hstmt, ipar, pfSqlType, pcbParamDef, pibScale, pfNullable) {
-        result := DllCall("ODBC32.dll\SQLDescribeParam", "ptr", hstmt, "ushort", ipar, "ptr", pfSqlType, "ptr", pcbParamDef, "ptr", pibScale, "ptr", pfNullable, "short")
+        result := DllCall("ODBC32.dll\SQLDescribeParam", "ptr", hstmt, "ushort", ipar, "short*", pfSqlType, "uint*", pcbParamDef, "short*", pibScale, "short*", pfNullable, "short")
         return result
     }
 
@@ -17847,7 +17847,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlextendedfetch-function
      */
     static SQLExtendedFetch(hstmt, fFetchType, irow, pcrow, rgfRowStatus) {
-        result := DllCall("ODBC32.dll\SQLExtendedFetch", "ptr", hstmt, "ushort", fFetchType, "int64", irow, "ptr", pcrow, "ptr", rgfRowStatus, "short")
+        result := DllCall("ODBC32.dll\SQLExtendedFetch", "ptr", hstmt, "ushort", fFetchType, "int64", irow, "uint*", pcrow, "ushort*", rgfRowStatus, "short")
         return result
     }
 
@@ -17862,7 +17862,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlparamoptions-function
      */
     static SQLParamOptions(hstmt, crow, pirow) {
-        result := DllCall("ODBC32.dll\SQLParamOptions", "ptr", hstmt, "uint", crow, "ptr", pirow, "short")
+        result := DllCall("ODBC32.dll\SQLParamOptions", "ptr", hstmt, "uint", crow, "uint*", pirow, "short")
         return result
     }
 
@@ -17903,7 +17903,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlbindparameter-function
      */
     static SQLBindParameter(hstmt, ipar, fParamType, fCType, fSqlType, cbColDef, ibScale, rgbValue, cbValueMax, pcbValue) {
-        result := DllCall("ODBC32.dll\SQLBindParameter", "ptr", hstmt, "ushort", ipar, "short", fParamType, "short", fCType, "short", fSqlType, "uint", cbColDef, "short", ibScale, "ptr", rgbValue, "int64", cbValueMax, "ptr", pcbValue, "short")
+        result := DllCall("ODBC32.dll\SQLBindParameter", "ptr", hstmt, "ushort", ipar, "short", fParamType, "short", fCType, "short", fSqlType, "uint", cbColDef, "short", ibScale, "ptr", rgbValue, "int64", cbValueMax, "int64*", pcbValue, "short")
         return result
     }
 
@@ -17928,14 +17928,14 @@ class Search {
      * @param {Pointer<Void>} hstmt 
      * @param {Integer} iCol 
      * @param {Integer} iField 
-     * @param {Pointer<Void>} pCharAttr 
+     * @param {Pointer} pCharAttr 
      * @param {Integer} cbDescMax 
      * @param {Pointer<Int16>} pcbCharAttr 
      * @param {Pointer<Int64>} pNumAttr 
      * @returns {Integer} 
      */
     static SQLColAttributeW(hstmt, iCol, iField, pCharAttr, cbDescMax, pcbCharAttr, pNumAttr) {
-        result := DllCall("ODBC32.dll\SQLColAttributeW", "ptr", hstmt, "ushort", iCol, "ushort", iField, "ptr", pCharAttr, "short", cbDescMax, "ptr", pcbCharAttr, "ptr", pNumAttr, "short")
+        result := DllCall("ODBC32.dll\SQLColAttributeW", "ptr", hstmt, "ushort", iCol, "ushort", iField, "ptr", pCharAttr, "short", cbDescMax, "short*", pcbCharAttr, "int64*", pNumAttr, "short")
         return result
     }
 
@@ -17944,14 +17944,14 @@ class Search {
      * @param {Pointer<Void>} hstmt 
      * @param {Integer} icol 
      * @param {Integer} fDescType 
-     * @param {Pointer<Void>} rgbDesc 
+     * @param {Pointer} rgbDesc 
      * @param {Integer} cbDescMax 
      * @param {Pointer<Int16>} pcbDesc 
      * @param {Pointer<Int64>} pfDesc 
      * @returns {Integer} 
      */
     static SQLColAttributesW(hstmt, icol, fDescType, rgbDesc, cbDescMax, pcbDesc, pfDesc) {
-        result := DllCall("ODBC32.dll\SQLColAttributesW", "ptr", hstmt, "ushort", icol, "ushort", fDescType, "ptr", rgbDesc, "short", cbDescMax, "ptr", pcbDesc, "ptr", pfDesc, "short")
+        result := DllCall("ODBC32.dll\SQLColAttributesW", "ptr", hstmt, "ushort", icol, "ushort", fDescType, "ptr", rgbDesc, "short", cbDescMax, "short*", pcbDesc, "int64*", pfDesc, "short")
         return result
     }
 
@@ -17969,7 +17969,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLDescribeColW(hstmt, icol, szColName, cchColNameMax, pcchColName, pfSqlType, pcbColDef, pibScale, pfNullable) {
-        result := DllCall("ODBC32.dll\SQLDescribeColW", "ptr", hstmt, "ushort", icol, "ptr", szColName, "short", cchColNameMax, "ptr", pcchColName, "ptr", pfSqlType, "ptr", pcbColDef, "ptr", pibScale, "ptr", pfNullable, "short")
+        result := DllCall("ODBC32.dll\SQLDescribeColW", "ptr", hstmt, "ushort", icol, "ushort*", szColName, "short", cchColNameMax, "short*", pcchColName, "short*", pfSqlType, "uint*", pcbColDef, "short*", pibScale, "short*", pfNullable, "short")
         return result
     }
 
@@ -17989,7 +17989,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetDescRecW(hdesc, iRecord, szName, cchNameMax, pcchName, pfType, pfSubType, pLength, pPrecision, pScale, pNullable) {
-        result := DllCall("ODBC32.dll\SQLGetDescRecW", "ptr", hdesc, "short", iRecord, "ptr", szName, "short", cchNameMax, "ptr", pcchName, "ptr", pfType, "ptr", pfSubType, "ptr", pLength, "ptr", pPrecision, "ptr", pScale, "ptr", pNullable, "short")
+        result := DllCall("ODBC32.dll\SQLGetDescRecW", "ptr", hdesc, "short", iRecord, "ushort*", szName, "short", cchNameMax, "short*", pcchName, "short*", pfType, "short*", pfSubType, "int64*", pLength, "short*", pPrecision, "short*", pScale, "short*", pNullable, "short")
         return result
     }
 
@@ -18010,14 +18010,14 @@ class Search {
      * @param {Pointer<Void>} hstmt 
      * @param {Integer} iCol 
      * @param {Integer} iField 
-     * @param {Pointer<Void>} pCharAttr 
+     * @param {Pointer} pCharAttr 
      * @param {Integer} cbCharAttrMax 
      * @param {Pointer<Int16>} pcbCharAttr 
      * @param {Pointer<Int64>} pNumAttr 
      * @returns {Integer} 
      */
     static SQLColAttributeA(hstmt, iCol, iField, pCharAttr, cbCharAttrMax, pcbCharAttr, pNumAttr) {
-        result := DllCall("ODBC32.dll\SQLColAttributeA", "ptr", hstmt, "short", iCol, "short", iField, "ptr", pCharAttr, "short", cbCharAttrMax, "ptr", pcbCharAttr, "ptr", pNumAttr, "short")
+        result := DllCall("ODBC32.dll\SQLColAttributeA", "ptr", hstmt, "short", iCol, "short", iField, "ptr", pCharAttr, "short", cbCharAttrMax, "short*", pcbCharAttr, "int64*", pNumAttr, "short")
         return result
     }
 
@@ -18026,14 +18026,14 @@ class Search {
      * @param {Pointer<Void>} hstmt 
      * @param {Integer} icol 
      * @param {Integer} fDescType 
-     * @param {Pointer<Void>} rgbDesc 
+     * @param {Pointer} rgbDesc 
      * @param {Integer} cbDescMax 
      * @param {Pointer<Int16>} pcbDesc 
      * @param {Pointer<Int64>} pfDesc 
      * @returns {Integer} 
      */
     static SQLColAttributesA(hstmt, icol, fDescType, rgbDesc, cbDescMax, pcbDesc, pfDesc) {
-        result := DllCall("ODBC32.dll\SQLColAttributesA", "ptr", hstmt, "ushort", icol, "ushort", fDescType, "ptr", rgbDesc, "short", cbDescMax, "ptr", pcbDesc, "ptr", pfDesc, "short")
+        result := DllCall("ODBC32.dll\SQLColAttributesA", "ptr", hstmt, "ushort", icol, "ushort", fDescType, "ptr", rgbDesc, "short", cbDescMax, "short*", pcbDesc, "int64*", pfDesc, "short")
         return result
     }
 
@@ -18051,7 +18051,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLDescribeColA(hstmt, icol, szColName, cbColNameMax, pcbColName, pfSqlType, pcbColDef, pibScale, pfNullable) {
-        result := DllCall("ODBC32.dll\SQLDescribeColA", "ptr", hstmt, "ushort", icol, "ptr", szColName, "short", cbColNameMax, "ptr", pcbColName, "ptr", pfSqlType, "ptr", pcbColDef, "ptr", pibScale, "ptr", pfNullable, "short")
+        result := DllCall("ODBC32.dll\SQLDescribeColA", "ptr", hstmt, "ushort", icol, "char*", szColName, "short", cbColNameMax, "short*", pcbColName, "short*", pfSqlType, "uint*", pcbColDef, "short*", pibScale, "short*", pfNullable, "short")
         return result
     }
 
@@ -18071,7 +18071,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetDescRecA(hdesc, iRecord, szName, cbNameMax, pcbName, pfType, pfSubType, pLength, pPrecision, pScale, pNullable) {
-        result := DllCall("ODBC32.dll\SQLGetDescRecA", "ptr", hdesc, "short", iRecord, "ptr", szName, "short", cbNameMax, "ptr", pcbName, "ptr", pfType, "ptr", pfSubType, "ptr", pLength, "ptr", pPrecision, "ptr", pScale, "ptr", pNullable, "short")
+        result := DllCall("ODBC32.dll\SQLGetDescRecA", "ptr", hdesc, "short", iRecord, "char*", szName, "short", cbNameMax, "short*", pcbName, "short*", pfType, "short*", pfSubType, "int64*", pLength, "short*", pPrecision, "short*", pScale, "short*", pNullable, "short")
         return result
     }
 
@@ -18337,7 +18337,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlcolumns-function
      */
     static SQLColumns(StatementHandle, CatalogName, NameLength1, SchemaName, NameLength2, TableName, NameLength3, ColumnName, NameLength4) {
-        result := DllCall("ODBC32.dll\SQLColumns", "ptr", StatementHandle, "ptr", CatalogName, "short", NameLength1, "ptr", SchemaName, "short", NameLength2, "ptr", TableName, "short", NameLength3, "ptr", ColumnName, "short", NameLength4, "short")
+        result := DllCall("ODBC32.dll\SQLColumns", "ptr", StatementHandle, "char*", CatalogName, "short", NameLength1, "char*", SchemaName, "short", NameLength2, "char*", TableName, "short", NameLength3, "char*", ColumnName, "short", NameLength4, "short")
         return result
     }
 
@@ -18354,7 +18354,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlcompleteasync-function
      */
     static SQLCompleteAsync(HandleType, Handle, AsyncRetCodePtr) {
-        result := DllCall("ODBC32.dll\SQLCompleteAsync", "short", HandleType, "ptr", Handle, "ptr", AsyncRetCodePtr, "short")
+        result := DllCall("ODBC32.dll\SQLCompleteAsync", "short", HandleType, "ptr", Handle, "short*", AsyncRetCodePtr, "short")
         return result
     }
 
@@ -18387,7 +18387,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlconnect-function
      */
     static SQLConnect(ConnectionHandle, ServerName, NameLength1, UserName, NameLength2, Authentication, NameLength3) {
-        result := DllCall("ODBC32.dll\SQLConnect", "ptr", ConnectionHandle, "ptr", ServerName, "short", NameLength1, "ptr", UserName, "short", NameLength2, "ptr", Authentication, "short", NameLength3, "short")
+        result := DllCall("ODBC32.dll\SQLConnect", "ptr", ConnectionHandle, "char*", ServerName, "short", NameLength1, "char*", UserName, "short", NameLength2, "char*", Authentication, "short", NameLength3, "short")
         return result
     }
 
@@ -18456,7 +18456,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqldatasources-function
      */
     static SQLDataSources(EnvironmentHandle, Direction, ServerName, BufferLength1, NameLength1Ptr, Description, BufferLength2, NameLength2Ptr) {
-        result := DllCall("ODBC32.dll\SQLDataSources", "ptr", EnvironmentHandle, "ushort", Direction, "ptr", ServerName, "short", BufferLength1, "ptr", NameLength1Ptr, "ptr", Description, "short", BufferLength2, "ptr", NameLength2Ptr, "short")
+        result := DllCall("ODBC32.dll\SQLDataSources", "ptr", EnvironmentHandle, "ushort", Direction, "char*", ServerName, "short", BufferLength1, "short*", NameLength1Ptr, "char*", Description, "short", BufferLength2, "short*", NameLength2Ptr, "short")
         return result
     }
 
@@ -18536,7 +18536,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlerror-function
      */
     static SQLError(EnvironmentHandle, ConnectionHandle, StatementHandle, Sqlstate, NativeError, MessageText, BufferLength, TextLength) {
-        result := DllCall("ODBC32.dll\SQLError", "ptr", EnvironmentHandle, "ptr", ConnectionHandle, "ptr", StatementHandle, "ptr", Sqlstate, "ptr", NativeError, "ptr", MessageText, "short", BufferLength, "ptr", TextLength, "short")
+        result := DllCall("ODBC32.dll\SQLError", "ptr", EnvironmentHandle, "ptr", ConnectionHandle, "ptr", StatementHandle, "char*", Sqlstate, "int*", NativeError, "char*", MessageText, "short", BufferLength, "short*", TextLength, "short")
         return result
     }
 
@@ -18570,7 +18570,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlexecdirect-function
      */
     static SQLExecDirect(StatementHandle, StatementText, TextLength) {
-        result := DllCall("ODBC32.dll\SQLExecDirect", "ptr", StatementHandle, "ptr", StatementText, "int", TextLength, "short")
+        result := DllCall("ODBC32.dll\SQLExecDirect", "ptr", StatementHandle, "char*", StatementText, "int", TextLength, "short")
         return result
     }
 
@@ -18735,7 +18735,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetconnectattr-function
      */
     static SQLGetConnectAttr(ConnectionHandle, Attribute, Value, BufferLength, StringLengthPtr) {
-        result := DllCall("ODBC32.dll\SQLGetConnectAttr", "ptr", ConnectionHandle, "int", Attribute, "ptr", Value, "int", BufferLength, "ptr", StringLengthPtr, "short")
+        result := DllCall("ODBC32.dll\SQLGetConnectAttr", "ptr", ConnectionHandle, "int", Attribute, "ptr", Value, "int", BufferLength, "int*", StringLengthPtr, "short")
         return result
     }
 
@@ -18774,7 +18774,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetcursorname-function
      */
     static SQLGetCursorName(StatementHandle, CursorName, BufferLength, NameLengthPtr) {
-        result := DllCall("ODBC32.dll\SQLGetCursorName", "ptr", StatementHandle, "ptr", CursorName, "short", BufferLength, "ptr", NameLengthPtr, "short")
+        result := DllCall("ODBC32.dll\SQLGetCursorName", "ptr", StatementHandle, "char*", CursorName, "short", BufferLength, "short*", NameLengthPtr, "short")
         return result
     }
 
@@ -18814,7 +18814,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetdescfield-function
      */
     static SQLGetDescField(DescriptorHandle, RecNumber, FieldIdentifier, Value, BufferLength, StringLength) {
-        result := DllCall("ODBC32.dll\SQLGetDescField", "ptr", DescriptorHandle, "short", RecNumber, "short", FieldIdentifier, "ptr", Value, "int", BufferLength, "ptr", StringLength, "short")
+        result := DllCall("ODBC32.dll\SQLGetDescField", "ptr", DescriptorHandle, "short", RecNumber, "short", FieldIdentifier, "ptr", Value, "int", BufferLength, "int*", StringLength, "short")
         return result
     }
 
@@ -18871,7 +18871,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetdiagfield-function
      */
     static SQLGetDiagField(HandleType, Handle, RecNumber, DiagIdentifier, DiagInfo, BufferLength, StringLength) {
-        result := DllCall("ODBC32.dll\SQLGetDiagField", "short", HandleType, "ptr", Handle, "short", RecNumber, "short", DiagIdentifier, "ptr", DiagInfo, "short", BufferLength, "ptr", StringLength, "short")
+        result := DllCall("ODBC32.dll\SQLGetDiagField", "short", HandleType, "ptr", Handle, "short", RecNumber, "short", DiagIdentifier, "ptr", DiagInfo, "short", BufferLength, "short*", StringLength, "short")
         return result
     }
 
@@ -18915,7 +18915,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetdiagrec-function
      */
     static SQLGetDiagRec(HandleType, Handle, RecNumber, Sqlstate, NativeError, MessageText, BufferLength, TextLength) {
-        result := DllCall("ODBC32.dll\SQLGetDiagRec", "short", HandleType, "ptr", Handle, "short", RecNumber, "ptr", Sqlstate, "ptr", NativeError, "ptr", MessageText, "short", BufferLength, "ptr", TextLength, "short")
+        result := DllCall("ODBC32.dll\SQLGetDiagRec", "short", HandleType, "ptr", Handle, "short", RecNumber, "char*", Sqlstate, "int*", NativeError, "char*", MessageText, "short", BufferLength, "short*", TextLength, "short")
         return result
     }
 
@@ -18937,7 +18937,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetenvattr-function
      */
     static SQLGetEnvAttr(EnvironmentHandle, Attribute, Value, BufferLength, StringLength) {
-        result := DllCall("ODBC32.dll\SQLGetEnvAttr", "ptr", EnvironmentHandle, "int", Attribute, "ptr", Value, "int", BufferLength, "ptr", StringLength, "short")
+        result := DllCall("ODBC32.dll\SQLGetEnvAttr", "ptr", EnvironmentHandle, "int", Attribute, "ptr", Value, "int", BufferLength, "int*", StringLength, "short")
         return result
     }
 
@@ -19010,7 +19010,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetfunctions-function
      */
     static SQLGetFunctions(ConnectionHandle, FunctionId, Supported) {
-        result := DllCall("ODBC32.dll\SQLGetFunctions", "ptr", ConnectionHandle, "ushort", FunctionId, "ptr", Supported, "short")
+        result := DllCall("ODBC32.dll\SQLGetFunctions", "ptr", ConnectionHandle, "ushort", FunctionId, "ushort*", Supported, "short")
         return result
     }
 
@@ -19054,7 +19054,7 @@ class Search {
      *  All calls to **SQLGetInfo** require an open connection, except when the *InfoType* is SQL_ODBC_VER, which returns the version of the Driver Manager.
      * @param {Pointer<Void>} ConnectionHandle [Input] Connection handle.
      * @param {Integer} InfoType [Input] Type of information.
-     * @param {Pointer<Void>} InfoValue 
+     * @param {Pointer} InfoValue 
      * @param {Integer} BufferLength [Input] Length of the \**InfoValuePtr* buffer. If the value in *\*InfoValuePtr* is not a character string or if *InfoValuePtr* is a null pointer, the *BufferLength* argument is ignored. The driver assumes that the size of *\*InfoValuePtr* is SQLUSMALLINT or SQLUINTEGER, based on the *InfoType*. If *\*InfoValuePtr* is a Unicode string (when calling **SQLGetInfoW**), the *BufferLength* argument must be an even number; if not, SQLSTATE HY090 (Invalid string or buffer length) is returned.
      * @param {Pointer<Int16>} StringLengthPtr [Output] Pointer to a buffer in which to return the total number of bytes (excluding the null-termination character for character data) available to return in **InfoValuePtr*.  
      *   
@@ -19065,7 +19065,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetinfo-function
      */
     static SQLGetInfo(ConnectionHandle, InfoType, InfoValue, BufferLength, StringLengthPtr) {
-        result := DllCall("ODBC32.dll\SQLGetInfo", "ptr", ConnectionHandle, "ushort", InfoType, "ptr", InfoValue, "short", BufferLength, "ptr", StringLengthPtr, "short")
+        result := DllCall("ODBC32.dll\SQLGetInfo", "ptr", ConnectionHandle, "ushort", InfoType, "ptr", InfoValue, "short", BufferLength, "short*", StringLengthPtr, "short")
         return result
     }
 
@@ -19106,7 +19106,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlgetstmtattr-function
      */
     static SQLGetStmtAttr(StatementHandle, Attribute, Value, BufferLength, StringLength) {
-        result := DllCall("ODBC32.dll\SQLGetStmtAttr", "ptr", StatementHandle, "int", Attribute, "ptr", Value, "int", BufferLength, "ptr", StringLength, "short")
+        result := DllCall("ODBC32.dll\SQLGetStmtAttr", "ptr", StatementHandle, "int", Attribute, "ptr", Value, "int", BufferLength, "int*", StringLength, "short")
         return result
     }
 
@@ -19206,7 +19206,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlnumresultcols-function
      */
     static SQLNumResultCols(StatementHandle, ColumnCount) {
-        result := DllCall("ODBC32.dll\SQLNumResultCols", "ptr", StatementHandle, "ptr", ColumnCount, "short")
+        result := DllCall("ODBC32.dll\SQLNumResultCols", "ptr", StatementHandle, "short*", ColumnCount, "short")
         return result
     }
 
@@ -19272,7 +19272,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlprepare-function
      */
     static SQLPrepare(StatementHandle, StatementText, TextLength) {
-        result := DllCall("ODBC32.dll\SQLPrepare", "ptr", StatementHandle, "ptr", StatementText, "int", TextLength, "short")
+        result := DllCall("ODBC32.dll\SQLPrepare", "ptr", StatementHandle, "char*", StatementText, "int", TextLength, "short")
         return result
     }
 
@@ -19361,7 +19361,7 @@ class Search {
      *  [1]   These functions can be called asynchronously only if the descriptor is an implementation descriptor, not an application descriptor.
      * @param {Pointer<Void>} ConnectionHandle [Input] Connection handle.
      * @param {Integer} Attribute [Input] Attribute to set, listed in "Comments."
-     * @param {Pointer<Void>} Value 
+     * @param {Pointer} Value 
      * @param {Integer} StringLength [Input] If *Attribute* is an ODBC-defined attribute and *ValuePtr* points to a character string or a binary buffer, this argument should be the length of **ValuePtr*. For character string data, this argument should contain the number of bytes in the string.  
      *   
      *  If *Attribute* is an ODBC-defined attribute and *ValuePtr* is an integer, *StringLength* is ignored.  
@@ -19398,7 +19398,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlsetcursorname-function
      */
     static SQLSetCursorName(StatementHandle, CursorName, NameLength) {
-        result := DllCall("ODBC32.dll\SQLSetCursorName", "ptr", StatementHandle, "ptr", CursorName, "short", NameLength, "short")
+        result := DllCall("ODBC32.dll\SQLSetCursorName", "ptr", StatementHandle, "char*", CursorName, "short", NameLength, "short")
         return result
     }
 
@@ -19466,7 +19466,7 @@ class Search {
      * |SQL_ATTR_OUTPUT_NTS (ODBC 3.0)|A 32-bit integer that determines how the driver returns string data. If SQL_TRUE, the driver returns string data null-terminated. If SQL_FALSE, the driver does not return string data null-terminated.<br /><br /> This attribute defaults to SQL_TRUE. A call to **SQLSetEnvAttr** to set it to SQL_TRUE returns SQL_SUCCESS. A call to **SQLSetEnvAttr** to set it to SQL_FALSE returns SQL_ERROR and SQLSTATE HYC00 (Optional feature not implemented).|
      * @param {Pointer<Void>} EnvironmentHandle [Input] Environment handle.
      * @param {Integer} Attribute [Input] Attribute to set, listed in "Comments."
-     * @param {Pointer<Void>} Value 
+     * @param {Pointer} Value 
      * @param {Integer} StringLength [Input] If *ValuePtr* points to a character string or a binary buffer, this argument should be the length of **ValuePtr*. For character string data, this argument should contain the number of bytes in the string.  
      *   
      *  If *ValuePtr* is an integer, *StringLength* is ignored.
@@ -19596,7 +19596,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlspecialcolumns-function
      */
     static SQLSpecialColumns(StatementHandle, IdentifierType, CatalogName, NameLength1, SchemaName, NameLength2, TableName, NameLength3, Scope, Nullable) {
-        result := DllCall("ODBC32.dll\SQLSpecialColumns", "ptr", StatementHandle, "ushort", IdentifierType, "ptr", CatalogName, "short", NameLength1, "ptr", SchemaName, "short", NameLength2, "ptr", TableName, "short", NameLength3, "ushort", Scope, "ushort", Nullable, "short")
+        result := DllCall("ODBC32.dll\SQLSpecialColumns", "ptr", StatementHandle, "ushort", IdentifierType, "char*", CatalogName, "short", NameLength1, "char*", SchemaName, "short", NameLength2, "char*", TableName, "short", NameLength3, "ushort", Scope, "ushort", Nullable, "short")
         return result
     }
 
@@ -19661,7 +19661,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlstatistics-function
      */
     static SQLStatistics(StatementHandle, CatalogName, NameLength1, SchemaName, NameLength2, TableName, NameLength3, Unique, Reserved) {
-        result := DllCall("ODBC32.dll\SQLStatistics", "ptr", StatementHandle, "ptr", CatalogName, "short", NameLength1, "ptr", SchemaName, "short", NameLength2, "ptr", TableName, "short", NameLength3, "ushort", Unique, "ushort", Reserved, "short")
+        result := DllCall("ODBC32.dll\SQLStatistics", "ptr", StatementHandle, "char*", CatalogName, "short", NameLength1, "char*", SchemaName, "short", NameLength2, "char*", TableName, "short", NameLength3, "ushort", Unique, "ushort", Reserved, "short")
         return result
     }
 
@@ -19732,7 +19732,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqltables-function
      */
     static SQLTables(StatementHandle, CatalogName, NameLength1, SchemaName, NameLength2, TableName, NameLength3, TableType, NameLength4) {
-        result := DllCall("ODBC32.dll\SQLTables", "ptr", StatementHandle, "ptr", CatalogName, "short", NameLength1, "ptr", SchemaName, "short", NameLength2, "ptr", TableName, "short", NameLength3, "ptr", TableType, "short", NameLength4, "short")
+        result := DllCall("ODBC32.dll\SQLTables", "ptr", StatementHandle, "char*", CatalogName, "short", NameLength1, "char*", SchemaName, "short", NameLength2, "char*", TableName, "short", NameLength3, "char*", TableType, "short", NameLength4, "short")
         return result
     }
 
@@ -19814,7 +19814,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-bind
      */
     static bcp_bind(param0, param1, param2, param3, param4, param5, param6, param7) {
-        result := DllCall("odbcbcp.dll\bcp_bind", "ptr", param0, "ptr", param1, "int", param2, "int", param3, "ptr", param4, "int", param5, "int", param6, "int", param7, "short")
+        result := DllCall("odbcbcp.dll\bcp_bind", "ptr", param0, "char*", param1, "int", param2, "int", param3, "char*", param4, "int", param5, "int", param6, "int", param7, "short")
         return result
     }
 
@@ -19860,7 +19860,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-colfmt
      */
     static bcp_colfmt(param0, param1, param2, param3, param4, param5, param6, param7) {
-        result := DllCall("odbcbcp.dll\bcp_colfmt", "ptr", param0, "int", param1, "char", param2, "int", param3, "int", param4, "ptr", param5, "int", param6, "int", param7, "short")
+        result := DllCall("odbcbcp.dll\bcp_colfmt", "ptr", param0, "int", param1, "char", param2, "int", param3, "int", param4, "char*", param5, "int", param6, "int", param7, "short")
         return result
     }
 
@@ -19898,7 +19898,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-colptr
      */
     static bcp_colptr(param0, param1, param2) {
-        result := DllCall("odbcbcp.dll\bcp_colptr", "ptr", param0, "ptr", param1, "int", param2, "short")
+        result := DllCall("odbcbcp.dll\bcp_colptr", "ptr", param0, "char*", param1, "int", param2, "short")
         return result
     }
 
@@ -19968,7 +19968,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-exec
      */
     static bcp_exec(param0, param1) {
-        result := DllCall("odbcbcp.dll\bcp_exec", "ptr", param0, "ptr", param1, "short")
+        result := DllCall("odbcbcp.dll\bcp_exec", "ptr", param0, "int*", param1, "short")
         return result
     }
 
@@ -19988,16 +19988,16 @@ class Search {
      * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-getcolfmt
      */
     static bcp_getcolfmt(param0, param1, param2, param3, param4, param5) {
-        result := DllCall("odbcbcp.dll\bcp_getcolfmt", "ptr", param0, "int", param1, "int", param2, "ptr", param3, "int", param4, "ptr", param5, "short")
+        result := DllCall("odbcbcp.dll\bcp_getcolfmt", "ptr", param0, "int", param1, "int", param2, "ptr", param3, "int", param4, "int*", param5, "short")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} param0 
-     * @param {Pointer<PSTR>} param1 
-     * @param {Pointer<PSTR>} param2 
-     * @param {Pointer<PSTR>} param3 
+     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Byte>} param2 
+     * @param {Pointer<Byte>} param3 
      * @param {Integer} param4 
      * @returns {Integer} 
      */
@@ -20013,9 +20013,9 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} param0 
-     * @param {Pointer<PWSTR>} param1 
-     * @param {Pointer<PWSTR>} param2 
-     * @param {Pointer<PWSTR>} param3 
+     * @param {Pointer<Char>} param1 
+     * @param {Pointer<Char>} param2 
+     * @param {Pointer<Char>} param3 
      * @param {Integer} param4 
      * @returns {Integer} 
      */
@@ -20068,14 +20068,14 @@ class Search {
      * @see https://learn.microsoft.com/sql/relational-databases/native-client-odbc-extensions-bulk-copy-functions/bcp-moretext
      */
     static bcp_moretext(param0, param1, param2) {
-        result := DllCall("odbcbcp.dll\bcp_moretext", "ptr", param0, "int", param1, "ptr", param2, "short")
+        result := DllCall("odbcbcp.dll\bcp_moretext", "ptr", param0, "int", param1, "char*", param2, "short")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} param0 
-     * @param {Pointer<PSTR>} param1 
+     * @param {Pointer<Byte>} param1 
      * @returns {Integer} 
      */
     static bcp_readfmtA(param0, param1) {
@@ -20088,7 +20088,7 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} param0 
-     * @param {Pointer<PWSTR>} param1 
+     * @param {Pointer<Char>} param1 
      * @returns {Integer} 
      */
     static bcp_readfmtW(param0, param1) {
@@ -20169,7 +20169,7 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} param0 
-     * @param {Pointer<PSTR>} param1 
+     * @param {Pointer<Byte>} param1 
      * @returns {Integer} 
      */
     static bcp_writefmtA(param0, param1) {
@@ -20182,7 +20182,7 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} param0 
-     * @param {Pointer<PWSTR>} param1 
+     * @param {Pointer<Char>} param1 
      * @returns {Integer} 
      */
     static bcp_writefmtW(param0, param1) {
@@ -20195,20 +20195,20 @@ class Search {
     /**
      * 
      * @param {Integer} param0 
-     * @returns {Pointer<PSTR>} 
+     * @returns {Pointer<Byte>} 
      */
     static dbprtypeA(param0) {
-        result := DllCall("odbcbcp.dll\dbprtypeA", "int", param0, "ptr")
+        result := DllCall("odbcbcp.dll\dbprtypeA", "int", param0, "char*")
         return result
     }
 
     /**
      * 
      * @param {Integer} param0 
-     * @returns {Pointer<PWSTR>} 
+     * @returns {Pointer<Char>} 
      */
     static dbprtypeW(param0) {
-        result := DllCall("odbcbcp.dll\dbprtypeW", "int", param0, "ptr")
+        result := DllCall("odbcbcp.dll\dbprtypeW", "int", param0, "char*")
         return result
     }
 
@@ -20225,7 +20225,7 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} param0 
-     * @param {Pointer<PSTR>} param1 
+     * @param {Pointer<Byte>} param1 
      * @param {Integer} param2 
      * @returns {Integer} 
      */
@@ -20239,7 +20239,7 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} param0 
-     * @param {Pointer<PWSTR>} param1 
+     * @param {Pointer<Char>} param1 
      * @param {Integer} param2 
      * @returns {Integer} 
      */
@@ -20252,33 +20252,33 @@ class Search {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pwchServerName 
-     * @param {Pointer<PWSTR>} pwchInstanceName 
-     * @returns {Pointer<HANDLE>} 
+     * @param {Pointer<Char>} pwchServerName 
+     * @param {Pointer<Char>} pwchInstanceName 
+     * @returns {Pointer<Void>} 
      */
     static SQLInitEnumServers(pwchServerName, pwchInstanceName) {
         pwchServerName := pwchServerName is String? StrPtr(pwchServerName) : pwchServerName
         pwchInstanceName := pwchInstanceName is String? StrPtr(pwchInstanceName) : pwchInstanceName
 
-        result := DllCall("odbcbcp.dll\SQLInitEnumServers", "ptr", pwchServerName, "ptr", pwchInstanceName, "ptr")
+        result := DllCall("odbcbcp.dll\SQLInitEnumServers", "ptr", pwchServerName, "ptr", pwchInstanceName)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hEnumHandle 
+     * @param {Pointer<Void>} hEnumHandle 
      * @param {Pointer<Byte>} prgEnumData 
      * @param {Pointer<Int32>} piEnumLength 
      * @returns {Integer} 
      */
     static SQLGetNextEnumeration(hEnumHandle, prgEnumData, piEnumLength) {
-        result := DllCall("odbcbcp.dll\SQLGetNextEnumeration", "ptr", hEnumHandle, "ptr", prgEnumData, "ptr", piEnumLength, "short")
+        result := DllCall("odbcbcp.dll\SQLGetNextEnumeration", "ptr", hEnumHandle, "char*", prgEnumData, "int*", piEnumLength, "short")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hEnumHandle 
+     * @param {Pointer<Void>} hEnumHandle 
      * @returns {Integer} 
      */
     static SQLCloseEnumServers(hEnumHandle) {
@@ -20346,7 +20346,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqldriverconnect-function
      */
     static SQLDriverConnect(hdbc, hwnd, szConnStrIn, cchConnStrIn, szConnStrOut, cchConnStrOutMax, pcchConnStrOut, fDriverCompletion) {
-        result := DllCall("ODBC32.dll\SQLDriverConnect", "ptr", hdbc, "ptr", hwnd, "ptr", szConnStrIn, "short", cchConnStrIn, "ptr", szConnStrOut, "short", cchConnStrOutMax, "ptr", pcchConnStrOut, "ushort", fDriverCompletion, "short")
+        result := DllCall("ODBC32.dll\SQLDriverConnect", "ptr", hdbc, "ptr", hwnd, "char*", szConnStrIn, "short", cchConnStrIn, "char*", szConnStrOut, "short", cchConnStrOutMax, "short*", pcchConnStrOut, "ushort", fDriverCompletion, "short")
         return result
     }
 
@@ -20362,7 +20362,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlbrowseconnect-function
      */
     static SQLBrowseConnect(hdbc, szConnStrIn, cchConnStrIn, szConnStrOut, cchConnStrOutMax, pcchConnStrOut) {
-        result := DllCall("ODBC32.dll\SQLBrowseConnect", "ptr", hdbc, "ptr", szConnStrIn, "short", cchConnStrIn, "ptr", szConnStrOut, "short", cchConnStrOutMax, "ptr", pcchConnStrOut, "short")
+        result := DllCall("ODBC32.dll\SQLBrowseConnect", "ptr", hdbc, "char*", szConnStrIn, "short", cchConnStrIn, "char*", szConnStrOut, "short", cchConnStrOutMax, "short*", pcchConnStrOut, "short")
         return result
     }
 
@@ -20452,7 +20452,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlcolumnprivileges-function
      */
     static SQLColumnPrivileges(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szTableName, cchTableName, szColumnName, cchColumnName) {
-        result := DllCall("ODBC32.dll\SQLColumnPrivileges", "ptr", hstmt, "ptr", szCatalogName, "short", cchCatalogName, "ptr", szSchemaName, "short", cchSchemaName, "ptr", szTableName, "short", cchTableName, "ptr", szColumnName, "short", cchColumnName, "short")
+        result := DllCall("ODBC32.dll\SQLColumnPrivileges", "ptr", hstmt, "char*", szCatalogName, "short", cchCatalogName, "char*", szSchemaName, "short", cchSchemaName, "char*", szTableName, "short", cchTableName, "char*", szColumnName, "short", cchColumnName, "short")
         return result
     }
 
@@ -20518,7 +20518,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlforeignkeys-function
      */
     static SQLForeignKeys(hstmt, szPkCatalogName, cchPkCatalogName, szPkSchemaName, cchPkSchemaName, szPkTableName, cchPkTableName, szFkCatalogName, cchFkCatalogName, szFkSchemaName, cchFkSchemaName, szFkTableName, cchFkTableName) {
-        result := DllCall("ODBC32.dll\SQLForeignKeys", "ptr", hstmt, "ptr", szPkCatalogName, "short", cchPkCatalogName, "ptr", szPkSchemaName, "short", cchPkSchemaName, "ptr", szPkTableName, "short", cchPkTableName, "ptr", szFkCatalogName, "short", cchFkCatalogName, "ptr", szFkSchemaName, "short", cchFkSchemaName, "ptr", szFkTableName, "short", cchFkTableName, "short")
+        result := DllCall("ODBC32.dll\SQLForeignKeys", "ptr", hstmt, "char*", szPkCatalogName, "short", cchPkCatalogName, "char*", szPkSchemaName, "short", cchPkSchemaName, "char*", szPkTableName, "short", cchPkTableName, "char*", szFkCatalogName, "short", cchFkCatalogName, "char*", szFkSchemaName, "short", cchFkSchemaName, "char*", szFkTableName, "short", cchFkTableName, "short")
         return result
     }
 
@@ -20593,7 +20593,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlnativesql-function
      */
     static SQLNativeSql(hdbc, szSqlStrIn, cchSqlStrIn, szSqlStr, cchSqlStrMax, pcbSqlStr) {
-        result := DllCall("ODBC32.dll\SQLNativeSql", "ptr", hdbc, "ptr", szSqlStrIn, "int", cchSqlStrIn, "ptr", szSqlStr, "int", cchSqlStrMax, "ptr", pcbSqlStr, "short")
+        result := DllCall("ODBC32.dll\SQLNativeSql", "ptr", hdbc, "char*", szSqlStrIn, "int", cchSqlStrIn, "char*", szSqlStr, "int", cchSqlStrMax, "int*", pcbSqlStr, "short")
         return result
     }
 
@@ -20613,7 +20613,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlnumparams-function
      */
     static SQLNumParams(hstmt, pcpar) {
-        result := DllCall("ODBC32.dll\SQLNumParams", "ptr", hstmt, "ptr", pcpar, "short")
+        result := DllCall("ODBC32.dll\SQLNumParams", "ptr", hstmt, "short*", pcpar, "short")
         return result
     }
 
@@ -20655,7 +20655,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlprimarykeys-function
      */
     static SQLPrimaryKeys(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szTableName, cchTableName) {
-        result := DllCall("ODBC32.dll\SQLPrimaryKeys", "ptr", hstmt, "ptr", szCatalogName, "short", cchCatalogName, "ptr", szSchemaName, "short", cchSchemaName, "ptr", szTableName, "short", cchTableName, "short")
+        result := DllCall("ODBC32.dll\SQLPrimaryKeys", "ptr", hstmt, "char*", szCatalogName, "short", cchCatalogName, "char*", szSchemaName, "short", cchSchemaName, "char*", szTableName, "short", cchTableName, "short")
         return result
     }
 
@@ -20737,7 +20737,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlprocedurecolumns-function
      */
     static SQLProcedureColumns(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szProcName, cchProcName, szColumnName, cchColumnName) {
-        result := DllCall("ODBC32.dll\SQLProcedureColumns", "ptr", hstmt, "ptr", szCatalogName, "short", cchCatalogName, "ptr", szSchemaName, "short", cchSchemaName, "ptr", szProcName, "short", cchProcName, "ptr", szColumnName, "short", cchColumnName, "short")
+        result := DllCall("ODBC32.dll\SQLProcedureColumns", "ptr", hstmt, "char*", szCatalogName, "short", cchCatalogName, "char*", szSchemaName, "short", cchSchemaName, "char*", szProcName, "short", cchProcName, "char*", szColumnName, "short", cchColumnName, "short")
         return result
     }
 
@@ -20788,7 +20788,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlprocedures-function
      */
     static SQLProcedures(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szProcName, cchProcName) {
-        result := DllCall("ODBC32.dll\SQLProcedures", "ptr", hstmt, "ptr", szCatalogName, "short", cchCatalogName, "ptr", szSchemaName, "short", cchSchemaName, "ptr", szProcName, "short", cchProcName, "short")
+        result := DllCall("ODBC32.dll\SQLProcedures", "ptr", hstmt, "char*", szCatalogName, "short", cchCatalogName, "char*", szSchemaName, "short", cchSchemaName, "char*", szProcName, "short", cchProcName, "short")
         return result
     }
 
@@ -20833,7 +20833,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqltableprivileges-function
      */
     static SQLTablePrivileges(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szTableName, cchTableName) {
-        result := DllCall("ODBC32.dll\SQLTablePrivileges", "ptr", hstmt, "ptr", szCatalogName, "short", cchCatalogName, "ptr", szSchemaName, "short", cchSchemaName, "ptr", szTableName, "short", cchTableName, "short")
+        result := DllCall("ODBC32.dll\SQLTablePrivileges", "ptr", hstmt, "char*", szCatalogName, "short", cchCatalogName, "char*", szSchemaName, "short", cchSchemaName, "char*", szTableName, "short", cchTableName, "short")
         return result
     }
 
@@ -20867,7 +20867,7 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqldrivers-function
      */
     static SQLDrivers(henv, fDirection, szDriverDesc, cchDriverDescMax, pcchDriverDesc, szDriverAttributes, cchDrvrAttrMax, pcchDrvrAttr) {
-        result := DllCall("ODBC32.dll\SQLDrivers", "ptr", henv, "ushort", fDirection, "ptr", szDriverDesc, "short", cchDriverDescMax, "ptr", pcchDriverDesc, "ptr", szDriverAttributes, "short", cchDrvrAttrMax, "ptr", pcchDrvrAttr, "short")
+        result := DllCall("ODBC32.dll\SQLDrivers", "ptr", henv, "ushort", fDirection, "char*", szDriverDesc, "short", cchDriverDescMax, "short*", pcchDriverDesc, "char*", szDriverAttributes, "short", cchDrvrAttrMax, "short*", pcchDrvrAttr, "short")
         return result
     }
 
@@ -20914,7 +20914,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLConnectW(hdbc, szDSN, cchDSN, szUID, cchUID, szAuthStr, cchAuthStr) {
-        result := DllCall("ODBC32.dll\SQLConnectW", "ptr", hdbc, "ptr", szDSN, "short", cchDSN, "ptr", szUID, "short", cchUID, "ptr", szAuthStr, "short", cchAuthStr, "short")
+        result := DllCall("ODBC32.dll\SQLConnectW", "ptr", hdbc, "ushort*", szDSN, "short", cchDSN, "ushort*", szUID, "short", cchUID, "ushort*", szAuthStr, "short", cchAuthStr, "short")
         return result
     }
 
@@ -20931,7 +20931,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLErrorW(henv, hdbc, hstmt, wszSqlState, pfNativeError, wszErrorMsg, cchErrorMsgMax, pcchErrorMsg) {
-        result := DllCall("ODBC32.dll\SQLErrorW", "ptr", henv, "ptr", hdbc, "ptr", hstmt, "ptr", wszSqlState, "ptr", pfNativeError, "ptr", wszErrorMsg, "short", cchErrorMsgMax, "ptr", pcchErrorMsg, "short")
+        result := DllCall("ODBC32.dll\SQLErrorW", "ptr", henv, "ptr", hdbc, "ptr", hstmt, "ushort*", wszSqlState, "int*", pfNativeError, "ushort*", wszErrorMsg, "short", cchErrorMsgMax, "short*", pcchErrorMsg, "short")
         return result
     }
 
@@ -20943,7 +20943,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLExecDirectW(hstmt, szSqlStr, TextLength) {
-        result := DllCall("ODBC32.dll\SQLExecDirectW", "ptr", hstmt, "ptr", szSqlStr, "int", TextLength, "short")
+        result := DllCall("ODBC32.dll\SQLExecDirectW", "ptr", hstmt, "ushort*", szSqlStr, "int", TextLength, "short")
         return result
     }
 
@@ -20957,7 +20957,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetConnectAttrW(hdbc, fAttribute, rgbValue, cbValueMax, pcbValue) {
-        result := DllCall("ODBC32.dll\SQLGetConnectAttrW", "ptr", hdbc, "int", fAttribute, "ptr", rgbValue, "int", cbValueMax, "ptr", pcbValue, "short")
+        result := DllCall("ODBC32.dll\SQLGetConnectAttrW", "ptr", hdbc, "int", fAttribute, "ptr", rgbValue, "int", cbValueMax, "int*", pcbValue, "short")
         return result
     }
 
@@ -20970,7 +20970,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetCursorNameW(hstmt, szCursor, cchCursorMax, pcchCursor) {
-        result := DllCall("ODBC32.dll\SQLGetCursorNameW", "ptr", hstmt, "ptr", szCursor, "short", cchCursorMax, "ptr", pcchCursor, "short")
+        result := DllCall("ODBC32.dll\SQLGetCursorNameW", "ptr", hstmt, "ushort*", szCursor, "short", cchCursorMax, "short*", pcchCursor, "short")
         return result
     }
 
@@ -20999,7 +20999,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetDescFieldW(hdesc, iRecord, iField, rgbValue, cbBufferLength, StringLength) {
-        result := DllCall("ODBC32.dll\SQLGetDescFieldW", "ptr", hdesc, "short", iRecord, "short", iField, "ptr", rgbValue, "int", cbBufferLength, "ptr", StringLength, "short")
+        result := DllCall("ODBC32.dll\SQLGetDescFieldW", "ptr", hdesc, "short", iRecord, "short", iField, "ptr", rgbValue, "int", cbBufferLength, "int*", StringLength, "short")
         return result
     }
 
@@ -21015,7 +21015,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetDiagFieldW(fHandleType, handle, iRecord, fDiagField, rgbDiagInfo, cbBufferLength, pcbStringLength) {
-        result := DllCall("ODBC32.dll\SQLGetDiagFieldW", "short", fHandleType, "ptr", handle, "short", iRecord, "short", fDiagField, "ptr", rgbDiagInfo, "short", cbBufferLength, "ptr", pcbStringLength, "short")
+        result := DllCall("ODBC32.dll\SQLGetDiagFieldW", "short", fHandleType, "ptr", handle, "short", iRecord, "short", fDiagField, "ptr", rgbDiagInfo, "short", cbBufferLength, "short*", pcbStringLength, "short")
         return result
     }
 
@@ -21032,7 +21032,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetDiagRecW(fHandleType, handle, iRecord, szSqlState, pfNativeError, szErrorMsg, cchErrorMsgMax, pcchErrorMsg) {
-        result := DllCall("ODBC32.dll\SQLGetDiagRecW", "short", fHandleType, "ptr", handle, "short", iRecord, "ptr", szSqlState, "ptr", pfNativeError, "ptr", szErrorMsg, "short", cchErrorMsgMax, "ptr", pcchErrorMsg, "short")
+        result := DllCall("ODBC32.dll\SQLGetDiagRecW", "short", fHandleType, "ptr", handle, "short", iRecord, "ushort*", szSqlState, "int*", pfNativeError, "ushort*", szErrorMsg, "short", cchErrorMsgMax, "short*", pcchErrorMsg, "short")
         return result
     }
 
@@ -21044,7 +21044,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLPrepareW(hstmt, szSqlStr, cchSqlStr) {
-        result := DllCall("ODBC32.dll\SQLPrepareW", "ptr", hstmt, "ptr", szSqlStr, "int", cchSqlStr, "short")
+        result := DllCall("ODBC32.dll\SQLPrepareW", "ptr", hstmt, "ushort*", szSqlStr, "int", cchSqlStr, "short")
         return result
     }
 
@@ -21052,7 +21052,7 @@ class Search {
      * 
      * @param {Pointer<Void>} hdbc 
      * @param {Integer} fAttribute 
-     * @param {Pointer<Void>} rgbValue 
+     * @param {Pointer} rgbValue 
      * @param {Integer} cbValue 
      * @returns {Integer} 
      */
@@ -21069,7 +21069,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLSetCursorNameW(hstmt, szCursor, cchCursor) {
-        result := DllCall("ODBC32.dll\SQLSetCursorNameW", "ptr", hstmt, "ptr", szCursor, "short", cchCursor, "short")
+        result := DllCall("ODBC32.dll\SQLSetCursorNameW", "ptr", hstmt, "ushort*", szCursor, "short", cchCursor, "short")
         return result
     }
 
@@ -21087,7 +21087,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLColumnsW(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szTableName, cchTableName, szColumnName, cchColumnName) {
-        result := DllCall("ODBC32.dll\SQLColumnsW", "ptr", hstmt, "ptr", szCatalogName, "short", cchCatalogName, "ptr", szSchemaName, "short", cchSchemaName, "ptr", szTableName, "short", cchTableName, "ptr", szColumnName, "short", cchColumnName, "short")
+        result := DllCall("ODBC32.dll\SQLColumnsW", "ptr", hstmt, "ushort*", szCatalogName, "short", cchCatalogName, "ushort*", szSchemaName, "short", cchSchemaName, "ushort*", szTableName, "short", cchTableName, "ushort*", szColumnName, "short", cchColumnName, "short")
         return result
     }
 
@@ -21107,13 +21107,13 @@ class Search {
      * 
      * @param {Pointer<Void>} hdbc 
      * @param {Integer} fInfoType 
-     * @param {Pointer<Void>} rgbInfoValue 
+     * @param {Pointer} rgbInfoValue 
      * @param {Integer} cbInfoValueMax 
      * @param {Pointer<Int16>} pcbInfoValue 
      * @returns {Integer} 
      */
     static SQLGetInfoW(hdbc, fInfoType, rgbInfoValue, cbInfoValueMax, pcbInfoValue) {
-        result := DllCall("ODBC32.dll\SQLGetInfoW", "ptr", hdbc, "ushort", fInfoType, "ptr", rgbInfoValue, "short", cbInfoValueMax, "ptr", pcbInfoValue, "short")
+        result := DllCall("ODBC32.dll\SQLGetInfoW", "ptr", hdbc, "ushort", fInfoType, "ptr", rgbInfoValue, "short", cbInfoValueMax, "short*", pcbInfoValue, "short")
         return result
     }
 
@@ -21143,7 +21143,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLSpecialColumnsW(hstmt, fColType, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szTableName, cchTableName, fScope, fNullable) {
-        result := DllCall("ODBC32.dll\SQLSpecialColumnsW", "ptr", hstmt, "ushort", fColType, "ptr", szCatalogName, "short", cchCatalogName, "ptr", szSchemaName, "short", cchSchemaName, "ptr", szTableName, "short", cchTableName, "ushort", fScope, "ushort", fNullable, "short")
+        result := DllCall("ODBC32.dll\SQLSpecialColumnsW", "ptr", hstmt, "ushort", fColType, "ushort*", szCatalogName, "short", cchCatalogName, "ushort*", szSchemaName, "short", cchSchemaName, "ushort*", szTableName, "short", cchTableName, "ushort", fScope, "ushort", fNullable, "short")
         return result
     }
 
@@ -21161,7 +21161,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLStatisticsW(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szTableName, cchTableName, fUnique, fAccuracy) {
-        result := DllCall("ODBC32.dll\SQLStatisticsW", "ptr", hstmt, "ptr", szCatalogName, "short", cchCatalogName, "ptr", szSchemaName, "short", cchSchemaName, "ptr", szTableName, "short", cchTableName, "ushort", fUnique, "ushort", fAccuracy, "short")
+        result := DllCall("ODBC32.dll\SQLStatisticsW", "ptr", hstmt, "ushort*", szCatalogName, "short", cchCatalogName, "ushort*", szSchemaName, "short", cchSchemaName, "ushort*", szTableName, "short", cchTableName, "ushort", fUnique, "ushort", fAccuracy, "short")
         return result
     }
 
@@ -21179,7 +21179,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLTablesW(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szTableName, cchTableName, szTableType, cchTableType) {
-        result := DllCall("ODBC32.dll\SQLTablesW", "ptr", hstmt, "ptr", szCatalogName, "short", cchCatalogName, "ptr", szSchemaName, "short", cchSchemaName, "ptr", szTableName, "short", cchTableName, "ptr", szTableType, "short", cchTableType, "short")
+        result := DllCall("ODBC32.dll\SQLTablesW", "ptr", hstmt, "ushort*", szCatalogName, "short", cchCatalogName, "ushort*", szSchemaName, "short", cchSchemaName, "ushort*", szTableName, "short", cchTableName, "ushort*", szTableType, "short", cchTableType, "short")
         return result
     }
 
@@ -21196,7 +21196,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLDataSourcesW(henv, fDirection, szDSN, cchDSNMax, pcchDSN, wszDescription, cchDescriptionMax, pcchDescription) {
-        result := DllCall("ODBC32.dll\SQLDataSourcesW", "ptr", henv, "ushort", fDirection, "ptr", szDSN, "short", cchDSNMax, "ptr", pcchDSN, "ptr", wszDescription, "short", cchDescriptionMax, "ptr", pcchDescription, "short")
+        result := DllCall("ODBC32.dll\SQLDataSourcesW", "ptr", henv, "ushort", fDirection, "ushort*", szDSN, "short", cchDSNMax, "short*", pcchDSN, "ushort*", wszDescription, "short", cchDescriptionMax, "short*", pcchDescription, "short")
         return result
     }
 
@@ -21213,7 +21213,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLDriverConnectW(hdbc, hwnd, szConnStrIn, cchConnStrIn, szConnStrOut, cchConnStrOutMax, pcchConnStrOut, fDriverCompletion) {
-        result := DllCall("ODBC32.dll\SQLDriverConnectW", "ptr", hdbc, "ptr", hwnd, "ptr", szConnStrIn, "short", cchConnStrIn, "ptr", szConnStrOut, "short", cchConnStrOutMax, "ptr", pcchConnStrOut, "ushort", fDriverCompletion, "short")
+        result := DllCall("ODBC32.dll\SQLDriverConnectW", "ptr", hdbc, "ptr", hwnd, "ushort*", szConnStrIn, "short", cchConnStrIn, "ushort*", szConnStrOut, "short", cchConnStrOutMax, "short*", pcchConnStrOut, "ushort", fDriverCompletion, "short")
         return result
     }
 
@@ -21228,7 +21228,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLBrowseConnectW(hdbc, szConnStrIn, cchConnStrIn, szConnStrOut, cchConnStrOutMax, pcchConnStrOut) {
-        result := DllCall("ODBC32.dll\SQLBrowseConnectW", "ptr", hdbc, "ptr", szConnStrIn, "short", cchConnStrIn, "ptr", szConnStrOut, "short", cchConnStrOutMax, "ptr", pcchConnStrOut, "short")
+        result := DllCall("ODBC32.dll\SQLBrowseConnectW", "ptr", hdbc, "ushort*", szConnStrIn, "short", cchConnStrIn, "ushort*", szConnStrOut, "short", cchConnStrOutMax, "short*", pcchConnStrOut, "short")
         return result
     }
 
@@ -21246,7 +21246,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLColumnPrivilegesW(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szTableName, cchTableName, szColumnName, cchColumnName) {
-        result := DllCall("ODBC32.dll\SQLColumnPrivilegesW", "ptr", hstmt, "ptr", szCatalogName, "short", cchCatalogName, "ptr", szSchemaName, "short", cchSchemaName, "ptr", szTableName, "short", cchTableName, "ptr", szColumnName, "short", cchColumnName, "short")
+        result := DllCall("ODBC32.dll\SQLColumnPrivilegesW", "ptr", hstmt, "ushort*", szCatalogName, "short", cchCatalogName, "ushort*", szSchemaName, "short", cchSchemaName, "ushort*", szTableName, "short", cchTableName, "ushort*", szColumnName, "short", cchColumnName, "short")
         return result
     }
 
@@ -21260,7 +21260,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetStmtAttrW(hstmt, fAttribute, rgbValue, cbValueMax, pcbValue) {
-        result := DllCall("ODBC32.dll\SQLGetStmtAttrW", "ptr", hstmt, "int", fAttribute, "ptr", rgbValue, "int", cbValueMax, "ptr", pcbValue, "short")
+        result := DllCall("ODBC32.dll\SQLGetStmtAttrW", "ptr", hstmt, "int", fAttribute, "ptr", rgbValue, "int", cbValueMax, "int*", pcbValue, "short")
         return result
     }
 
@@ -21295,7 +21295,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLForeignKeysW(hstmt, szPkCatalogName, cchPkCatalogName, szPkSchemaName, cchPkSchemaName, szPkTableName, cchPkTableName, szFkCatalogName, cchFkCatalogName, szFkSchemaName, cchFkSchemaName, szFkTableName, cchFkTableName) {
-        result := DllCall("ODBC32.dll\SQLForeignKeysW", "ptr", hstmt, "ptr", szPkCatalogName, "short", cchPkCatalogName, "ptr", szPkSchemaName, "short", cchPkSchemaName, "ptr", szPkTableName, "short", cchPkTableName, "ptr", szFkCatalogName, "short", cchFkCatalogName, "ptr", szFkSchemaName, "short", cchFkSchemaName, "ptr", szFkTableName, "short", cchFkTableName, "short")
+        result := DllCall("ODBC32.dll\SQLForeignKeysW", "ptr", hstmt, "ushort*", szPkCatalogName, "short", cchPkCatalogName, "ushort*", szPkSchemaName, "short", cchPkSchemaName, "ushort*", szPkTableName, "short", cchPkTableName, "ushort*", szFkCatalogName, "short", cchFkCatalogName, "ushort*", szFkSchemaName, "short", cchFkSchemaName, "ushort*", szFkTableName, "short", cchFkTableName, "short")
         return result
     }
 
@@ -21310,7 +21310,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLNativeSqlW(hdbc, szSqlStrIn, cchSqlStrIn, szSqlStr, cchSqlStrMax, pcchSqlStr) {
-        result := DllCall("ODBC32.dll\SQLNativeSqlW", "ptr", hdbc, "ptr", szSqlStrIn, "int", cchSqlStrIn, "ptr", szSqlStr, "int", cchSqlStrMax, "ptr", pcchSqlStr, "short")
+        result := DllCall("ODBC32.dll\SQLNativeSqlW", "ptr", hdbc, "ushort*", szSqlStrIn, "int", cchSqlStrIn, "ushort*", szSqlStr, "int", cchSqlStrMax, "int*", pcchSqlStr, "short")
         return result
     }
 
@@ -21326,7 +21326,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLPrimaryKeysW(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szTableName, cchTableName) {
-        result := DllCall("ODBC32.dll\SQLPrimaryKeysW", "ptr", hstmt, "ptr", szCatalogName, "short", cchCatalogName, "ptr", szSchemaName, "short", cchSchemaName, "ptr", szTableName, "short", cchTableName, "short")
+        result := DllCall("ODBC32.dll\SQLPrimaryKeysW", "ptr", hstmt, "ushort*", szCatalogName, "short", cchCatalogName, "ushort*", szSchemaName, "short", cchSchemaName, "ushort*", szTableName, "short", cchTableName, "short")
         return result
     }
 
@@ -21344,7 +21344,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLProcedureColumnsW(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szProcName, cchProcName, szColumnName, cchColumnName) {
-        result := DllCall("ODBC32.dll\SQLProcedureColumnsW", "ptr", hstmt, "ptr", szCatalogName, "short", cchCatalogName, "ptr", szSchemaName, "short", cchSchemaName, "ptr", szProcName, "short", cchProcName, "ptr", szColumnName, "short", cchColumnName, "short")
+        result := DllCall("ODBC32.dll\SQLProcedureColumnsW", "ptr", hstmt, "ushort*", szCatalogName, "short", cchCatalogName, "ushort*", szSchemaName, "short", cchSchemaName, "ushort*", szProcName, "short", cchProcName, "ushort*", szColumnName, "short", cchColumnName, "short")
         return result
     }
 
@@ -21360,7 +21360,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLProceduresW(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szProcName, cchProcName) {
-        result := DllCall("ODBC32.dll\SQLProceduresW", "ptr", hstmt, "ptr", szCatalogName, "short", cchCatalogName, "ptr", szSchemaName, "short", cchSchemaName, "ptr", szProcName, "short", cchProcName, "short")
+        result := DllCall("ODBC32.dll\SQLProceduresW", "ptr", hstmt, "ushort*", szCatalogName, "short", cchCatalogName, "ushort*", szSchemaName, "short", cchSchemaName, "ushort*", szProcName, "short", cchProcName, "short")
         return result
     }
 
@@ -21376,7 +21376,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLTablePrivilegesW(hstmt, szCatalogName, cchCatalogName, szSchemaName, cchSchemaName, szTableName, cchTableName) {
-        result := DllCall("ODBC32.dll\SQLTablePrivilegesW", "ptr", hstmt, "ptr", szCatalogName, "short", cchCatalogName, "ptr", szSchemaName, "short", cchSchemaName, "ptr", szTableName, "short", cchTableName, "short")
+        result := DllCall("ODBC32.dll\SQLTablePrivilegesW", "ptr", hstmt, "ushort*", szCatalogName, "short", cchCatalogName, "ushort*", szSchemaName, "short", cchSchemaName, "ushort*", szTableName, "short", cchTableName, "short")
         return result
     }
 
@@ -21393,7 +21393,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLDriversW(henv, fDirection, szDriverDesc, cchDriverDescMax, pcchDriverDesc, szDriverAttributes, cchDrvrAttrMax, pcchDrvrAttr) {
-        result := DllCall("ODBC32.dll\SQLDriversW", "ptr", henv, "ushort", fDirection, "ptr", szDriverDesc, "short", cchDriverDescMax, "ptr", pcchDriverDesc, "ptr", szDriverAttributes, "short", cchDrvrAttrMax, "ptr", pcchDrvrAttr, "short")
+        result := DllCall("ODBC32.dll\SQLDriversW", "ptr", henv, "ushort", fDirection, "ushort*", szDriverDesc, "short", cchDriverDescMax, "short*", pcchDriverDesc, "ushort*", szDriverAttributes, "short", cchDrvrAttrMax, "short*", pcchDrvrAttr, "short")
         return result
     }
 
@@ -21409,7 +21409,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLConnectA(hdbc, szDSN, cbDSN, szUID, cbUID, szAuthStr, cbAuthStr) {
-        result := DllCall("ODBC32.dll\SQLConnectA", "ptr", hdbc, "ptr", szDSN, "short", cbDSN, "ptr", szUID, "short", cbUID, "ptr", szAuthStr, "short", cbAuthStr, "short")
+        result := DllCall("ODBC32.dll\SQLConnectA", "ptr", hdbc, "char*", szDSN, "short", cbDSN, "char*", szUID, "short", cbUID, "char*", szAuthStr, "short", cbAuthStr, "short")
         return result
     }
 
@@ -21426,7 +21426,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLErrorA(henv, hdbc, hstmt, szSqlState, pfNativeError, szErrorMsg, cbErrorMsgMax, pcbErrorMsg) {
-        result := DllCall("ODBC32.dll\SQLErrorA", "ptr", henv, "ptr", hdbc, "ptr", hstmt, "ptr", szSqlState, "ptr", pfNativeError, "ptr", szErrorMsg, "short", cbErrorMsgMax, "ptr", pcbErrorMsg, "short")
+        result := DllCall("ODBC32.dll\SQLErrorA", "ptr", henv, "ptr", hdbc, "ptr", hstmt, "char*", szSqlState, "int*", pfNativeError, "char*", szErrorMsg, "short", cbErrorMsgMax, "short*", pcbErrorMsg, "short")
         return result
     }
 
@@ -21438,7 +21438,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLExecDirectA(hstmt, szSqlStr, cbSqlStr) {
-        result := DllCall("ODBC32.dll\SQLExecDirectA", "ptr", hstmt, "ptr", szSqlStr, "int", cbSqlStr, "short")
+        result := DllCall("ODBC32.dll\SQLExecDirectA", "ptr", hstmt, "char*", szSqlStr, "int", cbSqlStr, "short")
         return result
     }
 
@@ -21452,7 +21452,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetConnectAttrA(hdbc, fAttribute, rgbValue, cbValueMax, pcbValue) {
-        result := DllCall("ODBC32.dll\SQLGetConnectAttrA", "ptr", hdbc, "int", fAttribute, "ptr", rgbValue, "int", cbValueMax, "ptr", pcbValue, "short")
+        result := DllCall("ODBC32.dll\SQLGetConnectAttrA", "ptr", hdbc, "int", fAttribute, "ptr", rgbValue, "int", cbValueMax, "int*", pcbValue, "short")
         return result
     }
 
@@ -21465,7 +21465,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetCursorNameA(hstmt, szCursor, cbCursorMax, pcbCursor) {
-        result := DllCall("ODBC32.dll\SQLGetCursorNameA", "ptr", hstmt, "ptr", szCursor, "short", cbCursorMax, "ptr", pcbCursor, "short")
+        result := DllCall("ODBC32.dll\SQLGetCursorNameA", "ptr", hstmt, "char*", szCursor, "short", cbCursorMax, "short*", pcbCursor, "short")
         return result
     }
 
@@ -21480,7 +21480,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetDescFieldA(hdesc, iRecord, iField, rgbValue, cbBufferLength, StringLength) {
-        result := DllCall("ODBC32.dll\SQLGetDescFieldA", "ptr", hdesc, "short", iRecord, "short", iField, "ptr", rgbValue, "int", cbBufferLength, "ptr", StringLength, "short")
+        result := DllCall("ODBC32.dll\SQLGetDescFieldA", "ptr", hdesc, "short", iRecord, "short", iField, "ptr", rgbValue, "int", cbBufferLength, "int*", StringLength, "short")
         return result
     }
 
@@ -21496,7 +21496,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetDiagFieldA(fHandleType, handle, iRecord, fDiagField, rgbDiagInfo, cbDiagInfoMax, pcbDiagInfo) {
-        result := DllCall("ODBC32.dll\SQLGetDiagFieldA", "short", fHandleType, "ptr", handle, "short", iRecord, "short", fDiagField, "ptr", rgbDiagInfo, "short", cbDiagInfoMax, "ptr", pcbDiagInfo, "short")
+        result := DllCall("ODBC32.dll\SQLGetDiagFieldA", "short", fHandleType, "ptr", handle, "short", iRecord, "short", fDiagField, "ptr", rgbDiagInfo, "short", cbDiagInfoMax, "short*", pcbDiagInfo, "short")
         return result
     }
 
@@ -21513,7 +21513,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetDiagRecA(fHandleType, handle, iRecord, szSqlState, pfNativeError, szErrorMsg, cbErrorMsgMax, pcbErrorMsg) {
-        result := DllCall("ODBC32.dll\SQLGetDiagRecA", "short", fHandleType, "ptr", handle, "short", iRecord, "ptr", szSqlState, "ptr", pfNativeError, "ptr", szErrorMsg, "short", cbErrorMsgMax, "ptr", pcbErrorMsg, "short")
+        result := DllCall("ODBC32.dll\SQLGetDiagRecA", "short", fHandleType, "ptr", handle, "short", iRecord, "char*", szSqlState, "int*", pfNativeError, "char*", szErrorMsg, "short", cbErrorMsgMax, "short*", pcbErrorMsg, "short")
         return result
     }
 
@@ -21527,7 +21527,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLGetStmtAttrA(hstmt, fAttribute, rgbValue, cbValueMax, pcbValue) {
-        result := DllCall("ODBC32.dll\SQLGetStmtAttrA", "ptr", hstmt, "int", fAttribute, "ptr", rgbValue, "int", cbValueMax, "ptr", pcbValue, "short")
+        result := DllCall("ODBC32.dll\SQLGetStmtAttrA", "ptr", hstmt, "int", fAttribute, "ptr", rgbValue, "int", cbValueMax, "int*", pcbValue, "short")
         return result
     }
 
@@ -21550,7 +21550,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLPrepareA(hstmt, szSqlStr, cbSqlStr) {
-        result := DllCall("ODBC32.dll\SQLPrepareA", "ptr", hstmt, "ptr", szSqlStr, "int", cbSqlStr, "short")
+        result := DllCall("ODBC32.dll\SQLPrepareA", "ptr", hstmt, "char*", szSqlStr, "int", cbSqlStr, "short")
         return result
     }
 
@@ -21558,7 +21558,7 @@ class Search {
      * 
      * @param {Pointer<Void>} hdbc 
      * @param {Integer} fAttribute 
-     * @param {Pointer<Void>} rgbValue 
+     * @param {Pointer} rgbValue 
      * @param {Integer} cbValue 
      * @returns {Integer} 
      */
@@ -21575,7 +21575,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLSetCursorNameA(hstmt, szCursor, cbCursor) {
-        result := DllCall("ODBC32.dll\SQLSetCursorNameA", "ptr", hstmt, "ptr", szCursor, "short", cbCursor, "short")
+        result := DllCall("ODBC32.dll\SQLSetCursorNameA", "ptr", hstmt, "char*", szCursor, "short", cbCursor, "short")
         return result
     }
 
@@ -21593,7 +21593,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLColumnsA(hstmt, szCatalogName, cbCatalogName, szSchemaName, cbSchemaName, szTableName, cbTableName, szColumnName, cbColumnName) {
-        result := DllCall("ODBC32.dll\SQLColumnsA", "ptr", hstmt, "ptr", szCatalogName, "short", cbCatalogName, "ptr", szSchemaName, "short", cbSchemaName, "ptr", szTableName, "short", cbTableName, "ptr", szColumnName, "short", cbColumnName, "short")
+        result := DllCall("ODBC32.dll\SQLColumnsA", "ptr", hstmt, "char*", szCatalogName, "short", cbCatalogName, "char*", szSchemaName, "short", cbSchemaName, "char*", szTableName, "short", cbTableName, "char*", szColumnName, "short", cbColumnName, "short")
         return result
     }
 
@@ -21613,13 +21613,13 @@ class Search {
      * 
      * @param {Pointer<Void>} hdbc 
      * @param {Integer} fInfoType 
-     * @param {Pointer<Void>} rgbInfoValue 
+     * @param {Pointer} rgbInfoValue 
      * @param {Integer} cbInfoValueMax 
      * @param {Pointer<Int16>} pcbInfoValue 
      * @returns {Integer} 
      */
     static SQLGetInfoA(hdbc, fInfoType, rgbInfoValue, cbInfoValueMax, pcbInfoValue) {
-        result := DllCall("ODBC32.dll\SQLGetInfoA", "ptr", hdbc, "ushort", fInfoType, "ptr", rgbInfoValue, "short", cbInfoValueMax, "ptr", pcbInfoValue, "short")
+        result := DllCall("ODBC32.dll\SQLGetInfoA", "ptr", hdbc, "ushort", fInfoType, "ptr", rgbInfoValue, "short", cbInfoValueMax, "short*", pcbInfoValue, "short")
         return result
     }
 
@@ -21638,7 +21638,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLSpecialColumnsA(hstmt, fColType, szCatalogName, cbCatalogName, szSchemaName, cbSchemaName, szTableName, cbTableName, fScope, fNullable) {
-        result := DllCall("ODBC32.dll\SQLSpecialColumnsA", "ptr", hstmt, "ushort", fColType, "ptr", szCatalogName, "short", cbCatalogName, "ptr", szSchemaName, "short", cbSchemaName, "ptr", szTableName, "short", cbTableName, "ushort", fScope, "ushort", fNullable, "short")
+        result := DllCall("ODBC32.dll\SQLSpecialColumnsA", "ptr", hstmt, "ushort", fColType, "char*", szCatalogName, "short", cbCatalogName, "char*", szSchemaName, "short", cbSchemaName, "char*", szTableName, "short", cbTableName, "ushort", fScope, "ushort", fNullable, "short")
         return result
     }
 
@@ -21656,7 +21656,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLStatisticsA(hstmt, szCatalogName, cbCatalogName, szSchemaName, cbSchemaName, szTableName, cbTableName, fUnique, fAccuracy) {
-        result := DllCall("ODBC32.dll\SQLStatisticsA", "ptr", hstmt, "ptr", szCatalogName, "short", cbCatalogName, "ptr", szSchemaName, "short", cbSchemaName, "ptr", szTableName, "short", cbTableName, "ushort", fUnique, "ushort", fAccuracy, "short")
+        result := DllCall("ODBC32.dll\SQLStatisticsA", "ptr", hstmt, "char*", szCatalogName, "short", cbCatalogName, "char*", szSchemaName, "short", cbSchemaName, "char*", szTableName, "short", cbTableName, "ushort", fUnique, "ushort", fAccuracy, "short")
         return result
     }
 
@@ -21674,7 +21674,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLTablesA(hstmt, szCatalogName, cbCatalogName, szSchemaName, cbSchemaName, szTableName, cbTableName, szTableType, cbTableType) {
-        result := DllCall("ODBC32.dll\SQLTablesA", "ptr", hstmt, "ptr", szCatalogName, "short", cbCatalogName, "ptr", szSchemaName, "short", cbSchemaName, "ptr", szTableName, "short", cbTableName, "ptr", szTableType, "short", cbTableType, "short")
+        result := DllCall("ODBC32.dll\SQLTablesA", "ptr", hstmt, "char*", szCatalogName, "short", cbCatalogName, "char*", szSchemaName, "short", cbSchemaName, "char*", szTableName, "short", cbTableName, "char*", szTableType, "short", cbTableType, "short")
         return result
     }
 
@@ -21691,7 +21691,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLDataSourcesA(henv, fDirection, szDSN, cbDSNMax, pcbDSN, szDescription, cbDescriptionMax, pcbDescription) {
-        result := DllCall("ODBC32.dll\SQLDataSourcesA", "ptr", henv, "ushort", fDirection, "ptr", szDSN, "short", cbDSNMax, "ptr", pcbDSN, "ptr", szDescription, "short", cbDescriptionMax, "ptr", pcbDescription, "short")
+        result := DllCall("ODBC32.dll\SQLDataSourcesA", "ptr", henv, "ushort", fDirection, "char*", szDSN, "short", cbDSNMax, "short*", pcbDSN, "char*", szDescription, "short", cbDescriptionMax, "short*", pcbDescription, "short")
         return result
     }
 
@@ -21708,7 +21708,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLDriverConnectA(hdbc, hwnd, szConnStrIn, cbConnStrIn, szConnStrOut, cbConnStrOutMax, pcbConnStrOut, fDriverCompletion) {
-        result := DllCall("ODBC32.dll\SQLDriverConnectA", "ptr", hdbc, "ptr", hwnd, "ptr", szConnStrIn, "short", cbConnStrIn, "ptr", szConnStrOut, "short", cbConnStrOutMax, "ptr", pcbConnStrOut, "ushort", fDriverCompletion, "short")
+        result := DllCall("ODBC32.dll\SQLDriverConnectA", "ptr", hdbc, "ptr", hwnd, "char*", szConnStrIn, "short", cbConnStrIn, "char*", szConnStrOut, "short", cbConnStrOutMax, "short*", pcbConnStrOut, "ushort", fDriverCompletion, "short")
         return result
     }
 
@@ -21723,7 +21723,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLBrowseConnectA(hdbc, szConnStrIn, cbConnStrIn, szConnStrOut, cbConnStrOutMax, pcbConnStrOut) {
-        result := DllCall("ODBC32.dll\SQLBrowseConnectA", "ptr", hdbc, "ptr", szConnStrIn, "short", cbConnStrIn, "ptr", szConnStrOut, "short", cbConnStrOutMax, "ptr", pcbConnStrOut, "short")
+        result := DllCall("ODBC32.dll\SQLBrowseConnectA", "ptr", hdbc, "char*", szConnStrIn, "short", cbConnStrIn, "char*", szConnStrOut, "short", cbConnStrOutMax, "short*", pcbConnStrOut, "short")
         return result
     }
 
@@ -21741,7 +21741,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLColumnPrivilegesA(hstmt, szCatalogName, cbCatalogName, szSchemaName, cbSchemaName, szTableName, cbTableName, szColumnName, cbColumnName) {
-        result := DllCall("ODBC32.dll\SQLColumnPrivilegesA", "ptr", hstmt, "ptr", szCatalogName, "short", cbCatalogName, "ptr", szSchemaName, "short", cbSchemaName, "ptr", szTableName, "short", cbTableName, "ptr", szColumnName, "short", cbColumnName, "short")
+        result := DllCall("ODBC32.dll\SQLColumnPrivilegesA", "ptr", hstmt, "char*", szCatalogName, "short", cbCatalogName, "char*", szSchemaName, "short", cbSchemaName, "char*", szTableName, "short", cbTableName, "char*", szColumnName, "short", cbColumnName, "short")
         return result
     }
 
@@ -21763,7 +21763,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLForeignKeysA(hstmt, szPkCatalogName, cbPkCatalogName, szPkSchemaName, cbPkSchemaName, szPkTableName, cbPkTableName, szFkCatalogName, cbFkCatalogName, szFkSchemaName, cbFkSchemaName, szFkTableName, cbFkTableName) {
-        result := DllCall("ODBC32.dll\SQLForeignKeysA", "ptr", hstmt, "ptr", szPkCatalogName, "short", cbPkCatalogName, "ptr", szPkSchemaName, "short", cbPkSchemaName, "ptr", szPkTableName, "short", cbPkTableName, "ptr", szFkCatalogName, "short", cbFkCatalogName, "ptr", szFkSchemaName, "short", cbFkSchemaName, "ptr", szFkTableName, "short", cbFkTableName, "short")
+        result := DllCall("ODBC32.dll\SQLForeignKeysA", "ptr", hstmt, "char*", szPkCatalogName, "short", cbPkCatalogName, "char*", szPkSchemaName, "short", cbPkSchemaName, "char*", szPkTableName, "short", cbPkTableName, "char*", szFkCatalogName, "short", cbFkCatalogName, "char*", szFkSchemaName, "short", cbFkSchemaName, "char*", szFkTableName, "short", cbFkTableName, "short")
         return result
     }
 
@@ -21778,7 +21778,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLNativeSqlA(hdbc, szSqlStrIn, cbSqlStrIn, szSqlStr, cbSqlStrMax, pcbSqlStr) {
-        result := DllCall("ODBC32.dll\SQLNativeSqlA", "ptr", hdbc, "ptr", szSqlStrIn, "int", cbSqlStrIn, "ptr", szSqlStr, "int", cbSqlStrMax, "ptr", pcbSqlStr, "short")
+        result := DllCall("ODBC32.dll\SQLNativeSqlA", "ptr", hdbc, "char*", szSqlStrIn, "int", cbSqlStrIn, "char*", szSqlStr, "int", cbSqlStrMax, "int*", pcbSqlStr, "short")
         return result
     }
 
@@ -21794,7 +21794,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLPrimaryKeysA(hstmt, szCatalogName, cbCatalogName, szSchemaName, cbSchemaName, szTableName, cbTableName) {
-        result := DllCall("ODBC32.dll\SQLPrimaryKeysA", "ptr", hstmt, "ptr", szCatalogName, "short", cbCatalogName, "ptr", szSchemaName, "short", cbSchemaName, "ptr", szTableName, "short", cbTableName, "short")
+        result := DllCall("ODBC32.dll\SQLPrimaryKeysA", "ptr", hstmt, "char*", szCatalogName, "short", cbCatalogName, "char*", szSchemaName, "short", cbSchemaName, "char*", szTableName, "short", cbTableName, "short")
         return result
     }
 
@@ -21812,7 +21812,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLProcedureColumnsA(hstmt, szCatalogName, cbCatalogName, szSchemaName, cbSchemaName, szProcName, cbProcName, szColumnName, cbColumnName) {
-        result := DllCall("ODBC32.dll\SQLProcedureColumnsA", "ptr", hstmt, "ptr", szCatalogName, "short", cbCatalogName, "ptr", szSchemaName, "short", cbSchemaName, "ptr", szProcName, "short", cbProcName, "ptr", szColumnName, "short", cbColumnName, "short")
+        result := DllCall("ODBC32.dll\SQLProcedureColumnsA", "ptr", hstmt, "char*", szCatalogName, "short", cbCatalogName, "char*", szSchemaName, "short", cbSchemaName, "char*", szProcName, "short", cbProcName, "char*", szColumnName, "short", cbColumnName, "short")
         return result
     }
 
@@ -21828,7 +21828,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLProceduresA(hstmt, szCatalogName, cbCatalogName, szSchemaName, cbSchemaName, szProcName, cbProcName) {
-        result := DllCall("ODBC32.dll\SQLProceduresA", "ptr", hstmt, "ptr", szCatalogName, "short", cbCatalogName, "ptr", szSchemaName, "short", cbSchemaName, "ptr", szProcName, "short", cbProcName, "short")
+        result := DllCall("ODBC32.dll\SQLProceduresA", "ptr", hstmt, "char*", szCatalogName, "short", cbCatalogName, "char*", szSchemaName, "short", cbSchemaName, "char*", szProcName, "short", cbProcName, "short")
         return result
     }
 
@@ -21844,7 +21844,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLTablePrivilegesA(hstmt, szCatalogName, cbCatalogName, szSchemaName, cbSchemaName, szTableName, cbTableName) {
-        result := DllCall("ODBC32.dll\SQLTablePrivilegesA", "ptr", hstmt, "ptr", szCatalogName, "short", cbCatalogName, "ptr", szSchemaName, "short", cbSchemaName, "ptr", szTableName, "short", cbTableName, "short")
+        result := DllCall("ODBC32.dll\SQLTablePrivilegesA", "ptr", hstmt, "char*", szCatalogName, "short", cbCatalogName, "char*", szSchemaName, "short", cbSchemaName, "char*", szTableName, "short", cbTableName, "short")
         return result
     }
 
@@ -21861,7 +21861,7 @@ class Search {
      * @returns {Integer} 
      */
     static SQLDriversA(henv, fDirection, szDriverDesc, cbDriverDescMax, pcbDriverDesc, szDriverAttributes, cbDrvrAttrMax, pcbDrvrAttr) {
-        result := DllCall("ODBC32.dll\SQLDriversA", "ptr", henv, "ushort", fDirection, "ptr", szDriverDesc, "short", cbDriverDescMax, "ptr", pcbDriverDesc, "ptr", szDriverAttributes, "short", cbDrvrAttrMax, "ptr", pcbDrvrAttr, "short")
+        result := DllCall("ODBC32.dll\SQLDriversA", "ptr", henv, "ushort", fDirection, "char*", szDriverDesc, "short", cbDriverDescMax, "short*", pcbDriverDesc, "char*", szDriverAttributes, "short", cbDrvrAttrMax, "short*", pcbDrvrAttr, "short")
         return result
     }
 

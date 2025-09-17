@@ -59,7 +59,7 @@ class LSA_TOKEN_INFORMATION_V1 extends Win32Struct
      * The SID pointed to by this structure is expected to be in a separately allocated block of memory.
      * 
      * This member is mandatory and must be filled in.
-     * @type {Pointer<PSID>}
+     * @type {Pointer<Void>}
      */
     PrimaryGroup {
         get => NumGet(this, 32, "ptr")
@@ -89,7 +89,7 @@ class LSA_TOKEN_INFORMATION_V1 extends Win32Struct
      * 
      * 
      * The <b>Owner.Sid</b> member may be set to <b>NULL</b> to indicate there is no alternate default owner value.
-     * @type {Pointer<PSID>}
+     * @type {Pointer<Void>}
      */
     Owner {
         get => NumGet(this, 48, "ptr")
@@ -103,7 +103,7 @@ class LSA_TOKEN_INFORMATION_V1 extends Win32Struct
      * 
      * 
      * The <b>DefaultDacl.DefaultDacl</b> member may be set to <b>NULL</b> to indicate there is no default protection.
-     * @type {Pointer<TOKEN_DEFAULT_DACL>}
+     * @type {Pointer<TypeHandle>}
      */
     DefaultDacl {
         get => NumGet(this, 56, "ptr")

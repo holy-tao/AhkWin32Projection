@@ -15,7 +15,7 @@ class SHARE_INFO_501 extends Win32Struct
 
     /**
      * Pointer to a Unicode string specifying the name of a shared resource.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     shi501_netname {
         get => NumGet(this, 0, "ptr")
@@ -33,7 +33,7 @@ class SHARE_INFO_501 extends Win32Struct
 
     /**
      * Pointer to a Unicode string specifying an optional comment about the shared resource.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     shi501_remark {
         get => NumGet(this, 16, "ptr")

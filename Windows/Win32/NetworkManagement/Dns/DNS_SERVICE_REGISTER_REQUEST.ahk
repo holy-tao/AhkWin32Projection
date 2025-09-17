@@ -62,7 +62,7 @@ class DNS_SERVICE_REGISTER_REQUEST extends Win32Struct
 
     /**
      * Not used.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hCredentials {
         get => NumGet(this, 32, "ptr")

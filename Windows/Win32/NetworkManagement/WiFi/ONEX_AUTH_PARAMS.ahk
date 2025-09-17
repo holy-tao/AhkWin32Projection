@@ -82,7 +82,7 @@ class ONEX_AUTH_PARAMS extends Win32Struct
      * The user token handle  used for 802.1X authentication. This member contains a user token handle if the <b>fhUserToken</b> bitfield member is set.
      * 
      * For security reasons, the <b>hUserToken</b> member of the <b>ONEX_AUTH_PARAMS</b> structure returned in the <b>authParams</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_result_update_data">ONEX_RESULT_UPDATE_DATA</a> structure is always set to <b>NULL</b>.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hUserToken {
         get => NumGet(this, 32, "ptr")

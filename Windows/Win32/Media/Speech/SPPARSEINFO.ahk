@@ -20,7 +20,7 @@ class SPPARSEINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SPRULEHANDLE>}
+     * @type {Pointer<Void>}
      */
     hRule {
         get => NumGet(this, 8, "ptr")

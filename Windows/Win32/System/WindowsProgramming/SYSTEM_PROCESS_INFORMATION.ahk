@@ -59,7 +59,7 @@ class SYSTEM_PROCESS_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     UniqueProcessId {
         get => NumGet(this, 80, "ptr")

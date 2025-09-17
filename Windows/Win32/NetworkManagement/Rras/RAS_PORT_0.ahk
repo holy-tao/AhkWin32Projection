@@ -15,7 +15,7 @@ class RAS_PORT_0 extends Win32Struct
 
     /**
      * Handle to the port.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hPort {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class RAS_PORT_0 extends Win32Struct
 
     /**
      * Handle to the connection.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hConnection {
         get => NumGet(this, 8, "ptr")

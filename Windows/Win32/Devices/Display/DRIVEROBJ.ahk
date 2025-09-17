@@ -47,7 +47,7 @@ class DRIVEROBJ extends Win32Struct
 
     /**
      * GDI handle to the physical device associated with the object.
-     * @type {Pointer<HDEV>}
+     * @type {Pointer<Void>}
      */
     hdev {
         get => NumGet(this, 16, "ptr")
@@ -56,7 +56,7 @@ class DRIVEROBJ extends Win32Struct
 
     /**
      * Pointer to the driver's private instance data; that is, this member identifies the driver's <a href="https://docs.microsoft.com/windows-hardware/drivers/">PDEV</a>.
-     * @type {Pointer<DHPDEV>}
+     * @type {Pointer<Void>}
      */
     dhpdev {
         get => NumGet(this, 24, "ptr")

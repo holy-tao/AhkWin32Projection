@@ -26,7 +26,7 @@ class CRYPT_XML_TRANSFORM_INFO extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the <b>Algorithm</b> attribute.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     wszAlgorithm {
         get => NumGet(this, 8, "ptr")

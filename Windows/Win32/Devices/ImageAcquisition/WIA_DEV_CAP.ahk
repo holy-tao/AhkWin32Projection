@@ -59,7 +59,7 @@ class WIA_DEV_CAP extends Win32Struct
      * Type: <b>BSTR</b>
      * 
      * Specifies a string that contains a short version of the capability name.
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     bstrName {
         get => NumGet(this, 16, "ptr")
@@ -70,7 +70,7 @@ class WIA_DEV_CAP extends Win32Struct
      * Type: <b>BSTR</b>
      * 
      * Specifies a string that contains a description of the capability that is displayed to the user.
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     bstrDescription {
         get => NumGet(this, 24, "ptr")
@@ -81,7 +81,7 @@ class WIA_DEV_CAP extends Win32Struct
      * Type: <b>BSTR</b>
      * 
      * Specifies a string that represents the location and resource ID of the icon that represents this capability or handler. The string must be of the following form: <i>drive</i><b>:\\</b><i>path</i><b>\\</b><i>module</i><b>,</b><i>n</i>, where <i>n</i> is the icon's negated resource ID (that is, if the resource ID of the icon is 100, then <i>n</i> is -100).
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     bstrIcon {
         get => NumGet(this, 32, "ptr")
@@ -92,7 +92,7 @@ class WIA_DEV_CAP extends Win32Struct
      * Type: <b>BSTR</b>
      * 
      * Specifies a string that represents command line arguments.
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     bstrCommandline {
         get => NumGet(this, 40, "ptr")

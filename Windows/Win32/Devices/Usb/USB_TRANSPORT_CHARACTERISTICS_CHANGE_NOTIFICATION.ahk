@@ -13,7 +13,7 @@ class USB_TRANSPORT_CHARACTERISTICS_CHANGE_NOTIFICATION extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<USB_CHANGE_REGISTRATION_HANDLE>}
+     * @type {Pointer<Void>}
      */
     Handle {
         get => NumGet(this, 0, "ptr")

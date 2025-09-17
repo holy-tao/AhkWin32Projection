@@ -15,7 +15,7 @@ class NOTIFYCANCEL extends Win32Struct
 
     /**
      * Pointer to the name of the local device or network resource whose connection is being canceled.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpName {
         get => NumGet(this, 0, "ptr")
@@ -29,7 +29,7 @@ class NOTIFYCANCEL extends Win32Struct
      * 
      * 
      * For after-the-fact notification, if the cancel operation was successful, this field specifies the name of the network provider that canceled the connection.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpProvider {
         get => NumGet(this, 8, "ptr")

@@ -34,7 +34,7 @@ class LSA_TRUST_INFORMATION extends Win32Struct
 
     /**
      * Pointer to the SID of the domain.
-     * @type {Pointer<PSID>}
+     * @type {Pointer<Void>}
      */
     Sid {
         get => NumGet(this, 16, "ptr")

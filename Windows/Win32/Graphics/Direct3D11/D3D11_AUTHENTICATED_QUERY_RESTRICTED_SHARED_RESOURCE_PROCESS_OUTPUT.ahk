@@ -49,7 +49,7 @@ class D3D11_AUTHENTICATED_QUERY_RESTRICTED_SHARED_RESOURCE_PROCESS_OUTPUT extend
 
     /**
      * A process handle. If the <b>ProcessIdentifier</b> member equals <b>D3D11_PROCESSIDTYPE_HANDLE</b>, the <b>ProcessHandle</b> member contains a valid handle to a process. Otherwise, this member is ignored.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     ProcessHandle {
         get => NumGet(this, 48, "ptr")

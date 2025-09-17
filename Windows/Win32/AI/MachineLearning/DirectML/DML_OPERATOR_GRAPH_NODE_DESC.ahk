@@ -28,7 +28,7 @@ class DML_OPERATOR_GRAPH_NODE_DESC extends Win32Struct
      * Type: \_Field\_z\_ \_Maybenull\_ **const char\***
      * 
      * An optional name for the graph connection. If provided, this might be used within certain error messages emitted by the DirectML debug layer.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     Name {
         get => NumGet(this, 8, "ptr")

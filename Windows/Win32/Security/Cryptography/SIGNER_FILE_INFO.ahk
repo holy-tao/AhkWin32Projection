@@ -24,7 +24,7 @@ class SIGNER_FILE_INFO extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the name of the file to sign.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszFileName {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class SIGNER_FILE_INFO extends Win32Struct
 
     /**
      * An open handle to the file specified by the **pwszFileName** member. If this member contains a valid handle, this handle is used to access the file. This member can be set to **NULL**.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hFile {
         get => NumGet(this, 16, "ptr")

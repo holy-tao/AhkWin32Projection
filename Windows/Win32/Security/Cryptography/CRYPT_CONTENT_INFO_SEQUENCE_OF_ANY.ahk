@@ -15,7 +15,7 @@ class CRYPT_CONTENT_INFO_SEQUENCE_OF_ANY extends Win32Struct
 
     /**
      * Object identifier (OID) specifying the type of data contained in the <b>rgValue</b> array.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszObjId {
         get => NumGet(this, 0, "ptr")

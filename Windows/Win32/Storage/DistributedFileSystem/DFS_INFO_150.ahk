@@ -26,7 +26,7 @@ class DFS_INFO_150 extends Win32Struct
      * Pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> 
      *       structure that specifies a self-relative security descriptor to be associated with the DFS link's reparse 
      *       point. This field is valid for DFS links only.
-     * @type {Pointer<PSECURITY_DESCRIPTOR>}
+     * @type {Pointer<Void>}
      */
     pSecurityDescriptor {
         get => NumGet(this, 8, "ptr")

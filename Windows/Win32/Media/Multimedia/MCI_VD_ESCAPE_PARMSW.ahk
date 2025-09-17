@@ -21,7 +21,7 @@ class MCI_VD_ESCAPE_PARMSW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpstrCommand {
         get => NumGet(this, 8, "ptr")

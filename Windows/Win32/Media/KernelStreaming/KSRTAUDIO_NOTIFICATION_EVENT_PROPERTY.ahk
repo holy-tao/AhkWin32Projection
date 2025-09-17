@@ -24,7 +24,7 @@ class KSRTAUDIO_NOTIFICATION_EVENT_PROPERTY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     NotificationEvent {
         get => NumGet(this, 8, "ptr")

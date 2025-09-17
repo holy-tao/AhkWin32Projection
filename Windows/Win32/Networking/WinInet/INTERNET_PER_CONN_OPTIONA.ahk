@@ -53,7 +53,7 @@ class INTERNET_PER_CONN_OPTIONA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszValue {
         get => NumGet(this, 4, "ptr")

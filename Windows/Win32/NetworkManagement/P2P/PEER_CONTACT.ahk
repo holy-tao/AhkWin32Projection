@@ -18,7 +18,7 @@ class PEER_CONTACT extends Win32Struct
 
     /**
      * Zero-terminated Unicode string that contains the peer name of the contact. This is the unique identifier for a contact.  There can only be a single contact associated with any given peername.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwzPeerName {
         get => NumGet(this, 0, "ptr")
@@ -29,7 +29,7 @@ class PEER_CONTACT extends Win32Struct
      * Zero-terminated Unicode string that contains the nickname of the contact and can be modified at any time. This is used when the peer collaboration scope is set to People Near Me. It is advertised in People Near Me and seen by recipients of sent invitations. 
      * 
      * This member is limited to 255 unicode characters.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwzNickName {
         get => NumGet(this, 8, "ptr")
@@ -40,7 +40,7 @@ class PEER_CONTACT extends Win32Struct
      * Zero-terminated Unicode string that contains the display name of the contact. This corresponds to the display name seen for the contact in a peer's contacts folder.
      * 
      * This member is limited to 255 unicode characters.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwzDisplayName {
         get => NumGet(this, 16, "ptr")
@@ -49,7 +49,7 @@ class PEER_CONTACT extends Win32Struct
 
     /**
      * Zero-terminated Unicode string that contains the email address of the contact.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwzEmailAddress {
         get => NumGet(this, 24, "ptr")

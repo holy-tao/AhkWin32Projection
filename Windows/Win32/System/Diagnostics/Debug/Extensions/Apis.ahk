@@ -4622,7 +4622,7 @@ class Extensions {
 ;@region Methods
     /**
      * 
-     * @param {Pointer<PSTR>} RemoteOptions 
+     * @param {Pointer<Byte>} RemoteOptions 
      * @param {Pointer<Guid>} InterfaceId 
      * @param {Pointer<Void>} Interface 
      * @returns {Integer} 
@@ -4636,7 +4636,7 @@ class Extensions {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} RemoteOptions 
+     * @param {Pointer<Char>} RemoteOptions 
      * @param {Pointer<Guid>} InterfaceId 
      * @param {Pointer<Void>} Interface 
      * @returns {Integer} 

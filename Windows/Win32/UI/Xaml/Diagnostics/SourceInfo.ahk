@@ -15,7 +15,7 @@ class SourceInfo extends Win32Struct
 
     /**
      * The name of the source document file where the element is declared.
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     FileName {
         get => NumGet(this, 0, "ptr")
@@ -51,7 +51,7 @@ class SourceInfo extends Win32Struct
 
     /**
      * The hash of the source document.
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     Hash {
         get => NumGet(this, 24, "ptr")

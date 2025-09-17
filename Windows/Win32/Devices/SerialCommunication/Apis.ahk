@@ -408,7 +408,7 @@ class SerialCommunication {
      * <b>ComDBOpen</b> is called from user mode.
      * 
      * For more information, see <a href="https://docs.microsoft.com/previous-versions/ff546481(v=vs.85)">Opening and Closing the COM Port Database</a>.
-     * @param {Pointer<HCOMDB>} PHComDB Pointer, if the routine succeeds, to a handle to the COM port database. Otherwise, the routine sets <i>*PHComDB</i> to <b>HCOMDB_INVALID_HANDLE_VALUE</b>. <i>PHComDB</i> must be non-NULL.
+     * @param {Pointer<Void>} PHComDB Pointer, if the routine succeeds, to a handle to the COM port database. Otherwise, the routine sets <i>*PHComDB</i> to <b>HCOMDB_INVALID_HANDLE_VALUE</b>. <i>PHComDB</i> must be non-NULL.
      * @returns {Integer} <b>ComDBOpen</b> returns one of the following status values.
      * 
      * <table>
@@ -454,7 +454,7 @@ class SerialCommunication {
      * <b>ComDBOpen</b> is called from user mode.
      * 
      * For more information, see <a href="https://docs.microsoft.com/previous-versions/ff546481(v=vs.85)">Opening and Closing the COM Port Database</a>.
-     * @param {Pointer<HCOMDB>} HComDB Handle to the COM port database that was returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
+     * @param {Pointer<Void>} HComDB Handle to the COM port database that was returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
      * @returns {Integer} <b>ComDBClose</b> returns one of the following status values.
      * 
      * <table>
@@ -510,8 +510,8 @@ class SerialCommunication {
      * </li>
      * </ul>
      * <b>ComDBGetCurrentPortUsage</b> runs in user mode.
-     * @param {Pointer<HCOMDB>} HComDB Handle to the COM port database that was returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
-     * @param {Pointer<Byte>} Buffer Pointer to a caller-allocated buffer in which the routine returns information about COM port number. See the Remarks section for more information.
+     * @param {Pointer<Void>} HComDB Handle to the COM port database that was returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
+     * @param {Pointer} Buffer Pointer to a caller-allocated buffer in which the routine returns information about COM port number. See the Remarks section for more information.
      * @param {Integer} BufferSize Specifies the size, in bytes, of a caller-allocated buffer at <i>Buffer</i>.
      * @param {Integer} ReportType Specifies one of the following flags.
      * 
@@ -586,7 +586,7 @@ class SerialCommunication {
      * @see https://learn.microsoft.com/windows/win32/api/msports/nf-msports-comdbgetcurrentportusage
      */
     static ComDBGetCurrentPortUsage(HComDB, Buffer, BufferSize, ReportType, MaxPortsReported) {
-        result := DllCall("MSPORTS.dll\ComDBGetCurrentPortUsage", "ptr", HComDB, "ptr", Buffer, "uint", BufferSize, "uint", ReportType, "ptr", MaxPortsReported, "int")
+        result := DllCall("MSPORTS.dll\ComDBGetCurrentPortUsage", "ptr", HComDB, "ptr", Buffer, "uint", BufferSize, "uint", ReportType, "uint*", MaxPortsReported, "int")
         return result
     }
 
@@ -598,7 +598,7 @@ class SerialCommunication {
      * <b>ComDBClaimNextFreePort</b> runs in user mode.
      * 
      * For more information, see <a href="https://docs.microsoft.com/previous-versions/ff546481(v=vs.85)">Obtaining and Releasing a COM Port Number</a>.
-     * @param {Pointer<HCOMDB>} HComDB Handle to the COM port database that is returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
+     * @param {Pointer<Void>} HComDB Handle to the COM port database that is returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
      * @param {Pointer<UInt32>} ComNumber Pointer to the COM port number that the routine returns to the caller. This pointer must be non-NULL. A port number is an integer that ranges from 1 to COMDB_MAX_PORTS_ARBITRATED.
      * @returns {Integer} <b>ComDBClaimNextFreePort</b> returns one of the following status values.
      * 
@@ -677,7 +677,7 @@ class SerialCommunication {
      * @see https://learn.microsoft.com/windows/win32/api/msports/nf-msports-comdbclaimnextfreeport
      */
     static ComDBClaimNextFreePort(HComDB, ComNumber) {
-        result := DllCall("MSPORTS.dll\ComDBClaimNextFreePort", "ptr", HComDB, "ptr", ComNumber, "int")
+        result := DllCall("MSPORTS.dll\ComDBClaimNextFreePort", "ptr", HComDB, "uint*", ComNumber, "int")
         return result
     }
 
@@ -689,7 +689,7 @@ class SerialCommunication {
      * <b>ComDBClaimPort</b> runs in user mode.
      * 
      * For more information, see <a href="https://docs.microsoft.com/previous-versions/ff546481(v=vs.85)">Obtaining and Releasing a COM Port Number</a>.
-     * @param {Pointer<HCOMDB>} HComDB Handle to the COM port database that is returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
+     * @param {Pointer<Void>} HComDB Handle to the COM port database that is returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
      * @param {Integer} ComNumber Specifies which COM port number the caller attempts to claim. A port number is an integer that can range from 1 to COMDB_MAX_PORTS_ARBITRATED.
      * @param {Integer} ForceClaim Reserved for internal use only.
      * @param {Pointer<Int32>} Forced Reserved for internal use only.
@@ -770,7 +770,7 @@ class SerialCommunication {
      * @see https://learn.microsoft.com/windows/win32/api/msports/nf-msports-comdbclaimport
      */
     static ComDBClaimPort(HComDB, ComNumber, ForceClaim, Forced) {
-        result := DllCall("MSPORTS.dll\ComDBClaimPort", "ptr", HComDB, "uint", ComNumber, "int", ForceClaim, "ptr", Forced, "int")
+        result := DllCall("MSPORTS.dll\ComDBClaimPort", "ptr", HComDB, "uint", ComNumber, "int", ForceClaim, "int*", Forced, "int")
         return result
     }
 
@@ -782,7 +782,7 @@ class SerialCommunication {
      * <b>ComDBReleasePort</b> runs in user mode.
      * 
      * For more information, see <a href="https://docs.microsoft.com/previous-versions/ff546481(v=vs.85)">Obtaining and Releasing a COM Port Number</a>.
-     * @param {Pointer<HCOMDB>} HComDB Handle to the COM port database that was returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
+     * @param {Pointer<Void>} HComDB Handle to the COM port database that was returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
      * @param {Integer} ComNumber Specifies the COM port number to release. A port number is an integer that ranges from one to COMDB_MAX_PORTS_ARBITRATED.
      * @returns {Integer} <b>ComDBReleasePort</b> returns one of the following status values.
      * 
@@ -851,7 +851,7 @@ class SerialCommunication {
      * <b>ComDBResizeDatabase</b> runs in user mode.
      * 
      * For more information, see <a href="https://docs.microsoft.com/previous-versions/ff546481(v=vs.85)">Resizing the COM Port Database</a>.
-     * @param {Pointer<HCOMDB>} HComDB Handle to the COM port database that was returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
+     * @param {Pointer<Void>} HComDB Handle to the COM port database that was returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
      * @param {Integer} NewSize Specifies a new size for the COM port database, where the database size is the number of port numbers currently arbitrated in the database. This value must be an integer multiple of 1024, must be greater than the current size, and must be less than or equal to COMDB_MAX_PORTS_ARBITRATED.
      * @returns {Integer} <b>ComDBResizeDatabase</b> returns one of the following status values.
      * 

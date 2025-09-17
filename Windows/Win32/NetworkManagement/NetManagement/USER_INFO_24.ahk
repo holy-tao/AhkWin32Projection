@@ -41,7 +41,7 @@ class USER_INFO_24 extends Win32Struct
 
     /**
      * A pointer to a Unicode string that specifies the Internet provider name.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     usri24_internet_provider_name {
         get => NumGet(this, 8, "ptr")
@@ -50,7 +50,7 @@ class USER_INFO_24 extends Win32Struct
 
     /**
      * A pointer to a Unicode string that specifies the user's Internet name.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     usri24_internet_principal_name {
         get => NumGet(this, 16, "ptr")
@@ -59,7 +59,7 @@ class USER_INFO_24 extends Win32Struct
 
     /**
      * The local account SID of the user.
-     * @type {Pointer<PSID>}
+     * @type {Pointer<Void>}
      */
     usri24_user_sid {
         get => NumGet(this, 24, "ptr")

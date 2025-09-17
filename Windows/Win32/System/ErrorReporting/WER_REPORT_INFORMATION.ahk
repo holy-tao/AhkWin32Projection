@@ -24,7 +24,7 @@ class WER_REPORT_INFORMATION extends Win32Struct
 
     /**
      * A handle to the process for which the report is being generated. If this member is <b>NULL</b>, this is the calling process.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hProcess {
         get => NumGet(this, 8, "ptr")
@@ -78,7 +78,7 @@ class WER_REPORT_INFORMATION extends Win32Struct
 
     /**
      * A handle to the parent window.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndParent {
         get => NumGet(this, 2200, "ptr")

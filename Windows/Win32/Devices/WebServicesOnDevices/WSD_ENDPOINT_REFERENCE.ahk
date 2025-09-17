@@ -15,7 +15,7 @@ class WSD_ENDPOINT_REFERENCE extends Win32Struct
 
     /**
      * The endpoint address.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     Address {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class WSD_ENDPOINT_REFERENCE extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_reference_properties">WSD_REFERENCE_PROPERTIES</a> structure that specifies additional data used to uniquely identify the endpoint.
-     * @type {Pointer<WSD_REFERENCE_PROPERTIES>}
+     * @type {Pointer<TypeHandle>}
      */
     ReferenceProperties {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class WSD_ENDPOINT_REFERENCE extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_reference_parameters">WSD_REFERENCE_PARAMETERS</a> structure that specifies additional opaque data used by the endpoint.
-     * @type {Pointer<WSD_REFERENCE_PARAMETERS>}
+     * @type {Pointer<TypeHandle>}
      */
     ReferenceParameters {
         get => NumGet(this, 16, "ptr")

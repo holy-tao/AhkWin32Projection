@@ -28,7 +28,7 @@ class OPENCARD_SEARCH_CRITERIAA extends Win32Struct
 
     /**
      * A pointer to a buffer containing null-terminated group name strings. The last string in the buffer must be terminated by two null characters. Each string is the name of a group of cards that is to be included in the search. If <b>lpstrGroupNames</b> is <b>NULL</b>, the default group (<a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">Scard$DefaultReaders</a>) is searched.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpstrGroupNames {
         get => NumGet(this, 8, "ptr")
@@ -64,7 +64,7 @@ class OPENCARD_SEARCH_CRITERIAA extends Win32Struct
 
     /**
      * A pointer to a buffer that contains null-terminated card name strings. The last string in the buffer must be terminated by two null characters. Each string is the name of a card that is to be located.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpstrCardNames {
         get => NumGet(this, 40, "ptr")

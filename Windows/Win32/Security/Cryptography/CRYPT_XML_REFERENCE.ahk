@@ -36,7 +36,7 @@ class CRYPT_XML_REFERENCE extends Win32Struct
 
     /**
      * Optional. A pointer to a null-terminated Unicode string that contains the value of the <b>Id</b> attribute.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     wszId {
         get => NumGet(this, 16, "ptr")
@@ -45,7 +45,7 @@ class CRYPT_XML_REFERENCE extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains a <b>URI</b> attribute.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     wszUri {
         get => NumGet(this, 24, "ptr")
@@ -54,7 +54,7 @@ class CRYPT_XML_REFERENCE extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the value of the <b>Type</b> attribute.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     wszType {
         get => NumGet(this, 32, "ptr")

@@ -20,7 +20,7 @@ class BranchOfficeJobDataError extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pDocumentName {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class BranchOfficeJobDataError extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pUserName {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class BranchOfficeJobDataError extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pPrinterName {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class BranchOfficeJobDataError extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pDataType {
         get => NumGet(this, 32, "ptr")
@@ -84,7 +84,7 @@ class BranchOfficeJobDataError extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pMachineName {
         get => NumGet(this, 64, "ptr")
@@ -92,7 +92,7 @@ class BranchOfficeJobDataError extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pJobError {
         get => NumGet(this, 72, "ptr")
@@ -100,7 +100,7 @@ class BranchOfficeJobDataError extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pErrorDescription {
         get => NumGet(this, 80, "ptr")

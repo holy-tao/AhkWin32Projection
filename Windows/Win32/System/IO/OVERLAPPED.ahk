@@ -88,7 +88,7 @@ class OVERLAPPED extends Win32Struct
      * 
      * 
      * Functions such as <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getoverlappedresult">GetOverlappedResult</a> and the synchronization <a href="https://docs.microsoft.com/windows/desktop/Sync/wait-functions">wait functions</a> reset auto-reset events to the nonsignaled state. Therefore, you should use a manual reset event; if you use an auto-reset event, your application can stop responding if you wait for the operation to complete and then call <b>GetOverlappedResult</b> with the <i>bWait</i> parameter set to <b>TRUE</b>.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hEvent {
         get => NumGet(this, 24, "ptr")

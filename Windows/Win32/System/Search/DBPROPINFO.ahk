@@ -15,7 +15,7 @@ class DBPROPINFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszDescription {
         get => NumGet(this, 0, "ptr")

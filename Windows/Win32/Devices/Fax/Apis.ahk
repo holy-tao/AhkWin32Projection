@@ -1355,10 +1355,10 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxConnectFaxServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} MachineName Type: <b>LPCTSTR</b>
+     * @param {Pointer<Byte>} MachineName Type: <b>LPCTSTR</b>
      * 
      * This pointer must be <b>NULL</b> (an empty string), so that the application connects to the fax server on the local computer.
-     * @param {Pointer<HANDLE>} FaxHandle Type: <b>LPHANDLE</b>
+     * @param {Pointer<Void>} FaxHandle Type: <b>LPHANDLE</b>
      * 
      * Pointer to a variable that receives a fax server handle that is required on subsequent calls to other fax client functions. If the fax server returns a null handle, it indicates an error.
      * @returns {Integer} Type: <b>BOOL</b>
@@ -1436,10 +1436,10 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxConnectFaxServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} MachineName Type: <b>LPCTSTR</b>
+     * @param {Pointer<Char>} MachineName Type: <b>LPCTSTR</b>
      * 
      * This pointer must be <b>NULL</b> (an empty string), so that the application connects to the fax server on the local computer.
-     * @param {Pointer<HANDLE>} FaxHandle Type: <b>LPHANDLE</b>
+     * @param {Pointer<Void>} FaxHandle Type: <b>LPHANDLE</b>
      * 
      * Pointer to a variable that receives a fax server handle that is required on subsequent calls to other fax client functions. If the fax server returns a null handle, it indicates an error.
      * @returns {Integer} Type: <b>BOOL</b>
@@ -1504,7 +1504,7 @@ class Fax {
 
     /**
      * 
-     * @param {Pointer<HANDLE>} FaxHandle 
+     * @param {Pointer<Void>} FaxHandle 
      * @returns {Integer} 
      */
     static FaxClose(FaxHandle) {
@@ -1514,10 +1514,10 @@ class Fax {
 
     /**
      * 
-     * @param {Pointer<HANDLE>} FaxHandle 
+     * @param {Pointer<Void>} FaxHandle 
      * @param {Integer} DeviceId 
      * @param {Integer} Flags 
-     * @param {Pointer<HANDLE>} FaxPortHandle 
+     * @param {Pointer<Void>} FaxPortHandle 
      * @returns {Integer} 
      */
     static FaxOpenPort(FaxHandle, DeviceId, Flags, FaxPortHandle) {
@@ -1608,10 +1608,10 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxSendDocument as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
-     * @param {Pointer<PSTR>} FileName Type: <b>LPCTSTR</b>
+     * @param {Pointer<Byte>} FileName Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that contains the fully qualified path and name of the file that contains the fax document to transmit. The path can be a UNC path or a path that begins with a drive letter. 
      * 
@@ -1713,7 +1713,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxSendDocumentA", "ptr", FaxHandle, "ptr", FileName, "ptr", JobParams, "ptr", CoverpageInfo, "ptr", FaxJobId, "int")
+        result := DllCall("WINFAX.dll\FaxSendDocumentA", "ptr", FaxHandle, "ptr", FileName, "ptr", JobParams, "ptr", CoverpageInfo, "uint*", FaxJobId, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1739,10 +1739,10 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxSendDocument as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
-     * @param {Pointer<PWSTR>} FileName Type: <b>LPCTSTR</b>
+     * @param {Pointer<Char>} FileName Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that contains the fully qualified path and name of the file that contains the fax document to transmit. The path can be a UNC path or a path that begins with a drive letter. 
      * 
@@ -1844,7 +1844,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxSendDocumentW", "ptr", FaxHandle, "ptr", FileName, "ptr", JobParams, "ptr", CoverpageInfo, "ptr", FaxJobId, "int")
+        result := DllCall("WINFAX.dll\FaxSendDocumentW", "ptr", FaxHandle, "ptr", FileName, "ptr", JobParams, "ptr", CoverpageInfo, "uint*", FaxJobId, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1876,10 +1876,10 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxSendDocumentForBroadcast as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
-     * @param {Pointer<PSTR>} FileName Type: <b>LPCTSTR</b>
+     * @param {Pointer<Byte>} FileName Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that contains the fully qualified path and name of the file that contains the fax document to transmit to all recipients. The path can be a UNC path or a path that begins with a drive letter. 
      * 
@@ -1961,7 +1961,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxSendDocumentForBroadcastA", "ptr", FaxHandle, "ptr", FileName, "ptr", FaxJobId, "ptr", FaxRecipientCallback, "ptr", Context, "int")
+        result := DllCall("WINFAX.dll\FaxSendDocumentForBroadcastA", "ptr", FaxHandle, "ptr", FileName, "uint*", FaxJobId, "ptr", FaxRecipientCallback, "ptr", Context, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1993,10 +1993,10 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxSendDocumentForBroadcast as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
-     * @param {Pointer<PWSTR>} FileName Type: <b>LPCTSTR</b>
+     * @param {Pointer<Char>} FileName Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that contains the fully qualified path and name of the file that contains the fax document to transmit to all recipients. The path can be a UNC path or a path that begins with a drive letter. 
      * 
@@ -2078,7 +2078,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxSendDocumentForBroadcastW", "ptr", FaxHandle, "ptr", FileName, "ptr", FaxJobId, "ptr", FaxRecipientCallback, "ptr", Context, "int")
+        result := DllCall("WINFAX.dll\FaxSendDocumentForBroadcastW", "ptr", FaxHandle, "ptr", FileName, "uint*", FaxJobId, "ptr", FaxRecipientCallback, "ptr", Context, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2098,7 +2098,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxEnumJobs as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
      * @param {Pointer<FAX_JOB_ENTRYA>} JobEntry Type: <b>PFAX_JOB_ENTRY*</b>
@@ -2158,7 +2158,7 @@ class Fax {
     static FaxEnumJobsA(FaxHandle, JobEntry, JobsReturned) {
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxEnumJobsA", "ptr", FaxHandle, "ptr", JobEntry, "ptr", JobsReturned, "int")
+        result := DllCall("WINFAX.dll\FaxEnumJobsA", "ptr", FaxHandle, "ptr", JobEntry, "uint*", JobsReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2178,7 +2178,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxEnumJobs as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
      * @param {Pointer<FAX_JOB_ENTRYW>} JobEntry Type: <b>PFAX_JOB_ENTRY*</b>
@@ -2238,7 +2238,7 @@ class Fax {
     static FaxEnumJobsW(FaxHandle, JobEntry, JobsReturned) {
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxEnumJobsW", "ptr", FaxHandle, "ptr", JobEntry, "ptr", JobsReturned, "int")
+        result := DllCall("WINFAX.dll\FaxEnumJobsW", "ptr", FaxHandle, "ptr", JobEntry, "uint*", JobsReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2260,7 +2260,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxGetJob as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
      * @param {Integer} JobId Type: <b>DWORD</b>
@@ -2342,7 +2342,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxGetJob as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
      * @param {Integer} JobId Type: <b>DWORD</b>
@@ -2422,7 +2422,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxSetJob as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
      * @param {Integer} JobId Type: <b>DWORD</b>
@@ -2492,7 +2492,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxSetJob as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
      * @param {Integer} JobId Type: <b>DWORD</b>
@@ -2551,7 +2551,7 @@ class Fax {
 
     /**
      * 
-     * @param {Pointer<HANDLE>} FaxHandle 
+     * @param {Pointer<Void>} FaxHandle 
      * @param {Integer} JobId 
      * @param {Pointer<Byte>} Buffer 
      * @param {Pointer<UInt32>} BufferSize 
@@ -2560,7 +2560,7 @@ class Fax {
      * @returns {Integer} 
      */
     static FaxGetPageData(FaxHandle, JobId, Buffer, BufferSize, ImageWidth, ImageHeight) {
-        result := DllCall("WINFAX.dll\FaxGetPageData", "ptr", FaxHandle, "uint", JobId, "ptr", Buffer, "ptr", BufferSize, "ptr", ImageWidth, "ptr", ImageHeight, "int")
+        result := DllCall("WINFAX.dll\FaxGetPageData", "ptr", FaxHandle, "uint", JobId, "ptr", Buffer, "uint*", BufferSize, "uint*", ImageWidth, "uint*", ImageHeight, "int")
         return result
     }
 
@@ -2577,7 +2577,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxGetDeviceStatus as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxPortHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxPortHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax port handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxopenport">FaxOpenPort</a> function.
      * @param {Pointer<FAX_DEVICE_STATUSA>} DeviceStatus Type: <b>PFAX_DEVICE_STATUS*</b>
@@ -2654,7 +2654,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxGetDeviceStatus as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxPortHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxPortHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax port handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxopenport">FaxOpenPort</a> function.
      * @param {Pointer<FAX_DEVICE_STATUSW>} DeviceStatus Type: <b>PFAX_DEVICE_STATUS*</b>
@@ -2720,7 +2720,7 @@ class Fax {
 
     /**
      * 
-     * @param {Pointer<HANDLE>} FaxHandle 
+     * @param {Pointer<Void>} FaxHandle 
      * @param {Integer} JobId 
      * @returns {Integer} 
      */
@@ -2744,7 +2744,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxGetConfiguration as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
      * @param {Pointer<FAX_CONFIGURATIONA>} FaxConfig Type: <b>PFAX_CONFIGURATION*</b>
@@ -2823,7 +2823,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxGetConfiguration as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
      * @param {Pointer<FAX_CONFIGURATIONW>} FaxConfig Type: <b>PFAX_CONFIGURATION*</b>
@@ -2898,7 +2898,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxSetConfiguration as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
      * @param {Pointer<FAX_CONFIGURATIONA>} FaxConfig Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_configurationa">FAX_CONFIGURATION</a>*</b>
@@ -2973,7 +2973,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxSetConfiguration as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
      * @param {Pointer<FAX_CONFIGURATIONW>} FaxConfig Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_configurationa">FAX_CONFIGURATION</a>*</b>
@@ -3052,7 +3052,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxGetLoggingCategories as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
      * @param {Pointer<FAX_LOG_CATEGORYA>} Categories Type: <b>PFAX_LOG_CATEGORY*</b>
@@ -3116,7 +3116,7 @@ class Fax {
     static FaxGetLoggingCategoriesA(FaxHandle, Categories, NumberCategories) {
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxGetLoggingCategoriesA", "ptr", FaxHandle, "ptr", Categories, "ptr", NumberCategories, "int")
+        result := DllCall("WINFAX.dll\FaxGetLoggingCategoriesA", "ptr", FaxHandle, "ptr", Categories, "uint*", NumberCategories, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3138,7 +3138,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxGetLoggingCategories as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
      * @param {Pointer<FAX_LOG_CATEGORYW>} Categories Type: <b>PFAX_LOG_CATEGORY*</b>
@@ -3202,7 +3202,7 @@ class Fax {
     static FaxGetLoggingCategoriesW(FaxHandle, Categories, NumberCategories) {
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxGetLoggingCategoriesW", "ptr", FaxHandle, "ptr", Categories, "ptr", NumberCategories, "int")
+        result := DllCall("WINFAX.dll\FaxGetLoggingCategoriesW", "ptr", FaxHandle, "ptr", Categories, "uint*", NumberCategories, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3220,7 +3220,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxSetLoggingCategories as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
      * @param {Pointer<FAX_LOG_CATEGORYA>} Categories Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_log_categorya">FAX_LOG_CATEGORY</a>*</b>
@@ -3309,7 +3309,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxSetLoggingCategories as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
      * @param {Pointer<FAX_LOG_CATEGORYW>} Categories Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_log_categorya">FAX_LOG_CATEGORY</a>*</b>
@@ -3400,7 +3400,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxEnumPorts as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
      * @param {Pointer<FAX_PORT_INFOA>} PortInfo Type: <b>PFAX_PORT_INFO*</b>
@@ -3460,7 +3460,7 @@ class Fax {
     static FaxEnumPortsA(FaxHandle, PortInfo, PortsReturned) {
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxEnumPortsA", "ptr", FaxHandle, "ptr", PortInfo, "ptr", PortsReturned, "int")
+        result := DllCall("WINFAX.dll\FaxEnumPortsA", "ptr", FaxHandle, "ptr", PortInfo, "uint*", PortsReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3480,7 +3480,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxEnumPorts as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
      * @param {Pointer<FAX_PORT_INFOW>} PortInfo Type: <b>PFAX_PORT_INFO*</b>
@@ -3540,7 +3540,7 @@ class Fax {
     static FaxEnumPortsW(FaxHandle, PortInfo, PortsReturned) {
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxEnumPortsW", "ptr", FaxHandle, "ptr", PortInfo, "ptr", PortsReturned, "int")
+        result := DllCall("WINFAX.dll\FaxEnumPortsW", "ptr", FaxHandle, "ptr", PortInfo, "uint*", PortsReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3566,7 +3566,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxGetPort as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxPortHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxPortHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax port handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxopenport">FaxOpenPort</a> function.
      * @param {Pointer<FAX_PORT_INFOA>} PortInfo Type: <b>PFAX_PORT_INFO*</b>
@@ -3649,7 +3649,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxGetPort as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxPortHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxPortHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax port handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxopenport">FaxOpenPort</a> function.
      * @param {Pointer<FAX_PORT_INFOW>} PortInfo Type: <b>PFAX_PORT_INFO*</b>
@@ -3730,7 +3730,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxSetPort as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxPortHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxPortHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax port handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxopenport">FaxOpenPort</a> function.
      * @param {Pointer<FAX_PORT_INFOA>} PortInfo Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_port_infoa">FAX_PORT_INFO</a>*</b>
@@ -3811,7 +3811,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxSetPort as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxPortHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxPortHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax port handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxopenport">FaxOpenPort</a> function.
      * @param {Pointer<FAX_PORT_INFOW>} PortInfo Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_port_infoa">FAX_PORT_INFO</a>*</b>
@@ -3892,7 +3892,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxEnumRoutingMethods as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxPortHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxPortHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax port handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxopenport">FaxOpenPort</a> function.
      * @param {Pointer<FAX_ROUTING_METHODA>} RoutingMethod Type: <b>PFAX_ROUTING_METHOD*</b>
@@ -3956,7 +3956,7 @@ class Fax {
     static FaxEnumRoutingMethodsA(FaxPortHandle, RoutingMethod, MethodsReturned) {
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxEnumRoutingMethodsA", "ptr", FaxPortHandle, "ptr", RoutingMethod, "ptr", MethodsReturned, "int")
+        result := DllCall("WINFAX.dll\FaxEnumRoutingMethodsA", "ptr", FaxPortHandle, "ptr", RoutingMethod, "uint*", MethodsReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3980,7 +3980,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxEnumRoutingMethods as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxPortHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxPortHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax port handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxopenport">FaxOpenPort</a> function.
      * @param {Pointer<FAX_ROUTING_METHODW>} RoutingMethod Type: <b>PFAX_ROUTING_METHOD*</b>
@@ -4044,7 +4044,7 @@ class Fax {
     static FaxEnumRoutingMethodsW(FaxPortHandle, RoutingMethod, MethodsReturned) {
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxEnumRoutingMethodsW", "ptr", FaxPortHandle, "ptr", RoutingMethod, "ptr", MethodsReturned, "int")
+        result := DllCall("WINFAX.dll\FaxEnumRoutingMethodsW", "ptr", FaxPortHandle, "ptr", RoutingMethod, "uint*", MethodsReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4064,10 +4064,10 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxEnableRoutingMethod as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxPortHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxPortHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax port handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxopenport">FaxOpenPort</a> function.
-     * @param {Pointer<PSTR>} RoutingGuid Type: <b>LPCTSTR</b>
+     * @param {Pointer<Byte>} RoutingGuid Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the GUID that uniquely identifies the fax routing method of interest. 
      * 
@@ -4150,10 +4150,10 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxEnableRoutingMethod as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxPortHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxPortHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax port handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxopenport">FaxOpenPort</a> function.
-     * @param {Pointer<PWSTR>} RoutingGuid Type: <b>LPCTSTR</b>
+     * @param {Pointer<Char>} RoutingGuid Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the GUID that uniquely identifies the fax routing method of interest. 
      * 
@@ -4238,7 +4238,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxEnumGlobalRoutingInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
      * @param {Pointer<FAX_GLOBAL_ROUTING_INFOA>} RoutingInfo Type: <b>PFAX_GLOBAL_ROUTING_INFO*</b>
@@ -4298,7 +4298,7 @@ class Fax {
     static FaxEnumGlobalRoutingInfoA(FaxHandle, RoutingInfo, MethodsReturned) {
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxEnumGlobalRoutingInfoA", "ptr", FaxHandle, "ptr", RoutingInfo, "ptr", MethodsReturned, "int")
+        result := DllCall("WINFAX.dll\FaxEnumGlobalRoutingInfoA", "ptr", FaxHandle, "ptr", RoutingInfo, "uint*", MethodsReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4320,7 +4320,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxEnumGlobalRoutingInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
      * @param {Pointer<FAX_GLOBAL_ROUTING_INFOW>} RoutingInfo Type: <b>PFAX_GLOBAL_ROUTING_INFO*</b>
@@ -4380,7 +4380,7 @@ class Fax {
     static FaxEnumGlobalRoutingInfoW(FaxHandle, RoutingInfo, MethodsReturned) {
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxEnumGlobalRoutingInfoW", "ptr", FaxHandle, "ptr", RoutingInfo, "ptr", MethodsReturned, "int")
+        result := DllCall("WINFAX.dll\FaxEnumGlobalRoutingInfoW", "ptr", FaxHandle, "ptr", RoutingInfo, "uint*", MethodsReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4400,7 +4400,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxSetGlobalRoutingInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
      * @param {Pointer<FAX_GLOBAL_ROUTING_INFOA>} RoutingInfo Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_global_routing_infoa">FAX_GLOBAL_ROUTING_INFO</a>*</b>
@@ -4477,7 +4477,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxSetGlobalRoutingInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
      * @param {Pointer<FAX_GLOBAL_ROUTING_INFOW>} RoutingInfo Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_global_routing_infoa">FAX_GLOBAL_ROUTING_INFO</a>*</b>
@@ -4560,10 +4560,10 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxGetRoutingInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxPortHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxPortHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax port handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxopenport">FaxOpenPort</a> function.
-     * @param {Pointer<PSTR>} RoutingGuid Type: <b>LPCTSTR</b>
+     * @param {Pointer<Byte>} RoutingGuid Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the GUID that uniquely identifies the fax routing method of interest.
      *                     
@@ -4640,7 +4640,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxGetRoutingInfoA", "ptr", FaxPortHandle, "ptr", RoutingGuid, "ptr", RoutingInfoBuffer, "ptr", RoutingInfoBufferSize, "int")
+        result := DllCall("WINFAX.dll\FaxGetRoutingInfoA", "ptr", FaxPortHandle, "ptr", RoutingGuid, "ptr", RoutingInfoBuffer, "uint*", RoutingInfoBufferSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4666,10 +4666,10 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxGetRoutingInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxPortHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxPortHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax port handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxopenport">FaxOpenPort</a> function.
-     * @param {Pointer<PWSTR>} RoutingGuid Type: <b>LPCTSTR</b>
+     * @param {Pointer<Char>} RoutingGuid Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the GUID that uniquely identifies the fax routing method of interest.
      *                     
@@ -4746,7 +4746,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxGetRoutingInfoW", "ptr", FaxPortHandle, "ptr", RoutingGuid, "ptr", RoutingInfoBuffer, "ptr", RoutingInfoBufferSize, "int")
+        result := DllCall("WINFAX.dll\FaxGetRoutingInfoW", "ptr", FaxPortHandle, "ptr", RoutingGuid, "ptr", RoutingInfoBuffer, "uint*", RoutingInfoBufferSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4770,10 +4770,10 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxSetRoutingInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxPortHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxPortHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax port handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxopenport">FaxOpenPort</a> function.
-     * @param {Pointer<PSTR>} RoutingGuid Type: <b>LPCTSTR</b>
+     * @param {Pointer<Byte>} RoutingGuid Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the GUID that uniquely identifies the fax routing method of interest. 
      * 
@@ -4839,7 +4839,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxSetRoutingInfoA", "ptr", FaxPortHandle, "ptr", RoutingGuid, "ptr", RoutingInfoBuffer, "uint", RoutingInfoBufferSize, "int")
+        result := DllCall("WINFAX.dll\FaxSetRoutingInfoA", "ptr", FaxPortHandle, "ptr", RoutingGuid, "char*", RoutingInfoBuffer, "uint", RoutingInfoBufferSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4863,10 +4863,10 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxSetRoutingInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FaxPortHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxPortHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax port handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxopenport">FaxOpenPort</a> function.
-     * @param {Pointer<PWSTR>} RoutingGuid Type: <b>LPCTSTR</b>
+     * @param {Pointer<Char>} RoutingGuid Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the GUID that uniquely identifies the fax routing method of interest. 
      * 
@@ -4932,7 +4932,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxSetRoutingInfoW", "ptr", FaxPortHandle, "ptr", RoutingGuid, "ptr", RoutingInfoBuffer, "uint", RoutingInfoBufferSize, "int")
+        result := DllCall("WINFAX.dll\FaxSetRoutingInfoW", "ptr", FaxPortHandle, "ptr", RoutingGuid, "char*", RoutingInfoBuffer, "uint", RoutingInfoBufferSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4941,10 +4941,10 @@ class Fax {
 
     /**
      * 
-     * @param {Pointer<HANDLE>} FaxHandle 
-     * @param {Pointer<HANDLE>} CompletionPort 
+     * @param {Pointer<Void>} FaxHandle 
+     * @param {Pointer<Void>} CompletionPort 
      * @param {Pointer} CompletionKey 
-     * @param {Pointer<HWND>} hWnd 
+     * @param {Pointer<Void>} hWnd 
      * @param {Integer} MessageStart 
      * @returns {Integer} 
      */
@@ -4956,10 +4956,11 @@ class Fax {
     /**
      * 
      * @param {Pointer<Void>} Buffer 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static FaxFreeBuffer(Buffer) {
-        DllCall("WINFAX.dll\FaxFreeBuffer", "ptr", Buffer)
+        result := DllCall("WINFAX.dll\FaxFreeBuffer", "ptr", Buffer)
+        return result
     }
 
     /**
@@ -4981,7 +4982,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxStartPrintJob as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} PrinterName Type: <b>LPCTSTR</b>
+     * @param {Pointer<Byte>} PrinterName Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that contains the name of a fax printer. The string can specify one of the following: 
      * 
@@ -5078,7 +5079,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxStartPrintJobA", "ptr", PrinterName, "ptr", PrintInfo, "ptr", FaxJobId, "ptr", FaxContextInfo, "int")
+        result := DllCall("WINFAX.dll\FaxStartPrintJobA", "ptr", PrinterName, "ptr", PrintInfo, "uint*", FaxJobId, "ptr", FaxContextInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5104,7 +5105,7 @@ class Fax {
      * 
      * > [!NOTE]
      * > The winfax.h header defines FaxStartPrintJob as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} PrinterName Type: <b>LPCTSTR</b>
+     * @param {Pointer<Char>} PrinterName Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that contains the name of a fax printer. The string can specify one of the following: 
      * 
@@ -5201,7 +5202,7 @@ class Fax {
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxStartPrintJobW", "ptr", PrinterName, "ptr", PrintInfo, "ptr", FaxJobId, "ptr", FaxContextInfo, "int")
+        result := DllCall("WINFAX.dll\FaxStartPrintJobW", "ptr", PrinterName, "ptr", PrintInfo, "uint*", FaxJobId, "ptr", FaxContextInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5378,16 +5379,16 @@ class Fax {
      * All parameters to the <b>FaxRegisterServiceProvider</b> function are required.
      * 
      * Local installation of a fax service provider is recommended. The local installation routine for a fax service provider DLL can call <b>FaxRegisterServiceProvider</b> instead of directly accessing the registry. For more information about the steps required to register locally with the fax service, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-registration-of-a-fax-service-provider">Registration of a Fax Service Provider</a>.
-     * @param {Pointer<PWSTR>} DeviceProvider Type: <b>LPCWSTR</b>
+     * @param {Pointer<Char>} DeviceProvider Type: <b>LPCWSTR</b>
      * 
      * Pointer to a constant null-terminated Unicode character string that specifies the internal name of the fax service provider DLL to register. This should be a unique string, such as a GUID.
-     * @param {Pointer<PWSTR>} FriendlyName Type: <b>LPCWSTR</b>
+     * @param {Pointer<Char>} FriendlyName Type: <b>LPCWSTR</b>
      * 
      * Pointer to a constant null-terminated Unicode character string to associate with the fax service provider DLL. This is the fax service provider's user-friendly name, suitable for display.
-     * @param {Pointer<PWSTR>} ImageName Type: <b>LPCWSTR</b>
+     * @param {Pointer<Char>} ImageName Type: <b>LPCWSTR</b>
      * 
      * Pointer to a constant null-terminated Unicode character string that specifies the full path and file name for the fax service provider DLL. The path can include valid environment variables, for example, %SYSTEMDRIVE% and %SYSTEMROOT%.
-     * @param {Pointer<PWSTR>} TspName Type: <b>LPCWSTR</b>
+     * @param {Pointer<Char>} TspName Type: <b>LPCWSTR</b>
      * 
      * Pointer to a constant null-terminated Unicode character string that specifies the name of the telephony service provider associated with the devices for the fax service provider. For a virtual fax device, use an empty string.
      * @returns {Integer} Type: <b>BOOL</b>
@@ -5433,7 +5434,7 @@ class Fax {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} DeviceProvider 
+     * @param {Pointer<Char>} DeviceProvider 
      * @returns {Integer} 
      */
     static FaxUnregisterServiceProviderW(DeviceProvider) {
@@ -5457,16 +5458,16 @@ class Fax {
      * You must restart the fax service to use a fax routing method exported by a fax routing extension you install using <b>FaxRegisterRoutingExtension</b>.
      * 
      * For more information about the steps required to register with the fax service, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-registration-of-a-fax-routing-extension">Registration of a Fax Routing Extension</a>.
-     * @param {Pointer<HANDLE>} FaxHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
-     * @param {Pointer<PWSTR>} ExtensionName Type: <b>LPCWSTR</b>
+     * @param {Pointer<Char>} ExtensionName Type: <b>LPCWSTR</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
-     * @param {Pointer<PWSTR>} FriendlyName Type: <b>LPCWSTR</b>
+     * @param {Pointer<Char>} FriendlyName Type: <b>LPCWSTR</b>
      * 
      * Pointer to a constant null-terminated Unicode character string to associate with the fax routing extension DLL. This is the routing extension's user-friendly name, suitable for display.
-     * @param {Pointer<PWSTR>} ImageName Type: <b>LPCWSTR</b>
+     * @param {Pointer<Char>} ImageName Type: <b>LPCWSTR</b>
      * 
      * Pointer to a constant null-terminated Unicode character string that specifies the full path and file name for the fax routing extension DLL. The path can include valid environment variables, for example, %SYSTEMDRIVE% and %SYSTEMROOT%.
      * @param {Pointer<PFAX_ROUTING_INSTALLATION_CALLBACKW>} CallBack Type: <b>PFAX_ROUTING_INSTALLATION_CALLBACK</b>
@@ -5528,7 +5529,7 @@ class Fax {
 
     /**
      * 
-     * @param {Pointer<HANDLE>} FaxHandle 
+     * @param {Pointer<Void>} FaxHandle 
      * @param {Integer} AccessMask 
      * @returns {Integer} 
      */
@@ -5564,7 +5565,7 @@ class Fax {
      * @param {Integer} sndMode Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fxsutility/ne-fxsutility-sendtomode">SendToMode</a></b>
      * 
      * A value specifying how to send the fax. For Windows Vista, this must be <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fxsutility/ne-fxsutility-sendtomode">SEND_TO_FAX_RECIPIENT_ATTACHMENT</a>.
-     * @param {Pointer<PWSTR>} lpFileName Type: <b>LPCWSTR</b>
+     * @param {Pointer<Char>} lpFileName Type: <b>LPCWSTR</b>
      * 
      * Pointer to a constant null-terminated string representing the name of the file to fax.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -5582,7 +5583,7 @@ class Fax {
 
     /**
      * 
-     * @param {Pointer<HINSTANCE>} hinst 
+     * @param {Pointer<Void>} hinst 
      * @param {Integer} dwVer 
      * @param {Pointer<IStillImageW>} ppSti 
      * @param {Pointer<IUnknown>} punkOuter 

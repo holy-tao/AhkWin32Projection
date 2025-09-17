@@ -15,7 +15,7 @@ class DS_SELECTION extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the object's relative distinguished name (RDN).
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwzName {
         get => NumGet(this, 0, "ptr")
@@ -25,7 +25,7 @@ class DS_SELECTION extends Win32Struct
     /**
      * Pointer to a null-terminated Unicode string that contains the object's ADsPath. The format of this string depends on the flags specified in the <b>flScope</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objsel/ns-objsel-dsop_scope_init_info">DSOP_SCOPE_INIT_INFO</a> structure for the scope from which this object was selected.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwzADsPath {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +34,7 @@ class DS_SELECTION extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the value of the object's objectClass attribute.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwzClass {
         get => NumGet(this, 16, "ptr")
@@ -43,7 +43,7 @@ class DS_SELECTION extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the object's userPrincipalName attribute value. If the object does not have a userPrincipalName value, <b>pwzUPN</b> points to an empty string (L"").
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwzUPN {
         get => NumGet(this, 24, "ptr")

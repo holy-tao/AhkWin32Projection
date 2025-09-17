@@ -23,7 +23,7 @@ class ExtendedDebugPropertyInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszName {
         get => NumGet(this, 8, "ptr")
@@ -31,7 +31,7 @@ class ExtendedDebugPropertyInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszType {
         get => NumGet(this, 16, "ptr")
@@ -39,7 +39,7 @@ class ExtendedDebugPropertyInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszValue {
         get => NumGet(this, 24, "ptr")
@@ -47,7 +47,7 @@ class ExtendedDebugPropertyInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszFullName {
         get => NumGet(this, 32, "ptr")

@@ -41,7 +41,7 @@ class TRACKMOUSEEVENT extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window to track.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndTrack {
         get => NumGet(this, 8, "ptr")

@@ -26,7 +26,7 @@ class RPC_C_OPT_COOKIE_AUTH_DESCRIPTOR extends Win32Struct
 
     /**
      * A null-terminated string that contains the cookie.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     Buffer {
         get => NumGet(this, 8, "ptr")

@@ -125,7 +125,7 @@ class DirectComposition {
      * @param {Pointer<SECURITY_ATTRIBUTES>} securityAttributes Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a>*</b>
      * 
      * Contains the security descriptor for the composition surface object, and specifies whether the handle of the composition surface object is inheritable when a child process is created. If this parameter is NULL, the composition surface object is created with default security attributes  that grant read and write access to the current process,  but do not enable child processes to  inherit the handle.
-     * @param {Pointer<HANDLE>} surfaceHandle Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HANDLE</a>*</b>
+     * @param {Pointer<Void>} surfaceHandle Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HANDLE</a>*</b>
      * 
      * The handle of the new composition surface object. This parameter must not be NULL.
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -144,7 +144,7 @@ class DirectComposition {
      * @param {Pointer<IDCompositionVisual>} visual Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionvisual">IDCompositionVisual</a>*</b>
      * 
      * The visual to route messages from.
-     * @param {Pointer<HWND>} hwnd Type: <b>HWND</b>
+     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
      * 
      * The HWND to route messages to.
      * @param {Integer} enable Type: <b>BOOL</b>
@@ -165,7 +165,7 @@ class DirectComposition {
      * @param {Pointer<IDCompositionVisual>} visual Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionvisual">IDCompositionVisual</a>*</b>
      * 
      * The visual to route messages from.
-     * @param {Pointer<HWND>} hwnd Type: <b>HWND</b>
+     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
      * 
      * The HWND to route messages to.
      * @param {Integer} enable Type: <b>BOOL</b>
@@ -195,7 +195,7 @@ class DirectComposition {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-dcompositiongetframeid
      */
     static DCompositionGetFrameId(frameIdType, frameId) {
-        result := DllCall("dcomp.dll\DCompositionGetFrameId", "int", frameIdType, "ptr", frameId, "int")
+        result := DllCall("dcomp.dll\DCompositionGetFrameId", "int", frameIdType, "uint*", frameId, "int")
         return result
     }
 
@@ -222,7 +222,7 @@ class DirectComposition {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-dcompositiongetstatistics
      */
     static DCompositionGetStatistics(frameId, frameStats, targetIdCount, targetIds, actualTargetIdCount) {
-        result := DllCall("dcomp.dll\DCompositionGetStatistics", "uint", frameId, "ptr", frameStats, "uint", targetIdCount, "ptr", targetIds, "ptr", actualTargetIdCount, "int")
+        result := DllCall("dcomp.dll\DCompositionGetStatistics", "uint", frameId, "ptr", frameStats, "uint", targetIdCount, "ptr", targetIds, "uint*", actualTargetIdCount, "int")
         return result
     }
 
@@ -258,7 +258,7 @@ class DirectComposition {
      * @param {Integer} count Type: **[UINT](/windows/win32/WinProg/windows-data-types)**
      * 
      * The number of _`handles`_.
-     * @param {Pointer<HANDLE>} handles Type: **[HANDLE](/windows/win32/winprog/windows-data-types)\***
+     * @param {Pointer<Void>} handles Type: **[HANDLE](/windows/win32/winprog/windows-data-types)\***
      * 
      * Handles to events for which the compositor clock should send signals.
      * @param {Integer} timeoutInMs Type: **[DWORD](/windows/win32/winprog/windows-data-types)**

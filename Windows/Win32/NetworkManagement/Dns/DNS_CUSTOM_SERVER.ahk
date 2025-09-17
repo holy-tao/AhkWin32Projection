@@ -47,7 +47,7 @@ class DNS_CUSTOM_SERVER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     Anonymous1 {
         get => NumGet(this, 16, "ptr")

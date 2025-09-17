@@ -35,7 +35,7 @@ class CRYPT_MASK_GEN_ALGORITHM extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszObjId {
         get => NumGet(this, 0, "ptr")

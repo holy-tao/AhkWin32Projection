@@ -44,7 +44,7 @@ class WSDXML_ATTRIBUTE extends Win32Struct
 
     /**
      * The value of the attribute.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     Value {
         get => NumGet(this, 24, "ptr")

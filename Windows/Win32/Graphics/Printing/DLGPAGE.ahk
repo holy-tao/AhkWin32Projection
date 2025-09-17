@@ -60,7 +60,7 @@ class DLGPAGE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hDlgTemplate {
         get => NumGet(this, 32, "ptr")

@@ -21,7 +21,7 @@ class HELPER_ATTRIBUTE extends Win32Struct
      * Type: <b>[string] LPWSTR</b>
      * 
      * A pointer to a null-terminated string that contains the name of the attribute.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszName {
         get => NumGet(this, 0, "ptr")
@@ -112,7 +112,7 @@ class HELPER_ATTRIBUTE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     PWStr {
         get => NumGet(this, 12, "ptr")

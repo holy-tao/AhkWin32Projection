@@ -3207,15 +3207,14 @@ class PortableDevices {
 ;@region Methods
     /**
      * 
-     * @param {Pointer<PWSTR>} pszXmlIn 
-     * @param {Pointer<PWSTR>} rgszAllowedCspNodes 
+     * @param {Pointer<Char>} pszXmlIn 
+     * @param {Pointer<Char>} rgszAllowedCspNodes 
      * @param {Integer} dwNumAllowedCspNodes 
-     * @param {Pointer<BSTR>} pbstrXmlOut 
+     * @param {Pointer<Char>} pbstrXmlOut 
      * @returns {Integer} 
      */
     static DMProcessConfigXMLFiltered(pszXmlIn, rgszAllowedCspNodes, dwNumAllowedCspNodes, pbstrXmlOut) {
         pszXmlIn := pszXmlIn is String? StrPtr(pszXmlIn) : pszXmlIn
-        rgszAllowedCspNodes := rgszAllowedCspNodes is String? StrPtr(rgszAllowedCspNodes) : rgszAllowedCspNodes
 
         result := DllCall("DMProcessXMLFiltered.dll\DMProcessConfigXMLFiltered", "ptr", pszXmlIn, "ptr", rgszAllowedCspNodes, "uint", dwNumAllowedCspNodes, "ptr", pbstrXmlOut, "int")
         return result

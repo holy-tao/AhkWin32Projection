@@ -12,7 +12,7 @@ class DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_W_DATA extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     DeviceName {
         get => NumGet(this, 0, "ptr")

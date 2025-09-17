@@ -24,7 +24,7 @@ class MPR_INTERFACE_1 extends Win32Struct
 
     /**
      * Handle to the interface.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hInterface {
         get => NumGet(this, 520, "ptr")
@@ -193,7 +193,7 @@ class MPR_INTERFACE_1 extends Win32Struct
      * ```
      * 
      * The preceding string restricts dial-out to Tuesdays and Thursdays from 9:00 AM to 12:00 PM and from 1:00 PM to 5:30 PM.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpwsDialoutHoursRestriction {
         get => NumGet(this, 552, "ptr")

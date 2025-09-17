@@ -15,7 +15,7 @@ class WSB_OB_REGISTRATION_INFO extends Win32Struct
 
     /**
      * The complete path to the resource DLL where the provider name and icon resources can be loaded from.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     m_wszResourceDLL {
         get => NumGet(this, 0, "ptr")

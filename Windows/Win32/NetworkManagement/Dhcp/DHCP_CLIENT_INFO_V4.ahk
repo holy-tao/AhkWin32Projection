@@ -48,7 +48,7 @@ class DHCP_CLIENT_INFO_V4 extends Win32Struct
 
     /**
      * Unicode string that specifies the network name of the DHCP client. This member is optional.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ClientName {
         get => NumGet(this, 24, "ptr")
@@ -57,7 +57,7 @@ class DHCP_CLIENT_INFO_V4 extends Win32Struct
 
     /**
      * Unicode string that contains a comment associated with the DHCP client. This member is optional.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ClientComment {
         get => NumGet(this, 32, "ptr")

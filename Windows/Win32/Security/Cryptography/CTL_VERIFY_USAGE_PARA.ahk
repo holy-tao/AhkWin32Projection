@@ -50,7 +50,7 @@ class CTL_VERIFY_USAGE_PARA extends Win32Struct
 
     /**
      * Array of handles of stores to be searched to find a matching CTL.
-     * @type {Pointer<HCERTSTORE>}
+     * @type {Pointer<Void>}
      */
     rghCtlStore {
         get => NumGet(this, 32, "ptr")
@@ -68,7 +68,7 @@ class CTL_VERIFY_USAGE_PARA extends Win32Struct
 
     /**
      * Array of handles of stores to be searched for acceptable CTL signers.
-     * @type {Pointer<HCERTSTORE>}
+     * @type {Pointer<Void>}
      */
     rghSignerStore {
         get => NumGet(this, 48, "ptr")

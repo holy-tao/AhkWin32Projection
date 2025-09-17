@@ -17,7 +17,7 @@ class NET_DISPLAY_GROUP extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that specifies the name of the group.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     grpi3_name {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class NET_DISPLAY_GROUP extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains a comment associated with the group. This string can be a null string, or it can have any number of characters before the terminating null character.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     grpi3_comment {
         get => NumGet(this, 8, "ptr")

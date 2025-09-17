@@ -18,7 +18,7 @@ class STATSTG extends Win32Struct
      * A pointer to a <b>NULL</b>-terminated Unicode string that contains the name. Space for this string is allocated by the method called and freed by the caller (for more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>). To  not return this member, specify the STATFLAG_NONAME value when you call a method that returns a 
      * <b>STATSTG</b> structure, except for calls to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumstatstg">IEnumSTATSTG::Next</a>, which provides no way to specify this value.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwcsName {
         get => NumGet(this, 0, "ptr")

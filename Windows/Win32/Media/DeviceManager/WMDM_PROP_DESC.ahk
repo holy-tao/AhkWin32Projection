@@ -49,7 +49,7 @@ class WMDM_PROP_DESC extends Win32Struct
 
     /**
      * Name of the property. The application must free this memory when it is done using it.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszPropName {
         get => NumGet(this, 0, "ptr")

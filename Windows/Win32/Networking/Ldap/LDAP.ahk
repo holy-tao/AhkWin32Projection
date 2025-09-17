@@ -62,7 +62,7 @@ class LDAP extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     ld_host {
         get => NumGet(this, 88, "ptr")
@@ -118,7 +118,7 @@ class LDAP extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     ld_matched {
         get => NumGet(this, 120, "ptr")
@@ -126,7 +126,7 @@ class LDAP extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     ld_error {
         get => NumGet(this, 128, "ptr")

@@ -47,7 +47,7 @@ class MCI_BREAK_PARMS extends Win32Struct
 
     /**
      * Handle to the window that must be the current window for break detection.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndBreak {
         get => NumGet(this, 16, "ptr")

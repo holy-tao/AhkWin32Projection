@@ -36,7 +36,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszCardName {
         get => NumGet(this, 24, "ptr")

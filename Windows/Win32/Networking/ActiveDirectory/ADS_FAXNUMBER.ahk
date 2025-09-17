@@ -15,7 +15,7 @@ class ADS_FAXNUMBER extends Win32Struct
 
     /**
      * The null-terminated Unicode string value that contains the telephone number of the facsimile (fax) machine.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     TelephoneNumber {
         get => NumGet(this, 0, "ptr")

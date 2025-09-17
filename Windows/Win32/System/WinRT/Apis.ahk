@@ -179,13 +179,13 @@ class WinRT {
      * The HSTRING_UserSize function calculates the wire size of the HSTRING object, and retrieves its handle and data. (HSTRING_UserSize)
      * @param {Pointer<UInt32>} param0 
      * @param {Integer} param1 
-     * @param {Pointer<HSTRING>} param2 
+     * @param {Pointer<Void>} param2 
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_usersize
      * @since windows8.0
      */
     static HSTRING_UserSize(param0, param1, param2) {
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserSize", "ptr", param0, "uint", param1, "ptr", param2, "uint")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserSize", "uint*", param0, "uint", param1, "ptr", param2, "uint")
         return result
     }
 
@@ -193,13 +193,13 @@ class WinRT {
      * The HSTRING_UserMarshal function marshals an HSTRING object into the RPC buffer. (HSTRING_UserMarshal)
      * @param {Pointer<UInt32>} param0 
      * @param {Pointer<Byte>} param1 
-     * @param {Pointer<HSTRING>} param2 
+     * @param {Pointer<Void>} param2 
      * @returns {Pointer<Byte>} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_usermarshal
      * @since windows8.0
      */
     static HSTRING_UserMarshal(param0, param1, param2) {
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserMarshal", "ptr", param0, "ptr", param1, "ptr", param2, "ptr")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserMarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
         return result
     }
 
@@ -207,7 +207,7 @@ class WinRT {
      * The HSTRING_UserUnmarshal function unmarshals an HSTRING object from the RPC buffer. (HSTRING_UserUnmarshal)
      * @param {Pointer<UInt32>} param0 
      * @param {Pointer<Byte>} param1 
-     * @param {Pointer<HSTRING>} param2 
+     * @param {Pointer<Void>} param2 
      * @returns {Pointer<Byte>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
      * 
      * <table>
@@ -242,33 +242,34 @@ class WinRT {
      * @since windows8.0
      */
     static HSTRING_UserUnmarshal(param0, param1, param2) {
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserUnmarshal", "ptr", param0, "ptr", param1, "ptr", param2, "ptr")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserUnmarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
         return result
     }
 
     /**
      * The HSTRING_UserFree function frees resources on the server side when called by RPC stub files. (HSTRING_UserFree)
      * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<HSTRING>} param1 
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Void>} param1 
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_userfree
      * @since windows8.0
      */
     static HSTRING_UserFree(param0, param1) {
-        DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserFree", "ptr", param0, "ptr", param1)
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserFree", "uint*", param0, "ptr", param1)
+        return result
     }
 
     /**
      * The HSTRING_UserSize64 function calculates the wire size of the HSTRING object, and retrieves its handle and data. (HSTRING_UserSize64)
      * @param {Pointer<UInt32>} param0 
      * @param {Integer} param1 
-     * @param {Pointer<HSTRING>} param2 
+     * @param {Pointer<Void>} param2 
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_usersize64
      * @since windows8.0
      */
     static HSTRING_UserSize64(param0, param1, param2) {
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserSize64", "ptr", param0, "uint", param1, "ptr", param2, "uint")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserSize64", "uint*", param0, "uint", param1, "ptr", param2, "uint")
         return result
     }
 
@@ -276,13 +277,13 @@ class WinRT {
      * The HSTRING_UserMarshal64 function marshals an HSTRING object into the RPC buffer. (HSTRING_UserMarshal64)
      * @param {Pointer<UInt32>} param0 
      * @param {Pointer<Byte>} param1 
-     * @param {Pointer<HSTRING>} param2 
+     * @param {Pointer<Void>} param2 
      * @returns {Pointer<Byte>} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_usermarshal64
      * @since windows8.0
      */
     static HSTRING_UserMarshal64(param0, param1, param2) {
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserMarshal64", "ptr", param0, "ptr", param1, "ptr", param2, "ptr")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserMarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
         return result
     }
 
@@ -290,7 +291,7 @@ class WinRT {
      * The HSTRING_UserUnmarshal64 function unmarshals an HSTRING object from the RPC buffer. (HSTRING_UserUnmarshal64)
      * @param {Pointer<UInt32>} param0 
      * @param {Pointer<Byte>} param1 
-     * @param {Pointer<HSTRING>} param2 
+     * @param {Pointer<Void>} param2 
      * @returns {Pointer<Byte>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
      * 
      * <table>
@@ -325,20 +326,21 @@ class WinRT {
      * @since windows8.0
      */
     static HSTRING_UserUnmarshal64(param0, param1, param2) {
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserUnmarshal64", "ptr", param0, "ptr", param1, "ptr", param2, "ptr")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserUnmarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
         return result
     }
 
     /**
      * The HSTRING_UserFree64 function frees resources on the server side when called by RPC stub files. (HSTRING_UserFree64)
      * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<HSTRING>} param1 
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Void>} param1 
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_userfree64
      * @since windows8.0
      */
     static HSTRING_UserFree64(param0, param1) {
-        DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserFree64", "ptr", param0, "ptr", param1)
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserFree64", "uint*", param0, "ptr", param1)
+        return result
     }
 
     /**
@@ -351,13 +353,13 @@ class WinRT {
      * To create a new, empty, or <b>NULL</b> string, pass <b>NULL</b> for <i>sourceString</i> and 0 for <i>length</i>.
      * 
      * If <i>sourceString</i> has embedded null characters, the <b>WindowsCreateString</b> function copies all characters to the terminating null character.
-     * @param {Pointer<PWSTR>} sourceString Type: [in, optional] <b>LPCWSTR</b>
+     * @param {Pointer<Char>} sourceString Type: [in, optional] <b>LPCWSTR</b>
      * 
      * A null-terminated string to use as the source for the new [**HSTRING**](/windows/win32/winrt/hstring). To create a new, empty, or <b>NULL</b> string, pass <b>NULL</b> for <i>sourceString</i> and 0 for <i>length</i>.
      * @param {Integer} length Type: [in] <b>UINT32</b>
      * 
      * The length of <i>sourceString</i>, in Unicode characters. Must be 0 if <i>sourceString</i> is <b>NULL</b>.
-     * @param {Pointer<HSTRING>} string Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
+     * @param {Pointer<Void>} string Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * A pointer to the newly created [**HSTRING**](/windows/win32/winrt/hstring), or <b>NULL</b> if an error occurs. Any existing  content in <i>string</i> is overwritten. The <b>HSTRING</b> is a standard handle type.
      * @returns {Integer} Type: <b>HRESULT</b>
@@ -434,7 +436,7 @@ class WinRT {
      * To create an empty [**HSTRING**](/windows/win32/winrt/hstring), pass <b>NULL</b> for <i>sourceString</i> and 0 for <i>length</i>. 
      * 
      * The Windows Runtime tracks a fast-pass string by using an <a href="https://docs.microsoft.com/windows/desktop/api/hstring/ns-hstring-hstring_header">HSTRING_HEADER</a> structure, which is returned in the <i>hstringHeader</i> out parameter. Do not change the contents of the <b>HSTRING_HEADER</b>.
-     * @param {Pointer<PWSTR>} sourceString Type: [in] <b>PCWSTR</b>
+     * @param {Pointer<Char>} sourceString Type: [in] <b>PCWSTR</b>
      * 
      * A null-terminated string to use as the source for the new [**HSTRING**](/windows/win32/winrt/hstring).
      * 
@@ -445,7 +447,7 @@ class WinRT {
      * @param {Pointer<HSTRING_HEADER>} hstringHeader Type: [out] <b><a href="https://docs.microsoft.com/windows/desktop/api/hstring/ns-hstring-hstring_header">HSTRING_HEADER</a>*</b>
      * 
      * A pointer to a structure that the Windows Runtime uses to identify <i>string</i> as a string reference, or fast-pass string.
-     * @param {Pointer<HSTRING>} string Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
+     * @param {Pointer<Void>} string Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * A pointer to the newly created string, or <b>NULL</b> if an error occurs. Any existing  content in <i>string</i> is overwritten. The [**HSTRING**](/windows/win32/winrt/hstring) is a standard handle type.
      * @returns {Integer} Type: <b>HRESULT</b>
@@ -516,7 +518,7 @@ class WinRT {
      * Decrements the reference count of a string buffer.
      * @remarks
      * Use the <b>WindowsDeleteString</b> function to de-allocate an [**HSTRING**](/windows/win32/winrt/hstring). Calling <b>WindowsDeleteString</b> decrements the reference count of the backing buffer, and if the reference count reaches 0, the Windows Runtime de-allocates the buffer.
-     * @param {Pointer<HSTRING>} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
+     * @param {Pointer<Void>} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The string to be deleted. If <i>string</i> is a fast-pass string created by <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowscreatestringreference">WindowsCreateStringReference</a>, or if <i>string</i> is <b>NULL</b> or empty, no action is taken and <b>S_OK</b> is returned.
      * @returns {Integer} Type: <b>HRESULT</b>
@@ -536,10 +538,10 @@ class WinRT {
      * Use the <b>WindowsDuplicateString</b>  function to copy an [**HSTRING**](/windows/win32/winrt/hstring). If <i>string</i> was created by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowscreatestring">WindowsCreateString</a> function, the reference count of the backing buffer is incremented. If <i>string</i> was created by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowscreatestringreference">WindowsCreateStringReference</a> function,  the Windows Runtime copies its source string to a new buffer and starts a reference count, which means that  <i>newString</i> is not a fast-pass string. 
      * 
      * Each call to the <b>WindowsDuplicateString</b> function must be matched with a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a>.
-     * @param {Pointer<HSTRING>} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
+     * @param {Pointer<Void>} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The string to be copied.
-     * @param {Pointer<HSTRING>} newString Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
+     * @param {Pointer<Void>} newString Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * A copy of <i>string</i>.
      * @returns {Integer} Type: <b>HRESULT</b>
@@ -595,7 +597,7 @@ class WinRT {
 
     /**
      * Gets the length, in Unicode characters, of the specified string.
-     * @param {Pointer<HSTRING>} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
+     * @param {Pointer<Void>} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The string whose length is to be found.
      * @returns {Integer} Type: <b>UINT32</b>
@@ -615,26 +617,26 @@ class WinRT {
      * Use the <b>WindowsGetStringRawBuffer</b> function to obtain a pointer to the backing buffer of an[**HSTRING**](/windows/win32/winrt/hstring).
      * 
      * Don't change the contents of the buffer&mdash;an [**HSTRING**](/windows/win32/winrt/hstring) is required to be immutable.
-     * @param {Pointer<HSTRING>} string Type: [in, optional] **[HSTRING](/windows/win32/winrt/hstring)**
+     * @param {Pointer<Void>} string Type: [in, optional] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * An optional string for which the backing buffer is to be retrieved. Can be **NULL**.
      * @param {Pointer<UInt32>} length Type: [out, optional] **UINT32 \***
      * 
      * An optional pointer to a **UINT32**. If **NULL** is passed for *length*, then it is ignored. If *length* is a valid pointer to a **UINT32**, and *string* is a valid [**HSTRING**](/windows/win32/winrt/hstring), then on successful completion the function sets the value pointed to by *length* to the number of Unicode characters in the backing buffer for *string* (including embedded null characters, but excluding the terminating null). If *length* is a valid pointer to a **UINT32**, and *string* is **NULL**, then the value pointed to by *length* is set to 0.
-     * @returns {Pointer<PWSTR>} Type: <b>PCWSTR</b>
+     * @returns {Pointer<Char>} Type: <b>PCWSTR</b>
      * 
      * A pointer to the buffer that provides the backing store for <i>string</i>, or the empty string if <i>string</i> is <b>NULL</b> or the empty string.
      * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowsgetstringrawbuffer
      * @since windows8.0
      */
     static WindowsGetStringRawBuffer(string, length) {
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsGetStringRawBuffer", "ptr", string, "ptr", length, "ptr")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsGetStringRawBuffer", "ptr", string, "uint*", length, "char*")
         return result
     }
 
     /**
      * Indicates whether the specified string is the empty string.
-     * @param {Pointer<HSTRING>} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
+     * @param {Pointer<Void>} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The string to be tested for content.
      * @returns {Integer} Type: <b>BOOL</b>
@@ -650,7 +652,7 @@ class WinRT {
 
     /**
      * Indicates whether the specified string has embedded null characters.
-     * @param {Pointer<HSTRING>} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
+     * @param {Pointer<Void>} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The string to test for embedded null characters.
      * @param {Pointer<Int32>} hasEmbedNull Type: [out] <b>BOOL*</b>
@@ -692,7 +694,7 @@ class WinRT {
      * @since windows8.0
      */
     static WindowsStringHasEmbeddedNull(string, hasEmbedNull) {
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsStringHasEmbeddedNull", "ptr", string, "ptr", hasEmbedNull, "int")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsStringHasEmbeddedNull", "ptr", string, "int*", hasEmbedNull, "int")
         return result
     }
 
@@ -719,10 +721,10 @@ class WinRT {
      * <td><i>string1</i> is greater than <i>string2</i>.</td>
      * </tr>
      * </table>
-     * @param {Pointer<HSTRING>} string1 Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
+     * @param {Pointer<Void>} string1 Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The first string to compare.
-     * @param {Pointer<HSTRING>} string2 Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
+     * @param {Pointer<Void>} string2 Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The second string to compare.
      * @param {Pointer<Int32>} result Type: [out] <b>INT32*</b>
@@ -764,7 +766,7 @@ class WinRT {
      * @since windows8.0
      */
     static WindowsCompareStringOrdinal(string1, string2, result) {
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCompareStringOrdinal", "ptr", string1, "ptr", string2, "ptr", result, "int")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCompareStringOrdinal", "ptr", string1, "ptr", string2, "int*", result, "int")
         return result
     }
 
@@ -772,13 +774,13 @@ class WinRT {
      * Retrieves a substring from the specified string. The substring starts at the specified character position.
      * @remarks
      * Each call to the <b>WindowsSubstring</b> function must be matched with a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a>.
-     * @param {Pointer<HSTRING>} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
+     * @param {Pointer<Void>} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The original string.
      * @param {Integer} startIndex Type: [in] <b>UINT32</b>
      * 
      * The zero-based starting character position of a substring in this instance.
-     * @param {Pointer<HSTRING>} newString Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
+     * @param {Pointer<Void>} newString Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * A string that is equivalent to the substring that begins at <i>startIndex</i> in <i>string</i>, or <b>NULL</b> if <i>startIndex</i> is equal to the length of <i>string</i>.
      * @returns {Integer} Type: <b>HRESULT</b>
@@ -847,7 +849,7 @@ class WinRT {
      * Retrieves a substring from the specified string. The substring starts at a specified character position and has a specified length.
      * @remarks
      * Each call to the <b>WindowsSubstringWithSpecifiedLength</b> function must be matched with a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a>.
-     * @param {Pointer<HSTRING>} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
+     * @param {Pointer<Void>} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The original string.
      * @param {Integer} startIndex Type: [in] <b>UINT32</b>
@@ -856,7 +858,7 @@ class WinRT {
      * @param {Integer} length Type: [in] <b>UINT32</b>
      * 
      * The number of characters in the substring.
-     * @param {Pointer<HSTRING>} newString Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
+     * @param {Pointer<Void>} newString Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * A string that is equivalent to the substring that begins at <i>startIndex</i> in <i>string</i>, or <b>NULL</b> if <i>startIndex</i> is equal to the length of <i>string</i>.
      * @returns {Integer} Type: <b>HRESULT</b>
@@ -925,13 +927,13 @@ class WinRT {
      * Concatenates two specified strings.
      * @remarks
      * Each call to the <b>WindowsConcatString</b> function must be matched with a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a>.
-     * @param {Pointer<HSTRING>} string1 Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
+     * @param {Pointer<Void>} string1 Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The first string to be concatenated.
-     * @param {Pointer<HSTRING>} string2 Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
+     * @param {Pointer<Void>} string2 Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The second string to be concatenated.
-     * @param {Pointer<HSTRING>} newString Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
+     * @param {Pointer<Void>} newString Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * The concatenation of <i>string1</i> and <i>string2</i>. If <i>string1</i> and <i>string2</i> are <b>NULL</b>, <i>newString</i> is <b>NULL</b>. If either <i>string1</i> or <i>string2</i> is <b>NULL</b>, <i>newString</i> is a copy of the non-null string.
      * @returns {Integer} Type: <b>HRESULT</b>
@@ -989,17 +991,17 @@ class WinRT {
      * Replaces all occurrences of a set of characters in the specified string with another set of characters to create a new string.
      * @remarks
      * Each call to the <b>WindowsReplaceString</b> function must be matched with a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a>.
-     * @param {Pointer<HSTRING>} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
+     * @param {Pointer<Void>} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The original string.
-     * @param {Pointer<HSTRING>} stringReplaced Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
+     * @param {Pointer<Void>} stringReplaced Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The string to be replaced.
-     * @param {Pointer<HSTRING>} stringReplaceWith Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
+     * @param {Pointer<Void>} stringReplaceWith Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The string to replace all occurrences of <i>stringReplaced</i>. 
      * If this parameter is <b>NULL</b>, all instances of <i>stringReplaced</i> are removed.
-     * @param {Pointer<HSTRING>} newString Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
+     * @param {Pointer<Void>} newString Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * A string that is equivalent to the original, except that all instances of <i>stringReplaced</i> are replaced with <i>stringReplaceWith</i>.
      * @returns {Integer} Type: <b>HRESULT</b>
@@ -1057,13 +1059,13 @@ class WinRT {
      * Removes all leading occurrences of a specified set of characters from the source string.
      * @remarks
      * Each call to the <b>WindowsTrimStringStart</b> function must be matched with a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a>
-     * @param {Pointer<HSTRING>} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
+     * @param {Pointer<Void>} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The string to be trimmed.
-     * @param {Pointer<HSTRING>} trimString Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
+     * @param {Pointer<Void>} trimString Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The characters to remove from <i>string</i>.
-     * @param {Pointer<HSTRING>} newString Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
+     * @param {Pointer<Void>} newString Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * The string that remains after all occurrences of characters in the <i>trimString</i> parameter are removed from the start of <i>string</i>, or <b>NULL</b> if <i>trimString</i> contains all of the characters in <i>string</i>.
      * @returns {Integer} Type: <b>HRESULT</b>
@@ -1121,13 +1123,13 @@ class WinRT {
      * Removes all trailing occurrences of a specified set of characters from the source string.
      * @remarks
      * Each call to the <b>WindowsTrimStringEnd</b> function must be matched with a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a>.
-     * @param {Pointer<HSTRING>} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
+     * @param {Pointer<Void>} string Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The string to be trimmed.
-     * @param {Pointer<HSTRING>} trimString Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
+     * @param {Pointer<Void>} trimString Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The characters to remove from <i>string</i>.
-     * @param {Pointer<HSTRING>} newString Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
+     * @param {Pointer<Void>} newString Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * The string that remains after all occurrences of characters in the <i>trimString</i> parameter are removed from the end of <i>string</i>, or <b>NULL</b> if <i>trimString</i> contains all of the characters in <i>string</i>.
      * @returns {Integer} Type: <b>HRESULT</b>
@@ -1194,7 +1196,7 @@ class WinRT {
      * @param {Pointer<UInt16>} charBuffer Type: [out] <b>WCHAR**</b>
      * 
      * The mutable buffer that holds the characters. Note that the buffer already contains a terminating <b>NULL</b> character.
-     * @param {Pointer<HSTRING_BUFFER>} bufferHandle Type: [out] <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring-buffer">HSTRING_BUFFER</a>*</b>
+     * @param {Pointer<Void>} bufferHandle Type: [out] <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring-buffer">HSTRING_BUFFER</a>*</b>
      * 
      * The preallocated string buffer, or <b>NULL</b> if  <i>length</i> is 0.
      * @returns {Integer} Type: <b>HRESULT</b>
@@ -1267,10 +1269,10 @@ class WinRT {
      * If the <b>WindowsPromoteStringBuffer</b> call fails, you can call the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestringbuffer">WindowsDeleteStringBuffer</a> function to discard the mutable buffer.
      * 
      * Each call to the <b>WindowsPromoteStringBuffer</b> function must be matched with a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a>.
-     * @param {Pointer<HSTRING_BUFFER>} bufferHandle Type: [in] <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring-buffer">HSTRING_BUFFER</a></b>
+     * @param {Pointer<Void>} bufferHandle Type: [in] <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring-buffer">HSTRING_BUFFER</a></b>
      * 
      * The buffer to use for the new [**HSTRING**](/windows/win32/winrt/hstring). You must use the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowspreallocatestringbuffer">WindowsPreallocateStringBuffer</a> function to create the <a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring-buffer">HSTRING_BUFFER</a>.
-     * @param {Pointer<HSTRING>} string Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
+     * @param {Pointer<Void>} string Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * The newly created [**HSTRING**](/windows/win32/winrt/hstring) that contains the contents of <i>bufferHandle</i>.
      * @returns {Integer} Type: <b>HRESULT</b>
@@ -1331,7 +1333,7 @@ class WinRT {
      * 
      * <div class="alert"><b>Note</b>  Calling <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowspromotestringbuffer">WindowsPromoteStringBuffer</a> after calling <b>WindowsDeleteStringBuffer</b> with the same buffer handle is undefined.</div>
      * <div> </div>
-     * @param {Pointer<HSTRING_BUFFER>} bufferHandle Type: [in] <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring-buffer">HSTRING_BUFFER</a></b>
+     * @param {Pointer<Void>} bufferHandle Type: [in] <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring-buffer">HSTRING_BUFFER</a></b>
      * 
      * The buffer to discard. The <b>WindowsDeleteStringBuffer</b> function raises an exception if <i>bufferHandle</i> was not allocated by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowspreallocatestringbuffer">WindowsPreallocateStringBuffer</a> function.
      * @returns {Integer} Type: <b>HRESULT</b>
@@ -1420,7 +1422,7 @@ class WinRT {
      * @since windows8.0
      */
     static WindowsInspectString(targetHString, machine, callback, context, length, targetStringAddress) {
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsInspectString", "ptr", targetHString, "ushort", machine, "ptr", callback, "ptr", context, "ptr", length, "ptr", targetStringAddress, "int")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsInspectString", "ptr", targetHString, "ushort", machine, "ptr", callback, "ptr", context, "uint*", length, "ptr*", targetStringAddress, "int")
         return result
     }
 
@@ -1473,7 +1475,7 @@ class WinRT {
      * @since windows8.0
      */
     static WindowsInspectString2(targetHString, machine, callback, context, length, targetStringAddress) {
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-1.dll\WindowsInspectString2", "uint", targetHString, "ushort", machine, "ptr", callback, "ptr", context, "ptr", length, "ptr", targetStringAddress, "int")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-1.dll\WindowsInspectString2", "uint", targetHString, "ushort", machine, "ptr", callback, "ptr", context, "uint*", length, "uint*", targetStringAddress, "int")
         return result
     }
 
@@ -1573,19 +1575,20 @@ class WinRT {
      * Call the <b>RoUninitialize</b> function to close the Windows Runtime on the current thread. This unloads all DLLs loaded by the thread, frees any other resources that the thread maintains, and forces all RPC connections on the thread to close.
      * 
      * Use the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/nf-roapi-roinitialize">RoInitialize</a> function to initialize a thread in the Windows Runtime.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-rouninitialize
      * @since windows8.0
      */
     static RoUninitialize() {
-        DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoUninitialize")
+        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoUninitialize")
+        return result
     }
 
     /**
      * Activates the specified Windows Runtime class.
      * @remarks
      * Use the <b>RoActivateInstance</b> function to activate a Windows Runtime class. The <b>RoActivateInstance</b> function connects to the activation factory that is associated with the specified activatable class identifier, creates an instance by calling the zero-argument constructor on the class, and releases the activation factory.
-     * @param {Pointer<HSTRING>} activatableClassId Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
+     * @param {Pointer<Void>} activatableClassId Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
      * 
      * The class identifier that is associated with the activatable runtime class.
      * @param {Pointer<IInspectable>} instance Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/inspectable/nn-inspectable-iinspectable">IInspectable</a>**</b>
@@ -1679,7 +1682,7 @@ class WinRT {
      * Registers an array out-of-process activation factories for a Windows Runtime exe server.
      * @remarks
      * The <b>RoRegisterActivationFactories</b> function enables an exe server to register multiple activation factories without experiencing a race condition.
-     * @param {Pointer<HSTRING>} activatableClassIds Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>*</b>
+     * @param {Pointer<Void>} activatableClassIds Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>*</b>
      * 
      * An array of class identifiers that are associated with activatable runtime classes.
      * @param {Pointer<PFNGETACTIVATIONFACTORY>} activationFactoryCallbacks Type: <b><a href="https://docs.microsoft.com/previous-versions/br205771(v=vs.85)">PFNGETACTIVATIONFACTORY</a>*</b>
@@ -1771,7 +1774,7 @@ class WinRT {
      * @since windows8.0
      */
     static RoRegisterActivationFactories(activatableClassIds, activationFactoryCallbacks, count, cookie) {
-        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRegisterActivationFactories", "ptr", activatableClassIds, "ptr", activationFactoryCallbacks, "uint", count, "ptr", cookie, "int")
+        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRegisterActivationFactories", "ptr", activatableClassIds, "ptr", activationFactoryCallbacks, "uint", count, "ptr*", cookie, "int")
         return result
     }
 
@@ -1780,17 +1783,18 @@ class WinRT {
      * @remarks
      * Call the <b>RoRevokeActivationFactories</b> function remove the activation factories represented in the  <i>cookie</i> array from the Windows Runtime.
      * @param {Pointer} cookie Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/ro-registration-cookie">RO_REGISTRATION_COOKIE</a></b>
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-rorevokeactivationfactories
      * @since windows8.0
      */
     static RoRevokeActivationFactories(cookie) {
-        DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRevokeActivationFactories", "ptr", cookie)
+        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRevokeActivationFactories", "ptr", cookie)
+        return result
     }
 
     /**
      * Gets the activation factory for the specified runtime class. (RoGetActivationFactory)
-     * @param {Pointer<HSTRING>} activatableClassId Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
+     * @param {Pointer<Void>} activatableClassId Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
      * 
      * The ID of the activatable class.
      * @param {Pointer<Guid>} iid Type: <b>REFIID</b>
@@ -1820,13 +1824,13 @@ class WinRT {
      * Don't call the <b>RoRegisterForApartmentShutdown</b> function from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iapartmentshutdown-onuninitialize">OnUninitialize</a> callback.
      * @param {Pointer<IApartmentShutdown>} callbackObject The application-supplied <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iapartmentshutdown">IApartmentShutdown</a> interface.
      * @param {Pointer<UInt64>} apartmentIdentifier The identifier for the current apartment.
-     * @param {Pointer<APARTMENT_SHUTDOWN_REGISTRATION_COOKIE>} regCookie A cookie that you can use to unregister the callback.
+     * @param {Pointer<Void>} regCookie A cookie that you can use to unregister the callback.
      * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-roregisterforapartmentshutdown
      * @since windows8.0
      */
     static RoRegisterForApartmentShutdown(callbackObject, apartmentIdentifier, regCookie) {
-        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRegisterForApartmentShutdown", "ptr", callbackObject, "ptr", apartmentIdentifier, "ptr", regCookie, "int")
+        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRegisterForApartmentShutdown", "ptr", callbackObject, "uint*", apartmentIdentifier, "ptr", regCookie, "int")
         return result
     }
 
@@ -1838,7 +1842,7 @@ class WinRT {
      * <div class="alert"><b>Warning</b>  </div>
      * <div> </div>
      * Don't call the <b>RoUnregisterForApartmentShutdown</b> function from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iapartmentshutdown-onuninitialize">OnUninitialize</a> callback.
-     * @param {Pointer<APARTMENT_SHUTDOWN_REGISTRATION_COOKIE>} regCookie A registration cookie obtained from a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/nf-roapi-roregisterforapartmentshutdown">RoRegisterForApartmentShutdown</a> function.
+     * @param {Pointer<Void>} regCookie A registration cookie obtained from a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/nf-roapi-roregisterforapartmentshutdown">RoRegisterForApartmentShutdown</a> function.
      * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-rounregisterforapartmentshutdown
      * @since windows8.0
@@ -1856,7 +1860,7 @@ class WinRT {
      * @since windows8.0
      */
     static RoGetApartmentIdentifier(apartmentIdentifier) {
-        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoGetApartmentIdentifier", "ptr", apartmentIdentifier, "int")
+        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoGetApartmentIdentifier", "uint*", apartmentIdentifier, "int")
         return result
     }
 
@@ -1921,7 +1925,7 @@ class WinRT {
      * @since windows8.0
      */
     static RoGetErrorReportingFlags(pflags) {
-        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoGetErrorReportingFlags", "ptr", pflags, "int")
+        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoGetErrorReportingFlags", "uint*", pflags, "int")
         return result
     }
 
@@ -1976,7 +1980,7 @@ class WinRT {
      * Returns the IRestrictedErrorInfo interface pointer based on the given reference.
      * @remarks
      * The <b>RoResolveRestrictedErrorInfoReference</b> function is useful primarily for debugger development. A debugger receives the reference  string and uses the reference to identify the associated <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> object, which allows the debugger to retrieve the detailed error message by calling the <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nf-restrictederrorinfo-irestrictederrorinfo-geterrordetails">GetErrorDetails</a> method.
-     * @param {Pointer<PWSTR>} reference Type: <b>PCWSTR</b>
+     * @param {Pointer<Char>} reference Type: <b>PCWSTR</b>
      * 
      * Identifies an error object which contains relevant information for the specific error.
      * @param {Pointer<IRestrictedErrorInfo>} ppRestrictedErrorInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a>**</b>
@@ -2125,7 +2129,7 @@ class WinRT {
      * @param {Integer} cchMax Type: <b>UINT</b>
      * 
      * The maximum number of characters in <i>message</i>, excluding the terminating <b>NUL</b> character. If the value is 0, the string is read to the first <b>NUL</b> character or 512 characters, whichever is less. If <i>cchMax</i> is greater than 512, all characters after 512 are ignored.
-     * @param {Pointer<PWSTR>} message Type: <b>PCWSTR</b>
+     * @param {Pointer<Char>} message Type: <b>PCWSTR</b>
      * 
      * An informative string to help developers to correct the reported error condition. The maximum length is 512 characters, including the trailing <b>NUL</b> character; longer strings are truncated.
      * 
@@ -2189,7 +2193,7 @@ class WinRT {
      * @param {Integer} error Type: <b>HRESULT</b>
      * 
      * The error code associated with the error condition. If <i>error</i> is a success code, such as <b>S_OK</b>, the function has no effect and returns <b>FALSE</b>. This behavior enables calling the function when no error has occurred without causing an unwanted error message.
-     * @param {Pointer<HSTRING>} message Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
+     * @param {Pointer<Void>} message Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
      * 
      * An informative string to help developers to correct the reported error condition. The maximum length is 512 characters, including the trailing <b>NUL</b> character; longer strings are truncated.
      * 
@@ -2259,7 +2263,7 @@ class WinRT {
      * @param {Integer} cchMax Type: <b>UINT</b>
      * 
      * The maximum number of characters in <i>message</i>, excluding the terminating null character. If the value is 0, the string is read to the first null character or 512 characters, whichever is less. If <i>cchMax</i> is greater than 512, all characters after 512 are ignored.
-     * @param {Pointer<PWSTR>} message Type: <b>PCWSTR</b>
+     * @param {Pointer<Char>} message Type: <b>PCWSTR</b>
      * 
      * An informative string to help developers to correct the reported error condition. The maximum length is 512 characters, including the trailing null character; longer strings are truncated.
      * 
@@ -2322,7 +2326,7 @@ class WinRT {
      * @param {Integer} newError Type: <b>HRESULT</b>
      * 
      * A different  error code to associate with the error condition. If <i>oldError</i> and <i>newError</i>  are the same, or both are success codes, such as <b>S_OK</b>, the function has no effect and returns <b>FALSE</b>.
-     * @param {Pointer<HSTRING>} message Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
+     * @param {Pointer<Void>} message Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
      * 
      * An informative string to help developers to correct the reported error condition. The maximum length is 512 characters, including the trailing null character; longer strings are truncated.
      * 
@@ -2396,12 +2400,13 @@ class WinRT {
      * 
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rocaptureerrorcontext">RoCaptureErrorContext</a> function to save an <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> object that's associated with the current thread. The <b>RoFailFastWithErrorContext</b> function uses this contextual information to report the error call stack to the Windows Error Reporting service (WER), if it's enabled.
      * @param {Integer} hrError The <b>HRESULT</b> associated with the current error. The exception is raised for any value of <i>hrError</i>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-rofailfastwitherrorcontext
      * @since windows8.0
      */
     static RoFailFastWithErrorContext(hrError) {
-        DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoFailFastWithErrorContext", "int", hrError)
+        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoFailFastWithErrorContext", "int", hrError)
+        return result
     }
 
     /**
@@ -2411,7 +2416,7 @@ class WinRT {
      * 
      * The error object must be apartment-agile, in-proc, and marshal-by-value across processes. The reason for this restriction is that the thread from which the error object is originated may no longer exist, for example due to a <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-couninitialize">CoUninitialize</a> call, by the time the error information is retrieved.
      * @param {Integer} error The error code associated with the error condition. If <i>error</i> is a success code, like <b>S_OK</b>, the function has no effect and returns <b>FALSE</b>. This behavior enables calling the function when no error has occurred without causing an unwanted error message.
-     * @param {Pointer<HSTRING>} message An informative string to help developers to correct the reported error condition. The maximum length is 512 characters, including the trailing <b>NUL</b> character; longer strings are truncated.
+     * @param {Pointer<Void>} message An informative string to help developers to correct the reported error condition. The maximum length is 512 characters, including the trailing <b>NUL</b> character; longer strings are truncated.
      * 
      * If the string is empty, the function succeeds but no error information is reported. It is recommended that you always provide an informative string.
      * 
@@ -2461,12 +2466,13 @@ class WinRT {
      * Removes existing error information from the current thread environment block (TEB).
      * @remarks
      * Call the <b>RoClearError</b> function to remove existing thread error information from the thread environment block (TEB). If COM is not initialized, this call does nothing to create the TEB slot for this information. Language projections call this function to ensure there's no stale error information on the thread.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-roclearerror
      * @since windows8.1
      */
     static RoClearError() {
-        DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoClearError")
+        result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoClearError")
+        return result
     }
 
     /**
@@ -2496,7 +2502,7 @@ class WinRT {
      * @since windows8.1
      */
     static RoInspectThreadErrorInfo(targetTebAddress, machine, readMemoryCallback, context, targetErrorInfoAddress) {
-        result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoInspectThreadErrorInfo", "ptr", targetTebAddress, "ushort", machine, "ptr", readMemoryCallback, "ptr", context, "ptr", targetErrorInfoAddress, "int")
+        result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoInspectThreadErrorInfo", "ptr", targetTebAddress, "ushort", machine, "ptr", readMemoryCallback, "ptr", context, "ptr*", targetErrorInfoAddress, "int")
         return result
     }
 
@@ -2517,7 +2523,7 @@ class WinRT {
      * @since windows8.1
      */
     static RoInspectCapturedStackBackTrace(targetErrorInfoAddress, machine, readMemoryCallback, context, frameCount, targetBackTraceAddress) {
-        result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoInspectCapturedStackBackTrace", "ptr", targetErrorInfoAddress, "ushort", machine, "ptr", readMemoryCallback, "ptr", context, "ptr", frameCount, "ptr", targetBackTraceAddress, "int")
+        result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoInspectCapturedStackBackTrace", "ptr", targetErrorInfoAddress, "ushort", machine, "ptr", readMemoryCallback, "ptr", context, "uint*", frameCount, "ptr*", targetBackTraceAddress, "int")
         return result
     }
 
@@ -2594,10 +2600,10 @@ class WinRT {
      * Retrieves the activatable classes that are registered for a given executable (EXE) server, which was registered under the package ID of the calling process.
      * @remarks
      * Use the <b>RoGetServerActivatableClasses</b> function to retrieve the class names that the server is expected to serve. Get the details on the individual classes by calling the <a href="https://docs.microsoft.com/windows/desktop/api/roregistrationapi/nf-roregistrationapi-rogetactivatableclassregistration">RoGetActivatableClassRegistration</a> function on each class name individually.
-     * @param {Pointer<HSTRING>} serverName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
+     * @param {Pointer<Void>} serverName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
      * 
      * The name of the server to retrieve class registrations for. This server name is passed on the command line when the server is activated.
-     * @param {Pointer<HSTRING>} activatableClassIds Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>**</b>
+     * @param {Pointer<Void>} activatableClassIds Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>**</b>
      * 
      * A callee-allocated array of activatable class ID strings which the server is registered to serve. The strings must be released by the caller using the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a> function. The buffer must then be released using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>. The server (caller) is responsible for registering the activation factories for these classes.
      * @param {Pointer<UInt32>} count Type: <b>DWORD*</b>
@@ -2639,7 +2645,7 @@ class WinRT {
      * @since windows8.0
      */
     static RoGetServerActivatableClasses(serverName, activatableClassIds, count) {
-        result := DllCall("api-ms-win-core-winrt-registration-l1-1-0.dll\RoGetServerActivatableClasses", "ptr", serverName, "ptr", activatableClassIds, "ptr", count, "int")
+        result := DllCall("api-ms-win-core-winrt-registration-l1-1-0.dll\RoGetServerActivatableClasses", "ptr", serverName, "ptr", activatableClassIds, "uint*", count, "int")
         return result
     }
 
@@ -2649,7 +2655,7 @@ class WinRT {
      * Use the <b>CreateRandomAccessStreamOnFile</b> function to create a <a href="https://docs.microsoft.com/uwp/api/windows.storage.streams.randomaccessstream">RandomAccessStream</a> that encapsulates a file.
      * 
      * We recommend that you use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-iid_ppv_args">IID_PPV_ARGS</a> macro, defined in Objbase.h, to package the <i>riid</i> and <i>ppv</i> parameters. This macro provides the correct IID based on the interface pointed to by the value in <i>ppv</i>, which eliminates the possibility of a coding error in <i>riid</i> that could lead to unexpected results.
-     * @param {Pointer<PWSTR>} filePath The fully qualified path of the file to encapsulate.
+     * @param {Pointer<Char>} filePath The fully qualified path of the file to encapsulate.
      * @param {Integer} accessMode An <a href="https://docs.microsoft.com/uwp/api/Windows.Storage.FileAccessMode">AccessMode</a> value that specifies the behavior of the <a href="https://docs.microsoft.com/uwp/api/windows.storage.streams.randomaccessstream">RandomAccessStream</a> that encapsulates the file.
      * @param {Pointer<Guid>} riid A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_RandomAccessStream.
      * @param {Pointer<Void>} ppv When this method returns successfully, contains the interface pointer requested in <i>riid</i>, typically the <a href="https://docs.microsoft.com/previous-versions/hh438400(v=vs.85)">IRandomAccessStream</a> that encapsulates the file.

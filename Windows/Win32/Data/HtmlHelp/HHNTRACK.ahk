@@ -28,7 +28,7 @@ class HHNTRACK extends Win32Struct
 
     /**
      * A multi-byte, zero-terminated string that specifies the current topic (before the action is taken).
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszCurUrl {
         get => NumGet(this, 24, "ptr")

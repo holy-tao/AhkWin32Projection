@@ -75,7 +75,7 @@ class DHCP_SERVER_CONFIG_INFO_VQ extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that represents the DHCP server database name that is used by the DHCP server for persistent storage.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     DatabaseName {
         get => NumGet(this, 8, "ptr")
@@ -84,7 +84,7 @@ class DHCP_SERVER_CONFIG_INFO_VQ extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the absolute path, where the DHCP server database is stored.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     DatabasePath {
         get => NumGet(this, 16, "ptr")
@@ -93,7 +93,7 @@ class DHCP_SERVER_CONFIG_INFO_VQ extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the absolute path for backup storage that is used by the DHCP server for backup.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     BackupPath {
         get => NumGet(this, 24, "ptr")
@@ -525,7 +525,7 @@ class DHCP_SERVER_CONFIG_INFO_VQ extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the absolute path of the BOOTP TABLE given to the BOOTP client.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     wszBootTableString {
         get => NumGet(this, 64, "ptr")

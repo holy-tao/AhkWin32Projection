@@ -16,7 +16,7 @@ class PRINTER_ENUM_VALUESA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of the retrieved value.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pValueName {
         get => NumGet(this, 0, "ptr")

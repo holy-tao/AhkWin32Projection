@@ -18,7 +18,7 @@ class DOC_INFO_3A extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of the document.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pDocName {
         get => NumGet(this, 0, "ptr")
@@ -27,7 +27,7 @@ class DOC_INFO_3A extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of an output file.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pOutputFile {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class DOC_INFO_3A extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that identifies the type of data used to record the document.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pDatatype {
         get => NumGet(this, 16, "ptr")

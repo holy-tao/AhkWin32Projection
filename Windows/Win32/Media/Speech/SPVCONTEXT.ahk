@@ -12,7 +12,7 @@ class SPVCONTEXT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pCategory {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class SPVCONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pBefore {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class SPVCONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pAfter {
         get => NumGet(this, 16, "ptr")

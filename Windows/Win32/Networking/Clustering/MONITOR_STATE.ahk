@@ -33,7 +33,7 @@ class MONITOR_STATE extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     ActiveResource {
         get => NumGet(this, 16, "ptr")

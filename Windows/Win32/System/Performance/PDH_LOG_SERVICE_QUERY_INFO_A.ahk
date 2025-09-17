@@ -38,7 +38,7 @@ class PDH_LOG_SERVICE_QUERY_INFO_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     szLogFileCaption {
         get => NumGet(this, 16, "ptr")
@@ -46,7 +46,7 @@ class PDH_LOG_SERVICE_QUERY_INFO_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     szDefaultDir {
         get => NumGet(this, 24, "ptr")
@@ -54,7 +54,7 @@ class PDH_LOG_SERVICE_QUERY_INFO_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     szBaseFileName {
         get => NumGet(this, 32, "ptr")
@@ -94,7 +94,7 @@ class PDH_LOG_SERVICE_QUERY_INFO_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     PdlCommandFilename {
         get => NumGet(this, 56, "ptr")
@@ -102,7 +102,7 @@ class PDH_LOG_SERVICE_QUERY_INFO_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     PdlCounterList {
         get => NumGet(this, 64, "ptr")
@@ -220,7 +220,7 @@ class PDH_LOG_SERVICE_QUERY_INFO_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     TlLogFileName {
         get => NumGet(this, 88, "ptr")

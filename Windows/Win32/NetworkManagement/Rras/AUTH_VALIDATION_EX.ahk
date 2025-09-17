@@ -33,7 +33,7 @@ class AUTH_VALIDATION_EX extends Win32Struct
      * A handle to the RAS connection for which PPP authentication is being bypassed. This can be a handle returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> function.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hRasConnection {
         get => NumGet(this, 8, "ptr")

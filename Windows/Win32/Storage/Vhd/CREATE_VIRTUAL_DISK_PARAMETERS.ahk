@@ -86,7 +86,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ParentPath {
         get => NumGet(this, 32, "ptr")
@@ -94,7 +94,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     SourcePath {
         get => NumGet(this, 40, "ptr")
@@ -110,7 +110,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ParentPath1 {
         get => NumGet(this, 40, "ptr")
@@ -118,7 +118,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     SourcePath1 {
         get => NumGet(this, 48, "ptr")
@@ -164,7 +164,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ParentPath12 {
         get => NumGet(this, 40, "ptr")
@@ -172,7 +172,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     SourcePath12 {
         get => NumGet(this, 48, "ptr")
@@ -180,7 +180,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     SourceLimitPath {
         get => NumGet(this, 104, "ptr")
@@ -199,7 +199,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ParentPath123 {
         get => NumGet(this, 40, "ptr")
@@ -207,7 +207,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     SourcePath123 {
         get => NumGet(this, 48, "ptr")

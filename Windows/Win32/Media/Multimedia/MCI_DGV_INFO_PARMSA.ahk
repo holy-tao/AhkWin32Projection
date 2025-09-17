@@ -34,7 +34,7 @@ class MCI_DGV_INFO_PARMSA extends Win32Struct
 
     /**
      * Pointer to buffer for return string.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpstrReturn {
         get => NumGet(this, 8, "ptr")

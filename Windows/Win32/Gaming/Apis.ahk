@@ -33,7 +33,7 @@ class Gaming {
      * @see https://learn.microsoft.com/windows/win32/api/expandedresources/nf-expandedresources-hasexpandedresources
      */
     static HasExpandedResources(hasExpandedResources) {
-        result := DllCall("api-ms-win-gaming-expandedresources-l1-1-0.dll\HasExpandedResources", "ptr", hasExpandedResources, "int")
+        result := DllCall("api-ms-win-gaming-expandedresources-l1-1-0.dll\HasExpandedResources", "int*", hasExpandedResources, "int")
         return result
     }
 
@@ -52,7 +52,7 @@ class Gaming {
      * @see https://learn.microsoft.com/windows/win32/api/expandedresources/nf-expandedresources-getexpandedresourceexclusivecpucount
      */
     static GetExpandedResourceExclusiveCpuCount(exclusiveCpuCount) {
-        result := DllCall("api-ms-win-gaming-expandedresources-l1-1-0.dll\GetExpandedResourceExclusiveCpuCount", "ptr", exclusiveCpuCount, "int")
+        result := DllCall("api-ms-win-gaming-expandedresources-l1-1-0.dll\GetExpandedResourceExclusiveCpuCount", "uint*", exclusiveCpuCount, "int")
         return result
     }
 
@@ -112,16 +112,16 @@ class Gaming {
 
     /**
      * Do not use. This API is only supported for Xbox developers. (ShowGameInviteUI)
-     * @param {Pointer<HSTRING>} serviceConfigurationId Type: <b>HSTRING</b>
+     * @param {Pointer<Void>} serviceConfigurationId Type: <b>HSTRING</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<HSTRING>} sessionTemplateName Type: <b>HSTRING</b>
+     * @param {Pointer<Void>} sessionTemplateName Type: <b>HSTRING</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<HSTRING>} sessionId Type: <b>HSTRING</b>
+     * @param {Pointer<Void>} sessionId Type: <b>HSTRING</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<HSTRING>} invitationDisplayText Type: <b>HSTRING</b>
+     * @param {Pointer<Void>} invitationDisplayText Type: <b>HSTRING</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine Type: <b>GameUICompletionRoutine</b>
@@ -142,16 +142,16 @@ class Gaming {
 
     /**
      * Do not use. This API is only supported for Xbox developers. (ShowPlayerPickerUI)
-     * @param {Pointer<HSTRING>} promptDisplayText Type: <b>HSTRING</b>
+     * @param {Pointer<Void>} promptDisplayText Type: <b>HSTRING</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<HSTRING>} xuids Type: <b>const HSTRING*</b>
+     * @param {Pointer<Void>} xuids Type: <b>const HSTRING*</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
      * @param {Pointer} xuidsCount Type: <b>size_t</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<HSTRING>} preSelectedXuids Type: <b>const HSTRING*</b>
+     * @param {Pointer<Void>} preSelectedXuids Type: <b>const HSTRING*</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
      * @param {Pointer} preSelectedXuidsCount Type: <b>size_t</b>
@@ -181,7 +181,7 @@ class Gaming {
 
     /**
      * Do not use. This API is only supported for Xbox developers. (ShowProfileCardUI)
-     * @param {Pointer<HSTRING>} targetUserXuid Type: <b>HSTRING</b>
+     * @param {Pointer<Void>} targetUserXuid Type: <b>HSTRING</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine Type: <b>GameUICompletionRoutine</b>
@@ -202,7 +202,7 @@ class Gaming {
 
     /**
      * Do not use. This API is only supported for Xbox developers. (ShowChangeFriendRelationshipUI)
-     * @param {Pointer<HSTRING>} targetUserXuid Type: <b>HSTRING</b>
+     * @param {Pointer<Void>} targetUserXuid Type: <b>HSTRING</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine Type: <b>GameUICompletionRoutine</b>
@@ -274,13 +274,13 @@ class Gaming {
      * @param {Integer} privilegeId Type: <b>UINT32</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<HSTRING>} scope Type: <b>HSTRING</b>
+     * @param {Pointer<Void>} scope Type: <b>HSTRING</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<HSTRING>} policy Type: <b>HSTRING</b>
+     * @param {Pointer<Void>} policy Type: <b>HSTRING</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<HSTRING>} friendlyMessage Type: <b>HSTRING</b>
+     * @param {Pointer<Void>} friendlyMessage Type: <b>HSTRING</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine Type: <b>GameUICompletionRoutine</b>
@@ -302,23 +302,23 @@ class Gaming {
     /**
      * 
      * @param {Integer} privilegeId 
-     * @param {Pointer<HSTRING>} scope 
-     * @param {Pointer<HSTRING>} policy 
+     * @param {Pointer<Void>} scope 
+     * @param {Pointer<Void>} policy 
      * @param {Pointer<Int32>} hasPrivilege 
      * @returns {Integer} 
      */
     static CheckGamingPrivilegeSilently(privilegeId, scope, policy, hasPrivilege) {
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-1.dll\CheckGamingPrivilegeSilently", "uint", privilegeId, "ptr", scope, "ptr", policy, "ptr", hasPrivilege, "int")
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-1.dll\CheckGamingPrivilegeSilently", "uint", privilegeId, "ptr", scope, "ptr", policy, "int*", hasPrivilege, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<IInspectable>} user 
-     * @param {Pointer<HSTRING>} serviceConfigurationId 
-     * @param {Pointer<HSTRING>} sessionTemplateName 
-     * @param {Pointer<HSTRING>} sessionId 
-     * @param {Pointer<HSTRING>} invitationDisplayText 
+     * @param {Pointer<Void>} serviceConfigurationId 
+     * @param {Pointer<Void>} sessionTemplateName 
+     * @param {Pointer<Void>} sessionId 
+     * @param {Pointer<Void>} invitationDisplayText 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
      * @param {Pointer<Void>} context 
      * @returns {Integer} 
@@ -331,10 +331,10 @@ class Gaming {
     /**
      * 
      * @param {Pointer<IInspectable>} user 
-     * @param {Pointer<HSTRING>} promptDisplayText 
-     * @param {Pointer<HSTRING>} xuids 
+     * @param {Pointer<Void>} promptDisplayText 
+     * @param {Pointer<Void>} xuids 
      * @param {Pointer} xuidsCount 
-     * @param {Pointer<HSTRING>} preSelectedXuids 
+     * @param {Pointer<Void>} preSelectedXuids 
      * @param {Pointer} preSelectedXuidsCount 
      * @param {Pointer} minSelectionCount 
      * @param {Pointer} maxSelectionCount 
@@ -350,7 +350,7 @@ class Gaming {
     /**
      * 
      * @param {Pointer<IInspectable>} user 
-     * @param {Pointer<HSTRING>} targetUserXuid 
+     * @param {Pointer<Void>} targetUserXuid 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
      * @param {Pointer<Void>} context 
      * @returns {Integer} 
@@ -363,7 +363,7 @@ class Gaming {
     /**
      * 
      * @param {Pointer<IInspectable>} user 
-     * @param {Pointer<HSTRING>} targetUserXuid 
+     * @param {Pointer<Void>} targetUserXuid 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
      * @param {Pointer<Void>} context 
      * @returns {Integer} 
@@ -390,9 +390,9 @@ class Gaming {
      * 
      * @param {Pointer<IInspectable>} user 
      * @param {Integer} privilegeId 
-     * @param {Pointer<HSTRING>} scope 
-     * @param {Pointer<HSTRING>} policy 
-     * @param {Pointer<HSTRING>} friendlyMessage 
+     * @param {Pointer<Void>} scope 
+     * @param {Pointer<Void>} policy 
+     * @param {Pointer<Void>} friendlyMessage 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
      * @param {Pointer<Void>} context 
      * @returns {Integer} 
@@ -406,23 +406,23 @@ class Gaming {
      * 
      * @param {Pointer<IInspectable>} user 
      * @param {Integer} privilegeId 
-     * @param {Pointer<HSTRING>} scope 
-     * @param {Pointer<HSTRING>} policy 
+     * @param {Pointer<Void>} scope 
+     * @param {Pointer<Void>} policy 
      * @param {Pointer<Int32>} hasPrivilege 
      * @returns {Integer} 
      */
     static CheckGamingPrivilegeSilentlyForUser(user, privilegeId, scope, policy, hasPrivilege) {
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\CheckGamingPrivilegeSilentlyForUser", "ptr", user, "uint", privilegeId, "ptr", scope, "ptr", policy, "ptr", hasPrivilege, "int")
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\CheckGamingPrivilegeSilentlyForUser", "ptr", user, "uint", privilegeId, "ptr", scope, "ptr", policy, "int*", hasPrivilege, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<HSTRING>} serviceConfigurationId 
-     * @param {Pointer<HSTRING>} sessionTemplateName 
-     * @param {Pointer<HSTRING>} sessionId 
-     * @param {Pointer<HSTRING>} invitationDisplayText 
-     * @param {Pointer<HSTRING>} customActivationContext 
+     * @param {Pointer<Void>} serviceConfigurationId 
+     * @param {Pointer<Void>} sessionTemplateName 
+     * @param {Pointer<Void>} sessionId 
+     * @param {Pointer<Void>} invitationDisplayText 
+     * @param {Pointer<Void>} customActivationContext 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
      * @param {Pointer<Void>} context 
      * @returns {Integer} 
@@ -435,11 +435,11 @@ class Gaming {
     /**
      * 
      * @param {Pointer<IInspectable>} user 
-     * @param {Pointer<HSTRING>} serviceConfigurationId 
-     * @param {Pointer<HSTRING>} sessionTemplateName 
-     * @param {Pointer<HSTRING>} sessionId 
-     * @param {Pointer<HSTRING>} invitationDisplayText 
-     * @param {Pointer<HSTRING>} customActivationContext 
+     * @param {Pointer<Void>} serviceConfigurationId 
+     * @param {Pointer<Void>} sessionTemplateName 
+     * @param {Pointer<Void>} sessionId 
+     * @param {Pointer<Void>} invitationDisplayText 
+     * @param {Pointer<Void>} customActivationContext 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
      * @param {Pointer<Void>} context 
      * @returns {Integer} 

@@ -34,7 +34,7 @@ class IMAGEHLP_CBA_EVENT extends Win32Struct
 
     /**
      * A text description of the error.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     desc {
         get => NumGet(this, 8, "ptr")

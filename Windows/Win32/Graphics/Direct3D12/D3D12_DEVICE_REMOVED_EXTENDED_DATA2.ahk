@@ -21,7 +21,7 @@ class D3D12_DEVICE_REMOVED_EXTENDED_DATA2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1>}
+     * @type {Pointer<TypeHandle>}
      */
     AutoBreadcrumbsOutput {
         get => NumGet(this, 8, "ptr")

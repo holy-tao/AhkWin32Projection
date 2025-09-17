@@ -52,7 +52,7 @@ class QUERY_SERVICE_CONFIGW extends Win32Struct
      * 
      * 
      * The path can also include arguments for an auto-start service. These arguments are passed to the service entry point (typically the <b>main</b> function).
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpBinaryPathName {
         get => NumGet(this, 16, "ptr")
@@ -69,7 +69,7 @@ class QUERY_SERVICE_CONFIGW extends Win32Struct
      * 
      * 
      * <b>HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\ServiceGroupOrder</b>
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpLoadOrderGroup {
         get => NumGet(this, 24, "ptr")
@@ -94,7 +94,7 @@ class QUERY_SERVICE_CONFIGW extends Win32Struct
 
     /**
      * A pointer to an array of null-separated names of services or load ordering groups that must start before this service. The array is doubly null-terminated. If the pointer is <b>NULL</b> or if it points to an empty string, the service has no dependencies. If a group name is specified, it must be prefixed by the <b>SC_GROUP_IDENTIFIER</b> (defined in WinSvc.h) character to differentiate it from a service name, because services and service groups share the same name space. Dependency on a service means that this service can only run if the service it depends on is running. Dependency on a group means that this service can run if at least one member of the group is running after an attempt to start all members of the group.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpDependencies {
         get => NumGet(this, 40, "ptr")
@@ -109,7 +109,7 @@ class QUERY_SERVICE_CONFIGW extends Win32Struct
      * 						
      * 
      * If the service type is <b>SERVICE_KERNEL_DRIVER</b> or <b>SERVICE_FILE_SYSTEM_DRIVER</b>, this member is the driver object name (that is, \FileSystem\Rdr or \Driver\Xns) which the input and output (I/O) system uses to load the device driver. If this member is NULL, the driver is to be run with a default object name created by the I/O system, based on the service name.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpServiceStartName {
         get => NumGet(this, 48, "ptr")
@@ -126,7 +126,7 @@ class QUERY_SERVICE_CONFIGW extends Win32Struct
      * The string with identifier <i>StrID</i> is loaded from <i>DLLName</i>; the <i>Path</i> is optional. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regloadmuistringa">RegLoadMUIString</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>Localized strings are not supported until Windows Vista.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpDisplayName {
         get => NumGet(this, 56, "ptr")

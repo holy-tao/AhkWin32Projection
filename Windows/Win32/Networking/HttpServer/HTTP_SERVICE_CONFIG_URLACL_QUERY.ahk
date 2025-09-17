@@ -30,7 +30,7 @@ class HTTP_SERVICE_CONFIG_URLACL_QUERY extends Win32Struct
      * 
      * 
      * If the <i>QueryDesc</i> parameter is equal to <b>HttpServiceConfigQueryNext</b>, <i>KeyDesc</i> is ignored.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     KeyDesc {
         get => NumGet(this, 8, "ptr")

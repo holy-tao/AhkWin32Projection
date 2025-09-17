@@ -13,7 +13,7 @@ class DBCOLUMNDESC extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszTypeName {
         get => NumGet(this, 0, "ptr")

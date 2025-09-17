@@ -36,7 +36,7 @@ class WININET_PROXY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszProxy {
         get => NumGet(this, 16, "ptr")

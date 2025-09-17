@@ -29,7 +29,7 @@ class DOT11_WPA_TSC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hOffload {
         get => NumGet(this, 8, "ptr")

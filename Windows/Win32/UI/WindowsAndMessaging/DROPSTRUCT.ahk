@@ -13,7 +13,7 @@ class DROPSTRUCT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndSource {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +21,7 @@ class DROPSTRUCT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndSink {
         get => NumGet(this, 8, "ptr")

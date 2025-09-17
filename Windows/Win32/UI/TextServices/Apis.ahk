@@ -2218,7 +2218,7 @@ class TextServices {
     /**
      * 
      * @param {Integer} dwFlags 
-     * @param {Pointer<HANDLE>} hEventForServiceStop 
+     * @param {Pointer<Void>} hEventForServiceStop 
      * @returns {Integer} 
      */
     static DoMsCtfMonitor(dwFlags, hEventForServiceStop) {

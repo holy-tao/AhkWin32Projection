@@ -4752,7 +4752,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetinit-function
      */
     static JetInit(pinstance) {
-        result := DllCall("ESENT.dll\JetInit", "ptr", pinstance, "int")
+        result := DllCall("ESENT.dll\JetInit", "ptr*", pinstance, "int")
         return result
     }
 
@@ -4764,7 +4764,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetinit2-function
      */
     static JetInit2(pinstance, grbit) {
-        result := DllCall("ESENT.dll\JetInit2", "ptr", pinstance, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetInit2", "ptr*", pinstance, "uint", grbit, "int")
         return result
     }
 
@@ -4777,7 +4777,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetinit3-function
      */
     static JetInit3A(pinstance, prstInfo, grbit) {
-        result := DllCall("ESENT.dll\JetInit3A", "ptr", pinstance, "ptr", prstInfo, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetInit3A", "ptr*", pinstance, "ptr", prstInfo, "uint", grbit, "int")
         return result
     }
 
@@ -4790,7 +4790,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetinit3-function
      */
     static JetInit3W(pinstance, prstInfo, grbit) {
-        result := DllCall("ESENT.dll\JetInit3W", "ptr", pinstance, "ptr", prstInfo, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetInit3W", "ptr*", pinstance, "ptr", prstInfo, "uint", grbit, "int")
         return result
     }
 
@@ -4802,7 +4802,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateinstance-function
      */
     static JetCreateInstanceA(pinstance, szInstanceName) {
-        result := DllCall("ESENT.dll\JetCreateInstanceA", "ptr", pinstance, "ptr", szInstanceName, "int")
+        result := DllCall("ESENT.dll\JetCreateInstanceA", "ptr*", pinstance, "char*", szInstanceName, "int")
         return result
     }
 
@@ -4814,7 +4814,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateinstance-function
      */
     static JetCreateInstanceW(pinstance, szInstanceName) {
-        result := DllCall("ESENT.dll\JetCreateInstanceW", "ptr", pinstance, "ptr", szInstanceName, "int")
+        result := DllCall("ESENT.dll\JetCreateInstanceW", "ptr*", pinstance, "ushort*", szInstanceName, "int")
         return result
     }
 
@@ -4828,7 +4828,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateinstance2-function
      */
     static JetCreateInstance2A(pinstance, szInstanceName, szDisplayName, grbit) {
-        result := DllCall("ESENT.dll\JetCreateInstance2A", "ptr", pinstance, "ptr", szInstanceName, "ptr", szDisplayName, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetCreateInstance2A", "ptr*", pinstance, "char*", szInstanceName, "char*", szDisplayName, "uint", grbit, "int")
         return result
     }
 
@@ -4842,14 +4842,14 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateinstance2-function
      */
     static JetCreateInstance2W(pinstance, szInstanceName, szDisplayName, grbit) {
-        result := DllCall("ESENT.dll\JetCreateInstance2W", "ptr", pinstance, "ptr", szInstanceName, "ptr", szDisplayName, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetCreateInstance2W", "ptr*", pinstance, "ushort*", szInstanceName, "ushort*", szDisplayName, "uint", grbit, "int")
         return result
     }
 
     /**
      * Learn more about: JetGetInstanceMiscInfo Function
      * @param {Pointer} instance 
-     * @param {Pointer<Void>} pvResult 
+     * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
      * @param {Integer} InfoLevel 
      * @returns {Integer} 
@@ -4948,7 +4948,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetsystemparameter-function
      */
     static JetSetSystemParameterA(pinstance, sesid, paramid, lParam, szParam) {
-        result := DllCall("ESENT.dll\JetSetSystemParameterA", "ptr", pinstance, "ptr", sesid, "uint", paramid, "ptr", lParam, "ptr", szParam, "int")
+        result := DllCall("ESENT.dll\JetSetSystemParameterA", "ptr*", pinstance, "ptr", sesid, "uint", paramid, "ptr", lParam, "char*", szParam, "int")
         return result
     }
 
@@ -4963,7 +4963,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetsystemparameter-function
      */
     static JetSetSystemParameterW(pinstance, sesid, paramid, lParam, szParam) {
-        result := DllCall("ESENT.dll\JetSetSystemParameterW", "ptr", pinstance, "ptr", sesid, "uint", paramid, "ptr", lParam, "ptr", szParam, "int")
+        result := DllCall("ESENT.dll\JetSetSystemParameterW", "ptr*", pinstance, "ptr", sesid, "uint", paramid, "ptr", lParam, "ushort*", szParam, "int")
         return result
     }
 
@@ -4973,13 +4973,13 @@ class Jet {
      * @param {Pointer} sesid 
      * @param {Integer} paramid 
      * @param {Pointer<UIntPtr>} plParam 
-     * @param {Pointer<SByte>} szParam 
+     * @param {Pointer} szParam 
      * @param {Integer} cbMax 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetsystemparameter-function
      */
     static JetGetSystemParameterA(instance, sesid, paramid, plParam, szParam, cbMax) {
-        result := DllCall("ESENT.dll\JetGetSystemParameterA", "ptr", instance, "ptr", sesid, "uint", paramid, "ptr", plParam, "ptr", szParam, "uint", cbMax, "int")
+        result := DllCall("ESENT.dll\JetGetSystemParameterA", "ptr", instance, "ptr", sesid, "uint", paramid, "ptr*", plParam, "ptr", szParam, "uint", cbMax, "int")
         return result
     }
 
@@ -4989,13 +4989,13 @@ class Jet {
      * @param {Pointer} sesid 
      * @param {Integer} paramid 
      * @param {Pointer<UIntPtr>} plParam 
-     * @param {Pointer<UInt16>} szParam 
+     * @param {Pointer} szParam 
      * @param {Integer} cbMax 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetsystemparameter-function
      */
     static JetGetSystemParameterW(instance, sesid, paramid, plParam, szParam, cbMax) {
-        result := DllCall("ESENT.dll\JetGetSystemParameterW", "ptr", instance, "ptr", sesid, "uint", paramid, "ptr", plParam, "ptr", szParam, "uint", cbMax, "int")
+        result := DllCall("ESENT.dll\JetGetSystemParameterW", "ptr", instance, "ptr", sesid, "uint", paramid, "ptr*", plParam, "ptr", szParam, "uint", cbMax, "int")
         return result
     }
 
@@ -5008,7 +5008,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetenablemultiinstance-function
      */
     static JetEnableMultiInstanceA(psetsysparam, csetsysparam, pcsetsucceed) {
-        result := DllCall("ESENT.dll\JetEnableMultiInstanceA", "ptr", psetsysparam, "uint", csetsysparam, "ptr", pcsetsucceed, "int")
+        result := DllCall("ESENT.dll\JetEnableMultiInstanceA", "ptr", psetsysparam, "uint", csetsysparam, "uint*", pcsetsucceed, "int")
         return result
     }
 
@@ -5021,13 +5021,13 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetenablemultiinstance-function
      */
     static JetEnableMultiInstanceW(psetsysparam, csetsysparam, pcsetsucceed) {
-        result := DllCall("ESENT.dll\JetEnableMultiInstanceW", "ptr", psetsysparam, "uint", csetsysparam, "ptr", pcsetsucceed, "int")
+        result := DllCall("ESENT.dll\JetEnableMultiInstanceW", "ptr", psetsysparam, "uint", csetsysparam, "uint*", pcsetsucceed, "int")
         return result
     }
 
     /**
      * Learn more about: JetGetThreadStats Function
-     * @param {Pointer<Void>} pvResult 
+     * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetthreadstats-function
@@ -5047,7 +5047,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbeginsession-function
      */
     static JetBeginSessionA(instance, psesid, szUserName, szPassword) {
-        result := DllCall("ESENT.dll\JetBeginSessionA", "ptr", instance, "ptr", psesid, "ptr", szUserName, "ptr", szPassword, "int")
+        result := DllCall("ESENT.dll\JetBeginSessionA", "ptr", instance, "ptr*", psesid, "char*", szUserName, "char*", szPassword, "int")
         return result
     }
 
@@ -5061,7 +5061,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbeginsession-function
      */
     static JetBeginSessionW(instance, psesid, szUserName, szPassword) {
-        result := DllCall("ESENT.dll\JetBeginSessionW", "ptr", instance, "ptr", psesid, "ptr", szUserName, "ptr", szPassword, "int")
+        result := DllCall("ESENT.dll\JetBeginSessionW", "ptr", instance, "ptr*", psesid, "ushort*", szUserName, "ushort*", szPassword, "int")
         return result
     }
 
@@ -5073,7 +5073,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdupsession-function
      */
     static JetDupSession(sesid, psesid) {
-        result := DllCall("ESENT.dll\JetDupSession", "ptr", sesid, "ptr", psesid, "int")
+        result := DllCall("ESENT.dll\JetDupSession", "ptr", sesid, "ptr*", psesid, "int")
         return result
     }
 
@@ -5097,7 +5097,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetversion-function
      */
     static JetGetVersion(sesid, pwVersion) {
-        result := DllCall("ESENT.dll\JetGetVersion", "ptr", sesid, "ptr", pwVersion, "int")
+        result := DllCall("ESENT.dll\JetGetVersion", "ptr", sesid, "uint*", pwVersion, "int")
         return result
     }
 
@@ -5124,7 +5124,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatedatabase-function
      */
     static JetCreateDatabaseA(sesid, szFilename, szConnect, pdbid, grbit) {
-        result := DllCall("ESENT.dll\JetCreateDatabaseA", "ptr", sesid, "ptr", szFilename, "ptr", szConnect, "ptr", pdbid, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetCreateDatabaseA", "ptr", sesid, "char*", szFilename, "char*", szConnect, "uint*", pdbid, "uint", grbit, "int")
         return result
     }
 
@@ -5139,7 +5139,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatedatabase-function
      */
     static JetCreateDatabaseW(sesid, szFilename, szConnect, pdbid, grbit) {
-        result := DllCall("ESENT.dll\JetCreateDatabaseW", "ptr", sesid, "ptr", szFilename, "ptr", szConnect, "ptr", pdbid, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetCreateDatabaseW", "ptr", sesid, "ushort*", szFilename, "ushort*", szConnect, "uint*", pdbid, "uint", grbit, "int")
         return result
     }
 
@@ -5154,7 +5154,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatedatabase2-function
      */
     static JetCreateDatabase2A(sesid, szFilename, cpgDatabaseSizeMax, pdbid, grbit) {
-        result := DllCall("ESENT.dll\JetCreateDatabase2A", "ptr", sesid, "ptr", szFilename, "uint", cpgDatabaseSizeMax, "ptr", pdbid, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetCreateDatabase2A", "ptr", sesid, "char*", szFilename, "uint", cpgDatabaseSizeMax, "uint*", pdbid, "uint", grbit, "int")
         return result
     }
 
@@ -5169,7 +5169,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatedatabase2-function
      */
     static JetCreateDatabase2W(sesid, szFilename, cpgDatabaseSizeMax, pdbid, grbit) {
-        result := DllCall("ESENT.dll\JetCreateDatabase2W", "ptr", sesid, "ptr", szFilename, "uint", cpgDatabaseSizeMax, "ptr", pdbid, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetCreateDatabase2W", "ptr", sesid, "ushort*", szFilename, "uint", cpgDatabaseSizeMax, "uint*", pdbid, "uint", grbit, "int")
         return result
     }
 
@@ -5182,7 +5182,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetattachdatabase-function
      */
     static JetAttachDatabaseA(sesid, szFilename, grbit) {
-        result := DllCall("ESENT.dll\JetAttachDatabaseA", "ptr", sesid, "ptr", szFilename, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetAttachDatabaseA", "ptr", sesid, "char*", szFilename, "uint", grbit, "int")
         return result
     }
 
@@ -5195,7 +5195,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetattachdatabase-function
      */
     static JetAttachDatabaseW(sesid, szFilename, grbit) {
-        result := DllCall("ESENT.dll\JetAttachDatabaseW", "ptr", sesid, "ptr", szFilename, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetAttachDatabaseW", "ptr", sesid, "ushort*", szFilename, "uint", grbit, "int")
         return result
     }
 
@@ -5209,7 +5209,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetattachdatabase2-function
      */
     static JetAttachDatabase2A(sesid, szFilename, cpgDatabaseSizeMax, grbit) {
-        result := DllCall("ESENT.dll\JetAttachDatabase2A", "ptr", sesid, "ptr", szFilename, "uint", cpgDatabaseSizeMax, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetAttachDatabase2A", "ptr", sesid, "char*", szFilename, "uint", cpgDatabaseSizeMax, "uint", grbit, "int")
         return result
     }
 
@@ -5223,7 +5223,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetattachdatabase2-function
      */
     static JetAttachDatabase2W(sesid, szFilename, cpgDatabaseSizeMax, grbit) {
-        result := DllCall("ESENT.dll\JetAttachDatabase2W", "ptr", sesid, "ptr", szFilename, "uint", cpgDatabaseSizeMax, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetAttachDatabase2W", "ptr", sesid, "ushort*", szFilename, "uint", cpgDatabaseSizeMax, "uint", grbit, "int")
         return result
     }
 
@@ -5235,7 +5235,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdetachdatabase-function
      */
     static JetDetachDatabaseA(sesid, szFilename) {
-        result := DllCall("ESENT.dll\JetDetachDatabaseA", "ptr", sesid, "ptr", szFilename, "int")
+        result := DllCall("ESENT.dll\JetDetachDatabaseA", "ptr", sesid, "char*", szFilename, "int")
         return result
     }
 
@@ -5247,7 +5247,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdetachdatabase-function
      */
     static JetDetachDatabaseW(sesid, szFilename) {
-        result := DllCall("ESENT.dll\JetDetachDatabaseW", "ptr", sesid, "ptr", szFilename, "int")
+        result := DllCall("ESENT.dll\JetDetachDatabaseW", "ptr", sesid, "ushort*", szFilename, "int")
         return result
     }
 
@@ -5260,7 +5260,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdetachdatabase2-function
      */
     static JetDetachDatabase2A(sesid, szFilename, grbit) {
-        result := DllCall("ESENT.dll\JetDetachDatabase2A", "ptr", sesid, "ptr", szFilename, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetDetachDatabase2A", "ptr", sesid, "char*", szFilename, "uint", grbit, "int")
         return result
     }
 
@@ -5273,7 +5273,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdetachdatabase2-function
      */
     static JetDetachDatabase2W(sesid, szFilename, grbit) {
-        result := DllCall("ESENT.dll\JetDetachDatabase2W", "ptr", sesid, "ptr", szFilename, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetDetachDatabase2W", "ptr", sesid, "ushort*", szFilename, "uint", grbit, "int")
         return result
     }
 
@@ -5284,14 +5284,14 @@ class Jet {
      * @param {Integer} objtyp 
      * @param {Pointer<SByte>} szContainerName 
      * @param {Pointer<SByte>} szObjectName 
-     * @param {Pointer<Void>} pvResult 
+     * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
      * @param {Integer} InfoLevel 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetobjectinfo-function
      */
     static JetGetObjectInfoA(sesid, dbid, objtyp, szContainerName, szObjectName, pvResult, cbMax, InfoLevel) {
-        result := DllCall("ESENT.dll\JetGetObjectInfoA", "ptr", sesid, "uint", dbid, "uint", objtyp, "ptr", szContainerName, "ptr", szObjectName, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
+        result := DllCall("ESENT.dll\JetGetObjectInfoA", "ptr", sesid, "uint", dbid, "uint", objtyp, "char*", szContainerName, "char*", szObjectName, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
         return result
     }
 
@@ -5302,14 +5302,14 @@ class Jet {
      * @param {Integer} objtyp 
      * @param {Pointer<UInt16>} szContainerName 
      * @param {Pointer<UInt16>} szObjectName 
-     * @param {Pointer<Void>} pvResult 
+     * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
      * @param {Integer} InfoLevel 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetobjectinfo-function
      */
     static JetGetObjectInfoW(sesid, dbid, objtyp, szContainerName, szObjectName, pvResult, cbMax, InfoLevel) {
-        result := DllCall("ESENT.dll\JetGetObjectInfoW", "ptr", sesid, "uint", dbid, "uint", objtyp, "ptr", szContainerName, "ptr", szObjectName, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
+        result := DllCall("ESENT.dll\JetGetObjectInfoW", "ptr", sesid, "uint", dbid, "uint", objtyp, "ushort*", szContainerName, "ushort*", szObjectName, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
         return result
     }
 
@@ -5317,7 +5317,7 @@ class Jet {
      * Learn more about: JetGetTableInfo Function
      * @param {Pointer} sesid 
      * @param {Pointer} tableid 
-     * @param {Pointer<Void>} pvResult 
+     * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
      * @param {Integer} InfoLevel 
      * @returns {Integer} 
@@ -5332,7 +5332,7 @@ class Jet {
      * Learn more about: JetGetTableInfo Function
      * @param {Pointer} sesid 
      * @param {Pointer} tableid 
-     * @param {Pointer<Void>} pvResult 
+     * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
      * @param {Integer} InfoLevel 
      * @returns {Integer} 
@@ -5355,7 +5355,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatetable-function
      */
     static JetCreateTableA(sesid, dbid, szTableName, lPages, lDensity, ptableid) {
-        result := DllCall("ESENT.dll\JetCreateTableA", "ptr", sesid, "uint", dbid, "ptr", szTableName, "uint", lPages, "uint", lDensity, "ptr", ptableid, "int")
+        result := DllCall("ESENT.dll\JetCreateTableA", "ptr", sesid, "uint", dbid, "char*", szTableName, "uint", lPages, "uint", lDensity, "ptr*", ptableid, "int")
         return result
     }
 
@@ -5371,7 +5371,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatetable-function
      */
     static JetCreateTableW(sesid, dbid, szTableName, lPages, lDensity, ptableid) {
-        result := DllCall("ESENT.dll\JetCreateTableW", "ptr", sesid, "uint", dbid, "ptr", szTableName, "uint", lPages, "uint", lDensity, "ptr", ptableid, "int")
+        result := DllCall("ESENT.dll\JetCreateTableW", "ptr", sesid, "uint", dbid, "ushort*", szTableName, "uint", lPages, "uint", lDensity, "ptr*", ptableid, "int")
         return result
     }
 
@@ -5487,7 +5487,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdeletetable-function
      */
     static JetDeleteTableA(sesid, dbid, szTableName) {
-        result := DllCall("ESENT.dll\JetDeleteTableA", "ptr", sesid, "uint", dbid, "ptr", szTableName, "int")
+        result := DllCall("ESENT.dll\JetDeleteTableA", "ptr", sesid, "uint", dbid, "char*", szTableName, "int")
         return result
     }
 
@@ -5500,7 +5500,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdeletetable-function
      */
     static JetDeleteTableW(sesid, dbid, szTableName) {
-        result := DllCall("ESENT.dll\JetDeleteTableW", "ptr", sesid, "uint", dbid, "ptr", szTableName, "int")
+        result := DllCall("ESENT.dll\JetDeleteTableW", "ptr", sesid, "uint", dbid, "ushort*", szTableName, "int")
         return result
     }
 
@@ -5514,7 +5514,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetrenametable-function
      */
     static JetRenameTableA(sesid, dbid, szName, szNameNew) {
-        result := DllCall("ESENT.dll\JetRenameTableA", "ptr", sesid, "uint", dbid, "ptr", szName, "ptr", szNameNew, "int")
+        result := DllCall("ESENT.dll\JetRenameTableA", "ptr", sesid, "uint", dbid, "char*", szName, "char*", szNameNew, "int")
         return result
     }
 
@@ -5528,7 +5528,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetrenametable-function
      */
     static JetRenameTableW(sesid, dbid, szName, szNameNew) {
-        result := DllCall("ESENT.dll\JetRenameTableW", "ptr", sesid, "uint", dbid, "ptr", szName, "ptr", szNameNew, "int")
+        result := DllCall("ESENT.dll\JetRenameTableW", "ptr", sesid, "uint", dbid, "ushort*", szName, "ushort*", szNameNew, "int")
         return result
     }
 
@@ -5537,14 +5537,14 @@ class Jet {
      * @param {Pointer} sesid 
      * @param {Pointer} tableid 
      * @param {Pointer<SByte>} szColumnName 
-     * @param {Pointer<Void>} pvResult 
+     * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
      * @param {Integer} InfoLevel 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgettablecolumninfo-function
      */
     static JetGetTableColumnInfoA(sesid, tableid, szColumnName, pvResult, cbMax, InfoLevel) {
-        result := DllCall("ESENT.dll\JetGetTableColumnInfoA", "ptr", sesid, "ptr", tableid, "ptr", szColumnName, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
+        result := DllCall("ESENT.dll\JetGetTableColumnInfoA", "ptr", sesid, "ptr", tableid, "char*", szColumnName, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
         return result
     }
 
@@ -5553,14 +5553,14 @@ class Jet {
      * @param {Pointer} sesid 
      * @param {Pointer} tableid 
      * @param {Pointer<UInt16>} szColumnName 
-     * @param {Pointer<Void>} pvResult 
+     * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
      * @param {Integer} InfoLevel 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgettablecolumninfo-function
      */
     static JetGetTableColumnInfoW(sesid, tableid, szColumnName, pvResult, cbMax, InfoLevel) {
-        result := DllCall("ESENT.dll\JetGetTableColumnInfoW", "ptr", sesid, "ptr", tableid, "ptr", szColumnName, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
+        result := DllCall("ESENT.dll\JetGetTableColumnInfoW", "ptr", sesid, "ptr", tableid, "ushort*", szColumnName, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
         return result
     }
 
@@ -5570,14 +5570,14 @@ class Jet {
      * @param {Integer} dbid 
      * @param {Pointer<SByte>} szTableName 
      * @param {Pointer<SByte>} pColumnNameOrId 
-     * @param {Pointer<Void>} pvResult 
+     * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
      * @param {Integer} InfoLevel 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetcolumninfo-function
      */
     static JetGetColumnInfoA(sesid, dbid, szTableName, pColumnNameOrId, pvResult, cbMax, InfoLevel) {
-        result := DllCall("ESENT.dll\JetGetColumnInfoA", "ptr", sesid, "uint", dbid, "ptr", szTableName, "ptr", pColumnNameOrId, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
+        result := DllCall("ESENT.dll\JetGetColumnInfoA", "ptr", sesid, "uint", dbid, "char*", szTableName, "char*", pColumnNameOrId, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
         return result
     }
 
@@ -5587,14 +5587,14 @@ class Jet {
      * @param {Integer} dbid 
      * @param {Pointer<UInt16>} szTableName 
      * @param {Pointer<UInt16>} pwColumnNameOrId 
-     * @param {Pointer<Void>} pvResult 
+     * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
      * @param {Integer} InfoLevel 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetcolumninfo-function
      */
     static JetGetColumnInfoW(sesid, dbid, szTableName, pwColumnNameOrId, pvResult, cbMax, InfoLevel) {
-        result := DllCall("ESENT.dll\JetGetColumnInfoW", "ptr", sesid, "uint", dbid, "ptr", szTableName, "ptr", pwColumnNameOrId, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
+        result := DllCall("ESENT.dll\JetGetColumnInfoW", "ptr", sesid, "uint", dbid, "ushort*", szTableName, "ushort*", pwColumnNameOrId, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
         return result
     }
 
@@ -5604,14 +5604,14 @@ class Jet {
      * @param {Pointer} tableid 
      * @param {Pointer<SByte>} szColumnName 
      * @param {Pointer<JET_COLUMNDEF>} pcolumndef 
-     * @param {Pointer<Void>} pvDefault 
+     * @param {Pointer} pvDefault 
      * @param {Integer} cbDefault 
      * @param {Pointer<UInt32>} pcolumnid 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetaddcolumn-function
      */
     static JetAddColumnA(sesid, tableid, szColumnName, pcolumndef, pvDefault, cbDefault, pcolumnid) {
-        result := DllCall("ESENT.dll\JetAddColumnA", "ptr", sesid, "ptr", tableid, "ptr", szColumnName, "ptr", pcolumndef, "ptr", pvDefault, "uint", cbDefault, "ptr", pcolumnid, "int")
+        result := DllCall("ESENT.dll\JetAddColumnA", "ptr", sesid, "ptr", tableid, "char*", szColumnName, "ptr", pcolumndef, "ptr", pvDefault, "uint", cbDefault, "uint*", pcolumnid, "int")
         return result
     }
 
@@ -5621,14 +5621,14 @@ class Jet {
      * @param {Pointer} tableid 
      * @param {Pointer<UInt16>} szColumnName 
      * @param {Pointer<JET_COLUMNDEF>} pcolumndef 
-     * @param {Pointer<Void>} pvDefault 
+     * @param {Pointer} pvDefault 
      * @param {Integer} cbDefault 
      * @param {Pointer<UInt32>} pcolumnid 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetaddcolumn-function
      */
     static JetAddColumnW(sesid, tableid, szColumnName, pcolumndef, pvDefault, cbDefault, pcolumnid) {
-        result := DllCall("ESENT.dll\JetAddColumnW", "ptr", sesid, "ptr", tableid, "ptr", szColumnName, "ptr", pcolumndef, "ptr", pvDefault, "uint", cbDefault, "ptr", pcolumnid, "int")
+        result := DllCall("ESENT.dll\JetAddColumnW", "ptr", sesid, "ptr", tableid, "ushort*", szColumnName, "ptr", pcolumndef, "ptr", pvDefault, "uint", cbDefault, "uint*", pcolumnid, "int")
         return result
     }
 
@@ -5641,7 +5641,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdeletecolumn-function
      */
     static JetDeleteColumnA(sesid, tableid, szColumnName) {
-        result := DllCall("ESENT.dll\JetDeleteColumnA", "ptr", sesid, "ptr", tableid, "ptr", szColumnName, "int")
+        result := DllCall("ESENT.dll\JetDeleteColumnA", "ptr", sesid, "ptr", tableid, "char*", szColumnName, "int")
         return result
     }
 
@@ -5654,7 +5654,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdeletecolumn-function
      */
     static JetDeleteColumnW(sesid, tableid, szColumnName) {
-        result := DllCall("ESENT.dll\JetDeleteColumnW", "ptr", sesid, "ptr", tableid, "ptr", szColumnName, "int")
+        result := DllCall("ESENT.dll\JetDeleteColumnW", "ptr", sesid, "ptr", tableid, "ushort*", szColumnName, "int")
         return result
     }
 
@@ -5668,7 +5668,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdeletecolumn2-function
      */
     static JetDeleteColumn2A(sesid, tableid, szColumnName, grbit) {
-        result := DllCall("ESENT.dll\JetDeleteColumn2A", "ptr", sesid, "ptr", tableid, "ptr", szColumnName, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetDeleteColumn2A", "ptr", sesid, "ptr", tableid, "char*", szColumnName, "uint", grbit, "int")
         return result
     }
 
@@ -5682,7 +5682,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdeletecolumn2-function
      */
     static JetDeleteColumn2W(sesid, tableid, szColumnName, grbit) {
-        result := DllCall("ESENT.dll\JetDeleteColumn2W", "ptr", sesid, "ptr", tableid, "ptr", szColumnName, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetDeleteColumn2W", "ptr", sesid, "ptr", tableid, "ushort*", szColumnName, "uint", grbit, "int")
         return result
     }
 
@@ -5696,7 +5696,7 @@ class Jet {
      * @returns {Integer} 
      */
     static JetRenameColumnA(sesid, tableid, szName, szNameNew, grbit) {
-        result := DllCall("ESENT.dll\JetRenameColumnA", "ptr", sesid, "ptr", tableid, "ptr", szName, "ptr", szNameNew, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetRenameColumnA", "ptr", sesid, "ptr", tableid, "char*", szName, "char*", szNameNew, "uint", grbit, "int")
         return result
     }
 
@@ -5710,7 +5710,7 @@ class Jet {
      * @returns {Integer} 
      */
     static JetRenameColumnW(sesid, tableid, szName, szNameNew, grbit) {
-        result := DllCall("ESENT.dll\JetRenameColumnW", "ptr", sesid, "ptr", tableid, "ptr", szName, "ptr", szNameNew, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetRenameColumnW", "ptr", sesid, "ptr", tableid, "ushort*", szName, "ushort*", szNameNew, "uint", grbit, "int")
         return result
     }
 
@@ -5720,13 +5720,13 @@ class Jet {
      * @param {Integer} dbid 
      * @param {Pointer<SByte>} szTableName 
      * @param {Pointer<SByte>} szColumnName 
-     * @param {Pointer<Void>} pvData 
+     * @param {Pointer} pvData 
      * @param {Integer} cbData 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetSetColumnDefaultValueA(sesid, dbid, szTableName, szColumnName, pvData, cbData, grbit) {
-        result := DllCall("ESENT.dll\JetSetColumnDefaultValueA", "ptr", sesid, "uint", dbid, "ptr", szTableName, "ptr", szColumnName, "ptr", pvData, "uint", cbData, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetSetColumnDefaultValueA", "ptr", sesid, "uint", dbid, "char*", szTableName, "char*", szColumnName, "ptr", pvData, "uint", cbData, "uint", grbit, "int")
         return result
     }
 
@@ -5736,13 +5736,13 @@ class Jet {
      * @param {Integer} dbid 
      * @param {Pointer<UInt16>} szTableName 
      * @param {Pointer<UInt16>} szColumnName 
-     * @param {Pointer<Void>} pvData 
+     * @param {Pointer} pvData 
      * @param {Integer} cbData 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetSetColumnDefaultValueW(sesid, dbid, szTableName, szColumnName, pvData, cbData, grbit) {
-        result := DllCall("ESENT.dll\JetSetColumnDefaultValueW", "ptr", sesid, "uint", dbid, "ptr", szTableName, "ptr", szColumnName, "ptr", pvData, "uint", cbData, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetSetColumnDefaultValueW", "ptr", sesid, "uint", dbid, "ushort*", szTableName, "ushort*", szColumnName, "ptr", pvData, "uint", cbData, "uint", grbit, "int")
         return result
     }
 
@@ -5751,14 +5751,14 @@ class Jet {
      * @param {Pointer} sesid 
      * @param {Pointer} tableid 
      * @param {Pointer<SByte>} szIndexName 
-     * @param {Pointer<Void>} pvResult 
+     * @param {Pointer} pvResult 
      * @param {Integer} cbResult 
      * @param {Integer} InfoLevel 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgettableindexinfo-function
      */
     static JetGetTableIndexInfoA(sesid, tableid, szIndexName, pvResult, cbResult, InfoLevel) {
-        result := DllCall("ESENT.dll\JetGetTableIndexInfoA", "ptr", sesid, "ptr", tableid, "ptr", szIndexName, "ptr", pvResult, "uint", cbResult, "uint", InfoLevel, "int")
+        result := DllCall("ESENT.dll\JetGetTableIndexInfoA", "ptr", sesid, "ptr", tableid, "char*", szIndexName, "ptr", pvResult, "uint", cbResult, "uint", InfoLevel, "int")
         return result
     }
 
@@ -5767,14 +5767,14 @@ class Jet {
      * @param {Pointer} sesid 
      * @param {Pointer} tableid 
      * @param {Pointer<UInt16>} szIndexName 
-     * @param {Pointer<Void>} pvResult 
+     * @param {Pointer} pvResult 
      * @param {Integer} cbResult 
      * @param {Integer} InfoLevel 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgettableindexinfo-function
      */
     static JetGetTableIndexInfoW(sesid, tableid, szIndexName, pvResult, cbResult, InfoLevel) {
-        result := DllCall("ESENT.dll\JetGetTableIndexInfoW", "ptr", sesid, "ptr", tableid, "ptr", szIndexName, "ptr", pvResult, "uint", cbResult, "uint", InfoLevel, "int")
+        result := DllCall("ESENT.dll\JetGetTableIndexInfoW", "ptr", sesid, "ptr", tableid, "ushort*", szIndexName, "ptr", pvResult, "uint", cbResult, "uint", InfoLevel, "int")
         return result
     }
 
@@ -5784,14 +5784,14 @@ class Jet {
      * @param {Integer} dbid 
      * @param {Pointer<SByte>} szTableName 
      * @param {Pointer<SByte>} szIndexName 
-     * @param {Pointer<Void>} pvResult 
+     * @param {Pointer} pvResult 
      * @param {Integer} cbResult 
      * @param {Integer} InfoLevel 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetindexinfo-function
      */
     static JetGetIndexInfoA(sesid, dbid, szTableName, szIndexName, pvResult, cbResult, InfoLevel) {
-        result := DllCall("ESENT.dll\JetGetIndexInfoA", "ptr", sesid, "uint", dbid, "ptr", szTableName, "ptr", szIndexName, "ptr", pvResult, "uint", cbResult, "uint", InfoLevel, "int")
+        result := DllCall("ESENT.dll\JetGetIndexInfoA", "ptr", sesid, "uint", dbid, "char*", szTableName, "char*", szIndexName, "ptr", pvResult, "uint", cbResult, "uint", InfoLevel, "int")
         return result
     }
 
@@ -5801,14 +5801,14 @@ class Jet {
      * @param {Integer} dbid 
      * @param {Pointer<UInt16>} szTableName 
      * @param {Pointer<UInt16>} szIndexName 
-     * @param {Pointer<Void>} pvResult 
+     * @param {Pointer} pvResult 
      * @param {Integer} cbResult 
      * @param {Integer} InfoLevel 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetindexinfo-function
      */
     static JetGetIndexInfoW(sesid, dbid, szTableName, szIndexName, pvResult, cbResult, InfoLevel) {
-        result := DllCall("ESENT.dll\JetGetIndexInfoW", "ptr", sesid, "uint", dbid, "ptr", szTableName, "ptr", szIndexName, "ptr", pvResult, "uint", cbResult, "uint", InfoLevel, "int")
+        result := DllCall("ESENT.dll\JetGetIndexInfoW", "ptr", sesid, "uint", dbid, "ushort*", szTableName, "ushort*", szIndexName, "ptr", pvResult, "uint", cbResult, "uint", InfoLevel, "int")
         return result
     }
 
@@ -5818,16 +5818,14 @@ class Jet {
      * @param {Pointer} tableid 
      * @param {Pointer<SByte>} szIndexName 
      * @param {Integer} grbit 
-     * @param {Pointer<PSTR>} szKey 
+     * @param {Pointer} szKey 
      * @param {Integer} cbKey 
      * @param {Integer} lDensity 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateindex-function
      */
     static JetCreateIndexA(sesid, tableid, szIndexName, grbit, szKey, cbKey, lDensity) {
-        szKey := szKey is String? StrPtr(szKey) : szKey
-
-        result := DllCall("ESENT.dll\JetCreateIndexA", "ptr", sesid, "ptr", tableid, "ptr", szIndexName, "uint", grbit, "ptr", szKey, "uint", cbKey, "uint", lDensity, "int")
+        result := DllCall("ESENT.dll\JetCreateIndexA", "ptr", sesid, "ptr", tableid, "char*", szIndexName, "uint", grbit, "ptr", szKey, "uint", cbKey, "uint", lDensity, "int")
         return result
     }
 
@@ -5837,16 +5835,14 @@ class Jet {
      * @param {Pointer} tableid 
      * @param {Pointer<UInt16>} szIndexName 
      * @param {Integer} grbit 
-     * @param {Pointer<PWSTR>} szKey 
+     * @param {Pointer} szKey 
      * @param {Integer} cbKey 
      * @param {Integer} lDensity 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateindex-function
      */
     static JetCreateIndexW(sesid, tableid, szIndexName, grbit, szKey, cbKey, lDensity) {
-        szKey := szKey is String? StrPtr(szKey) : szKey
-
-        result := DllCall("ESENT.dll\JetCreateIndexW", "ptr", sesid, "ptr", tableid, "ptr", szIndexName, "uint", grbit, "ptr", szKey, "uint", cbKey, "uint", lDensity, "int")
+        result := DllCall("ESENT.dll\JetCreateIndexW", "ptr", sesid, "ptr", tableid, "ushort*", szIndexName, "uint", grbit, "ptr", szKey, "uint", cbKey, "uint", lDensity, "int")
         return result
     }
 
@@ -5942,7 +5938,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdeleteindex-function
      */
     static JetDeleteIndexA(sesid, tableid, szIndexName) {
-        result := DllCall("ESENT.dll\JetDeleteIndexA", "ptr", sesid, "ptr", tableid, "ptr", szIndexName, "int")
+        result := DllCall("ESENT.dll\JetDeleteIndexA", "ptr", sesid, "ptr", tableid, "char*", szIndexName, "int")
         return result
     }
 
@@ -5955,7 +5951,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdeleteindex-function
      */
     static JetDeleteIndexW(sesid, tableid, szIndexName) {
-        result := DllCall("ESENT.dll\JetDeleteIndexW", "ptr", sesid, "ptr", tableid, "ptr", szIndexName, "int")
+        result := DllCall("ESENT.dll\JetDeleteIndexW", "ptr", sesid, "ptr", tableid, "ushort*", szIndexName, "int")
         return result
     }
 
@@ -6037,7 +6033,7 @@ class Jet {
      * 
      * @param {Pointer} sesid 
      * @param {Integer} dbid 
-     * @param {Pointer<Void>} pvResult 
+     * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
      * @param {Integer} InfoLevel 
      * @returns {Integer} 
@@ -6051,7 +6047,7 @@ class Jet {
      * 
      * @param {Pointer} sesid 
      * @param {Integer} dbid 
-     * @param {Pointer<Void>} pvResult 
+     * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
      * @param {Integer} InfoLevel 
      * @returns {Integer} 
@@ -6064,28 +6060,28 @@ class Jet {
     /**
      * Learn more about: JetGetDatabaseFileInfo Function
      * @param {Pointer<SByte>} szDatabaseName 
-     * @param {Pointer<Void>} pvResult 
+     * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
      * @param {Integer} InfoLevel 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetdatabasefileinfo-function
      */
     static JetGetDatabaseFileInfoA(szDatabaseName, pvResult, cbMax, InfoLevel) {
-        result := DllCall("ESENT.dll\JetGetDatabaseFileInfoA", "ptr", szDatabaseName, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
+        result := DllCall("ESENT.dll\JetGetDatabaseFileInfoA", "char*", szDatabaseName, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
         return result
     }
 
     /**
      * Learn more about: JetGetDatabaseFileInfo Function
      * @param {Pointer<UInt16>} szDatabaseName 
-     * @param {Pointer<Void>} pvResult 
+     * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
      * @param {Integer} InfoLevel 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetdatabasefileinfo-function
      */
     static JetGetDatabaseFileInfoW(szDatabaseName, pvResult, cbMax, InfoLevel) {
-        result := DllCall("ESENT.dll\JetGetDatabaseFileInfoW", "ptr", szDatabaseName, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
+        result := DllCall("ESENT.dll\JetGetDatabaseFileInfoW", "ushort*", szDatabaseName, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
         return result
     }
 
@@ -6100,7 +6096,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopendatabase-function
      */
     static JetOpenDatabaseA(sesid, szFilename, szConnect, pdbid, grbit) {
-        result := DllCall("ESENT.dll\JetOpenDatabaseA", "ptr", sesid, "ptr", szFilename, "ptr", szConnect, "ptr", pdbid, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetOpenDatabaseA", "ptr", sesid, "char*", szFilename, "char*", szConnect, "uint*", pdbid, "uint", grbit, "int")
         return result
     }
 
@@ -6115,7 +6111,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopendatabase-function
      */
     static JetOpenDatabaseW(sesid, szFilename, szConnect, pdbid, grbit) {
-        result := DllCall("ESENT.dll\JetOpenDatabaseW", "ptr", sesid, "ptr", szFilename, "ptr", szConnect, "ptr", pdbid, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetOpenDatabaseW", "ptr", sesid, "ushort*", szFilename, "ushort*", szConnect, "uint*", pdbid, "uint", grbit, "int")
         return result
     }
 
@@ -6137,7 +6133,7 @@ class Jet {
      * @param {Pointer} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<SByte>} szTableName 
-     * @param {Pointer<Void>} pvParameters 
+     * @param {Pointer} pvParameters 
      * @param {Integer} cbParameters 
      * @param {Integer} grbit 
      * @param {Pointer<UIntPtr>} ptableid 
@@ -6145,7 +6141,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopentable-function
      */
     static JetOpenTableA(sesid, dbid, szTableName, pvParameters, cbParameters, grbit, ptableid) {
-        result := DllCall("ESENT.dll\JetOpenTableA", "ptr", sesid, "uint", dbid, "ptr", szTableName, "ptr", pvParameters, "uint", cbParameters, "uint", grbit, "ptr", ptableid, "int")
+        result := DllCall("ESENT.dll\JetOpenTableA", "ptr", sesid, "uint", dbid, "char*", szTableName, "ptr", pvParameters, "uint", cbParameters, "uint", grbit, "ptr*", ptableid, "int")
         return result
     }
 
@@ -6154,7 +6150,7 @@ class Jet {
      * @param {Pointer} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<UInt16>} szTableName 
-     * @param {Pointer<Void>} pvParameters 
+     * @param {Pointer} pvParameters 
      * @param {Integer} cbParameters 
      * @param {Integer} grbit 
      * @param {Pointer<UIntPtr>} ptableid 
@@ -6162,7 +6158,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopentable-function
      */
     static JetOpenTableW(sesid, dbid, szTableName, pvParameters, cbParameters, grbit, ptableid) {
-        result := DllCall("ESENT.dll\JetOpenTableW", "ptr", sesid, "uint", dbid, "ptr", szTableName, "ptr", pvParameters, "uint", cbParameters, "uint", grbit, "ptr", ptableid, "int")
+        result := DllCall("ESENT.dll\JetOpenTableW", "ptr", sesid, "uint", dbid, "ushort*", szTableName, "ptr", pvParameters, "uint", cbParameters, "uint", grbit, "ptr*", ptableid, "int")
         return result
     }
 
@@ -6220,14 +6216,14 @@ class Jet {
      * Learn more about: JetUpdate Function
      * @param {Pointer} sesid 
      * @param {Pointer} tableid 
-     * @param {Pointer<Void>} pvBookmark 
+     * @param {Pointer} pvBookmark 
      * @param {Integer} cbBookmark 
      * @param {Pointer<UInt32>} pcbActual 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetupdate-function
      */
     static JetUpdate(sesid, tableid, pvBookmark, cbBookmark, pcbActual) {
-        result := DllCall("ESENT.dll\JetUpdate", "ptr", sesid, "ptr", tableid, "ptr", pvBookmark, "uint", cbBookmark, "ptr", pcbActual, "int")
+        result := DllCall("ESENT.dll\JetUpdate", "ptr", sesid, "ptr", tableid, "ptr", pvBookmark, "uint", cbBookmark, "uint*", pcbActual, "int")
         return result
     }
 
@@ -6235,7 +6231,7 @@ class Jet {
      * Learn more about: JetUpdate2 Function
      * @param {Pointer} sesid 
      * @param {Pointer} tableid 
-     * @param {Pointer<Void>} pvBookmark 
+     * @param {Pointer} pvBookmark 
      * @param {Integer} cbBookmark 
      * @param {Pointer<UInt32>} pcbActual 
      * @param {Integer} grbit 
@@ -6243,7 +6239,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetupdate2-function
      */
     static JetUpdate2(sesid, tableid, pvBookmark, cbBookmark, pcbActual, grbit) {
-        result := DllCall("ESENT.dll\JetUpdate2", "ptr", sesid, "ptr", tableid, "ptr", pvBookmark, "uint", cbBookmark, "ptr", pcbActual, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetUpdate2", "ptr", sesid, "ptr", tableid, "ptr", pvBookmark, "uint", cbBookmark, "uint*", pcbActual, "uint", grbit, "int")
         return result
     }
 
@@ -6252,9 +6248,9 @@ class Jet {
      * @param {Pointer} sesid 
      * @param {Pointer} tableid 
      * @param {Integer} columnid 
-     * @param {Pointer<Void>} pv 
+     * @param {Pointer} pv 
      * @param {Integer} cbMax 
-     * @param {Pointer<Void>} pvOld 
+     * @param {Pointer} pvOld 
      * @param {Integer} cbOldMax 
      * @param {Pointer<UInt32>} pcbOldActual 
      * @param {Integer} grbit 
@@ -6262,7 +6258,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetescrowupdate-function
      */
     static JetEscrowUpdate(sesid, tableid, columnid, pv, cbMax, pvOld, cbOldMax, pcbOldActual, grbit) {
-        result := DllCall("ESENT.dll\JetEscrowUpdate", "ptr", sesid, "ptr", tableid, "uint", columnid, "ptr", pv, "uint", cbMax, "ptr", pvOld, "uint", cbOldMax, "ptr", pcbOldActual, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetEscrowUpdate", "ptr", sesid, "ptr", tableid, "uint", columnid, "ptr", pv, "uint", cbMax, "ptr", pvOld, "uint", cbOldMax, "uint*", pcbOldActual, "uint", grbit, "int")
         return result
     }
 
@@ -6271,7 +6267,7 @@ class Jet {
      * @param {Pointer} sesid 
      * @param {Pointer} tableid 
      * @param {Integer} columnid 
-     * @param {Pointer<Void>} pvData 
+     * @param {Pointer} pvData 
      * @param {Integer} cbData 
      * @param {Pointer<UInt32>} pcbActual 
      * @param {Integer} grbit 
@@ -6280,7 +6276,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetretrievecolumn-function
      */
     static JetRetrieveColumn(sesid, tableid, columnid, pvData, cbData, pcbActual, grbit, pretinfo) {
-        result := DllCall("ESENT.dll\JetRetrieveColumn", "ptr", sesid, "ptr", tableid, "uint", columnid, "ptr", pvData, "uint", cbData, "ptr", pcbActual, "uint", grbit, "ptr", pretinfo, "int")
+        result := DllCall("ESENT.dll\JetRetrieveColumn", "ptr", sesid, "ptr", tableid, "uint", columnid, "ptr", pvData, "uint", cbData, "uint*", pcbActual, "uint", grbit, "ptr", pretinfo, "int")
         return result
     }
 
@@ -6314,7 +6310,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetenumeratecolumns-function
      */
     static JetEnumerateColumns(sesid, tableid, cEnumColumnId, rgEnumColumnId, pcEnumColumn, prgEnumColumn, pfnRealloc, pvReallocContext, cbDataMost, grbit) {
-        result := DllCall("ESENT.dll\JetEnumerateColumns", "ptr", sesid, "ptr", tableid, "uint", cEnumColumnId, "ptr", rgEnumColumnId, "ptr", pcEnumColumn, "ptr", prgEnumColumn, "ptr", pfnRealloc, "ptr", pvReallocContext, "uint", cbDataMost, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetEnumerateColumns", "ptr", sesid, "ptr", tableid, "uint", cEnumColumnId, "ptr", rgEnumColumnId, "uint*", pcEnumColumn, "ptr", prgEnumColumn, "ptr", pfnRealloc, "ptr", pvReallocContext, "uint", cbDataMost, "uint", grbit, "int")
         return result
     }
 
@@ -6351,7 +6347,7 @@ class Jet {
      * @param {Pointer} sesid 
      * @param {Pointer} tableid 
      * @param {Integer} columnid 
-     * @param {Pointer<Void>} pvData 
+     * @param {Pointer} pvData 
      * @param {Integer} cbData 
      * @param {Integer} grbit 
      * @param {Pointer<JET_SETINFO>} psetinfo 
@@ -6394,7 +6390,7 @@ class Jet {
      * Learn more about: JetGetRecordPosition Function
      * @param {Pointer} sesid 
      * @param {Pointer} tableid 
-     * @param {Pointer<JET_RECPOS>} precpos 
+     * @param {Pointer} precpos 
      * @param {Integer} cbRecpos 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetrecordposition-function
@@ -6421,7 +6417,7 @@ class Jet {
      * Learn more about: JetGetCursorInfo Function
      * @param {Pointer} sesid 
      * @param {Pointer} tableid 
-     * @param {Pointer<Void>} pvResult 
+     * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
      * @param {Integer} InfoLevel 
      * @returns {Integer} 
@@ -6442,7 +6438,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdupcursor-function
      */
     static JetDupCursor(sesid, tableid, ptableid, grbit) {
-        result := DllCall("ESENT.dll\JetDupCursor", "ptr", sesid, "ptr", tableid, "ptr", ptableid, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetDupCursor", "ptr", sesid, "ptr", tableid, "ptr*", ptableid, "uint", grbit, "int")
         return result
     }
 
@@ -6450,7 +6446,7 @@ class Jet {
      * Learn more about: JetGetCurrentIndex Function
      * @param {Pointer} sesid 
      * @param {Pointer} tableid 
-     * @param {Pointer<SByte>} szIndexName 
+     * @param {Pointer} szIndexName 
      * @param {Integer} cbIndexName 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetcurrentindex-function
@@ -6464,7 +6460,7 @@ class Jet {
      * Learn more about: JetGetCurrentIndex Function
      * @param {Pointer} sesid 
      * @param {Pointer} tableid 
-     * @param {Pointer<UInt16>} szIndexName 
+     * @param {Pointer} szIndexName 
      * @param {Integer} cbIndexName 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetcurrentindex-function
@@ -6483,7 +6479,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcurrentindex-function
      */
     static JetSetCurrentIndexA(sesid, tableid, szIndexName) {
-        result := DllCall("ESENT.dll\JetSetCurrentIndexA", "ptr", sesid, "ptr", tableid, "ptr", szIndexName, "int")
+        result := DllCall("ESENT.dll\JetSetCurrentIndexA", "ptr", sesid, "ptr", tableid, "char*", szIndexName, "int")
         return result
     }
 
@@ -6496,7 +6492,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcurrentindex-function
      */
     static JetSetCurrentIndexW(sesid, tableid, szIndexName) {
-        result := DllCall("ESENT.dll\JetSetCurrentIndexW", "ptr", sesid, "ptr", tableid, "ptr", szIndexName, "int")
+        result := DllCall("ESENT.dll\JetSetCurrentIndexW", "ptr", sesid, "ptr", tableid, "ushort*", szIndexName, "int")
         return result
     }
 
@@ -6510,7 +6506,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcurrentindex2-function
      */
     static JetSetCurrentIndex2A(sesid, tableid, szIndexName, grbit) {
-        result := DllCall("ESENT.dll\JetSetCurrentIndex2A", "ptr", sesid, "ptr", tableid, "ptr", szIndexName, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetSetCurrentIndex2A", "ptr", sesid, "ptr", tableid, "char*", szIndexName, "uint", grbit, "int")
         return result
     }
 
@@ -6524,7 +6520,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcurrentindex2-function
      */
     static JetSetCurrentIndex2W(sesid, tableid, szIndexName, grbit) {
-        result := DllCall("ESENT.dll\JetSetCurrentIndex2W", "ptr", sesid, "ptr", tableid, "ptr", szIndexName, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetSetCurrentIndex2W", "ptr", sesid, "ptr", tableid, "ushort*", szIndexName, "uint", grbit, "int")
         return result
     }
 
@@ -6539,7 +6535,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcurrentindex3-function
      */
     static JetSetCurrentIndex3A(sesid, tableid, szIndexName, grbit, itagSequence) {
-        result := DllCall("ESENT.dll\JetSetCurrentIndex3A", "ptr", sesid, "ptr", tableid, "ptr", szIndexName, "uint", grbit, "uint", itagSequence, "int")
+        result := DllCall("ESENT.dll\JetSetCurrentIndex3A", "ptr", sesid, "ptr", tableid, "char*", szIndexName, "uint", grbit, "uint", itagSequence, "int")
         return result
     }
 
@@ -6554,7 +6550,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcurrentindex3-function
      */
     static JetSetCurrentIndex3W(sesid, tableid, szIndexName, grbit, itagSequence) {
-        result := DllCall("ESENT.dll\JetSetCurrentIndex3W", "ptr", sesid, "ptr", tableid, "ptr", szIndexName, "uint", grbit, "uint", itagSequence, "int")
+        result := DllCall("ESENT.dll\JetSetCurrentIndex3W", "ptr", sesid, "ptr", tableid, "ushort*", szIndexName, "uint", grbit, "uint", itagSequence, "int")
         return result
     }
 
@@ -6570,7 +6566,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcurrentindex4-function
      */
     static JetSetCurrentIndex4A(sesid, tableid, szIndexName, pindexid, grbit, itagSequence) {
-        result := DllCall("ESENT.dll\JetSetCurrentIndex4A", "ptr", sesid, "ptr", tableid, "ptr", szIndexName, "ptr", pindexid, "uint", grbit, "uint", itagSequence, "int")
+        result := DllCall("ESENT.dll\JetSetCurrentIndex4A", "ptr", sesid, "ptr", tableid, "char*", szIndexName, "ptr", pindexid, "uint", grbit, "uint", itagSequence, "int")
         return result
     }
 
@@ -6586,7 +6582,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcurrentindex4-function
      */
     static JetSetCurrentIndex4W(sesid, tableid, szIndexName, pindexid, grbit, itagSequence) {
-        result := DllCall("ESENT.dll\JetSetCurrentIndex4W", "ptr", sesid, "ptr", tableid, "ptr", szIndexName, "ptr", pindexid, "uint", grbit, "uint", itagSequence, "int")
+        result := DllCall("ESENT.dll\JetSetCurrentIndex4W", "ptr", sesid, "ptr", tableid, "ushort*", szIndexName, "ptr", pindexid, "uint", grbit, "uint", itagSequence, "int")
         return result
     }
 
@@ -6636,7 +6632,7 @@ class Jet {
      * Learn more about: JetMakeKey Function
      * @param {Pointer} sesid 
      * @param {Pointer} tableid 
-     * @param {Pointer<Void>} pvData 
+     * @param {Pointer} pvData 
      * @param {Integer} cbData 
      * @param {Integer} grbit 
      * @returns {Integer} 
@@ -6673,7 +6669,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetprereadkeys-function
      */
     static JetPrereadKeys(sesid, tableid, rgpvKeys, rgcbKeys, ckeys, pckeysPreread, grbit) {
-        result := DllCall("ESENT.dll\JetPrereadKeys", "ptr", sesid, "ptr", tableid, "ptr", rgpvKeys, "ptr", rgcbKeys, "int", ckeys, "ptr", pckeysPreread, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetPrereadKeys", "ptr", sesid, "ptr", tableid, "ptr", rgpvKeys, "uint*", rgcbKeys, "int", ckeys, "int*", pckeysPreread, "uint", grbit, "int")
         return result
     }
 
@@ -6691,7 +6687,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetprereadindexranges-function
      */
     static JetPrereadIndexRanges(sesid, tableid, rgIndexRanges, cIndexRanges, pcRangesPreread, rgcolumnidPreread, ccolumnidPreread, grbit) {
-        result := DllCall("ESENT.dll\JetPrereadIndexRanges", "ptr", sesid, "ptr", tableid, "ptr", rgIndexRanges, "uint", cIndexRanges, "ptr", pcRangesPreread, "ptr", rgcolumnidPreread, "uint", ccolumnidPreread, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetPrereadIndexRanges", "ptr", sesid, "ptr", tableid, "ptr", rgIndexRanges, "uint", cIndexRanges, "uint*", pcRangesPreread, "uint*", rgcolumnidPreread, "uint", ccolumnidPreread, "uint", grbit, "int")
         return result
     }
 
@@ -6699,14 +6695,14 @@ class Jet {
      * Learn more about: JetGetBookmark Function
      * @param {Pointer} sesid 
      * @param {Pointer} tableid 
-     * @param {Pointer<Void>} pvBookmark 
+     * @param {Pointer} pvBookmark 
      * @param {Integer} cbMax 
      * @param {Pointer<UInt32>} pcbActual 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetbookmark-function
      */
     static JetGetBookmark(sesid, tableid, pvBookmark, cbMax, pcbActual) {
-        result := DllCall("ESENT.dll\JetGetBookmark", "ptr", sesid, "ptr", tableid, "ptr", pvBookmark, "uint", cbMax, "ptr", pcbActual, "int")
+        result := DllCall("ESENT.dll\JetGetBookmark", "ptr", sesid, "ptr", tableid, "ptr", pvBookmark, "uint", cbMax, "uint*", pcbActual, "int")
         return result
     }
 
@@ -6714,10 +6710,10 @@ class Jet {
      * Learn more about: JetGetSecondaryIndexBookmark Function
      * @param {Pointer} sesid 
      * @param {Pointer} tableid 
-     * @param {Pointer<Void>} pvSecondaryKey 
+     * @param {Pointer} pvSecondaryKey 
      * @param {Integer} cbSecondaryKeyMax 
      * @param {Pointer<UInt32>} pcbSecondaryKeyActual 
-     * @param {Pointer<Void>} pvPrimaryBookmark 
+     * @param {Pointer} pvPrimaryBookmark 
      * @param {Integer} cbPrimaryBookmarkMax 
      * @param {Pointer<UInt32>} pcbPrimaryBookmarkActual 
      * @param {Integer} grbit 
@@ -6725,7 +6721,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetsecondaryindexbookmark-function
      */
     static JetGetSecondaryIndexBookmark(sesid, tableid, pvSecondaryKey, cbSecondaryKeyMax, pcbSecondaryKeyActual, pvPrimaryBookmark, cbPrimaryBookmarkMax, pcbPrimaryBookmarkActual, grbit) {
-        result := DllCall("ESENT.dll\JetGetSecondaryIndexBookmark", "ptr", sesid, "ptr", tableid, "ptr", pvSecondaryKey, "uint", cbSecondaryKeyMax, "ptr", pcbSecondaryKeyActual, "ptr", pvPrimaryBookmark, "uint", cbPrimaryBookmarkMax, "ptr", pcbPrimaryBookmarkActual, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetGetSecondaryIndexBookmark", "ptr", sesid, "ptr", tableid, "ptr", pvSecondaryKey, "uint", cbSecondaryKeyMax, "uint*", pcbSecondaryKeyActual, "ptr", pvPrimaryBookmark, "uint", cbPrimaryBookmarkMax, "uint*", pcbPrimaryBookmarkActual, "uint", grbit, "int")
         return result
     }
 
@@ -6741,7 +6737,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcompact-function
      */
     static JetCompactA(sesid, szDatabaseSrc, szDatabaseDest, pfnStatus, pconvert, grbit) {
-        result := DllCall("ESENT.dll\JetCompactA", "ptr", sesid, "ptr", szDatabaseSrc, "ptr", szDatabaseDest, "ptr", pfnStatus, "ptr", pconvert, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetCompactA", "ptr", sesid, "char*", szDatabaseSrc, "char*", szDatabaseDest, "ptr", pfnStatus, "ptr", pconvert, "uint", grbit, "int")
         return result
     }
 
@@ -6757,7 +6753,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcompact-function
      */
     static JetCompactW(sesid, szDatabaseSrc, szDatabaseDest, pfnStatus, pconvert, grbit) {
-        result := DllCall("ESENT.dll\JetCompactW", "ptr", sesid, "ptr", szDatabaseSrc, "ptr", szDatabaseDest, "ptr", pfnStatus, "ptr", pconvert, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetCompactW", "ptr", sesid, "ushort*", szDatabaseSrc, "ushort*", szDatabaseDest, "ptr", pfnStatus, "ptr", pconvert, "uint", grbit, "int")
         return result
     }
 
@@ -6773,7 +6769,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdefragment-function
      */
     static JetDefragmentA(sesid, dbid, szTableName, pcPasses, pcSeconds, grbit) {
-        result := DllCall("ESENT.dll\JetDefragmentA", "ptr", sesid, "uint", dbid, "ptr", szTableName, "ptr", pcPasses, "ptr", pcSeconds, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetDefragmentA", "ptr", sesid, "uint", dbid, "char*", szTableName, "uint*", pcPasses, "uint*", pcSeconds, "uint", grbit, "int")
         return result
     }
 
@@ -6789,7 +6785,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdefragment-function
      */
     static JetDefragmentW(sesid, dbid, szTableName, pcPasses, pcSeconds, grbit) {
-        result := DllCall("ESENT.dll\JetDefragmentW", "ptr", sesid, "uint", dbid, "ptr", szTableName, "ptr", pcPasses, "ptr", pcSeconds, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetDefragmentW", "ptr", sesid, "uint", dbid, "ushort*", szTableName, "uint*", pcPasses, "uint*", pcSeconds, "uint", grbit, "int")
         return result
     }
 
@@ -6806,7 +6802,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdefragment2-function
      */
     static JetDefragment2A(sesid, dbid, szTableName, pcPasses, pcSeconds, callback, grbit) {
-        result := DllCall("ESENT.dll\JetDefragment2A", "ptr", sesid, "uint", dbid, "ptr", szTableName, "ptr", pcPasses, "ptr", pcSeconds, "ptr", callback, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetDefragment2A", "ptr", sesid, "uint", dbid, "char*", szTableName, "uint*", pcPasses, "uint*", pcSeconds, "ptr", callback, "uint", grbit, "int")
         return result
     }
 
@@ -6823,7 +6819,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdefragment2-function
      */
     static JetDefragment2W(sesid, dbid, szTableName, pcPasses, pcSeconds, callback, grbit) {
-        result := DllCall("ESENT.dll\JetDefragment2W", "ptr", sesid, "uint", dbid, "ptr", szTableName, "ptr", pcPasses, "ptr", pcSeconds, "ptr", callback, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetDefragment2W", "ptr", sesid, "uint", dbid, "ushort*", szTableName, "uint*", pcPasses, "uint*", pcSeconds, "ptr", callback, "uint", grbit, "int")
         return result
     }
 
@@ -6840,7 +6836,7 @@ class Jet {
      * @returns {Integer} 
      */
     static JetDefragment3A(sesid, szDatabaseName, szTableName, pcPasses, pcSeconds, callback, pvContext, grbit) {
-        result := DllCall("ESENT.dll\JetDefragment3A", "ptr", sesid, "ptr", szDatabaseName, "ptr", szTableName, "ptr", pcPasses, "ptr", pcSeconds, "ptr", callback, "ptr", pvContext, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetDefragment3A", "ptr", sesid, "char*", szDatabaseName, "char*", szTableName, "uint*", pcPasses, "uint*", pcSeconds, "ptr", callback, "ptr", pvContext, "uint", grbit, "int")
         return result
     }
 
@@ -6857,7 +6853,7 @@ class Jet {
      * @returns {Integer} 
      */
     static JetDefragment3W(sesid, szDatabaseName, szTableName, pcPasses, pcSeconds, callback, pvContext, grbit) {
-        result := DllCall("ESENT.dll\JetDefragment3W", "ptr", sesid, "ptr", szDatabaseName, "ptr", szTableName, "ptr", pcPasses, "ptr", pcSeconds, "ptr", callback, "ptr", pvContext, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetDefragment3W", "ptr", sesid, "ushort*", szDatabaseName, "ushort*", szTableName, "uint*", pcPasses, "uint*", pcSeconds, "ptr", callback, "ptr", pvContext, "uint", grbit, "int")
         return result
     }
 
@@ -6871,7 +6867,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetdatabasesize-function
      */
     static JetSetDatabaseSizeA(sesid, szDatabaseName, cpg, pcpgReal) {
-        result := DllCall("ESENT.dll\JetSetDatabaseSizeA", "ptr", sesid, "ptr", szDatabaseName, "uint", cpg, "ptr", pcpgReal, "int")
+        result := DllCall("ESENT.dll\JetSetDatabaseSizeA", "ptr", sesid, "char*", szDatabaseName, "uint", cpg, "uint*", pcpgReal, "int")
         return result
     }
 
@@ -6885,7 +6881,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetdatabasesize-function
      */
     static JetSetDatabaseSizeW(sesid, szDatabaseName, cpg, pcpgReal) {
-        result := DllCall("ESENT.dll\JetSetDatabaseSizeW", "ptr", sesid, "ptr", szDatabaseName, "uint", cpg, "ptr", pcpgReal, "int")
+        result := DllCall("ESENT.dll\JetSetDatabaseSizeW", "ptr", sesid, "ushort*", szDatabaseName, "uint", cpg, "uint*", pcpgReal, "int")
         return result
     }
 
@@ -6899,7 +6895,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgrowdatabase-function
      */
     static JetGrowDatabase(sesid, dbid, cpg, pcpgReal) {
-        result := DllCall("ESENT.dll\JetGrowDatabase", "ptr", sesid, "uint", dbid, "uint", cpg, "ptr", pcpgReal, "int")
+        result := DllCall("ESENT.dll\JetGrowDatabase", "ptr", sesid, "uint", dbid, "uint", cpg, "uint*", pcpgReal, "int")
         return result
     }
 
@@ -6914,7 +6910,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetresizedatabase-function
      */
     static JetResizeDatabase(sesid, dbid, cpgTarget, pcpgActual, grbit) {
-        result := DllCall("ESENT.dll\JetResizeDatabase", "ptr", sesid, "uint", dbid, "uint", cpgTarget, "ptr", pcpgActual, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetResizeDatabase", "ptr", sesid, "uint", dbid, "uint", cpgTarget, "uint*", pcpgActual, "uint", grbit, "int")
         return result
     }
 
@@ -6945,7 +6941,7 @@ class Jet {
      * Learn more about: JetGotoBookmark Function
      * @param {Pointer} sesid 
      * @param {Pointer} tableid 
-     * @param {Pointer<Void>} pvBookmark 
+     * @param {Pointer} pvBookmark 
      * @param {Integer} cbBookmark 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgotobookmark-function
@@ -6959,9 +6955,9 @@ class Jet {
      * Learn more about: JetGotoSecondaryIndexBookmark Function
      * @param {Pointer} sesid 
      * @param {Pointer} tableid 
-     * @param {Pointer<Void>} pvSecondaryKey 
+     * @param {Pointer} pvSecondaryKey 
      * @param {Integer} cbSecondaryKey 
-     * @param {Pointer<Void>} pvPrimaryBookmark 
+     * @param {Pointer} pvPrimaryBookmark 
      * @param {Integer} cbPrimaryBookmark 
      * @param {Integer} grbit 
      * @returns {Integer} 
@@ -7011,7 +7007,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopentemptable-function
      */
     static JetOpenTempTable(sesid, prgcolumndef, ccolumn, grbit, ptableid, prgcolumnid) {
-        result := DllCall("ESENT.dll\JetOpenTempTable", "ptr", sesid, "ptr", prgcolumndef, "uint", ccolumn, "uint", grbit, "ptr", ptableid, "ptr", prgcolumnid, "int")
+        result := DllCall("ESENT.dll\JetOpenTempTable", "ptr", sesid, "ptr", prgcolumndef, "uint", ccolumn, "uint", grbit, "ptr*", ptableid, "uint*", prgcolumnid, "int")
         return result
     }
 
@@ -7028,7 +7024,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopentemptable2-function
      */
     static JetOpenTempTable2(sesid, prgcolumndef, ccolumn, lcid, grbit, ptableid, prgcolumnid) {
-        result := DllCall("ESENT.dll\JetOpenTempTable2", "ptr", sesid, "ptr", prgcolumndef, "uint", ccolumn, "uint", lcid, "uint", grbit, "ptr", ptableid, "ptr", prgcolumnid, "int")
+        result := DllCall("ESENT.dll\JetOpenTempTable2", "ptr", sesid, "ptr", prgcolumndef, "uint", ccolumn, "uint", lcid, "uint", grbit, "ptr*", ptableid, "uint*", prgcolumnid, "int")
         return result
     }
 
@@ -7045,7 +7041,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopentemptable3-function
      */
     static JetOpenTempTable3(sesid, prgcolumndef, ccolumn, pidxunicode, grbit, ptableid, prgcolumnid) {
-        result := DllCall("ESENT.dll\JetOpenTempTable3", "ptr", sesid, "ptr", prgcolumndef, "uint", ccolumn, "ptr", pidxunicode, "uint", grbit, "ptr", ptableid, "ptr", prgcolumnid, "int")
+        result := DllCall("ESENT.dll\JetOpenTempTable3", "ptr", sesid, "ptr", prgcolumndef, "uint", ccolumn, "ptr", pidxunicode, "uint", grbit, "ptr*", ptableid, "uint*", prgcolumnid, "int")
         return result
     }
 
@@ -7082,7 +7078,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbackup-function
      */
     static JetBackupA(szBackupPath, grbit, pfnStatus) {
-        result := DllCall("ESENT.dll\JetBackupA", "ptr", szBackupPath, "uint", grbit, "ptr", pfnStatus, "int")
+        result := DllCall("ESENT.dll\JetBackupA", "char*", szBackupPath, "uint", grbit, "ptr", pfnStatus, "int")
         return result
     }
 
@@ -7095,7 +7091,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbackup-function
      */
     static JetBackupW(szBackupPath, grbit, pfnStatus) {
-        result := DllCall("ESENT.dll\JetBackupW", "ptr", szBackupPath, "uint", grbit, "ptr", pfnStatus, "int")
+        result := DllCall("ESENT.dll\JetBackupW", "ushort*", szBackupPath, "uint", grbit, "ptr", pfnStatus, "int")
         return result
     }
 
@@ -7109,7 +7105,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbackupinstance-function
      */
     static JetBackupInstanceA(instance, szBackupPath, grbit, pfnStatus) {
-        result := DllCall("ESENT.dll\JetBackupInstanceA", "ptr", instance, "ptr", szBackupPath, "uint", grbit, "ptr", pfnStatus, "int")
+        result := DllCall("ESENT.dll\JetBackupInstanceA", "ptr", instance, "char*", szBackupPath, "uint", grbit, "ptr", pfnStatus, "int")
         return result
     }
 
@@ -7123,7 +7119,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbackupinstance-function
      */
     static JetBackupInstanceW(instance, szBackupPath, grbit, pfnStatus) {
-        result := DllCall("ESENT.dll\JetBackupInstanceW", "ptr", instance, "ptr", szBackupPath, "uint", grbit, "ptr", pfnStatus, "int")
+        result := DllCall("ESENT.dll\JetBackupInstanceW", "ptr", instance, "ushort*", szBackupPath, "uint", grbit, "ptr", pfnStatus, "int")
         return result
     }
 
@@ -7135,7 +7131,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetrestore-function
      */
     static JetRestoreA(szSource, pfn) {
-        result := DllCall("ESENT.dll\JetRestoreA", "ptr", szSource, "ptr", pfn, "int")
+        result := DllCall("ESENT.dll\JetRestoreA", "char*", szSource, "ptr", pfn, "int")
         return result
     }
 
@@ -7147,7 +7143,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetrestore-function
      */
     static JetRestoreW(szSource, pfn) {
-        result := DllCall("ESENT.dll\JetRestoreW", "ptr", szSource, "ptr", pfn, "int")
+        result := DllCall("ESENT.dll\JetRestoreW", "ushort*", szSource, "ptr", pfn, "int")
         return result
     }
 
@@ -7160,7 +7156,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetrestore2-function
      */
     static JetRestore2A(sz, szDest, pfn) {
-        result := DllCall("ESENT.dll\JetRestore2A", "ptr", sz, "ptr", szDest, "ptr", pfn, "int")
+        result := DllCall("ESENT.dll\JetRestore2A", "char*", sz, "char*", szDest, "ptr", pfn, "int")
         return result
     }
 
@@ -7173,7 +7169,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetrestore2-function
      */
     static JetRestore2W(sz, szDest, pfn) {
-        result := DllCall("ESENT.dll\JetRestore2W", "ptr", sz, "ptr", szDest, "ptr", pfn, "int")
+        result := DllCall("ESENT.dll\JetRestore2W", "ushort*", sz, "ushort*", szDest, "ptr", pfn, "int")
         return result
     }
 
@@ -7187,7 +7183,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetrestoreinstance-function
      */
     static JetRestoreInstanceA(instance, sz, szDest, pfn) {
-        result := DllCall("ESENT.dll\JetRestoreInstanceA", "ptr", instance, "ptr", sz, "ptr", szDest, "ptr", pfn, "int")
+        result := DllCall("ESENT.dll\JetRestoreInstanceA", "ptr", instance, "char*", sz, "char*", szDest, "ptr", pfn, "int")
         return result
     }
 
@@ -7201,7 +7197,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetrestoreinstance-function
      */
     static JetRestoreInstanceW(instance, sz, szDest, pfn) {
-        result := DllCall("ESENT.dll\JetRestoreInstanceW", "ptr", instance, "ptr", sz, "ptr", szDest, "ptr", pfn, "int")
+        result := DllCall("ESENT.dll\JetRestoreInstanceW", "ptr", instance, "ushort*", sz, "ushort*", szDest, "ptr", pfn, "int")
         return result
     }
 
@@ -7228,7 +7224,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetindexrecordcount-function
      */
     static JetIndexRecordCount(sesid, tableid, pcrec, crecMax) {
-        result := DllCall("ESENT.dll\JetIndexRecordCount", "ptr", sesid, "ptr", tableid, "ptr", pcrec, "uint", crecMax, "int")
+        result := DllCall("ESENT.dll\JetIndexRecordCount", "ptr", sesid, "ptr", tableid, "uint*", pcrec, "uint", crecMax, "int")
         return result
     }
 
@@ -7236,7 +7232,7 @@ class Jet {
      * Learn more about: JetRetrieveKey Function
      * @param {Pointer} sesid 
      * @param {Pointer} tableid 
-     * @param {Pointer<Void>} pvKey 
+     * @param {Pointer} pvKey 
      * @param {Integer} cbMax 
      * @param {Pointer<UInt32>} pcbActual 
      * @param {Integer} grbit 
@@ -7244,7 +7240,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetretrievekey-function
      */
     static JetRetrieveKey(sesid, tableid, pvKey, cbMax, pcbActual, grbit) {
-        result := DllCall("ESENT.dll\JetRetrieveKey", "ptr", sesid, "ptr", tableid, "ptr", pvKey, "uint", cbMax, "ptr", pcbActual, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetRetrieveKey", "ptr", sesid, "ptr", tableid, "ptr", pvKey, "uint", cbMax, "uint*", pcbActual, "uint", grbit, "int")
         return result
     }
 
@@ -7273,55 +7269,55 @@ class Jet {
 
     /**
      * Learn more about: JetGetAttachInfo Function
-     * @param {Pointer<SByte>} szzDatabases 
+     * @param {Pointer} szzDatabases 
      * @param {Integer} cbMax 
      * @param {Pointer<UInt32>} pcbActual 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetattachinfo-function
      */
     static JetGetAttachInfoA(szzDatabases, cbMax, pcbActual) {
-        result := DllCall("ESENT.dll\JetGetAttachInfoA", "ptr", szzDatabases, "uint", cbMax, "ptr", pcbActual, "int")
+        result := DllCall("ESENT.dll\JetGetAttachInfoA", "ptr", szzDatabases, "uint", cbMax, "uint*", pcbActual, "int")
         return result
     }
 
     /**
      * Learn more about: JetGetAttachInfo Function
-     * @param {Pointer<UInt16>} wszzDatabases 
+     * @param {Pointer} wszzDatabases 
      * @param {Integer} cbMax 
      * @param {Pointer<UInt32>} pcbActual 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetattachinfo-function
      */
     static JetGetAttachInfoW(wszzDatabases, cbMax, pcbActual) {
-        result := DllCall("ESENT.dll\JetGetAttachInfoW", "ptr", wszzDatabases, "uint", cbMax, "ptr", pcbActual, "int")
+        result := DllCall("ESENT.dll\JetGetAttachInfoW", "ptr", wszzDatabases, "uint", cbMax, "uint*", pcbActual, "int")
         return result
     }
 
     /**
      * Learn more about: JetGetAttachInfoInstance Function
      * @param {Pointer} instance 
-     * @param {Pointer<SByte>} szzDatabases 
+     * @param {Pointer} szzDatabases 
      * @param {Integer} cbMax 
      * @param {Pointer<UInt32>} pcbActual 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetattachinfoinstance-function
      */
     static JetGetAttachInfoInstanceA(instance, szzDatabases, cbMax, pcbActual) {
-        result := DllCall("ESENT.dll\JetGetAttachInfoInstanceA", "ptr", instance, "ptr", szzDatabases, "uint", cbMax, "ptr", pcbActual, "int")
+        result := DllCall("ESENT.dll\JetGetAttachInfoInstanceA", "ptr", instance, "ptr", szzDatabases, "uint", cbMax, "uint*", pcbActual, "int")
         return result
     }
 
     /**
      * Learn more about: JetGetAttachInfoInstance Function
      * @param {Pointer} instance 
-     * @param {Pointer<UInt16>} szzDatabases 
+     * @param {Pointer} szzDatabases 
      * @param {Integer} cbMax 
      * @param {Pointer<UInt32>} pcbActual 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetattachinfoinstance-function
      */
     static JetGetAttachInfoInstanceW(instance, szzDatabases, cbMax, pcbActual) {
-        result := DllCall("ESENT.dll\JetGetAttachInfoInstanceW", "ptr", instance, "ptr", szzDatabases, "uint", cbMax, "ptr", pcbActual, "int")
+        result := DllCall("ESENT.dll\JetGetAttachInfoInstanceW", "ptr", instance, "ptr", szzDatabases, "uint", cbMax, "uint*", pcbActual, "int")
         return result
     }
 
@@ -7335,7 +7331,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopenfile-function
      */
     static JetOpenFileA(szFileName, phfFile, pulFileSizeLow, pulFileSizeHigh) {
-        result := DllCall("ESENT.dll\JetOpenFileA", "ptr", szFileName, "ptr", phfFile, "ptr", pulFileSizeLow, "ptr", pulFileSizeHigh, "int")
+        result := DllCall("ESENT.dll\JetOpenFileA", "char*", szFileName, "ptr*", phfFile, "uint*", pulFileSizeLow, "uint*", pulFileSizeHigh, "int")
         return result
     }
 
@@ -7349,7 +7345,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopenfile-function
      */
     static JetOpenFileW(szFileName, phfFile, pulFileSizeLow, pulFileSizeHigh) {
-        result := DllCall("ESENT.dll\JetOpenFileW", "ptr", szFileName, "ptr", phfFile, "ptr", pulFileSizeLow, "ptr", pulFileSizeHigh, "int")
+        result := DllCall("ESENT.dll\JetOpenFileW", "ushort*", szFileName, "ptr*", phfFile, "uint*", pulFileSizeLow, "uint*", pulFileSizeHigh, "int")
         return result
     }
 
@@ -7364,7 +7360,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopenfileinstance-function
      */
     static JetOpenFileInstanceA(instance, szFileName, phfFile, pulFileSizeLow, pulFileSizeHigh) {
-        result := DllCall("ESENT.dll\JetOpenFileInstanceA", "ptr", instance, "ptr", szFileName, "ptr", phfFile, "ptr", pulFileSizeLow, "ptr", pulFileSizeHigh, "int")
+        result := DllCall("ESENT.dll\JetOpenFileInstanceA", "ptr", instance, "char*", szFileName, "ptr*", phfFile, "uint*", pulFileSizeLow, "uint*", pulFileSizeHigh, "int")
         return result
     }
 
@@ -7379,21 +7375,21 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopenfileinstance-function
      */
     static JetOpenFileInstanceW(instance, szFileName, phfFile, pulFileSizeLow, pulFileSizeHigh) {
-        result := DllCall("ESENT.dll\JetOpenFileInstanceW", "ptr", instance, "ptr", szFileName, "ptr", phfFile, "ptr", pulFileSizeLow, "ptr", pulFileSizeHigh, "int")
+        result := DllCall("ESENT.dll\JetOpenFileInstanceW", "ptr", instance, "ushort*", szFileName, "ptr*", phfFile, "uint*", pulFileSizeLow, "uint*", pulFileSizeHigh, "int")
         return result
     }
 
     /**
      * Learn more about: JetReadFile Function
      * @param {Pointer} hfFile 
-     * @param {Pointer<Void>} pv 
+     * @param {Pointer} pv 
      * @param {Integer} cb 
      * @param {Pointer<UInt32>} pcbActual 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetreadfile-function
      */
     static JetReadFile(hfFile, pv, cb, pcbActual) {
-        result := DllCall("ESENT.dll\JetReadFile", "ptr", hfFile, "ptr", pv, "uint", cb, "ptr", pcbActual, "int")
+        result := DllCall("ESENT.dll\JetReadFile", "ptr", hfFile, "ptr", pv, "uint", cb, "uint*", pcbActual, "int")
         return result
     }
 
@@ -7401,14 +7397,14 @@ class Jet {
      * Learn more about: JetReadFileInstance Function
      * @param {Pointer} instance 
      * @param {Pointer} hfFile 
-     * @param {Pointer<Void>} pv 
+     * @param {Pointer} pv 
      * @param {Integer} cb 
      * @param {Pointer<UInt32>} pcbActual 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetreadfileinstance-function
      */
     static JetReadFileInstance(instance, hfFile, pv, cb, pcbActual) {
-        result := DllCall("ESENT.dll\JetReadFileInstance", "ptr", instance, "ptr", hfFile, "ptr", pv, "uint", cb, "ptr", pcbActual, "int")
+        result := DllCall("ESENT.dll\JetReadFileInstance", "ptr", instance, "ptr", hfFile, "ptr", pv, "uint", cb, "uint*", pcbActual, "int")
         return result
     }
 
@@ -7437,62 +7433,62 @@ class Jet {
 
     /**
      * Learn more about: JetGetLogInfo Function
-     * @param {Pointer<SByte>} szzLogs 
+     * @param {Pointer} szzLogs 
      * @param {Integer} cbMax 
      * @param {Pointer<UInt32>} pcbActual 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetloginfo-function
      */
     static JetGetLogInfoA(szzLogs, cbMax, pcbActual) {
-        result := DllCall("ESENT.dll\JetGetLogInfoA", "ptr", szzLogs, "uint", cbMax, "ptr", pcbActual, "int")
+        result := DllCall("ESENT.dll\JetGetLogInfoA", "ptr", szzLogs, "uint", cbMax, "uint*", pcbActual, "int")
         return result
     }
 
     /**
      * Learn more about: JetGetLogInfo Function
-     * @param {Pointer<UInt16>} szzLogs 
+     * @param {Pointer} szzLogs 
      * @param {Integer} cbMax 
      * @param {Pointer<UInt32>} pcbActual 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetloginfo-function
      */
     static JetGetLogInfoW(szzLogs, cbMax, pcbActual) {
-        result := DllCall("ESENT.dll\JetGetLogInfoW", "ptr", szzLogs, "uint", cbMax, "ptr", pcbActual, "int")
+        result := DllCall("ESENT.dll\JetGetLogInfoW", "ptr", szzLogs, "uint", cbMax, "uint*", pcbActual, "int")
         return result
     }
 
     /**
      * Learn more about: JetGetLogInfoInstance Function
      * @param {Pointer} instance 
-     * @param {Pointer<SByte>} szzLogs 
+     * @param {Pointer} szzLogs 
      * @param {Integer} cbMax 
      * @param {Pointer<UInt32>} pcbActual 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetloginfoinstance-function
      */
     static JetGetLogInfoInstanceA(instance, szzLogs, cbMax, pcbActual) {
-        result := DllCall("ESENT.dll\JetGetLogInfoInstanceA", "ptr", instance, "ptr", szzLogs, "uint", cbMax, "ptr", pcbActual, "int")
+        result := DllCall("ESENT.dll\JetGetLogInfoInstanceA", "ptr", instance, "ptr", szzLogs, "uint", cbMax, "uint*", pcbActual, "int")
         return result
     }
 
     /**
      * Learn more about: JetGetLogInfoInstance Function
      * @param {Pointer} instance 
-     * @param {Pointer<UInt16>} wszzLogs 
+     * @param {Pointer} wszzLogs 
      * @param {Integer} cbMax 
      * @param {Pointer<UInt32>} pcbActual 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetloginfoinstance-function
      */
     static JetGetLogInfoInstanceW(instance, wszzLogs, cbMax, pcbActual) {
-        result := DllCall("ESENT.dll\JetGetLogInfoInstanceW", "ptr", instance, "ptr", wszzLogs, "uint", cbMax, "ptr", pcbActual, "int")
+        result := DllCall("ESENT.dll\JetGetLogInfoInstanceW", "ptr", instance, "ptr", wszzLogs, "uint", cbMax, "uint*", pcbActual, "int")
         return result
     }
 
     /**
      * Learn more about: JetGetLogInfoInstance2 Function
      * @param {Pointer} instance 
-     * @param {Pointer<SByte>} szzLogs 
+     * @param {Pointer} szzLogs 
      * @param {Integer} cbMax 
      * @param {Pointer<UInt32>} pcbActual 
      * @param {Pointer<JET_LOGINFO_A>} pLogInfo 
@@ -7500,14 +7496,14 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetloginfoinstance2-function
      */
     static JetGetLogInfoInstance2A(instance, szzLogs, cbMax, pcbActual, pLogInfo) {
-        result := DllCall("ESENT.dll\JetGetLogInfoInstance2A", "ptr", instance, "ptr", szzLogs, "uint", cbMax, "ptr", pcbActual, "ptr", pLogInfo, "int")
+        result := DllCall("ESENT.dll\JetGetLogInfoInstance2A", "ptr", instance, "ptr", szzLogs, "uint", cbMax, "uint*", pcbActual, "ptr", pLogInfo, "int")
         return result
     }
 
     /**
      * Learn more about: JetGetLogInfoInstance2 Function
      * @param {Pointer} instance 
-     * @param {Pointer<UInt16>} wszzLogs 
+     * @param {Pointer} wszzLogs 
      * @param {Integer} cbMax 
      * @param {Pointer<UInt32>} pcbActual 
      * @param {Pointer<JET_LOGINFO_W>} pLogInfo 
@@ -7515,35 +7511,35 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetloginfoinstance2-function
      */
     static JetGetLogInfoInstance2W(instance, wszzLogs, cbMax, pcbActual, pLogInfo) {
-        result := DllCall("ESENT.dll\JetGetLogInfoInstance2W", "ptr", instance, "ptr", wszzLogs, "uint", cbMax, "ptr", pcbActual, "ptr", pLogInfo, "int")
+        result := DllCall("ESENT.dll\JetGetLogInfoInstance2W", "ptr", instance, "ptr", wszzLogs, "uint", cbMax, "uint*", pcbActual, "ptr", pLogInfo, "int")
         return result
     }
 
     /**
      * Learn more about: JetGetTruncateLogInfoInstance Function
      * @param {Pointer} instance 
-     * @param {Pointer<SByte>} szzLogs 
+     * @param {Pointer} szzLogs 
      * @param {Integer} cbMax 
      * @param {Pointer<UInt32>} pcbActual 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgettruncateloginfoinstance-function
      */
     static JetGetTruncateLogInfoInstanceA(instance, szzLogs, cbMax, pcbActual) {
-        result := DllCall("ESENT.dll\JetGetTruncateLogInfoInstanceA", "ptr", instance, "ptr", szzLogs, "uint", cbMax, "ptr", pcbActual, "int")
+        result := DllCall("ESENT.dll\JetGetTruncateLogInfoInstanceA", "ptr", instance, "ptr", szzLogs, "uint", cbMax, "uint*", pcbActual, "int")
         return result
     }
 
     /**
      * Learn more about: JetGetTruncateLogInfoInstance Function
      * @param {Pointer} instance 
-     * @param {Pointer<UInt16>} wszzLogs 
+     * @param {Pointer} wszzLogs 
      * @param {Integer} cbMax 
      * @param {Pointer<UInt32>} pcbActual 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgettruncateloginfoinstance-function
      */
     static JetGetTruncateLogInfoInstanceW(instance, wszzLogs, cbMax, pcbActual) {
-        result := DllCall("ESENT.dll\JetGetTruncateLogInfoInstanceW", "ptr", instance, "ptr", wszzLogs, "uint", cbMax, "ptr", pcbActual, "int")
+        result := DllCall("ESENT.dll\JetGetTruncateLogInfoInstanceW", "ptr", instance, "ptr", wszzLogs, "uint", cbMax, "uint*", pcbActual, "int")
         return result
     }
 
@@ -7615,7 +7611,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetexternalrestore-function
      */
     static JetExternalRestoreA(szCheckpointFilePath, szLogPath, rgrstmap, crstfilemap, szBackupLogPath, genLow, genHigh, pfn) {
-        result := DllCall("ESENT.dll\JetExternalRestoreA", "ptr", szCheckpointFilePath, "ptr", szLogPath, "ptr", rgrstmap, "int", crstfilemap, "ptr", szBackupLogPath, "int", genLow, "int", genHigh, "ptr", pfn, "int")
+        result := DllCall("ESENT.dll\JetExternalRestoreA", "char*", szCheckpointFilePath, "char*", szLogPath, "ptr", rgrstmap, "int", crstfilemap, "char*", szBackupLogPath, "int", genLow, "int", genHigh, "ptr", pfn, "int")
         return result
     }
 
@@ -7633,7 +7629,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetexternalrestore-function
      */
     static JetExternalRestoreW(szCheckpointFilePath, szLogPath, rgrstmap, crstfilemap, szBackupLogPath, genLow, genHigh, pfn) {
-        result := DllCall("ESENT.dll\JetExternalRestoreW", "ptr", szCheckpointFilePath, "ptr", szLogPath, "ptr", rgrstmap, "int", crstfilemap, "ptr", szBackupLogPath, "int", genLow, "int", genHigh, "ptr", pfn, "int")
+        result := DllCall("ESENT.dll\JetExternalRestoreW", "ushort*", szCheckpointFilePath, "ushort*", szLogPath, "ptr", rgrstmap, "int", crstfilemap, "ushort*", szBackupLogPath, "int", genLow, "int", genHigh, "ptr", pfn, "int")
         return result
     }
 
@@ -7653,7 +7649,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetexternalrestore2-function
      */
     static JetExternalRestore2A(szCheckpointFilePath, szLogPath, rgrstmap, crstfilemap, szBackupLogPath, pLogInfo, szTargetInstanceName, szTargetInstanceLogPath, szTargetInstanceCheckpointPath, pfn) {
-        result := DllCall("ESENT.dll\JetExternalRestore2A", "ptr", szCheckpointFilePath, "ptr", szLogPath, "ptr", rgrstmap, "int", crstfilemap, "ptr", szBackupLogPath, "ptr", pLogInfo, "ptr", szTargetInstanceName, "ptr", szTargetInstanceLogPath, "ptr", szTargetInstanceCheckpointPath, "ptr", pfn, "int")
+        result := DllCall("ESENT.dll\JetExternalRestore2A", "char*", szCheckpointFilePath, "char*", szLogPath, "ptr", rgrstmap, "int", crstfilemap, "char*", szBackupLogPath, "ptr", pLogInfo, "char*", szTargetInstanceName, "char*", szTargetInstanceLogPath, "char*", szTargetInstanceCheckpointPath, "ptr", pfn, "int")
         return result
     }
 
@@ -7673,7 +7669,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetexternalrestore2-function
      */
     static JetExternalRestore2W(szCheckpointFilePath, szLogPath, rgrstmap, crstfilemap, szBackupLogPath, pLogInfo, szTargetInstanceName, szTargetInstanceLogPath, szTargetInstanceCheckpointPath, pfn) {
-        result := DllCall("ESENT.dll\JetExternalRestore2W", "ptr", szCheckpointFilePath, "ptr", szLogPath, "ptr", rgrstmap, "int", crstfilemap, "ptr", szBackupLogPath, "ptr", pLogInfo, "ptr", szTargetInstanceName, "ptr", szTargetInstanceLogPath, "ptr", szTargetInstanceCheckpointPath, "ptr", pfn, "int")
+        result := DllCall("ESENT.dll\JetExternalRestore2W", "ushort*", szCheckpointFilePath, "ushort*", szLogPath, "ptr", rgrstmap, "int", crstfilemap, "ushort*", szBackupLogPath, "ptr", pLogInfo, "ushort*", szTargetInstanceName, "ushort*", szTargetInstanceLogPath, "ushort*", szTargetInstanceCheckpointPath, "ptr", pfn, "int")
         return result
     }
 
@@ -7689,7 +7685,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetregistercallback-function
      */
     static JetRegisterCallback(sesid, tableid, cbtyp, pCallback, pvContext, phCallbackId) {
-        result := DllCall("ESENT.dll\JetRegisterCallback", "ptr", sesid, "ptr", tableid, "uint", cbtyp, "ptr", pCallback, "ptr", pvContext, "ptr", phCallbackId, "int")
+        result := DllCall("ESENT.dll\JetRegisterCallback", "ptr", sesid, "ptr", tableid, "uint", cbtyp, "ptr", pCallback, "ptr", pvContext, "ptr*", phCallbackId, "int")
         return result
     }
 
@@ -7715,7 +7711,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetinstanceinfo-function
      */
     static JetGetInstanceInfoA(pcInstanceInfo, paInstanceInfo) {
-        result := DllCall("ESENT.dll\JetGetInstanceInfoA", "ptr", pcInstanceInfo, "ptr", paInstanceInfo, "int")
+        result := DllCall("ESENT.dll\JetGetInstanceInfoA", "uint*", pcInstanceInfo, "ptr", paInstanceInfo, "int")
         return result
     }
 
@@ -7727,13 +7723,13 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetinstanceinfo-function
      */
     static JetGetInstanceInfoW(pcInstanceInfo, paInstanceInfo) {
-        result := DllCall("ESENT.dll\JetGetInstanceInfoW", "ptr", pcInstanceInfo, "ptr", paInstanceInfo, "int")
+        result := DllCall("ESENT.dll\JetGetInstanceInfoW", "uint*", pcInstanceInfo, "ptr", paInstanceInfo, "int")
         return result
     }
 
     /**
      * Learn more about: JetFreeBuffer Function
-     * @param {Pointer<PSTR>} pbBuf 
+     * @param {Pointer<Byte>} pbBuf 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetfreebuffer-function
      */
@@ -7768,7 +7764,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetls-function
      */
     static JetGetLS(sesid, tableid, pls, grbit) {
-        result := DllCall("ESENT.dll\JetGetLS", "ptr", sesid, "ptr", tableid, "ptr", pls, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetGetLS", "ptr", sesid, "ptr", tableid, "ptr*", pls, "uint", grbit, "int")
         return result
     }
 
@@ -7780,7 +7776,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetossnapshotprepare-function
      */
     static JetOSSnapshotPrepare(psnapId, grbit) {
-        result := DllCall("ESENT.dll\JetOSSnapshotPrepare", "ptr", psnapId, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetOSSnapshotPrepare", "ptr*", psnapId, "uint", grbit, "int")
         return result
     }
 
@@ -7807,7 +7803,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetossnapshotfreeze-function
      */
     static JetOSSnapshotFreezeA(snapId, pcInstanceInfo, paInstanceInfo, grbit) {
-        result := DllCall("ESENT.dll\JetOSSnapshotFreezeA", "ptr", snapId, "ptr", pcInstanceInfo, "ptr", paInstanceInfo, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetOSSnapshotFreezeA", "ptr", snapId, "uint*", pcInstanceInfo, "ptr", paInstanceInfo, "uint", grbit, "int")
         return result
     }
 
@@ -7821,7 +7817,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetossnapshotfreeze-function
      */
     static JetOSSnapshotFreezeW(snapId, pcInstanceInfo, paInstanceInfo, grbit) {
-        result := DllCall("ESENT.dll\JetOSSnapshotFreezeW", "ptr", snapId, "ptr", pcInstanceInfo, "ptr", paInstanceInfo, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetOSSnapshotFreezeW", "ptr", snapId, "uint*", pcInstanceInfo, "ptr", paInstanceInfo, "uint", grbit, "int")
         return result
     }
 
@@ -7884,7 +7880,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetossnapshotgetfreezeinfo-function
      */
     static JetOSSnapshotGetFreezeInfoA(snapId, pcInstanceInfo, paInstanceInfo, grbit) {
-        result := DllCall("ESENT.dll\JetOSSnapshotGetFreezeInfoA", "ptr", snapId, "ptr", pcInstanceInfo, "ptr", paInstanceInfo, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetOSSnapshotGetFreezeInfoA", "ptr", snapId, "uint*", pcInstanceInfo, "ptr", paInstanceInfo, "uint", grbit, "int")
         return result
     }
 
@@ -7898,7 +7894,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetossnapshotgetfreezeinfo-function
      */
     static JetOSSnapshotGetFreezeInfoW(snapId, pcInstanceInfo, paInstanceInfo, grbit) {
-        result := DllCall("ESENT.dll\JetOSSnapshotGetFreezeInfoW", "ptr", snapId, "ptr", pcInstanceInfo, "ptr", paInstanceInfo, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetOSSnapshotGetFreezeInfoW", "ptr", snapId, "uint*", pcInstanceInfo, "ptr", paInstanceInfo, "uint", grbit, "int")
         return result
     }
 
@@ -7927,7 +7923,7 @@ class Jet {
     /**
      * Learn more about: JetGetErrorInfoW Function
      * @param {Pointer<Void>} pvContext 
-     * @param {Pointer<Void>} pvResult 
+     * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
      * @param {Integer} InfoLevel 
      * @param {Integer} grbit 
@@ -7943,7 +7939,7 @@ class Jet {
      * Learn more about: JetSetSessionParameter Function
      * @param {Pointer} sesid 
      * @param {Integer} sesparamid 
-     * @param {Pointer<Void>} pvParam 
+     * @param {Pointer} pvParam 
      * @param {Integer} cbParam 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetsessionparameter-function
@@ -7964,7 +7960,7 @@ class Jet {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetsessionparameter-function
      */
     static JetGetSessionParameter(sesid, sesparamid, pvParam, cbParamMax, pcbParamActual) {
-        result := DllCall("ESENT.dll\JetGetSessionParameter", "ptr", sesid, "uint", sesparamid, "ptr", pvParam, "uint", cbParamMax, "ptr", pcbParamActual, "int")
+        result := DllCall("ESENT.dll\JetGetSessionParameter", "ptr", sesid, "uint", sesparamid, "ptr", pvParam, "uint", cbParamMax, "uint*", pcbParamActual, "int")
         return result
     }
 

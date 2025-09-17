@@ -24,7 +24,7 @@ class CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE extends Win32Struct
 
     /**
      * A fully qualified binary name.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     Name {
         get => NumGet(this, 8, "ptr")

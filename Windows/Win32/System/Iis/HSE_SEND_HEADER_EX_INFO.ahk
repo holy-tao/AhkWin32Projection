@@ -12,7 +12,7 @@ class HSE_SEND_HEADER_EX_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszStatus {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class HSE_SEND_HEADER_EX_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszHeader {
         get => NumGet(this, 8, "ptr")

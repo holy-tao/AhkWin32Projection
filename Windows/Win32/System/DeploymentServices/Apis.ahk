@@ -997,7 +997,7 @@ class DeploymentServices {
 ;@region Methods
     /**
      * Closes a handle to a WDS session or image, and releases resources.
-     * @param {Pointer<HANDLE>} Handle A handle to a WDS session or image. This function can close handles opened with the 
+     * @param {Pointer<Void>} Handle A handle to a WDS session or image. This function can close handles opened with the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclicreatesession">WdsCliCreateSession</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> functions.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
@@ -1023,15 +1023,13 @@ class DeploymentServices {
 
     /**
      * This function can be used to free the array of string values that gets allocated by the WdsCliObtainDriverPackages function.
-     * @param {Pointer<PWSTR>} ppwszArray Pointer to the array of string values being freed.
+     * @param {Pointer<Char>} ppwszArray Pointer to the array of string values being freed.
      * @param {Integer} ulCount Number of strings in the array that is pointed to by <i>ppwszArray</i>.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdsclifreestringarray
      * @since windows6.1
      */
     static WdsCliFreeStringArray(ppwszArray, ulCount) {
-        ppwszArray := ppwszArray is String? StrPtr(ppwszArray) : ppwszArray
-
         result := DllCall("WDSCLIENTAPI.dll\WdsCliFreeStringArray", "ptr", ppwszArray, "uint", ulCount, "int")
         return result
     }
@@ -1043,9 +1041,9 @@ class DeploymentServices {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscliauthorizesession">WdsCliAuthorizeSession</a> function.
      * 
      * The WDS image find handle returned by this function can be used with the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function to enumerate the images stored on the WDS server.
-     * @param {Pointer<HANDLE>} hSession A handle to a session   with a WDS server. This was a handle returned by 
+     * @param {Pointer<Void>} hSession A handle to a session   with a WDS server. This was a handle returned by 
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclicreatesession">WdsCliCreateSession</a> function.
-     * @param {Pointer<HANDLE>} phFindHandle Pointer to a <b>HANDLE</b> value that receives the find handle. If the function succeeds, the find handle will reference the first image stored on the WDS server. If the function is unsuccessful, this parameter is unchanged. Use the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function to advance the reference of the find handle to the next image. 
+     * @param {Pointer<Void>} phFindHandle Pointer to a <b>HANDLE</b> value that receives the find handle. If the function succeeds, the find handle will reference the first image stored on the WDS server. If the function is unsuccessful, this parameter is unchanged. Use the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function to advance the reference of the find handle to the next image. 
      * 
      * <div class="alert"><b>Note</b>  Information about the image can only be obtained from the find handle by using the image information functions of the WDS client API.</div>
      * <div> </div>
@@ -1062,7 +1060,7 @@ class DeploymentServices {
      * Advances the reference of a find handle to the next image stored on a WDS server.
      * @remarks
      * To enumerate all the images on a WDS Server, first get the WDS image find handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function, and then make repeated calls to <b>WdsCliFindNextImage</b> until the function returns <b>HRESULT_FROM_WIN32(ERROR_NO_MORE_FILES)</b>.
-     * @param {Pointer<HANDLE>} Handle The find handle returned by 
+     * @param {Pointer<Void>} Handle The find handle returned by 
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. If the <b>WdsCliFindNextImage</b> function is successful, the reference of the find handle is advanced to the next image stored on the WDS server.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * 
@@ -1077,7 +1075,7 @@ class DeploymentServices {
 
     /**
      * Returns the image enumeration flag for the current image handle.
-     * @param {Pointer<HANDLE>} Handle A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
+     * @param {Pointer<Void>} Handle A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
      * @param {Pointer<UInt32>} pdwFlags A pointer to a value that receives the enumeration flag value.
      * 
      * 
@@ -1107,7 +1105,7 @@ class DeploymentServices {
      * @since windows6.0.6000
      */
     static WdsCliGetEnumerationFlags(Handle, pdwFlags) {
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetEnumerationFlags", "ptr", Handle, "ptr", pdwFlags, "int")
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetEnumerationFlags", "ptr", Handle, "uint*", pdwFlags, "int")
         return result
     }
 
@@ -1115,8 +1113,8 @@ class DeploymentServices {
      * Returns an image handle for the current image in an image enumeration.
      * @remarks
      * Use the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscliclose">WdsCliClose</a> function to close the image handle returned by this function.
-     * @param {Pointer<HANDLE>} FindHandle A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
-     * @param {Pointer<HANDLE>} phImageHandle A pointer to a location that contains an image handle for the current image referenced by the find handle.
+     * @param {Pointer<Void>} FindHandle A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
+     * @param {Pointer<Void>} phImageHandle A pointer to a location that contains an image handle for the current image referenced by the find handle.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimagehandlefromfindhandle
      * @since windows6.0.6000
@@ -1132,8 +1130,8 @@ class DeploymentServices {
      * If the transfer is not yet complete when this function is called, it will return an error code.
      * 
      * Use the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscliclose">WdsCliClose</a> function to close the image handle returned by this function.
-     * @param {Pointer<HANDLE>} hTransfer A WDS transfer handle that has completed the transfer. This can be the handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclitransferimage">WdsCliTransferImage</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclitransferfile">WdsCliTransferFile</a> functions.
-     * @param {Pointer<HANDLE>} phImageHandle A pointer to a location that contains an image handle.
+     * @param {Pointer<Void>} hTransfer A WDS transfer handle that has completed the transfer. This can be the handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclitransferimage">WdsCliTransferImage</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclitransferfile">WdsCliTransferFile</a> functions.
+     * @param {Pointer<Void>} phImageHandle A pointer to a location that contains an image handle.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimagehandlefromtransferhandle
      * @since windows6.0.6000
@@ -1148,10 +1146,10 @@ class DeploymentServices {
      * @remarks
      * To close 
      *       the session and release resources, use the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscliclose">WdsCliClose</a> function.
-     * @param {Pointer<PWSTR>} pwszServer A pointer to a string value that contains the name or IP address of the WDS server.
+     * @param {Pointer<Char>} pwszServer A pointer to a string value that contains the name or IP address of the WDS server.
      * @param {Pointer<WDS_CLI_CRED>} pCred A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/ns-wdsclientapi-wds_cli_cred">WDS_CLI_CRED</a> structure that contains the 
      *       client's credentials. This parameter can be null  for a session without authentication.
-     * @param {Pointer<HANDLE>} phSession A pointer to a handle for the new session. This parameter is unmodified if the function is unsuccessful.
+     * @param {Pointer<Void>} phSession A pointer to a handle for the new session. This parameter is unmodified if the function is unsuccessful.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To get extended error information, call 
@@ -1173,7 +1171,7 @@ class DeploymentServices {
 
     /**
      * Converts a session with a WDS server into an authenticated session.
-     * @param {Pointer<HANDLE>} hSession A handle to a session   with a WDS server. This was a handle returned by 
+     * @param {Pointer<Void>} hSession A handle to a session   with a WDS server. This was a handle returned by 
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclicreatesession">WdsCliCreateSession</a> function.
      * @param {Pointer<WDS_CLI_CRED>} pCred Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/ns-wdsclientapi-wds_cli_cred">WDS_CLI_CRED</a> structure that contains the 
      *       client's credentials.
@@ -1188,11 +1186,11 @@ class DeploymentServices {
 
     /**
      * Initializes logging for the WDS client.
-     * @param {Pointer<HANDLE>} hSession A handle to a session   with a WDS server. This was a handle returned by 
+     * @param {Pointer<Void>} hSession A handle to a session   with a WDS server. This was a handle returned by 
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclicreatesession">WdsCliCreateSession</a> function.
      * @param {Integer} ulClientArchitecture A constant that identifies the processor architecture of the client.
-     * @param {Pointer<PWSTR>} pwszClientId A pointer to a string value that contains a GUID that represents this WDS client. This is typically the GUID for the System Management BIOS (SMBIOS.)
-     * @param {Pointer<PWSTR>} pwszClientAddress A pointer to a string value that contains the network address of the WDS client. This is typically the IP address in string form, for example, 
+     * @param {Pointer<Char>} pwszClientId A pointer to a string value that contains a GUID that represents this WDS client. This is typically the GUID for the System Management BIOS (SMBIOS.)
+     * @param {Pointer<Char>} pwszClientAddress A pointer to a string value that contains the network address of the WDS client. This is typically the IP address in string form, for example, 
      *       "127.0.0.1".
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>. 
      * 
@@ -1211,7 +1209,7 @@ class DeploymentServices {
 
     /**
      * Sends a log event to the WDS server.
-     * @param {Pointer<HANDLE>} hSession A handle to a session   with a WDS server. This was a handle returned by 
+     * @param {Pointer<Void>} hSession A handle to a session   with a WDS server. This was a handle returned by 
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclicreatesession">WdsCliCreateSession</a> function.
      * @param {Integer} ulLogLevel Indicates the threshold severity required to log an event. The WDS server will log events only if the server log level is greater 
      *       than or equal to the value specified.
@@ -1332,16 +1330,14 @@ class DeploymentServices {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscliclose">WdsCliClose</a> function is used to change or close the 
      *       current handle.
-     * @param {Pointer<HANDLE>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
-     * @param {Pointer<PWSTR>} ppwszValue A pointer to a pointer to a 
+     * @param {Pointer<Void>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
+     * @param {Pointer<Char>} ppwszValue A pointer to a pointer to a 
      *       null-terminated string value that contains the name of the current image.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimagename
      * @since windows6.0.6000
      */
     static WdsCliGetImageName(hIfh, ppwszValue) {
-        ppwszValue := ppwszValue is String? StrPtr(ppwszValue) : ppwszValue
-
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageName", "ptr", hIfh, "ptr", ppwszValue, "int")
         return result
     }
@@ -1354,42 +1350,38 @@ class DeploymentServices {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscliclose">WdsCliClose</a> function is used to change or close the 
      *       current handle.
-     * @param {Pointer<HANDLE>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
-     * @param {Pointer<PWSTR>} ppwszValue A pointer to a pointer to a 
+     * @param {Pointer<Void>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
+     * @param {Pointer<Char>} ppwszValue A pointer to a pointer to a 
      *       null-terminated string value that contains a description of the current image.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimagedescription
      * @since windows6.0.6000
      */
     static WdsCliGetImageDescription(hIfh, ppwszValue) {
-        ppwszValue := ppwszValue is String? StrPtr(ppwszValue) : ppwszValue
-
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageDescription", "ptr", hIfh, "ptr", ppwszValue, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hIfh 
+     * @param {Pointer<Void>} hIfh 
      * @param {Pointer<Int32>} pImageType 
      * @returns {Integer} 
      */
     static WdsCliGetImageType(hIfh, pImageType) {
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageType", "ptr", hIfh, "ptr", pImageType, "int")
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageType", "ptr", hIfh, "int*", pImageType, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hIfh 
-     * @param {Pointer<PWSTR>} pppwszFiles 
+     * @param {Pointer<Void>} hIfh 
+     * @param {Pointer<Char>} pppwszFiles 
      * @param {Pointer<UInt32>} pdwCount 
      * @returns {Integer} 
      */
     static WdsCliGetImageFiles(hIfh, pppwszFiles, pdwCount) {
-        pppwszFiles := pppwszFiles is String? StrPtr(pppwszFiles) : pppwszFiles
-
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageFiles", "ptr", hIfh, "ptr", pppwszFiles, "ptr", pdwCount, "int")
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageFiles", "ptr", hIfh, "ptr", pppwszFiles, "uint*", pdwCount, "int")
         return result
     }
 
@@ -1401,16 +1393,14 @@ class DeploymentServices {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscliclose">WdsCliClose</a> function is used to change or close the 
      *       current handle.
-     * @param {Pointer<HANDLE>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
-     * @param {Pointer<PWSTR>} ppwszValue A pointer to a pointer to a 
+     * @param {Pointer<Void>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
+     * @param {Pointer<Char>} ppwszValue A pointer to a pointer to a 
      *       null-terminated string value that contains the default language for the current image.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimagelanguage
      * @since windows6.0.6000
      */
     static WdsCliGetImageLanguage(hIfh, ppwszValue) {
-        ppwszValue := ppwszValue is String? StrPtr(ppwszValue) : ppwszValue
-
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageLanguage", "ptr", hIfh, "ptr", ppwszValue, "int")
         return result
     }
@@ -1423,7 +1413,7 @@ class DeploymentServices {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscliclose">WdsCliClose</a> function is used to change or close the 
      *       current handle.
-     * @param {Pointer<HANDLE>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
+     * @param {Pointer<Void>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
      * @param {Pointer<SByte>} pppszValues A pointer to a pointer to an array of null-terminated string values. Each element in the 
      *       array contains a language of the current 
      *       image.
@@ -1433,7 +1423,7 @@ class DeploymentServices {
      * @since windows6.0.6000
      */
     static WdsCliGetImageLanguages(hIfh, pppszValues, pdwNumValues) {
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageLanguages", "ptr", hIfh, "ptr", pppszValues, "ptr", pdwNumValues, "int")
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageLanguages", "ptr", hIfh, "ptr", pppszValues, "uint*", pdwNumValues, "int")
         return result
     }
 
@@ -1445,15 +1435,13 @@ class DeploymentServices {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscliclose">WdsCliClose</a> function is used to change or close the 
      *       current handle.
-     * @param {Pointer<HANDLE>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
-     * @param {Pointer<PWSTR>} ppwszValue A pointer to a pointer to a null-terminated string value that contains the version of the current version.
+     * @param {Pointer<Void>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
+     * @param {Pointer<Char>} ppwszValue A pointer to a pointer to a null-terminated string value that contains the version of the current version.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimageversion
      * @since windows6.0.6000
      */
     static WdsCliGetImageVersion(hIfh, ppwszValue) {
-        ppwszValue := ppwszValue is String? StrPtr(ppwszValue) : ppwszValue
-
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageVersion", "ptr", hIfh, "ptr", ppwszValue, "int")
         return result
     }
@@ -1469,15 +1457,13 @@ class DeploymentServices {
      * 
      * To obtain the full path to the 
      *       image file, prefix the relative path returned in <i>ppWszValue</i> with "&#92;&#92;<i>Server</i>\\RemInst\".
-     * @param {Pointer<HANDLE>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
-     * @param {Pointer<PWSTR>} ppwszValue A pointer to a pointer to a null-terminated string that contains the relative path of the image file for the current image.
+     * @param {Pointer<Void>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
+     * @param {Pointer<Char>} ppwszValue A pointer to a pointer to a null-terminated string that contains the relative path of the image file for the current image.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimagepath
      * @since windows6.0.6000
      */
     static WdsCliGetImagePath(hIfh, ppwszValue) {
-        ppwszValue := ppwszValue is String? StrPtr(ppwszValue) : ppwszValue
-
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImagePath", "ptr", hIfh, "ptr", ppwszValue, "int")
         return result
     }
@@ -1490,7 +1476,7 @@ class DeploymentServices {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscliclose">WdsCliClose</a> function is used to change or close the 
      *       current handle.
-     * @param {Pointer<HANDLE>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
+     * @param {Pointer<Void>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
      * @param {Pointer<UInt32>} pdwValue A pointer to a 
      *       value that contains the image index for the current image WIM file.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
@@ -1498,7 +1484,7 @@ class DeploymentServices {
      * @since windows6.0.6000
      */
     static WdsCliGetImageIndex(hIfh, pdwValue) {
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageIndex", "ptr", hIfh, "ptr", pdwValue, "int")
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageIndex", "ptr", hIfh, "uint*", pdwValue, "int")
         return result
     }
 
@@ -1510,14 +1496,14 @@ class DeploymentServices {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscliclose">WdsCliClose</a> function is used to change or close the 
      *       current handle.
-     * @param {Pointer<HANDLE>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
+     * @param {Pointer<Void>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
      * @param {Pointer<UInt32>} pdwValue Pointer to a value that describes the processor architecture of the current image.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimagearchitecture
      * @since windows6.0.6000
      */
     static WdsCliGetImageArchitecture(hIfh, pdwValue) {
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageArchitecture", "ptr", hIfh, "ptr", pdwValue, "int")
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageArchitecture", "ptr", hIfh, "uint*", pdwValue, "int")
         return result
     }
 
@@ -1529,7 +1515,7 @@ class DeploymentServices {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscliclose">WdsCliClose</a> function is used to change or close the 
      *       current handle.
-     * @param {Pointer<HANDLE>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
+     * @param {Pointer<Void>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
      * @param {Pointer<SYSTEMTIME>} ppSysTimeValue A pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that contains the last-modified time of the current image.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimagelastmodifiedtime
@@ -1548,14 +1534,14 @@ class DeploymentServices {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscliclose">WdsCliClose</a> function is used to change or close the 
      *       current handle.
-     * @param {Pointer<HANDLE>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
+     * @param {Pointer<Void>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
      * @param {Pointer<UInt64>} pullValue A pointer to a value that contains the size of the current image.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimagesize
      * @since windows6.0.6000
      */
     static WdsCliGetImageSize(hIfh, pullValue) {
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageSize", "ptr", hIfh, "ptr", pullValue, "int")
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageSize", "ptr", hIfh, "uint*", pullValue, "int")
         return result
     }
 
@@ -1567,16 +1553,14 @@ class DeploymentServices {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscliclose">WdsCliClose</a> function is used to change or close the 
      *       current handle.
-     * @param {Pointer<HANDLE>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
-     * @param {Pointer<PWSTR>} ppwszValue A pointer to a pointer to  a 
+     * @param {Pointer<Void>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
+     * @param {Pointer<Char>} ppwszValue A pointer to a pointer to  a 
      *       null-terminated string value that contains the HAL name for the current image.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimagehalname
      * @since windows6.0.6000
      */
     static WdsCliGetImageHalName(hIfh, ppwszValue) {
-        ppwszValue := ppwszValue is String? StrPtr(ppwszValue) : ppwszValue
-
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageHalName", "ptr", hIfh, "ptr", ppwszValue, "int")
         return result
     }
@@ -1589,16 +1573,14 @@ class DeploymentServices {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscliclose">WdsCliClose</a> function is used to change or close the 
      *       current handle.
-     * @param {Pointer<HANDLE>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
-     * @param {Pointer<PWSTR>} ppwszValue A pointer to a 
+     * @param {Pointer<Void>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
+     * @param {Pointer<Char>} ppwszValue A pointer to a 
      *       null-terminated string value that contains the name of the image group for the current image.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimagegroup
      * @since windows6.0.6000
      */
     static WdsCliGetImageGroup(hIfh, ppwszValue) {
-        ppwszValue := ppwszValue is String? StrPtr(ppwszValue) : ppwszValue
-
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageGroup", "ptr", hIfh, "ptr", ppwszValue, "int")
         return result
     }
@@ -1611,25 +1593,23 @@ class DeploymentServices {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscliclose">WdsCliClose</a> function is used to change or close the 
      *       current handle.
-     * @param {Pointer<HANDLE>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
-     * @param {Pointer<PWSTR>} ppwszValue A pointer to a pointer to a 
+     * @param {Pointer<Void>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
+     * @param {Pointer<Char>} ppwszValue A pointer to a pointer to a 
      *       null-terminated string value that contains the namespace of the current image. If there is no namespace associated with this image, this returns null or an empty string.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimagenamespace
      * @since windows6.0.6000
      */
     static WdsCliGetImageNamespace(hIfh, ppwszValue) {
-        ppwszValue := ppwszValue is String? StrPtr(ppwszValue) : ppwszValue
-
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageNamespace", "ptr", hIfh, "ptr", ppwszValue, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hIfh 
+     * @param {Pointer<Void>} hIfh 
      * @param {Integer} ParamType 
-     * @param {Pointer<Void>} pResponse 
+     * @param {Pointer} pResponse 
      * @param {Integer} uResponseLen 
      * @returns {Integer} 
      */
@@ -1646,32 +1626,33 @@ class DeploymentServices {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscliclose">WdsCliClose</a> function is used to change or close the 
      *       current handle.
-     * @param {Pointer<HANDLE>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
+     * @param {Pointer<Void>} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
      * @param {Pointer<UInt64>} pullValue A pointer to a value that contains the size of the current transfer.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligettransfersize
      * @since windows6.0.6000
      */
     static WdsCliGetTransferSize(hIfh, pullValue) {
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetTransferSize", "ptr", hIfh, "ptr", pullValue, "int")
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetTransferSize", "ptr", hIfh, "uint*", pullValue, "int")
         return result
     }
 
     /**
      * 
      * @param {Integer} ulSizeInBytes 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static WdsCliSetTransferBufferSize(ulSizeInBytes) {
-        DllCall("WDSCLIENTAPI.dll\WdsCliSetTransferBufferSize", "uint", ulSizeInBytes)
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliSetTransferBufferSize", "uint", ulSizeInBytes)
+        return result
     }
 
     /**
      * Transfers an image from a WDS server to the WDS client.
      * @remarks
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscliclose">WdsCliClose</a> function to close the handle returned by this function.
-     * @param {Pointer<HANDLE>} hImage A WDS image handle that refers to a remote image.
-     * @param {Pointer<PWSTR>} pwszLocalPath A pointer to a null-terminated string value that contains the full path to the local location to store the image file being transferred.
+     * @param {Pointer<Void>} hImage A WDS image handle that refers to a remote image.
+     * @param {Pointer<Char>} pwszLocalPath A pointer to a null-terminated string value that contains the full path to the local location to store the image file being transferred.
      * @param {Integer} dwFlags Options associated with the file transfer.
      * 
      * <table>
@@ -1693,7 +1674,7 @@ class DeploymentServices {
      * @param {Integer} dwReserved This parameter is reserved.
      * @param {Pointer<PFN_WdsCliCallback>} pfnWdsCliCallback A pointer to an optional callback function that will receive callbacks for this transfer.
      * @param {Pointer<Void>} pvUserData A pointer to optional user information that can be passed to the callback function.
-     * @param {Pointer<HANDLE>} phTransfer A pointer to a transfer handle that can be used with the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscliwaitfortransfer">WdsCliWaitForTransfer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclicanceltransfer">WdsCliCancelTransfer</a> functions to wait for the transfer to complete or to cancel the transfer.
+     * @param {Pointer<Void>} phTransfer A pointer to a transfer handle that can be used with the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscliwaitfortransfer">WdsCliWaitForTransfer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclicanceltransfer">WdsCliCancelTransfer</a> functions to wait for the transfer to complete or to cancel the transfer.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdsclitransferimage
      * @since windows6.0.6000
@@ -1709,10 +1690,10 @@ class DeploymentServices {
      * Transfers a file from a WDS server to the WDS client using a multicast transfer protocol.
      * @remarks
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscliclose">WdsCliClose</a> function to close the handle returned by this function.
-     * @param {Pointer<PWSTR>} pwszServer A pointer to a null-terminated string value that contains the  WDS server name.
-     * @param {Pointer<PWSTR>} pwszNamespace A pointer to a null-terminated string value that contains the multicast namespace name for the image.
-     * @param {Pointer<PWSTR>} pwszRemoteFilePath A pointer to a null-terminated string value that contains the  full path for the remote location from which to copy the file being transferred.
-     * @param {Pointer<PWSTR>} pwszLocalFilePath A pointer to a null-terminated string value that contains the full path to the local location to store the file being transferred.
+     * @param {Pointer<Char>} pwszServer A pointer to a null-terminated string value that contains the  WDS server name.
+     * @param {Pointer<Char>} pwszNamespace A pointer to a null-terminated string value that contains the multicast namespace name for the image.
+     * @param {Pointer<Char>} pwszRemoteFilePath A pointer to a null-terminated string value that contains the  full path for the remote location from which to copy the file being transferred.
+     * @param {Pointer<Char>} pwszLocalFilePath A pointer to a null-terminated string value that contains the full path to the local location to store the file being transferred.
      * @param {Integer} dwFlags Options associated with the file transfer. 
      * 
      * <table>
@@ -1734,7 +1715,7 @@ class DeploymentServices {
      * @param {Integer} dwReserved This parameter is reserved.
      * @param {Pointer<PFN_WdsCliCallback>} pfnWdsCliCallback A pointer to an optional callback function for this transfer.
      * @param {Pointer<Void>} pvUserData A pointer to optional user information that can be passed to the callback function.
-     * @param {Pointer<HANDLE>} phTransfer A pointer to a transfer handle that can be used with the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscliwaitfortransfer">WdsCliWaitForTransfer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclicanceltransfer">WdsCliCancelTransfer</a> functions to wait for the transfer to complete or to cancel the transfer.
+     * @param {Pointer<Void>} phTransfer A pointer to a transfer handle that can be used with the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscliwaitfortransfer">WdsCliWaitForTransfer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclicanceltransfer">WdsCliCancelTransfer</a> functions to wait for the transfer to complete or to cancel the transfer.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdsclitransferfile
      * @since windows6.0.6000
@@ -1753,7 +1734,7 @@ class DeploymentServices {
      * Cancels a WDS transfer operation.
      * @remarks
      * This function can be called from a callback function.
-     * @param {Pointer<HANDLE>} hTransfer A handle for the WDS transfer operation being canceled. This can be the handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclitransferimage">WdsCliTransferImage</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclitransferfile">WdsCliTransferFile</a> functions.
+     * @param {Pointer<Void>} hTransfer A handle for the WDS transfer operation being canceled. This can be the handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclitransferimage">WdsCliTransferImage</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclitransferfile">WdsCliTransferFile</a> functions.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdsclicanceltransfer
      * @since windows6.0.6000
@@ -1767,7 +1748,7 @@ class DeploymentServices {
      * Waits for an image or file transfer to complete.
      * @remarks
      * Calling this function from a callback function is not recommended.
-     * @param {Pointer<HANDLE>} hTransfer A WDS transfer handle for the transfer being canceled. This can be the handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclitransferimage">WdsCliTransferImage</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclitransferfile">WdsCliTransferFile</a> functions.
+     * @param {Pointer<Void>} hTransfer A WDS transfer handle for the transfer being canceled. This can be the handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclitransferimage">WdsCliTransferImage</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclitransferfile">WdsCliTransferFile</a> functions.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscliwaitfortransfer
      * @since windows6.0.6000
@@ -1779,9 +1760,9 @@ class DeploymentServices {
 
     /**
      * This function obtains from a WDS image, the driver packages (INF files) that can be used on this computer.
-     * @param {Pointer<HANDLE>} hImage A handle to a WDS image.
-     * @param {Pointer<PWSTR>} ppwszServerName A pointer to a pointer to a string value that receives the IP address of the server hosting the driver packages.
-     * @param {Pointer<PWSTR>} pppwszDriverPackages An array of string values that are the full paths for the driver packages (INF files.) The Internet Protocol (IP) address, rather than a computer name, is returned as part of the path.  For example, a string value <b>\\172.31.224.245\REMINST\Stores\Drivers\driver.inf</b> in the array gives the full path to driver.inf.
+     * @param {Pointer<Void>} hImage A handle to a WDS image.
+     * @param {Pointer<Char>} ppwszServerName A pointer to a pointer to a string value that receives the IP address of the server hosting the driver packages.
+     * @param {Pointer<Char>} pppwszDriverPackages An array of string values that are the full paths for the driver packages (INF files.) The Internet Protocol (IP) address, rather than a computer name, is returned as part of the path.  For example, a string value <b>\\172.31.224.245\REMINST\Stores\Drivers\driver.inf</b> in the array gives the full path to driver.inf.
      * 
      * <div class="code"></div>
      * @param {Pointer<UInt32>} pulCount The number of driver packages returned by <i>pppwszDriverPackages</i>.
@@ -1790,19 +1771,16 @@ class DeploymentServices {
      * @since windows6.1
      */
     static WdsCliObtainDriverPackages(hImage, ppwszServerName, pppwszDriverPackages, pulCount) {
-        ppwszServerName := ppwszServerName is String? StrPtr(ppwszServerName) : ppwszServerName
-        pppwszDriverPackages := pppwszDriverPackages is String? StrPtr(pppwszDriverPackages) : pppwszDriverPackages
-
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliObtainDriverPackages", "ptr", hImage, "ptr", ppwszServerName, "ptr", pppwszDriverPackages, "ptr", pulCount, "int")
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliObtainDriverPackages", "ptr", hImage, "ptr", ppwszServerName, "ptr", pppwszDriverPackages, "uint*", pulCount, "int")
         return result
     }
 
     /**
      * This function obtains the driver packages (INF files) that are applicable to the specified WDS driver query XML.
-     * @param {Pointer<HANDLE>} hSession A handle to a session with the WDS server. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclicreatesession">WdsCliCreateSession</a> function.
-     * @param {Pointer<PWSTR>} pwszMachineInfo A pointer to a string containing WDS driver query XML which can be generated by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscligetdriverqueryxml">WdsCliGetDriverQueryXml</a> function.
-     * @param {Pointer<PWSTR>} ppwszServerName A pointer to a pointer to a string value that receives the IP address of the server hosting the driver packages.
-     * @param {Pointer<PWSTR>} pppwszDriverPackages An array of string values that are the full paths for the driver packages (INF files.) The Internet Protocol (IP) address, rather than a computer name, is returned as part of the path.  For example, a string value <b>\\172.31.224.245\REMINST\Stores\Drivers\driver.inf</b> in the array gives the full path to driver.inf.
+     * @param {Pointer<Void>} hSession A handle to a session with the WDS server. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclicreatesession">WdsCliCreateSession</a> function.
+     * @param {Pointer<Char>} pwszMachineInfo A pointer to a string containing WDS driver query XML which can be generated by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscligetdriverqueryxml">WdsCliGetDriverQueryXml</a> function.
+     * @param {Pointer<Char>} ppwszServerName A pointer to a pointer to a string value that receives the IP address of the server hosting the driver packages.
+     * @param {Pointer<Char>} pppwszDriverPackages An array of string values that are the full paths for the driver packages (INF files.) The Internet Protocol (IP) address, rather than a computer name, is returned as part of the path.  For example, a string value <b>\\172.31.224.245\REMINST\Stores\Drivers\driver.inf</b> in the array gives the full path to driver.inf.
      * @param {Pointer<UInt32>} pulCount The number of driver packages returned by pppwszDriverPackages.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscliobtaindriverpackagesex
@@ -1810,24 +1788,21 @@ class DeploymentServices {
      */
     static WdsCliObtainDriverPackagesEx(hSession, pwszMachineInfo, ppwszServerName, pppwszDriverPackages, pulCount) {
         pwszMachineInfo := pwszMachineInfo is String? StrPtr(pwszMachineInfo) : pwszMachineInfo
-        ppwszServerName := ppwszServerName is String? StrPtr(ppwszServerName) : ppwszServerName
-        pppwszDriverPackages := pppwszDriverPackages is String? StrPtr(pppwszDriverPackages) : pppwszDriverPackages
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliObtainDriverPackagesEx", "ptr", hSession, "ptr", pwszMachineInfo, "ptr", ppwszServerName, "ptr", pppwszDriverPackages, "ptr", pulCount, "int")
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliObtainDriverPackagesEx", "ptr", hSession, "ptr", pwszMachineInfo, "ptr", ppwszServerName, "ptr", pppwszDriverPackages, "uint*", pulCount, "int")
         return result
     }
 
     /**
      * This function generates an XML string which can be used to query a WDS server for driver packages using the WdsCliObtainDriverPackagesEx function.
-     * @param {Pointer<PWSTR>} pwszWinDirPath The path to the Windows directory of the applied image. This parameter is optional. If it is specified,  the section of the WDS driver query XML  for the target operating system is generated.
-     * @param {Pointer<PWSTR>} ppwszDriverQuery A pointer to a pointer to a string that receives the generated WDS driver query XML. The caller has to free this buffer using "delete\[\]\(\*ppwszDriverQuery\)".
+     * @param {Pointer<Char>} pwszWinDirPath The path to the Windows directory of the applied image. This parameter is optional. If it is specified,  the section of the WDS driver query XML  for the target operating system is generated.
+     * @param {Pointer<Char>} ppwszDriverQuery A pointer to a pointer to a string that receives the generated WDS driver query XML. The caller has to free this buffer using "delete\[\]\(\*ppwszDriverQuery\)".
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetdriverqueryxml
      * @since windows8.0
      */
     static WdsCliGetDriverQueryXml(pwszWinDirPath, ppwszDriverQuery) {
         pwszWinDirPath := pwszWinDirPath is String? StrPtr(pwszWinDirPath) : pwszWinDirPath
-        ppwszDriverQuery := ppwszDriverQuery is String? StrPtr(ppwszDriverQuery) : ppwszDriverQuery
 
         result := DllCall("WDSCLIENTAPI.dll\WdsCliGetDriverQueryXml", "ptr", pwszWinDirPath, "ptr", ppwszDriverQuery, "int")
         return result
@@ -1835,9 +1810,9 @@ class DeploymentServices {
 
     /**
      * Registers a provider with the system.
-     * @param {Pointer<PWSTR>} pszProviderName Address of a null terminated string that specifies the display name of the provider. This name is 
+     * @param {Pointer<Char>} pszProviderName Address of a null terminated string that specifies the display name of the provider. This name is 
      *       displayed to the user and must be unique among registered providers.
-     * @param {Pointer<PWSTR>} pszModulePath Address of a null-terminated string that specifies the full path to the provider DLL.
+     * @param {Pointer<Char>} pszModulePath Address of a null-terminated string that specifies the full path to the provider DLL.
      * @param {Integer} Index Index into the list of providers. Any existing providers are shifted down if necessary. The administrator 
      *       can rearrange the providers as needed, so no assumptions should be made about the order of providers.
      * 
@@ -1871,7 +1846,7 @@ class DeploymentServices {
      * </table>
      * @param {Integer} bIsCritical Indicates whether the provider is critical. If a critical provider fails, the WDS server will also 
      *       fail.
-     * @param {Pointer<HKEY>} phProviderKey Address of a <b>HKEY</b> where the configuration should be stored. The provider will 
+     * @param {Pointer<Void>} phProviderKey Address of a <b>HKEY</b> where the configuration should be stored. The provider will 
      *       receive a handle to this same key as the <i>hProviderKey</i> parameter to its 
      *       <a href="https://docs.microsoft.com/windows/desktop/Wds/pxeproviderinitialize">PxeProviderInitialize</a> callback.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
@@ -1888,7 +1863,7 @@ class DeploymentServices {
 
     /**
      * Removes a provider from the list of registered providers.
-     * @param {Pointer<PWSTR>} pszProviderName Display name for provider from the call to the 
+     * @param {Pointer<Char>} pszProviderName Display name for provider from the call to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxeproviderregister">PxeProviderRegister</a> function.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdspxe/nf-wdspxe-pxeproviderunregister
@@ -1907,7 +1882,7 @@ class DeploymentServices {
      * If a provider wants to insert itself in the list of registered providers in a specific order (that is, wants to 
      *     service client requests before or after a certain provider), it can query the index of another provider and then use 
      *     the returned index to decide its own location.
-     * @param {Pointer<PWSTR>} pszProviderName Friendly name for the provider from the call to the 
+     * @param {Pointer<Char>} pszProviderName Friendly name for the provider from the call to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxeproviderregister">PxeProviderRegister</a> function.
      * @param {Pointer<UInt32>} puIndex Address of a <b>ULONG</b> that will receive the index of the provider.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
@@ -1917,13 +1892,13 @@ class DeploymentServices {
     static PxeProviderQueryIndex(pszProviderName, puIndex) {
         pszProviderName := pszProviderName is String? StrPtr(pszProviderName) : pszProviderName
 
-        result := DllCall("WDSPXE.dll\PxeProviderQueryIndex", "ptr", pszProviderName, "ptr", puIndex, "uint")
+        result := DllCall("WDSPXE.dll\PxeProviderQueryIndex", "ptr", pszProviderName, "uint*", puIndex, "uint")
         return result
     }
 
     /**
      * Starts an enumeration of registered providers.
-     * @param {Pointer<HANDLE>} phEnum Address of a <b>HANDLE</b> that on successful return can be used with the 
+     * @param {Pointer<Void>} phEnum Address of a <b>HANDLE</b> that on successful return can be used with the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxeproviderenumnext">PxeProviderEnumNext</a> function to enumerate 
      *       providers. When the enumeration handle is no longer needed, use the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxeproviderenumclose">PxeProviderEnumClose</a> function to close the 
@@ -1939,7 +1914,7 @@ class DeploymentServices {
 
     /**
      * Enumerates registered providers.
-     * @param {Pointer<HANDLE>} hEnum <b>HANDLE</b> returned by the 
+     * @param {Pointer<Void>} hEnum <b>HANDLE</b> returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxeproviderenumfirst">PxeProviderEnumFirst</a> function.
      * @param {Pointer<PXE_PROVIDER>} ppProvider Address of a <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/ns-wdspxe-pxe_provider">PXE_PROVIDER</a> structure with the 
      *       <b>uSizeOfStruct</b> member filled in with the size of the structure. On return this 
@@ -1956,7 +1931,7 @@ class DeploymentServices {
 
     /**
      * Closes the enumeration of providers opened by the PxeProviderEnumFirst function.
-     * @param {Pointer<HANDLE>} hEnum <b>HANDLE</b> returned by the 
+     * @param {Pointer<Void>} hEnum <b>HANDLE</b> returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxeproviderenumfirst">PxeProviderEnumFirst</a> function.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdspxe/nf-wdspxe-pxeproviderenumclose
@@ -1982,7 +1957,7 @@ class DeploymentServices {
 
     /**
      * Registers callback functions for different notification events.
-     * @param {Pointer<HANDLE>} hProvider <b>HANDLE</b> passed to the 
+     * @param {Pointer<Void>} hProvider <b>HANDLE</b> passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/Wds/pxeproviderinitialize">PxeProviderInitialize</a> function.
      * @param {Integer} CallbackType Specifies the callback that is being registered.
      * 
@@ -2058,9 +2033,9 @@ class DeploymentServices {
 
     /**
      * Sends a packet to a client request.
-     * @param {Pointer<HANDLE>} hClientRequest Handle to the client request received in the 
+     * @param {Pointer<Void>} hClientRequest Handle to the client request received in the 
      *       <a href="https://docs.microsoft.com/windows/desktop/Wds/pxeproviderrecvrequest">PxeProviderRecvRequest</a> callback.
-     * @param {Pointer<Void>} pPacket Pointer to packet allocated by the 
+     * @param {Pointer} pPacket Pointer to packet allocated by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxepacketallocate">PxePacketAllocate</a> function.
      * @param {Integer} uPacketLen Length of the packet pointed to by the <i>pPacket</i> parameter.
      * @param {Pointer<PXE_ADDRESS>} pAddress Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/ns-wdspxe-pxe_address">PXE_ADDRESS</a> structure that contains the 
@@ -2077,7 +2052,7 @@ class DeploymentServices {
 
     /**
      * Passes the results of processing the client request asynchronously. This function should be called only if the PxeProviderRecvRequest function returns ERROR_IO_PENDING.
-     * @param {Pointer<HANDLE>} hClientRequest Handle to the request received from the client.
+     * @param {Pointer<Void>} hClientRequest Handle to the request received from the client.
      * @param {Integer} Action Specifies the action that the system should take for this client request. The following table lists the 
      *       possible values.
      * 
@@ -2151,7 +2126,7 @@ class DeploymentServices {
 
     /**
      * Adds a trace entry to the PXE log.
-     * @param {Pointer<HANDLE>} hProvider <b>HANDLE</b> passed to the 
+     * @param {Pointer<Void>} hProvider <b>HANDLE</b> passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/Wds/pxeproviderinitialize">PxeProviderInitialize</a> function.
      * @param {Integer} Severity Severity of trace entry.
      * 
@@ -2216,7 +2191,7 @@ class DeploymentServices {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PWSTR>} pszFormat Address of a buffer that contains a printf-style format string.
+     * @param {Pointer<Char>} pszFormat Address of a buffer that contains a printf-style format string.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdspxe/nf-wdspxe-pxetrace
      * @since windowsserver2008
@@ -2230,44 +2205,46 @@ class DeploymentServices {
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hProvider 
+     * @param {Pointer<Void>} hProvider 
      * @param {Integer} Severity 
-     * @param {Pointer<PWSTR>} pszFormat 
+     * @param {Pointer<Char>} pszFormat 
      * @param {Pointer<SByte>} Params 
      * @returns {Integer} 
      */
     static PxeTraceV(hProvider, Severity, pszFormat, Params) {
         pszFormat := pszFormat is String? StrPtr(pszFormat) : pszFormat
 
-        result := DllCall("WDSPXE.dll\PxeTraceV", "ptr", hProvider, "uint", Severity, "ptr", pszFormat, "ptr", Params, "uint")
+        result := DllCall("WDSPXE.dll\PxeTraceV", "ptr", hProvider, "uint", Severity, "ptr", pszFormat, "char*", Params, "uint")
         return result
     }
 
     /**
      * Allocates a packet to be sent with the PxeSendReply function.
-     * @param {Pointer<HANDLE>} hProvider <b>HANDLE</b> passed to the 
+     * @param {Pointer<Void>} hProvider <b>HANDLE</b> passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/Wds/pxeproviderinitialize">PxeProviderInitialize</a> function.
-     * @param {Pointer<HANDLE>} hClientRequest Handle to the client request received in the 
+     * @param {Pointer<Void>} hClientRequest Handle to the client request received in the 
      *       <a href="https://docs.microsoft.com/windows/desktop/Wds/pxeproviderrecvrequest">PxeProviderRecvRequest</a> callback.
      * @param {Integer} uSize Size of the buffer to be allocated.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} Address of allocated buffer, or <b>NULL</b> if the allocation failed. For extended error 
+     *       information, use the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * @see https://learn.microsoft.com/windows/win32/api/wdspxe/nf-wdspxe-pxepacketallocate
      * @since windowsserver2008
      */
     static PxePacketAllocate(hProvider, hClientRequest, uSize) {
         A_LastError := 0
 
-        DllCall("WDSPXE.dll\PxePacketAllocate", "ptr", hProvider, "ptr", hClientRequest, "uint", uSize)
+        result := DllCall("WDSPXE.dll\PxePacketAllocate", "ptr", hProvider, "ptr", hClientRequest, "uint", uSize)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
      * Frees a packet allocated by the PxePacketAllocate function.
-     * @param {Pointer<HANDLE>} hProvider <b>HANDLE</b> passed to the 
+     * @param {Pointer<Void>} hProvider <b>HANDLE</b> passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/Wds/pxeproviderinitialize">PxeProviderInitialize</a> function.
-     * @param {Pointer<HANDLE>} hClientRequest Handle to the client request received in the 
+     * @param {Pointer<Void>} hClientRequest Handle to the client request received in the 
      *       <a href="https://docs.microsoft.com/windows/desktop/Wds/pxeproviderrecvrequest">PxeProviderRecvRequest</a> callback.
      * @param {Pointer<Void>} pPacket Pointer to packet allocated by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxepacketallocate">PxePacketAllocate</a> function.
@@ -2282,7 +2259,7 @@ class DeploymentServices {
 
     /**
      * Specifies attributes for the provider.
-     * @param {Pointer<HANDLE>} hProvider <b>HANDLE</b> passed to 
+     * @param {Pointer<Void>} hProvider <b>HANDLE</b> passed to 
      *       the <a href="https://docs.microsoft.com/windows/desktop/Wds/pxeproviderinitialize">PxeProviderInitialize</a> function.
      * @param {Integer} Attribute Identifies the attribute to set.
      * 
@@ -2325,7 +2302,7 @@ class DeploymentServices {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} pParameterBuffer Pointer to a buffer. The size and contents of this buffer vary depending on the value of the 
+     * @param {Pointer} pParameterBuffer Pointer to a buffer. The size and contents of this buffer vary depending on the value of the 
      *       <i>Attribute</i> parameter.
      * @param {Integer} uParamLen The size of the buffer pointed to by the <i>pParameterBuffer</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
@@ -2396,10 +2373,10 @@ class DeploymentServices {
      *  
      * 
      * All other fields are initialized to zero.
-     * @param {Pointer<Void>} pRecvPacket Address of a valid DHCP packet received from the client in the 
+     * @param {Pointer} pRecvPacket Address of a valid DHCP packet received from the client in the 
      *       <a href="https://docs.microsoft.com/windows/desktop/Wds/pxeproviderrecvrequest">PxeProviderRecvRequest</a> callback.
      * @param {Integer} uRecvPacketLen Length of the packet pointed to by the <i>pRecvPacket</i> parameter.
-     * @param {Pointer<Void>} pReplyPacket Pointer to a reply packet allocated with 
+     * @param {Pointer} pReplyPacket Pointer to a reply packet allocated with 
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxepacketallocate">PxePacketAllocate</a> function.
      * @param {Integer} uMaxReplyPacketLen Allocated length of the packet pointed to by the <i>pReplyPacket</i> parameter.
      * @param {Pointer<UInt32>} puReplyPacketLen Address of a <b>ULONG</b> that on successful completion will receive the length of 
@@ -2409,16 +2386,16 @@ class DeploymentServices {
      * @since windowsserver2008
      */
     static PxeDhcpInitialize(pRecvPacket, uRecvPacketLen, pReplyPacket, uMaxReplyPacketLen, puReplyPacketLen) {
-        result := DllCall("WDSPXE.dll\PxeDhcpInitialize", "ptr", pRecvPacket, "uint", uRecvPacketLen, "ptr", pReplyPacket, "uint", uMaxReplyPacketLen, "ptr", puReplyPacketLen, "uint")
+        result := DllCall("WDSPXE.dll\PxeDhcpInitialize", "ptr", pRecvPacket, "uint", uRecvPacketLen, "ptr", pReplyPacket, "uint", uMaxReplyPacketLen, "uint*", puReplyPacketLen, "uint")
         return result
     }
 
     /**
      * Initializes a response packet as a DHCPv6 reply packet.
-     * @param {Pointer<Void>} pRequest Address of a valid DHCPv6 packet received from the client in the 
+     * @param {Pointer} pRequest Address of a valid DHCPv6 packet received from the client in the 
      *       <a href="https://docs.microsoft.com/windows/desktop/Wds/pxeproviderrecvrequest">PxeProviderRecvRequest</a> callback.
      * @param {Integer} cbRequest Length of the packet pointed to by the <i>pRequest</i> parameter.
-     * @param {Pointer<Void>} pReply Pointer to a reply packet allocated with 
+     * @param {Pointer} pReply Pointer to a reply packet allocated with 
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxepacketallocate">PxePacketAllocate</a> function.
      * @param {Integer} cbReply Allocated length of the packet pointed to by the <i>pReply</i> parameter.
      * @param {Pointer<UInt32>} pcbReplyUsed Address of a <b>ULONG</b> that on successful completion will receive the length of 
@@ -2428,13 +2405,13 @@ class DeploymentServices {
      * @since windows8.0
      */
     static PxeDhcpv6Initialize(pRequest, cbRequest, pReply, cbReply, pcbReplyUsed) {
-        result := DllCall("WDSPXE.dll\PxeDhcpv6Initialize", "ptr", pRequest, "uint", cbRequest, "ptr", pReply, "uint", cbReply, "ptr", pcbReplyUsed, "uint")
+        result := DllCall("WDSPXE.dll\PxeDhcpv6Initialize", "ptr", pRequest, "uint", cbRequest, "ptr", pReply, "uint", cbReply, "uint*", pcbReplyUsed, "uint")
         return result
     }
 
     /**
      * Appends a DHCP option to the reply packet. (PxeDhcpAppendOption)
-     * @param {Pointer<Void>} pReplyPacket Pointer to a reply packet allocated with the 
+     * @param {Pointer} pReplyPacket Pointer to a reply packet allocated with the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxepacketallocate">PxePacketAllocate</a> function.
      * @param {Integer} uMaxReplyPacketLen Allocated length of the packet pointed to by the <i>pReplyPacket</i> parameter.
      * @param {Pointer<UInt32>} puReplyPacketLen Address of a <b>ULONG</b> that on successful completion will receive the length of 
@@ -2442,61 +2419,61 @@ class DeploymentServices {
      * @param {Integer} bOption DHCP option to add to the packet.
      * @param {Integer} bOptionLen Length of the option value pointed to by the <i>pValue</i> parameter. This parameter is 
      *       ignored if the <i>bOption</i> parameter is End Option (0xFF) or Pad Option (0x00).
-     * @param {Pointer<Void>} pValue Address of the buffer that contains the DHCP option value. This parameter is ignored if the 
+     * @param {Pointer} pValue Address of the buffer that contains the DHCP option value. This parameter is ignored if the 
      *       <i>bOption</i> parameter is End Option (0xFF) or Pad Option (0x00).
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdspxe/nf-wdspxe-pxedhcpappendoption
      * @since windowsserver2008
      */
     static PxeDhcpAppendOption(pReplyPacket, uMaxReplyPacketLen, puReplyPacketLen, bOption, bOptionLen, pValue) {
-        result := DllCall("WDSPXE.dll\PxeDhcpAppendOption", "ptr", pReplyPacket, "uint", uMaxReplyPacketLen, "ptr", puReplyPacketLen, "char", bOption, "char", bOptionLen, "ptr", pValue, "uint")
+        result := DllCall("WDSPXE.dll\PxeDhcpAppendOption", "ptr", pReplyPacket, "uint", uMaxReplyPacketLen, "uint*", puReplyPacketLen, "char", bOption, "char", bOptionLen, "ptr", pValue, "uint")
         return result
     }
 
     /**
      * Appends a DHCPv6 option to the reply packet. (PxeDhcpv6AppendOption)
-     * @param {Pointer<Void>} pReply Pointer to a reply packet allocated with the 
+     * @param {Pointer} pReply Pointer to a reply packet allocated with the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxepacketallocate">PxePacketAllocate</a> function.
      * @param {Integer} cbReply The total size in bytes allocated for the buffer that is pointed to by <i>pReply</i>.
      * @param {Pointer<UInt32>} pcbReplyUsed On entry, this is the number of bytes of the buffer pointed to by <i>pReply</i> that are currently used.  On success of the function, this is updated to the number of bytes used after appending the option.
      * @param {Integer} wOptionType DHCPv6 option to add to the packet.
      * @param {Integer} cbOption Length of the option value pointed to by the <i>pOption</i> parameter.
-     * @param {Pointer<Void>} pOption Address of the buffer that contains the DHCPv6 option value.
+     * @param {Pointer} pOption Address of the buffer that contains the DHCPv6 option value.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdspxe/nf-wdspxe-pxedhcpv6appendoption
      * @since windows8.0
      */
     static PxeDhcpv6AppendOption(pReply, cbReply, pcbReplyUsed, wOptionType, cbOption, pOption) {
-        result := DllCall("WDSPXE.dll\PxeDhcpv6AppendOption", "ptr", pReply, "uint", cbReply, "ptr", pcbReplyUsed, "ushort", wOptionType, "ushort", cbOption, "ptr", pOption, "uint")
+        result := DllCall("WDSPXE.dll\PxeDhcpv6AppendOption", "ptr", pReply, "uint", cbReply, "uint*", pcbReplyUsed, "ushort", wOptionType, "ushort", cbOption, "ptr", pOption, "uint")
         return result
     }
 
     /**
      * Appends a DHCP option to the reply packet. (PxeDhcpAppendOptionRaw)
-     * @param {Pointer<Void>} pReplyPacket Pointer to a reply packet allocated with the 
+     * @param {Pointer} pReplyPacket Pointer to a reply packet allocated with the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxepacketallocate">PxePacketAllocate</a> function.
      * @param {Integer} uMaxReplyPacketLen Allocated length of the packet pointed to by the <i>pReplyPacket</i> parameter.
      * @param {Pointer<UInt32>} puReplyPacketLen Address of a <b>ULONG</b> that on successful completion will receive the length of 
      *       the packet pointed to by the <i>pReplyPacket</i> parameter.
      * @param {Integer} uBufferLen Length of the option value pointed to by the <i>pBuffer</i> parameter.
-     * @param {Pointer<Void>} pBuffer Address of the buffer that contains the DHCP option value.
+     * @param {Pointer} pBuffer Address of the buffer that contains the DHCP option value.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdspxe/nf-wdspxe-pxedhcpappendoptionraw
      * @since windowsserver2008
      */
     static PxeDhcpAppendOptionRaw(pReplyPacket, uMaxReplyPacketLen, puReplyPacketLen, uBufferLen, pBuffer) {
-        result := DllCall("WDSPXE.dll\PxeDhcpAppendOptionRaw", "ptr", pReplyPacket, "uint", uMaxReplyPacketLen, "ptr", puReplyPacketLen, "ushort", uBufferLen, "ptr", pBuffer, "uint")
+        result := DllCall("WDSPXE.dll\PxeDhcpAppendOptionRaw", "ptr", pReplyPacket, "uint", uMaxReplyPacketLen, "uint*", puReplyPacketLen, "ushort", uBufferLen, "ptr", pBuffer, "uint")
         return result
     }
 
     /**
      * Appends a DHCPv6 option to the reply packet. (PxeDhcpv6AppendOptionRaw)
-     * @param {Pointer<Void>} pReply Pointer to a reply packet allocated with the 
+     * @param {Pointer} pReply Pointer to a reply packet allocated with the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxepacketallocate">PxePacketAllocate</a> function.
      * @param {Integer} cbReply Allocated length of the packet pointed to by the <i>pReply</i> parameter.
      * @param {Pointer<UInt32>} pcbReplyUsed On entry, this is the number of bytes of the buffer pointed to by <i>pReply</i> that are currently used.  On success of the function, this is updated to the number of bytes used after appending the option.
      * @param {Integer} cbBuffer Length of the option value pointed to by the <i>pBuffer</i> parameter.
-     * @param {Pointer<Void>} pBuffer Address of the buffer that contains the DHCPv6 option value. The buffer must contain the encoded option code and option size.
+     * @param {Pointer} pBuffer Address of the buffer that contains the DHCPv6 option value. The buffer must contain the encoded option code and option size.
      * 
      * For more information about encoding the option code and option size, developers should refer to the Dynamic Host Configuration Protocol for IPv6 <a href="https://www.ietf.org/rfc/rfc3315.txt">RFC 3315</a> maintained by The Internet Engineering Task Force (IETF).
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
@@ -2504,7 +2481,7 @@ class DeploymentServices {
      * @since windows8.0
      */
     static PxeDhcpv6AppendOptionRaw(pReply, cbReply, pcbReplyUsed, cbBuffer, pBuffer) {
-        result := DllCall("WDSPXE.dll\PxeDhcpv6AppendOptionRaw", "ptr", pReply, "uint", cbReply, "ptr", pcbReplyUsed, "ushort", cbBuffer, "ptr", pBuffer, "uint")
+        result := DllCall("WDSPXE.dll\PxeDhcpv6AppendOptionRaw", "ptr", pReply, "uint", cbReply, "uint*", pcbReplyUsed, "ushort", cbBuffer, "ptr", pBuffer, "uint")
         return result
     }
 
@@ -2558,7 +2535,7 @@ class DeploymentServices {
      *        options may follow the End Option.</td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} pPacket Pointer to a reply packet allocated with 
+     * @param {Pointer} pPacket Pointer to a reply packet allocated with 
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxepacketallocate">PxePacketAllocate</a> function.
      * @param {Integer} uPacketLen Length of the packet pointed to by the <i>pPacket</i> parameter.
      * @param {Integer} bRequestPacket Indicates whether the packet is a request packet. The following table lists the possible values.
@@ -2599,7 +2576,7 @@ class DeploymentServices {
      * @since windowsserver2008
      */
     static PxeDhcpIsValid(pPacket, uPacketLen, bRequestPacket, pbPxeOptionPresent) {
-        result := DllCall("WDSPXE.dll\PxeDhcpIsValid", "ptr", pPacket, "uint", uPacketLen, "int", bRequestPacket, "ptr", pbPxeOptionPresent, "uint")
+        result := DllCall("WDSPXE.dll\PxeDhcpIsValid", "ptr", pPacket, "uint", uPacketLen, "int", bRequestPacket, "int*", pbPxeOptionPresent, "uint")
         return result
     }
 
@@ -2610,7 +2587,7 @@ class DeploymentServices {
      *     the  <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxeprovidersetattribute">PxeProviderSetAttribute</a> function is set to receive all 
      *     packets to determine if a specified packet is a valid DHCPv6 packet. Providers can also use this function to validate 
      *     reply packets; typically this is done only for debug or test builds of the provider.
-     * @param {Pointer<Void>} pPacket Pointer to a reply packet allocated with 
+     * @param {Pointer} pPacket Pointer to a reply packet allocated with 
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxepacketallocate">PxePacketAllocate</a> function.
      * @param {Integer} uPacketLen Length of the packet pointed to by the <i>pPacket</i> parameter.
      * @param {Integer} bRequestPacket Indicates whether the packet is a request packet. The following table lists the possible values.
@@ -2650,13 +2627,13 @@ class DeploymentServices {
      * @since windows8.0
      */
     static PxeDhcpv6IsValid(pPacket, uPacketLen, bRequestPacket, pbPxeOptionPresent) {
-        result := DllCall("WDSPXE.dll\PxeDhcpv6IsValid", "ptr", pPacket, "uint", uPacketLen, "int", bRequestPacket, "ptr", pbPxeOptionPresent, "uint")
+        result := DllCall("WDSPXE.dll\PxeDhcpv6IsValid", "ptr", pPacket, "uint", uPacketLen, "int", bRequestPacket, "int*", pbPxeOptionPresent, "uint")
         return result
     }
 
     /**
      * Retrieves an option value from a DHCP packet.
-     * @param {Pointer<Void>} pPacket Pointer to a reply packet allocated with 
+     * @param {Pointer} pPacket Pointer to a reply packet allocated with 
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxepacketallocate">PxePacketAllocate</a> function.
      * @param {Integer} uPacketLen Length of the packet pointed to by the <i>pReplyPacket</i> parameter.
      * @param {Integer} uInstance One-based index that specifies which instance of the <i>bOption</i> parameter to 
@@ -2716,13 +2693,13 @@ class DeploymentServices {
      * @since windowsserver2008
      */
     static PxeDhcpGetOptionValue(pPacket, uPacketLen, uInstance, bOption, pbOptionLen, ppOptionValue) {
-        result := DllCall("WDSPXE.dll\PxeDhcpGetOptionValue", "ptr", pPacket, "uint", uPacketLen, "uint", uInstance, "char", bOption, "ptr", pbOptionLen, "ptr", ppOptionValue, "uint")
+        result := DllCall("WDSPXE.dll\PxeDhcpGetOptionValue", "ptr", pPacket, "uint", uPacketLen, "uint", uInstance, "char", bOption, "char*", pbOptionLen, "ptr", ppOptionValue, "uint")
         return result
     }
 
     /**
      * Retrieves an option value from a DHCPv6 packet.
-     * @param {Pointer<Void>} pPacket Pointer to a reply packet allocated with 
+     * @param {Pointer} pPacket Pointer to a reply packet allocated with 
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxepacketallocate">PxePacketAllocate</a> function.
      * @param {Integer} uPacketLen Length of the packet pointed to by the <i>pReplyPacket</i> parameter.
      * @param {Integer} uInstance One-based index that specifies which instance of the <i>wOption</i> parameter to 
@@ -2782,13 +2759,13 @@ class DeploymentServices {
      * @since windows8.0
      */
     static PxeDhcpv6GetOptionValue(pPacket, uPacketLen, uInstance, wOption, pwOptionLen, ppOptionValue) {
-        result := DllCall("WDSPXE.dll\PxeDhcpv6GetOptionValue", "ptr", pPacket, "uint", uPacketLen, "uint", uInstance, "ushort", wOption, "ptr", pwOptionLen, "ptr", ppOptionValue, "uint")
+        result := DllCall("WDSPXE.dll\PxeDhcpv6GetOptionValue", "ptr", pPacket, "uint", uPacketLen, "uint", uInstance, "ushort", wOption, "ushort*", pwOptionLen, "ptr", ppOptionValue, "uint")
         return result
     }
 
     /**
      * Retrieves an option value from the Vendor Specific Information field (43) of a DHCP packet.
-     * @param {Pointer<Void>} pPacket Pointer to a reply packet allocated with the 
+     * @param {Pointer} pPacket Pointer to a reply packet allocated with the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxepacketallocate">PxePacketAllocate</a> function.
      * @param {Integer} uPacketLen Length of the packet pointed to by the <i>pReplyPacket</i> parameter.
      * @param {Integer} bOption Option whose value will be retrieved.
@@ -2848,13 +2825,13 @@ class DeploymentServices {
      * @since windowsserver2008
      */
     static PxeDhcpGetVendorOptionValue(pPacket, uPacketLen, bOption, uInstance, pbOptionLen, ppOptionValue) {
-        result := DllCall("WDSPXE.dll\PxeDhcpGetVendorOptionValue", "ptr", pPacket, "uint", uPacketLen, "char", bOption, "uint", uInstance, "ptr", pbOptionLen, "ptr", ppOptionValue, "uint")
+        result := DllCall("WDSPXE.dll\PxeDhcpGetVendorOptionValue", "ptr", pPacket, "uint", uPacketLen, "char", bOption, "uint", uInstance, "char*", pbOptionLen, "ptr", ppOptionValue, "uint")
         return result
     }
 
     /**
      * Retrieves option values from the OPTION_VENDOR_OPTS (17) field of a DHCPv6 packet.
-     * @param {Pointer<Void>} pPacket Pointer to a reply packet allocated with the 
+     * @param {Pointer} pPacket Pointer to a reply packet allocated with the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxepacketallocate">PxePacketAllocate</a> function.
      * @param {Integer} uPacketLen Length of the packet pointed to by the <i>pReplyPacket</i> parameter.
      * @param {Integer} dwEnterpriseNumber An Enterprise Number assigned to the vendor of the option by the Internet Assigned Numbers Authority (IANA).
@@ -2917,13 +2894,13 @@ class DeploymentServices {
      * @since windows8.0
      */
     static PxeDhcpv6GetVendorOptionValue(pPacket, uPacketLen, dwEnterpriseNumber, wOption, uInstance, pwOptionLen, ppOptionValue) {
-        result := DllCall("WDSPXE.dll\PxeDhcpv6GetVendorOptionValue", "ptr", pPacket, "uint", uPacketLen, "uint", dwEnterpriseNumber, "ushort", wOption, "uint", uInstance, "ptr", pwOptionLen, "ptr", ppOptionValue, "uint")
+        result := DllCall("WDSPXE.dll\PxeDhcpv6GetVendorOptionValue", "ptr", pPacket, "uint", uPacketLen, "uint", dwEnterpriseNumber, "ushort", wOption, "uint", uInstance, "ushort*", pwOptionLen, "ptr", ppOptionValue, "uint")
         return result
     }
 
     /**
      * This function can be used by a provider to parse RELAY-FORW messages and their nested OPTION_RELAY_MSG messages.
-     * @param {Pointer<Void>} pRelayForwPacket Specifies a pointer to a DHCPv6 RELAY-FORW message.
+     * @param {Pointer} pRelayForwPacket Specifies a pointer to a DHCPv6 RELAY-FORW message.
      * @param {Integer} uRelayForwPacketLen The size in bytes of the RELAY-FORW message pointed to by the <i>pRelayForwPacket</i> parameter.
      * @param {Pointer<PXE_DHCPV6_NESTED_RELAY_MESSAGE>} pRelayMessages An array of <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/ns-wdspxe-pxe_dhcpv6_nested_relay_message">PXE_DHCPV6_NESTED_RELAY_MESSAGE</a> structures initialized by this routine.  The array’s size is specified by <i>nRelayMessages</i>.  Elements of this array are initialized to point to the nested chain of relay packets encoded in OPTION_RELAY_MSG.  Index 0 is the outermost nested OPTION_RELAY_MSG packet. As the index increases the pointers correspond to more deeply nested OPTION_RELAY_MSG packets.
      * @param {Integer} nRelayMessages The size of the array, in number of array elements, pointed to by the <i>pRelayMessages</i> parameter.
@@ -2935,7 +2912,7 @@ class DeploymentServices {
      * @since windows8.0
      */
     static PxeDhcpv6ParseRelayForw(pRelayForwPacket, uRelayForwPacketLen, pRelayMessages, nRelayMessages, pnRelayMessages, ppInnerPacket, pcbInnerPacket) {
-        result := DllCall("WDSPXE.dll\PxeDhcpv6ParseRelayForw", "ptr", pRelayForwPacket, "uint", uRelayForwPacketLen, "ptr", pRelayMessages, "uint", nRelayMessages, "ptr", pnRelayMessages, "ptr", ppInnerPacket, "ptr", pcbInnerPacket, "uint")
+        result := DllCall("WDSPXE.dll\PxeDhcpv6ParseRelayForw", "ptr", pRelayForwPacket, "uint", uRelayForwPacketLen, "ptr", pRelayMessages, "uint", nRelayMessages, "uint*", pnRelayMessages, "ptr", ppInnerPacket, "uint*", pcbInnerPacket, "uint")
         return result
     }
 
@@ -2943,9 +2920,9 @@ class DeploymentServices {
      * Generates a RELAY-REPL message.
      * @param {Pointer<PXE_DHCPV6_NESTED_RELAY_MESSAGE>} pRelayMessages An array of <b>PXE_DHCPV6_NESTED_RELAY_FORW</b> structures which together specify the sequence of nested RELAY-FORW packets.  This value can be obtained from the <i>pRelayMessages</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxedhcpv6parserelayforw">PxeDhcpv6ParseRelayForw</a>.
      * @param {Integer} nRelayMessages The number of elements in the array pointed to by the <i>pRelayMessages</i> argument.
-     * @param {Pointer<Byte>} pInnerPacket A pointer to a packet which is the server’s response to the innermost packet in the RELAY-FORW chain.
+     * @param {Pointer} pInnerPacket A pointer to a packet which is the server’s response to the innermost packet in the RELAY-FORW chain.
      * @param {Integer} cbInnerPacket The size of the packet pointed to by the <i>pInnerPacket</i> argument.
-     * @param {Pointer<Void>} pReplyBuffer A pointer to a buffer used to construct the outer RELAY-REPL packet. This buffer receives the nested response packet and the nested RELAY-REPL chain specified by the <i>pRelayMessages</i> parameter.
+     * @param {Pointer} pReplyBuffer A pointer to a buffer used to construct the outer RELAY-REPL packet. This buffer receives the nested response packet and the nested RELAY-REPL chain specified by the <i>pRelayMessages</i> parameter.
      * @param {Integer} cbReplyBuffer The size of the buffer in bytes  pointed to by <i>pRelyBuffer</i>.
      * @param {Pointer<UInt32>} pcbReplyBuffer On success, this is set to the actual size of the RELAY-REPL packet in the buffer pointed to by <i>pRelyBuffer</i>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
@@ -2953,7 +2930,7 @@ class DeploymentServices {
      * @since windows8.0
      */
     static PxeDhcpv6CreateRelayRepl(pRelayMessages, nRelayMessages, pInnerPacket, cbInnerPacket, pReplyBuffer, cbReplyBuffer, pcbReplyBuffer) {
-        result := DllCall("WDSPXE.dll\PxeDhcpv6CreateRelayRepl", "ptr", pRelayMessages, "uint", nRelayMessages, "ptr", pInnerPacket, "uint", cbInnerPacket, "ptr", pReplyBuffer, "uint", cbReplyBuffer, "ptr", pcbReplyBuffer, "uint")
+        result := DllCall("WDSPXE.dll\PxeDhcpv6CreateRelayRepl", "ptr", pRelayMessages, "uint", nRelayMessages, "ptr", pInnerPacket, "uint", cbInnerPacket, "ptr", pReplyBuffer, "uint", cbReplyBuffer, "uint*", pcbReplyBuffer, "uint")
         return result
     }
 
@@ -2979,7 +2956,7 @@ class DeploymentServices {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} pBuffer Address of a buffer that will receive the results of the query. The size and format of the results depends 
+     * @param {Pointer} pBuffer Address of a buffer that will receive the results of the query. The size and format of the results depends 
      *       on the value of the <i>uInfoType</i> parameter.
      * @param {Integer} uBufferLen Size of buffer pointed to by the <i>pBuffer</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
@@ -3024,7 +3001,7 @@ class DeploymentServices {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} pBuffer Address of a buffer that will receive the results of the query. The size and format of the results depends 
+     * @param {Pointer} pBuffer Address of a buffer that will receive the results of the query. The size and format of the results depends 
      *       on the value of the <i>uInfoType</i> parameter.
      * @param {Integer} uBufferLen Size of buffer pointed to by the <i>pBuffer</i> parameter.
      * @param {Pointer<UInt32>} puBufferUsed Size of buffer pointed to by the <i>pBuffer</i> parameter.
@@ -3033,13 +3010,13 @@ class DeploymentServices {
      * @since windows8.0
      */
     static PxeGetServerInfoEx(uInfoType, pBuffer, uBufferLen, puBufferUsed) {
-        result := DllCall("WDSPXE.dll\PxeGetServerInfoEx", "uint", uInfoType, "ptr", pBuffer, "uint", uBufferLen, "ptr", puBufferUsed, "uint")
+        result := DllCall("WDSPXE.dll\PxeGetServerInfoEx", "uint", uInfoType, "ptr", pBuffer, "uint", uBufferLen, "uint*", puBufferUsed, "uint")
         return result
     }
 
     /**
      * Registers a provider callback with the multicast server.
-     * @param {Pointer<HANDLE>} hProvider Handle to the provider. This handle was given to the provider in the <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/nf-wdstpdi-wdstransportproviderinitialize">WdsTransportProviderInitialize</a> function.
+     * @param {Pointer<Void>} hProvider Handle to the provider. This handle was given to the provider in the <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/nf-wdstpdi-wdstransportproviderinitialize">WdsTransportProviderInitialize</a> function.
      * @param {Integer} CallbackId The value of this parameter is a <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/ne-wdstpdi-transportprovider_callback_id">TRANSPORTPROVIDER_CALLBACK_ID</a> structure.
      * @param {Pointer<Void>} pfnCallback Pointer to the function pointer associated with this id.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
@@ -3053,7 +3030,7 @@ class DeploymentServices {
 
     /**
      * Provides status of read operation.
-     * @param {Pointer<HANDLE>} hProvider Handle to the provider. This handle was given to the provider in the <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/nf-wdstpdi-wdstransportproviderinitialize">WdsTransportProviderInitialize</a> function.
+     * @param {Pointer<Void>} hProvider Handle to the provider. This handle was given to the provider in the <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/nf-wdstpdi-wdstransportproviderinitialize">WdsTransportProviderInitialize</a> function.
      * @param {Integer} ulBytesRead The number of bytes read.
      * @param {Pointer<Void>} pvUserData User data specified by <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/nf-wdstpdi-wdstransportproviderreadcontent">WdsTransportProviderReadContent</a>.
      * @param {Integer} hReadResult The status of this read operation.
@@ -3068,9 +3045,9 @@ class DeploymentServices {
 
     /**
      * Sends a debugging message. (WdsTransportServerTrace)
-     * @param {Pointer<HANDLE>} hProvider Handle to the provider. This handle was given to the provider in the <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/nf-wdstpdi-wdstransportproviderinitialize">WdsTransportProviderInitialize</a> function.
+     * @param {Pointer<Void>} hProvider Handle to the provider. This handle was given to the provider in the <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/nf-wdstpdi-wdstransportproviderinitialize">WdsTransportProviderInitialize</a> function.
      * @param {Integer} Severity Severity level of the message.
-     * @param {Pointer<PWSTR>} pwszFormat A pointer to a null-terminated string value that contains a formatted string.
+     * @param {Pointer<Char>} pwszFormat A pointer to a null-terminated string value that contains a formatted string.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdstpdi/nf-wdstpdi-wdstransportservertrace
      * @since windowsserver2008
@@ -3084,9 +3061,9 @@ class DeploymentServices {
 
     /**
      * Sends a debugging message. (WdsTransportServerTraceV)
-     * @param {Pointer<HANDLE>} hProvider Handle to the provider. This handle was given to the provider in the <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/nf-wdstpdi-wdstransportproviderinitialize">WdsTransportProviderInitialize</a> function.
+     * @param {Pointer<Void>} hProvider Handle to the provider. This handle was given to the provider in the <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/nf-wdstpdi-wdstransportproviderinitialize">WdsTransportProviderInitialize</a> function.
      * @param {Integer} Severity Severity level of the message.
-     * @param {Pointer<PWSTR>} pwszFormat A pointer to a null-terminated string value that contains a formatted string.
+     * @param {Pointer<Char>} pwszFormat A pointer to a null-terminated string value that contains a formatted string.
      * @param {Pointer<SByte>} Params A list of parameters used by the formatted string.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdstpdi/nf-wdstpdi-wdstransportservertracev
@@ -3095,25 +3072,26 @@ class DeploymentServices {
     static WdsTransportServerTraceV(hProvider, Severity, pwszFormat, Params) {
         pwszFormat := pwszFormat is String? StrPtr(pwszFormat) : pwszFormat
 
-        result := DllCall("WDSMC.dll\WdsTransportServerTraceV", "ptr", hProvider, "uint", Severity, "ptr", pwszFormat, "ptr", Params, "int")
+        result := DllCall("WDSMC.dll\WdsTransportServerTraceV", "ptr", hProvider, "uint", Severity, "ptr", pwszFormat, "char*", Params, "int")
         return result
     }
 
     /**
      * Allocates a buffer in memory.
-     * @param {Pointer<HANDLE>} hProvider Handle to the provider. This handle was given to the provider in the <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/nf-wdstpdi-wdstransportproviderinitialize">WdsTransportProviderInitialize</a> function.
+     * @param {Pointer<Void>} hProvider Handle to the provider. This handle was given to the provider in the <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/nf-wdstpdi-wdstransportproviderinitialize">WdsTransportProviderInitialize</a> function.
      * @param {Integer} ulBufferSize Size of the buffer to be allocated.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstpdi/nf-wdstpdi-wdstransportserverallocatebuffer
      * @since windowsserver2008
      */
     static WdsTransportServerAllocateBuffer(hProvider, ulBufferSize) {
-        DllCall("WDSMC.dll\WdsTransportServerAllocateBuffer", "ptr", hProvider, "uint", ulBufferSize)
+        result := DllCall("WDSMC.dll\WdsTransportServerAllocateBuffer", "ptr", hProvider, "uint", ulBufferSize)
+        return result
     }
 
     /**
      * Releases memory used by a buffer.
-     * @param {Pointer<HANDLE>} hProvider Handle to the provider. This handle was given to the provider in the <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/nf-wdstpdi-wdstransportproviderinitialize">WdsTransportProviderInitialize</a> function.
+     * @param {Pointer<Void>} hProvider Handle to the provider. This handle was given to the provider in the <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/nf-wdstpdi-wdstransportproviderinitialize">WdsTransportProviderInitialize</a> function.
      * @param {Pointer<Void>} pvBuffer Pointer to location of buffer to be released.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdstpdi/nf-wdstpdi-wdstransportserverfreebuffer
@@ -3141,7 +3119,7 @@ class DeploymentServices {
      * This function only sets up the session, it does not start the transfer.  To start the transfer, call <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/nf-wdstci-wdstransportclientstartsession">WdsTransportClientStartSession</a>.
      * @param {Pointer<WDS_TRANSPORTCLIENT_REQUEST>} pSessionRequest Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/ns-wdstci-wds_transportclient_request">WDS_TRANSPORTCLIENT_REQUEST</a> structure that contains all the details required to initiate the multicast session.  The format of this structure is described below.
      * @param {Pointer<Void>} pCallerData User supplied pointer that will be provided with every callback for this session.
-     * @param {Pointer<HANDLE>} hSessionKey Buffer that will receive the address of a handle that the consumer can use to uniquely identify this session to the client.
+     * @param {Pointer<Void>} hSessionKey Buffer that will receive the address of a handle that the consumer can use to uniquely identify this session to the client.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdstci/nf-wdstci-wdstransportclientinitializesession
      * @since windows6.0.6000
@@ -3155,7 +3133,7 @@ class DeploymentServices {
      * Registers a callback with the multicast client.
      * @remarks
      * All callbacks must be registered with the client before the consumer calls <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/nf-wdstci-wdstransportclientstartsession">WdsTransportClientStartSession</a>.  Once the session is started, no further callbacks may be registered.
-     * @param {Pointer<HANDLE>} hSessionKey Unique handle returned by the call to <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/nf-wdstci-wdstransportclientinitializesession">WdsTransportClientInitializeSession</a>.
+     * @param {Pointer<Void>} hSessionKey Unique handle returned by the call to <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/nf-wdstci-wdstransportclientinitializesession">WdsTransportClientInitializeSession</a>.
      * @param {Integer} CallbackId Identifier specifying which callback is being registered. This parameter receives a <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/ne-wdstci-transportclient_callback_id">TRANSPORTCLIENT_CALLBACK_ID</a> enumeration value. 
      * 
      * <table>
@@ -3224,7 +3202,7 @@ class DeploymentServices {
      * All callbacks must be registered before this function is called.  If a required callback is not registered, this function will fail.
      * 
      * It is possible for a session to start and complete before this function  returns. This means that it is possible to receive a callback with a session handle that has not been seen yet.  This also means that a session can start and error out before this function has a chance to complete.  In this case, this function may still return success, even if the session itself fails.
-     * @param {Pointer<HANDLE>} hSessionKey The handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/nf-wdstci-wdstransportclientinitializesession">WdsTransportClientInitializeSession</a> session.
+     * @param {Pointer<Void>} hSessionKey The handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/nf-wdstci-wdstransportclientinitializesession">WdsTransportClientInitializeSession</a> session.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdstci/nf-wdstci-wdstransportclientstartsession
      * @since windows6.0.6000
@@ -3238,7 +3216,7 @@ class DeploymentServices {
      * Indicates that all processing on a block of data is finished, and that the multicast client may purge this block of data from its cache to make room for further receives.
      * @remarks
      * There must be one call to <b>WdsTransportClientCompleteReceive</b> for each call to the <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/nc-wdstci-pfn_wdstransportclientreceivecontents">PFN_WdsTransportClientReceiveContents</a> callback that the consumer receives.  The length and offset parameters of this function call must match those provided in the receive contents callback.  Failure to call this function will result in a stall in the multicast client once it hits the cache limit specified by the <i>ulCacheSize</i> of the <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/ns-wdstci-wds_transportclient_request">WDS_TRANSPORTCLIENT_REQUEST</a> structure passed to <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/nf-wdstci-wdstransportclientinitializesession">WdsTransportClientInitializeSession</a>.
-     * @param {Pointer<HANDLE>} hSessionKey Unique handle returned by the call to <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/nf-wdstci-wdstransportclientinitializesession">WdsTransportClientInitializeSession</a>.
+     * @param {Pointer<Void>} hSessionKey Unique handle returned by the call to <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/nf-wdstci-wdstransportclientinitializesession">WdsTransportClientInitializeSession</a>.
      * @param {Integer} ulSize The size of the block being released.
      * @param {Pointer<UInt64>} pullOffset The offset of the block being released.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
@@ -3246,7 +3224,7 @@ class DeploymentServices {
      * @since windows6.0.6000
      */
     static WdsTransportClientCompleteReceive(hSessionKey, ulSize, pullOffset) {
-        result := DllCall("WDSTPTC.dll\WdsTransportClientCompleteReceive", "ptr", hSessionKey, "uint", ulSize, "ptr", pullOffset, "uint")
+        result := DllCall("WDSTPTC.dll\WdsTransportClientCompleteReceive", "ptr", hSessionKey, "uint", ulSize, "uint*", pullOffset, "uint")
         return result
     }
 
@@ -3254,7 +3232,7 @@ class DeploymentServices {
      * Releases the resources associated with a session in the client. (WdsTransportClientCancelSession)
      * @remarks
      * It is safe to call this function from within a callback.
-     * @param {Pointer<HANDLE>} hSessionKey Unique handle returned by the call to <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/nf-wdstci-wdstransportclientinitializesession">WdsTransportClientInitializeSession</a>.  This session will eventually complete with an error code of <b>ERROR_CANCELLED</b> to the callback <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/nc-wdstci-pfn_wdstransportclientsessioncomplete">PFN_WdsTransportClientSessionComplete</a> callback.
+     * @param {Pointer<Void>} hSessionKey Unique handle returned by the call to <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/nf-wdstci-wdstransportclientinitializesession">WdsTransportClientInitializeSession</a>.  This session will eventually complete with an error code of <b>ERROR_CANCELLED</b> to the callback <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/nc-wdstci-pfn_wdstransportclientsessioncomplete">PFN_WdsTransportClientSessionComplete</a> callback.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdstci/nf-wdstci-wdstransportclientcancelsession
      * @since windows6.0.6000
@@ -3266,7 +3244,7 @@ class DeploymentServices {
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hSessionKey 
+     * @param {Pointer<Void>} hSessionKey 
      * @param {Integer} dwErrorCode 
      * @returns {Integer} 
      */
@@ -3277,7 +3255,7 @@ class DeploymentServices {
 
     /**
      * Blocks until either the multicast session is complete or the specified timeout is reached.
-     * @param {Pointer<HANDLE>} hSessionKey Unique handle returned by the call to <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/nf-wdstci-wdstransportclientinitializesession">WdsTransportClientInitializeSession</a>.
+     * @param {Pointer<Void>} hSessionKey Unique handle returned by the call to <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/nf-wdstci-wdstransportclientinitializesession">WdsTransportClientInitializeSession</a>.
      * @param {Integer} uTimeout A timeout, in milliseconds.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdstci/nf-wdstci-wdstransportclientwaitforcompletion
@@ -3292,7 +3270,7 @@ class DeploymentServices {
      * Retrieves the current status of an ongoing or complete multicast transmission from the multicast client.
      * @remarks
      * It is valid to call this function even after a transfer completes as long as the session key has not been closed.
-     * @param {Pointer<HANDLE>} hSessionKey Unique handle returned by the call to <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/nf-wdstci-wdstransportclientinitializesession">WdsTransportClientInitializeSession</a>.
+     * @param {Pointer<Void>} hSessionKey Unique handle returned by the call to <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/nf-wdstci-wdstransportclientinitializesession">WdsTransportClientInitializeSession</a>.
      * @param {Pointer<UInt32>} puStatus 
      * @param {Pointer<UInt32>} puErrorCode If puStatus is set to <b>WDS_TRANSPORTCLIENT_STATUS_FAILURE</b>, this field will be set to the error code of the session.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
@@ -3300,7 +3278,7 @@ class DeploymentServices {
      * @since windows6.0.6000
      */
     static WdsTransportClientQueryStatus(hSessionKey, puStatus, puErrorCode) {
-        result := DllCall("WDSTPTC.dll\WdsTransportClientQueryStatus", "ptr", hSessionKey, "ptr", puStatus, "ptr", puErrorCode, "uint")
+        result := DllCall("WDSTPTC.dll\WdsTransportClientQueryStatus", "ptr", hSessionKey, "uint*", puStatus, "uint*", puErrorCode, "uint")
         return result
     }
 
@@ -3308,7 +3286,7 @@ class DeploymentServices {
      * Releases the resources associated with a session in the client. (WdsTransportClientCloseSession)
      * @remarks
      * This function does not cancel the session and callbacks  can be received until session completes.
-     * @param {Pointer<HANDLE>} hSessionKey Unique handle returned by the call to <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/nf-wdstci-wdstransportclientinitializesession">WdsTransportClientInitializeSession</a>. After this handle has been used with the <b>WdsTransportClientCloseSession</b>, it cannot be used again with the <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/nf-wdstci-wdstransportclientcancelsession">WdsTransportClientCancelSession</a> function.
+     * @param {Pointer<Void>} hSessionKey Unique handle returned by the call to <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/nf-wdstci-wdstransportclientinitializesession">WdsTransportClientInitializeSession</a>. After this handle has been used with the <b>WdsTransportClientCloseSession</b>, it cannot be used again with the <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/nf-wdstci-wdstransportclientcancelsession">WdsTransportClientCancelSession</a> function.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdstci/nf-wdstci-wdstransportclientclosesession
      * @since windows6.0.6000
@@ -3355,7 +3333,7 @@ class DeploymentServices {
 
     /**
      * Receives a handle to the packet sent by the network boot program. (WdsBpParseInitialize)
-     * @param {Pointer<Void>} pPacket A pointer to the packet received from the WDS client. The packet must be a valid DHCP packet.
+     * @param {Pointer} pPacket A pointer to the packet received from the WDS client. The packet must be a valid DHCP packet.
      * @param {Integer} uPacketLen The length of the packet, in bytes.
      * @param {Pointer<Byte>} pbPacketType A value that indicates the type of boot program that sent the packet. The bit flags in the following table can be combined.
      * 
@@ -3398,19 +3376,19 @@ class DeploymentServices {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<HANDLE>} phHandle A handle to the packet. This handle can be used by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsbp/nf-wdsbp-wdsbpqueryoption">WdsBpQueryOption</a> function and must be closed using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsbp/nf-wdsbp-wdsbpclosehandle">WdsBpCloseHandle</a> function.
+     * @param {Pointer<Void>} phHandle A handle to the packet. This handle can be used by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsbp/nf-wdsbp-wdsbpqueryoption">WdsBpQueryOption</a> function and must be closed using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsbp/nf-wdsbp-wdsbpclosehandle">WdsBpCloseHandle</a> function.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsbp/nf-wdsbp-wdsbpparseinitialize
      * @since windows6.0.6000
      */
     static WdsBpParseInitialize(pPacket, uPacketLen, pbPacketType, phHandle) {
-        result := DllCall("WDSBP.dll\WdsBpParseInitialize", "ptr", pPacket, "uint", uPacketLen, "ptr", pbPacketType, "ptr", phHandle, "uint")
+        result := DllCall("WDSBP.dll\WdsBpParseInitialize", "ptr", pPacket, "uint", uPacketLen, "char*", pbPacketType, "ptr", phHandle, "uint")
         return result
     }
 
     /**
      * Receives a handle to the packet sent by the network boot program. (WdsBpParseInitializev6)
-     * @param {Pointer<Void>} pPacket A pointer to the packet received from the WDS client. The packet must be a valid DHCPv6 packet.
+     * @param {Pointer} pPacket A pointer to the packet received from the WDS client. The packet must be a valid DHCPv6 packet.
      * @param {Integer} uPacketLen The length of the packet, in bytes.
      * @param {Pointer<Byte>} pbPacketType A value that indicates the type of boot program that sent the packet. The bit flags in the following table can be combined except <b>WDSBP_PK_TYPE_DHCP</b> and <b>WDSBP_PK_TYPE_DHCPV6</b> are mutually exclusive.
      * 
@@ -3464,20 +3442,20 @@ class DeploymentServices {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<HANDLE>} phHandle A handle to the packet. This handle can be used by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsbp/nf-wdsbp-wdsbpqueryoption">WdsBpQueryOption</a> function and must be closed using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsbp/nf-wdsbp-wdsbpclosehandle">WdsBpCloseHandle</a> function.
+     * @param {Pointer<Void>} phHandle A handle to the packet. This handle can be used by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsbp/nf-wdsbp-wdsbpqueryoption">WdsBpQueryOption</a> function and must be closed using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsbp/nf-wdsbp-wdsbpclosehandle">WdsBpCloseHandle</a> function.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsbp/nf-wdsbp-wdsbpparseinitializev6
      * @since windows8.0
      */
     static WdsBpParseInitializev6(pPacket, uPacketLen, pbPacketType, phHandle) {
-        result := DllCall("WDSBP.dll\WdsBpParseInitializev6", "ptr", pPacket, "uint", uPacketLen, "ptr", pbPacketType, "ptr", phHandle, "uint")
+        result := DllCall("WDSBP.dll\WdsBpParseInitializev6", "ptr", pPacket, "uint", uPacketLen, "char*", pbPacketType, "ptr", phHandle, "uint")
         return result
     }
 
     /**
      * Constructs options for the WDS network boot program.
      * @param {Integer} bPacketType 
-     * @param {Pointer<HANDLE>} phHandle A pointer to the handle to the packet. This handle can be used by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsbp/nf-wdsbp-wdsbpaddoption">WdsBpAddOption</a> function to add options for the WDS network boot program. After all the options have been added, use the <a href="https://docs.microsoft.com/windows/desktop/api/wdsbp/nf-wdsbp-wdsbpgetoptionbuffer">WdsBpGetOptionBuffer</a> function to add these to the DHCP options list sent to WDS network boot program. The handle must be closed using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsbp/nf-wdsbp-wdsbpclosehandle">WdsBpCloseHandle</a> function.
+     * @param {Pointer<Void>} phHandle A pointer to the handle to the packet. This handle can be used by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsbp/nf-wdsbp-wdsbpaddoption">WdsBpAddOption</a> function to add options for the WDS network boot program. After all the options have been added, use the <a href="https://docs.microsoft.com/windows/desktop/api/wdsbp/nf-wdsbp-wdsbpgetoptionbuffer">WdsBpGetOptionBuffer</a> function to add these to the DHCP options list sent to WDS network boot program. The handle must be closed using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsbp/nf-wdsbp-wdsbpclosehandle">WdsBpCloseHandle</a> function.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsbp/nf-wdsbp-wdsbpinitialize
      * @since windows6.0.6000
@@ -3489,7 +3467,7 @@ class DeploymentServices {
 
     /**
      * Closes the specified handle.
-     * @param {Pointer<HANDLE>} hHandle A handle to be closed. This can be a handle obtained using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsbp/nf-wdsbp-wdsbpparseinitialize">WdsBpParseInitialize</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wdsbp/nf-wdsbp-wdsbpinitialize">WdsBpInitialize</a> functions.
+     * @param {Pointer<Void>} hHandle A handle to be closed. This can be a handle obtained using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsbp/nf-wdsbp-wdsbpparseinitialize">WdsBpParseInitialize</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wdsbp/nf-wdsbp-wdsbpinitialize">WdsBpInitialize</a> functions.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsbp/nf-wdsbp-wdsbpclosehandle
      * @since windows6.0.6000
@@ -3501,26 +3479,26 @@ class DeploymentServices {
 
     /**
      * Returns the value of an option from the parsed packet.
-     * @param {Pointer<HANDLE>} hHandle A handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsbp/nf-wdsbp-wdsbpparseinitialize">WdsBpParseInitialize</a> function.
+     * @param {Pointer<Void>} hHandle A handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsbp/nf-wdsbp-wdsbpparseinitialize">WdsBpParseInitialize</a> function.
      * @param {Integer} uOption Specifies the option to add to the packet.
      * @param {Integer} uValueLen The total number of bytes of memory pointed to by the <i>pValue</i> parameter. To determine the number of bytes required to store the value for the option, set <i>uValueLen</i> to zero and <i>pValue</i> to <b>NULL</b>; the <b>WdsBpQueryOption</b> function returns <b>ERROR_INSUFFICIENT_BUFFER</b>, and the location pointed to by the <i>puBytes</i> parameter receives the number of bytes required for the value.
-     * @param {Pointer<Void>} pValue The value of the option is returned in this buffer.
+     * @param {Pointer} pValue The value of the option is returned in this buffer.
      * @param {Pointer<UInt32>} puBytes If the buffer is large enough for the value, this parameter receives the number of bytes copied to <i>pValue</i>. If not enough space is available, this parameter receives the total number of bytes required to store the value.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsbp/nf-wdsbp-wdsbpqueryoption
      * @since windows6.0.6000
      */
     static WdsBpQueryOption(hHandle, uOption, uValueLen, pValue, puBytes) {
-        result := DllCall("WDSBP.dll\WdsBpQueryOption", "ptr", hHandle, "uint", uOption, "uint", uValueLen, "ptr", pValue, "ptr", puBytes, "uint")
+        result := DllCall("WDSBP.dll\WdsBpQueryOption", "ptr", hHandle, "uint", uOption, "uint", uValueLen, "ptr", pValue, "uint*", puBytes, "uint")
         return result
     }
 
     /**
      * Adds an option to the packet.
-     * @param {Pointer<HANDLE>} hHandle A handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsbp/nf-wdsbp-wdsbpinitialize">WdsBpInitialize</a> function.
+     * @param {Pointer<Void>} hHandle A handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsbp/nf-wdsbp-wdsbpinitialize">WdsBpInitialize</a> function.
      * @param {Integer} uOption Specifies the option to add to the packet.
      * @param {Integer} uValueLen The length, in bytes, for the value.
-     * @param {Pointer<Void>} pValue A pointer to a location that contains the value for the option.
+     * @param {Pointer} pValue A pointer to a location that contains the value for the option.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsbp/nf-wdsbp-wdsbpaddoption
      * @since windows6.0.6000
@@ -3532,16 +3510,16 @@ class DeploymentServices {
 
     /**
      * Copies information into a buffer that should be added to your DHCP packet options.
-     * @param {Pointer<HANDLE>} hHandle A handle to the packet. This handle must have been returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsbp/nf-wdsbp-wdsbpinitialize">WdsBpInitialize</a> function.
+     * @param {Pointer<Void>} hHandle A handle to the packet. This handle must have been returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsbp/nf-wdsbp-wdsbpinitialize">WdsBpInitialize</a> function.
      * @param {Integer} uBufferLen The total number of bytes of memory pointed to by the <i>pBuffer</i> parameter.  To determine the amount of memory required, call the <b>WdsBpGetOptionBuffer</b> function with <i>uBufferLen</i> set to zero and  <i>pBuffer</i> set to <b>NULL</b>. The location pointed to by  the <i>puBytes</i> parameter then receives the size required.
-     * @param {Pointer<Void>} pBuffer A pointer to a location in memory that receives the information that is being sent to the network boot program.
+     * @param {Pointer} pBuffer A pointer to a location in memory that receives the information that is being sent to the network boot program.
      * @param {Pointer<UInt32>} puBytes The number of bytes copied to the buffer.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsbp/nf-wdsbp-wdsbpgetoptionbuffer
      * @since windows6.0.6000
      */
     static WdsBpGetOptionBuffer(hHandle, uBufferLen, pBuffer, puBytes) {
-        result := DllCall("WDSBP.dll\WdsBpGetOptionBuffer", "ptr", hHandle, "uint", uBufferLen, "ptr", pBuffer, "ptr", puBytes, "uint")
+        result := DllCall("WDSBP.dll\WdsBpGetOptionBuffer", "ptr", hHandle, "uint", uBufferLen, "ptr", pBuffer, "uint*", puBytes, "uint")
         return result
     }
 

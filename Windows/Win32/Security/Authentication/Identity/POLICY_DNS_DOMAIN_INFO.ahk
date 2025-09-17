@@ -69,7 +69,7 @@ class POLICY_DNS_DOMAIN_INFO extends Win32Struct
 
     /**
      * Pointer to the SID of the primary domain. This is the same as the primary domain SID in the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-policy_primary_domain_info">POLICY_PRIMARY_DOMAIN_INFO</a> structure.
-     * @type {Pointer<PSID>}
+     * @type {Pointer<Void>}
      */
     Sid {
         get => NumGet(this, 56, "ptr")

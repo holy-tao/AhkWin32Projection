@@ -51,7 +51,7 @@ class SWbemAssocQueryInf extends Win32Struct
 
     /**
      * String representation of the object path used in the query.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     m_pszPath {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +60,7 @@ class SWbemAssocQueryInf extends Win32Struct
 
     /**
      * Text of the original query.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     m_pszQueryText {
         get => NumGet(this, 32, "ptr")
@@ -69,7 +69,7 @@ class SWbemAssocQueryInf extends Win32Struct
 
     /**
      * String representation of the result class. If there is no result class, this field is <b>NULL</b>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     m_pszResultClass {
         get => NumGet(this, 40, "ptr")
@@ -78,7 +78,7 @@ class SWbemAssocQueryInf extends Win32Struct
 
     /**
      * String representation of the association class. If there is no result class, this field is <b>NULL</b>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     m_pszAssocClass {
         get => NumGet(this, 48, "ptr")
@@ -87,7 +87,7 @@ class SWbemAssocQueryInf extends Win32Struct
 
     /**
      * String representation of the role. If there is no role, this field is <b>NULL</b>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     m_pszRole {
         get => NumGet(this, 56, "ptr")
@@ -96,7 +96,7 @@ class SWbemAssocQueryInf extends Win32Struct
 
     /**
      * String representation of the result role. If there is no result role, this field is <b>NULL</b>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     m_pszResultRole {
         get => NumGet(this, 64, "ptr")
@@ -105,7 +105,7 @@ class SWbemAssocQueryInf extends Win32Struct
 
     /**
      * String representation of the required qualifier. If no qualifiers are required, this field is <b>NULL</b>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     m_pszRequiredQualifier {
         get => NumGet(this, 72, "ptr")
@@ -114,7 +114,7 @@ class SWbemAssocQueryInf extends Win32Struct
 
     /**
      * Pointer to a list of required association qualifiers.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     m_pszRequiredAssocQualifier {
         get => NumGet(this, 80, "ptr")

@@ -96,7 +96,7 @@ class VTableProvStrucW extends Win32Struct
      * A string that contains the name of the provider.
      * 
      * This is a version 3 member.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszProvName {
         get => NumGet(this, 48, "ptr")

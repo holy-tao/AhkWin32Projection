@@ -12,7 +12,7 @@ class SPRULEENTRY extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<SPRULEHANDLE>}
+     * @type {Pointer<Void>}
      */
     hRule {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class SPRULEENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SPSTATEHANDLE>}
+     * @type {Pointer<Void>}
      */
     hInitialState {
         get => NumGet(this, 8, "ptr")

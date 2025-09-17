@@ -12,7 +12,7 @@ class SERVER_ALIAS_INFO_0 extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     srvai0_alias {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class SERVER_ALIAS_INFO_0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     srvai0_target {
         get => NumGet(this, 8, "ptr")

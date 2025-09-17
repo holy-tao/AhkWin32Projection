@@ -44,7 +44,7 @@ class KSPIN_CONNECT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     PinToHandle {
         get => NumGet(this, 24, "ptr")

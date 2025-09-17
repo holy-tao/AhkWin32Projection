@@ -12,7 +12,7 @@ class PRINT_FEATURE_OPTION extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszFeature {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class PRINT_FEATURE_OPTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszOption {
         get => NumGet(this, 8, "ptr")

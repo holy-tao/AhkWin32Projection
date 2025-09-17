@@ -39,7 +39,7 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURE_OUTPUT extends Win32Struct
 
     /**
      * A handle to the authenticated channel.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hChannel {
         get => NumGet(this, 24, "ptr")

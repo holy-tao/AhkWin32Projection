@@ -134,7 +134,7 @@ class DDRAWI_DDVIDEOPORT_LCL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hDDVideoPort {
         get => NumGet(this, 248, "ptr")

@@ -31557,8 +31557,8 @@ class MsHtml {
 ;@region Methods
     /**
      * 
-     * @param {Pointer<HWND>} hwndOwner 
-     * @param {Pointer<PWSTR>} pszUrl 
+     * @param {Pointer<Void>} hwndOwner 
+     * @param {Pointer<Char>} pszUrl 
      * @param {Pointer<IEnumPrivacyRecords>} pPrivacyEnum 
      * @param {Integer} fReportAllSites 
      * @returns {Integer} 

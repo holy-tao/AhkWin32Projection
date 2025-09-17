@@ -24,7 +24,7 @@ class D3D12_AUTO_BREADCRUMB_NODE extends Win32Struct
 
     /**
      * A pointer to the wide debug name of the outstanding command list (if any).
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pCommandListDebugNameW {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class D3D12_AUTO_BREADCRUMB_NODE extends Win32Struct
 
     /**
      * A pointer to the wide debug name of the outstanding command queue (if any).
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pCommandQueueDebugNameW {
         get => NumGet(this, 24, "ptr")

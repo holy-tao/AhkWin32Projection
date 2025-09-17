@@ -3166,7 +3166,7 @@ class Clustering {
      * <b>Note</b>  The <b>GetNodeClusterState</b> function does not 
      *      support a 64-bit Windows-based <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> if the calling application is 
      *      32-bit Windows-based.
-     * @param {Pointer<PWSTR>} lpszNodeName Pointer to a null-terminated Unicode string containing the name of the node to query. If 
+     * @param {Pointer<Char>} lpszNodeName Pointer to a null-terminated Unicode string containing the name of the node to query. If 
      *        <i>lpszNodeName</i> is <b>NULL</b>, the local node is queried.
      * @param {Pointer<UInt32>} pdwClusterState Pointer to a value describing the state of the Cluster service on the node. A node will be described by one 
      *        of the following <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-node_cluster_state">NODE_CLUSTER_STATE</a> enumeration 
@@ -3179,7 +3179,7 @@ class Clustering {
     static GetNodeClusterState(lpszNodeName, pdwClusterState) {
         lpszNodeName := lpszNodeName is String? StrPtr(lpszNodeName) : lpszNodeName
 
-        result := DllCall("CLUSAPI.dll\GetNodeClusterState", "ptr", lpszNodeName, "ptr", pdwClusterState, "uint")
+        result := DllCall("CLUSAPI.dll\GetNodeClusterState", "ptr", lpszNodeName, "uint*", pdwClusterState, "uint")
         return result
     }
 
@@ -3200,7 +3200,7 @@ class Clustering {
      *      Windows Server 2008 cannot call <b>OpenCluster</b> against a 
      *      cluster running Windows Server 2016. To remotely manage these clusters, use 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/failover-cluster-apis-portal">the Failover Cluster WMI Provider</a>.
-     * @param {Pointer<PWSTR>} lpszClusterName 
+     * @param {Pointer<Char>} lpszClusterName 
      * @returns {Pointer} If the operation was successful, <b>OpenCluster</b> returns 
      *        a cluster handle.
      * 
@@ -3250,7 +3250,7 @@ class Clustering {
      * When finished with a cluster handle, it is important to call 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closecluster">CloseCluster</a> to ensure that all memory is freed and the 
      *      connection is shut down cleanly.
-     * @param {Pointer<PWSTR>} lpszClusterName 
+     * @param {Pointer<Char>} lpszClusterName 
      * @param {Integer} DesiredAccess The requested access privileges. This may be any combination of <b>GENERIC_READ</b> 
      *       (0x80000000), <b>GENERIC_ALL</b> (0x10000000), or <b>MAXIMUM_ALLOWED</b> 
      *       (0x02000000). If this value is zero (0) and undefined error may be returned. Using 
@@ -3294,7 +3294,7 @@ class Clustering {
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\OpenClusterEx", "ptr", lpszClusterName, "uint", DesiredAccess, "ptr", GrantedAccess, "ptr")
+        result := DllCall("CLUSAPI.dll\OpenClusterEx", "ptr", lpszClusterName, "uint", DesiredAccess, "uint*", GrantedAccess, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3323,7 +3323,7 @@ class Clustering {
      * 
      * Do not call  <b>SetClusterName</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {Pointer} hCluster Handle to a cluster to rename.
-     * @param {Pointer<PWSTR>} lpszNewClusterName Pointer to a null-terminated Unicode string containing the new cluster name.
+     * @param {Pointer<Char>} lpszNewClusterName Pointer to a null-terminated Unicode string containing the new cluster name.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_RESOURCE_PROPERTIES_STORED</b>.
      * 
      * If the operation fails, 
@@ -3341,8 +3341,8 @@ class Clustering {
     /**
      * 
      * @param {Pointer} hCluster 
-     * @param {Pointer<PWSTR>} lpszNewClusterName 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszNewClusterName 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static SetClusterNameEx(hCluster, lpszNewClusterName, lpszReason) {
@@ -3361,7 +3361,7 @@ class Clustering {
      *     information on sizing buffers, see 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
      * @param {Pointer} hCluster Handle to a cluster.
-     * @param {Pointer<PWSTR>} lpszClusterName Pointer to a null-terminated Unicode string containing the name of the cluster identified by 
+     * @param {Pointer<Char>} lpszClusterName Pointer to a null-terminated Unicode string containing the name of the cluster identified by 
      *       <i>hCluster</i>.
      * @param {Pointer<UInt32>} lpcchClusterName Pointer to the size of the <i>lpszClusterName</i> buffer as a count of characters. On 
      *       input, specify the maximum number of characters the buffer can hold, including the terminating 
@@ -3404,7 +3404,7 @@ class Clustering {
     static GetClusterInformation(hCluster, lpszClusterName, lpcchClusterName, lpClusterInfo) {
         lpszClusterName := lpszClusterName is String? StrPtr(lpszClusterName) : lpszClusterName
 
-        result := DllCall("CLUSAPI.dll\GetClusterInformation", "ptr", hCluster, "ptr", lpszClusterName, "ptr", lpcchClusterName, "ptr", lpClusterInfo, "uint")
+        result := DllCall("CLUSAPI.dll\GetClusterInformation", "ptr", hCluster, "ptr", lpszClusterName, "uint*", lpcchClusterName, "ptr", lpClusterInfo, "uint")
         return result
     }
 
@@ -3413,9 +3413,9 @@ class Clustering {
      * @remarks
      * Note that <i>lpcchName</i> refers to a count of characters and not a count of bytes, and that the returned size does not include the terminating <b>NULL</b> in the count. For more information on sizing buffers, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
      * @param {Pointer} hCluster Handle to an existing <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
-     * @param {Pointer<PWSTR>} lpszResourceName Pointer to a null-terminated Unicode string containing the name of the cluster's quorum resource. The name is read from the quorum resource's  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources-name">Name</a> common property. Do not pass <b>NULL</b> for this parameter.
+     * @param {Pointer<Char>} lpszResourceName Pointer to a null-terminated Unicode string containing the name of the cluster's quorum resource. The name is read from the quorum resource's  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources-name">Name</a> common property. Do not pass <b>NULL</b> for this parameter.
      * @param {Pointer<UInt32>} lpcchResourceName Pointer to the size of the <i>lpszResourceName</i> buffer as a count of characters. On input, specify the maximum number of characters the buffer can hold, including the terminating <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding the terminating <b>NULL</b>.
-     * @param {Pointer<PWSTR>} lpszDeviceName Pointer to a null-terminated Unicode string containing the path to the location of the quorum log files maintained by the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-service">Cluster service</a>. Do not pass <b>NULL</b> for this parameter.
+     * @param {Pointer<Char>} lpszDeviceName Pointer to a null-terminated Unicode string containing the path to the location of the quorum log files maintained by the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-service">Cluster service</a>. Do not pass <b>NULL</b> for this parameter.
      * @param {Pointer<UInt32>} lpcchDeviceName Pointer to the size of the <i>lpszDeviceName</i> buffer as a count of characters. On input, specify the maximum number of characters the buffer can hold, including the terminating <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding the terminating <b>NULL</b>.
      * @param {Pointer<UInt32>} lpdwMaxQuorumLogSize Pointer to the maximum size (in bytes) of the log being maintained by the quorum resource. Do not pass <b>NULL</b> for this parameter.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
@@ -3447,7 +3447,7 @@ class Clustering {
         lpszResourceName := lpszResourceName is String? StrPtr(lpszResourceName) : lpszResourceName
         lpszDeviceName := lpszDeviceName is String? StrPtr(lpszDeviceName) : lpszDeviceName
 
-        result := DllCall("CLUSAPI.dll\GetClusterQuorumResource", "ptr", hCluster, "ptr", lpszResourceName, "ptr", lpcchResourceName, "ptr", lpszDeviceName, "ptr", lpcchDeviceName, "ptr", lpdwMaxQuorumLogSize, "uint")
+        result := DllCall("CLUSAPI.dll\GetClusterQuorumResource", "ptr", hCluster, "ptr", lpszResourceName, "uint*", lpcchResourceName, "ptr", lpszDeviceName, "uint*", lpcchDeviceName, "uint*", lpdwMaxQuorumLogSize, "uint")
         return result
     }
 
@@ -3461,7 +3461,7 @@ class Clustering {
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/quorum-resource">quorum resource</a> when 
      *        <i>dwMaxQuoLogSize</i> is 
      *        <b>CLUS_NODE_MAJORITY_QUORUM</b>.
-     * @param {Pointer<PWSTR>} lpszDeviceName Determines the drive letter and path that the Cluster service will use to maintain the quorum files on the 
+     * @param {Pointer<Char>} lpszDeviceName Determines the drive letter and path that the Cluster service will use to maintain the quorum files on the 
      *        new quorum resource. Pass a null-terminated Unicode string or <b>NULL</b>, as follows.
      * 
      * <ul>
@@ -3517,9 +3517,9 @@ class Clustering {
     /**
      * 
      * @param {Pointer} hResource 
-     * @param {Pointer<PWSTR>} lpszDeviceName 
+     * @param {Pointer<Char>} lpszDeviceName 
      * @param {Integer} dwMaxQuorumLogSize 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static SetClusterQuorumResourceEx(hResource, lpszDeviceName, dwMaxQuorumLogSize, lpszReason) {
@@ -3616,7 +3616,7 @@ class Clustering {
      * If possible, make multiple copies of the backup directory on different media and store these copies in separate 
      *      locations.
      * @param {Pointer} hCluster Handle to the cluster to be backed up.
-     * @param {Pointer<PWSTR>} lpszPathName Null-terminated Unicode string specifying the path to where the backup should be created. Cluster 
+     * @param {Pointer<Char>} lpszPathName Null-terminated Unicode string specifying the path to where the backup should be created. Cluster 
      *       configuration information will be saved to this location; this is sensitive data that should be protected. For 
      *       example, this data can be protected by using an access control list to restrict access to the location where the 
      *       data is stored.
@@ -3706,7 +3706,7 @@ class Clustering {
      * 
      * </li>
      * </ol>
-     * @param {Pointer<PWSTR>} lpszPathName Null-terminated Unicode string specifying the path to the backup file. Cluster configuration information is 
+     * @param {Pointer<Char>} lpszPathName Null-terminated Unicode string specifying the path to the backup file. Cluster configuration information is 
      *        contained in this location; this is sensitive data that should be protected. For example, this data can be 
      *        protected by using an access control list to restrict access to the location where the data is stored.
      * @param {Integer} bForce If <b>FALSE</b>, the restore operation will not be completed if either of the following 
@@ -3721,7 +3721,7 @@ class Clustering {
      * </ul>
      * Setting <i>bForce</i> to <b>TRUE</b> causes the operation to proceed 
      *        regardless of these preceding circumstances; however, the operation may still fail for other reasons.
-     * @param {Pointer<PWSTR>} lpszQuorumDriveLetter Optional. Identifies the drive letter of the quorum resource on which the 
+     * @param {Pointer<Char>} lpszQuorumDriveLetter Optional. Identifies the drive letter of the quorum resource on which the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">cluster database</a> will be restored. Use this 
      *        parameter only if the quorum resource has been replaced since the backup was made. The string must be formatted 
      *        as follows:
@@ -3822,7 +3822,7 @@ class Clustering {
      * @since windowsserver2003
      */
     static SetClusterNetworkPriorityOrder(hCluster, NetworkCount, NetworkList) {
-        result := DllCall("CLUSAPI.dll\SetClusterNetworkPriorityOrder", "ptr", hCluster, "uint", NetworkCount, "ptr", NetworkList, "uint")
+        result := DllCall("CLUSAPI.dll\SetClusterNetworkPriorityOrder", "ptr", hCluster, "uint", NetworkCount, "ptr*", NetworkList, "uint")
         return result
     }
 
@@ -3846,8 +3846,8 @@ class Clustering {
      * Do not call 
      *      <b>SetClusterServiceAccountPassword</b> 
      *      from a resource DLL.
-     * @param {Pointer<PWSTR>} lpszClusterName <b>NULL</b>-terminated Unicode string specifying the name of the cluster.
-     * @param {Pointer<PWSTR>} lpszNewPassword <b>NULL</b>-terminated Unicode string specifying the new password for the Cluster service 
+     * @param {Pointer<Char>} lpszClusterName <b>NULL</b>-terminated Unicode string specifying the name of the cluster.
+     * @param {Pointer<Char>} lpszNewPassword <b>NULL</b>-terminated Unicode string specifying the new password for the Cluster service 
      *        user account.
      * @param {Integer} dwFlags Optional bitfield of values enumerated from the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/cc512182(v=vs.85)">CLUSTER_SET_PASSWORD_FLAGS</a> enumeration 
@@ -3855,7 +3855,7 @@ class Clustering {
      * 
      * By default (<i>dwFlags</i> = 0), the function will not proceed unless all cluster nodes 
      *        are available.
-     * @param {Pointer<CLUSTER_SET_PASSWORD_STATUS>} lpReturnStatusBuffer Pointer to an output buffer that receives an array of 
+     * @param {Pointer} lpReturnStatusBuffer Pointer to an output buffer that receives an array of 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-cluster_set_password_status">CLUSTER_SET_PASSWORD_STATUS</a> structures 
      *        describing the result of the password update for each cluster node. If this parameter is not 
      *        <b>NULL</b> and the buffer is not large enough to hold the resulting data, the function 
@@ -3913,7 +3913,7 @@ class Clustering {
         lpszClusterName := lpszClusterName is String? StrPtr(lpszClusterName) : lpszClusterName
         lpszNewPassword := lpszNewPassword is String? StrPtr(lpszNewPassword) : lpszNewPassword
 
-        result := DllCall("CLUSAPI.dll\SetClusterServiceAccountPassword", "ptr", lpszClusterName, "ptr", lpszNewPassword, "uint", dwFlags, "ptr", lpReturnStatusBuffer, "ptr", lpcbReturnStatusBufferSize, "uint")
+        result := DllCall("CLUSAPI.dll\SetClusterServiceAccountPassword", "ptr", lpszClusterName, "ptr", lpszNewPassword, "uint", dwFlags, "ptr", lpReturnStatusBuffer, "uint*", lpcbReturnStatusBufferSize, "uint")
         return result
     }
 
@@ -4003,10 +4003,10 @@ class Clustering {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-cluster-validate-private-properties">CLUSCTL_CLUSTER_VALIDATE_PRIVATE_PROPERTIES</a>
      * </li>
      * </ul>
-     * @param {Pointer<Void>} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
+     * @param {Pointer} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
      *        if no information is needed.
      * @param {Integer} nInBufferSize The allocated size (in bytes) of the input buffer.
-     * @param {Pointer<Void>} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
+     * @param {Pointer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
      *        <b>NULL</b> if no data will be returned.
      * @param {Integer} nOutBufferSize The allocated size (in bytes) of the output buffer.
      * @param {Pointer<UInt32>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
@@ -4066,7 +4066,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterControl(hCluster, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
-        result := DllCall("CLUSAPI.dll\ClusterControl", "ptr", hCluster, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "ptr", lpBytesReturned, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterControl", "ptr", hCluster, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "uint")
         return result
     }
 
@@ -4075,18 +4075,18 @@ class Clustering {
      * @param {Pointer} hCluster 
      * @param {Pointer} hHostNode 
      * @param {Integer} dwControlCode 
-     * @param {Pointer<Void>} lpInBuffer 
+     * @param {Pointer} lpInBuffer 
      * @param {Integer} nInBufferSize 
-     * @param {Pointer<Void>} lpOutBuffer 
+     * @param {Pointer} lpOutBuffer 
      * @param {Integer} nOutBufferSize 
      * @param {Pointer<UInt32>} lpBytesReturned 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static ClusterControlEx(hCluster, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
         lpszReason := lpszReason is String? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ClusterControlEx", "ptr", hCluster, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "ptr", lpBytesReturned, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterControlEx", "ptr", hCluster, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -4145,7 +4145,7 @@ class Clustering {
      * @param {Pointer} hChange A handle to a notification port that is created with the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createclusternotifyportv2">CreateClusterNotifyPortV2</a> function.
      * @param {Pointer} Filter A <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ns-clusapi-notify_filter_and_type">NOTIFY_FILTER_AND_TYPE</a> structure that specifies the event type to create.
-     * @param {Pointer<HANDLE>} hObject A handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-objects">failover cluster object</a> 
+     * @param {Pointer<Void>} hObject A handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-objects">failover cluster object</a> 
      *        that is affected by the event as specified in the <i>dwFilterType</i> parameter. The type of handle 
      *       depends on the value of <i>dwFilterType</i>.
      * @param {Pointer} dwNotifyKey The notification key that is returned from the  
@@ -4166,7 +4166,7 @@ class Clustering {
     /**
      * Retrieves a handle to a notification event.
      * @param {Pointer} hChange A handle to the notification port that received the notification event.
-     * @param {Pointer<HANDLE>} lphTargetEvent The handle to the notification event.
+     * @param {Pointer<Void>} lphTargetEvent The handle to the notification event.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>. 
      * 
      * If the operation fails, the function returns a system error code.
@@ -4185,27 +4185,27 @@ class Clustering {
      * @param {Pointer<UIntPtr>} lpdwNotifyKey A pointer to the notification key for the notification port.
      * @param {Pointer<NOTIFY_FILTER_AND_TYPE>} pFilterAndType A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ns-clusapi-notify_filter_and_type">NOTIFY_FILTER_AND_TYPE</a> 
      *       structure that describes the next notification event for the notification port.
-     * @param {Pointer<Byte>} buffer A pointer to a buffer for the notification event.
+     * @param {Pointer} buffer A pointer to a buffer for the notification event.
      * @param {Pointer<UInt32>} lpbBufferSize A pointer to  the size of the <i>buffer</i> parameter, in bytes.
-     * @param {Pointer<PWSTR>} lpszObjectId A pointer to a  Unicode string   with  the ID of the 
+     * @param {Pointer<Char>} lpszObjectId A pointer to a  Unicode string   with  the ID of the 
      *        cluster object that triggered the event. The string ends with a  terminating null character.
      * @param {Pointer<UInt32>} lpcchObjectId On input, a pointer to a <b>DWORD</b> that specifies the maximum number of characters 
      *       that the <i>lpszObjectId</i> parameter can hold, including the terminating null character. On 
      *       output, a pointer to a <b>DWORD</b> that specifies the number of characters that 
      *       <i>lpszObjectId</i> received, excluding the terminating null character.
-     * @param {Pointer<PWSTR>} lpszParentId A pointer to a Unicode string with the ID of the parent to the cluster object that triggered the event. The 
+     * @param {Pointer<Char>} lpszParentId A pointer to a Unicode string with the ID of the parent to the cluster object that triggered the event. The 
      *       string ends with a terminating null character.
      * @param {Pointer<UInt32>} lpcchParentId On input, a pointer to a <b>DWORD</b> that specifies the maximum number of characters 
      *       the <i>lpszParentId</i> parameter can hold, including the terminating null character. On 
      *       output, a pointer to a <b>DWORD</b> that specifies the number of characters that 
      *       <i>lpszParentId</i> received, excluding the terminating null character.
-     * @param {Pointer<PWSTR>} lpszName A pointer to a Unicode string that contains the name of the cluster object that triggered the event. The 
+     * @param {Pointer<Char>} lpszName A pointer to a Unicode string that contains the name of the cluster object that triggered the event. The 
      *       string ends with a terminating null character.
      * @param {Pointer<UInt32>} lpcchName On input, a pointer to a <b>DWORD</b> that specifies the maximum number of characters 
      *       that  the <i>lpszName</i> parameter can hold, including the terminating null character. On 
      *       output, a pointer to a <b>DWORD</b> that specifies the number of characters that 
      *       <i>lpszName</i> received, excluding the terminating null character.
-     * @param {Pointer<PWSTR>} lpszType A pointer to a  Unicode string that contains the type of  cluster object that triggered the event. The 
+     * @param {Pointer<Char>} lpszType A pointer to a  Unicode string that contains the type of  cluster object that triggered the event. The 
      *       string ends with a  terminating null character.
      * @param {Pointer<UInt32>} lpcchType On input, a pointer to a <b>DWORD</b> that specifies the maximum number of characters 
      *       the <i>lpszType</i> parameter can hold, including the terminating null character. On output, 
@@ -4271,7 +4271,7 @@ class Clustering {
         lpszName := lpszName is String? StrPtr(lpszName) : lpszName
         lpszType := lpszType is String? StrPtr(lpszType) : lpszType
 
-        result := DllCall("CLUSAPI.dll\GetClusterNotifyV2", "ptr", hChange, "ptr", lpdwNotifyKey, "ptr", pFilterAndType, "ptr", buffer, "ptr", lpbBufferSize, "ptr", lpszObjectId, "ptr", lpcchObjectId, "ptr", lpszParentId, "ptr", lpcchParentId, "ptr", lpszName, "ptr", lpcchName, "ptr", lpszType, "ptr", lpcchType, "uint", dwMilliseconds, "uint")
+        result := DllCall("CLUSAPI.dll\GetClusterNotifyV2", "ptr", hChange, "ptr*", lpdwNotifyKey, "ptr", pFilterAndType, "ptr", buffer, "uint*", lpbBufferSize, "ptr", lpszObjectId, "uint*", lpcchObjectId, "ptr", lpszParentId, "uint*", lpcchParentId, "ptr", lpszName, "uint*", lpcchName, "ptr", lpszType, "uint*", lpcchType, "uint", dwMilliseconds, "uint")
         return result
     }
 
@@ -4334,7 +4334,7 @@ class Clustering {
      *       notification port. For more information about these event types, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createclusternotifyport">CreateClusterNotifyPort</a>. The 
      *       <i>dwFilterType</i> parameter can be set to one of the following flags.
-     * @param {Pointer<HANDLE>} hObject Handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-objects">failover cluster object</a> 
+     * @param {Pointer<Void>} hObject Handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-objects">failover cluster object</a> 
      *       affected by the event specified in the <i>dwFilterType</i> parameter. The type of handle 
      *       depends on the value of <i>dwFilterType</i> as described in the following list.
      * @param {Pointer} dwNotifyKey Notification key returned from 
@@ -4366,7 +4366,7 @@ class Clustering {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createclusternotifyport">CreateClusterNotifyPort</a> function.
      * @param {Pointer<UIntPtr>} lpdwNotifyKey A  pointer to the notification key for the port that is  identified by the  <i>hChange</i> parameter.
      * @param {Pointer<UInt32>} lpdwFilterType 
-     * @param {Pointer<PWSTR>} lpszName A pointer to a null-terminated Unicode string containing the name of the 
+     * @param {Pointer<Char>} lpszName A pointer to a null-terminated Unicode string containing the name of the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-objects">cluster object</a> that triggered the event. The 
      *        following list describes the content of <i>lpszName</i> by event type. Note that 
      *        <b>CLUSTER_CHANGE_REGISTRY_SUBTREE</b> is not included in the table; this event type is 
@@ -4433,7 +4433,7 @@ class Clustering {
     static GetClusterNotify(hChange, lpdwNotifyKey, lpdwFilterType, lpszName, lpcchName, dwMilliseconds) {
         lpszName := lpszName is String? StrPtr(lpszName) : lpszName
 
-        result := DllCall("CLUSAPI.dll\GetClusterNotify", "ptr", hChange, "ptr", lpdwNotifyKey, "ptr", lpdwFilterType, "ptr", lpszName, "ptr", lpcchName, "uint", dwMilliseconds, "uint")
+        result := DllCall("CLUSAPI.dll\GetClusterNotify", "ptr", hChange, "ptr*", lpdwNotifyKey, "uint*", lpdwFilterType, "ptr", lpszName, "uint*", lpcchName, "uint", dwMilliseconds, "uint")
         return result
     }
 
@@ -4526,7 +4526,7 @@ class Clustering {
      *        to <b>ClusterEnum</b> and then incremented for subsequent 
      *        calls.
      * @param {Pointer<UInt32>} lpdwType 
-     * @param {Pointer<PWSTR>} lpszName A pointer to a null-terminated Unicode string containing the name of the returned object.
+     * @param {Pointer<Char>} lpszName A pointer to a null-terminated Unicode string containing the name of the returned object.
      * @param {Pointer<UInt32>} lpcchName A pointer to the size of the <i>lpszName</i> buffer as a count of characters. On input, 
      *        specify the maximum number of characters the buffer can hold, including the terminating 
      *        <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding 
@@ -4585,7 +4585,7 @@ class Clustering {
     static ClusterEnum(hEnum, dwIndex, lpdwType, lpszName, lpcchName) {
         lpszName := lpszName is String? StrPtr(lpszName) : lpszName
 
-        result := DllCall("CLUSAPI.dll\ClusterEnum", "ptr", hEnum, "uint", dwIndex, "ptr", lpdwType, "ptr", lpszName, "ptr", lpcchName, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterEnum", "ptr", hEnum, "uint", dwIndex, "uint*", lpdwType, "ptr", lpszName, "uint*", lpcchName, "uint")
         return result
     }
 
@@ -4688,7 +4688,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterEnumEx(hClusterEnum, dwIndex, pItem, cbItem) {
-        result := DllCall("CLUSAPI.dll\ClusterEnumEx", "ptr", hClusterEnum, "uint", dwIndex, "ptr", pItem, "ptr", cbItem, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterEnumEx", "ptr", hClusterEnum, "uint", dwIndex, "ptr", pItem, "uint*", cbItem, "uint")
         return result
     }
 
@@ -4710,7 +4710,7 @@ class Clustering {
     /**
      * Adds a groupset to a cluster and returns a handle to the newly added groupset.
      * @param {Pointer} hCluster A handle to the target cluster.
-     * @param {Pointer<PWSTR>} groupSetName Pointer to a null-terminated Unicode string containing the name of the groupset to be added.
+     * @param {Pointer<Char>} groupSetName Pointer to a null-terminated Unicode string containing the name of the groupset to be added.
      * @returns {Pointer} If the operation succeeds, 
      * returns a groupset handle.
      * 
@@ -4734,7 +4734,7 @@ class Clustering {
     /**
      * Opens a handle to the specified groupset.
      * @param {Pointer} hCluster A handle to the cluster containing the collection.
-     * @param {Pointer<PWSTR>} lpszGroupSetName The name of the collection to be opened
+     * @param {Pointer<Char>} lpszGroupSetName The name of the collection to be opened
      * @returns {Pointer} If the operation succeeds, 
      * the function returns a groupset handle.
      * 
@@ -4817,7 +4817,7 @@ class Clustering {
     /**
      * 
      * @param {Pointer} hGroupSet 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static DeleteClusterGroupSetEx(hGroupSet, lpszReason) {
@@ -4862,7 +4862,7 @@ class Clustering {
      * @param {Pointer} hGroup 
      * @param {Integer} faultDomain 
      * @param {Integer} updateDomain 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static ClusterAddGroupToGroupSetWithDomainsEx(hGroupSet, hGroup, faultDomain, updateDomain, lpszReason) {
@@ -4890,7 +4890,7 @@ class Clustering {
     /**
      * 
      * @param {Pointer} hGroup 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static ClusterRemoveGroupFromGroupSetEx(hGroup, lpszReason) {
@@ -4937,10 +4937,10 @@ class Clustering {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-group-get-provider-collections">CLUSCTL_GROUP_GET_PROVIDER_COLLECTIONS</a>
      * </li>
      * </ul>
-     * @param {Pointer<Void>} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
+     * @param {Pointer} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
      *        if no information is needed.
      * @param {Integer} cbInBufferSize The allocated size (in bytes) of the input buffer.
-     * @param {Pointer<Void>} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
+     * @param {Pointer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
      *        <b>NULL</b> if no data will be returned.
      * @param {Integer} cbOutBufferSize The allocated size (in bytes) of the output buffer.
      * @param {Pointer<UInt32>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
@@ -5000,7 +5000,7 @@ class Clustering {
      * @since windowsserver2016
      */
     static ClusterGroupSetControl(hGroupSet, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
-        result := DllCall("CLUSAPI.dll\ClusterGroupSetControl", "ptr", hGroupSet, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, "ptr", lpBytesReturned, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterGroupSetControl", "ptr", hGroupSet, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, "uint*", lpBytesReturned, "uint")
         return result
     }
 
@@ -5009,18 +5009,18 @@ class Clustering {
      * @param {Pointer} hGroupSet 
      * @param {Pointer} hHostNode 
      * @param {Integer} dwControlCode 
-     * @param {Pointer<Void>} lpInBuffer 
+     * @param {Pointer} lpInBuffer 
      * @param {Integer} cbInBufferSize 
-     * @param {Pointer<Void>} lpOutBuffer 
+     * @param {Pointer} lpOutBuffer 
      * @param {Integer} cbOutBufferSize 
      * @param {Pointer<UInt32>} lpBytesReturned 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static ClusterGroupSetControlEx(hGroupSet, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned, lpszReason) {
         lpszReason := lpszReason is String? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ClusterGroupSetControlEx", "ptr", hGroupSet, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, "ptr", lpBytesReturned, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterGroupSetControlEx", "ptr", hGroupSet, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, "uint*", lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -5044,7 +5044,7 @@ class Clustering {
      * 
      * @param {Pointer} hDependentGroup 
      * @param {Pointer} hProviderGroup 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static AddClusterGroupDependencyEx(hDependentGroup, hProviderGroup, lpszReason) {
@@ -5057,7 +5057,7 @@ class Clustering {
     /**
      * Sets the dependency expression for a cluster group.
      * @param {Pointer} hGroup A handle to the group on which to set the dependency expression.
-     * @param {Pointer<PWSTR>} lpszDependencyExpression The dependency expression to set on the group.
+     * @param {Pointer<Char>} lpszDependencyExpression The dependency expression to set on the group.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -5075,8 +5075,8 @@ class Clustering {
     /**
      * 
      * @param {Pointer} hGroup 
-     * @param {Pointer<PWSTR>} lpszDependencyExpression 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszDependencyExpression 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static SetGroupDependencyExpressionEx(hGroup, lpszDependencyExpression, lpszReason) {
@@ -5107,7 +5107,7 @@ class Clustering {
      * 
      * @param {Pointer} hGroup 
      * @param {Pointer} hDependsOn 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static RemoveClusterGroupDependencyEx(hGroup, hDependsOn, lpszReason) {
@@ -5137,7 +5137,7 @@ class Clustering {
      * 
      * @param {Pointer} hDependentGroupSet 
      * @param {Pointer} hProviderGroupSet 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static AddClusterGroupSetDependencyEx(hDependentGroupSet, hProviderGroupSet, lpszReason) {
@@ -5150,7 +5150,7 @@ class Clustering {
     /**
      * Sets the dependency expression for a cluster groupset.
      * @param {Pointer} hGroupSet The collection to receive the dependency expression
-     * @param {Pointer<PWSTR>} lpszDependencyExprssion The dependency expression for <i>hCollection</i>
+     * @param {Pointer<Char>} lpszDependencyExprssion The dependency expression for <i>hCollection</i>
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -5168,8 +5168,8 @@ class Clustering {
     /**
      * 
      * @param {Pointer} hGroupSet 
-     * @param {Pointer<PWSTR>} lpszDependencyExpression 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszDependencyExpression 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static SetClusterGroupSetDependencyExpressionEx(hGroupSet, lpszDependencyExpression, lpszReason) {
@@ -5200,7 +5200,7 @@ class Clustering {
      * 
      * @param {Pointer} hGroupSet 
      * @param {Pointer} hDependsOn 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static RemoveClusterGroupSetDependencyEx(hGroupSet, hDependsOn, lpszReason) {
@@ -5230,7 +5230,7 @@ class Clustering {
      * 
      * @param {Pointer} hDependentGroup 
      * @param {Pointer} hProviderGroupSet 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static AddClusterGroupToGroupSetDependencyEx(hDependentGroup, hProviderGroupSet, lpszReason) {
@@ -5260,7 +5260,7 @@ class Clustering {
      * 
      * @param {Pointer} hGroup 
      * @param {Pointer} hDependsOn 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static RemoveClusterGroupToGroupSetDependencyEx(hGroup, hDependsOn, lpszReason) {
@@ -5309,7 +5309,7 @@ class Clustering {
      *     returned by <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternodeopenenum">ClusterNodeOpenEnum</a>
      * @param {Integer} dwIndex The index to enumerate, zero for the first call to this function and then
      *     incremented for subsequent calls.
-     * @param {Pointer<PWSTR>} lpszName Points to a buffer that receives the name of the object,
+     * @param {Pointer<Char>} lpszName Points to a buffer that receives the name of the object,
      *     including the terminating null character.
      * @param {Pointer<UInt32>} lpcchName Points to a variable that specifies the size, in characters,
      *     of the buffer pointed to by the <i>lpszName</i> parameter. This size
@@ -5326,7 +5326,7 @@ class Clustering {
     static ClusterGroupSetEnum(hGroupSetEnum, dwIndex, lpszName, lpcchName) {
         lpszName := lpszName is String? StrPtr(lpszName) : lpszName
 
-        result := DllCall("CLUSAPI.dll\ClusterGroupSetEnum", "ptr", hGroupSetEnum, "uint", dwIndex, "ptr", lpszName, "ptr", lpcchName, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterGroupSetEnum", "ptr", hGroupSetEnum, "uint", dwIndex, "ptr", lpszName, "uint*", lpcchName, "uint")
         return result
     }
 
@@ -5348,8 +5348,8 @@ class Clustering {
     /**
      * 
      * @param {Pointer} hDependentGroupSet 
-     * @param {Pointer<PWSTR>} lpRemoteClusterName 
-     * @param {Pointer<PWSTR>} lpRemoteGroupSetName 
+     * @param {Pointer<Char>} lpRemoteClusterName 
+     * @param {Pointer<Char>} lpRemoteGroupSetName 
      * @returns {Integer} 
      */
     static AddCrossClusterGroupSetDependency(hDependentGroupSet, lpRemoteClusterName, lpRemoteGroupSetName) {
@@ -5363,8 +5363,8 @@ class Clustering {
     /**
      * 
      * @param {Pointer} hDependentGroupSet 
-     * @param {Pointer<PWSTR>} lpRemoteClusterName 
-     * @param {Pointer<PWSTR>} lpRemoteGroupSetName 
+     * @param {Pointer<Char>} lpRemoteClusterName 
+     * @param {Pointer<Char>} lpRemoteGroupSetName 
      * @returns {Integer} 
      */
     static RemoveCrossClusterGroupSetDependency(hDependentGroupSet, lpRemoteClusterName, lpRemoteGroupSetName) {
@@ -5378,7 +5378,7 @@ class Clustering {
     /**
      * 
      * @param {Pointer} hCluster 
-     * @param {Pointer<PWSTR>} lpAvailabilitySetName 
+     * @param {Pointer<Char>} lpAvailabilitySetName 
      * @param {Pointer<CLUSTER_AVAILABILITY_SET_CONFIG>} pAvailabilitySetConfig 
      * @returns {Pointer} 
      */
@@ -5392,8 +5392,8 @@ class Clustering {
     /**
      * 
      * @param {Pointer} hCluster 
-     * @param {Pointer<PWSTR>} lpszNodeNameCurrent 
-     * @param {Pointer<PWSTR>} lpszNodeNameNew 
+     * @param {Pointer<Char>} lpszNodeNameCurrent 
+     * @param {Pointer<Char>} lpszNodeNameNew 
      * @returns {Integer} 
      */
     static ClusterNodeReplacement(hCluster, lpszNodeNameCurrent, lpszNodeNameNew) {
@@ -5407,7 +5407,7 @@ class Clustering {
     /**
      * 
      * @param {Pointer} hCluster 
-     * @param {Pointer<PWSTR>} ruleName 
+     * @param {Pointer<Char>} ruleName 
      * @param {Integer} ruleType 
      * @returns {Integer} 
      */
@@ -5421,7 +5421,7 @@ class Clustering {
     /**
      * 
      * @param {Pointer} hCluster 
-     * @param {Pointer<PWSTR>} ruleName 
+     * @param {Pointer<Char>} ruleName 
      * @returns {Integer} 
      */
     static ClusterRemoveAffinityRule(hCluster, ruleName) {
@@ -5434,7 +5434,7 @@ class Clustering {
     /**
      * 
      * @param {Pointer} hCluster 
-     * @param {Pointer<PWSTR>} ruleName 
+     * @param {Pointer<Char>} ruleName 
      * @param {Pointer} hGroup 
      * @returns {Integer} 
      */
@@ -5448,7 +5448,7 @@ class Clustering {
     /**
      * 
      * @param {Pointer} hCluster 
-     * @param {Pointer<PWSTR>} ruleName 
+     * @param {Pointer<Char>} ruleName 
      * @param {Pointer} hGroup 
      * @returns {Integer} 
      */
@@ -5462,12 +5462,12 @@ class Clustering {
     /**
      * 
      * @param {Pointer} hCluster 
-     * @param {Pointer<PWSTR>} affinityRuleName 
+     * @param {Pointer<Char>} affinityRuleName 
      * @param {Pointer} hHostNode 
      * @param {Integer} dwControlCode 
-     * @param {Pointer<Void>} lpInBuffer 
+     * @param {Pointer} lpInBuffer 
      * @param {Integer} cbInBufferSize 
-     * @param {Pointer<Void>} lpOutBuffer 
+     * @param {Pointer} lpOutBuffer 
      * @param {Integer} cbOutBufferSize 
      * @param {Pointer<UInt32>} lpBytesReturned 
      * @returns {Integer} 
@@ -5475,7 +5475,7 @@ class Clustering {
     static ClusterAffinityRuleControl(hCluster, affinityRuleName, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
         affinityRuleName := affinityRuleName is String? StrPtr(affinityRuleName) : affinityRuleName
 
-        result := DllCall("CLUSAPI.dll\ClusterAffinityRuleControl", "ptr", hCluster, "ptr", affinityRuleName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, "ptr", lpBytesReturned, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterAffinityRuleControl", "ptr", hCluster, "ptr", affinityRuleName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, "uint*", lpBytesReturned, "uint")
         return result
     }
 
@@ -5484,7 +5484,7 @@ class Clustering {
      * @param {Pointer} hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a> returned from the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusterex">OpenClusterEx</a> functions.
-     * @param {Pointer<PWSTR>} lpszNodeName Pointer to the NetBIOS name of an existing node. If the DNS name of the node is used, the 
+     * @param {Pointer<Char>} lpszNodeName Pointer to the NetBIOS name of an existing node. If the DNS name of the node is used, the 
      *       <b>OpenClusterNode</b> function will fail and 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return 
      *       <b>ERROR_CLUSTER_NODE_NOT_FOUND</b>.
@@ -5529,7 +5529,7 @@ class Clustering {
      * @param {Pointer} hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a> returned from the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusterex">OpenClusterEx</a> functions.
-     * @param {Pointer<PWSTR>} lpszNodeName Pointer to the NetBIOS name of an existing node. If the DNS name of the node is used, the 
+     * @param {Pointer<Char>} lpszNodeName Pointer to the NetBIOS name of an existing node. If the DNS name of the node is used, the 
      *       <b>OpenClusterNodeEx</b> function will fail and 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return 
      *       <b>ERROR_CLUSTER_NODE_NOT_FOUND</b>.
@@ -5575,7 +5575,7 @@ class Clustering {
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\OpenClusterNodeEx", "ptr", hCluster, "ptr", lpszNodeName, "uint", dwDesiredAccess, "ptr", lpdwGrantedAccess, "ptr")
+        result := DllCall("CLUSAPI.dll\OpenClusterNodeEx", "ptr", hCluster, "ptr", lpszNodeName, "uint", dwDesiredAccess, "uint*", lpdwGrantedAccess, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5657,17 +5657,94 @@ class Clustering {
      *     <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-pauseclusternode">PauseClusterNode</a> function). Nodes that are undergoing 
      *     maintenance are typically placed in this state.
      * @param {Pointer} hNode Handle to the node for which state information should be returned.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} <b>GetClusterNodeState</b> returns the current state 
+     *        of the node, which is represented by one of the following values.
+     * 
+     * 
+     * The returned values are from the 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_node_state">CLUSTER_NODE_STATE</a> enumeration.
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterNodeUp</b></dt>
+     * <dt>0</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The node is physically plugged in, turned on, booted, and capable of executing programs.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterNodeDown</b></dt>
+     * <dt>1</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The node is turned off or not operational.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterNodeJoining</b></dt>
+     * <dt>3</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The node is in the process of joining a 
+     *         <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterNodePaused</b></dt>
+     * <dt>2</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The node is running but not participating in cluster operations.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterNodeStateUnknown</b></dt>
+     * <dt>-1</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation was not successful. For more information about the error, call the function 
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusternodestate
      * @since windowsserver2008
      */
     static GetClusterNodeState(hNode) {
         A_LastError := 0
 
-        DllCall("CLUSAPI.dll\GetClusterNodeState", "ptr", hNode)
+        result := DllCall("CLUSAPI.dll\GetClusterNodeState", "ptr", hNode)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -5692,7 +5769,7 @@ class Clustering {
      * @param {Pointer} hNode Handle to the node with the identifier to be returned or <b>NULL</b>. If 
      *        <i>hNode</i> is set to <b>NULL</b>, the node identifier for the node on 
      *        which the application is running is returned in the content of <i>lpszNodeId</i>.
-     * @param {Pointer<PWSTR>} lpszNodeId This parameter points to a buffer that receives the unique ID of <i>hNode</i>, including 
+     * @param {Pointer<Char>} lpszNodeId This parameter points to a buffer that receives the unique ID of <i>hNode</i>, including 
      *        the terminating <b>NULL</b> character.
      * @param {Pointer<UInt32>} lpcchName On input, pointer to the count of characters in the buffer pointed to by the 
      *        <i>lpszNodeId</i> parameter, including the <b>NULL</b> terminator. On 
@@ -5741,7 +5818,7 @@ class Clustering {
     static GetClusterNodeId(hNode, lpszNodeId, lpcchName) {
         lpszNodeId := lpszNodeId is String? StrPtr(lpszNodeId) : lpszNodeId
 
-        result := DllCall("CLUSAPI.dll\GetClusterNodeId", "ptr", hNode, "ptr", lpszNodeId, "ptr", lpcchName, "uint")
+        result := DllCall("CLUSAPI.dll\GetClusterNodeId", "ptr", hNode, "ptr", lpszNodeId, "uint*", lpcchName, "uint")
         return result
     }
 
@@ -5825,8 +5902,8 @@ class Clustering {
     /**
      * Opens an enumerator for iterating through the installed network interfaces.
      * @param {Pointer} hCluster Handle to a cluster
-     * @param {Pointer<PWSTR>} lpszNodeName The name of the node.
-     * @param {Pointer<PWSTR>} lpszNetworkName The name of the network.
+     * @param {Pointer<Char>} lpszNodeName The name of the node.
+     * @param {Pointer<Char>} lpszNetworkName The name of the network.
      * @returns {Pointer} If the operation succeeds, returns a handle to an 
      *        enumerator.
      * 
@@ -5854,7 +5931,7 @@ class Clustering {
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusternetinterfaceopenenum">ClusterNetInterfaceOpenEnum</a> function.
      * @param {Integer} dwIndex Index used to identify the entry to be enumerated. This parameter should be zero for the first call and then incremented for each subsequent 
      *        call.
-     * @param {Pointer<PWSTR>} lpszName Pointer to a null-terminated Unicode string containing the name of the returned object.
+     * @param {Pointer<Char>} lpszName Pointer to a null-terminated Unicode string containing the name of the returned object.
      * @param {Pointer<UInt32>} lpcchName Pointer to the size, in characters, of the <i>lpszName</i> buffer. On input, 
      *        specify the maximum number of characters the buffer can hold, including the terminating 
      *        <b>NULL</b>. On output, indicates the number of characters in the resulting name, excluding 
@@ -5913,7 +5990,7 @@ class Clustering {
     static ClusterNetInterfaceEnum(hNetInterfaceEnum, dwIndex, lpszName, lpcchName) {
         lpszName := lpszName is String? StrPtr(lpszName) : lpszName
 
-        result := DllCall("CLUSAPI.dll\ClusterNetInterfaceEnum", "ptr", hNetInterfaceEnum, "uint", dwIndex, "ptr", lpszName, "ptr", lpcchName, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterNetInterfaceEnum", "ptr", hNetInterfaceEnum, "uint", dwIndex, "ptr", lpszName, "uint*", lpcchName, "uint")
         return result
     }
 
@@ -6042,7 +6119,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterNodeEnumEx(hNodeEnum, dwIndex, pItem, cbItem) {
-        result := DllCall("CLUSAPI.dll\ClusterNodeEnumEx", "ptr", hNodeEnum, "uint", dwIndex, "ptr", pItem, "ptr", cbItem, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterNodeEnumEx", "ptr", hNodeEnum, "uint", dwIndex, "ptr", pItem, "uint*", cbItem, "uint")
         return result
     }
 
@@ -6107,7 +6184,7 @@ class Clustering {
      * @param {Pointer<UInt32>} lpdwType Pointer to the type of object returned. The following value of the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_node_enum">CLUSTER_NODE_ENUM</a> enumeration is returned with each 
      *        call.
-     * @param {Pointer<PWSTR>} lpszName Pointer to a null-terminated Unicode string containing the name of the returned object.
+     * @param {Pointer<Char>} lpszName Pointer to a null-terminated Unicode string containing the name of the returned object.
      * @param {Pointer<UInt32>} lpcchName Pointer to the size of the <i>lpszName</i> buffer as a count of characters. On input, 
      *        specify the maximum number of characters the buffer can hold, including the terminating 
      *        <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding 
@@ -6166,7 +6243,7 @@ class Clustering {
     static ClusterNodeEnum(hNodeEnum, dwIndex, lpdwType, lpszName, lpcchName) {
         lpszName := lpszName is String? StrPtr(lpszName) : lpszName
 
-        result := DllCall("CLUSAPI.dll\ClusterNodeEnum", "ptr", hNodeEnum, "uint", dwIndex, "ptr", lpdwType, "ptr", lpszName, "ptr", lpcchName, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterNodeEnum", "ptr", hNodeEnum, "uint", dwIndex, "uint*", lpdwType, "ptr", lpszName, "uint*", lpcchName, "uint")
         return result
     }
 
@@ -6202,7 +6279,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static EvictClusterNodeEx(hNode, dwTimeOut, phrCleanupStatus) {
-        result := DllCall("CLUSAPI.dll\EvictClusterNodeEx", "ptr", hNode, "uint", dwTimeOut, "ptr", phrCleanupStatus, "uint")
+        result := DllCall("CLUSAPI.dll\EvictClusterNodeEx", "ptr", hNode, "uint", dwTimeOut, "int*", phrCleanupStatus, "uint")
         return result
     }
 
@@ -6211,13 +6288,13 @@ class Clustering {
      * @param {Pointer} hNode 
      * @param {Integer} dwTimeout 
      * @param {Pointer<Int32>} phrCleanupStatus 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static EvictClusterNodeEx2(hNode, dwTimeout, phrCleanupStatus, lpszReason) {
         lpszReason := lpszReason is String? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\EvictClusterNodeEx2", "ptr", hNode, "uint", dwTimeout, "ptr", phrCleanupStatus, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\EvictClusterNodeEx2", "ptr", hNode, "uint", dwTimeout, "int*", phrCleanupStatus, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -6226,9 +6303,9 @@ class Clustering {
      * @remarks
      * The  <b>GetClusterResourceTypeKey</b> function returns a handle to a cluster database key representing the subtree root for the resource type pointed to by <i>lpszTypeName</i> in the cluster identified by <i>hCluster</i>. Callers should call  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle retrieved by  <b>GetClusterResourceTypeKey</b> when they are done with it.
      * @param {Pointer} hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
-     * @param {Pointer<PWSTR>} lpszTypeName Pointer to a NULL-terminated Unicode string specifying the name of a resource type (the registered type name, not the display name).
+     * @param {Pointer<Char>} lpszTypeName Pointer to a NULL-terminated Unicode string specifying the name of a resource type (the registered type name, not the display name).
      * @param {Integer} samDesired Access mask that describes the security access needed for the opened key.
-     * @returns {Pointer<HKEY>} If the operation succeeds, the function returns a registry key handle for the resource type.
+     * @returns {Pointer<Void>} If the operation succeeds, the function returns a registry key handle for the resource type.
      * 
      * If the operation fails, 
      * the function returns <b>NULL</b>. For more information about the error, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6240,7 +6317,7 @@ class Clustering {
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterResourceTypeKey", "ptr", hCluster, "ptr", lpszTypeName, "uint", samDesired, "ptr")
+        result := DllCall("CLUSAPI.dll\GetClusterResourceTypeKey", "ptr", hCluster, "ptr", lpszTypeName, "uint", samDesired)
         if(A_LastError)
             throw OSError()
 
@@ -6254,7 +6331,7 @@ class Clustering {
      * 
      * The <b>CreateClusterGroup</b> function calls the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createclustergroupex">CreateClusterGroupEx</a> function with a <b>NULL</b> CLUSTER_CREATE_GROUP_INFO. The new group is created with a group type of ClusGroupTypeUnknown.
      * @param {Pointer} hCluster Handle to the target cluster.
-     * @param {Pointer<PWSTR>} lpszGroupName Pointer to a null-terminated Unicode string containing the name of the group to be added to the cluster identified by <i>hCluster</i>. If there is not a group by this name,  <b>CreateClusterGroup</b> creates it.
+     * @param {Pointer<Char>} lpszGroupName Pointer to a null-terminated Unicode string containing the name of the group to be added to the cluster identified by <i>hCluster</i>. If there is not a group by this name,  <b>CreateClusterGroup</b> creates it.
      * @returns {Pointer} If the operation succeeds, 
      * the function returns a group handle.
      * 
@@ -6278,7 +6355,7 @@ class Clustering {
     /**
      * Opens a failover cluster group and returns a handle to it. (OpenClusterGroup)
      * @param {Pointer} hCluster Handle to a cluster that includes the group to open.
-     * @param {Pointer<PWSTR>} lpszGroupName Name of the group to open.
+     * @param {Pointer<Char>} lpszGroupName Name of the group to open.
      * @returns {Pointer} <table>
      * <tr>
      * <th>Return code</th>
@@ -6319,7 +6396,7 @@ class Clustering {
     /**
      * Opens a failover cluster group and returns a handle to it. (OpenClusterGroupEx)
      * @param {Pointer} hCluster Handle to a cluster that includes the group to open.
-     * @param {Pointer<PWSTR>} lpszGroupName Name of the group to open.
+     * @param {Pointer<Char>} lpszGroupName Name of the group to open.
      * @param {Integer} dwDesiredAccess The requested access privileges. This may be any combination of <b>GENERIC_READ</b> 
      *       (0x80000000), <b>GENERIC_ALL</b> (0x10000000), or <b>MAXIMUM_ALLOWED</b> 
      *       (0x02000000). If this value is zero (0) and undefined error may be returned. Using 
@@ -6362,7 +6439,7 @@ class Clustering {
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\OpenClusterGroupEx", "ptr", hCluster, "ptr", lpszGroupName, "uint", dwDesiredAccess, "ptr", lpdwGrantedAccess, "ptr")
+        result := DllCall("CLUSAPI.dll\OpenClusterGroupEx", "ptr", hCluster, "ptr", lpszGroupName, "uint", dwDesiredAccess, "uint*", lpdwGrantedAccess, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6389,7 +6466,7 @@ class Clustering {
      * @param {Integer} bDrainNode 
      * @param {Integer} dwPauseFlags 
      * @param {Pointer} hNodeDrainTarget 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static PauseClusterNodeEx2(hNode, bDrainNode, dwPauseFlags, hNodeDrainTarget, lpszReason) {
@@ -6421,7 +6498,7 @@ class Clustering {
      * @param {Pointer} hNode 
      * @param {Integer} eResumeFailbackType 
      * @param {Integer} dwResumeFlagsReserved 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static ResumeClusterNodeEx2(hNode, eResumeFailbackType, dwResumeFlagsReserved, lpszReason) {
@@ -6436,7 +6513,7 @@ class Clustering {
      * @remarks
      * The <b>CLUSTER_CREATE_GROUP_INFO</b> structure enables additional properties for group creation.  Currently, only the group type can be specified, which  enables the group type to be set when the group is created.
      * @param {Pointer} hCluster The handle to the cluster in which the group will be created.
-     * @param {Pointer<PWSTR>} lpszGroupName The name of the new cluster group.
+     * @param {Pointer<Char>} lpszGroupName The name of the new cluster group.
      * @param {Pointer<CLUSTER_CREATE_GROUP_INFO>} pGroupInfo The additional information used to create the group.
      * @returns {Pointer} If the operation is successful, the function returns a handle to the newly created group.
      * If the operation fails, the function returns <b>NULL</b>.
@@ -6455,9 +6532,9 @@ class Clustering {
      * @remarks
      * The <b>ClusterGroupOpenEnumEx</b> function connects to the cluster service via remote procedure call (RPC) and gathers all of the data to handle the entire enumeration.  After the RPC call completes, the data is maintained locally.  The <b>HGROUPENUMEX</b> handle contains all of the data required to satisfy the enumeration.  Additional calls to <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clustergroupenumex">ClusterGroupEnumEx</a>   or <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clustergroupgetenumcountex">ClusterGroupGetEnumCountEx</a> do not connect to the cluster.
      * @param {Pointer} hCluster The handle to the cluster on which the enumeration will be performed.
-     * @param {Pointer<PWSTR>} lpszProperties A pointer to a list of names of common properties.
+     * @param {Pointer} lpszProperties A pointer to a list of names of common properties.
      * @param {Integer} cbProperties The size, in bytes, of the <b>lpszProperties</b> field.
-     * @param {Pointer<PWSTR>} lpszRoProperties A pointer to a list of names of read-only common properties.
+     * @param {Pointer} lpszRoProperties A pointer to a list of names of read-only common properties.
      * @param {Integer} cbRoProperties The size, in bytes, of the <b>lpszRoProperties</b> field.
      * @param {Integer} dwFlags Reserved for future use. This value must be 0.
      * @returns {Pointer} If the operation is successful, the function returns a handle to the enumeration.
@@ -6467,9 +6544,6 @@ class Clustering {
      * @since windowsserver2012
      */
     static ClusterGroupOpenEnumEx(hCluster, lpszProperties, cbProperties, lpszRoProperties, cbRoProperties, dwFlags) {
-        lpszProperties := lpszProperties is String? StrPtr(lpszProperties) : lpszProperties
-        lpszRoProperties := lpszRoProperties is String? StrPtr(lpszRoProperties) : lpszRoProperties
-
         result := DllCall("CLUSAPI.dll\ClusterGroupOpenEnumEx", "ptr", hCluster, "ptr", lpszProperties, "uint", cbProperties, "ptr", lpszRoProperties, "uint", cbRoProperties, "uint", dwFlags, "ptr")
         return result
     }
@@ -6541,7 +6615,7 @@ class Clustering {
      * @since windowsserver2012
      */
     static ClusterGroupEnumEx(hGroupEnumEx, dwIndex, pItem, cbItem) {
-        result := DllCall("CLUSAPI.dll\ClusterGroupEnumEx", "ptr", hGroupEnumEx, "uint", dwIndex, "ptr", pItem, "ptr", cbItem, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterGroupEnumEx", "ptr", hGroupEnumEx, "uint", dwIndex, "ptr", pItem, "uint*", cbItem, "uint")
         return result
     }
 
@@ -6565,9 +6639,9 @@ class Clustering {
     /**
      * Opens a handle to a resource enumeration that enables iteration through a resource's dependencies and nodes.
      * @param {Pointer} hCluster A handle to the resource to iterate through.
-     * @param {Pointer<PWSTR>} lpszProperties A pointer to a list of names of common properties.
+     * @param {Pointer} lpszProperties A pointer to a list of names of common properties.
      * @param {Integer} cbProperties The size, in bytes, of the <i>lpszProperties</i>  parameter.
-     * @param {Pointer<PWSTR>} lpszRoProperties A pointer to a list of names of read-only common properties.
+     * @param {Pointer} lpszRoProperties A pointer to a list of names of read-only common properties.
      * @param {Integer} cbRoProperties The size, in bytes, of the <i>lpszRoProperties</i>  parameter.
      * @param {Integer} dwFlags The index that identifies the next object to enumerate. This parameter should be zero for the first call to <b>ClusterResourceOpenEnumEx</b> and then be incremented for subsequent calls.
      * @returns {Pointer} If the operation succeeds, the function returns an enumeration handle.
@@ -6578,9 +6652,6 @@ class Clustering {
      * @since windowsserver2012
      */
     static ClusterResourceOpenEnumEx(hCluster, lpszProperties, cbProperties, lpszRoProperties, cbRoProperties, dwFlags) {
-        lpszProperties := lpszProperties is String? StrPtr(lpszProperties) : lpszProperties
-        lpszRoProperties := lpszRoProperties is String? StrPtr(lpszRoProperties) : lpszRoProperties
-
         A_LastError := 0
 
         result := DllCall("CLUSAPI.dll\ClusterResourceOpenEnumEx", "ptr", hCluster, "ptr", lpszProperties, "uint", cbProperties, "ptr", lpszRoProperties, "uint", cbRoProperties, "uint", dwFlags, "ptr")
@@ -6676,7 +6747,7 @@ class Clustering {
      * @since windowsserver2012
      */
     static ClusterResourceEnumEx(hResourceEnumEx, dwIndex, pItem, cbItem) {
-        result := DllCall("CLUSAPI.dll\ClusterResourceEnumEx", "ptr", hResourceEnumEx, "uint", dwIndex, "ptr", pItem, "ptr", cbItem, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterResourceEnumEx", "ptr", hResourceEnumEx, "uint", dwIndex, "ptr", pItem, "uint*", cbItem, "uint")
         return result
     }
 
@@ -6699,7 +6770,7 @@ class Clustering {
      * @param {Pointer} hGroup A handle to the group to be brought online.
      * @param {Pointer} hDestinationNode A handle to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> that is to host the group.
      * @param {Integer} dwOnlineFlags A flag that specifies settings for the resource that is to be brought online.
-     * @param {Pointer<Byte>} lpInBuffer A pointer to the input buffer that receives instructions for the operation.  The <i>lpInBuffer</i>  parameter is formatted as a property list.
+     * @param {Pointer} lpInBuffer A pointer to the input buffer that receives instructions for the operation.  The <i>lpInBuffer</i>  parameter is formatted as a property list.
      * @param {Integer} cbInBufferSize The size of the <i>lpInBuffer</i> parameter, in bytes.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -6761,7 +6832,7 @@ class Clustering {
      * @param {Integer} dwOfflineFlags Flags that influence the offline policy. Along with 0x0, the following is an acceptable value: 
      *       <b>CLUSAPI_GROUP_OFFLINE_IGNORE_RESOURCE_LOCKED_STATUS</b> (0x00000001): disregard if a 
      *       resource has indicated that it should be “locked” in its current state.
-     * @param {Pointer<Byte>} lpInBuffer Contains instructions for the offline operation that are targeted at specific resources within the group. 
+     * @param {Pointer} lpInBuffer Contains instructions for the offline operation that are targeted at specific resources within the group. 
      *       <i>lpInBuffer</i> is formatted as a property list, which means that the instructions are 
      *       contained in property values. Resources in the group search the property list for property names that they 
      *       support for offline operations and then interpret the instructions in the associated property value. Note that 
@@ -6786,9 +6857,9 @@ class Clustering {
      * @param {Pointer} hGroup 
      * @param {Pointer} hDestinationNode 
      * @param {Integer} dwOnlineFlags 
-     * @param {Pointer<Byte>} lpInBuffer 
+     * @param {Pointer} lpInBuffer 
      * @param {Integer} cbInBufferSize 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static OnlineClusterGroupEx2(hGroup, hDestinationNode, dwOnlineFlags, lpInBuffer, cbInBufferSize, lpszReason) {
@@ -6804,13 +6875,13 @@ class Clustering {
      * @param {Integer} dwOfflineFlags 
      * @param {Pointer<Byte>} lpInBuffer 
      * @param {Integer} cbInBufferSize 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static OfflineClusterGroupEx2(hGroup, dwOfflineFlags, lpInBuffer, cbInBufferSize, lpszReason) {
         lpszReason := lpszReason is String? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\OfflineClusterGroupEx2", "ptr", hGroup, "uint", dwOfflineFlags, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\OfflineClusterGroupEx2", "ptr", hGroup, "uint", dwOfflineFlags, "char*", lpInBuffer, "uint", cbInBufferSize, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -6818,7 +6889,7 @@ class Clustering {
      * Brings an offline or failed resource online. (OnlineClusterResourceEx)
      * @param {Pointer} hResource The handle to the resource to bring online.
      * @param {Integer} dwOnlineFlags A flag that specifies settings for the resource that is to be brought online.
-     * @param {Pointer<Byte>} lpInBuffer A pointer to the input buffer that receives instructions for the operation. The <i>lpInBuffer</i>  parameter is formatted as a property list.
+     * @param {Pointer} lpInBuffer A pointer to the input buffer that receives instructions for the operation. The <i>lpInBuffer</i>  parameter is formatted as a property list.
      * @param {Integer} cbInBufferSize The size of <i>lpInBuffer</i>, in bytes.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -6854,9 +6925,9 @@ class Clustering {
      * 
      * @param {Pointer} hResource 
      * @param {Integer} dwOnlineFlags 
-     * @param {Pointer<Byte>} lpInBuffer 
+     * @param {Pointer} lpInBuffer 
      * @param {Integer} cbInBufferSize 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static OnlineClusterResourceEx2(hResource, dwOnlineFlags, lpInBuffer, cbInBufferSize, lpszReason) {
@@ -6883,7 +6954,7 @@ class Clustering {
      *     client be granted Full access in the cluster security descriptor.
      * @param {Pointer} hResource The handle to a cluster resource.
      * @param {Integer} dwOfflineFlags Flags that influence the offline policy.
-     * @param {Pointer<Byte>} lpInBuffer Contains instructions for the offline operation that are targeted at the specific resource. 
+     * @param {Pointer} lpInBuffer Contains instructions for the offline operation that are targeted at the specific resource. 
      *       <i>lpInBuffer</i> is formatted as a property list, which means that the instructions are 
      *       contained in property values. The resource DLL searches the property list for property names that it supports 
      *       for offline operations and then interprets the instructions in the associated property value. Note that the 
@@ -6907,9 +6978,9 @@ class Clustering {
      * 
      * @param {Pointer} hResource 
      * @param {Integer} dwOfflineFlags 
-     * @param {Pointer<Byte>} lpInBuffer 
+     * @param {Pointer} lpInBuffer 
      * @param {Integer} cbInBufferSize 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static OfflineClusterResourceEx2(hResource, dwOfflineFlags, lpInBuffer, cbInBufferSize, lpszReason) {
@@ -6942,7 +7013,7 @@ class Clustering {
      * @param {Pointer} hGroup The handle to a cluster group.
      * @param {Pointer} hDestinationNode The handle to a cluster node, indicating the node to which the group should be moved. This parameter is optional. If left <b>NULL</b>, the cluster will move the group to the most suitable node, according to failover policies configured for the cluster and for this particular group.
      * @param {Integer} dwMoveFlags A bitwise combination of the flags that influence the failover policy with respect to this move operation.
-     * @param {Pointer<Byte>} lpInBuffer A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">property list</a> that contains move operation instructions for specific resources within the group. The instructions are contained in property values. Resources in the group search the property list for property names that they support for move operations and then interpret the instructions in the associated property value. The properties supported by a resource in a <b>MoveClusterGroupEx</b> operation are not related to the private properties associated with a resource.
+     * @param {Pointer} lpInBuffer A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">property list</a> that contains move operation instructions for specific resources within the group. The instructions are contained in property values. Resources in the group search the property list for property names that they support for move operations and then interpret the instructions in the associated property value. The properties supported by a resource in a <b>MoveClusterGroupEx</b> operation are not related to the private properties associated with a resource.
      * @param {Integer} cbInBufferSize The size of <i>lpInBuffer</i>, in bytes.
      * @returns {Integer} <b>MoveClusterGroupEx</b> returns <b>ERROR_IO_PENDING</b> if the move command has been accepted and is in progress. <b>MoveClusterGroupEx</b> returns a nonzero error code if the move command was rejected immediately with no changes to group state. For instance, this would happen if <i>hDestinationNode</i> is not Up at the time of the move request.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-moveclustergroupex
@@ -6958,9 +7029,9 @@ class Clustering {
      * @param {Pointer} hGroup 
      * @param {Pointer} hDestinationNode 
      * @param {Integer} dwMoveFlags 
-     * @param {Pointer<Byte>} lpInBuffer 
+     * @param {Pointer} lpInBuffer 
      * @param {Integer} cbInBufferSize 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static MoveClusterGroupEx2(hGroup, hDestinationNode, dwMoveFlags, lpInBuffer, cbInBufferSize, lpszReason) {
@@ -7014,7 +7085,7 @@ class Clustering {
      * 
      * @param {Pointer} hResource 
      * @param {Integer} dwFlags 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static RestartClusterResourceEx(hResource, dwFlags, lpszReason) {
@@ -7106,12 +7177,97 @@ class Clustering {
      *      worker thread. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {Pointer} hGroup Handle to the group for which state information should be returned.
-     * @param {Pointer<PWSTR>} lpszNodeName Pointer to a null-terminated Unicode string containing the name of the node that currently owns the group.
+     * @param {Pointer<Char>} lpszNodeName Pointer to a null-terminated Unicode string containing the name of the node that currently owns the group.
      * @param {Pointer<UInt32>} lpcchNodeName Pointer to the size of the <i>lpszNodeName</i> buffer as a count of characters. On input, 
      *        specify the maximum number of characters the buffer can hold, including the terminating 
      *        <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding 
      *        the terminating <b>NULL</b>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} <b>GetClusterGroupState</b> returns the current 
+     *        state of the group, which is represented by one of the following values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterGroupStateUnknown</b></dt>
+     * <dt>-1</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation was not successful. For more information about the error, call the function 
+     *          <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterGroupOnline</b></dt>
+     * <dt>0</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * All of the resources in the group are <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/o-gly">online</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterGroupOffline</b></dt>
+     * <dt>1</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * All of the resources in the group are <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/o-gly">offline</a> or 
+     *          there are no resources in the group.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterGroupFailed</b></dt>
+     * <dt>2</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * At least one <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources">resource</a> in the group has failed (set a state 
+     *          of <b>ClusterResourceFailed</b> from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_resource_state">CLUSTER_RESOURCE_STATE</a> enumeration).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterGroupPartialOnline</b></dt>
+     * <dt>3</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * At least one resource in the group is online. No resources are 
+     *          <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/p-gly">pending</a> or 
+     *          <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/f-gly">failed</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterGroupPending</b></dt>
+     * <dt>4</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * At least one resource in the group is in a pending state. There are no failed resources.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclustergroupstate
      * @since windowsserver2008
      */
@@ -7120,10 +7276,11 @@ class Clustering {
 
         A_LastError := 0
 
-        DllCall("CLUSAPI.dll\GetClusterGroupState", "ptr", hGroup, "ptr", lpszNodeName, "ptr", lpcchNodeName)
+        result := DllCall("CLUSAPI.dll\GetClusterGroupState", "ptr", hGroup, "ptr", lpszNodeName, "uint*", lpcchNodeName)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -7137,7 +7294,7 @@ class Clustering {
      *     resource DLL. For more information, see 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {Pointer} hGroup Handle to the group to name.
-     * @param {Pointer<PWSTR>} lpszGroupName Pointer to the new name for the group identified by <i>hGroup</i>.
+     * @param {Pointer<Char>} lpszGroupName Pointer to the new name for the group identified by <i>hGroup</i>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
@@ -7169,15 +7326,15 @@ class Clustering {
      * @since windowsserver2008
      */
     static SetClusterGroupNodeList(hGroup, NodeCount, NodeList) {
-        result := DllCall("CLUSAPI.dll\SetClusterGroupNodeList", "ptr", hGroup, "uint", NodeCount, "ptr", NodeList, "uint")
+        result := DllCall("CLUSAPI.dll\SetClusterGroupNodeList", "ptr", hGroup, "uint", NodeCount, "ptr*", NodeList, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer} hGroup 
-     * @param {Pointer<PWSTR>} lpszGroupName 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszGroupName 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static SetClusterGroupNameEx(hGroup, lpszGroupName, lpszReason) {
@@ -7193,13 +7350,13 @@ class Clustering {
      * @param {Pointer} hGroup 
      * @param {Integer} NodeCount 
      * @param {Pointer<IntPtr>} NodeList 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static SetClusterGroupNodeListEx(hGroup, NodeCount, NodeList, lpszReason) {
         lpszReason := lpszReason is String? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\SetClusterGroupNodeListEx", "ptr", hGroup, "uint", NodeCount, "ptr", NodeList, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\SetClusterGroupNodeListEx", "ptr", hGroup, "uint", NodeCount, "ptr*", NodeList, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -7398,7 +7555,7 @@ class Clustering {
     /**
      * 
      * @param {Pointer} hGroup 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static DeleteClusterGroupEx(hGroup, lpszReason) {
@@ -7411,7 +7568,7 @@ class Clustering {
     /**
      * 
      * @param {Pointer} hGroup 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static DestroyClusterGroupEx(hGroup, lpszReason) {
@@ -7488,7 +7645,7 @@ class Clustering {
      * @param {Pointer<UInt32>} lpdwType A pointer to the type of object returned by 
      *        <b>ClusterGroupEnum</b>. The following are valid values 
      *        of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_group_enum">CLUSTER_GROUP_ENUM</a> enumeration.
-     * @param {Pointer<PWSTR>} lpszResourceName A pointer to a null-terminated Unicode string containing the name of the returned resource or node.
+     * @param {Pointer<Char>} lpszResourceName A pointer to a null-terminated Unicode string containing the name of the returned resource or node.
      * @param {Pointer<UInt32>} lpcchName A pointer to the size of the <i>lpszResourceName</i> buffer as a count of characters. On 
      *        input, specify the maximum number of characters the buffer can hold, including the terminating 
      *        <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding 
@@ -7553,7 +7710,7 @@ class Clustering {
     static ClusterGroupEnum(hGroupEnum, dwIndex, lpdwType, lpszResourceName, lpcchName) {
         lpszResourceName := lpszResourceName is String? StrPtr(lpszResourceName) : lpszResourceName
 
-        result := DllCall("CLUSAPI.dll\ClusterGroupEnum", "ptr", hGroupEnum, "uint", dwIndex, "ptr", lpdwType, "ptr", lpszResourceName, "ptr", lpcchName, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterGroupEnum", "ptr", hGroupEnum, "uint", dwIndex, "uint*", lpdwType, "ptr", lpszResourceName, "uint*", lpcchName, "uint")
         return result
     }
 
@@ -7579,9 +7736,9 @@ class Clustering {
      *     resource DLL. For more information, see 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {Pointer} hGroup Handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/groups">group</a> that should receive the resource.
-     * @param {Pointer<PWSTR>} lpszResourceName Pointer to a null-terminated Unicode string containing the name of the new resource. The specified name 
+     * @param {Pointer<Char>} lpszResourceName Pointer to a null-terminated Unicode string containing the name of the new resource. The specified name 
      *       must be unique within the cluster.
-     * @param {Pointer<PWSTR>} lpszResourceType Pointer to the type of new resource. The specified type must be installed in the cluster.
+     * @param {Pointer<Char>} lpszResourceType Pointer to the type of new resource. The specified type must be installed in the cluster.
      * @param {Integer} dwFlags Bitmask describing how the resource should be added to the cluster. The <i>dwFlags</i>
      * @returns {Pointer} If the operation succeeds, the function returns a resource handle.
      * 
@@ -7606,10 +7763,10 @@ class Clustering {
     /**
      * 
      * @param {Pointer} hGroup 
-     * @param {Pointer<PWSTR>} lpszResourceName 
-     * @param {Pointer<PWSTR>} lpszResourceType 
+     * @param {Pointer<Char>} lpszResourceName 
+     * @param {Pointer<Char>} lpszResourceType 
      * @param {Integer} dwFlags 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Pointer} 
      */
     static CreateClusterResourceEx(hGroup, lpszResourceName, lpszResourceType, dwFlags, lpszReason) {
@@ -7624,7 +7781,7 @@ class Clustering {
     /**
      * Opens a resource and returns a handle to it. (OpenClusterResource)
      * @param {Pointer} hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
-     * @param {Pointer<PWSTR>} lpszResourceName Pointer to a null-terminated Unicode string containing the name of the resource to be opened.
+     * @param {Pointer<Char>} lpszResourceName Pointer to a null-terminated Unicode string containing the name of the resource to be opened.
      * 
      * Resource names are not case sensitive. A resource name must be unique within the cluster. The name is set 
      *        when the resource is created and can be changed using the 
@@ -7669,7 +7826,7 @@ class Clustering {
     /**
      * Opens a resource and returns a handle to it. (OpenClusterResourceEx)
      * @param {Pointer} hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
-     * @param {Pointer<PWSTR>} lpszResourceName Pointer to a null-terminated Unicode string containing the name of the resource to be opened.
+     * @param {Pointer<Char>} lpszResourceName Pointer to a null-terminated Unicode string containing the name of the resource to be opened.
      * 
      * Resource names are not case sensitive. A resource name must be unique within the cluster. The name is set 
      *        when the resource is created and can be changed using the 
@@ -7717,7 +7874,7 @@ class Clustering {
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\OpenClusterResourceEx", "ptr", hCluster, "ptr", lpszResourceName, "uint", dwDesiredAccess, "ptr", lpdwGrantedAccess, "ptr")
+        result := DllCall("CLUSAPI.dll\OpenClusterResourceEx", "ptr", hCluster, "ptr", lpszResourceName, "uint", dwDesiredAccess, "uint*", lpdwGrantedAccess, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7843,7 +8000,7 @@ class Clustering {
     /**
      * 
      * @param {Pointer} hResource 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static DeleteClusterResourceEx(hResource, lpszReason) {
@@ -7862,7 +8019,7 @@ class Clustering {
      *      from a worker thread. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {Pointer} hResource Handle specifying the resource for which state information should be returned.
-     * @param {Pointer<PWSTR>} lpszNodeName Pointer to a buffer that receives the name of the specified resource's current owner node as a 
+     * @param {Pointer<Char>} lpszNodeName Pointer to a buffer that receives the name of the specified resource's current owner node as a 
      *        <b>NULL</b>-terminated Unicode string. Pass <b>NULL</b> if the node name 
      *        is not required.
      * @param {Pointer<UInt32>} lpcchNodeName Pointer to the size of the <i>lpszNodeName</i> buffer as a count of characters. This 
@@ -7870,7 +8027,7 @@ class Clustering {
      *        <b>NULL</b>. On input, specifies the maximum number of characters the buffer can hold, 
      *        including the terminating <b>NULL</b>. On output, specifies the number of characters in the 
      *        resulting name, excluding the terminating <b>NULL</b>.
-     * @param {Pointer<PWSTR>} lpszGroupName Pointer to a buffer that receives the name of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/groups">group</a> that 
+     * @param {Pointer<Char>} lpszGroupName Pointer to a buffer that receives the name of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/groups">group</a> that 
      *        contains the specified resource. The name is returned as a <b>NULL</b>-terminated Unicode 
      *        string. Pass <b>NULL</b> if the group name is not required.
      * @param {Pointer<UInt32>} lpcchGroupName Pointer to the size of the <i>lpszGroupName</i> buffer as a count of characters. This 
@@ -7878,7 +8035,118 @@ class Clustering {
      *        <b>NULL</b>. On input, specifies the maximum number of characters the buffer can hold, 
      *        including the terminating <b>NULL</b>. On output, specifies the number of characters in the 
      *        resulting name, excluding the terminating <b>NULL</b>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} <b>GetClusterResourceState</b> returns the 
+     *        current state of the resource enumerated from the 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_resource_state">CLUSTER_RESOURCE_STATE</a> enumeration, which can be 
+     *        represented by one of the following values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterResourceInitializing</b></dt>
+     * <dt>1</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The resource is performing initialization.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterResourceOnline</b></dt>
+     * <dt>2</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The resource is operational and functioning normally.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterResourceOffline</b></dt>
+     * <dt>3</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The resource is not operational. This value will be returned if the resource reported a state of 
+     *          <b>ClusterResourceOffline</b> (3) or 
+     *          <b>ClusterResourceCannotComeOnlineOnThisNode</b> (127).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterResourceFailed</b></dt>
+     * <dt>4</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The resource has failed. This value will be returned if the resource reported a state of 
+     *          <b>ClusterResourceFailed</b> (4) or 
+     *          <b>ClusterResourceCannotComeOnlineOnAnyNode</b> (126).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterResourcePending</b></dt>
+     * <dt>128</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The resource is in the process of coming online or going offline.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterResourceOnlinePending</b></dt>
+     * <dt>129</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The resource is in the process of coming online.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterResourceOfflinePending</b></dt>
+     * <dt>130</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The resource is in the process of going offline.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterResourceStateUnknown</b></dt>
+     * <dt>-1</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation was not successful. For more information about the error, call the function 
+     *          <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusterresourcestate
      * @since windowsserver2008
      */
@@ -7888,10 +8156,11 @@ class Clustering {
 
         A_LastError := 0
 
-        DllCall("CLUSAPI.dll\GetClusterResourceState", "ptr", hResource, "ptr", lpszNodeName, "ptr", lpcchNodeName, "ptr", lpszGroupName, "ptr", lpcchGroupName)
+        result := DllCall("CLUSAPI.dll\GetClusterResourceState", "ptr", hResource, "ptr", lpszNodeName, "uint*", lpcchNodeName, "ptr", lpszGroupName, "uint*", lpcchGroupName)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -7906,7 +8175,7 @@ class Clustering {
      *     resource DLL. For more information, see 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {Pointer} hResource Handle to a resource to rename.
-     * @param {Pointer<PWSTR>} lpszResourceName Pointer to the new name for the resource identified by <i>hResource</i>. Resource names 
+     * @param {Pointer<Char>} lpszResourceName Pointer to the new name for the resource identified by <i>hResource</i>. Resource names 
      *       are not case sensitive. A resource name must be unique within the cluster.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -7925,8 +8194,8 @@ class Clustering {
     /**
      * 
      * @param {Pointer} hResource 
-     * @param {Pointer<PWSTR>} lpszResourceName 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszResourceName 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static SetClusterResourceNameEx(hResource, lpszResourceName, lpszReason) {
@@ -7959,7 +8228,7 @@ class Clustering {
     /**
      * 
      * @param {Pointer} hResource 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static FailClusterResourceEx(hResource, lpszReason) {
@@ -8109,7 +8378,7 @@ class Clustering {
      * @param {Pointer} hResource 
      * @param {Pointer} hGroup 
      * @param {Integer} Flags 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static ChangeClusterResourceGroupEx2(hResource, hGroup, Flags, lpszReason) {
@@ -8166,7 +8435,7 @@ class Clustering {
      * 
      * @param {Pointer} hResource 
      * @param {Pointer} hNode 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static AddClusterResourceNodeEx(hResource, hNode, lpszReason) {
@@ -8180,7 +8449,7 @@ class Clustering {
      * 
      * @param {Pointer} hResource 
      * @param {Pointer} hNode 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static RemoveClusterResourceNodeEx(hResource, hNode, lpszReason) {
@@ -8339,7 +8608,7 @@ class Clustering {
      * 
      * @param {Pointer} hResource 
      * @param {Pointer} hDependsOn 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static AddClusterResourceDependencyEx(hResource, hDependsOn, lpszReason) {
@@ -8353,7 +8622,7 @@ class Clustering {
      * 
      * @param {Pointer} hResource 
      * @param {Pointer} hDependsOn 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static RemoveClusterResourceDependencyEx(hResource, hDependsOn, lpszReason) {
@@ -8393,7 +8662,7 @@ class Clustering {
      * 
      * For example: ([a904e1b7-95dd-47f0-9b2e-f1007d92699b] or [ae6fcf48-c42f-4960-a61a-7f1044067668]) and ([c471abc6-e454-482e-8be4-fae084cf799b] or [de976488-82cb-4950-8ce0-1b45e868e058])
      * @param {Pointer} hResource Handle to the resource.
-     * @param {Pointer<PWSTR>} lpszDependencyExpression Address of Unicode string containing the dependency expression.
+     * @param {Pointer<Char>} lpszDependencyExpression Address of Unicode string containing the dependency expression.
      * @returns {Integer} <b>ERROR_SUCCESS</b> (0) if successful.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-setclusterresourcedependencyexpression
      * @since windowsserver2008
@@ -8408,7 +8677,7 @@ class Clustering {
     /**
      * Retrieves the dependency expression associated with the specified resource.
      * @param {Pointer} hResource Handle to the resource.
-     * @param {Pointer<PWSTR>} lpszDependencyExpression Address of buffer that will receive the dependency expression.
+     * @param {Pointer<Char>} lpszDependencyExpression Address of buffer that will receive the dependency expression.
      * @param {Pointer<UInt32>} lpcchDependencyExpression Size in characters of the buffer pointed to by the <i>lpszDependencyExpression</i> 
      *       parameter.
      * @returns {Integer} <b>ERROR_SUCCESS</b> (0) if successful.
@@ -8418,7 +8687,7 @@ class Clustering {
     static GetClusterResourceDependencyExpression(hResource, lpszDependencyExpression, lpcchDependencyExpression) {
         lpszDependencyExpression := lpszDependencyExpression is String? StrPtr(lpszDependencyExpression) : lpszDependencyExpression
 
-        result := DllCall("CLUSAPI.dll\GetClusterResourceDependencyExpression", "ptr", hResource, "ptr", lpszDependencyExpression, "ptr", lpcchDependencyExpression, "uint")
+        result := DllCall("CLUSAPI.dll\GetClusterResourceDependencyExpression", "ptr", hResource, "ptr", lpszDependencyExpression, "uint*", lpcchDependencyExpression, "uint")
         return result
     }
 
@@ -8458,7 +8727,7 @@ class Clustering {
 
     /**
      * Specifies whether the file is on the cluster shared volume.
-     * @param {Pointer<PWSTR>} lpszPathName A Unicode string that specifies the path of the cluster shared volume. The string ends with a terminating null character.
+     * @param {Pointer<Char>} lpszPathName A Unicode string that specifies the path of the cluster shared volume. The string ends with a terminating null character.
      * @param {Pointer<Int32>} pbFileIsOnSharedVolume <b>True</b> if the file is on the cluster shared volume; otherwise <b>false.</b>
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
@@ -8470,14 +8739,14 @@ class Clustering {
     static IsFileOnClusterSharedVolume(lpszPathName, pbFileIsOnSharedVolume) {
         lpszPathName := lpszPathName is String? StrPtr(lpszPathName) : lpszPathName
 
-        result := DllCall("CLUSAPI.dll\IsFileOnClusterSharedVolume", "ptr", lpszPathName, "ptr", pbFileIsOnSharedVolume, "uint")
+        result := DllCall("CLUSAPI.dll\IsFileOnClusterSharedVolume", "ptr", lpszPathName, "int*", pbFileIsOnSharedVolume, "uint")
         return result
     }
 
     /**
      * Updates the state of a snapshot of a cluster shared volume.
      * @param {Pointer<Guid>} guidSnapshotSet The <b>GUID</b> of the snapshot.
-     * @param {Pointer<PWSTR>} lpszVolumeName A pointer to the name of the cluster shared volume.
+     * @param {Pointer<Char>} lpszVolumeName A pointer to the name of the cluster shared volume.
      * @param {Integer} state A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_shared_volume_snapshot_state">CLUSTER_SHARED_VOLUME_SNAPSHOT_STATE</a> enumeration value that specifies the state of the snapshot.
      * @returns {Integer} If the operation succeeds, the function returns a resource handle.
      * 
@@ -8809,10 +9078,10 @@ class Clustering {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-netname-creds-updated">CLUSCTL_RESOURCE_NETNAME_CREDS_UPDATED</a>
      * </li>
      * </ul>
-     * @param {Pointer<Void>} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
+     * @param {Pointer} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
      *        if no information is needed.
      * @param {Integer} cbInBufferSize The allocated size (in bytes) of the input buffer.
-     * @param {Pointer<Void>} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
+     * @param {Pointer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
      *        <b>NULL</b> if no data will be returned.
      * @param {Integer} cbOutBufferSize The allocated size (in bytes) of the output buffer.
      * @param {Pointer<UInt32>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
@@ -8904,7 +9173,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterResourceControl(hResource, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
-        result := DllCall("CLUSAPI.dll\ClusterResourceControl", "ptr", hResource, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, "ptr", lpBytesReturned, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterResourceControl", "ptr", hResource, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, "uint*", lpBytesReturned, "uint")
         return result
     }
 
@@ -8931,10 +9200,10 @@ class Clustering {
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-clusctl_resource_codes">CLUSCTL_RESOURCE_CODES</a> enumeration, specifying 
      *        the operation to be performed. For the syntax associated with a control code, refer to  
      *        the link on the <b>CLUSCTL_RESOURCE_CODES</b> topic.
-     * @param {Pointer<Void>} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
+     * @param {Pointer} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
      *        if no information is needed.
      * @param {Integer} cbInBufferSize The allocated size (in bytes) of the input buffer.
-     * @param {Pointer<Void>} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
+     * @param {Pointer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
      *        <b>NULL</b> if no data will be returned.
      * @param {Integer} cbOutBufferSize The allocated size (in bytes) of the output buffer.
      * @param {Pointer<UInt32>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
@@ -9026,7 +9295,7 @@ class Clustering {
      * @since windowsserver2016
      */
     static ClusterResourceControlAsUser(hResource, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
-        result := DllCall("CLUSAPI.dll\ClusterResourceControlAsUser", "ptr", hResource, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, "ptr", lpBytesReturned, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterResourceControlAsUser", "ptr", hResource, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, "uint*", lpBytesReturned, "uint")
         return result
     }
 
@@ -9048,7 +9317,7 @@ class Clustering {
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
      * @param {Pointer} hCluster Handle to the cluster containing the resource type identified in 
      *        <i>lpszResourceTypeName</i>.
-     * @param {Pointer<PWSTR>} lpszResourceTypeName Pointer to a <b>NULL</b>-terminated Unicode string containing the name of the resource 
+     * @param {Pointer<Char>} lpszResourceTypeName Pointer to a <b>NULL</b>-terminated Unicode string containing the name of the resource 
      *        type to be affected.
      * @param {Pointer} hHostNode Handle to the node hosting the affected resource type.
      * @param {Integer} dwControlCode A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-type-control-codes">resource type control code</a> specifying 
@@ -9130,10 +9399,10 @@ class Clustering {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-type-validate-private-properties">CLUSCTL_RESOURCE_TYPE_VALIDATE_PRIVATE_PROPERTIES</a>
      * </li>
      * </ul>
-     * @param {Pointer<Void>} lpInBuffer Pointer to the input buffer with information needed for the operation, or <b>NULL</b> if 
+     * @param {Pointer} lpInBuffer Pointer to the input buffer with information needed for the operation, or <b>NULL</b> if 
      *        no information is needed.
      * @param {Integer} nInBufferSize Number of bytes in the buffer pointed to by <i>lpInBuffer</i>.
-     * @param {Pointer<Void>} lpOutBuffer Pointer to the output buffer with information resulting from the operation, or 
+     * @param {Pointer} lpOutBuffer Pointer to the output buffer with information resulting from the operation, or 
      *       <b>NULL</b> if nothing will be returned.
      * @param {Integer} nOutBufferSize Number of bytes in the output buffer pointed to by <i>lpOutBuffer</i>, or zero if the 
      *        caller does not know how much data will be returned.
@@ -9198,7 +9467,7 @@ class Clustering {
     static ClusterResourceTypeControl(hCluster, lpszResourceTypeName, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
         lpszResourceTypeName := lpszResourceTypeName is String? StrPtr(lpszResourceTypeName) : lpszResourceTypeName
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceTypeControl", "ptr", hCluster, "ptr", lpszResourceTypeName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "ptr", lpBytesReturned, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterResourceTypeControl", "ptr", hCluster, "ptr", lpszResourceTypeName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "uint")
         return result
     }
 
@@ -9221,17 +9490,17 @@ class Clustering {
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
      * @param {Pointer} hCluster Handle to the cluster containing the resource type identified in 
      *        <i>lpszResourceTypeName</i>.
-     * @param {Pointer<PWSTR>} lpszResourceTypeName Pointer to a <b>NULL</b>-terminated Unicode string containing the name of the resource 
+     * @param {Pointer<Char>} lpszResourceTypeName Pointer to a <b>NULL</b>-terminated Unicode string containing the name of the resource 
      *        type to be affected.
      * @param {Pointer} hHostNode Handle to the node hosting the affected resource type.
      * @param {Integer} dwControlCode A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-control-codes">resource control code</a>, enumerated by the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-clusctl_resource_type_codes">CLUSCTL_RESOURCE_TYPE_CODES</a> enumeration, 
      *        specifying the operation to be performed. For the syntax associated with a control code, refer to  the link on 
      *        the <b>CLUSCTL_RESOURCE_TYPE_CODES</b> topic.
-     * @param {Pointer<Void>} lpInBuffer Pointer to the input buffer with information needed for the operation, or <b>NULL</b> if 
+     * @param {Pointer} lpInBuffer Pointer to the input buffer with information needed for the operation, or <b>NULL</b> if 
      *        no information is needed.
      * @param {Integer} nInBufferSize Number of bytes in the buffer pointed to by <i>lpInBuffer</i>.
-     * @param {Pointer<Void>} lpOutBuffer Pointer to the output buffer with information resulting from the operation, or 
+     * @param {Pointer} lpOutBuffer Pointer to the output buffer with information resulting from the operation, or 
      *       <b>NULL</b> if nothing will be returned.
      * @param {Integer} nOutBufferSize Number of bytes in the output buffer pointed to by <i>lpOutBuffer</i>, or zero if the 
      *        caller does not know how much data will be returned.
@@ -9296,7 +9565,7 @@ class Clustering {
     static ClusterResourceTypeControlAsUser(hCluster, lpszResourceTypeName, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
         lpszResourceTypeName := lpszResourceTypeName is String? StrPtr(lpszResourceTypeName) : lpszResourceTypeName
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceTypeControlAsUser", "ptr", hCluster, "ptr", lpszResourceTypeName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "ptr", lpBytesReturned, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterResourceTypeControlAsUser", "ptr", hCluster, "ptr", lpszResourceTypeName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "uint")
         return result
     }
 
@@ -9382,10 +9651,10 @@ class Clustering {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-group-validate-private-properties">CLUSCTL_GROUP_VALIDATE_PRIVATE_PROPERTIES</a>
      * </li>
      * </ul>
-     * @param {Pointer<Void>} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
+     * @param {Pointer} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
      *        if no information is needed.
      * @param {Integer} nInBufferSize The allocated size (in bytes) of the input buffer.
-     * @param {Pointer<Void>} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
+     * @param {Pointer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
      *        <b>NULL</b> if no data will be returned.
      * @param {Integer} nOutBufferSize The allocated size (in bytes) of the output buffer.
      * @param {Pointer<UInt32>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
@@ -9445,7 +9714,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterGroupControl(hGroup, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
-        result := DllCall("CLUSAPI.dll\ClusterGroupControl", "ptr", hGroup, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "ptr", lpBytesReturned, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterGroupControl", "ptr", hGroup, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "uint")
         return result
     }
 
@@ -9454,18 +9723,18 @@ class Clustering {
      * @param {Pointer} hResource 
      * @param {Pointer} hHostNode 
      * @param {Integer} dwControlCode 
-     * @param {Pointer<Void>} lpInBuffer 
+     * @param {Pointer} lpInBuffer 
      * @param {Integer} cbInBufferSize 
-     * @param {Pointer<Void>} lpOutBuffer 
+     * @param {Pointer} lpOutBuffer 
      * @param {Integer} cbOutBufferSize 
      * @param {Pointer<UInt32>} lpBytesReturned 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static ClusterResourceControlEx(hResource, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned, lpszReason) {
         lpszReason := lpszReason is String? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceControlEx", "ptr", hResource, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, "ptr", lpBytesReturned, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterResourceControlEx", "ptr", hResource, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, "uint*", lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -9474,62 +9743,62 @@ class Clustering {
      * @param {Pointer} hResource 
      * @param {Pointer} hHostNode 
      * @param {Integer} dwControlCode 
-     * @param {Pointer<Void>} lpInBuffer 
+     * @param {Pointer} lpInBuffer 
      * @param {Integer} cbInBufferSize 
-     * @param {Pointer<Void>} lpOutBuffer 
+     * @param {Pointer} lpOutBuffer 
      * @param {Integer} cbOutBufferSize 
      * @param {Pointer<UInt32>} lpBytesReturned 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static ClusterResourceControlAsUserEx(hResource, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned, lpszReason) {
         lpszReason := lpszReason is String? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceControlAsUserEx", "ptr", hResource, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, "ptr", lpBytesReturned, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterResourceControlAsUserEx", "ptr", hResource, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", cbInBufferSize, "ptr", lpOutBuffer, "uint", cbOutBufferSize, "uint*", lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer} hCluster 
-     * @param {Pointer<PWSTR>} lpszResourceTypeName 
+     * @param {Pointer<Char>} lpszResourceTypeName 
      * @param {Pointer} hHostNode 
      * @param {Integer} dwControlCode 
-     * @param {Pointer<Void>} lpInBuffer 
+     * @param {Pointer} lpInBuffer 
      * @param {Integer} nInBufferSize 
-     * @param {Pointer<Void>} lpOutBuffer 
+     * @param {Pointer} lpOutBuffer 
      * @param {Integer} nOutBufferSize 
      * @param {Pointer<UInt32>} lpBytesReturned 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static ClusterResourceTypeControlEx(hCluster, lpszResourceTypeName, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
         lpszResourceTypeName := lpszResourceTypeName is String? StrPtr(lpszResourceTypeName) : lpszResourceTypeName
         lpszReason := lpszReason is String? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceTypeControlEx", "ptr", hCluster, "ptr", lpszResourceTypeName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "ptr", lpBytesReturned, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterResourceTypeControlEx", "ptr", hCluster, "ptr", lpszResourceTypeName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer} hCluster 
-     * @param {Pointer<PWSTR>} lpszResourceTypeName 
+     * @param {Pointer<Char>} lpszResourceTypeName 
      * @param {Pointer} hHostNode 
      * @param {Integer} dwControlCode 
-     * @param {Pointer<Void>} lpInBuffer 
+     * @param {Pointer} lpInBuffer 
      * @param {Integer} nInBufferSize 
-     * @param {Pointer<Void>} lpOutBuffer 
+     * @param {Pointer} lpOutBuffer 
      * @param {Integer} nOutBufferSize 
      * @param {Pointer<UInt32>} lpBytesReturned 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static ClusterResourceTypeControlAsUserEx(hCluster, lpszResourceTypeName, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
         lpszResourceTypeName := lpszResourceTypeName is String? StrPtr(lpszResourceTypeName) : lpszResourceTypeName
         lpszReason := lpszReason is String? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceTypeControlAsUserEx", "ptr", hCluster, "ptr", lpszResourceTypeName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "ptr", lpBytesReturned, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterResourceTypeControlAsUserEx", "ptr", hCluster, "ptr", lpszResourceTypeName, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -9538,18 +9807,18 @@ class Clustering {
      * @param {Pointer} hGroup 
      * @param {Pointer} hHostNode 
      * @param {Integer} dwControlCode 
-     * @param {Pointer<Void>} lpInBuffer 
+     * @param {Pointer} lpInBuffer 
      * @param {Integer} nInBufferSize 
-     * @param {Pointer<Void>} lpOutBuffer 
+     * @param {Pointer} lpOutBuffer 
      * @param {Integer} nOutBufferSize 
      * @param {Pointer<UInt32>} lpBytesReturned 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static ClusterGroupControlEx(hGroup, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
         lpszReason := lpszReason is String? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ClusterGroupControlEx", "ptr", hGroup, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "ptr", lpBytesReturned, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterGroupControlEx", "ptr", hGroup, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -9631,10 +9900,10 @@ class Clustering {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-node-validate-private-properties">CLUSCTL_NODE_VALIDATE_PRIVATE_PROPERTIES</a>
      * </li>
      * </ul>
-     * @param {Pointer<Void>} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
+     * @param {Pointer} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
      *        if no information is needed.
      * @param {Integer} nInBufferSize The allocated size (in bytes) of the input buffer.
-     * @param {Pointer<Void>} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
+     * @param {Pointer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
      *        <b>NULL</b> if no data will be returned.
      * @param {Integer} nOutBufferSize The allocated size (in bytes) of the output buffer.
      * @param {Pointer<UInt32>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
@@ -9694,7 +9963,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterNodeControl(hNode, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
-        result := DllCall("CLUSAPI.dll\ClusterNodeControl", "ptr", hNode, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "ptr", lpBytesReturned, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterNodeControl", "ptr", hNode, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "uint")
         return result
     }
 
@@ -9703,18 +9972,18 @@ class Clustering {
      * @param {Pointer} hNode 
      * @param {Pointer} hHostNode 
      * @param {Integer} dwControlCode 
-     * @param {Pointer<Void>} lpInBuffer 
+     * @param {Pointer} lpInBuffer 
      * @param {Integer} nInBufferSize 
-     * @param {Pointer<Void>} lpOutBuffer 
+     * @param {Pointer} lpOutBuffer 
      * @param {Integer} nOutBufferSize 
      * @param {Pointer<UInt32>} lpBytesReturned 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static ClusterNodeControlEx(hNode, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
         lpszReason := lpszReason is String? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ClusterNodeControlEx", "ptr", hNode, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "ptr", lpBytesReturned, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterNodeControlEx", "ptr", hNode, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -9728,7 +9997,7 @@ class Clustering {
      *     be called from a worker thread. For more information, see 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {Pointer} hResource Handle to the dependent resource.
-     * @param {Pointer<PWSTR>} lpBuffer Buffer containing a null-terminated Unicode string that contains the 
+     * @param {Pointer<Char>} lpBuffer Buffer containing a null-terminated Unicode string that contains the 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/network-names-name">Name</a> private property of the Network Name 
      *       resource on which the resource depends.
      * @param {Pointer<UInt32>} nSize On input, pointer to a count of characters in the buffer pointed to by <i>lpBuffer</i>. 
@@ -9746,7 +10015,7 @@ class Clustering {
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterResourceNetworkName", "ptr", hResource, "ptr", lpBuffer, "ptr", nSize, "int")
+        result := DllCall("CLUSAPI.dll\GetClusterResourceNetworkName", "ptr", hResource, "ptr", lpBuffer, "uint*", nSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9819,7 +10088,7 @@ class Clustering {
      * 
      * 
      * The possible values are one of the following <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_resource_enum">CLUSTER_RESOURCE_ENUM</a> enumeration values:
-     * @param {Pointer<PWSTR>} lpszName A pointer to a null-terminated Unicode string containing the name of the returned object.
+     * @param {Pointer<Char>} lpszName A pointer to a null-terminated Unicode string containing the name of the returned object.
      * @param {Pointer<UInt32>} lpcchName A pointer to the size of the <i>lpszName</i> buffer as a count of characters. On input, 
      *        specify the maximum number of characters the buffer can hold, including the terminating null character. On 
      *        output, specifies the number of characters in the resulting name, excluding the terminating null character.
@@ -9887,7 +10156,7 @@ class Clustering {
     static ClusterResourceEnum(hResEnum, dwIndex, lpdwType, lpszName, lpcchName) {
         lpszName := lpszName is String? StrPtr(lpszName) : lpszName
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceEnum", "ptr", hResEnum, "uint", dwIndex, "ptr", lpdwType, "ptr", lpszName, "ptr", lpcchName, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterResourceEnum", "ptr", hResEnum, "uint", dwIndex, "uint*", lpdwType, "ptr", lpszName, "uint*", lpcchName, "uint")
         return result
     }
 
@@ -9910,9 +10179,9 @@ class Clustering {
      * @remarks
      * The  <b>CreateClusterResourceType</b> function only defines the resource type in the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">cluster database</a> and registers the resource type with the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-service">Cluster service</a>. To complete the process of installing a new resource type in a cluster, developers must install the resource DLLs and  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-administrator">Cluster Administrator</a> extension DLLs for the new types on each  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> in the cluster. Also, if Cluster Administrator will be used on systems that are not member nodes, the extension DLLs must also be installed on those systems.
      * @param {Pointer} hCluster Handle to the cluster to receive the new resource type.
-     * @param {Pointer<PWSTR>} lpszResourceTypeName Pointer to a null-terminated Unicode string containing the name of the new resource type. The specified name must be unique within the cluster.
-     * @param {Pointer<PWSTR>} lpszDisplayName Pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/display-names">display name</a> for the new resource type. While the content of <i>lpszResourceTypeName</i> should uniquely identify the resource type on all clusters, the content of <i>lpszDisplayName</i> should be a localized friendly name for the resource suitable for displaying to administrators.
-     * @param {Pointer<PWSTR>} lpszResourceTypeDll Pointer to the fully qualified name of the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-dlls">resource DLL</a> for the new resource type or the path name relative to the Cluster directory.
+     * @param {Pointer<Char>} lpszResourceTypeName Pointer to a null-terminated Unicode string containing the name of the new resource type. The specified name must be unique within the cluster.
+     * @param {Pointer<Char>} lpszDisplayName Pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/display-names">display name</a> for the new resource type. While the content of <i>lpszResourceTypeName</i> should uniquely identify the resource type on all clusters, the content of <i>lpszDisplayName</i> should be a localized friendly name for the resource suitable for displaying to administrators.
+     * @param {Pointer<Char>} lpszResourceTypeDll Pointer to the fully qualified name of the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-dlls">resource DLL</a> for the new resource type or the path name relative to the Cluster directory.
      * @param {Integer} dwLooksAlivePollInterval Default millisecond value to be used as the poll interval needed by the new resource type's  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-plooks_alive_routine">LooksAlive</a> function. The <i>dwLooksAlivePollInterval</i> parameter is used to set the resource type's  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-types-looksalivepollinterval">LooksAlivePollInterval</a> property.
      * @param {Integer} dwIsAlivePollInterval Default millisecond value to be used as the poll interval needed by the new resource type's  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pis_alive_routine">IsAlive</a> function. The <i>dwIsAlivePollInterval</i> parameter is used to set the resource type's  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-types-isalivepollinterval">IsAlivePollInterval</a> property.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
@@ -9938,7 +10207,7 @@ class Clustering {
      * 
      * The caller must also delete any  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources">resources</a> of this type before calling  <b>DeleteClusterResourceType</b> to delete the type. If any resources of the specified type still exist when  <b>DeleteClusterResourceType</b> is called, the function fails.
      * @param {Pointer} hCluster Handle to the cluster containing the resource type to be removed.
-     * @param {Pointer<PWSTR>} lpszResourceTypeName Pointer to a null-terminated Unicode string containing the name of the resource type to be removed.
+     * @param {Pointer<Char>} lpszResourceTypeName Pointer to a null-terminated Unicode string containing the name of the resource type to be removed.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -9956,12 +10225,12 @@ class Clustering {
     /**
      * 
      * @param {Pointer} hCluster 
-     * @param {Pointer<PWSTR>} lpszResourceTypeName 
-     * @param {Pointer<PWSTR>} lpszDisplayName 
-     * @param {Pointer<PWSTR>} lpszResourceTypeDll 
+     * @param {Pointer<Char>} lpszResourceTypeName 
+     * @param {Pointer<Char>} lpszDisplayName 
+     * @param {Pointer<Char>} lpszResourceTypeDll 
      * @param {Integer} dwLooksAlivePollInterval 
      * @param {Integer} dwIsAlivePollInterval 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static CreateClusterResourceTypeEx(hCluster, lpszResourceTypeName, lpszDisplayName, lpszResourceTypeDll, dwLooksAlivePollInterval, dwIsAlivePollInterval, lpszReason) {
@@ -9977,8 +10246,8 @@ class Clustering {
     /**
      * 
      * @param {Pointer} hCluster 
-     * @param {Pointer<PWSTR>} lpszTypeName 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszTypeName 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static DeleteClusterResourceTypeEx(hCluster, lpszTypeName, lpszReason) {
@@ -9992,7 +10261,7 @@ class Clustering {
     /**
      * Opens an enumerator for iterating through a resource type's possible owner nodes or resources.
      * @param {Pointer} hCluster <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">Cluster</a> handle.
-     * @param {Pointer<PWSTR>} lpszResourceTypeName A null-terminated Unicode string containing the name of the resource type.
+     * @param {Pointer<Char>} lpszResourceTypeName A null-terminated Unicode string containing the name of the resource type.
      * @param {Integer} dwType Bitmask describing the type of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-objects">cluster objects</a> to be 
      *        enumerated. The following values of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_resource_type_enum">CLUSTER_RESOURCE_TYPE_ENUM</a> enumeration are valid.
      * @returns {Pointer} If the operation succeeds, the function returns an enumeration handle which can be used in subsequent calls 
@@ -10043,7 +10312,7 @@ class Clustering {
      *        <b>ClusterResourceTypeEnum</b>. The following 
      *        values of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_resource_type_enum">CLUSTER_RESOURCE_TYPE_ENUM</a> 
      *        enumeration are valid.
-     * @param {Pointer<PWSTR>} lpszName Pointer to a null-terminated Unicode string containing the name of the returned object.
+     * @param {Pointer<Char>} lpszName Pointer to a null-terminated Unicode string containing the name of the returned object.
      * @param {Pointer<UInt32>} lpcchName Pointer to the size of the <i>lpszName</i> buffer as a count of characters. On input, 
      *        specify the maximum number of characters the buffer can hold, including the terminating 
      *        <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding 
@@ -10111,7 +10380,7 @@ class Clustering {
     static ClusterResourceTypeEnum(hResTypeEnum, dwIndex, lpdwType, lpszName, lpcchName) {
         lpszName := lpszName is String? StrPtr(lpszName) : lpszName
 
-        result := DllCall("CLUSAPI.dll\ClusterResourceTypeEnum", "ptr", hResTypeEnum, "uint", dwIndex, "ptr", lpdwType, "ptr", lpszName, "ptr", lpcchName, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterResourceTypeEnum", "ptr", hResTypeEnum, "uint", dwIndex, "uint*", lpdwType, "ptr", lpszName, "uint*", lpcchName, "uint")
         return result
     }
 
@@ -10133,7 +10402,7 @@ class Clustering {
     /**
      * Opens a connection to a network and returns a handle to it. (OpenClusterNetwork)
      * @param {Pointer} hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
-     * @param {Pointer<PWSTR>} lpszNetworkName Pointer to the name of an existing network.
+     * @param {Pointer<Char>} lpszNetworkName Pointer to the name of an existing network.
      * @returns {Pointer} <table>
      * <tr>
      * <th>Return code</th>
@@ -10174,7 +10443,7 @@ class Clustering {
     /**
      * Opens a connection to a network and returns a handle to it. (OpenClusterNetworkEx)
      * @param {Pointer} hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
-     * @param {Pointer<PWSTR>} lpszNetworkName Pointer to the name of an existing network.
+     * @param {Pointer<Char>} lpszNetworkName Pointer to the name of an existing network.
      * @param {Integer} dwDesiredAccess The requested access privileges. This may be any combination of <b>GENERIC_READ</b> 
      *       (0x80000000), <b>GENERIC_ALL</b> (0x10000000), or <b>MAXIMUM_ALLOWED</b> 
      *       (0x02000000). If this value is zero (0) and undefined error may be returned. Using 
@@ -10218,7 +10487,7 @@ class Clustering {
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\OpenClusterNetworkEx", "ptr", hCluster, "ptr", lpszNetworkName, "uint", dwDesiredAccess, "ptr", lpdwGrantedAccess, "ptr")
+        result := DllCall("CLUSAPI.dll\OpenClusterNetworkEx", "ptr", hCluster, "ptr", lpszNetworkName, "uint", dwDesiredAccess, "uint*", lpdwGrantedAccess, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10370,7 +10639,7 @@ class Clustering {
      * @param {Pointer<UInt32>} lpdwType A pointer to the type of object returned. The following value of the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_network_enum">CLUSTER_NETWORK_ENUM</a> enumeration is returned with 
      *        each call.
-     * @param {Pointer<PWSTR>} lpszName A pointer to a null-terminated Unicode string containing the name of the returned object.
+     * @param {Pointer<Char>} lpszName A pointer to a null-terminated Unicode string containing the name of the returned object.
      * @param {Pointer<UInt32>} lpcchName A pointer to the size of the <i>lpszName</i> buffer as a count of characters. On input, 
      *        specify the maximum number of characters the buffer can hold, including the terminating 
      *        <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding 
@@ -10429,7 +10698,7 @@ class Clustering {
     static ClusterNetworkEnum(hNetworkEnum, dwIndex, lpdwType, lpszName, lpcchName) {
         lpszName := lpszName is String? StrPtr(lpszName) : lpszName
 
-        result := DllCall("CLUSAPI.dll\ClusterNetworkEnum", "ptr", hNetworkEnum, "uint", dwIndex, "ptr", lpdwType, "ptr", lpszName, "ptr", lpcchName, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterNetworkEnum", "ptr", hNetworkEnum, "uint", dwIndex, "uint*", lpdwType, "ptr", lpszName, "uint*", lpcchName, "uint")
         return result
     }
 
@@ -10451,17 +10720,91 @@ class Clustering {
     /**
      * Current state of a network.
      * @param {Pointer} hNetwork Handle to the network for which state information should be returned.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} <b>GetClusterNetworkState</b> returns the current 
+     *        state of the network, which is represented by one of the following values enumerated by the 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_network_state">CLUSTER_NETWORK_STATE</a> enumeration.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterNetworkUnavailable</b></dt>
+     * <dt>0</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * All of the network interfaces on the network are unavailable, which means that the nodes that own the 
+     *         network interfaces are down.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterNetworkDown</b></dt>
+     * <dt>1</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network is not operational; none of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">nodes</a> on the 
+     *         network can communicate.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterNetworkPartitioned</b></dt>
+     * <dt>2</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network is operational, but two or more nodes on the network cannot communicate. Typically a 
+     *         path-specific problem has occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterNetworkUp</b></dt>
+     * <dt>3</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network is operational; all of the nodes in the cluster can communicate.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterNetworkStateUnknown</b></dt>
+     * <dt>-1</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation was not successful. For more information about the error, call the function 
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusternetworkstate
      * @since windowsserver2008
      */
     static GetClusterNetworkState(hNetwork) {
         A_LastError := 0
 
-        DllCall("CLUSAPI.dll\GetClusterNetworkState", "ptr", hNetwork)
+        result := DllCall("CLUSAPI.dll\GetClusterNetworkState", "ptr", hNetwork)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -10469,7 +10812,7 @@ class Clustering {
      * @remarks
      * <b>SetClusterNetworkName</b> changes the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/networks-name">Name</a> common property of the network identified by <i>hNetwork</i>. This is the only way that  <b>Name</b>, a read-only property, can be changed.
      * @param {Pointer} hNetwork Handle to a network to name.
-     * @param {Pointer<PWSTR>} lpszName Pointer to a null-terminated Unicode string containing the new network name.
+     * @param {Pointer<Char>} lpszName Pointer to a null-terminated Unicode string containing the new network name.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -10487,8 +10830,8 @@ class Clustering {
     /**
      * 
      * @param {Pointer} hNetwork 
-     * @param {Pointer<PWSTR>} lpszName 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszName 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static SetClusterNetworkNameEx(hNetwork, lpszName, lpszReason) {
@@ -10504,7 +10847,7 @@ class Clustering {
      * @remarks
      * Note that <i>lpcchNetworkID</i> refers to a count of characters and not a count of bytes, and that the returned size does not include the terminating <b>NULL</b> in the count. For more information on sizing buffers, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
      * @param {Pointer} hNetwork Handle to a network.
-     * @param {Pointer<PWSTR>} lpszNetworkId Pointer to the identifier of the network associated with <i>hNetwork</i>, including the null-terminating character.
+     * @param {Pointer<Char>} lpszNetworkId Pointer to the identifier of the network associated with <i>hNetwork</i>, including the null-terminating character.
      * @param {Pointer<UInt32>} lpcchName Pointer to the size of the <i>lpszNetworkID</i> buffer as a count of characters. On input, specify the maximum number of characters the buffer can hold, including the terminating <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding the terminating <b>NULL</b>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -10534,7 +10877,7 @@ class Clustering {
     static GetClusterNetworkId(hNetwork, lpszNetworkId, lpcchName) {
         lpszNetworkId := lpszNetworkId is String? StrPtr(lpszNetworkId) : lpszNetworkId
 
-        result := DllCall("CLUSAPI.dll\GetClusterNetworkId", "ptr", hNetwork, "ptr", lpszNetworkId, "ptr", lpcchName, "uint")
+        result := DllCall("CLUSAPI.dll\GetClusterNetworkId", "ptr", hNetwork, "ptr", lpszNetworkId, "uint*", lpcchName, "uint")
         return result
     }
 
@@ -10617,10 +10960,10 @@ class Clustering {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-validate-private-properties">CLUSCTL_NETWORK_VALIDATE_PRIVATE_PROPERTIES</a>
      * </li>
      * </ul>
-     * @param {Pointer<Void>} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
+     * @param {Pointer} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
      *        if no information is needed.
      * @param {Integer} nInBufferSize The allocated size (in bytes) of the input buffer.
-     * @param {Pointer<Void>} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
+     * @param {Pointer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
      *        <b>NULL</b> if no data will be returned.
      * @param {Integer} nOutBufferSize The allocated size (in bytes) of the output buffer.
      * @param {Pointer<UInt32>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
@@ -10679,7 +11022,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterNetworkControl(hNetwork, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
-        result := DllCall("CLUSAPI.dll\ClusterNetworkControl", "ptr", hNetwork, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "ptr", lpBytesReturned, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterNetworkControl", "ptr", hNetwork, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "uint")
         return result
     }
 
@@ -10688,25 +11031,25 @@ class Clustering {
      * @param {Pointer} hNetwork 
      * @param {Pointer} hHostNode 
      * @param {Integer} dwControlCode 
-     * @param {Pointer<Void>} lpInBuffer 
+     * @param {Pointer} lpInBuffer 
      * @param {Integer} nInBufferSize 
-     * @param {Pointer<Void>} lpOutBuffer 
+     * @param {Pointer} lpOutBuffer 
      * @param {Integer} nOutBufferSize 
      * @param {Pointer<UInt32>} lpBytesReturned 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static ClusterNetworkControlEx(hNetwork, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
         lpszReason := lpszReason is String? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ClusterNetworkControlEx", "ptr", hNetwork, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "ptr", lpBytesReturned, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterNetworkControlEx", "ptr", hNetwork, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
     /**
      * Opens a handle to a network interface. (OpenClusterNetInterface)
      * @param {Pointer} hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
-     * @param {Pointer<PWSTR>} lpszInterfaceName Pointer to a null-terminated Unicode string containing the name of the network interface to open.
+     * @param {Pointer<Char>} lpszInterfaceName Pointer to a null-terminated Unicode string containing the name of the network interface to open.
      * @returns {Pointer} If the operation was successful, 
      *        <b>OpenClusterNetInterface</b> returns an open 
      *        handle to the specified network interface.
@@ -10747,7 +11090,7 @@ class Clustering {
     /**
      * Opens a handle to a network interface. (OpenClusterNetInterfaceEx)
      * @param {Pointer} hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
-     * @param {Pointer<PWSTR>} lpszInterfaceName Pointer to a null-terminated Unicode string containing the name of the network interface to open.
+     * @param {Pointer<Char>} lpszInterfaceName Pointer to a null-terminated Unicode string containing the name of the network interface to open.
      * @param {Integer} dwDesiredAccess The requested access privileges. This may be any combination of <b>GENERIC_READ</b> 
      *       (0x80000000), <b>GENERIC_ALL</b> (0x10000000), or <b>MAXIMUM_ALLOWED</b> 
      *       (0x02000000). If this value is zero (0) and undefined error may be returned. Using 
@@ -10791,7 +11134,7 @@ class Clustering {
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\OpenClusterNetInterfaceEx", "ptr", hCluster, "ptr", lpszInterfaceName, "uint", dwDesiredAccess, "ptr", lpdwGrantedAccess, "ptr")
+        result := DllCall("CLUSAPI.dll\OpenClusterNetInterfaceEx", "ptr", hCluster, "ptr", lpszInterfaceName, "uint", dwDesiredAccess, "uint*", lpdwGrantedAccess, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10803,9 +11146,9 @@ class Clustering {
      * @remarks
      * Note that <i>lpcchInterfaceName</i> refers to a count of characters and not a count of bytes, and that the returned size does not include the terminating <b>NULL</b> in the count. For more information on sizing buffers, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
      * @param {Pointer} hCluster Handle to a cluster.
-     * @param {Pointer<PWSTR>} lpszNodeName Pointer to a null-terminated Unicode string containing the name of the node in the cluster.
-     * @param {Pointer<PWSTR>} lpszNetworkName Pointer to a null-terminated Unicode string containing the name of the network.
-     * @param {Pointer<PWSTR>} lpszInterfaceName Pointer to an output buffer holding the name of the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/network-interfaces">network interface</a>.
+     * @param {Pointer<Char>} lpszNodeName Pointer to a null-terminated Unicode string containing the name of the node in the cluster.
+     * @param {Pointer<Char>} lpszNetworkName Pointer to a null-terminated Unicode string containing the name of the network.
+     * @param {Pointer<Char>} lpszInterfaceName Pointer to an output buffer holding the name of the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/network-interfaces">network interface</a>.
      * @param {Pointer<UInt32>} lpcchInterfaceName Pointer to the size of the <i>lpszInterfaceName</i> buffer as a count of characters. On input, specify the maximum number of characters the buffer can hold, including the terminating <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding the terminating <b>NULL</b>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -10837,7 +11180,7 @@ class Clustering {
         lpszNetworkName := lpszNetworkName is String? StrPtr(lpszNetworkName) : lpszNetworkName
         lpszInterfaceName := lpszInterfaceName is String? StrPtr(lpszInterfaceName) : lpszInterfaceName
 
-        result := DllCall("CLUSAPI.dll\GetClusterNetInterface", "ptr", hCluster, "ptr", lpszNodeName, "ptr", lpszNetworkName, "ptr", lpszInterfaceName, "ptr", lpcchInterfaceName, "uint")
+        result := DllCall("CLUSAPI.dll\GetClusterNetInterface", "ptr", hCluster, "ptr", lpszNodeName, "ptr", lpszNetworkName, "ptr", lpszInterfaceName, "uint*", lpcchInterfaceName, "uint")
         return result
     }
 
@@ -10912,17 +11255,89 @@ class Clustering {
     /**
      * Returns the current state of a network interface.
      * @param {Pointer} hNetInterface Handle to the network interface for which state information should be returned.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} <b>GetClusterNetInterfaceState</b> returns 
+     *        the current state of the network interface, which is represented by one of the following values enumerated by 
+     *        the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_netinterface_state">CLUSTER_NETINTERFACE_STATE</a> 
+     *        enumeration.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterNetInterfaceFailed</b></dt>
+     * <dt>1</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network interface cannot communicate with any other network interface.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterNetInterfaceUnreachable</b></dt>
+     * <dt>2</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network interface cannot communicate with at least one other network interface whose state is not <b>ClusterNetInterfaceFailed</b> or <b>ClusterNetInterfaceUnavailable</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterNetInterfaceUp</b></dt>
+     * <dt>3</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network interface can communicate with all other network interfaces whose state is not <b>ClusterNetInterfaceFailed</b> or <b>ClusterNetInterfaceUnavailable</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterNetInterfaceUnavailable</b></dt>
+     * <dt>0</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The node that owns the network interface is down.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterNetInterfaceStateUnknown</b></dt>
+     * <dt>-1</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation was not successful. For more information about the error, call the function 
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getclusternetinterfacestate
      * @since windowsserver2008
      */
     static GetClusterNetInterfaceState(hNetInterface) {
         A_LastError := 0
 
-        DllCall("CLUSAPI.dll\GetClusterNetInterfaceState", "ptr", hNetInterface)
+        result := DllCall("CLUSAPI.dll\GetClusterNetInterfaceState", "ptr", hNetInterface)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -11010,10 +11425,10 @@ class Clustering {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-netinterface-validate-private-properties">CLUSCTL_NETINTERFACE_VALIDATE_PRIVATE_PROPERTIES</a>
      * </li>
      * </ul>
-     * @param {Pointer<Void>} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
+     * @param {Pointer} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
      *        if no information is needed.
      * @param {Integer} nInBufferSize The allocated size (in bytes) of the input buffer.
-     * @param {Pointer<Void>} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
+     * @param {Pointer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
      *        <b>NULL</b> if no data will be returned.
      * @param {Integer} nOutBufferSize The allocated size (in bytes) of the output buffer.
      * @param {Pointer<UInt32>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
@@ -11072,7 +11487,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterNetInterfaceControl(hNetInterface, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
-        result := DllCall("CLUSAPI.dll\ClusterNetInterfaceControl", "ptr", hNetInterface, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "ptr", lpBytesReturned, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterNetInterfaceControl", "ptr", hNetInterface, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "uint")
         return result
     }
 
@@ -11081,18 +11496,18 @@ class Clustering {
      * @param {Pointer} hNetInterface 
      * @param {Pointer} hHostNode 
      * @param {Integer} dwControlCode 
-     * @param {Pointer<Void>} lpInBuffer 
+     * @param {Pointer} lpInBuffer 
      * @param {Integer} nInBufferSize 
-     * @param {Pointer<Void>} lpOutBuffer 
+     * @param {Pointer} lpOutBuffer 
      * @param {Integer} nOutBufferSize 
      * @param {Pointer<UInt32>} lpBytesReturned 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static ClusterNetInterfaceControlEx(hNetInterface, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
         lpszReason := lpszReason is String? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ClusterNetInterfaceControlEx", "ptr", hNetInterface, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "ptr", lpBytesReturned, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterNetInterfaceControlEx", "ptr", hNetInterface, "ptr", hHostNode, "uint", dwControlCode, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesReturned, "ptr", lpszReason, "uint")
         return result
     }
 
@@ -11108,7 +11523,7 @@ class Clustering {
      * @param {Integer} samDesired Access mask that describes the security access needed for the new key. For more information and possible 
      *       values, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
-     * @returns {Pointer<HKEY>} If the operation succeeds, the function returns a database key handle for the cluster.
+     * @returns {Pointer<Void>} If the operation succeeds, the function returns a database key handle for the cluster.
      * 
      * If the operation fails, the function returns <b>NULL</b>. For more information about the error, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -11118,7 +11533,7 @@ class Clustering {
     static GetClusterKey(hCluster, samDesired) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterKey", "ptr", hCluster, "uint", samDesired, "ptr")
+        result := DllCall("CLUSAPI.dll\GetClusterKey", "ptr", hCluster, "uint", samDesired)
         if(A_LastError)
             throw OSError()
 
@@ -11131,7 +11546,7 @@ class Clustering {
      * The  <b>GetClusterGroupKey</b> function returns a handle to a cluster database key representing the subtree root for the group identified by <i>hGroup</i>. Callers should call  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle retrieved by  <b>GetClusterGroupKey</b> when they are done with it.
      * @param {Pointer} hGroup Handle to a group.
      * @param {Integer} samDesired Access mask that describes the security access needed for the key.
-     * @returns {Pointer<HKEY>} If the operation succeeds, the function returns a database key handle for the group.
+     * @returns {Pointer<Void>} If the operation succeeds, the function returns a database key handle for the group.
      * 
      * If the operation fails, 
      * the function returns <b>NULL</b>. For more information about the error, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -11141,7 +11556,7 @@ class Clustering {
     static GetClusterGroupKey(hGroup, samDesired) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterGroupKey", "ptr", hGroup, "uint", samDesired, "ptr")
+        result := DllCall("CLUSAPI.dll\GetClusterGroupKey", "ptr", hGroup, "uint", samDesired)
         if(A_LastError)
             throw OSError()
 
@@ -11154,7 +11569,7 @@ class Clustering {
      * The  <b>GetClusterResourceKey</b> function returns a handle to a cluster database key representing the subtree root for the resource identified by <i>hResource</i>. Callers should call  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle retrieved by  <b>GetClusterResourceKey</b> when they are done with it.
      * @param {Pointer} hResource Handle to a resource.
      * @param {Integer} samDesired Access mask that describes the security access needed for the opened key.
-     * @returns {Pointer<HKEY>} If the operation succeeds, the function returns a registry key handle for the resource.
+     * @returns {Pointer<Void>} If the operation succeeds, the function returns a registry key handle for the resource.
      * 
      * If the operation fails, 
      * the function returns <b>NULL</b>. For more information about the error, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -11164,7 +11579,7 @@ class Clustering {
     static GetClusterResourceKey(hResource, samDesired) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterResourceKey", "ptr", hResource, "uint", samDesired, "ptr")
+        result := DllCall("CLUSAPI.dll\GetClusterResourceKey", "ptr", hResource, "uint", samDesired)
         if(A_LastError)
             throw OSError()
 
@@ -11177,7 +11592,7 @@ class Clustering {
      * The  <b>GetClusterNodeKey</b> function returns a handle to a cluster database key representing the subtree root for the node identified by <i>hNode</i>. Callers should call  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle retrieved by  <b>GetClusterNodeKey</b> when they are done with it.
      * @param {Pointer} hNode Handle to a node.
      * @param {Integer} samDesired Access mask that describes the security access needed for the key.
-     * @returns {Pointer<HKEY>} If the operation succeeds, the function returns a registry key handle for the node.
+     * @returns {Pointer<Void>} If the operation succeeds, the function returns a registry key handle for the node.
      * 
      * If the operation fails, 
      * the function returns <b>NULL</b>. For more information about the error, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -11187,7 +11602,7 @@ class Clustering {
     static GetClusterNodeKey(hNode, samDesired) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterNodeKey", "ptr", hNode, "uint", samDesired, "ptr")
+        result := DllCall("CLUSAPI.dll\GetClusterNodeKey", "ptr", hNode, "uint", samDesired)
         if(A_LastError)
             throw OSError()
 
@@ -11200,7 +11615,7 @@ class Clustering {
      * The  <b>GetClusterNetworkKey</b> function returns a handle to a cluster database key representing the subtree root for the network identified by <i>hNetwork</i>. Callers should call  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle retrieved by  <b>GetClusterNetworkKey</b> when they are done with it.
      * @param {Pointer} hNetwork Handle to a network.
      * @param {Integer} samDesired Access mask that describes the security access needed for the new key.
-     * @returns {Pointer<HKEY>} If the operation succeeds, the function returns a registry key handle for the network.
+     * @returns {Pointer<Void>} If the operation succeeds, the function returns a registry key handle for the network.
      * 
      * If the operation fails, 
      * the function returns <b>NULL</b>. For more information about the error, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -11210,7 +11625,7 @@ class Clustering {
     static GetClusterNetworkKey(hNetwork, samDesired) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterNetworkKey", "ptr", hNetwork, "uint", samDesired, "ptr")
+        result := DllCall("CLUSAPI.dll\GetClusterNetworkKey", "ptr", hNetwork, "uint", samDesired)
         if(A_LastError)
             throw OSError()
 
@@ -11223,7 +11638,7 @@ class Clustering {
      * The  <b>GetClusterNetInterfaceKey</b> function returns a handle to a cluster database key representing the subtree root for the network interface identified by <i>hNetInterface</i>. Callers should call  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle retrieved by  <b>GetClusterNetInterfaceKey</b> when they are done with it.
      * @param {Pointer} hNetInterface Handle to a network interface.
      * @param {Integer} samDesired Access mask that describes the security access needed for the key.
-     * @returns {Pointer<HKEY>} If the operation succeeds, the function returns a registry key handle for the network interface.
+     * @returns {Pointer<Void>} If the operation succeeds, the function returns a registry key handle for the network interface.
      * 
      * If the operation fails, 
      * the function returns <b>NULL</b>. For more information about the error, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -11233,7 +11648,7 @@ class Clustering {
     static GetClusterNetInterfaceKey(hNetInterface, samDesired) {
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\GetClusterNetInterfaceKey", "ptr", hNetInterface, "uint", samDesired, "ptr")
+        result := DllCall("CLUSAPI.dll\GetClusterNetInterfaceKey", "ptr", hNetInterface, "uint", samDesired)
         if(A_LastError)
             throw OSError()
 
@@ -11270,8 +11685,8 @@ class Clustering {
      * <b>ClusterRegCreateKey</b> can be safely called from 
      *      any other resource DLL entry point function or from a worker thread. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {Pointer<HKEY>} hKey Handle to an open cluster database key. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<PWSTR>} lpszSubKey Pointer to a null-terminated Unicode string specifying the name of the subkey to be created or opened. The 
+     * @param {Pointer<Void>} hKey Handle to an open cluster database key. This parameter cannot be <b>NULL</b>.
+     * @param {Pointer<Char>} lpszSubKey Pointer to a null-terminated Unicode string specifying the name of the subkey to be created or opened. The 
      *        <i>lpszSubKey</i> parameter must point to a subkey that:
      * 
      * <ul>
@@ -11292,7 +11707,7 @@ class Clustering {
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregsetkeysecurity">ClusterRegSetKeySecurity</a> function after 
      *        <b>ClusterRegCreateKey</b> has returned 
      *        successfully.
-     * @param {Pointer<HKEY>} phkResult Pointer to the handle of the opened or created key.
+     * @param {Pointer<Void>} phkResult Pointer to the handle of the opened or created key.
      * @param {Pointer<UInt32>} lpdwDisposition Pointer to a value that describes whether the key pointed to by <i>lpszSubKey</i> was 
      *        opened or created. The following values are valid.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
@@ -11305,27 +11720,27 @@ class Clustering {
     static ClusterRegCreateKey(hKey, lpszSubKey, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition) {
         lpszSubKey := lpszSubKey is String? StrPtr(lpszSubKey) : lpszSubKey
 
-        result := DllCall("CLUSAPI.dll\ClusterRegCreateKey", "ptr", hKey, "ptr", lpszSubKey, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, "ptr", lpdwDisposition, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegCreateKey", "ptr", hKey, "ptr", lpszSubKey, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, "uint*", lpdwDisposition, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<HKEY>} hKey 
-     * @param {Pointer<PWSTR>} lpSubKey 
+     * @param {Pointer<Void>} hKey 
+     * @param {Pointer<Char>} lpSubKey 
      * @param {Integer} dwOptions 
      * @param {Integer} samDesired 
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpSecurityAttributes 
-     * @param {Pointer<HKEY>} phkResult 
+     * @param {Pointer<Void>} phkResult 
      * @param {Pointer<UInt32>} lpdwDisposition 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static ClusterRegCreateKeyEx(hKey, lpSubKey, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition, lpszReason) {
         lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
         lpszReason := lpszReason is String? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ClusterRegCreateKeyEx", "ptr", hKey, "ptr", lpSubKey, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, "ptr", lpdwDisposition, "ptr", lpszReason, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegCreateKeyEx", "ptr", hKey, "ptr", lpSubKey, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, "uint*", lpdwDisposition, "ptr", lpszReason, "int")
         return result
     }
 
@@ -11333,8 +11748,8 @@ class Clustering {
      * Opens an existing cluster database key.
      * @remarks
      * Callers should call  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle opened by  <b>ClusterRegOpenKey</b> when they are done with it.
-     * @param {Pointer<HKEY>} hKey Handle to a currently open key. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<PWSTR>} lpszSubKey Pointer to a null-terminated Unicode string specifying the name of the subkey to be created or opened. The <i>lpszSubKey</i> parameter must point to a subkey that:
+     * @param {Pointer<Void>} hKey Handle to a currently open key. This parameter cannot be <b>NULL</b>.
+     * @param {Pointer<Char>} lpszSubKey Pointer to a null-terminated Unicode string specifying the name of the subkey to be created or opened. The <i>lpszSubKey</i> parameter must point to a subkey that:
      * 
      * <ul>
      * <li>Is a child key of the key identified by <i>hKey</i>.</li>
@@ -11343,7 +11758,7 @@ class Clustering {
      * </ul>
      * The <i>lpszSubKey</i> parameter can point to an empty string, causing  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregcreatekey">ClusterRegCreateKey</a> to return a handle to the database key represented by <i>hKey</i>.
      * @param {Integer} samDesired Access mask that specifies the security access needed for the new key.
-     * @param {Pointer<HKEY>} phkResult Pointer to a handle to the opened or created key.
+     * @param {Pointer<Void>} phkResult Pointer to a handle to the opened or created key.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -11387,8 +11802,8 @@ class Clustering {
      * <b>ClusterRegDeleteKey</b> can be safely called from 
      *     any other resource DLL entry point function or from a worker thread. For more information, see 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {Pointer<HKEY>} hKey Handle to a currently open key.
-     * @param {Pointer<PWSTR>} lpszSubKey Pointer to a null-terminated Unicode string specifying the name of the key to delete. The key pointed to by 
+     * @param {Pointer<Void>} hKey Handle to a currently open key.
+     * @param {Pointer<Char>} lpszSubKey Pointer to a null-terminated Unicode string specifying the name of the key to delete. The key pointed to by 
      *       <i>lpszSubKey</i> cannot have subkeys; 
      *       <b>ClusterRegDeleteKey</b> can only delete keys without 
      *       subkeys. This parameter cannot be <b>NULL</b>.
@@ -11408,9 +11823,9 @@ class Clustering {
 
     /**
      * 
-     * @param {Pointer<HKEY>} hKey 
-     * @param {Pointer<PWSTR>} lpSubKey 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Void>} hKey 
+     * @param {Pointer<Char>} lpSubKey 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static ClusterRegDeleteKeyEx(hKey, lpSubKey, lpszReason) {
@@ -11423,7 +11838,7 @@ class Clustering {
 
     /**
      * Releases the handle of a cluster database key.
-     * @param {Pointer<HKEY>} hKey Handle to the cluster database key to be closed.
+     * @param {Pointer<Void>} hKey Handle to the cluster database key to be closed.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -11447,7 +11862,7 @@ class Clustering {
      *      set to <b>NULL</b>, 
      *      <b>ClusterRegEnumKey</b> fails if the node is not part of 
      *      a cluster.
-     * @param {Pointer<HKEY>} hKey <b>HKEY</b> specifying a currently open key.
+     * @param {Pointer<Void>} hKey <b>HKEY</b> specifying a currently open key.
      * @param {Integer} dwIndex Index used to identify the next subkey to be enumerated. This parameter should be zero for the first call to 
      *        <b>ClusterRegEnumKey</b> and then incremented for 
      *        subsequent calls.
@@ -11455,7 +11870,7 @@ class Clustering {
      * Because subkeys are not ordered, any new subkey has an arbitrary index. This means that 
      *        <b>ClusterRegEnumKey</b> may return subkeys in any 
      *        order.
-     * @param {Pointer<PWSTR>} lpszName Pointer to a buffer that receives the name of the subkey, including the null-terminating character. The 
+     * @param {Pointer<Char>} lpszName Pointer to a buffer that receives the name of the subkey, including the null-terminating character. The 
      *        function copies only the name of the subkey, not the full key hierarchy, to the buffer.
      * @param {Pointer<UInt32>} lpcchName Pointer to the size of the <i>lpszName</i> buffer as a count of characters. On input, 
      *        specify the maximum number of characters the buffer can hold, including the terminating 
@@ -11525,7 +11940,7 @@ class Clustering {
     static ClusterRegEnumKey(hKey, dwIndex, lpszName, lpcchName, lpftLastWriteTime) {
         lpszName := lpszName is String? StrPtr(lpszName) : lpszName
 
-        result := DllCall("CLUSAPI.dll\ClusterRegEnumKey", "ptr", hKey, "uint", dwIndex, "ptr", lpszName, "ptr", lpcchName, "ptr", lpftLastWriteTime, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegEnumKey", "ptr", hKey, "uint", dwIndex, "ptr", lpszName, "uint*", lpcchName, "ptr", lpftLastWriteTime, "int")
         return result
     }
 
@@ -11558,8 +11973,8 @@ class Clustering {
      * <b>ClusterRegSetValue</b> can be safely called from any 
      *      other resource DLL entry point function or from a worker thread. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {Pointer<HKEY>} hKey Handle to a cluster database key.
-     * @param {Pointer<PWSTR>} lpszValueName Pointer to a null-terminated Unicode string containing the name of the value to set. If a value with this 
+     * @param {Pointer<Void>} hKey Handle to a cluster database key.
+     * @param {Pointer<Char>} lpszValueName Pointer to a null-terminated Unicode string containing the name of the value to set. If a value with this 
      *        name is not already present in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources">resource</a>, 
      *        <b>ClusterRegSetValue</b> adds it to the resource.
      * @param {Integer} dwType 
@@ -11580,7 +11995,7 @@ class Clustering {
 
         A_LastError := 0
 
-        result := DllCall("CLUSAPI.dll\ClusterRegSetValue", "ptr", hKey, "ptr", lpszValueName, "uint", dwType, "ptr", lpData, "uint", cbData, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterRegSetValue", "ptr", hKey, "ptr", lpszValueName, "uint", dwType, "char*", lpData, "uint", cbData, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -11613,8 +12028,8 @@ class Clustering {
      * <b>ClusterRegDeleteValue</b> can be safely called 
      *      from any other resource DLL entry point function or from a worker thread. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {Pointer<HKEY>} hKey Handle to a currently open key.
-     * @param {Pointer<PWSTR>} lpszValueName Pointer to a null-terminated Unicode string containing the name of the value to be removed.
+     * @param {Pointer<Void>} hKey Handle to a currently open key.
+     * @param {Pointer<Char>} lpszValueName Pointer to a null-terminated Unicode string containing the name of the value to be removed.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
@@ -11631,27 +12046,27 @@ class Clustering {
 
     /**
      * 
-     * @param {Pointer<HKEY>} hKey 
-     * @param {Pointer<PWSTR>} lpszValueName 
+     * @param {Pointer<Void>} hKey 
+     * @param {Pointer<Char>} lpszValueName 
      * @param {Integer} dwType 
      * @param {Pointer<Byte>} lpData 
      * @param {Integer} cbData 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static ClusterRegSetValueEx(hKey, lpszValueName, dwType, lpData, cbData, lpszReason) {
         lpszValueName := lpszValueName is String? StrPtr(lpszValueName) : lpszValueName
         lpszReason := lpszReason is String? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall("CLUSAPI.dll\ClusterRegSetValueEx", "ptr", hKey, "ptr", lpszValueName, "uint", dwType, "ptr", lpData, "uint", cbData, "ptr", lpszReason, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterRegSetValueEx", "ptr", hKey, "ptr", lpszValueName, "uint", dwType, "char*", lpData, "uint", cbData, "ptr", lpszReason, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<HKEY>} hKey 
-     * @param {Pointer<PWSTR>} lpszValueName 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Void>} hKey 
+     * @param {Pointer<Char>} lpszValueName 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static ClusterRegDeleteValueEx(hKey, lpszValueName, lpszReason) {
@@ -11673,11 +12088,11 @@ class Clustering {
      * If <i>lpdwValueType</i> is set to <b>REG_SZ</b>, 
      *      <b>REG_MULTI_SZ</b> or <b>REG_EXPAND_SZ</b>, then 
      *      <i>lpbData</i> also includes a <b>NULL</b> terminator.
-     * @param {Pointer<HKEY>} hKey Handle of the cluster database key to query.
-     * @param {Pointer<PWSTR>} lpszValueName Pointer to a null-terminated Unicode string containing the name of the value to be queried.
+     * @param {Pointer<Void>} hKey Handle of the cluster database key to query.
+     * @param {Pointer<Char>} lpszValueName Pointer to a null-terminated Unicode string containing the name of the value to be queried.
      * @param {Pointer<UInt32>} lpdwValueType Pointer to the key's value type. This parameter can be <b>NULL</b> if the type is not 
      *        required; otherwise, the value returned through this parameter is one of the following.
-     * @param {Pointer<Byte>} lpData Pointer to the value's data. This parameter can be <b>NULL</b> if the data is not 
+     * @param {Pointer} lpData Pointer to the value's data. This parameter can be <b>NULL</b> if the data is not 
      *        required.
      * @param {Pointer<UInt32>} lpcbData On input, pointer to the count of bytes in the buffer pointed to by the <i>lpbData</i> 
      *        parameter. On output, pointer to the count of bytes in the value's data, which is placed in the content of 
@@ -11725,13 +12140,13 @@ class Clustering {
     static ClusterRegQueryValue(hKey, lpszValueName, lpdwValueType, lpData, lpcbData) {
         lpszValueName := lpszValueName is String? StrPtr(lpszValueName) : lpszValueName
 
-        result := DllCall("CLUSAPI.dll\ClusterRegQueryValue", "ptr", hKey, "ptr", lpszValueName, "ptr", lpdwValueType, "ptr", lpData, "ptr", lpcbData, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegQueryValue", "ptr", hKey, "ptr", lpszValueName, "uint*", lpdwValueType, "ptr", lpData, "uint*", lpcbData, "int")
         return result
     }
 
     /**
      * Enumerates the values of an open cluster database key.
-     * @param {Pointer<HKEY>} hKey Handle of the cluster database key to enumerate.
+     * @param {Pointer<Void>} hKey Handle of the cluster database key to enumerate.
      * @param {Integer} dwIndex Index used to identify the next value to be enumerated. This parameter should be zero for the first call to 
      *        <b>ClusterRegEnumValue</b> and then incremented for 
      *        subsequent calls.
@@ -11739,13 +12154,13 @@ class Clustering {
      * Because values are not ordered, any new value has an arbitrary index. This means that 
      *        <b>ClusterRegEnumValue</b> may return values in any 
      *        order.
-     * @param {Pointer<PWSTR>} lpszValueName Pointer to a null-terminated Unicode string containing the name of the returned value.
+     * @param {Pointer<Char>} lpszValueName Pointer to a null-terminated Unicode string containing the name of the returned value.
      * @param {Pointer<UInt32>} lpcchValueName Pointer to the size of the <i>lpszValueName</i> buffer as a count of characters. On input, 
      *        specify the maximum number of characters the buffer can hold, including the terminating 
      *        <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding 
      *        the terminating <b>NULL</b>.
      * @param {Pointer<UInt32>} lpdwType Pointer to the type code for the value entry, or <b>NULL</b> if the type code is not
-     * @param {Pointer<Byte>} lpData Pointer to the data for the value entry. This parameter can be <b>NULL</b> if the data is 
+     * @param {Pointer} lpData Pointer to the data for the value entry. This parameter can be <b>NULL</b> if the data is 
      *        not required.
      * @param {Pointer<UInt32>} lpcbData On input, pointer to a count of bytes in the buffer pointed to by the <i>lpbData</i> 
      *        parameter. On output, pointer to a count of bytes resulting from the operation. This parameter can be 
@@ -11815,13 +12230,13 @@ class Clustering {
     static ClusterRegEnumValue(hKey, dwIndex, lpszValueName, lpcchValueName, lpdwType, lpData, lpcbData) {
         lpszValueName := lpszValueName is String? StrPtr(lpszValueName) : lpszValueName
 
-        result := DllCall("CLUSAPI.dll\ClusterRegEnumValue", "ptr", hKey, "uint", dwIndex, "ptr", lpszValueName, "ptr", lpcchValueName, "ptr", lpdwType, "ptr", lpData, "ptr", lpcbData, "uint")
+        result := DllCall("CLUSAPI.dll\ClusterRegEnumValue", "ptr", hKey, "uint", dwIndex, "ptr", lpszValueName, "uint*", lpcchValueName, "uint*", lpdwType, "ptr", lpData, "uint*", lpcbData, "uint")
         return result
     }
 
     /**
      * Returns information about a cluster database key.
-     * @param {Pointer<HKEY>} hKey Handle to a cluster database key. All subsequent parameters describe the contents of the key.
+     * @param {Pointer<Void>} hKey Handle to a cluster database key. All subsequent parameters describe the contents of the key.
      * @param {Pointer<UInt32>} lpcSubKeys If not <b>NULL</b>, pointer to the number of subkeys in the specified key.
      * @param {Pointer<UInt32>} lpcchMaxSubKeyLen If not <b>NULL</b>, pointer to the number of characters in the longest subkey name in the specified key. The number does not include the terminating <b>NULL</b>.
      * @param {Pointer<UInt32>} lpcValues If not <b>NULL</b>, pointer to the number of values in the specified key.
@@ -11837,15 +12252,15 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterRegQueryInfoKey(hKey, lpcSubKeys, lpcchMaxSubKeyLen, lpcValues, lpcchMaxValueNameLen, lpcbMaxValueLen, lpcbSecurityDescriptor, lpftLastWriteTime) {
-        result := DllCall("CLUSAPI.dll\ClusterRegQueryInfoKey", "ptr", hKey, "ptr", lpcSubKeys, "ptr", lpcchMaxSubKeyLen, "ptr", lpcValues, "ptr", lpcchMaxValueNameLen, "ptr", lpcbMaxValueLen, "ptr", lpcbSecurityDescriptor, "ptr", lpftLastWriteTime, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegQueryInfoKey", "ptr", hKey, "uint*", lpcSubKeys, "uint*", lpcchMaxSubKeyLen, "uint*", lpcValues, "uint*", lpcchMaxValueNameLen, "uint*", lpcbMaxValueLen, "uint*", lpcbSecurityDescriptor, "ptr", lpftLastWriteTime, "int")
         return result
     }
 
     /**
      * Returns a copy of the security descriptor protecting the specified cluster database key.
-     * @param {Pointer<HKEY>} hKey Handle to a cluster database key.
+     * @param {Pointer<Void>} hKey Handle to a cluster database key.
      * @param {Integer} RequestedInformation A  <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> structure that indicates the requested security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} pSecurityDescriptor Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure containing a copy of the requested security descriptor.
+     * @param {Pointer} pSecurityDescriptor Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure containing a copy of the requested security descriptor.
      * @param {Pointer<UInt32>} lpcbSecurityDescriptor On input, pointer to a count of the number of bytes in the buffer pointed to by <i>pSecurityDescriptor</i>. On output, pointer to a count of the number of bytes written to the buffer.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -11855,7 +12270,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterRegGetKeySecurity(hKey, RequestedInformation, pSecurityDescriptor, lpcbSecurityDescriptor) {
-        result := DllCall("CLUSAPI.dll\ClusterRegGetKeySecurity", "ptr", hKey, "uint", RequestedInformation, "ptr", pSecurityDescriptor, "ptr", lpcbSecurityDescriptor, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegGetKeySecurity", "ptr", hKey, "uint", RequestedInformation, "ptr", pSecurityDescriptor, "uint*", lpcbSecurityDescriptor, "int")
         return result
     }
 
@@ -11889,11 +12304,11 @@ class Clustering {
      * <b>ClusterRegSetKeySecurity</b> can be safely 
      *      called from any other resource DLL entry point function or from a worker thread. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {Pointer<HKEY>} hKey Handle to a cluster database key.
+     * @param {Pointer<Void>} hKey Handle to a cluster database key.
      * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> structure that 
      *        indicates the content of the security descriptor pointed to by 
      *        <i>pSecurityDescriptor</i>.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} pSecurityDescriptor Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure 
+     * @param {Pointer<Void>} pSecurityDescriptor Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure 
      *        that describes the security attributes to set for the key corresponding to <i>hKey</i>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b> (0).
      * 
@@ -11909,10 +12324,10 @@ class Clustering {
 
     /**
      * 
-     * @param {Pointer<HKEY>} hKey 
+     * @param {Pointer<Void>} hKey 
      * @param {Integer} SecurityInformation 
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} pSecurityDescriptor 
-     * @param {Pointer<PWSTR>} lpszReason 
+     * @param {Pointer<Void>} pSecurityDescriptor 
+     * @param {Pointer<Char>} lpszReason 
      * @returns {Integer} 
      */
     static ClusterRegSetKeySecurityEx(hKey, SecurityInformation, pSecurityDescriptor, lpszReason) {
@@ -11941,7 +12356,7 @@ class Clustering {
      * The key should not be closed until the batch has been submitted for execution.
      * 
      * The <b>PCLUSTER_REG_CREATE_BATCH</b> type defines a pointer to this function.
-     * @param {Pointer<HKEY>} hKey The handle of the opened cluster registry key.  All the operations on the batch are relative to this cluster 
+     * @param {Pointer<Void>} hKey The handle of the opened cluster registry key.  All the operations on the batch are relative to this cluster 
      *        registry key.
      * @param {Pointer<IntPtr>} pHREGBATCH The pointer to the handle of the created batch.
      * @returns {Integer} The function returns one of the following 
@@ -12006,7 +12421,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterRegCreateBatch(hKey, pHREGBATCH) {
-        result := DllCall("CLUSAPI.dll\ClusterRegCreateBatch", "ptr", hKey, "ptr", pHREGBATCH, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegCreateBatch", "ptr", hKey, "ptr*", pHREGBATCH, "int")
         return result
     }
 
@@ -12018,13 +12433,13 @@ class Clustering {
      * @param {Integer} dwCommand A command supported by this API that is taken from the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ne-clusapi-cluster_reg_command">CLUSTER_REG_COMMAND</a> enumeration.  The possible 
      *        commands are as follows.
-     * @param {Pointer<PWSTR>} wzName The name of the value or key relative to the command issued by the <i>dwCommand</i> 
+     * @param {Pointer<Char>} wzName The name of the value or key relative to the command issued by the <i>dwCommand</i> 
      *        parameter.
      * @param {Integer} dwOptions If <i>dwCommand</i> takes the <b>CLUSREG_SET_VALUE</b> command, then 
      *        this parameter takes one of the standard 
      *        <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">registry value types</a>. If not, then 
      *        <i>dwCommand</i> is set to 0.
-     * @param {Pointer<Void>} lpData A pointer to the data relative to the command issued by <i>dwCommand</i>. The value of 
+     * @param {Pointer} lpData A pointer to the data relative to the command issued by <i>dwCommand</i>. The value of 
      *        this parameter is <b>NULL</b> for all but the <b>CLUSREG_SET_VALUE</b> 
      *        command.
      * @param {Integer} cbData The count, in bytes, of the data relative to the command issued by <i>dwCommand</i>. The 
@@ -12176,7 +12591,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterRegCloseBatch(hRegBatch, bCommit, failedCommandNumber) {
-        result := DllCall("CLUSAPI.dll\ClusterRegCloseBatch", "ptr", hRegBatch, "int", bCommit, "ptr", failedCommandNumber, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegCloseBatch", "ptr", hRegBatch, "int", bCommit, "int*", failedCommandNumber, "int")
         return result
     }
 
@@ -12231,7 +12646,7 @@ class Clustering {
      * @since windowsserver2012
      */
     static ClusterRegCloseBatchEx(hRegBatch, flags, failedCommandNumber) {
-        result := DllCall("CLUSAPI.dll\ClusterRegCloseBatchEx", "ptr", hRegBatch, "uint", flags, "ptr", failedCommandNumber, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegCloseBatchEx", "ptr", hRegBatch, "uint", flags, "int*", failedCommandNumber, "int")
         return result
     }
 
@@ -12306,7 +12721,7 @@ class Clustering {
      * @remarks
      * The <b>PCLUSTER_REG_CREATE_BATCH_NOTIFY_PORT</b> type defines a pointer to this 
      *      function.
-     * @param {Pointer<HKEY>} hKey A cluster registry key. Any updates performed at this key or keys below it will be posted to a notification 
+     * @param {Pointer<Void>} hKey A cluster registry key. Any updates performed at this key or keys below it will be posted to a notification 
      *        port.
      * @param {Pointer<IntPtr>} phBatchNotifyPort A handle to a batch notification port that allows subsequent reading batch notifications via the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterreggetbatchnotification">ClusterRegGetBatchNotification</a> 
@@ -12319,7 +12734,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterRegCreateBatchNotifyPort(hKey, phBatchNotifyPort) {
-        result := DllCall("CLUSAPI.dll\ClusterRegCreateBatchNotifyPort", "ptr", hKey, "ptr", phBatchNotifyPort, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegCreateBatchNotifyPort", "ptr", hKey, "ptr*", phBatchNotifyPort, "int")
         return result
     }
 
@@ -12447,7 +12862,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterRegGetBatchNotification(hBatchNotify, phBatchNotification) {
-        result := DllCall("CLUSAPI.dll\ClusterRegGetBatchNotification", "ptr", hBatchNotify, "ptr", phBatchNotification, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegGetBatchNotification", "ptr", hBatchNotify, "ptr*", phBatchNotification, "int")
         return result
     }
 
@@ -12457,7 +12872,7 @@ class Clustering {
      * Add commands to the batch by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregreadbatchaddcommand">ClusterRegReadBatchAddCommand</a>  function. Execute the batch by calling the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterregclosereadbatch">ClusterRegCloseReadBatch</a> function.
      * 
      * Do not close the key until the read batch has been submitted for execution.
-     * @param {Pointer<HKEY>} hKey The handle to the opened cluster registry key. All of the operations on the batch are relative to this cluster registry key.
+     * @param {Pointer<Void>} hKey The handle to the opened cluster registry key. All of the operations on the batch are relative to this cluster registry key.
      * @param {Pointer<IntPtr>} phRegReadBatch A pointer to the handle of the created read batch.
      * @returns {Integer} The function returns one of the following 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
@@ -12496,7 +12911,7 @@ class Clustering {
      * @since windowsserver2012
      */
     static ClusterRegCreateReadBatch(hKey, phRegReadBatch) {
-        result := DllCall("CLUSAPI.dll\ClusterRegCreateReadBatch", "ptr", hKey, "ptr", phRegReadBatch, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegCreateReadBatch", "ptr", hKey, "ptr*", phRegReadBatch, "int")
         return result
     }
 
@@ -12505,8 +12920,8 @@ class Clustering {
      * @remarks
      * Additional calls to the <b>ClusterRegReadBatchAddCommand</b> function add additional read commands to the batch.
      * @param {Pointer} hRegReadBatch The handle of the read batch to which a command will be added. Create a batch by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregcreatereadbatch">ClusterRegCreateReadBatch</a> function.
-     * @param {Pointer<PWSTR>} wzSubkeyName The name of the key relative to the cluster registry key. If this name is <b>NULL</b>, the read is performed on the cluster registry key represented in the <i>hRegReadBatch</i> parameter.
-     * @param {Pointer<PWSTR>} wzValueName The name of the registry value to be read. If this name is <b>NULL</b>, the content of the default value is returned.
+     * @param {Pointer<Char>} wzSubkeyName The name of the key relative to the cluster registry key. If this name is <b>NULL</b>, the read is performed on the cluster registry key represented in the <i>hRegReadBatch</i> parameter.
+     * @param {Pointer<Char>} wzValueName The name of the registry value to be read. If this name is <b>NULL</b>, the content of the default value is returned.
      * @returns {Integer} The function returns one of the following 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
@@ -12618,7 +13033,7 @@ class Clustering {
      * @since windowsserver2012
      */
     static ClusterRegCloseReadBatch(hRegReadBatch, phRegReadBatchReply) {
-        result := DllCall("CLUSAPI.dll\ClusterRegCloseReadBatch", "ptr", hRegReadBatch, "ptr", phRegReadBatchReply, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegCloseReadBatch", "ptr", hRegReadBatch, "ptr*", phRegReadBatchReply, "int")
         return result
     }
 
@@ -12676,7 +13091,7 @@ class Clustering {
      * @since windowsserver2016
      */
     static ClusterRegCloseReadBatchEx(hRegReadBatch, flags, phRegReadBatchReply) {
-        result := DllCall("CLUSAPI.dll\ClusterRegCloseReadBatchEx", "ptr", hRegReadBatch, "uint", flags, "ptr", phRegReadBatchReply, "int")
+        result := DllCall("CLUSAPI.dll\ClusterRegCloseReadBatchEx", "ptr", hRegReadBatch, "uint", flags, "ptr*", phRegReadBatchReply, "int")
         return result
     }
 
@@ -12788,7 +13203,7 @@ class Clustering {
     /**
      * Updates an account access list (ACL) for a cluster.
      * @param {Pointer} hCluster A handle to the cluster.
-     * @param {Pointer<PWSTR>} szAccountSID The security identifier (SID) or the account name for the new account access entry (ACE).
+     * @param {Pointer<Char>} szAccountSID The security identifier (SID) or the account name for the new account access entry (ACE).
      * @param {Integer} dwAccess The access rights controlled by the ACE.
      * 
      * 
@@ -12910,14 +13325,12 @@ class Clustering {
     /**
      * 
      * @param {Integer} cNodes 
-     * @param {Pointer<PWSTR>} ppszNodeNames 
+     * @param {Pointer<Char>} ppszNodeNames 
      * @param {Pointer<Int32>} pCNOResType 
      * @returns {Integer} 
      */
     static DetermineCNOResTypeFromNodelist(cNodes, ppszNodeNames, pCNOResType) {
-        ppszNodeNames := ppszNodeNames is String? StrPtr(ppszNodeNames) : ppszNodeNames
-
-        result := DllCall("CLUSAPI.dll\DetermineCNOResTypeFromNodelist", "uint", cNodes, "ptr", ppszNodeNames, "ptr", pCNOResType, "uint")
+        result := DllCall("CLUSAPI.dll\DetermineCNOResTypeFromNodelist", "uint", cNodes, "ptr", ppszNodeNames, "int*", pCNOResType, "uint")
         return result
     }
 
@@ -12928,21 +13341,19 @@ class Clustering {
      * @returns {Integer} 
      */
     static DetermineCNOResTypeFromCluster(hCluster, pCNOResType) {
-        result := DllCall("CLUSAPI.dll\DetermineCNOResTypeFromCluster", "ptr", hCluster, "ptr", pCNOResType, "uint")
+        result := DllCall("CLUSAPI.dll\DetermineCNOResTypeFromCluster", "ptr", hCluster, "int*", pCNOResType, "uint")
         return result
     }
 
     /**
      * 
      * @param {Integer} cNodes 
-     * @param {Pointer<PWSTR>} ppszNodeNames 
+     * @param {Pointer<Char>} ppszNodeNames 
      * @param {Pointer<Int32>} pCloudType 
      * @returns {Integer} 
      */
     static DetermineClusterCloudTypeFromNodelist(cNodes, ppszNodeNames, pCloudType) {
-        ppszNodeNames := ppszNodeNames is String? StrPtr(ppszNodeNames) : ppszNodeNames
-
-        result := DllCall("CLUSAPI.dll\DetermineClusterCloudTypeFromNodelist", "uint", cNodes, "ptr", ppszNodeNames, "ptr", pCloudType, "uint")
+        result := DllCall("CLUSAPI.dll\DetermineClusterCloudTypeFromNodelist", "uint", cNodes, "ptr", ppszNodeNames, "int*", pCloudType, "uint")
         return result
     }
 
@@ -12953,20 +13364,20 @@ class Clustering {
      * @returns {Integer} 
      */
     static DetermineClusterCloudTypeFromCluster(hCluster, pCloudType) {
-        result := DllCall("CLUSAPI.dll\DetermineClusterCloudTypeFromCluster", "ptr", hCluster, "ptr", pCloudType, "uint")
+        result := DllCall("CLUSAPI.dll\DetermineClusterCloudTypeFromCluster", "ptr", hCluster, "int*", pCloudType, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszNodeName 
+     * @param {Pointer<Char>} ppszNodeName 
      * @param {Pointer<UInt32>} NodeCloudType 
      * @returns {Integer} 
      */
     static GetNodeCloudTypeDW(ppszNodeName, NodeCloudType) {
         ppszNodeName := ppszNodeName is String? StrPtr(ppszNodeName) : ppszNodeName
 
-        result := DllCall("CLUSAPI.dll\GetNodeCloudTypeDW", "ptr", ppszNodeName, "ptr", NodeCloudType, "uint")
+        result := DllCall("CLUSAPI.dll\GetNodeCloudTypeDW", "ptr", ppszNodeName, "uint*", NodeCloudType, "uint")
         return result
     }
 
@@ -12975,7 +13386,7 @@ class Clustering {
      * @param {Pointer} hChange A handle to the notification port.
      * @param {Pointer} hCluster A handle to the cluster object.
      * @param {Integer} Flags A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_change_resource_type_v2">CLUSTER_CHANGE_RESOURCE_TYPE_V2</a> enumeration value that specifies the notification type to add.
-     * @param {Pointer<PWSTR>} resTypeName A pointer to a null-terminated Unicode string that contains the name of the resource type.
+     * @param {Pointer<Char>} resTypeName A pointer to a null-terminated Unicode string that contains the name of the resource type.
      * @param {Pointer} dwNotifyKey The notification key that is returned from the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-getclusternotifyv2">GetClusterNotifyV2</a> function when the event occurs.
      * @returns {Integer} <b>ERROR_SUCCESS</b> if the operation is successful; otherwise, a system error code.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-registerclusterresourcetypenotifyv2
@@ -12997,7 +13408,7 @@ class Clustering {
      *      nodes.
      * @param {Pointer} hCluster Handle to a cluster, returned by the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a> or 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createcluster">CreateCluster</a> function.
-     * @param {Pointer<PWSTR>} lpszNodeName Name of the computer to add to the cluster.
+     * @param {Pointer<Char>} lpszNodeName Name of the computer to add to the cluster.
      * @param {Pointer<PCLUSTER_SETUP_PROGRESS_CALLBACK>} pfnProgressCallback Optional address to a 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nc-clusapi-pcluster_setup_progress_callback">PCLUSTER_SETUP_PROGRESS_CALLBACK</a> 
      *        callback function.
@@ -13023,11 +13434,11 @@ class Clustering {
     /**
      * 
      * @param {Pointer} hCluster 
-     * @param {Pointer<PWSTR>} lpszNodeName 
+     * @param {Pointer<Char>} lpszNodeName 
      * @param {Pointer<PCLUSTER_SETUP_PROGRESS_CALLBACK>} pfnProgressCallback 
      * @param {Pointer<Void>} pvCallbackArg 
-     * @param {Pointer<PWSTR>} lpszClusterStorageNodeDescription 
-     * @param {Pointer<PWSTR>} lpszClusterStorageNodeLocation 
+     * @param {Pointer<Char>} lpszClusterStorageNodeDescription 
+     * @param {Pointer<Char>} lpszClusterStorageNodeLocation 
      * @returns {Integer} 
      */
     static AddClusterStorageNode(hCluster, lpszNodeName, pfnProgressCallback, pvCallbackArg, lpszClusterStorageNodeDescription, lpszClusterStorageNodeLocation) {
@@ -13042,7 +13453,7 @@ class Clustering {
     /**
      * 
      * @param {Pointer} hCluster 
-     * @param {Pointer<PWSTR>} lpszNodeName 
+     * @param {Pointer<Char>} lpszNodeName 
      * @param {Integer} dwFlags 
      * @param {Pointer<PCLUSTER_SETUP_PROGRESS_CALLBACK>} pfnProgressCallback 
      * @param {Pointer<Void>} pvCallbackArg 
@@ -13058,7 +13469,7 @@ class Clustering {
     /**
      * 
      * @param {Pointer} hCluster 
-     * @param {Pointer<PWSTR>} lpszClusterStorageEnclosureName 
+     * @param {Pointer<Char>} lpszClusterStorageEnclosureName 
      * @param {Integer} dwTimeout 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
@@ -13154,7 +13565,7 @@ class Clustering {
     /**
      * 
      * @param {Pointer} hCluster 
-     * @param {Pointer<PWSTR>} id 
+     * @param {Pointer<Char>} id 
      * @param {Integer} flags 
      * @returns {Integer} 
      * @since windowsserver2016
@@ -13183,8 +13594,8 @@ class Clustering {
      * Starts a service. The PRESUTIL_START_RESOURCE_SERVICE type defines a pointer to this function.
      * @remarks
      * The  <b>ResUtilStartResourceService</b> utility function encapsulates the necessary calls to the service control manager, providing a convenient way to start services in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>. Using  <b>ResUtilStartResourceService</b> is optional. If the service to be started requires specific access restrictions or other special handling, use the service control manager functions instead.
-     * @param {Pointer<PWSTR>} pszServiceName Null-terminated Unicode string containing the name of the service to start.
-     * @param {Pointer<SC_HANDLE>} phServiceHandle Optional pointer to a handle in which the handle to the started service is returned. This handle must be closed either by a call to the cluster utility function  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilstopservice">ResUtilStopService</a> or the function  <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-closeservicehandle">CloseServiceHandle</a>.
+     * @param {Pointer<Char>} pszServiceName Null-terminated Unicode string containing the name of the service to start.
+     * @param {Pointer<Void>} phServiceHandle Optional pointer to a handle in which the handle to the started service is returned. This handle must be closed either by a call to the cluster utility function  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilstopservice">ResUtilStopService</a> or the function  <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-closeservicehandle">CloseServiceHandle</a>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -13219,7 +13630,7 @@ class Clustering {
 
     /**
      * Verifies that a named service is starting or currently running. The PRESUTIL_VERIFY_RESOURCE_SERVICE type defines a pointer to this function.
-     * @param {Pointer<PWSTR>} pszServiceName Null-terminated Unicode string containing the name of the service to verify.
+     * @param {Pointer<Char>} pszServiceName Null-terminated Unicode string containing the name of the service to verify.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -13254,7 +13665,7 @@ class Clustering {
 
     /**
      * Stops a named service. The PRESUTIL_STOP_RESOURCE_SERVICE type defines a pointer to this function.
-     * @param {Pointer<PWSTR>} pszServiceName Null-terminated Unicode string containing the name of the service to stop.
+     * @param {Pointer<Char>} pszServiceName Null-terminated Unicode string containing the name of the service to stop.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -13289,7 +13700,7 @@ class Clustering {
 
     /**
      * Checks if a service identified by a handle is starting or currently running. The PRESUTIL_VERIFY_SERVICE type defines a pointer to this function.
-     * @param {Pointer<SC_HANDLE>} hServiceHandle Handle of the service to verify.
+     * @param {Pointer<Void>} hServiceHandle Handle of the service to verify.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -13324,7 +13735,7 @@ class Clustering {
      * Stops a service identified by a handle. The PRESUTIL_STOP_SERVICE type defines a pointer to this function.
      * @remarks
      * The  <b>ResUtilStopService</b> utility function closes the handle specified in <i>hServiceHandle</i> when it stops the service.
-     * @param {Pointer<SC_HANDLE>} hServiceHandle Handle of the service to stop.
+     * @param {Pointer<Void>} hServiceHandle Handle of the service to stop.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -13359,7 +13770,7 @@ class Clustering {
      * Creates every directory specified in a path, skipping directories that already exist. The PRESUTIL_CREATE_DIRECTORY_TREE type defines a pointer to this function.
      * @remarks
      * If the path only contains a drive specification (L"c:\\"),  <b>ResUtilCreateDirectoryTree</b> will return <b>ERROR_SUCCESS</b> but take no action.
-     * @param {Pointer<PWSTR>} pszPath Pointer to a null-terminated Unicode string specifying a path. The string can end with a trailing backslash.
+     * @param {Pointer<Char>} pszPath Pointer to a null-terminated Unicode string specifying a path. The string can end with a trailing backslash.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -13376,7 +13787,7 @@ class Clustering {
 
     /**
      * Checks whether a path is syntactically valid.
-     * @param {Pointer<PWSTR>} pszPath Pointer to the path to check.
+     * @param {Pointer<Char>} pszPath Pointer to the path to check.
      * @returns {Integer} If the operation succeeds, the function returns <b>TRUE</b> and <i>pszPath</i> is valid.
      * 
      * If the operation fails, 
@@ -13394,7 +13805,7 @@ class Clustering {
     /**
      * Enumerates the property names of a cluster object. The PRESUTIL_ENUM_PROPERTIES type defines a pointer to this function.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures describing properties to enumerate.
-     * @param {Pointer<PWSTR>} pszOutProperties Pointer to the output buffer in which to return the names of all of the properties in multiple string format. Each property name is stored as a null-terminated Unicode string. The last property name is followed by a final null-terminating character.
+     * @param {Pointer} pszOutProperties Pointer to the output buffer in which to return the names of all of the properties in multiple string format. Each property name is stored as a null-terminated Unicode string. The last property name is followed by a final null-terminating character.
      * @param {Integer} cbOutPropertiesSize Size in bytes of the output buffer pointed to by <i>pszOutProperties</i>.
      * @param {Pointer<UInt32>} pcbBytesReturned Pointer to the total number of bytes in the property list pointed to by <i>pszOutProperties</i>.
      * @param {Pointer<UInt32>} pcbRequired Number of bytes required if the output buffer is too small.
@@ -13446,16 +13857,14 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilEnumProperties(pPropertyTable, pszOutProperties, cbOutPropertiesSize, pcbBytesReturned, pcbRequired) {
-        pszOutProperties := pszOutProperties is String? StrPtr(pszOutProperties) : pszOutProperties
-
-        result := DllCall("RESUTILS.dll\ResUtilEnumProperties", "ptr", pPropertyTable, "ptr", pszOutProperties, "uint", cbOutPropertiesSize, "ptr", pcbBytesReturned, "ptr", pcbRequired, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilEnumProperties", "ptr", pPropertyTable, "ptr", pszOutProperties, "uint", cbOutPropertiesSize, "uint*", pcbBytesReturned, "uint*", pcbRequired, "uint")
         return result
     }
 
     /**
      * Retrieves the names of a cluster object's private properties. The PRESUTIL_ENUM_PRIVATE_PROPERTIES type defines a pointer to this function.
-     * @param {Pointer<HKEY>} hkeyClusterKey Key identifying the location of the private properties in the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">cluster database</a>.
-     * @param {Pointer<PWSTR>} pszOutProperties Pointer to an output buffer in which to receive the names of the enumerated properties.
+     * @param {Pointer<Void>} hkeyClusterKey Key identifying the location of the private properties in the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">cluster database</a>.
+     * @param {Pointer} pszOutProperties Pointer to an output buffer in which to receive the names of the enumerated properties.
      * @param {Integer} cbOutPropertiesSize Size of the output buffer pointed to by <i>pszOutProperties</i>.
      * @param {Pointer<UInt32>} pcbBytesReturned Pointer to the total number of bytes returned in the output buffer.
      * @param {Pointer<UInt32>} pcbRequired Pointer to the required number of bytes if the output buffer is too small to hold all of the enumerated properties.
@@ -13507,17 +13916,15 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilEnumPrivateProperties(hkeyClusterKey, pszOutProperties, cbOutPropertiesSize, pcbBytesReturned, pcbRequired) {
-        pszOutProperties := pszOutProperties is String? StrPtr(pszOutProperties) : pszOutProperties
-
-        result := DllCall("RESUTILS.dll\ResUtilEnumPrivateProperties", "ptr", hkeyClusterKey, "ptr", pszOutProperties, "uint", cbOutPropertiesSize, "ptr", pcbBytesReturned, "ptr", pcbRequired, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilEnumPrivateProperties", "ptr", hkeyClusterKey, "ptr", pszOutProperties, "uint", cbOutPropertiesSize, "uint*", pcbBytesReturned, "uint*", pcbRequired, "uint")
         return result
     }
 
     /**
      * Retrieves properties specified by a property table from the cluster database and returns them in a property list. The PRESUTIL_GET_PROPERTIES type defines a pointer to this function.
-     * @param {Pointer<HKEY>} hkeyClusterKey Pointer to the cluster database key that identifies the location of the properties to retrieve.
+     * @param {Pointer<Void>} hkeyClusterKey Pointer to the cluster database key that identifies the location of the properties to retrieve.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures that describe the properties to retrieve.
-     * @param {Pointer<Void>} pOutPropertyList Pointer to an output buffer in which to return the property list.
+     * @param {Pointer} pOutPropertyList Pointer to an output buffer in which to return the property list.
      * @param {Integer} cbOutPropertyListSize Size in bytes of the output buffer pointed to by <i>pOutPropertyList</i>.
      * @param {Pointer<UInt32>} pcbBytesReturned Pointer to the total number of bytes in the property list pointed to by <i>pOutPropertyList</i>.
      * @param {Pointer<UInt32>} pcbRequired Pointer to the number of bytes that is required if <i>pOutPropertyList</i> is too small.
@@ -13569,7 +13976,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetProperties(hkeyClusterKey, pPropertyTable, pOutPropertyList, cbOutPropertyListSize, pcbBytesReturned, pcbRequired) {
-        result := DllCall("RESUTILS.dll\ResUtilGetProperties", "ptr", hkeyClusterKey, "ptr", pPropertyTable, "ptr", pOutPropertyList, "uint", cbOutPropertyListSize, "ptr", pcbBytesReturned, "ptr", pcbRequired, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetProperties", "ptr", hkeyClusterKey, "ptr", pPropertyTable, "ptr", pOutPropertyList, "uint", cbOutPropertyListSize, "uint*", pcbBytesReturned, "uint*", pcbRequired, "uint")
         return result
     }
 
@@ -13582,9 +13989,9 @@ class Clustering {
      * <li>Included in the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-tables">property table</a>.</li>
      * <li>Included in the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">cluster database</a> below the key identified by the <i>ClusterKey</i> parameter, regardless of whether the property is included in the property table.</li>
      * </ul>
-     * @param {Pointer<HKEY>} hkeyClusterKey Pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">cluster database</a> key that identifies the location of the properties to retrieve.
+     * @param {Pointer<Void>} hkeyClusterKey Pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">cluster database</a> key that identifies the location of the properties to retrieve.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures that describe the properties to retrieve.
-     * @param {Pointer<Void>} pOutPropertyList Pointer to an output buffer in which to return the property list.
+     * @param {Pointer} pOutPropertyList Pointer to an output buffer in which to return the property list.
      * @param {Integer} cbOutPropertyListSize Size in bytes of the output buffer pointed to by <i>OutBuffer</i>.
      * @param {Pointer<UInt32>} pcbBytesReturned Pointer to the total number of bytes in the property list pointed to by <i>OutBuffer</i>.
      * @param {Pointer<UInt32>} pcbRequired Pointer to the number of bytes that is required if <i>OutBuffer</i> is too small.
@@ -13636,14 +14043,14 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetAllProperties(hkeyClusterKey, pPropertyTable, pOutPropertyList, cbOutPropertyListSize, pcbBytesReturned, pcbRequired) {
-        result := DllCall("RESUTILS.dll\ResUtilGetAllProperties", "ptr", hkeyClusterKey, "ptr", pPropertyTable, "ptr", pOutPropertyList, "uint", cbOutPropertyListSize, "ptr", pcbBytesReturned, "ptr", pcbRequired, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetAllProperties", "ptr", hkeyClusterKey, "ptr", pPropertyTable, "ptr", pOutPropertyList, "uint", cbOutPropertyListSize, "uint*", pcbBytesReturned, "uint*", pcbRequired, "uint")
         return result
     }
 
     /**
      * Returns private properties for a cluster object. The PRESUTIL_GET_PRIVATE_PROPERTIES type defines a pointer to this function.
-     * @param {Pointer<HKEY>} hkeyClusterKey Pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">cluster database</a> key that identifies the location of the private properties to retrieve.
-     * @param {Pointer<Void>} pOutPropertyList Pointer to an output buffer in which a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">property list</a> with the names and values of the private properties is returned.
+     * @param {Pointer<Void>} hkeyClusterKey Pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">cluster database</a> key that identifies the location of the private properties to retrieve.
+     * @param {Pointer} pOutPropertyList Pointer to an output buffer in which a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">property list</a> with the names and values of the private properties is returned.
      * @param {Integer} cbOutPropertyListSize Size of the output buffer pointed to by <i>pOutPropertyList</i>.
      * @param {Pointer<UInt32>} pcbBytesReturned Pointer to the total number of bytes in the property list pointed to by <i>pOutPropertyList</i>.
      * @param {Pointer<UInt32>} pcbRequired Pointer to the number of bytes that is required if <i>pOutPropertyList</i> is too small to hold all of the private properties.
@@ -13695,13 +14102,13 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetPrivateProperties(hkeyClusterKey, pOutPropertyList, cbOutPropertyListSize, pcbBytesReturned, pcbRequired) {
-        result := DllCall("RESUTILS.dll\ResUtilGetPrivateProperties", "ptr", hkeyClusterKey, "ptr", pOutPropertyList, "uint", cbOutPropertyListSize, "ptr", pcbBytesReturned, "ptr", pcbRequired, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetPrivateProperties", "ptr", hkeyClusterKey, "ptr", pOutPropertyList, "uint", cbOutPropertyListSize, "uint*", pcbBytesReturned, "uint*", pcbRequired, "uint")
         return result
     }
 
     /**
      * Returns the total number of bytes required for a specified property.
-     * @param {Pointer<HKEY>} hkeyClusterKey <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">Cluster database</a> key identifying the location of the property to size.
+     * @param {Pointer<Void>} hkeyClusterKey <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">Cluster database</a> key identifying the location of the property to size.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTableItem Pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structure describing the property to size.
      * @param {Pointer<UInt32>} pcbOutPropertyListSize Pointer to the total number of bytes required for the property value, which includes the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_value">CLUSPROP_VALUE</a> structure and the data.
      * @param {Pointer<UInt32>} pnPropertyCount Pointer to the total number of properties. This value is incremented to include this property if  <b>ResUtilGetPropertySize</b> is successful.
@@ -13742,15 +14149,15 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetPropertySize(hkeyClusterKey, pPropertyTableItem, pcbOutPropertyListSize, pnPropertyCount) {
-        result := DllCall("RESUTILS.dll\ResUtilGetPropertySize", "ptr", hkeyClusterKey, "ptr", pPropertyTableItem, "ptr", pcbOutPropertyListSize, "ptr", pnPropertyCount, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetPropertySize", "ptr", hkeyClusterKey, "ptr", pPropertyTableItem, "uint*", pcbOutPropertyListSize, "uint*", pnPropertyCount, "uint")
         return result
     }
 
     /**
      * Returns a specified property from the cluster database. The PRESUTIL_GET_PROPERTY type defines a pointer to this function.
-     * @param {Pointer<HKEY>} hkeyClusterKey Pointer to the cluster database key identifying the location of the property to retrieve.
+     * @param {Pointer<Void>} hkeyClusterKey Pointer to the cluster database key identifying the location of the property to retrieve.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTableItem Pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structure that describes the property to retrieve.
-     * @param {Pointer<Void>} pOutPropertyItem Pointer to an output buffer in which to return the requested property. It is assumed that the buffer is part of a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">property list</a>.
+     * @param {Pointer} pOutPropertyItem Pointer to an output buffer in which to return the requested property. It is assumed that the buffer is part of a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">property list</a>.
      * @param {Pointer<UInt32>} pcbOutPropertyItemSize Pointer to the size in bytes of the output buffer pointed to by <i>pOutPropertyItem</i>.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -13778,7 +14185,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetProperty(hkeyClusterKey, pPropertyTableItem, pOutPropertyItem, pcbOutPropertyItemSize) {
-        result := DllCall("RESUTILS.dll\ResUtilGetProperty", "ptr", hkeyClusterKey, "ptr", pPropertyTableItem, "ptr", pOutPropertyItem, "ptr", pcbOutPropertyItemSize, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetProperty", "ptr", hkeyClusterKey, "ptr", pPropertyTableItem, "ptr", pOutPropertyItem, "uint*", pcbOutPropertyItemSize, "uint")
         return result
     }
 
@@ -13786,7 +14193,7 @@ class Clustering {
      * Uses a property table to verify that a property list is correctly formatted.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to a property table describing the properties that will be validated in the property list.
      * @param {Integer} bAllowUnknownProperties If <b>TRUE</b>, the function ignores all properties in the property list that are not included in the property table. If <b>FALSE</b>, any property in the property list that is not included in the property table causes the function to return <b>ERROR_INVALID_PARAMETER</b>.
-     * @param {Pointer<Void>} pInPropertyList Pointer to the input buffer containing the property list to validate.
+     * @param {Pointer} pInPropertyList Pointer to the input buffer containing the property list to validate.
      * @param {Integer} cbInPropertyListSize Size in bytes of the input buffer pointed to by <i>pInPropertyList</i>.
      * @param {Pointer<Byte>} pOutParams Pointer to a parameter block.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
@@ -13839,7 +14246,7 @@ class Clustering {
     static ResUtilVerifyPropertyTable(pPropertyTable, bAllowUnknownProperties, pInPropertyList, cbInPropertyListSize, pOutParams) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("RESUTILS.dll\ResUtilVerifyPropertyTable", "ptr", pPropertyTable, "ptr", Reserved, "int", bAllowUnknownProperties, "ptr", pInPropertyList, "uint", cbInPropertyListSize, "ptr", pOutParams, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilVerifyPropertyTable", "ptr", pPropertyTable, "ptr", Reserved, "int", bAllowUnknownProperties, "ptr", pInPropertyList, "uint", cbInPropertyListSize, "char*", pOutParams, "uint")
         return result
     }
 
@@ -13873,14 +14280,14 @@ class Clustering {
      * <b>ResUtilSetPropertyTable</b> can be safely called from any other resource DLL 
      *     entry point function or from a worker thread. For more information, see 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {Pointer<HKEY>} hkeyClusterKey Cluster database key identifying the location of the properties to set.
+     * @param {Pointer<Void>} hkeyClusterKey Cluster database key identifying the location of the properties to set.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures describing the 
      *       properties to set.
      * @param {Integer} bAllowUnknownProperties Indicates whether <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/unknown-properties">unknown properties</a> should be 
      *       accepted. This parameter is set to <b>TRUE</b> if they should be accepted, and 
      *       <b>FALSE</b> if not.
-     * @param {Pointer<Void>} pInPropertyList Pointer to the input buffer containing a property list.
+     * @param {Pointer} pInPropertyList Pointer to the input buffer containing a property list.
      * @param {Integer} cbInPropertyListSize Size in bytes of the input buffer pointed to by <i>cbInPropertyList</i>.
      * @param {Pointer<Byte>} pOutParams Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/parameter-blocks">parameter block</a> to hold returned data. 
      *       If specified, parameters are only written if they differ from those in the input buffer.
@@ -13950,7 +14357,7 @@ class Clustering {
     static ResUtilSetPropertyTable(hkeyClusterKey, pPropertyTable, bAllowUnknownProperties, pInPropertyList, cbInPropertyListSize, pOutParams) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("RESUTILS.dll\ResUtilSetPropertyTable", "ptr", hkeyClusterKey, "ptr", pPropertyTable, "ptr", Reserved, "int", bAllowUnknownProperties, "ptr", pInPropertyList, "uint", cbInPropertyListSize, "ptr", pOutParams, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilSetPropertyTable", "ptr", hkeyClusterKey, "ptr", pPropertyTable, "ptr", Reserved, "int", bAllowUnknownProperties, "ptr", pInPropertyList, "uint", cbInPropertyListSize, "char*", pOutParams, "uint")
         return result
     }
 
@@ -13977,7 +14384,7 @@ class Clustering {
      * </li>
      * </ul>
      * <b>ResUtilSetPropertyTableEx</b> can be safely called from any other resource DLL entry point function or from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {Pointer<HKEY>} hkeyClusterKey Cluster database key identifying the location of the properties to set.
+     * @param {Pointer<Void>} hkeyClusterKey Cluster database key identifying the location of the properties to set.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures describing the properties to set.
      * @param {Pointer<Void>} Reserved Reserved.
      * @param {Integer} bAllowUnknownProperties Indicates whether  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/unknown-properties">unknown properties</a> should be accepted. This parameter is set to <b>TRUE</b> if they should be accepted and <b>FALSE</b> if not.
@@ -14044,7 +14451,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilSetPropertyTableEx(hkeyClusterKey, pPropertyTable, Reserved, bAllowUnknownProperties, pInPropertyList, cbInPropertyListSize, bForceWrite, pOutParams) {
-        result := DllCall("RESUTILS.dll\ResUtilSetPropertyTableEx", "ptr", hkeyClusterKey, "ptr", pPropertyTable, "ptr", Reserved, "int", bAllowUnknownProperties, "ptr", pInPropertyList, "uint", cbInPropertyListSize, "int", bForceWrite, "ptr", pOutParams, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilSetPropertyTableEx", "ptr", hkeyClusterKey, "ptr", pPropertyTable, "ptr", Reserved, "int", bAllowUnknownProperties, "ptr", pInPropertyList, "uint", cbInPropertyListSize, "int", bForceWrite, "char*", pOutParams, "uint")
         return result
     }
 
@@ -14073,7 +14480,7 @@ class Clustering {
      * </li>
      * </ul>
      * <b>ResUtilSetPropertyParameterBlock</b> can be safely called from any other resource DLL entry point function or from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {Pointer<HKEY>} hkeyClusterKey Cluster database key identifying the location for the properties to set.
+     * @param {Pointer<Void>} hkeyClusterKey Cluster database key identifying the location for the properties to set.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures describing the properties to set.
      * @param {Pointer<Void>} Reserved Reserved.
      * @param {Pointer<Byte>} pInParams Pointer to an input parameter block containing the data for the properties described in the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-tables">property table</a> pointed to by <i>pPropertyTable</i>.
@@ -14117,7 +14524,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilSetPropertyParameterBlock(hkeyClusterKey, pPropertyTable, Reserved, pInParams, pInPropertyList, cbInPropertyListSize, pOutParams) {
-        result := DllCall("RESUTILS.dll\ResUtilSetPropertyParameterBlock", "ptr", hkeyClusterKey, "ptr", pPropertyTable, "ptr", Reserved, "ptr", pInParams, "ptr", pInPropertyList, "uint", cbInPropertyListSize, "ptr", pOutParams, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilSetPropertyParameterBlock", "ptr", hkeyClusterKey, "ptr", pPropertyTable, "ptr", Reserved, "char*", pInParams, "ptr", pInPropertyList, "uint", cbInPropertyListSize, "char*", pOutParams, "uint")
         return result
     }
 
@@ -14144,7 +14551,7 @@ class Clustering {
      * </li>
      * </ul>
      * <b>ResUtilSetPropertyParameterBlockEx</b> can be safely called from any other resource DLL entry point function or from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {Pointer<HKEY>} hkeyClusterKey Cluster database key identifying the location for the properties to set.
+     * @param {Pointer<Void>} hkeyClusterKey Cluster database key identifying the location for the properties to set.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures describing the properties to set.
      * @param {Pointer<Void>} Reserved Reserved.
      * @param {Pointer<Byte>} pInParams Pointer to an input parameter block containing the data for the properties described in the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-tables">property table</a> pointed to by <i>pPropertyTable</i>.
@@ -14189,7 +14596,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilSetPropertyParameterBlockEx(hkeyClusterKey, pPropertyTable, Reserved, pInParams, pInPropertyList, cbInPropertyListSize, bForceWrite, pOutParams) {
-        result := DllCall("RESUTILS.dll\ResUtilSetPropertyParameterBlockEx", "ptr", hkeyClusterKey, "ptr", pPropertyTable, "ptr", Reserved, "ptr", pInParams, "ptr", pInPropertyList, "uint", cbInPropertyListSize, "int", bForceWrite, "ptr", pOutParams, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilSetPropertyParameterBlockEx", "ptr", hkeyClusterKey, "ptr", pPropertyTable, "ptr", Reserved, "char*", pInParams, "ptr", pInPropertyList, "uint", cbInPropertyListSize, "int", bForceWrite, "char*", pOutParams, "uint")
         return result
     }
 
@@ -14220,9 +14627,9 @@ class Clustering {
      * </li>
      * </ul>
      * <b>ResUtilSetUnknownProperties</b> can be safely called from any other resource DLL entry point function or from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {Pointer<HKEY>} hkeyClusterKey <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">Cluster database</a> key identifying the location of the properties to set.
+     * @param {Pointer<Void>} hkeyClusterKey <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">Cluster database</a> key identifying the location of the properties to set.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-tables">property table</a> specifying properties that should NOT be set by this function.
-     * @param {Pointer<Void>} pInPropertyList Pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">property list</a>. Any properties that appear in this list and that do NOT appear in <i>pInPropertyList</i> are set.
+     * @param {Pointer} pInPropertyList Pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">property list</a>. Any properties that appear in this list and that do NOT appear in <i>pInPropertyList</i> are set.
      * @param {Integer} cbInPropertyListSize Pointer to the size in bytes of the input buffer pointed to by <i>pInPropertyList</i>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -14240,11 +14647,11 @@ class Clustering {
      * Retrieves properties specified by a property table from the cluster database and returns them in a parameter block.
      * @remarks
      * With the  <b>ResUtilGetPropertiesToParameterBlock</b> utility function, the property table pointed to by <i>pPropertyTable</i> can include default values.
-     * @param {Pointer<HKEY>} hkeyClusterKey Pointer to the cluster database key that identifies the location of the properties to retrieve.
+     * @param {Pointer<Void>} hkeyClusterKey Pointer to the cluster database key that identifies the location of the properties to retrieve.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures that describes the properties to process.
      * @param {Pointer<Byte>} pOutParams Pointer to the output parameter block to fill.
      * @param {Integer} bCheckForRequiredProperties Specifies whether an error should be generated if required properties are missing.
-     * @param {Pointer<PWSTR>} pszNameOfPropInError Address of the string pointer in which to return the name of the error generated by a missing required property. The <i>ppszNameOfPropInError</i> property is optional.
+     * @param {Pointer<Char>} pszNameOfPropInError Address of the string pointer in which to return the name of the error generated by a missing required property. The <i>ppszNameOfPropInError</i> property is optional.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -14282,9 +14689,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetPropertiesToParameterBlock(hkeyClusterKey, pPropertyTable, pOutParams, bCheckForRequiredProperties, pszNameOfPropInError) {
-        pszNameOfPropInError := pszNameOfPropInError is String? StrPtr(pszNameOfPropInError) : pszNameOfPropInError
-
-        result := DllCall("RESUTILS.dll\ResUtilGetPropertiesToParameterBlock", "ptr", hkeyClusterKey, "ptr", pPropertyTable, "ptr", pOutParams, "int", bCheckForRequiredProperties, "ptr", pszNameOfPropInError, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetPropertiesToParameterBlock", "ptr", hkeyClusterKey, "ptr", pPropertyTable, "char*", pOutParams, "int", bCheckForRequiredProperties, "ptr", pszNameOfPropInError, "uint")
         return result
     }
 
@@ -14295,7 +14700,7 @@ class Clustering {
      * 
      * The parameter block provides the property values.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to a property table describing the properties that will be included in the resulting property list.
-     * @param {Pointer<Void>} pOutPropertyList Pointer to an output buffer that receives the property list.
+     * @param {Pointer} pOutPropertyList Pointer to an output buffer that receives the property list.
      * @param {Pointer<UInt32>} pcbOutPropertyListSize Pointer to the size of the output buffer in bytes.
      * @param {Pointer<Byte>} pInParams Pointer to the parameter block in which the property values are stored.
      * @param {Pointer<UInt32>} pcbBytesReturned If the function returns <b>ERROR_SUCCESS</b>, <i>pcbBytesReturned</i> points to the actual byte size of the property list pointed to by <i>pOutPropertyList</i>. If the function does not return <b>ERROR_SUCCESS</b>, <i>pcbBytesReturned</i> points to a value of zero.
@@ -14349,7 +14754,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilPropertyListFromParameterBlock(pPropertyTable, pOutPropertyList, pcbOutPropertyListSize, pInParams, pcbBytesReturned, pcbRequired) {
-        result := DllCall("RESUTILS.dll\ResUtilPropertyListFromParameterBlock", "ptr", pPropertyTable, "ptr", pOutPropertyList, "ptr", pcbOutPropertyListSize, "ptr", pInParams, "ptr", pcbBytesReturned, "ptr", pcbRequired, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilPropertyListFromParameterBlock", "ptr", pPropertyTable, "ptr", pOutPropertyList, "uint*", pcbOutPropertyListSize, "char*", pInParams, "uint*", pcbBytesReturned, "uint*", pcbRequired, "uint")
         return result
     }
 
@@ -14368,7 +14773,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilDupParameterBlock(pOutParams, pInParams, pPropertyTable) {
-        result := DllCall("RESUTILS.dll\ResUtilDupParameterBlock", "ptr", pOutParams, "ptr", pInParams, "ptr", pPropertyTable, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilDupParameterBlock", "char*", pOutParams, "char*", pInParams, "ptr", pPropertyTable, "uint")
         return result
     }
 
@@ -14385,12 +14790,13 @@ class Clustering {
      * @param {Pointer<Byte>} pOutParams Pointer to the parameter block to deallocate.
      * @param {Pointer<Byte>} pInParams Pointer to the parameter block to use as a reference.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures describing the properties in the input parameter block.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilfreeparameterblock
      * @since windowsserver2008
      */
     static ResUtilFreeParameterBlock(pOutParams, pInParams, pPropertyTable) {
-        DllCall("RESUTILS.dll\ResUtilFreeParameterBlock", "ptr", pOutParams, "ptr", pInParams, "ptr", pPropertyTable)
+        result := DllCall("RESUTILS.dll\ResUtilFreeParameterBlock", "char*", pOutParams, "char*", pInParams, "ptr", pPropertyTable)
+        return result
     }
 
     /**
@@ -14401,7 +14807,7 @@ class Clustering {
      * :::image type="content" source="./images/resutil.png" border="false" alt-text="Diagram showing input and output parameters listed separately in two buffers. Two unknown properties have been added to the output parameter list.":::
      * 
      * The  <b>ResUtilAddUnknownProperties</b> utility function enumerates the properties stored in the cluster database (under <i>hkeyClusterKey</i>) and looks for corresponding properties in the property table (<i>pPropertyTable</i>). Each property that is listed in the cluster database but not listed in the property table is added to the property list (<i>pOutPropertyList</i>).
-     * @param {Pointer<HKEY>} hkeyClusterKey Pointer to the cluster database key that identifies the location for the properties to read.
+     * @param {Pointer<Void>} hkeyClusterKey Pointer to the cluster database key that identifies the location for the properties to read.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-tables">property table</a> describing the common and private properties of an object. Any properties found in the cluster database that are not in this property table are added to the property list.
      * @param {Pointer<Void>} pOutPropertyList Pointer to a buffer in which to receive the returned properties. On input, the buffer can contain an existing property list, or it can be empty. On output, the retrieved properties will be appended to the end of the existing list, or, if the buffer is empty, will return as a new property list.
      * @param {Integer} pcbOutPropertyListSize Total byte size of the buffer pointed to by <i>pOutPropertyList</i>. The size of the buffer must be large enough to contain the existing property list and the property list to be returned.
@@ -14433,7 +14839,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilAddUnknownProperties(hkeyClusterKey, pPropertyTable, pOutPropertyList, pcbOutPropertyListSize, pcbBytesReturned, pcbRequired) {
-        result := DllCall("RESUTILS.dll\ResUtilAddUnknownProperties", "ptr", hkeyClusterKey, "ptr", pPropertyTable, "ptr", pOutPropertyList, "uint", pcbOutPropertyListSize, "ptr", pcbBytesReturned, "ptr", pcbRequired, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilAddUnknownProperties", "ptr", hkeyClusterKey, "ptr", pPropertyTable, "ptr", pOutPropertyList, "uint", pcbOutPropertyListSize, "uint*", pcbBytesReturned, "uint*", pcbRequired, "uint")
         return result
     }
 
@@ -14462,8 +14868,8 @@ class Clustering {
      * </li>
      * </ul>
      * <b>ResUtilSetPrivatePropertyList</b> can be safely called from any other resource DLL entry point function or from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {Pointer<HKEY>} hkeyClusterKey <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">Cluster database</a> key identifying the location of the properties to set.
-     * @param {Pointer<Void>} pInPropertyList Pointer to an input buffer containing a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">property list</a> with the names and values of the properties to set.
+     * @param {Pointer<Void>} hkeyClusterKey <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">Cluster database</a> key identifying the location of the properties to set.
+     * @param {Pointer} pInPropertyList Pointer to an input buffer containing a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">property list</a> with the names and values of the properties to set.
      * @param {Integer} cbInPropertyListSize Pointer to the size in bytes of the input buffer pointed to by <i>pInPropertyList</i>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -14530,7 +14936,7 @@ class Clustering {
 
     /**
      * Verifies that a property list is correctly formatted.
-     * @param {Pointer<Void>} pInPropertyList Pointer to an input buffer containing the property list to verify.
+     * @param {Pointer} pInPropertyList Pointer to an input buffer containing the property list to verify.
      * @param {Integer} cbInPropertyListSize Size of the input buffer pointed to by <i>pInPropertyList</i>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -14548,8 +14954,8 @@ class Clustering {
      * Duplicates a null-terminated Unicode string.
      * @remarks
      * With the  <b>ResUtilDupString</b> utility function, after using the returned string, callers should deallocate the buffer by calling the function  <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a>.
-     * @param {Pointer<PWSTR>} pszInString Pointer to the string to duplicate.
-     * @returns {Pointer<PWSTR>} If the operation succeeds, the function returns a pointer to a buffer containing the duplicate string.
+     * @param {Pointer<Char>} pszInString Pointer to the string to duplicate.
+     * @returns {Pointer<Char>} If the operation succeeds, the function returns a pointer to a buffer containing the duplicate string.
      * 
      * If the operation fails, 
      * the function returns <b>NULL</b>. For more information, call the function  <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -14561,7 +14967,7 @@ class Clustering {
 
         A_LastError := 0
 
-        result := DllCall("RESUTILS.dll\ResUtilDupString", "ptr", pszInString, "ptr")
+        result := DllCall("RESUTILS.dll\ResUtilDupString", "ptr", pszInString, "char*")
         if(A_LastError)
             throw OSError()
 
@@ -14572,8 +14978,8 @@ class Clustering {
      * Returns a binary value from the cluster database.
      * @remarks
      * The  <b>ResUtilGetBinaryValue</b> utility function takes care of allocating the necessary memory for the value and then calls the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-api">Cluster API</a> function  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregqueryvalue">ClusterRegQueryValue</a>. When you are finished with the allocated memory, you must call the function  <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> to release it.
-     * @param {Pointer<HKEY>} hkeyClusterKey Key in the cluster database that identifies the location of the value to retrieve.
-     * @param {Pointer<PWSTR>} pszValueName Pointer to a null-terminated Unicode string containing the name of the value to retrieve.
+     * @param {Pointer<Void>} hkeyClusterKey Key in the cluster database that identifies the location of the value to retrieve.
+     * @param {Pointer<Char>} pszValueName Pointer to a null-terminated Unicode string containing the name of the value to retrieve.
      * @param {Pointer<Byte>} ppbOutValue Address of the pointer to the retrieved value.
      * @param {Pointer<UInt32>} pcbOutValueSize Pointer to a <b>DWORD</b> in which the size in bytes of the buffer pointed to by <i>ppbOutValue</i> is returned.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
@@ -14604,7 +15010,7 @@ class Clustering {
     static ResUtilGetBinaryValue(hkeyClusterKey, pszValueName, ppbOutValue, pcbOutValueSize) {
         pszValueName := pszValueName is String? StrPtr(pszValueName) : pszValueName
 
-        result := DllCall("RESUTILS.dll\ResUtilGetBinaryValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr", ppbOutValue, "ptr", pcbOutValueSize, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetBinaryValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr", ppbOutValue, "uint*", pcbOutValueSize, "uint")
         return result
     }
 
@@ -14614,9 +15020,9 @@ class Clustering {
      * The  <b>ResUtilGetSzValue</b> utility function allocates the necessary memory for the string parameter value before calling the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-api">Cluster API</a> function  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregqueryvalue">ClusterRegQueryValue</a> to access the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">cluster database</a>. When you are finished with this memory, you must call the function  <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> to release it.
      * 
      * <b>ResUtilGetSzValue</b> also supports expandable and multiple string formats.
-     * @param {Pointer<HKEY>} hkeyClusterKey Key identifying the location of the value in the cluster database.
-     * @param {Pointer<PWSTR>} pszValueName A null-terminated Unicode string containing the name of the value to retrieve.
-     * @returns {Pointer<PWSTR>} If the operation succeeds, 
+     * @param {Pointer<Void>} hkeyClusterKey Key identifying the location of the value in the cluster database.
+     * @param {Pointer<Char>} pszValueName A null-terminated Unicode string containing the name of the value to retrieve.
+     * @returns {Pointer<Char>} If the operation succeeds, 
      * the function returns a pointer to a buffer containing the string value.
      * 
      * If the operation fails, 
@@ -14629,7 +15035,7 @@ class Clustering {
 
         A_LastError := 0
 
-        result := DllCall("RESUTILS.dll\ResUtilGetSzValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr")
+        result := DllCall("RESUTILS.dll\ResUtilGetSzValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "char*")
         if(A_LastError)
             throw OSError()
 
@@ -14640,8 +15046,8 @@ class Clustering {
      * Returns a numeric value from the cluster database.
      * @remarks
      * The  <b>ResUtilGetDwordValue</b> utility function calls the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-api">Cluster API</a> function  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregqueryvalue">ClusterRegQueryValue</a> to retrieve the value.
-     * @param {Pointer<HKEY>} hkeyClusterKey Key identifying the location of the numeric value in the cluster database.
-     * @param {Pointer<PWSTR>} pszValueName Pointer to a null-terminated Unicode string containing the name of the value to retrieve.
+     * @param {Pointer<Void>} hkeyClusterKey Key identifying the location of the numeric value in the cluster database.
+     * @param {Pointer<Char>} pszValueName Pointer to a null-terminated Unicode string containing the name of the value to retrieve.
      * @param {Pointer<UInt32>} pdwOutValue Pointer to the retrieved value.
      * @param {Integer} dwDefaultValue Value to return if the value pointed to by <i>pszValueName</i> is not found.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
@@ -14672,14 +15078,14 @@ class Clustering {
     static ResUtilGetDwordValue(hkeyClusterKey, pszValueName, pdwOutValue, dwDefaultValue) {
         pszValueName := pszValueName is String? StrPtr(pszValueName) : pszValueName
 
-        result := DllCall("RESUTILS.dll\ResUtilGetDwordValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr", pdwOutValue, "uint", dwDefaultValue, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetDwordValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "uint*", pdwOutValue, "uint", dwDefaultValue, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<HKEY>} hkeyClusterKey 
-     * @param {Pointer<PWSTR>} pszValueName 
+     * @param {Pointer<Void>} hkeyClusterKey 
+     * @param {Pointer<Char>} pszValueName 
      * @param {Pointer<UInt64>} pqwOutValue 
      * @param {Integer} qwDefaultValue 
      * @returns {Integer} 
@@ -14688,7 +15094,7 @@ class Clustering {
     static ResUtilGetQwordValue(hkeyClusterKey, pszValueName, pqwOutValue, qwDefaultValue) {
         pszValueName := pszValueName is String? StrPtr(pszValueName) : pszValueName
 
-        result := DllCall("RESUTILS.dll\ResUtilGetQwordValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr", pqwOutValue, "uint", qwDefaultValue, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetQwordValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "uint*", pqwOutValue, "uint", qwDefaultValue, "uint")
         return result
     }
 
@@ -14717,11 +15123,11 @@ class Clustering {
      * </li>
      * </ul>
      * <b>ResUtilSetBinaryValue</b> can be safely called from any other resource DLL entry point function or from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {Pointer<HKEY>} hkeyClusterKey Key identifying the location of the binary value in the cluster database.
-     * @param {Pointer<PWSTR>} pszValueName A null-terminated Unicode string containing the name of the value to update.
-     * @param {Pointer<Byte>} pbNewValue Pointer to the new binary value.
+     * @param {Pointer<Void>} hkeyClusterKey Key identifying the location of the binary value in the cluster database.
+     * @param {Pointer<Char>} pszValueName A null-terminated Unicode string containing the name of the value to update.
+     * @param {Pointer} pbNewValue Pointer to the new binary value.
      * @param {Integer} cbNewValueSize Size of the new binary value.
-     * @param {Pointer<Byte>} ppbOutValue Address of a pointer to the new binary value.
+     * @param {Pointer} ppbOutValue Address of a pointer to the new binary value.
      * @param {Pointer<UInt32>} pcbOutValueSize Pointer to a <b>DWORD</b> in which the size in bytes of the value pointed to by <i>ppbOutValue</i> is returned.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -14751,7 +15157,7 @@ class Clustering {
     static ResUtilSetBinaryValue(hkeyClusterKey, pszValueName, pbNewValue, cbNewValueSize, ppbOutValue, pcbOutValueSize) {
         pszValueName := pszValueName is String? StrPtr(pszValueName) : pszValueName
 
-        result := DllCall("RESUTILS.dll\ResUtilSetBinaryValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr", pbNewValue, "uint", cbNewValueSize, "ptr", ppbOutValue, "ptr", pcbOutValueSize, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilSetBinaryValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr", pbNewValue, "uint", cbNewValueSize, "ptr", ppbOutValue, "uint*", pcbOutValueSize, "uint")
         return result
     }
 
@@ -14782,10 +15188,10 @@ class Clustering {
      * </li>
      * </ul>
      * <b>ResUtilSetSzValue</b> can be safely called from any other resource DLL entry point function or from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {Pointer<HKEY>} hkeyClusterKey Key identifying the location of the string value in the cluster database.
-     * @param {Pointer<PWSTR>} pszValueName Null-terminated Unicode string containing the name of the value to update.
-     * @param {Pointer<PWSTR>} pszNewValue Pointer to the new string value.
-     * @param {Pointer<PWSTR>} ppszOutString Pointer to a string pointer that receives a copy of the updated value. If used, callers must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> on *<i>ppszOutValue</i>.
+     * @param {Pointer<Void>} hkeyClusterKey Key identifying the location of the string value in the cluster database.
+     * @param {Pointer<Char>} pszValueName Null-terminated Unicode string containing the name of the value to update.
+     * @param {Pointer<Char>} pszNewValue Pointer to the new string value.
+     * @param {Pointer<Char>} ppszOutString Pointer to a string pointer that receives a copy of the updated value. If used, callers must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> on *<i>ppszOutValue</i>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -14814,7 +15220,6 @@ class Clustering {
     static ResUtilSetSzValue(hkeyClusterKey, pszValueName, pszNewValue, ppszOutString) {
         pszValueName := pszValueName is String? StrPtr(pszValueName) : pszValueName
         pszNewValue := pszNewValue is String? StrPtr(pszNewValue) : pszNewValue
-        ppszOutString := ppszOutString is String? StrPtr(ppszOutString) : ppszOutString
 
         result := DllCall("RESUTILS.dll\ResUtilSetSzValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr", pszNewValue, "ptr", ppszOutString, "uint")
         return result
@@ -14849,10 +15254,10 @@ class Clustering {
      * </li>
      * </ul>
      * <b>ResUtilSetExpandSzValue</b> can be safely called from any other resource DLL entry point function or from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {Pointer<HKEY>} hkeyClusterKey Key identifying the location of the expandable string value in the cluster database.
-     * @param {Pointer<PWSTR>} pszValueName null-terminated Unicode string containing the name of the value to update.
-     * @param {Pointer<PWSTR>} pszNewValue Pointer to the new expandable string value.
-     * @param {Pointer<PWSTR>} ppszOutString Pointer to a string pointer that receives a copy of the updated value. If used, callers must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> on *<i>ppszOutValue</i>.
+     * @param {Pointer<Void>} hkeyClusterKey Key identifying the location of the expandable string value in the cluster database.
+     * @param {Pointer<Char>} pszValueName null-terminated Unicode string containing the name of the value to update.
+     * @param {Pointer<Char>} pszNewValue Pointer to the new expandable string value.
+     * @param {Pointer<Char>} ppszOutString Pointer to a string pointer that receives a copy of the updated value. If used, callers must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> on *<i>ppszOutValue</i>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -14881,7 +15286,6 @@ class Clustering {
     static ResUtilSetExpandSzValue(hkeyClusterKey, pszValueName, pszNewValue, ppszOutString) {
         pszValueName := pszValueName is String? StrPtr(pszValueName) : pszValueName
         pszNewValue := pszNewValue is String? StrPtr(pszNewValue) : pszNewValue
-        ppszOutString := ppszOutString is String? StrPtr(ppszOutString) : ppszOutString
 
         result := DllCall("RESUTILS.dll\ResUtilSetExpandSzValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr", pszNewValue, "ptr", ppszOutString, "uint")
         return result
@@ -14916,11 +15320,11 @@ class Clustering {
      * </li>
      * </ul>
      * <b>ResUtilSetMultiSzValue</b> can be safely called from any other resource DLL entry point function or from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {Pointer<HKEY>} hkeyClusterKey Key identifying the location of the multiple string value in the cluster database.
-     * @param {Pointer<PWSTR>} pszValueName Null-terminated Unicode string containing the name of the value to update.
-     * @param {Pointer<PWSTR>} pszNewValue Pointer to the new multiple string value.
+     * @param {Pointer<Void>} hkeyClusterKey Key identifying the location of the multiple string value in the cluster database.
+     * @param {Pointer<Char>} pszValueName Null-terminated Unicode string containing the name of the value to update.
+     * @param {Pointer} pszNewValue Pointer to the new multiple string value.
      * @param {Integer} cbNewValueSize Size of the new value.
-     * @param {Pointer<PWSTR>} ppszOutValue Pointer to a string pointer that receives a copy of the updated value. If used, callers must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> on *<i>ppszOutValue</i>.
+     * @param {Pointer<Char>} ppszOutValue Pointer to a string pointer that receives a copy of the updated value. If used, callers must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> on *<i>ppszOutValue</i>.
      * @param {Pointer<UInt32>} pcbOutValueSize Pointer that receives the size of the new value.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -14949,10 +15353,8 @@ class Clustering {
      */
     static ResUtilSetMultiSzValue(hkeyClusterKey, pszValueName, pszNewValue, cbNewValueSize, ppszOutValue, pcbOutValueSize) {
         pszValueName := pszValueName is String? StrPtr(pszValueName) : pszValueName
-        pszNewValue := pszNewValue is String? StrPtr(pszNewValue) : pszNewValue
-        ppszOutValue := ppszOutValue is String? StrPtr(ppszOutValue) : ppszOutValue
 
-        result := DllCall("RESUTILS.dll\ResUtilSetMultiSzValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr", pszNewValue, "uint", cbNewValueSize, "ptr", ppszOutValue, "ptr", pcbOutValueSize, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilSetMultiSzValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr", pszNewValue, "uint", cbNewValueSize, "ptr", ppszOutValue, "uint*", pcbOutValueSize, "uint")
         return result
     }
 
@@ -14981,8 +15383,8 @@ class Clustering {
      * </li>
      * </ul>
      * <b>ResUtilSetDwordValue</b> can be safely called from any other resource DLL entry point function or from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {Pointer<HKEY>} hkeyClusterKey Key identifying the location of the numeric value in the cluster database.
-     * @param {Pointer<PWSTR>} pszValueName A null-terminated Unicode string containing the name of the value to update.
+     * @param {Pointer<Void>} hkeyClusterKey Key identifying the location of the numeric value in the cluster database.
+     * @param {Pointer<Char>} pszValueName A null-terminated Unicode string containing the name of the value to update.
      * @param {Integer} dwNewValue New <b>DWORD</b> value.
      * @param {Pointer<UInt32>} pdwOutValue Optional. Pointer to where the updated value should be copied.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
@@ -14995,14 +15397,14 @@ class Clustering {
     static ResUtilSetDwordValue(hkeyClusterKey, pszValueName, dwNewValue, pdwOutValue) {
         pszValueName := pszValueName is String? StrPtr(pszValueName) : pszValueName
 
-        result := DllCall("RESUTILS.dll\ResUtilSetDwordValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "uint", dwNewValue, "ptr", pdwOutValue, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilSetDwordValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "uint", dwNewValue, "uint*", pdwOutValue, "uint")
         return result
     }
 
     /**
      * TBD. The PRESUTIL_SET_QWORD_VALUE type defines a pointer to this function.
-     * @param {Pointer<HKEY>} hkeyClusterKey 
-     * @param {Pointer<PWSTR>} pszValueName 
+     * @param {Pointer<Void>} hkeyClusterKey 
+     * @param {Pointer<Char>} pszValueName 
      * @param {Integer} qwNewValue 
      * @param {Pointer<UInt64>} pqwOutValue 
      * @returns {Integer} 
@@ -15012,16 +15414,16 @@ class Clustering {
     static ResUtilSetQwordValue(hkeyClusterKey, pszValueName, qwNewValue, pqwOutValue) {
         pszValueName := pszValueName is String? StrPtr(pszValueName) : pszValueName
 
-        result := DllCall("RESUTILS.dll\ResUtilSetQwordValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "uint", qwNewValue, "ptr", pqwOutValue, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilSetQwordValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "uint", qwNewValue, "uint*", pqwOutValue, "uint")
         return result
     }
 
     /**
      * Sets a value in the cluster database.
-     * @param {Pointer<HKEY>} hkeyClusterKey A key that identifies the location of the value in the cluster database.
-     * @param {Pointer<PWSTR>} valueName A Null-terminated Unicode string that contains the name of the value to update.
+     * @param {Pointer<Void>} hkeyClusterKey A key that identifies the location of the value in the cluster database.
+     * @param {Pointer<Char>} valueName A Null-terminated Unicode string that contains the name of the value to update.
      * @param {Integer} valueType A flag that indicates the type of the value to update.
-     * @param {Pointer<Byte>} valueData A pointer to the new data for the value.
+     * @param {Pointer} valueData A pointer to the new data for the value.
      * @param {Integer} valueSize The size of the new value, in bytes.
      * @param {Integer} flags The flags that specify settings for the operation.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation succeeds; otherwise, returns a system error code.
@@ -15041,9 +15443,9 @@ class Clustering {
      * @param {Pointer<UInt32>} pcbOutValueSize Pointer to the size of the output value.
      * @param {Pointer<CLUSPROP_BINARY>} pValueStruct Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_binary">CLUSPROP_BINARY</a> structure specifying 
      *       the binary value to retrieve from the property list.
-     * @param {Pointer<Byte>} pbOldValue Pointer to the previous value of the property.
+     * @param {Pointer} pbOldValue Pointer to the previous value of the property.
      * @param {Integer} cbOldValueSize Pointer to the length of the previous value of the property.
-     * @param {Pointer<Byte>} ppPropertyList Address of the pointer to the property list buffer containing the binary property. This pointer will be 
+     * @param {Pointer} ppPropertyList Address of the pointer to the property list buffer containing the binary property. This pointer will be 
      *       advanced to the beginning of the next property.
      * @param {Pointer<UInt32>} pcbPropertyListSize Pointer to the size of the property list buffer. The size will be decremented to account for the advance of 
      *       the <i>ppPropertyList</i> pointer.
@@ -15074,17 +15476,17 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetBinaryProperty(ppbOutValue, pcbOutValueSize, pValueStruct, pbOldValue, cbOldValueSize, ppPropertyList, pcbPropertyListSize) {
-        result := DllCall("RESUTILS.dll\ResUtilGetBinaryProperty", "ptr", ppbOutValue, "ptr", pcbOutValueSize, "ptr", pValueStruct, "ptr", pbOldValue, "uint", cbOldValueSize, "ptr", ppPropertyList, "ptr", pcbPropertyListSize, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetBinaryProperty", "ptr", ppbOutValue, "uint*", pcbOutValueSize, "ptr", pValueStruct, "ptr", pbOldValue, "uint", cbOldValueSize, "ptr", ppPropertyList, "uint*", pcbPropertyListSize, "uint")
         return result
     }
 
     /**
      * Retrieves a string property from a property list and advances a pointer to the next property in the list. The PRESUTIL_GET_SZ_PROPERTY type defines a pointer to this function.
-     * @param {Pointer<PWSTR>} ppszOutValue Address of a pointer in which the string value from the property list will be returned.
+     * @param {Pointer<Char>} ppszOutValue Address of a pointer in which the string value from the property list will be returned.
      * @param {Pointer<CLUSPROP_SZ>} pValueStruct Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa368390(v=vs.85)">CLUSPROP_SZ</a> structure specifying the 
      *       string value to retrieve from the property list.
-     * @param {Pointer<PWSTR>} pszOldValue Pointer to the previous value of the property.
-     * @param {Pointer<Byte>} ppPropertyList Address of the pointer to the property list buffer containing the string property. This pointer will be 
+     * @param {Pointer<Char>} pszOldValue Pointer to the previous value of the property.
+     * @param {Pointer} ppPropertyList Address of the pointer to the property list buffer containing the string property. This pointer will be 
      *       advanced to the beginning of the next property.
      * @param {Pointer<UInt32>} pcbPropertyListSize Pointer to the size of the property list buffer. The size will be decremented to account for the advance of 
      *       the <i>ppPropertyList</i> pointer.
@@ -15115,22 +15517,21 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetSzProperty(ppszOutValue, pValueStruct, pszOldValue, ppPropertyList, pcbPropertyListSize) {
-        ppszOutValue := ppszOutValue is String? StrPtr(ppszOutValue) : ppszOutValue
         pszOldValue := pszOldValue is String? StrPtr(pszOldValue) : pszOldValue
 
-        result := DllCall("RESUTILS.dll\ResUtilGetSzProperty", "ptr", ppszOutValue, "ptr", pValueStruct, "ptr", pszOldValue, "ptr", ppPropertyList, "ptr", pcbPropertyListSize, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetSzProperty", "ptr", ppszOutValue, "ptr", pValueStruct, "ptr", pszOldValue, "ptr", ppPropertyList, "uint*", pcbPropertyListSize, "uint")
         return result
     }
 
     /**
      * Retrieves a multiple string property from a property list and advances a pointer to the next property in the list. The PRESUTIL_GET_MULTI_SZ_PROPERTY type defines a pointer to this function.
-     * @param {Pointer<PWSTR>} ppszOutValue Address of a pointer in which the multiple string value from the property list will be returned.
+     * @param {Pointer<Char>} ppszOutValue Address of a pointer in which the multiple string value from the property list will be returned.
      * @param {Pointer<UInt32>} pcbOutValueSize Pointer to the size of the output value.
      * @param {Pointer<CLUSPROP_SZ>} pValueStruct Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_sz">CLUSPROP_MULTI_SZ</a> structure 
      *       specifying the multiple string value to retrieve from the property list.
-     * @param {Pointer<PWSTR>} pszOldValue Pointer to the previous value of the property.
+     * @param {Pointer} pszOldValue Pointer to the previous value of the property.
      * @param {Integer} cbOldValueSize Pointer to the length of the previous value of the property.
-     * @param {Pointer<Byte>} ppPropertyList Address of the pointer to the property list buffer containing the multiple string property. This pointer 
+     * @param {Pointer} ppPropertyList Address of the pointer to the property list buffer containing the multiple string property. This pointer 
      *       will be advanced to the beginning of the next property.
      * @param {Pointer<UInt32>} pcbPropertyListSize Pointer to the size of the property list buffer. The size will be decremented to account for the advance of 
      *       the <i>ppPropertyList</i> pointer.
@@ -15161,10 +15562,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetMultiSzProperty(ppszOutValue, pcbOutValueSize, pValueStruct, pszOldValue, cbOldValueSize, ppPropertyList, pcbPropertyListSize) {
-        ppszOutValue := ppszOutValue is String? StrPtr(ppszOutValue) : ppszOutValue
-        pszOldValue := pszOldValue is String? StrPtr(pszOldValue) : pszOldValue
-
-        result := DllCall("RESUTILS.dll\ResUtilGetMultiSzProperty", "ptr", ppszOutValue, "ptr", pcbOutValueSize, "ptr", pValueStruct, "ptr", pszOldValue, "uint", cbOldValueSize, "ptr", ppPropertyList, "ptr", pcbPropertyListSize, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetMultiSzProperty", "ptr", ppszOutValue, "uint*", pcbOutValueSize, "ptr", pValueStruct, "ptr", pszOldValue, "uint", cbOldValueSize, "ptr", ppPropertyList, "uint*", pcbPropertyListSize, "uint")
         return result
     }
 
@@ -15213,7 +15611,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetDwordProperty(pdwOutValue, pValueStruct, dwOldValue, dwMinimum, dwMaximum, ppPropertyList, pcbPropertyListSize) {
-        result := DllCall("RESUTILS.dll\ResUtilGetDwordProperty", "ptr", pdwOutValue, "ptr", pValueStruct, "uint", dwOldValue, "uint", dwMinimum, "uint", dwMaximum, "ptr", ppPropertyList, "ptr", pcbPropertyListSize, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetDwordProperty", "uint*", pdwOutValue, "ptr", pValueStruct, "uint", dwOldValue, "uint", dwMinimum, "uint", dwMaximum, "ptr", ppPropertyList, "uint*", pcbPropertyListSize, "uint")
         return result
     }
 
@@ -15230,7 +15628,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetLongProperty(plOutValue, pValueStruct, lOldValue, lMinimum, lMaximum, ppPropertyList, pcbPropertyListSize) {
-        result := DllCall("RESUTILS.dll\ResUtilGetLongProperty", "ptr", plOutValue, "ptr", pValueStruct, "int", lOldValue, "int", lMinimum, "int", lMaximum, "ptr", ppPropertyList, "ptr", pcbPropertyListSize, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetLongProperty", "int*", plOutValue, "ptr", pValueStruct, "int", lOldValue, "int", lMinimum, "int", lMaximum, "ptr", ppPropertyList, "uint*", pcbPropertyListSize, "uint")
         return result
     }
 
@@ -15248,7 +15646,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetFileTimeProperty(pftOutValue, pValueStruct, ftOldValue, ftMinimum, ftMaximum, ppPropertyList, pcbPropertyListSize) {
-        result := DllCall("RESUTILS.dll\ResUtilGetFileTimeProperty", "ptr", pftOutValue, "ptr", pValueStruct, "ptr", ftOldValue, "ptr", ftMinimum, "ptr", ftMaximum, "ptr", ppPropertyList, "ptr", pcbPropertyListSize, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetFileTimeProperty", "ptr", pftOutValue, "ptr", pValueStruct, "ptr", ftOldValue, "ptr", ftMinimum, "ptr", ftMaximum, "ptr", ppPropertyList, "uint*", pcbPropertyListSize, "uint")
         return result
     }
 
@@ -15267,17 +15665,21 @@ class Clustering {
      * 
      * Do not call  <b>ResUtilGetEnvironmentWithNetName</b> from any resource DLL entry point function.  <b>ResUtilGetEnvironmentWithNetName</b> can safely be called from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {Pointer} hResource Handle to a resource that depends on a Network Name resource.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} If the operations succeeds, the function returns a pointer to the environment block.
+     * 
+     * If the operation fails, 
+     * the function returns <b>NULL</b>. For more information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetenvironmentwithnetname
      * @since windowsserver2008
      */
     static ResUtilGetEnvironmentWithNetName(hResource) {
         A_LastError := 0
 
-        DllCall("RESUTILS.dll\ResUtilGetEnvironmentWithNetName", "ptr", hResource)
+        result := DllCall("RESUTILS.dll\ResUtilGetEnvironmentWithNetName", "ptr", hResource)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -15294,8 +15696,8 @@ class Clustering {
 
     /**
      * Expands strings containing unexpanded references to environment variables. The PRESUTIL_EXPAND_ENVIRONMENT_STRINGS type defines a pointer to this function.
-     * @param {Pointer<PWSTR>} pszSrc Pointer to a null-terminated Unicode string containing unexpanded references to environment variables (an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/e-gly">expandable string</a>).
-     * @returns {Pointer<PWSTR>} If the operation succeeds, the function returns a pointer to the expanded string (REG_EXPAND_SZ). The function allocates the necessary memory with <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a>. To prevent memory leaks, be sure to release the memory with <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a>.
+     * @param {Pointer<Char>} pszSrc Pointer to a null-terminated Unicode string containing unexpanded references to environment variables (an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/e-gly">expandable string</a>).
+     * @returns {Pointer<Char>} If the operation succeeds, the function returns a pointer to the expanded string (REG_EXPAND_SZ). The function allocates the necessary memory with <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a>. To prevent memory leaks, be sure to release the memory with <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a>.
      * 
      * If the operation fails, the function returns <b>NULL</b>.
      *      For more information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -15307,7 +15709,7 @@ class Clustering {
 
         A_LastError := 0
 
-        result := DllCall("RESUTILS.dll\ResUtilExpandEnvironmentStrings", "ptr", pszSrc, "ptr")
+        result := DllCall("RESUTILS.dll\ResUtilExpandEnvironmentStrings", "ptr", pszSrc, "char*")
         if(A_LastError)
             throw OSError()
 
@@ -15322,7 +15724,7 @@ class Clustering {
      * If your resource DLL manages a service, create a worker thread and use  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilsetresourceservicestartparameters">ResUtilSetResourceServiceStartParameters</a> and  <b>ResUtilSetResourceServiceEnvironment</b> when bringing the service online.
      * 
      * Do not call  <b>ResUtilSetResourceServiceEnvironment</b> from any resource DLL entry point function.  <b>ResUtilSetResourceServiceEnvironment</b> can safely be called from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {Pointer<PWSTR>} pszServiceName Pointer a null-terminated Unicode string containing the name of the service.
+     * @param {Pointer<Char>} pszServiceName Pointer a null-terminated Unicode string containing the name of the service.
      * @param {Pointer} hResource Resource handle for the service obtained from  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusterresource">OpenClusterResource</a>.
      * @param {Pointer<PLOG_EVENT_ROUTINE>} pfnLogEvent Pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-plog_event_routine">LogEvent</a> entry point function of the resource DLL managing the service.
      * @param {Pointer} hResourceHandle Resource handle required by the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-plog_event_routine">LogEvent</a> entry point function. Use the handle passed to the DLL in the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-popen_routine">Open</a> entry point function.
@@ -15342,7 +15744,7 @@ class Clustering {
 
     /**
      * Removes the environment data from a service. This function must be called from a resource DLL. The PRESUTIL_REMOVE_RESOURCE_SERVICE_ENVIRONMENT type defines a pointer to this function.
-     * @param {Pointer<PWSTR>} pszServiceName Pointer  to a null-terminated Unicode string  that contains the name of the service.
+     * @param {Pointer<Char>} pszServiceName Pointer  to a null-terminated Unicode string  that contains the name of the service.
      * @param {Pointer<PLOG_EVENT_ROUTINE>} pfnLogEvent Pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-plog_event_routine">LogEvent</a> entry point function of the resource DLL  that manages  the service.
      * @param {Pointer} hResourceHandle Resource handle  that  the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-plog_event_routine">LogEvent</a> entry point function  requires. Use the handle passed to the DLL in the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-popen_routine">Open</a> entry point function.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
@@ -15365,9 +15767,9 @@ class Clustering {
      * <b>ResUtilSetResourceServiceStartParameters</b> verifies that the service is not disabled, changes the service configuration to manual start and prevents the service from restarting in response to failure. This allows the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a> and the resource DLL to control the service.
      * 
      * If your resource DLL manages a service, use  <b>ResUtilSetResourceServiceStartParameters</b> and  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilsetresourceserviceenvironment">ResUtilSetResourceServiceEnvironment</a> before bringing the service online.
-     * @param {Pointer<PWSTR>} pszServiceName Pointer to a null-terminated Unicode string specifying the name of the service.
-     * @param {Pointer<SC_HANDLE>} schSCMHandle Handle to the Service Control Manager (SCM) or <b>NULL</b>. If <b>NULL</b>, the function will attempt to open a handle to the SCM.
-     * @param {Pointer<SC_HANDLE>} phService On input, a <b>NULL</b> service handle. On output, handle to the specified service if the call was successful, otherwise <b>NULL</b>.
+     * @param {Pointer<Char>} pszServiceName Pointer to a null-terminated Unicode string specifying the name of the service.
+     * @param {Pointer<Void>} schSCMHandle Handle to the Service Control Manager (SCM) or <b>NULL</b>. If <b>NULL</b>, the function will attempt to open a handle to the SCM.
+     * @param {Pointer<Void>} phService On input, a <b>NULL</b> service handle. On output, handle to the specified service if the call was successful, otherwise <b>NULL</b>.
      * @param {Pointer<PLOG_EVENT_ROUTINE>} pfnLogEvent Pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-plog_event_routine">LogEvent</a> entry point function of the resource DLL managing the service.
      * @param {Pointer} hResourceHandle Resource handle required by the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-plog_event_routine">LogEvent</a> entry point function. Use the handle passed to the DLL in the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-popen_routine">Open</a> entry point function.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
@@ -15388,10 +15790,10 @@ class Clustering {
      * Locates a string property in a property list. The PRESUTIL_FIND_SZ_PROPERTY type defines a pointer to this function.
      * @remarks
      * If  <b>ResUtilFindSzProperty</b> is successful, *<i>pszPropertyValue</i> points to a copy of the data stored in <i>pPropertyList</i>. Be sure to call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> on *<i>pszPropertyValue</i> to prevent memory leaks.
-     * @param {Pointer<Void>} pPropertyList Pointer to the property list in which to locate the value.
+     * @param {Pointer} pPropertyList Pointer to the property list in which to locate the value.
      * @param {Integer} cbPropertyListSize Size in bytes of the data included in <i>pPropertyList</i>.
-     * @param {Pointer<PWSTR>} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the value to locate.
-     * @param {Pointer<PWSTR>} pszPropertyValue Pointer to a <b>WCHAR</b> pointer to a buffer (allocated by the function) containing a copy of the property value. You must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> (on *<i>pszPropertyValue</i>) to free the allocated memory. If no value is required, pass <b>NULL</b> for this parameter.
+     * @param {Pointer<Char>} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the value to locate.
+     * @param {Pointer<Char>} pszPropertyValue Pointer to a <b>WCHAR</b> pointer to a buffer (allocated by the function) containing a copy of the property value. You must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> (on *<i>pszPropertyValue</i>) to free the allocated memory. If no value is required, pass <b>NULL</b> for this parameter.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -15441,7 +15843,6 @@ class Clustering {
      */
     static ResUtilFindSzProperty(pPropertyList, cbPropertyListSize, pszPropertyName, pszPropertyValue) {
         pszPropertyName := pszPropertyName is String? StrPtr(pszPropertyName) : pszPropertyName
-        pszPropertyValue := pszPropertyValue is String? StrPtr(pszPropertyValue) : pszPropertyValue
 
         result := DllCall("RESUTILS.dll\ResUtilFindSzProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, "ptr", pszPropertyValue, "uint")
         return result
@@ -15451,10 +15852,10 @@ class Clustering {
      * Locates an expandable string property in a property list. The PRESUTIL_FIND_EXPAND_SZ_PROPERTY type defines a pointer to this function.
      * @remarks
      * If  <b>ResUtilFindExpandSzProperty</b> is successful, *<i>pszPropertyValue</i> points to a copy of the data stored in <i>pPropertyList</i>. Be sure to call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> on *<i>pszPropertyValue</i> to prevent memory leaks.
-     * @param {Pointer<Void>} pPropertyList Pointer to the property list in which to locate the value.
+     * @param {Pointer} pPropertyList Pointer to the property list in which to locate the value.
      * @param {Integer} cbPropertyListSize Size in bytes of the data included in <i>pPropertyList</i>.
-     * @param {Pointer<PWSTR>} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the value to locate.
-     * @param {Pointer<PWSTR>} pszPropertyValue Pointer to a <b>WCHAR</b> pointer to a buffer (allocated by the function) containing a copy of the property value. You must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> (on *<i>pszPropertyValue</i>) to free the allocated memory. If no value is required, pass <b>NULL</b> for this parameter.
+     * @param {Pointer<Char>} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the value to locate.
+     * @param {Pointer<Char>} pszPropertyValue Pointer to a <b>WCHAR</b> pointer to a buffer (allocated by the function) containing a copy of the property value. You must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> (on *<i>pszPropertyValue</i>) to free the allocated memory. If no value is required, pass <b>NULL</b> for this parameter.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -15504,7 +15905,6 @@ class Clustering {
      */
     static ResUtilFindExpandSzProperty(pPropertyList, cbPropertyListSize, pszPropertyName, pszPropertyValue) {
         pszPropertyName := pszPropertyName is String? StrPtr(pszPropertyName) : pszPropertyName
-        pszPropertyValue := pszPropertyValue is String? StrPtr(pszPropertyValue) : pszPropertyValue
 
         result := DllCall("RESUTILS.dll\ResUtilFindExpandSzProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, "ptr", pszPropertyValue, "uint")
         return result
@@ -15514,10 +15914,10 @@ class Clustering {
      * Locates an expanded string property value in a property list. The PRESUTIL_FIND_EXPANDED_SZ_PROPERTY type defines a pointer to this function.
      * @remarks
      * If  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilfindexpandszproperty">ResUtilFindExpandSzProperty</a> is successful, *<i>pszPropertyValue</i> points to a copy of the data stored in <i>pPropertyList</i>. Be sure to call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> on *<i>pszPropertyValue</i> to prevent memory leaks.
-     * @param {Pointer<Void>} pPropertyList Pointer to the property list in which to locate the value.
+     * @param {Pointer} pPropertyList Pointer to the property list in which to locate the value.
      * @param {Integer} cbPropertyListSize Size in bytes of the data included in <i>pPropertyList</i>.
-     * @param {Pointer<PWSTR>} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the value to locate.
-     * @param {Pointer<PWSTR>} pszPropertyValue Pointer to a <b>WCHAR</b> pointer to a buffer (allocated by the function) containing a copy of the property value. You must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> (on *<i>pszPropertyValue</i>) to free the allocated memory. If no value is required, pass <b>NULL</b> for this parameter.
+     * @param {Pointer<Char>} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the value to locate.
+     * @param {Pointer<Char>} pszPropertyValue Pointer to a <b>WCHAR</b> pointer to a buffer (allocated by the function) containing a copy of the property value. You must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> (on *<i>pszPropertyValue</i>) to free the allocated memory. If no value is required, pass <b>NULL</b> for this parameter.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -15567,7 +15967,6 @@ class Clustering {
      */
     static ResUtilFindExpandedSzProperty(pPropertyList, cbPropertyListSize, pszPropertyName, pszPropertyValue) {
         pszPropertyName := pszPropertyName is String? StrPtr(pszPropertyName) : pszPropertyName
-        pszPropertyValue := pszPropertyValue is String? StrPtr(pszPropertyValue) : pszPropertyValue
 
         result := DllCall("RESUTILS.dll\ResUtilFindExpandedSzProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, "ptr", pszPropertyValue, "uint")
         return result
@@ -15577,9 +15976,9 @@ class Clustering {
      * Locates an unsigned long property value in a property list. The PRESUTIL_FIND_DWORD_PROPERTY type defines a pointer to this function.
      * @remarks
      * If the operation is successful, <i>pdwPropertyValue</i> points directly into the property list buffer. Be careful not to disturb the formatting of the property list when using <i>pdwPropertyValue</i>.
-     * @param {Pointer<Void>} pPropertyList Pointer to the property list in which to locate the value.
+     * @param {Pointer} pPropertyList Pointer to the property list in which to locate the value.
      * @param {Integer} cbPropertyListSize Size in bytes of the data included in <i>pPropertyList</i>.
-     * @param {Pointer<PWSTR>} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the value to locate.
+     * @param {Pointer<Char>} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the value to locate.
      * @param {Pointer<UInt32>} pdwPropertyValue Pointer to the actual value of the data stored in the property list buffer.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -15620,7 +16019,7 @@ class Clustering {
     static ResUtilFindDwordProperty(pPropertyList, cbPropertyListSize, pszPropertyName, pdwPropertyValue) {
         pszPropertyName := pszPropertyName is String? StrPtr(pszPropertyName) : pszPropertyName
 
-        result := DllCall("RESUTILS.dll\ResUtilFindDwordProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, "ptr", pdwPropertyValue, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilFindDwordProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, "uint*", pdwPropertyValue, "uint")
         return result
     }
 
@@ -15628,9 +16027,9 @@ class Clustering {
      * Locates a specified binary property in a property list and can also return the value of the property. The PRESUTIL_FIND_BINARY_PROPERTY type defines a pointer to this function.
      * @remarks
      * If  <b>ResUtilFindBinaryProperty</b> is successful, *<i>pbPropertyValue</i> points to a copy of the data stored in <i>pPropertyList</i>. Be sure to call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> on *<i>pbPropertyValue</i> to prevent memory leaks.
-     * @param {Pointer<Void>} pPropertyList Pointer to the property list in which to locate the value.
+     * @param {Pointer} pPropertyList Pointer to the property list in which to locate the value.
      * @param {Integer} cbPropertyListSize Size, in bytes, of the property list specified by <i>pPropertyList</i>.
-     * @param {Pointer<PWSTR>} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the property to locate.
+     * @param {Pointer<Char>} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the property to locate.
      * @param {Pointer<Byte>} pbPropertyValue Pointer to a <b>BYTE</b> pointer to a buffer (allocated by the function) containing a copy of the property value. You must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> (on *<i>pbPropertyValue</i>) to free the allocated memory. If no value is required, pass <b>NULL</b> for this parameter.
      * @param {Pointer<UInt32>} pcbPropertyValueSize Pointer to the size, in bytes, of the value returned. If no size is required, pass <b>NULL</b> for this parameter.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
@@ -15683,7 +16082,7 @@ class Clustering {
     static ResUtilFindBinaryProperty(pPropertyList, cbPropertyListSize, pszPropertyName, pbPropertyValue, pcbPropertyValueSize) {
         pszPropertyName := pszPropertyName is String? StrPtr(pszPropertyName) : pszPropertyName
 
-        result := DllCall("RESUTILS.dll\ResUtilFindBinaryProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, "ptr", pbPropertyValue, "ptr", pcbPropertyValueSize, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilFindBinaryProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, "ptr", pbPropertyValue, "uint*", pcbPropertyValueSize, "uint")
         return result
     }
 
@@ -15691,10 +16090,10 @@ class Clustering {
      * Locates a multiple string property in a property list. The PRESUTIL_FIND_MULTI_SZ_PROPERTY type defines a pointer to this function.
      * @remarks
      * If  <b>ResUtilFindMultiSzProperty</b> is successful, *<i>pbPropertyValue</i> points to a copy of the data stored in <i>pPropertyList</i>. Be sure to call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> on *<i>pbPropertyValue</i> to prevent memory leaks.
-     * @param {Pointer<Void>} pPropertyList Pointer to the property list in which to locate the value.
+     * @param {Pointer} pPropertyList Pointer to the property list in which to locate the value.
      * @param {Integer} cbPropertyListSize Size in bytes of the data included in <i>pPropertyList</i>.
-     * @param {Pointer<PWSTR>} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the value to locate.
-     * @param {Pointer<PWSTR>} pszPropertyValue Pointer to a <b>WCHAR</b> pointer to a buffer (allocated by the function) containing a copy of the property value. You must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> (on *<i>pbPropertyValue</i>) to free the allocated memory. If no value is required, pass <b>NULL</b> for this parameter.
+     * @param {Pointer<Char>} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the value to locate.
+     * @param {Pointer<Char>} pszPropertyValue Pointer to a <b>WCHAR</b> pointer to a buffer (allocated by the function) containing a copy of the property value. You must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> (on *<i>pbPropertyValue</i>) to free the allocated memory. If no value is required, pass <b>NULL</b> for this parameter.
      * @param {Pointer<UInt32>} pcbPropertyValueSize Pointer to the size, in bytes, of the value returned. If no size is required, pass <b>NULL</b> for this parameter.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -15745,9 +16144,8 @@ class Clustering {
      */
     static ResUtilFindMultiSzProperty(pPropertyList, cbPropertyListSize, pszPropertyName, pszPropertyValue, pcbPropertyValueSize) {
         pszPropertyName := pszPropertyName is String? StrPtr(pszPropertyName) : pszPropertyName
-        pszPropertyValue := pszPropertyValue is String? StrPtr(pszPropertyValue) : pszPropertyValue
 
-        result := DllCall("RESUTILS.dll\ResUtilFindMultiSzProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, "ptr", pszPropertyValue, "ptr", pcbPropertyValueSize, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilFindMultiSzProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, "ptr", pszPropertyValue, "uint*", pcbPropertyValueSize, "uint")
         return result
     }
 
@@ -15755,9 +16153,9 @@ class Clustering {
      * Locates a signed long property value in a property list. The PRESUTIL_FIND_LONG_PROPERTY type defines a pointer to this function.
      * @remarks
      * If the operation is successful, <i>plPropertyValue</i> points directly into the property list buffer. Be careful not to disturb the formatting of the property list when using <i>plPropertyValue</i>.
-     * @param {Pointer<Void>} pPropertyList Pointer to the property list in which to locate the value.
+     * @param {Pointer} pPropertyList Pointer to the property list in which to locate the value.
      * @param {Integer} cbPropertyListSize Size in bytes of the data included in <i>pPropertyList</i>.
-     * @param {Pointer<PWSTR>} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the value to locate.
+     * @param {Pointer<Char>} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the value to locate.
      * @param {Pointer<Int32>} plPropertyValue Pointer to the actual value of the data stored in the property list buffer.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -15798,15 +16196,15 @@ class Clustering {
     static ResUtilFindLongProperty(pPropertyList, cbPropertyListSize, pszPropertyName, plPropertyValue) {
         pszPropertyName := pszPropertyName is String? StrPtr(pszPropertyName) : pszPropertyName
 
-        result := DllCall("RESUTILS.dll\ResUtilFindLongProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, "ptr", plPropertyValue, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilFindLongProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, "int*", plPropertyValue, "uint")
         return result
     }
 
     /**
      * Gets a large integer property value from a property list. The PRESUTIL_FIND_ULARGEINTEGER_PROPERTY type defines a pointer to this function.
-     * @param {Pointer<Void>} pPropertyList A pointer to the property list.
+     * @param {Pointer} pPropertyList A pointer to the property list.
      * @param {Integer} cbPropertyListSize The size of the data in <i>pPropertyList</i>, in bytes.
-     * @param {Pointer<PWSTR>} pszPropertyName The name of the property.
+     * @param {Pointer<Char>} pszPropertyName The name of the property.
      * @param {Pointer<UInt64>} plPropertyValue The value of the property.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -15819,15 +16217,15 @@ class Clustering {
     static ResUtilFindULargeIntegerProperty(pPropertyList, cbPropertyListSize, pszPropertyName, plPropertyValue) {
         pszPropertyName := pszPropertyName is String? StrPtr(pszPropertyName) : pszPropertyName
 
-        result := DllCall("RESUTILS.dll\ResUtilFindULargeIntegerProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, "ptr", plPropertyValue, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilFindULargeIntegerProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, "uint*", plPropertyValue, "uint")
         return result
     }
 
     /**
      * TBD. The PRESUTIL_FIND_FILETIME_PROPERTY type defines a pointer to this function.
-     * @param {Pointer<Void>} pPropertyList 
+     * @param {Pointer} pPropertyList 
      * @param {Integer} cbPropertyListSize 
-     * @param {Pointer<PWSTR>} pszPropertyName 
+     * @param {Pointer<Char>} pszPropertyName 
      * @param {Pointer<FILETIME>} pftPropertyValue 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilfindfiletimeproperty
@@ -15916,11 +16314,12 @@ class Clustering {
      * 
      * The **ClusWorkerTerminate** utility function checks the *hThread* and *Terminate* members of the **CLUS_WORKER** structure pointed to by *lpWorker*. If *hThread* is not NULL and *Terminate* is set to FALSE, indicating that this is your first call to **ClusWorkerTerminate**, the function waits for the thread to exit before returning. Otherwise, if you have called **ClusWorkerTerminate** previously, indicated by *Terminate* being set to TRUE, the function may return before the thread has terminated.
      * @param {Pointer<CLUS_WORKER>} lpWorker Pointer to a [CLUS_WORKER](ns-resapi-clus_worker.md) structure describing the thread to terminate.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-clusworkerterminate
      */
     static ClusWorkerTerminate(lpWorker) {
-        DllCall("RESUTILS.dll\ClusWorkerTerminate", "ptr", lpWorker)
+        result := DllCall("RESUTILS.dll\ClusWorkerTerminate", "ptr", lpWorker)
+        return result
     }
 
     /**
@@ -16037,7 +16436,7 @@ class Clustering {
      * Tests whether a resource type matches the resource type name of a specified resource. The PRESUTIL_RESOURCE_TYPES_EQUAL type defines a pointer to this function.
      * @remarks
      * The  <b>ResUtilResourceTypesEqual</b> utility function compares the resource type name pointed to by <i>lpszResourceTypeName</i> with the resource type name of the resource identified by <i>hResource</i>. To perform the comparison,  <b>ResUtilResourceTypesEqual</b> passes the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-get-resource-type">CLUSCTL_RESOURCE_GET_RESOURCE_TYPE</a> control code to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterresourcecontrol">ClusterResourceControl</a> function to retrieve the resource type. If the two resource type names are the same, the resource types are equal. Note that  <b>ResUtilResourceTypesEqual</b> compares the resource type name and not the resource type  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/display-names">display name</a>.
-     * @param {Pointer<PWSTR>} lpszResourceTypeName Pointer to the resource type name to test.
+     * @param {Pointer<Char>} lpszResourceTypeName Pointer to the resource type name to test.
      * @param {Pointer} hResource Handle of the resource to test.
      * @returns {Integer} If the resource types are equal, the function returns <b>TRUE</b>.
      * 
@@ -16101,7 +16500,7 @@ class Clustering {
      * //////////////////////////////////////////////////////////////////////
      * @param {Pointer} hSelf Optional handle to a cluster resource. The callback function is not invoked for a resource identified by 
      *        <i>hSelf</i>.
-     * @param {Pointer<PWSTR>} lpszResTypeName Optional pointer to a name of a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-types">resource type</a> that 
+     * @param {Pointer<Char>} lpszResTypeName Optional pointer to a name of a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-types">resource type</a> that 
      *        narrows the scope of resources to enumerate. If <i>lpszResTypeName</i> is specified, only 
      *        resources of the specified type are enumerated.
      * @param {Pointer<LPRESOURCE_CALLBACK>} pResCallBack Pointer to a user-defined function which will be called for each enumerated resource. This function must 
@@ -16145,7 +16544,7 @@ class Clustering {
      * @param {Pointer} hCluster A handle to the cluster that contains  the resources to enumerate.
      * @param {Pointer} hSelf An optional handle to a cluster resource. The callback function is not invoked for a resource that is  identified by 
      *        <i>hSelf</i>.
-     * @param {Pointer<PWSTR>} lpszResTypeName An optional pointer to a name of a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-types">resource type</a> that 
+     * @param {Pointer<Char>} lpszResTypeName An optional pointer to a name of a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-types">resource type</a> that 
      *        narrows the scope of resources to enumerate. If <i>lpszResTypeName</i> is specified, only 
      *        resources of the specified type are enumerated.
      * @param {Pointer<LPRESOURCE_CALLBACK_EX>} pResCallBack A pointer to a user-defined function that    is called for each enumerated resource. This function must 
@@ -16214,8 +16613,8 @@ class Clustering {
      *  
      * 
      * Do not call  <b>ResUtilGetResourceDependency</b> from any resource DLL entry point function.  <b>ResUtilGetResourceDependency</b> can safely be called from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {Pointer<HANDLE>} hSelf Handle to the dependent resource. This resource depends on one or more resources.
-     * @param {Pointer<PWSTR>} lpszResourceType Null-terminated Unicode string specifying the resource type of the dependency to return.
+     * @param {Pointer<Void>} hSelf Handle to the dependent resource. This resource depends on one or more resources.
+     * @param {Pointer<Char>} lpszResourceType Null-terminated Unicode string specifying the resource type of the dependency to return.
      * @returns {Pointer} If the operation succeeds, 
      * the function returns a handle to one of the resources on which the resource specified by <i>hSelf</i> depends. The caller is responsible for closing the handle by calling  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closeclusterresource">CloseClusterResource</a>.
      * 
@@ -16288,8 +16687,8 @@ class Clustering {
      * 
      * Do not call  <b>ResUtilGetResourceDependencyByName</b> from any resource DLL entry point function.  <b>ResUtilGetResourceDependencyByName</b> can safely be called from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {Pointer} hCluster Handle to the cluster to which the resource belongs.
-     * @param {Pointer<HANDLE>} hSelf Handle to the dependent resource. This resource depends on one or more resources.
-     * @param {Pointer<PWSTR>} lpszResourceType NULL-terminated Unicode string specifying the resource type of the dependency to return.
+     * @param {Pointer<Void>} hSelf Handle to the dependent resource. This resource depends on one or more resources.
+     * @param {Pointer<Char>} lpszResourceType NULL-terminated Unicode string specifying the resource type of the dependency to return.
      * @param {Integer} bRecurse Determines the scope of the search. If <b>TRUE</b>, the function checks the entire dependency tree under the dependent resource. If <b>FALSE</b>, the function checks only the resources on which the dependent resource directly depends.
      * @returns {Pointer} If the operation succeeds, the function returns a handle to one of the resources on which the resource specified by <i>hSelf</i> depends. The caller is responsible for closing the handle by calling  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closeclusterresource">CloseClusterResource</a>.
      * 
@@ -16340,7 +16739,7 @@ class Clustering {
      * @remarks
      * Do not call  <b>ResUtilGetResourceDependencyByClass</b> from any resource DLL entry point function.  <b>ResUtilGetResourceDependencyByClass</b> can safely be called from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {Pointer} hCluster Handle to the cluster to which the resource belongs.
-     * @param {Pointer<HANDLE>} hSelf Handle to the dependent resource. This resource depends on one or more resources.
+     * @param {Pointer<Void>} hSelf Handle to the dependent resource. This resource depends on one or more resources.
      * @param {Pointer<CLUS_RESOURCE_CLASS_INFO>} prci Pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clus_resource_class_info">CLUS_RESOURCE_CLASS_INFO</a> structure describing the resource class of the dependency to return.
      * @param {Integer} bRecurse Determines the scope of the search. If <b>TRUE</b>, the function checks the entire dependency tree under the dependent resource. If <b>FALSE</b>, the function checks only the resources on which the dependent resource directly depends.
      * @returns {Pointer} If the operation succeeds, 
@@ -16394,8 +16793,8 @@ class Clustering {
      *  
      * 
      * Do not call  <b>ResUtilGetResourceNameDependency</b> from any resource DLL entry point function.  <b>ResUtilGetResourceNameDependency</b> can safely be called from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {Pointer<PWSTR>} lpszResourceName Null-terminated Unicode string specifying the name of the dependent resource. This resource depends on one or more resources.
-     * @param {Pointer<PWSTR>} lpszResourceType Null-terminated Unicode string specifying the resource type of the dependency to return.
+     * @param {Pointer<Char>} lpszResourceName Null-terminated Unicode string specifying the name of the dependent resource. This resource depends on one or more resources.
+     * @param {Pointer<Char>} lpszResourceType Null-terminated Unicode string specifying the resource type of the dependency to return.
      * @returns {Pointer} If the operation succeeds, 
      * the function returns a handle to one of the resources on which the resource specified by <i>lpszResourceName</i> depends. The caller is responsible for closing the handle by calling  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closeclusterresource">CloseClusterResource</a>.
      * 
@@ -16436,17 +16835,17 @@ class Clustering {
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ipv6-address">IPv6 Address</a> resources, or 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ipv6-tunnel-address">IPv6 Tunnel Address</a> resources.
      * @param {Pointer} hResource Handle to the resource to query for dependencies.
-     * @param {Pointer<PWSTR>} pszAddress Output buffer for returning the value of the 
+     * @param {Pointer<Char>} pszAddress Output buffer for returning the value of the 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ip-addresses-address">Address</a> private property.
      * @param {Pointer<UInt32>} pcchAddress On input, specifies the size of the <i>pszAddress</i> buffer as a count of 
      *       <b>WCHAR</b>s. On output, specifies the size of the resulting data as a count of 
      *       <b>WCHAR</b>s that includes the terminating <b>NULL</b>.
-     * @param {Pointer<PWSTR>} pszSubnetMask Output buffer for returning the value of the 
+     * @param {Pointer<Char>} pszSubnetMask Output buffer for returning the value of the 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ip-addresses-subnetmask">SubnetMask</a> private property.
      * @param {Pointer<UInt32>} pcchSubnetMask On input, specifies the size of the <i>pszSubnetMask</i> buffer as a count of 
      *       <b>WCHAR</b>s. On output, specifies the size of the resulting data as a count of 
      *       <b>WCHAR</b>s that includes the terminating <b>NULL</b>.
-     * @param {Pointer<PWSTR>} pszNetwork Output buffer for returning the value of the 
+     * @param {Pointer<Char>} pszNetwork Output buffer for returning the value of the 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ip-addresses-network">Network</a> private property.
      * @param {Pointer<UInt32>} pcchNetwork On input, specifies the size of the <i>pszNetwork</i> buffer as a count of 
      *       <b>WCHAR</b>s. On output, specifies the size of the resulting data as a count of 
@@ -16509,7 +16908,7 @@ class Clustering {
         pszSubnetMask := pszSubnetMask is String? StrPtr(pszSubnetMask) : pszSubnetMask
         pszNetwork := pszNetwork is String? StrPtr(pszNetwork) : pszNetwork
 
-        result := DllCall("RESUTILS.dll\ResUtilGetResourceDependentIPAddressProps", "ptr", hResource, "ptr", pszAddress, "ptr", pcchAddress, "ptr", pszSubnetMask, "ptr", pcchSubnetMask, "ptr", pszNetwork, "ptr", pcchNetwork, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetResourceDependentIPAddressProps", "ptr", hResource, "ptr", pszAddress, "uint*", pcchAddress, "ptr", pszSubnetMask, "uint*", pcchSubnetMask, "ptr", pszNetwork, "uint*", pcchNetwork, "uint")
         return result
     }
 
@@ -16525,7 +16924,7 @@ class Clustering {
      *      returns the drive letter of the first Physical Disk dependency that is enumerated for the resource.
      * @param {Pointer} hCluster Cluster handle.
      * @param {Pointer} hResource Handle to the resource to query for dependencies.
-     * @param {Pointer<PWSTR>} pszDriveLetter Buffer in which to store the drive letter.
+     * @param {Pointer<Char>} pszDriveLetter Buffer in which to store the drive letter.
      * @param {Pointer<UInt32>} pcchDriveLetter On input, specifies the size of the <i>pszDriveLetter</i> buffer as a count of 
      *        <b>WCHAR</b>s. On output, specifies the size of the resulting data as a count of 
      *        <b>WCHAR</b>s that includes the terminating <b>NULL</b>.
@@ -16583,7 +16982,7 @@ class Clustering {
 
         A_LastError := 0
 
-        result := DllCall("RESUTILS.dll\ResUtilFindDependentDiskResourceDriveLetter", "ptr", hCluster, "ptr", hResource, "ptr", pszDriveLetter, "ptr", pcchDriveLetter, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilFindDependentDiskResourceDriveLetter", "ptr", hCluster, "ptr", hResource, "ptr", pszDriveLetter, "uint*", pcchDriveLetter, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -16626,7 +17025,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilTerminateServiceProcessFromResDll(dwServicePid, bOffline, pdwResourceState, pfnLogEvent, hResourceHandle) {
-        result := DllCall("RESUTILS.dll\ResUtilTerminateServiceProcessFromResDll", "uint", dwServicePid, "int", bOffline, "ptr", pdwResourceState, "ptr", pfnLogEvent, "ptr", hResourceHandle, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilTerminateServiceProcessFromResDll", "uint", dwServicePid, "int", bOffline, "uint*", pdwResourceState, "ptr", pfnLogEvent, "ptr", hResourceHandle, "uint")
         return result
     }
 
@@ -16634,7 +17033,7 @@ class Clustering {
      * Returns a property format list describing the format of a specified set of properties. The PRESUTIL_GET_PROPERTY_FORMATS type defines a pointer to this function.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> property 
      *        table specifying the properties whose formats are to be retrieved.
-     * @param {Pointer<Void>} pOutPropertyFormatList On input, pointer to a buffer. On a successful return, pointer to a property format list describing the 
+     * @param {Pointer} pOutPropertyFormatList On input, pointer to a buffer. On a successful return, pointer to a property format list describing the 
      *        format of each property specified by <i>pPropertyTable</i>.
      * @param {Integer} cbPropertyFormatListSize Specifies the allocated size (in bytes) of the buffer pointed to by 
      *        <i>pOutPropertyFormatList</i>.
@@ -16647,7 +17046,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetPropertyFormats(pPropertyTable, pOutPropertyFormatList, cbPropertyFormatListSize, pcbBytesReturned, pcbRequired) {
-        result := DllCall("RESUTILS.dll\ResUtilGetPropertyFormats", "ptr", pPropertyTable, "ptr", pOutPropertyFormatList, "uint", cbPropertyFormatListSize, "ptr", pcbBytesReturned, "ptr", pcbRequired, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetPropertyFormats", "ptr", pPropertyTable, "ptr", pOutPropertyFormatList, "uint", cbPropertyFormatListSize, "uint*", pcbBytesReturned, "uint*", pcbRequired, "uint")
         return result
     }
 
@@ -16668,7 +17067,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetCoreClusterResources(hCluster, phClusterNameResource, phClusterIPAddressResource, phClusterQuorumResource) {
-        result := DllCall("RESUTILS.dll\ResUtilGetCoreClusterResources", "ptr", hCluster, "ptr", phClusterNameResource, "ptr", phClusterIPAddressResource, "ptr", phClusterQuorumResource, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetCoreClusterResources", "ptr", hCluster, "ptr*", phClusterNameResource, "ptr*", phClusterIPAddressResource, "ptr*", phClusterQuorumResource, "uint")
         return result
     }
 
@@ -16676,7 +17075,7 @@ class Clustering {
      * Returns the name of a resource. The PRESUTIL_GET_RESOURCE_NAME type defines a pointer to this function.
      * @param {Pointer} hResource Resource handle (see 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusterresource">OpenClusterResource</a>).
-     * @param {Pointer<PWSTR>} pszResourceName Pointer to a buffer that receives the resource name.
+     * @param {Pointer<Char>} pszResourceName Pointer to a buffer that receives the resource name.
      * @param {Pointer<UInt32>} pcchResourceNameInOut On input, specifies the size of the buffer pointed to by <i>pszResourceName</i>, in wide 
      *       characters. On output, specifies the actual size of the resource name returned as a count of wide 
      *       characters.
@@ -16690,7 +17089,7 @@ class Clustering {
     static ResUtilGetResourceName(hResource, pszResourceName, pcchResourceNameInOut) {
         pszResourceName := pszResourceName is String? StrPtr(pszResourceName) : pszResourceName
 
-        result := DllCall("RESUTILS.dll\ResUtilGetResourceName", "ptr", hResource, "ptr", pszResourceName, "ptr", pcchResourceNameInOut, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetResourceName", "ptr", hResource, "ptr", pszResourceName, "uint*", pcchResourceNameInOut, "uint")
         return result
     }
 
@@ -16698,17 +17097,61 @@ class Clustering {
      * Determines whether or not a specific role has been assigned to a cluster.
      * @param {Pointer} hCluster The handle of the queried cluster.
      * @param {Integer} eClusterRole The role the cluster was queried about.  The possible values for this parameter are enumerators from the <a href="https://docs.microsoft.com/windows/desktop/api/resapi/ne-resapi-cluster_role">CLUSTER_ROLE</a> enumeration.  The following values are valid.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The possible return values for this function are enumerators from the  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/ne-resapi-cluster_role_state">CLUSTER_ROLE_STATE</a> enumeration.  The following values are valid.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterRoleUnknown</b></dt>
+     * <dt>-1</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * It is unknown whether or not the role is clustered.  If this value is returned then an error has occurred.  For more information call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterRoleClustered</b></dt>
+     * <dt>0</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The role is clustered.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ClusterRoleUnclustered</b></dt>
+     * <dt>1</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The role is not clustered.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-resutilgetclusterrolestate
      * @since windowsserver2008
      */
     static ResUtilGetClusterRoleState(hCluster, eClusterRole) {
         A_LastError := 0
 
-        DllCall("RESUTILS.dll\ResUtilGetClusterRoleState", "ptr", hCluster, "int", eClusterRole)
+        result := DllCall("RESUTILS.dll\ResUtilGetClusterRoleState", "ptr", hCluster, "int", eClusterRole)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -16741,7 +17184,7 @@ class Clustering {
      * <td><b>TRUE</b></td>
      * </tr>
      * </table>
-     * @param {Pointer<PWSTR>} lpszPathName A pointer to the input path string.
+     * @param {Pointer<Char>} lpszPathName A pointer to the input path string.
      * @returns {Integer} <b>TRUE</b> if the path is on a CSV and this function is called from a domain account, or if the path is on a CSV that is owned by a local cluster node; otherwise, <b>FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-clusterispathonsharedvolume
      * @since windowsserver2008
@@ -16807,7 +17250,7 @@ class Clustering {
      * 
      * 
      * ```cpp
-     * @param {Pointer<PWSTR>} lpszFileName A pointer to the input path string. Both absolute and relative file and directory names, for example 
+     * @param {Pointer<Char>} lpszFileName A pointer to the input path string. Both absolute and relative file and directory names, for example 
      *        "..", are acceptable in this path.
      * 
      * If you specify a relative directory or file name without a volume qualifier, 
@@ -16816,7 +17259,7 @@ class Clustering {
      * 
      * If this parameter is an empty string, "", the function fails but the last error is set to 
      *        <b>ERROR_SUCCESS</b>.
-     * @param {Pointer<PWSTR>} lpszVolumePathName A pointer to a string that receives the volume mount point for the input path.
+     * @param {Pointer<Char>} lpszVolumePathName A pointer to a string that receives the volume mount point for the input path.
      * @param {Integer} cchBufferLength The length of the output buffer, in <b>WCHARs</b>.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
@@ -16916,9 +17359,9 @@ class Clustering {
      * 
      * 
      * ```cpp
-     * @param {Pointer<PWSTR>} lpszVolumeMountPoint A pointer to a string that contains the path of a mounted folder (for example, "Y:\MountX\") or a drive 
+     * @param {Pointer<Char>} lpszVolumeMountPoint A pointer to a string that contains the path of a mounted folder (for example, "Y:\MountX\") or a drive 
      *       letter (for example, "X:\\"). The string must end with a trailing backslash (\\).
-     * @param {Pointer<PWSTR>} lpszVolumeName A pointer to a string that receives the volume <b>GUID</b> path. This path is of the form 
+     * @param {Pointer<Char>} lpszVolumeName A pointer to a string that receives the volume <b>GUID</b> path. This path is of the form 
      *       "\\?\Volume{<i>GUID</i>}\" where <i>GUID</i> is a 
      *       <b>GUID</b> that identifies the volume. If there is more than one volume 
      *       <b>GUID</b> path for the volume, only the first one in the mount manager's cache is 
@@ -16955,14 +17398,14 @@ class Clustering {
      * The 
      *     <b>ClusterPrepareSharedVolumeForBackup</b> 
      *     function must be called from a node of the cluster.
-     * @param {Pointer<PWSTR>} lpszFileName Path to a directory or file on a cluster shared volume.
-     * @param {Pointer<PWSTR>} lpszVolumePathName Address of buffer that will receive the CSV reparse point.
+     * @param {Pointer<Char>} lpszFileName Path to a directory or file on a cluster shared volume.
+     * @param {Pointer<Char>} lpszVolumePathName Address of buffer that will receive the CSV reparse point.
      * @param {Pointer<UInt32>} lpcchVolumePathName Address of a <b>DWORD</b> that on input contains the size of the buffer (in 
      *       <b>WCHAR</b> characters) pointed to by the <i>lpszVolumePathName</i> 
      *       parameter and on output contains the size of the string written to that buffer. If size on input is not large 
      *       enough then the function will fail and return <b>ERROR_MORE_DATA</b> and set the 
      *       <b>DWORD</b> to the required size.
-     * @param {Pointer<PWSTR>} lpszVolumeName Address of buffer that will receive the volume GUID path for the CSV.
+     * @param {Pointer<Char>} lpszVolumeName Address of buffer that will receive the volume GUID path for the CSV.
      * @param {Pointer<UInt32>} lpcchVolumeName Address of a <b>DWORD</b> that on input contains the size of the buffer (in 
      *       <b>WCHAR</b> characters) pointed to by the <i>lpszVolumeName</i> 
      *       parameter and on output contains the size of the string written to that buffer. If size on input is not large 
@@ -16980,7 +17423,7 @@ class Clustering {
         lpszVolumePathName := lpszVolumePathName is String? StrPtr(lpszVolumePathName) : lpszVolumePathName
         lpszVolumeName := lpszVolumeName is String? StrPtr(lpszVolumeName) : lpszVolumeName
 
-        result := DllCall("RESUTILS.dll\ClusterPrepareSharedVolumeForBackup", "ptr", lpszFileName, "ptr", lpszVolumePathName, "ptr", lpcchVolumePathName, "ptr", lpszVolumeName, "ptr", lpcchVolumeName, "uint")
+        result := DllCall("RESUTILS.dll\ClusterPrepareSharedVolumeForBackup", "ptr", lpszFileName, "ptr", lpszVolumePathName, "uint*", lpcchVolumePathName, "ptr", lpszVolumeName, "uint*", lpcchVolumeName, "uint")
         return result
     }
 
@@ -17010,7 +17453,7 @@ class Clustering {
      *      calling 
      *      <b>ClusterClearBackupStateForSharedVolume</b>.</div>
      * <div> </div>
-     * @param {Pointer<PWSTR>} lpszVolumePathName Path to a file on a CSV. If the path is not a CSV path, 
+     * @param {Pointer<Char>} lpszVolumePathName Path to a file on a CSV. If the path is not a CSV path, 
      *       <b>ClusterClearBackupStateForSharedVolume</b> 
      *       will return <b>ERROR_INVALID_PARAMETER</b> (87).
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b> (0).
@@ -17033,9 +17476,9 @@ class Clustering {
      * <b>ResUtilSetResourceServiceStartParametersEx</b> verifies that the service is not disabled, changes the service configuration to manual start, and prevents the service from restarting in response to failure. This  enables  the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a> and the resource DLL to control the service.
      * 
      * If your resource DLL manages a service, use  <b>ResUtilSetResourceServiceStartParametersEx</b> and  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilsetresourceserviceenvironment">ResUtilSetResourceServiceEnvironment</a> before you  bring the service online.
-     * @param {Pointer<PWSTR>} pszServiceName A pointer to a null-terminated Unicode string that specifies  the name of the service.
-     * @param {Pointer<SC_HANDLE>} schSCMHandle A handle to the Service Control Manager (SCM) or <b>NULL</b>. If <b>NULL</b>, the function  attempts to open a handle to the SCM.
-     * @param {Pointer<SC_HANDLE>} phService On input, a <b>NULL</b> service handle. On output, handle to the specified service if the call was successful; otherwise <b>NULL</b>.
+     * @param {Pointer<Char>} pszServiceName A pointer to a null-terminated Unicode string that specifies  the name of the service.
+     * @param {Pointer<Void>} schSCMHandle A handle to the Service Control Manager (SCM) or <b>NULL</b>. If <b>NULL</b>, the function  attempts to open a handle to the SCM.
+     * @param {Pointer<Void>} phService On input, a <b>NULL</b> service handle. On output, handle to the specified service if the call was successful; otherwise <b>NULL</b>.
      * @param {Integer} dwDesiredAccess The requested access privileges. This  might  be any combination of <b>GENERIC_READ</b> (0x80000000), <b>GENERIC_ALL</b> (0x10000000), or <b>MAXIMUM_ALLOWED</b> (0x02000000). If this value is zero (0),  an undefined error might  be returned. Using <b>GENERIC_ALL</b> is the same as calling <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilsetresourceservicestartparameters">ResUtilSetResourceServiceStartParameters</a>.
      * @param {Pointer<PLOG_EVENT_ROUTINE>} pfnLogEvent A pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-plog_event_routine">LogEvent</a> entry point function of the resource DLL that manages  the service.
      * @param {Pointer} hResourceHandle A resource handle that is required by the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-plog_event_routine">LogEvent</a> entry point function. Use the handle that is passed to the DLL in the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-popen_routine">Open</a> entry point function.
@@ -17058,7 +17501,7 @@ class Clustering {
      * @param {Pointer} hCluster A handle to the cluster that contains the resources to enumerate.
      * @param {Pointer} hSelf An optional handle to a cluster resource. The callback function is not invoked for a resource identified by 
      *        <i>hSelf</i>.
-     * @param {Pointer<PWSTR>} lpszResTypeName An optional pointer to a name of a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-types">resource type</a> that 
+     * @param {Pointer<Char>} lpszResTypeName An optional pointer to a name of a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-types">resource type</a> that 
      *        narrows the scope of resources to enumerate. If <i>lpszResTypeName</i> is specified, only 
      *        resources of the specified type are enumerated.
      * @param {Pointer<LPRESOURCE_CALLBACK_EX>} pResCallBack A pointer to a user-defined function which will be called for each enumerated resource. This function must 
@@ -17096,8 +17539,8 @@ class Clustering {
 
     /**
      * Enumerates the dependencies of a specified resource and returns a handle to a dependency of a specified type. The PRESUTIL_GET_RESOURCE_DEPENDENCY_EX type defines a pointer to this function.
-     * @param {Pointer<HANDLE>} hSelf A handle to the dependent resource.
-     * @param {Pointer<PWSTR>} lpszResourceType A null-terminated Unicode string that specifies the resource type of the dependency to return.
+     * @param {Pointer<Void>} hSelf A handle to the dependent resource.
+     * @param {Pointer<Char>} lpszResourceType A null-terminated Unicode string that specifies the resource type of the dependency to return.
      * @param {Integer} dwDesiredAccess The requested access privileges. This  might be any combination of <b>GENERIC_READ</b> (0x80000000), <b>GENERIC_ALL</b> (0x10000000), or <b>MAXIMUM_ALLOWED</b> (0x02000000). If this value is zero (0), an undefined error  might be returned. Using <b>GENERIC_ALL</b> is the same as calling <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilgetresourcedependency">ResUtilGetResourceDependency</a>.
      * @returns {Pointer} If the operation succeeds, 
      * the function returns a handle to one of the resources on which the resource that is   specified by <i>hSelf</i> depends. The caller is responsible for closing the handle by calling 
@@ -17122,8 +17565,8 @@ class Clustering {
     /**
      * Enumerates the dependencies of a specified resource in a specified cluster and returns a handle to a dependency of a specified type. The PRESUTIL_GET_RESOURCE_DEPENDENCY_BY_NAME_EX type defines a pointer to this function.
      * @param {Pointer} hCluster A handle to the cluster to which the resource belongs.
-     * @param {Pointer<HANDLE>} hSelf A handle to the dependent resource. This resource depends on one or more resources.
-     * @param {Pointer<PWSTR>} lpszResourceType A null-terminated Unicode string that specifies  the resource type of the dependency to return.
+     * @param {Pointer<Void>} hSelf A handle to the dependent resource. This resource depends on one or more resources.
+     * @param {Pointer<Char>} lpszResourceType A null-terminated Unicode string that specifies  the resource type of the dependency to return.
      * @param {Integer} bRecurse Determines the scope of the search. If <b>TRUE</b>, the function checks the entire dependency tree under the dependent resource. If <b>FALSE</b>, the function checks only the resources on which the dependent resource directly depends.
      * @param {Integer} dwDesiredAccess The requested access privileges. This  might be any combination of <b>GENERIC_READ</b> (0x80000000), <b>GENERIC_ALL</b> (0x10000000), or <b>MAXIMUM_ALLOWED</b> (0x02000000). If this value is zero (0), an undefined error  might be returned. Using <b>GENERIC_ALL</b> is the same as calling <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilgetresourcedependencybyname">ResUtilGetResourceDependencyByName</a>.
      * @returns {Pointer} If the operation succeeds, the function returns a handle to one of the resources on which the resource that is specified by <i>hSelf</i> depends. The caller is responsible for closing the handle by calling  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closeclusterresource">CloseClusterResource</a>.
@@ -17173,7 +17616,7 @@ class Clustering {
     /**
      * Enumerates the dependencies of a specified resource in a specified cluster and returns a handle to a dependency that matches a specified resource class. The PRESUTIL_GET_RESOURCE_DEPENDENCY_BY_CLASS_EX type defines a pointer to this function.
      * @param {Pointer} hCluster A handle to the cluster to which the resource belongs.
-     * @param {Pointer<HANDLE>} hSelf A handle to the dependent resource. This resource depends on one or more resources.
+     * @param {Pointer<Void>} hSelf A handle to the dependent resource. This resource depends on one or more resources.
      * @param {Pointer<CLUS_RESOURCE_CLASS_INFO>} prci A pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clus_resource_class_info">PCLUS_RESOURCE_CLASS_INFO</a> structure that describes  the resource class of the dependency to return.
      * @param {Integer} bRecurse Determines the scope of the search. If <b>TRUE</b>, the function checks the entire dependency tree under the dependent resource. If <b>FALSE</b>, the function checks only the resources on which the dependent resource directly depends.
      * @param {Integer} dwDesiredAccess The requested access privileges. This  might be any combination of <b>GENERIC_READ</b> (0x80000000), <b>GENERIC_ALL</b> (0x10000000), or <b>MAXIMUM_ALLOWED</b> (0x02000000). If this value is zero (0), an undefined error  might be returned. Using <b>GENERIC_ALL</b> is the same as calling <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilgetresourcedependencybyclass">ResUtilGetResourceDependencyByClass</a>.
@@ -17196,8 +17639,8 @@ class Clustering {
 
     /**
      * Enumerates the dependencies of a specified resource in the local cluster and returns a handle to a dependency of a specified resource type. The PRESUTIL_GET_RESOURCE_NAME_DEPENDENCY_EX type defines a pointer to this function.
-     * @param {Pointer<PWSTR>} lpszResourceName A null-terminated Unicode string that specifies  the name of the dependent resource. This resource depends on one or more resources.
-     * @param {Pointer<PWSTR>} lpszResourceType A null-terminated Unicode string that specifies  the resource type of the dependency to return.
+     * @param {Pointer<Char>} lpszResourceName A null-terminated Unicode string that specifies  the name of the dependent resource. This resource depends on one or more resources.
+     * @param {Pointer<Char>} lpszResourceType A null-terminated Unicode string that specifies  the resource type of the dependency to return.
      * @param {Integer} dwDesiredAccess The requested access privileges. This  might be any combination of <b>GENERIC_READ</b> (0x80000000), <b>GENERIC_ALL</b> (0x10000000), or <b>MAXIMUM_ALLOWED</b> (0x02000000). If this value is zero (0), an undefined error  might be returned. Using <b>GENERIC_ALL</b> is the same as calling <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilgetresourcenamedependency">ResUtilGetResourceNameDependency</a>.
      * @returns {Pointer} If the operation succeeds, 
      * the function returns a handle to one of the resources on which the resource that is  specified by <i>lpszResourceName</i> depends. The caller is responsible for closing the handle by calling  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closeclusterresource">CloseClusterResource</a>.
@@ -17236,13 +17679,13 @@ class Clustering {
      * @since windowsserver2012
      */
     static ResUtilGetCoreClusterResourcesEx(hClusterIn, phClusterNameResourceOut, phClusterQuorumResourceOut, dwDesiredAccess) {
-        result := DllCall("RESUTILS.dll\ResUtilGetCoreClusterResourcesEx", "ptr", hClusterIn, "ptr", phClusterNameResourceOut, "ptr", phClusterQuorumResourceOut, "uint", dwDesiredAccess, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetCoreClusterResourcesEx", "ptr", hClusterIn, "ptr*", phClusterNameResourceOut, "ptr*", phClusterQuorumResourceOut, "uint", dwDesiredAccess, "uint")
         return result
     }
 
     /**
      * Opens a handle to a Cryptographic Service Provider (CSP) in order to manage the encryption of Checkpointing data for a cluster resource. The POPEN_CLUSTER_CRYPT_PROVIDER type defines a pointer to this function.
-     * @param {Pointer<PWSTR>} lpszResource A pointer to a null-terminated Unicode string that contains the name of the cluster resource that is associated with the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/checkpointing">Checkpointing</a> data.
+     * @param {Pointer<Char>} lpszResource A pointer to a null-terminated Unicode string that contains the name of the cluster resource that is associated with the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/checkpointing">Checkpointing</a> data.
      * @param {Pointer<SByte>} lpszProvider A pointer to a null-terminated Unicode string that contains the name of the CSP.
      * @param {Integer} dwType A bitmask that specifies the CSP type.
      * @param {Integer} dwFlags The flags that specify the settings for the operation. This parameter can be set to the default value "0", or <b>CLUS_CREATE_CRYPT_CONTAINER_NOT_FOUND</b> (0x0001).
@@ -17253,14 +17696,14 @@ class Clustering {
     static OpenClusterCryptProvider(lpszResource, lpszProvider, dwType, dwFlags) {
         lpszResource := lpszResource is String? StrPtr(lpszResource) : lpszResource
 
-        result := DllCall("RESUTILS.dll\OpenClusterCryptProvider", "ptr", lpszResource, "ptr", lpszProvider, "uint", dwType, "uint", dwFlags, "ptr")
+        result := DllCall("RESUTILS.dll\OpenClusterCryptProvider", "ptr", lpszResource, "char*", lpszProvider, "uint", dwType, "uint", dwFlags, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpszResource 
-     * @param {Pointer<PWSTR>} lpszKeyname 
+     * @param {Pointer<Char>} lpszResource 
+     * @param {Pointer<Char>} lpszKeyname 
      * @param {Pointer<SByte>} lpszProvider 
      * @param {Integer} dwType 
      * @param {Integer} dwFlags 
@@ -17270,7 +17713,7 @@ class Clustering {
         lpszResource := lpszResource is String? StrPtr(lpszResource) : lpszResource
         lpszKeyname := lpszKeyname is String? StrPtr(lpszKeyname) : lpszKeyname
 
-        result := DllCall("RESUTILS.dll\OpenClusterCryptProviderEx", "ptr", lpszResource, "ptr", lpszKeyname, "ptr", lpszProvider, "uint", dwType, "uint", dwFlags, "ptr")
+        result := DllCall("RESUTILS.dll\OpenClusterCryptProviderEx", "ptr", lpszResource, "ptr", lpszKeyname, "char*", lpszProvider, "uint", dwType, "uint", dwFlags, "ptr")
         return result
     }
 
@@ -17298,7 +17741,7 @@ class Clustering {
      * @since windowsserver2012
      */
     static ClusterEncrypt(hClusCryptProvider, pData, cbData, ppData, pcbData) {
-        result := DllCall("RESUTILS.dll\ClusterEncrypt", "ptr", hClusCryptProvider, "ptr", pData, "uint", cbData, "ptr", ppData, "ptr", pcbData, "uint")
+        result := DllCall("RESUTILS.dll\ClusterEncrypt", "ptr", hClusCryptProvider, "char*", pData, "uint", cbData, "ptr", ppData, "uint*", pcbData, "uint")
         return result
     }
 
@@ -17314,7 +17757,7 @@ class Clustering {
      * @since windowsserver2012
      */
     static ClusterDecrypt(hClusCryptProvider, pCryptInput, cbCryptInput, ppCryptOutput, pcbCryptOutput) {
-        result := DllCall("RESUTILS.dll\ClusterDecrypt", "ptr", hClusCryptProvider, "ptr", pCryptInput, "uint", cbCryptInput, "ptr", ppCryptOutput, "ptr", pcbCryptOutput, "uint")
+        result := DllCall("RESUTILS.dll\ClusterDecrypt", "ptr", hClusCryptProvider, "char*", pCryptInput, "uint", cbCryptInput, "ptr", ppCryptOutput, "uint*", pcbCryptOutput, "uint")
         return result
     }
 
@@ -17337,7 +17780,7 @@ class Clustering {
      * @returns {Integer} 
      */
     static ResUtilVerifyShutdownSafe(flags, reason, pResult) {
-        result := DllCall("RESUTILS.dll\ResUtilVerifyShutdownSafe", "uint", flags, "uint", reason, "ptr", pResult, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilVerifyShutdownSafe", "uint", flags, "uint", reason, "uint*", pResult, "uint")
         return result
     }
 
@@ -17369,8 +17812,8 @@ class Clustering {
 
     /**
      * 
-     * @param {Pointer<HKEY>} key 
-     * @param {Pointer<PWSTR>} keyName 
+     * @param {Pointer<Void>} key 
+     * @param {Pointer<Char>} keyName 
      * @param {Integer} treatNoKeyAsError 
      * @returns {Integer} 
      */
@@ -17389,7 +17832,7 @@ class Clustering {
      * @returns {Integer} 
      */
     static ResUtilGroupsEqual(hSelf, hGroup, pEqual) {
-        result := DllCall("RESUTILS.dll\ResUtilGroupsEqual", "ptr", hSelf, "ptr", hGroup, "ptr", pEqual, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGroupsEqual", "ptr", hSelf, "ptr", hGroup, "int*", pEqual, "uint")
         return result
     }
 
@@ -17427,7 +17870,7 @@ class Clustering {
      * @returns {Integer} 
      */
     static ResUtilDupGroup(group, copy) {
-        result := DllCall("RESUTILS.dll\ResUtilDupGroup", "ptr", group, "ptr", copy, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilDupGroup", "ptr", group, "ptr*", copy, "uint")
         return result
     }
 
@@ -17438,7 +17881,7 @@ class Clustering {
      * @returns {Integer} 
      */
     static ResUtilGetClusterGroupType(hGroup, groupType) {
-        result := DllCall("RESUTILS.dll\ResUtilGetClusterGroupType", "ptr", hGroup, "ptr", groupType, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetClusterGroupType", "ptr", hGroup, "int*", groupType, "uint")
         return result
     }
 
@@ -17472,7 +17915,7 @@ class Clustering {
      * @returns {Integer} 
      */
     static ResUtilDupResource(group, copy) {
-        result := DllCall("RESUTILS.dll\ResUtilDupResource", "ptr", group, "ptr", copy, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilDupResource", "ptr", group, "ptr*", copy, "uint")
         return result
     }
 
@@ -17510,7 +17953,7 @@ class Clustering {
      * 
      * The issued IOCTL for tagging another process checks if the current process has 
      *      <b>PROCESS_TERMINATE</b> access to the target process.
-     * @param {Pointer<HANDLE>} ProcessHandle A process handle for the current process or a remote process to be tagged with the 
+     * @param {Pointer<Void>} ProcessHandle A process handle for the current process or a remote process to be tagged with the 
      *       <i>AppInstanceId</i>. To tag a remote process, the handle must have 
      *       <b>PROCESS_TERMINATE</b> access to that process.
      * @param {Pointer<Guid>} AppInstanceId The application instance ID, which is a <b>GUID</b>.
@@ -17611,7 +18054,7 @@ class Clustering {
      * @returns {Integer} 
      */
     static QueryAppInstanceVersion(AppInstanceId, InstanceVersionHigh, InstanceVersionLow, VersionStatus) {
-        result := DllCall("NTLANMAN.dll\QueryAppInstanceVersion", "ptr", AppInstanceId, "ptr", InstanceVersionHigh, "ptr", InstanceVersionLow, "ptr", VersionStatus, "uint")
+        result := DllCall("NTLANMAN.dll\QueryAppInstanceVersion", "ptr", AppInstanceId, "uint*", InstanceVersionHigh, "uint*", InstanceVersionLow, "int*", VersionStatus, "uint")
         return result
     }
 
@@ -17626,7 +18069,7 @@ class Clustering {
 
     /**
      * Sets the flags that affect connections from the application instance.
-     * @param {Pointer<HANDLE>} ProcessHandle A process handle for the current process or a remote process to be tagged with the 
+     * @param {Pointer<Void>} ProcessHandle A process handle for the current process or a remote process to be tagged with the 
      *       application instance. To tag a remote process, the handle must have 
      *       <b>PROCESS_TERMINATE</b> access to that process.
      * @param {Integer} Mask A bitmask that indicates the flags that are modified by the <i>Flags</i> parameter.

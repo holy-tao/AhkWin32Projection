@@ -26,7 +26,7 @@ class SIP_DISPATCH_INFO extends Win32Struct
 
     /**
      * This member is reserved and must be set to <b>NULL</b>.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hSIP {
         get => NumGet(this, 8, "ptr")

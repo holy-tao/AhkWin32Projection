@@ -25,7 +25,7 @@ class SOURCEFILE extends Win32Struct
 
     /**
      * The fully qualified source file name.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     FileName {
         get => NumGet(this, 8, "ptr")

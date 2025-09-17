@@ -28,7 +28,7 @@ class CRYPTUI_VIEWCERTIFICATE_STRUCTW extends Win32Struct
 
     /**
      * A handle to the window that is the parent of the dialog box produced by <a href="https://docs.microsoft.com/windows/desktop/api/cryptuiapi/nf-cryptuiapi-cryptuidlgviewcertificatea">CryptUIDlgViewCertificate</a>.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndParent {
         get => NumGet(this, 8, "ptr")
@@ -46,7 +46,7 @@ class CRYPTUI_VIEWCERTIFICATE_STRUCTW extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the title for the window.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     szTitle {
         get => NumGet(this, 24, "ptr")
@@ -64,7 +64,7 @@ class CRYPTUI_VIEWCERTIFICATE_STRUCTW extends Win32Struct
 
     /**
      * An array of pointers to null-terminated strings that contain the purposes for which this certificate will be validated.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     rgszPurposes {
         get => NumGet(this, 40, "ptr")
@@ -89,7 +89,7 @@ class CRYPTUI_VIEWCERTIFICATE_STRUCTW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hWVTStateData {
         get => NumGet(this, 56, "ptr")
@@ -152,7 +152,7 @@ class CRYPTUI_VIEWCERTIFICATE_STRUCTW extends Win32Struct
 
     /**
      * An array of <b>HCERTSTORE</b> handles to other certificate stores to search when building and validating the certificate chain.
-     * @type {Pointer<HCERTSTORE>}
+     * @type {Pointer<Void>}
      */
     rghStores {
         get => NumGet(this, 88, "ptr")

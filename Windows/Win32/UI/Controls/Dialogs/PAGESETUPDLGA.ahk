@@ -43,7 +43,7 @@ class PAGESETUPDLGA extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window that owns the dialog box. This member can be any valid window handle, or it can be <b>NULL</b> if the dialog box has no owner.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndOwner {
         get => NumGet(this, 8, "ptr")
@@ -54,7 +54,7 @@ class PAGESETUPDLGA extends Win32Struct
      * Type: <b>HGLOBAL</b>
      * 
      * A handle to a global memory object that contains a <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> structure. On input, if a handle is specified, the values in the corresponding <b>DEVMODE</b> structure are used to initialize the controls in the dialog box. On output, the dialog box sets <b>hDevMode</b> to a global memory handle to a <b>DEVMODE</b> structure that contains values specifying the user's selections. If the user's selections are not available, the dialog box sets <b>hDevMode</b> to <b>NULL</b>.
-     * @type {Pointer<HGLOBAL>}
+     * @type {Pointer<Void>}
      */
     hDevMode {
         get => NumGet(this, 16, "ptr")
@@ -66,7 +66,7 @@ class PAGESETUPDLGA extends Win32Struct
      * 
      * A handle to a global memory object that contains a <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/ns-commdlg-devnames">DEVNAMES</a> structure. This structure contains three strings that specify the driver name, the printer name, and the output port name. On input, if a handle is specified, the strings in the corresponding <b>DEVNAMES</b> structure are used to initialize controls in the dialog box. On output, the dialog box sets 
      * 					<b>hDevNames</b> to a global memory handle to a <b>DEVNAMES</b> structure that contains strings specifying the user's selections. If the user's selections are not available, the dialog box sets <b>hDevNames</b> to <b>NULL</b>.
-     * @type {Pointer<HGLOBAL>}
+     * @type {Pointer<Void>}
      */
     hDevNames {
         get => NumGet(this, 24, "ptr")
@@ -128,7 +128,7 @@ class PAGESETUPDLGA extends Win32Struct
      * Type: <b>HINSTANCE</b>
      * 
      * If the <b>PSD_ENABLEPAGESETUPTEMPLATE</b> flag is set in the <b>Flags</b> member, <b>hInstance</b> is a handle to the application or module instance that contains the dialog box template named by the <b>lpPageSetupTemplateName</b> member.
-     * @type {Pointer<HINSTANCE>}
+     * @type {Pointer<Void>}
      */
     hInstance {
         get => NumGet(this, 80, "ptr")
@@ -172,7 +172,7 @@ class PAGESETUPDLGA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * The name of the dialog box template resource in the module identified by the <b>hInstance</b> member. This template is substituted for the standard dialog box template. For numbered dialog box resources, <b>lpPageSetupTemplateName</b> can be a value returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. This member is ignored unless the <b>PSD_ENABLEPAGESETUPTEMPLATE</b> flag is set in the <b>Flags</b> member.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpPageSetupTemplateName {
         get => NumGet(this, 112, "ptr")
@@ -183,7 +183,7 @@ class PAGESETUPDLGA extends Win32Struct
      * Type: <b>HGLOBAL</b>
      * 
      * If the <b>PSD_ENABLEPAGESETUPTEMPLATEHANDLE</b> flag is set in the <b>Flags</b> member, <b>hPageSetupTemplate</b> is a handle to a memory object containing a dialog box template.
-     * @type {Pointer<HGLOBAL>}
+     * @type {Pointer<Void>}
      */
     hPageSetupTemplate {
         get => NumGet(this, 120, "ptr")

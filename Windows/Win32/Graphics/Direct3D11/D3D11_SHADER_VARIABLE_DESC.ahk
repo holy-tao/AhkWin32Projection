@@ -22,7 +22,7 @@ class D3D11_SHADER_VARIABLE_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The variable name.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     Name {
         get => NumGet(this, 0, "ptr")

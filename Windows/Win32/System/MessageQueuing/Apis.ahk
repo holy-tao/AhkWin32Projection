@@ -1062,22 +1062,22 @@ class MessageQueuing {
 ;@region Methods
     /**
      * 
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} pSecurityDescriptor 
+     * @param {Pointer<Void>} pSecurityDescriptor 
      * @param {Pointer<MQQUEUEPROPS>} pQueueProps 
-     * @param {Pointer<PWSTR>} lpwcsFormatName 
+     * @param {Pointer<Char>} lpwcsFormatName 
      * @param {Pointer<UInt32>} lpdwFormatNameLength 
      * @returns {Integer} 
      */
     static MQCreateQueue(pSecurityDescriptor, pQueueProps, lpwcsFormatName, lpdwFormatNameLength) {
         lpwcsFormatName := lpwcsFormatName is String? StrPtr(lpwcsFormatName) : lpwcsFormatName
 
-        result := DllCall("mqrt.dll\MQCreateQueue", "ptr", pSecurityDescriptor, "ptr", pQueueProps, "ptr", lpwcsFormatName, "ptr", lpdwFormatNameLength, "int")
+        result := DllCall("mqrt.dll\MQCreateQueue", "ptr", pSecurityDescriptor, "ptr", pQueueProps, "ptr", lpwcsFormatName, "uint*", lpdwFormatNameLength, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpwcsFormatName 
+     * @param {Pointer<Char>} lpwcsFormatName 
      * @returns {Integer} 
      */
     static MQDeleteQueue(lpwcsFormatName) {
@@ -1089,11 +1089,11 @@ class MessageQueuing {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpwcsContext 
+     * @param {Pointer<Char>} lpwcsContext 
      * @param {Pointer<MQRESTRICTION>} pRestriction 
      * @param {Pointer<MQCOLUMNSET>} pColumns 
      * @param {Pointer<MQSORTSET>} pSort 
-     * @param {Pointer<HANDLE>} phEnum 
+     * @param {Pointer<Void>} phEnum 
      * @returns {Integer} 
      */
     static MQLocateBegin(lpwcsContext, pRestriction, pColumns, pSort, phEnum) {
@@ -1105,19 +1105,19 @@ class MessageQueuing {
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hEnum 
+     * @param {Pointer<Void>} hEnum 
      * @param {Pointer<UInt32>} pcProps 
      * @param {Pointer<PROPVARIANT>} aPropVar 
      * @returns {Integer} 
      */
     static MQLocateNext(hEnum, pcProps, aPropVar) {
-        result := DllCall("mqrt.dll\MQLocateNext", "ptr", hEnum, "ptr", pcProps, "ptr", aPropVar, "int")
+        result := DllCall("mqrt.dll\MQLocateNext", "ptr", hEnum, "uint*", pcProps, "ptr", aPropVar, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hEnum 
+     * @param {Pointer<Void>} hEnum 
      * @returns {Integer} 
      */
     static MQLocateEnd(hEnum) {
@@ -1127,7 +1127,7 @@ class MessageQueuing {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpwcsFormatName 
+     * @param {Pointer<Char>} lpwcsFormatName 
      * @param {Integer} dwAccess 
      * @param {Integer} dwShareMode 
      * @param {Pointer<IntPtr>} phQueue 
@@ -1136,7 +1136,7 @@ class MessageQueuing {
     static MQOpenQueue(lpwcsFormatName, dwAccess, dwShareMode, phQueue) {
         lpwcsFormatName := lpwcsFormatName is String? StrPtr(lpwcsFormatName) : lpwcsFormatName
 
-        result := DllCall("mqrt.dll\MQOpenQueue", "ptr", lpwcsFormatName, "uint", dwAccess, "uint", dwShareMode, "ptr", phQueue, "int")
+        result := DllCall("mqrt.dll\MQOpenQueue", "ptr", lpwcsFormatName, "uint", dwAccess, "uint", dwShareMode, "ptr*", phQueue, "int")
         return result
     }
 
@@ -1160,7 +1160,7 @@ class MessageQueuing {
      * @param {Pointer<MQMSGPROPS>} pMessageProps 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
      * @param {Pointer<PMQRECEIVECALLBACK>} fnReceiveCallback 
-     * @param {Pointer<HANDLE>} hCursor 
+     * @param {Pointer<Void>} hCursor 
      * @param {Pointer<ITransaction>} pTransaction 
      * @returns {Integer} 
      */
@@ -1188,7 +1188,7 @@ class MessageQueuing {
     /**
      * 
      * @param {Pointer} hQueue 
-     * @param {Pointer<HANDLE>} phCursor 
+     * @param {Pointer<Void>} phCursor 
      * @returns {Integer} 
      */
     static MQCreateCursor(hQueue, phCursor) {
@@ -1198,7 +1198,7 @@ class MessageQueuing {
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hCursor 
+     * @param {Pointer<Void>} hCursor 
      * @returns {Integer} 
      */
     static MQCloseCursor(hCursor) {
@@ -1218,7 +1218,7 @@ class MessageQueuing {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpwcsFormatName 
+     * @param {Pointer<Char>} lpwcsFormatName 
      * @param {Pointer<MQQUEUEPROPS>} pQueueProps 
      * @returns {Integer} 
      */
@@ -1231,7 +1231,7 @@ class MessageQueuing {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpwcsFormatName 
+     * @param {Pointer<Char>} lpwcsFormatName 
      * @param {Pointer<MQQUEUEPROPS>} pQueueProps 
      * @returns {Integer} 
      */
@@ -1244,9 +1244,9 @@ class MessageQueuing {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpwcsFormatName 
+     * @param {Pointer<Char>} lpwcsFormatName 
      * @param {Integer} RequestedInformation 
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} pSecurityDescriptor 
+     * @param {Pointer} pSecurityDescriptor 
      * @param {Integer} nLength 
      * @param {Pointer<UInt32>} lpnLengthNeeded 
      * @returns {Integer} 
@@ -1254,15 +1254,15 @@ class MessageQueuing {
     static MQGetQueueSecurity(lpwcsFormatName, RequestedInformation, pSecurityDescriptor, nLength, lpnLengthNeeded) {
         lpwcsFormatName := lpwcsFormatName is String? StrPtr(lpwcsFormatName) : lpwcsFormatName
 
-        result := DllCall("mqrt.dll\MQGetQueueSecurity", "ptr", lpwcsFormatName, "uint", RequestedInformation, "ptr", pSecurityDescriptor, "uint", nLength, "ptr", lpnLengthNeeded, "int")
+        result := DllCall("mqrt.dll\MQGetQueueSecurity", "ptr", lpwcsFormatName, "uint", RequestedInformation, "ptr", pSecurityDescriptor, "uint", nLength, "uint*", lpnLengthNeeded, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpwcsFormatName 
+     * @param {Pointer<Char>} lpwcsFormatName 
      * @param {Integer} SecurityInformation 
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} pSecurityDescriptor 
+     * @param {Pointer<Void>} pSecurityDescriptor 
      * @returns {Integer} 
      */
     static MQSetQueueSecurity(lpwcsFormatName, SecurityInformation, pSecurityDescriptor) {
@@ -1274,8 +1274,8 @@ class MessageQueuing {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpwcsPathName 
-     * @param {Pointer<PWSTR>} lpwcsFormatName 
+     * @param {Pointer<Char>} lpwcsPathName 
+     * @param {Pointer<Char>} lpwcsFormatName 
      * @param {Pointer<UInt32>} lpdwFormatNameLength 
      * @returns {Integer} 
      */
@@ -1283,42 +1283,42 @@ class MessageQueuing {
         lpwcsPathName := lpwcsPathName is String? StrPtr(lpwcsPathName) : lpwcsPathName
         lpwcsFormatName := lpwcsFormatName is String? StrPtr(lpwcsFormatName) : lpwcsFormatName
 
-        result := DllCall("mqrt.dll\MQPathNameToFormatName", "ptr", lpwcsPathName, "ptr", lpwcsFormatName, "ptr", lpdwFormatNameLength, "int")
+        result := DllCall("mqrt.dll\MQPathNameToFormatName", "ptr", lpwcsPathName, "ptr", lpwcsFormatName, "uint*", lpdwFormatNameLength, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer} hQueue 
-     * @param {Pointer<PWSTR>} lpwcsFormatName 
+     * @param {Pointer<Char>} lpwcsFormatName 
      * @param {Pointer<UInt32>} lpdwFormatNameLength 
      * @returns {Integer} 
      */
     static MQHandleToFormatName(hQueue, lpwcsFormatName, lpdwFormatNameLength) {
         lpwcsFormatName := lpwcsFormatName is String? StrPtr(lpwcsFormatName) : lpwcsFormatName
 
-        result := DllCall("mqrt.dll\MQHandleToFormatName", "ptr", hQueue, "ptr", lpwcsFormatName, "ptr", lpdwFormatNameLength, "int")
+        result := DllCall("mqrt.dll\MQHandleToFormatName", "ptr", hQueue, "ptr", lpwcsFormatName, "uint*", lpdwFormatNameLength, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Guid>} pGuid 
-     * @param {Pointer<PWSTR>} lpwcsFormatName 
+     * @param {Pointer<Char>} lpwcsFormatName 
      * @param {Pointer<UInt32>} lpdwFormatNameLength 
      * @returns {Integer} 
      */
     static MQInstanceToFormatName(pGuid, lpwcsFormatName, lpdwFormatNameLength) {
         lpwcsFormatName := lpwcsFormatName is String? StrPtr(lpwcsFormatName) : lpwcsFormatName
 
-        result := DllCall("mqrt.dll\MQInstanceToFormatName", "ptr", pGuid, "ptr", lpwcsFormatName, "ptr", lpdwFormatNameLength, "int")
+        result := DllCall("mqrt.dll\MQInstanceToFormatName", "ptr", pGuid, "ptr", lpwcsFormatName, "uint*", lpdwFormatNameLength, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpwcsADsPath 
-     * @param {Pointer<PWSTR>} lpwcsFormatName 
+     * @param {Pointer<Char>} lpwcsADsPath 
+     * @param {Pointer<Char>} lpwcsFormatName 
      * @param {Pointer<UInt32>} lpdwFormatNameLength 
      * @returns {Integer} 
      */
@@ -1326,22 +1326,23 @@ class MessageQueuing {
         lpwcsADsPath := lpwcsADsPath is String? StrPtr(lpwcsADsPath) : lpwcsADsPath
         lpwcsFormatName := lpwcsFormatName is String? StrPtr(lpwcsFormatName) : lpwcsFormatName
 
-        result := DllCall("mqrt.dll\MQADsPathToFormatName", "ptr", lpwcsADsPath, "ptr", lpwcsFormatName, "ptr", lpdwFormatNameLength, "int")
+        result := DllCall("mqrt.dll\MQADsPathToFormatName", "ptr", lpwcsADsPath, "ptr", lpwcsFormatName, "uint*", lpdwFormatNameLength, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} pvMemory 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static MQFreeMemory(pvMemory) {
-        DllCall("mqrt.dll\MQFreeMemory", "ptr", pvMemory)
+        result := DllCall("mqrt.dll\MQFreeMemory", "ptr", pvMemory)
+        return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpwcsMachineName 
+     * @param {Pointer<Char>} lpwcsMachineName 
      * @param {Pointer<Guid>} pguidMachineId 
      * @param {Pointer<MQQMPROPS>} pQMProps 
      * @returns {Integer} 
@@ -1355,9 +1356,9 @@ class MessageQueuing {
 
     /**
      * 
-     * @param {Pointer<Void>} lpCertBuffer 
+     * @param {Pointer} lpCertBuffer 
      * @param {Integer} dwCertBufferLength 
-     * @param {Pointer<HANDLE>} phSecurityContext 
+     * @param {Pointer<Void>} phSecurityContext 
      * @returns {Integer} 
      */
     static MQGetSecurityContext(lpCertBuffer, dwCertBufferLength, phSecurityContext) {
@@ -1367,9 +1368,9 @@ class MessageQueuing {
 
     /**
      * 
-     * @param {Pointer<Void>} lpCertBuffer 
+     * @param {Pointer} lpCertBuffer 
      * @param {Integer} dwCertBufferLength 
-     * @param {Pointer<HANDLE>} phSecurityContext 
+     * @param {Pointer<Void>} phSecurityContext 
      * @returns {Integer} 
      */
     static MQGetSecurityContextEx(lpCertBuffer, dwCertBufferLength, phSecurityContext) {
@@ -1379,11 +1380,12 @@ class MessageQueuing {
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hSecurityContext 
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Void>} hSecurityContext 
+     * @returns {Pointer} 
      */
     static MQFreeSecurityContext(hSecurityContext) {
-        DllCall("mqrt.dll\MQFreeSecurityContext", "ptr", hSecurityContext)
+        result := DllCall("mqrt.dll\MQFreeSecurityContext", "ptr", hSecurityContext)
+        return result
     }
 
     /**
@@ -1420,7 +1422,7 @@ class MessageQueuing {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpwcsComputerName 
+     * @param {Pointer<Char>} lpwcsComputerName 
      * @param {Pointer<MQPRIVATEPROPS>} pPrivateProps 
      * @returns {Integer} 
      */
@@ -1443,8 +1445,8 @@ class MessageQueuing {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pComputerName 
-     * @param {Pointer<PWSTR>} pObjectName 
+     * @param {Pointer<Char>} pComputerName 
+     * @param {Pointer<Char>} pObjectName 
      * @param {Pointer<MQMGMTPROPS>} pMgmtProps 
      * @returns {Integer} 
      */
@@ -1458,9 +1460,9 @@ class MessageQueuing {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pComputerName 
-     * @param {Pointer<PWSTR>} pObjectName 
-     * @param {Pointer<PWSTR>} pAction 
+     * @param {Pointer<Char>} pComputerName 
+     * @param {Pointer<Char>} pObjectName 
+     * @param {Pointer<Char>} pAction 
      * @returns {Integer} 
      */
     static MQMgmtAction(pComputerName, pObjectName, pAction) {
@@ -1474,7 +1476,7 @@ class MessageQueuing {
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hQueue 
+     * @param {Pointer<Void>} hQueue 
      * @param {Integer} ullLookupId 
      * @returns {Integer} 
      */

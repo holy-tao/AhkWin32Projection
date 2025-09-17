@@ -37,7 +37,7 @@ class NMDATETIMEFORMATQUERYA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCTSTR</a></b>
      * 
      * A pointer to a substring that defines a DTP control callback field. The substring is one or more "X" characters followed by a <b>NULL</b>. (For additional information about callback fields, see <a href="https://docs.microsoft.com/windows/desktop/Controls/date-and-time-picker-controls">Callback fields</a>.)
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszFormat {
         get => NumGet(this, 24, "ptr")

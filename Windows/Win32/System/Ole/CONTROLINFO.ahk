@@ -24,7 +24,7 @@ class CONTROLINFO extends Win32Struct
 
     /**
      * A handle to an array of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-accel">ACCEL</a> structures, each structure describing a keyboard mnemonic. The array is created with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createacceleratortablea">CreateAcceleratorTable</a> function. The control always maintains the memory for this array; the caller of <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-iolecontrol-getcontrolinfo">IOleControl::GetControlInfo</a> should not attempt to free the memory.
-     * @type {Pointer<HACCEL>}
+     * @type {Pointer<Void>}
      */
     hAccel {
         get => NumGet(this, 8, "ptr")

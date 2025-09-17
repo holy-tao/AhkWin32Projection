@@ -12,7 +12,7 @@ class REPL_IDIR_INFO_1 extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     rpid1_dirname {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class REPL_IDIR_INFO_1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     rpid1_mastername {
         get => NumGet(this, 16, "ptr")

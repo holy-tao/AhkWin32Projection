@@ -18,7 +18,7 @@ class MSG extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window whose window procedure receives the message. This member is <b>NULL</b> when the message is a thread message.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwnd {
         get => NumGet(this, 0, "ptr")

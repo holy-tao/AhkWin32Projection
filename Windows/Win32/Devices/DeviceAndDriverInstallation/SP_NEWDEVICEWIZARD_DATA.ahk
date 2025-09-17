@@ -39,7 +39,7 @@ class SP_NEWDEVICEWIZARD_DATA extends Win32Struct
 
     /**
      * An array of property sheet page handles. An installer can add the handles of custom wizard pages to this array.
-     * @type {Array<HPROPSHEETPAGE>}
+     * @type {Array<Void>}
      */
     DynamicPages{
         get {
@@ -62,7 +62,7 @@ class SP_NEWDEVICEWIZARD_DATA extends Win32Struct
 
     /**
      * The handle to the top-level window of the hardware installation wizard .
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndWizardDlg {
         get => NumGet(this, 184, "ptr")

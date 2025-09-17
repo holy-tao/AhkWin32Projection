@@ -1552,7 +1552,7 @@ class Imaging {
      * @param {Pointer<Guid>} pixelFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/wic/-wic-codec-native-pixel-formats">REFWICPixelFormatGUID</a></b>
      * 
      * The pixel format of the bitmap.
-     * @param {Pointer<HANDLE>} hSection Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} hSection Type: <b>HANDLE</b>
      * 
      * The section handle. This is a file mapping object handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createfilemappinga">CreateFileMapping</a> function.
      * @param {Integer} stride Type: <b>UINT</b>
@@ -1586,7 +1586,7 @@ class Imaging {
      * @param {Pointer<Guid>} pixelFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/wic/-wic-codec-native-pixel-formats">REFWICPixelFormatGUID</a></b>
      * 
      * The pixel format of the bitmap.
-     * @param {Pointer<HANDLE>} hSection Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} hSection Type: <b>HANDLE</b>
      * 
      * The section handle. This is a file mapping object handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createfilemappinga">CreateFileMapping</a> function.
      * @param {Integer} stride Type: <b>UINT</b>
@@ -1627,7 +1627,7 @@ class Imaging {
      * @param {Integer} cchName Type: <b>UINT</b>
      * 
      * The size of the <i>wzName</i> buffer.
-     * @param {Pointer<PWSTR>} wzName Type: <b>WCHAR*</b>
+     * @param {Pointer<Char>} wzName Type: <b>WCHAR*</b>
      * 
      * A pointer that receives the short name associated with the GUID.
      * @param {Pointer<UInt32>} pcchActual Type: <b>UINT*</b>
@@ -1642,7 +1642,7 @@ class Imaging {
     static WICMapGuidToShortName(guid, cchName, wzName, pcchActual) {
         wzName := wzName is String? StrPtr(wzName) : wzName
 
-        result := DllCall("WindowsCodecs.dll\WICMapGuidToShortName", "ptr", guid, "uint", cchName, "ptr", wzName, "ptr", pcchActual, "int")
+        result := DllCall("WindowsCodecs.dll\WICMapGuidToShortName", "ptr", guid, "uint", cchName, "ptr", wzName, "uint*", pcchActual, "int")
         return result
     }
 
@@ -1660,7 +1660,7 @@ class Imaging {
      * 
      * 
      * For more information, see <a href="https://docs.microsoft.com/windows/desktop/wic/-wic-howtowriteacodec">How to Write a WIC-Enabled Codec</a>.
-     * @param {Pointer<PWSTR>} wzName Type: <b>const WCHAR*</b>
+     * @param {Pointer<Char>} wzName Type: <b>const WCHAR*</b>
      * 
      * A pointer to the short name.
      * @param {Pointer<Guid>} pguid Type: <b>GUID*</b>
@@ -1697,13 +1697,13 @@ class Imaging {
      * @param {Pointer<Guid>} guidMetadataFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/wic/-wic-guids-clsids">REFGUID</a></b>
      * 
      * The metadata format GUID.
-     * @param {Pointer<PWSTR>} pwzSchema Type: <b>LPWSTR</b>
+     * @param {Pointer<Char>} pwzSchema Type: <b>LPWSTR</b>
      * 
      * The URI string of the schema for which the name is to be retrieved.
      * @param {Integer} cchName Type: <b>UINT</b>
      * 
      * The size of the <i>wzName</i> buffer.
-     * @param {Pointer<PWSTR>} wzName Type: <b>WCHAR*</b>
+     * @param {Pointer<Char>} wzName Type: <b>WCHAR*</b>
      * 
      * A pointer to a buffer that receives the schema's name.
      * 
@@ -1721,7 +1721,7 @@ class Imaging {
         pwzSchema := pwzSchema is String? StrPtr(pwzSchema) : pwzSchema
         wzName := wzName is String? StrPtr(wzName) : wzName
 
-        result := DllCall("WindowsCodecs.dll\WICMapSchemaToName", "ptr", guidMetadataFormat, "ptr", pwzSchema, "uint", cchName, "ptr", wzName, "ptr", pcchActual, "int")
+        result := DllCall("WindowsCodecs.dll\WICMapSchemaToName", "ptr", guidMetadataFormat, "ptr", pwzSchema, "uint", cchName, "ptr", wzName, "uint*", pcchActual, "int")
         return result
     }
 
@@ -1793,7 +1793,7 @@ class Imaging {
      * @since windows5.1.2600
      */
     static WICGetMetadataContentSize(guidContainerFormat, pIWriter, pcbSize) {
-        result := DllCall("WindowsCodecs.dll\WICGetMetadataContentSize", "ptr", guidContainerFormat, "ptr", pIWriter, "ptr", pcbSize, "int")
+        result := DllCall("WindowsCodecs.dll\WICGetMetadataContentSize", "ptr", guidContainerFormat, "ptr", pIWriter, "uint*", pcbSize, "int")
         return result
     }
 

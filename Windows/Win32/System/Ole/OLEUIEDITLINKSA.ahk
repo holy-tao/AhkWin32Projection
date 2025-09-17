@@ -96,7 +96,7 @@ class OLEUIEDITLINKSA extends Win32Struct
 
     /**
      * The window that owns the dialog box. This member should not be <b>NULL</b>.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hWndOwner {
         get => NumGet(this, 8, "ptr")
@@ -105,7 +105,7 @@ class OLEUIEDITLINKSA extends Win32Struct
 
     /**
      * Pointer to a string to be used as the title of the dialog box. If <b>NULL</b>, then the library uses <b>Links</b>.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpszCaption {
         get => NumGet(this, 16, "ptr")
@@ -132,7 +132,7 @@ class OLEUIEDITLINKSA extends Win32Struct
 
     /**
      * Instance that contains a dialog box template specified by the <b>lpTemplateName</b> member.
-     * @type {Pointer<HINSTANCE>}
+     * @type {Pointer<Void>}
      */
     hInstance {
         get => NumGet(this, 40, "ptr")
@@ -141,7 +141,7 @@ class OLEUIEDITLINKSA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of the resource file for the dialog box template that is to be substituted for the library's <b>Edit Links</b> dialog box template.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpszTemplate {
         get => NumGet(this, 48, "ptr")
@@ -150,7 +150,7 @@ class OLEUIEDITLINKSA extends Win32Struct
 
     /**
      * Customized template handle.
-     * @type {Pointer<HRSRC>}
+     * @type {Pointer<Void>}
      */
     hResource {
         get => NumGet(this, 56, "ptr")

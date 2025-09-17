@@ -37,7 +37,7 @@ class OPEN_PRINTER_PROPS_INFOA extends Win32Struct
      * Type: <b>LPSTR</b>
      * 
      * The name of the property sheet. If the specified sheet is not found, the property sheet still appears with the default first page.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszSheetName {
         get => NumGet(this, 8, "ptr")

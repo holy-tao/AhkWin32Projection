@@ -1549,7 +1549,7 @@ class Direct3D10 {
      * @param {Integer} DriverType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/ne-d3d10misc-d3d10_driver_type">D3D10_DRIVER_TYPE</a></b>
      * 
      * The device-driver type (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/ne-d3d10misc-d3d10_driver_type">D3D10_DRIVER_TYPE</a>). The driver type determines the type of device you will create.
-     * @param {Pointer<HMODULE>} Software Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMODULE</a></b>
+     * @param {Pointer<Void>} Software Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMODULE</a></b>
      * 
      * Reserved. Set to <b>NULL</b>.
      * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -1585,7 +1585,7 @@ class Direct3D10 {
      * @param {Integer} DriverType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/ne-d3d10misc-d3d10_driver_type">D3D10_DRIVER_TYPE</a></b>
      * 
      * The type of driver for the device. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/ne-d3d10misc-d3d10_driver_type">D3D10_DRIVER_TYPE</a>.
-     * @param {Pointer<HMODULE>} Software Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMODULE</a></b>
+     * @param {Pointer<Void>} Software Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMODULE</a></b>
      * 
      * A handle to the DLL that implements a software rasterizer. Must be <b>NULL</b> if DriverType is non-software. The HMODULE of a DLL can be obtained with <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a>, <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a>.
      * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -1641,13 +1641,13 @@ class Direct3D10 {
      * To setup a programmable-pipeline stage, compile a shader and then bind the shader to the appropriate pipeline stage. For instance, here is an example compiling a geometry shader (see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-stream-stage-getting-started">Compile a Geometry Shader</a>).
      * 
      * This function, D3D10CompileShader, calls the version of the shader compiler that is shipped each time the operating system releases. A more up-to-date version of the shader compiler ships when the DirectX SDK ships, which can be accessed from D3DX by calling a version of the shader compiler entry-point function such as <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3dx10compilefromfile">D3DX10CompileFromFile</a>.  It is preferable to use the D3DX entry-point functions to ensure the latest version of the shader compiler will be used if you will be redistributing the DirectX redistributable libraries.
-     * @param {Pointer<PSTR>} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @param {Pointer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * Pointer to a string containing the shader source code.
      * @param {Pointer} SrcDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
      * 
      * Size of pSrcData, in bytes.
-     * @param {Pointer<PSTR>} pFileName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @param {Pointer<Byte>} pFileName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The name of the file that contains the shader code.
      * @param {Pointer<D3D_SHADER_MACRO>} pDefines Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ns-d3dcommon-d3d_shader_macro">D3D10_SHADER_MACRO</a>*</b>
@@ -1658,10 +1658,10 @@ class Direct3D10 {
      * @param {Pointer<ID3DInclude>} pInclude Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb173775(v=vs.85)">LPD3D10INCLUDE</a>*</b>
      * 
      * Optional. Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb173775(v=vs.85)">ID3D10Include Interface</a> interface for handling include files. Setting this to <b>NULL</b> will cause a compile error if a shader contains a #include.
-     * @param {Pointer<PSTR>} pFunctionName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @param {Pointer<Byte>} pFunctionName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * Name of the shader-entry point function where shader execution begins.
-     * @param {Pointer<PSTR>} pProfile Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @param {Pointer<Byte>} pProfile Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * A string that specifies the <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-models">shader profile</a> or shader model.
      * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -1679,7 +1679,6 @@ class Direct3D10 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-d3d10compileshader
      */
     static D3D10CompileShader(pSrcData, SrcDataSize, pFileName, pDefines, pInclude, pFunctionName, pProfile, Flags, ppShader, ppErrorMsgs) {
-        pSrcData := pSrcData is String? StrPtr(pSrcData) : pSrcData
         pFileName := pFileName is String? StrPtr(pFileName) : pFileName
         pFunctionName := pFunctionName is String? StrPtr(pFunctionName) : pFunctionName
         pProfile := pProfile is String? StrPtr(pProfile) : pProfile
@@ -1690,7 +1689,7 @@ class Direct3D10 {
 
     /**
      * This function -- which disassembles a compiled shader into a text string that contains assembly instructions and register assignments -- has been deprecated. Instead, use D3DDisassemble.
-     * @param {Pointer<Void>} pShader Type: <b>const void*</b>
+     * @param {Pointer} pShader Type: <b>const void*</b>
      * 
      * A pointer to the compiled shader.
      * @param {Pointer} BytecodeLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -1699,7 +1698,7 @@ class Direct3D10 {
      * @param {Integer} EnableColorCode Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Include HTML tags in the output to color code the result.
-     * @param {Pointer<PSTR>} pComments Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @param {Pointer<Byte>} pComments Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The comment string at the top of the shader that identifies the shader constants and variables.
      * @param {Pointer<ID3DBlob>} ppDisassembly Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3d10blob">ID3D10Blob</a>**</b>
@@ -1722,13 +1721,13 @@ class Direct3D10 {
      * @param {Pointer<ID3D10Device>} pDevice Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10device">ID3D10Device</a>*</b>
      * 
      * Pointer to the device (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10device">ID3D10Device Interface</a>).
-     * @returns {Pointer<PSTR>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @returns {Pointer<Byte>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The shader profile.
      * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-d3d10getpixelshaderprofile
      */
     static D3D10GetPixelShaderProfile(pDevice) {
-        result := DllCall("d3d10.dll\D3D10GetPixelShaderProfile", "ptr", pDevice, "ptr")
+        result := DllCall("d3d10.dll\D3D10GetPixelShaderProfile", "ptr", pDevice, "char*")
         return result
     }
 
@@ -1737,13 +1736,13 @@ class Direct3D10 {
      * @param {Pointer<ID3D10Device>} pDevice Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10device">ID3D10Device</a>*</b>
      * 
      * Pointer to the device (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10device">ID3D10Device Interface</a>).
-     * @returns {Pointer<PSTR>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @returns {Pointer<Byte>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The shader profile.
      * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-d3d10getvertexshaderprofile
      */
     static D3D10GetVertexShaderProfile(pDevice) {
-        result := DllCall("d3d10.dll\D3D10GetVertexShaderProfile", "ptr", pDevice, "ptr")
+        result := DllCall("d3d10.dll\D3D10GetVertexShaderProfile", "ptr", pDevice, "char*")
         return result
     }
 
@@ -1752,19 +1751,19 @@ class Direct3D10 {
      * @param {Pointer<ID3D10Device>} pDevice Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10device">ID3D10Device</a>*</b>
      * 
      * Pointer to the device (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10device">ID3D10Device Interface</a>).
-     * @returns {Pointer<PSTR>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @returns {Pointer<Byte>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The shader profile.
      * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-d3d10getgeometryshaderprofile
      */
     static D3D10GetGeometryShaderProfile(pDevice) {
-        result := DllCall("d3d10.dll\D3D10GetGeometryShaderProfile", "ptr", pDevice, "ptr")
+        result := DllCall("d3d10.dll\D3D10GetGeometryShaderProfile", "ptr", pDevice, "char*")
         return result
     }
 
     /**
      * This function -- which creates a shader-reflection object for retrieving information about a compiled shader -- has been deprecated. Instead, use D3DReflect.
-     * @param {Pointer<Void>} pShaderBytecode Type: <b>const void*</b>
+     * @param {Pointer} pShaderBytecode Type: <b>const void*</b>
      * 
      * A pointer to the compiled shader.
      * @param {Pointer} BytecodeLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -1787,13 +1786,13 @@ class Direct3D10 {
      * Generate a shader-text string that contains the shader tokens that would be found in a compiled shader.
      * @remarks
      * Use this function to generate a shader-token stream, which is the compiled output of the shader compiler.
-     * @param {Pointer<PSTR>} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @param {Pointer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * Pointer to a string containing the shader source code.
      * @param {Pointer} SrcDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
      * 
      * Size of pSrcData, in bytes.
-     * @param {Pointer<PSTR>} pFileName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @param {Pointer<Byte>} pFileName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The name of the file that contains the shader code.
      * @param {Pointer<D3D_SHADER_MACRO>} pDefines Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ns-d3dcommon-d3d_shader_macro">D3D10_SHADER_MACRO</a>*</b>
@@ -1816,7 +1815,6 @@ class Direct3D10 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-d3d10preprocessshader
      */
     static D3D10PreprocessShader(pSrcData, SrcDataSize, pFileName, pDefines, pInclude, ppShaderText, ppErrorMsgs) {
-        pSrcData := pSrcData is String? StrPtr(pSrcData) : pSrcData
         pFileName := pFileName is String? StrPtr(pFileName) : pFileName
 
         result := DllCall("d3d10.dll\D3D10PreprocessShader", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pFileName, "ptr", pDefines, "ptr", pInclude, "ptr", ppShaderText, "ptr", ppErrorMsgs, "int")
@@ -1825,7 +1823,7 @@ class Direct3D10 {
 
     /**
      * Get a buffer that contains shader-input signatures.
-     * @param {Pointer<Void>} pShaderBytecode Type: <b>const void*</b>
+     * @param {Pointer} pShaderBytecode Type: <b>const void*</b>
      * 
      * A pointer to the compiled shader. To get this pointer see <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-using-shaders-10">Getting a Pointer to a Compiled Shader</a>.
      * @param {Pointer} BytecodeLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -1846,7 +1844,7 @@ class Direct3D10 {
 
     /**
      * Get a buffer that contains shader-output signatures.
-     * @param {Pointer<Void>} pShaderBytecode Type: <b>const void*</b>
+     * @param {Pointer} pShaderBytecode Type: <b>const void*</b>
      * 
      * A pointer to the compiled shader. To get this pointer see <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-using-shaders-10">Getting a Pointer to a Compiled Shader</a>.
      * @param {Pointer} BytecodeLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -1867,7 +1865,7 @@ class Direct3D10 {
 
     /**
      * Get a buffer that contains shader signatures.
-     * @param {Pointer<Void>} pShaderBytecode Type: <b>const void*</b>
+     * @param {Pointer} pShaderBytecode Type: <b>const void*</b>
      * 
      * A pointer to the compiled shader. To get this pointer see <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-using-shaders-10">Getting a Pointer to a Compiled Shader</a>.
      * @param {Pointer} BytecodeLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -1888,7 +1886,7 @@ class Direct3D10 {
 
     /**
      * Get shader debug info. Debug info is generated by D3D10CompileShader and is embedded in the body of the shader.
-     * @param {Pointer<Void>} pShaderBytecode Type: <b>const void*</b>
+     * @param {Pointer} pShaderBytecode Type: <b>const void*</b>
      * 
      * A pointer to the compiled shader. To get this pointer see <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-using-shaders-10">Getting a Pointer to a Compiled Shader</a>.
      * @param {Pointer} BytecodeLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -2135,13 +2133,13 @@ class Direct3D10 {
      * This function uses the version of the HLSL compiler released in the November 2006 DirectX SDK.
      * 
      * For an example, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-effects-compile">Compile an Effect (Direct3D 10)</a>.
-     * @param {Pointer<Void>} pData Type: <b>void*</b>
+     * @param {Pointer} pData Type: <b>void*</b>
      * 
      * A pointer to effect data; either ASCII <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-reference">HLSL</a> code or a compiled effect.
      * @param {Pointer} DataLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
      * 
      * Length of <i>pData</i>.
-     * @param {Pointer<PSTR>} pSrcFileName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @param {Pointer<Byte>} pSrcFileName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The name of the effect file.
      * @param {Pointer<D3D_SHADER_MACRO>} pDefines Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ns-d3dcommon-d3d_shader_macro">D3D10_SHADER_MACRO</a>*</b>
@@ -2180,7 +2178,7 @@ class Direct3D10 {
      * This method is used to create an <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effect">ID3D10Effect Interface</a> object from an effect that has been compiled before runtime and loaded into memory.  
      *       For help precompiling an effect, see <a href="https://docs.microsoft.com/windows/desktop/direct3dtools/dx-graphics-tools-fxc-using">Offline Compiling</a>.  
      *       To load and compile an ASCII .fx file see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-effects-compile">Compile an Effect (Direct3D 10)</a>.
-     * @param {Pointer<Void>} pData Type: <b>void*</b>
+     * @param {Pointer} pData Type: <b>void*</b>
      * 
      * A pointer to a compiled effect.
      * @param {Pointer} DataLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -2214,7 +2212,7 @@ class Direct3D10 {
      * A pool is a shared location in memory. Effect variables that are located in a pool can be updated once, and the effect system will take care of updating each effect that uses that variable. To pool an effect variable, tell the effect to locate the variable in a pool when the effect is created, using a helper function such as <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3dx10createeffectfromfile">D3DX10CreateEffectFromFile</a>.
      * 
      * For help compiling an effect, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-effects-compile">Compile an Effect (Direct3D 10)</a>.
-     * @param {Pointer<Void>} pData Type: <b>void*</b>
+     * @param {Pointer} pData Type: <b>void*</b>
      * 
      * A pointer to a compiled effect.
      * @param {Pointer} DataLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -2313,7 +2311,7 @@ class Direct3D10 {
      * @param {Integer} DriverType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/ne-d3d10misc-d3d10_driver_type">D3D10_DRIVER_TYPE</a></b>
      * 
      * The device-driver type (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/ne-d3d10misc-d3d10_driver_type">D3D10_DRIVER_TYPE</a>). The driver type determines the type of device you will create.
-     * @param {Pointer<HMODULE>} Software Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMODULE</a></b>
+     * @param {Pointer<Void>} Software Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMODULE</a></b>
      * 
      * This is set to <b>NULL</b> except for D3D10_DRIVER_TYPE_SOFTWARE driver types.
      * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -2354,7 +2352,7 @@ class Direct3D10 {
      * @param {Integer} DriverType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/ne-d3d10misc-d3d10_driver_type">D3D10_DRIVER_TYPE</a></b>
      * 
      * The type of driver for the device. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/ne-d3d10misc-d3d10_driver_type">D3D10_DRIVER_TYPE</a>.
-     * @param {Pointer<HMODULE>} Software Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMODULE</a></b>
+     * @param {Pointer<Void>} Software Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMODULE</a></b>
      * 
      * A handle to the DLL that implements a software rasterizer. Must be <b>NULL</b> if DriverType is non-software. 
      *         The HMODULE of a DLL can be obtained with <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a>, 

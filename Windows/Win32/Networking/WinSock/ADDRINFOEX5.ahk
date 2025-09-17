@@ -482,7 +482,7 @@ class ADDRINFOEX5 extends Win32Struct
 
     /**
      * The canonical name for the host.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ai_canonname {
         get => NumGet(this, 24, "ptr")
@@ -547,7 +547,7 @@ class ADDRINFOEX5 extends Win32Struct
 
     /**
      * The fully qualified domain name for the host.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ai_fqdn {
         get => NumGet(this, 80, "ptr")
@@ -565,7 +565,7 @@ class ADDRINFOEX5 extends Win32Struct
 
     /**
      * Handle pointing to the fully qualified domain name for the host.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     ai_resolutionhandle {
         get => NumGet(this, 96, "ptr")

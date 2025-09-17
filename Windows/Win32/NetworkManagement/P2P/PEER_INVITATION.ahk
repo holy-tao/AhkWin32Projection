@@ -40,7 +40,7 @@ class PEER_INVITATION extends Win32Struct
 
     /**
      * Zero-terminated Unicode string that contains a specific request message to the invitation recipient. The message is limited to 255 unicode characters.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwzMessage {
         get => NumGet(this, 24, "ptr")

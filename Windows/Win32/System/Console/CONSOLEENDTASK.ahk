@@ -12,7 +12,7 @@ class CONSOLEENDTASK extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     ProcessId {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class CONSOLEENDTASK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwnd {
         get => NumGet(this, 8, "ptr")

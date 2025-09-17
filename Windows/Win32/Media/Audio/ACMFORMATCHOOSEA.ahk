@@ -29,7 +29,7 @@ class ACMFORMATCHOOSEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndOwner {
         get => NumGet(this, 8, "ptr")
@@ -53,7 +53,7 @@ class ACMFORMATCHOOSEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszTitle {
         get => NumGet(this, 32, "ptr")
@@ -77,7 +77,7 @@ class ACMFORMATCHOOSEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszName {
         get => NumGet(this, 216, "ptr")
@@ -109,7 +109,7 @@ class ACMFORMATCHOOSEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HINSTANCE>}
+     * @type {Pointer<Void>}
      */
     hInstance {
         get => NumGet(this, 240, "ptr")
@@ -117,7 +117,7 @@ class ACMFORMATCHOOSEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszTemplateName {
         get => NumGet(this, 248, "ptr")

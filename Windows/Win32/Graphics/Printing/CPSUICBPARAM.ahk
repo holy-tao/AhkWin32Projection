@@ -28,7 +28,7 @@ class CPSUICBPARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hDlg {
         get => NumGet(this, 8, "ptr")

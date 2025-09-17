@@ -42,7 +42,7 @@ class DHCPV4_FAILOVER_CLIENT_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ClientName {
         get => NumGet(this, 24, "ptr")
@@ -50,7 +50,7 @@ class DHCPV4_FAILOVER_CLIENT_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ClientComment {
         get => NumGet(this, 32, "ptr")
@@ -179,7 +179,7 @@ class DHCPV4_FAILOVER_CLIENT_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     PolicyName {
         get => NumGet(this, 120, "ptr")

@@ -83,7 +83,7 @@ class OSUpdateAssessment extends Win32Struct
 
     /**
      * The latest OS build that Microsoft has released. This value is used to determine whether a device is current.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     currentOSBuild {
         get => NumGet(this, 56, "ptr")
@@ -104,7 +104,7 @@ class OSUpdateAssessment extends Win32Struct
 
     /**
      * The latest applicable OS build in the device's servicing train. This value is used to determine whether a device is up-to-date.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     upToDateOSBuild {
         get => NumGet(this, 72, "ptr")

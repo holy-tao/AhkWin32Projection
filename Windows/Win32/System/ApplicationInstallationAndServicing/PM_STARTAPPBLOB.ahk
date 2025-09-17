@@ -28,7 +28,7 @@ class PM_STARTAPPBLOB extends Win32Struct
     }
 
     /**
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     AppTitle {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class PM_STARTAPPBLOB extends Win32Struct
     }
 
     /**
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     IconPath {
         get => NumGet(this, 24, "ptr")

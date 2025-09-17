@@ -52,7 +52,7 @@ class CWPSTRUCT extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window to receive the message.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwnd {
         get => NumGet(this, 24, "ptr")

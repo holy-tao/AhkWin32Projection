@@ -24,7 +24,7 @@ class FLASHWINFO extends Win32Struct
 
     /**
      * A handle to the window to be flashed. The window can be either opened or minimized.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwnd {
         get => NumGet(this, 8, "ptr")

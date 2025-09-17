@@ -195,7 +195,7 @@ class HTTP_LOGGING_INFO extends Win32Struct
 
     /**
      * The optional software name string used in W3C type logging. This name is not used for other types of logging. If this parameter is <b>NULL</b>, the HTTP Server API logs a default string.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     SoftwareName {
         get => NumGet(this, 8, "ptr")
@@ -226,7 +226,7 @@ class HTTP_LOGGING_INFO extends Win32Struct
      * The logging directory under which the log files are created. The directory string must be a fully qualified path including the drive letter.
      * 
      *   Applications can use a UNC path to a remote machine to enable UNC logging.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     DirectoryName {
         get => NumGet(this, 24, "ptr")
@@ -408,7 +408,7 @@ class HTTP_LOGGING_INFO extends Win32Struct
 
     /**
      * The security descriptor that is applied to the log files directory and all sub-directories. If this member is <b>NULL</b>, either the system default ACL is used or the ACL is inherited from the parent directory.
-     * @type {Pointer<PSECURITY_DESCRIPTOR>}
+     * @type {Pointer<Void>}
      */
     pSecurityDescriptor {
         get => NumGet(this, 64, "ptr")

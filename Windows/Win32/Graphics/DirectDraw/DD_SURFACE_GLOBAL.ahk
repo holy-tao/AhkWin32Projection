@@ -151,7 +151,7 @@ class DD_SURFACE_GLOBAL extends Win32Struct
 
     /**
      * Reserved for system use and should be ignored by the driver.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hCreatorProcess {
         get => NumGet(this, 88, "ptr")

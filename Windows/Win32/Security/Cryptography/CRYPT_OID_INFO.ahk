@@ -25,7 +25,7 @@ class CRYPT_OID_INFO extends Win32Struct
 
     /**
      * The OID associated with this OID information.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszOID {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +34,7 @@ class CRYPT_OID_INFO extends Win32Struct
 
     /**
      * The display name associated with an OID.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszName {
         get => NumGet(this, 16, "ptr")

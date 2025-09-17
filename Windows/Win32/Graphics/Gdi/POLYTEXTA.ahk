@@ -47,7 +47,7 @@ class POLYTEXTA extends Win32Struct
 
     /**
      * Pointer to a string of text to be drawn by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-polytextouta">PolyTextOut</a> function. This string need not be null-terminated, since <b>n</b> specifies the length of the string.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpstr {
         get => NumGet(this, 16, "ptr")

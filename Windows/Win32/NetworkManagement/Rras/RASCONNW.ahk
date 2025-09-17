@@ -22,7 +22,7 @@ class RASCONNW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HRASCONN>}
+     * @type {Pointer<Void>}
      */
     hrasconn {
         get => NumGet(this, 8, "ptr")

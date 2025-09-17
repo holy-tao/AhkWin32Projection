@@ -20,7 +20,7 @@ class IMEKMSINIT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hWnd {
         get => NumGet(this, 8, "ptr")

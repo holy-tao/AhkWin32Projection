@@ -20,7 +20,7 @@ class IMEKMSNTFY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HIMC>}
+     * @type {Pointer<Void>}
      */
     hIMC {
         get => NumGet(this, 8, "ptr")

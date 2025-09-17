@@ -40,7 +40,7 @@ class GUITHREADINFO extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the active window within the thread.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndActive {
         get => NumGet(this, 8, "ptr")
@@ -51,7 +51,7 @@ class GUITHREADINFO extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window that has the keyboard focus.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndFocus {
         get => NumGet(this, 16, "ptr")
@@ -62,7 +62,7 @@ class GUITHREADINFO extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window that has captured the mouse.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndCapture {
         get => NumGet(this, 24, "ptr")
@@ -73,7 +73,7 @@ class GUITHREADINFO extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window that owns any active menus.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndMenuOwner {
         get => NumGet(this, 32, "ptr")
@@ -84,7 +84,7 @@ class GUITHREADINFO extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window in a move or size loop.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndMoveSize {
         get => NumGet(this, 40, "ptr")
@@ -95,7 +95,7 @@ class GUITHREADINFO extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window that is displaying the caret.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndCaret {
         get => NumGet(this, 48, "ptr")

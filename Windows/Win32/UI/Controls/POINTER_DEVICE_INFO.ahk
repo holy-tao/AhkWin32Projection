@@ -27,7 +27,7 @@ class POINTER_DEVICE_INFO extends Win32Struct
 
     /**
      * The handle to the pointer device.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     device {
         get => NumGet(this, 8, "ptr")
@@ -45,7 +45,7 @@ class POINTER_DEVICE_INFO extends Win32Struct
 
     /**
      * The HMONITOR for the display that the device is mapped to. This is not necessarily the monitor that the pointer device is physically connected to.
-     * @type {Pointer<HMONITOR>}
+     * @type {Pointer<Void>}
      */
     monitor {
         get => NumGet(this, 24, "ptr")

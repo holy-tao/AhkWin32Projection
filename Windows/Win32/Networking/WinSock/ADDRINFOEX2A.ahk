@@ -461,7 +461,7 @@ class ADDRINFOEX2A extends Win32Struct
 
     /**
      * The canonical name for the host.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     ai_canonname {
         get => NumGet(this, 24, "ptr")
@@ -526,7 +526,7 @@ class ADDRINFOEX2A extends Win32Struct
 
     /**
      * The fully qualified domain name for the host.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     ai_fqdn {
         get => NumGet(this, 80, "ptr")

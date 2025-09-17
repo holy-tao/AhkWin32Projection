@@ -47,10 +47,10 @@ class Printing {
      * <div class="alert"><b>Note</b>   When printing to a file, the application is responsible for providing the value that will be passed in the <i>outputFileName</i> parameter for print-to-file operations.  To print to a printer which uses a  driver that outputs to the FILE: port, the caller must retrieve the file name from the user by displaying the common file dialog.
      * </div>
      * <div> </div>
-     * @param {Pointer<PWSTR>} printerName The name of the printer with which this job will be associated.
-     * @param {Pointer<PWSTR>} jobName A user-specified  job name to be associated with this job.  If the job does not require a  separate, user-specified name, this parameter can be set to <b>NULL</b>.
-     * @param {Pointer<PWSTR>} outputFileName The  file name of the file or port into which the output of this job is to be redirected.  Setting this value will cause the output of the print job to be directed to the specified file or port. To send the print job to the printer that is specified by <i>printerName</i>, this parameter must be set to <b>NULL</b>.
-     * @param {Pointer<HANDLE>} progressEvent An event handle that is signaled when the following print job changes occur:
+     * @param {Pointer<Char>} printerName The name of the printer with which this job will be associated.
+     * @param {Pointer<Char>} jobName A user-specified  job name to be associated with this job.  If the job does not require a  separate, user-specified name, this parameter can be set to <b>NULL</b>.
+     * @param {Pointer<Char>} outputFileName The  file name of the file or port into which the output of this job is to be redirected.  Setting this value will cause the output of the print job to be directed to the specified file or port. To send the print job to the printer that is specified by <i>printerName</i>, this parameter must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} progressEvent An event handle that is signaled when the following print job changes occur:
      * <ul>
      * <li>A job ID is assigned to the print job</li>
      * <li>Printing of a page has finished</li>
@@ -68,7 +68,7 @@ class Printing {
      * 
      * 
      * If no progress notification is required, this parameter can be set to <b>NULL</b>.
-     * @param {Pointer<HANDLE>} completionEvent An event handle that is signaled when the  print job finishes.  This event is guaranteed to be signaled exactly once per <b>StartXpsPrintJob</b> call.  The XPS Print API does not reset this event—that is the caller's responsibility.
+     * @param {Pointer<Void>} completionEvent An event handle that is signaled when the  print job finishes.  This event is guaranteed to be signaled exactly once per <b>StartXpsPrintJob</b> call.  The XPS Print API does not reset this event—that is the caller's responsibility.
      * 
      * If no completion notification is required, this parameter can be set to <b>NULL</b>.
      * @param {Pointer<Byte>} printablePagesOn The parameter references a UINT8 array whose elements specify a subset of a document's pages to be printed. As shown in the table that follows, the value of each element indicates whether the page is to be printed.
@@ -219,7 +219,7 @@ class Printing {
         jobName := jobName is String? StrPtr(jobName) : jobName
         outputFileName := outputFileName is String? StrPtr(outputFileName) : outputFileName
 
-        result := DllCall("XPSPRINT.dll\StartXpsPrintJob", "ptr", printerName, "ptr", jobName, "ptr", outputFileName, "ptr", progressEvent, "ptr", completionEvent, "ptr", printablePagesOn, "uint", printablePagesOnCount, "ptr", xpsPrintJob, "ptr", documentStream, "ptr", printTicketStream, "int")
+        result := DllCall("XPSPRINT.dll\StartXpsPrintJob", "ptr", printerName, "ptr", jobName, "ptr", outputFileName, "ptr", progressEvent, "ptr", completionEvent, "char*", printablePagesOn, "uint", printablePagesOnCount, "ptr", xpsPrintJob, "ptr", documentStream, "ptr", printTicketStream, "int")
         return result
     }
 
@@ -243,10 +243,10 @@ class Printing {
      * <div class="alert"><b>Note</b>   When your application prints to a file, the application is responsible for providing the value to pass in the <i>outputFileName</i> parameter for print-to-file operations.  To print to a printer that uses a  driver that outputs to the FILE: port, the caller must retrieve the file name from the user by displaying the common file dialog box.
      * </div>
      * <div> </div>
-     * @param {Pointer<PWSTR>} printerName The name of the printer with which this job will be associated.
-     * @param {Pointer<PWSTR>} jobName A user-specified  job name to be associated with this job.  You can set this parameter to <b>NULL</b> if the job does not require a  separate, user-specified name.
-     * @param {Pointer<PWSTR>} outputFileName The  file name of the file or port into which the output of this job is to be redirected.  Setting this value will cause the output of the print job to be directed to the specified file or port. To send the print job to the printer that is specified by <i>printerName</i>, you must set this parameter to <b>NULL</b>.
-     * @param {Pointer<HANDLE>} progressEvent An event handle that is signaled when one of the following print job changes occur:
+     * @param {Pointer<Char>} printerName The name of the printer with which this job will be associated.
+     * @param {Pointer<Char>} jobName A user-specified  job name to be associated with this job.  You can set this parameter to <b>NULL</b> if the job does not require a  separate, user-specified name.
+     * @param {Pointer<Char>} outputFileName The  file name of the file or port into which the output of this job is to be redirected.  Setting this value will cause the output of the print job to be directed to the specified file or port. To send the print job to the printer that is specified by <i>printerName</i>, you must set this parameter to <b>NULL</b>.
+     * @param {Pointer<Void>} progressEvent An event handle that is signaled when one of the following print job changes occur:
      * <ul>
      * <li>A job ID is assigned to the print job</li>
      * <li>Printing of a page has finished</li>
@@ -264,7 +264,7 @@ class Printing {
      * 
      * 
      * Set this parameter to <b>NULL</b> if you do not want to be notified about  progress.
-     * @param {Pointer<HANDLE>} completionEvent An event handle that is signaled when the  print job finishes.  This event is guaranteed to be signaled exactly once per <b>StartXpsPrintJob1</b> call.  The XPS Print API does not reset this event—that is the caller's responsibility.
+     * @param {Pointer<Void>} completionEvent An event handle that is signaled when the  print job finishes.  This event is guaranteed to be signaled exactly once per <b>StartXpsPrintJob1</b> call.  The XPS Print API does not reset this event—that is the caller's responsibility.
      * 
      * Set this parameter to <b>NULL</b> if do not want to be notified about completion.
      * @param {Pointer<IXpsPrintJob>} xpsPrintJob A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsprint/nn-xpsprint-ixpsprintjob">IXpsPrintJob</a> interface that represents the print job that  <b>StartXpsPrintJob1</b> created.  To get the status of the print job or to cancel it, use the <b>IXpsPrintJob</b> interface. Set this parameter to <b>NULL</b> if you do not need it.

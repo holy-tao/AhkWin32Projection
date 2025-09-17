@@ -61,7 +61,7 @@ class MCI_DGV_STATUS_PARMSA extends Win32Struct
 
     /**
      * Specifies the approximate amount of disk space that can be obtained by the <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mci-reserve">MCI_RESERVE</a> command.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpstrDrive {
         get => NumGet(this, 24, "ptr")

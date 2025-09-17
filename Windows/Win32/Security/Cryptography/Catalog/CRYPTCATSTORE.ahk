@@ -33,7 +33,7 @@ class CRYPTCATSTORE extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the name of the catalog file. This member must be initialized before a call to the <a href="https://docs.microsoft.com/windows/desktop/api/mscat/nf-mscat-cryptcatpersiststore">CryptCATPersistStore</a> function.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszP7File {
         get => NumGet(this, 8, "ptr")
@@ -69,7 +69,7 @@ class CRYPTCATSTORE extends Win32Struct
 
     /**
      * This member is reserved and must be <b>NULL</b>.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hReserved {
         get => NumGet(this, 32, "ptr")
@@ -78,7 +78,7 @@ class CRYPTCATSTORE extends Win32Struct
 
     /**
      * This member is reserved and must be <b>NULL</b>.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hAttrs {
         get => NumGet(this, 40, "ptr")
@@ -96,7 +96,7 @@ class CRYPTCATSTORE extends Win32Struct
 
     /**
      * This member is reserved and must be <b>NULL</b>.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hSorted {
         get => NumGet(this, 56, "ptr")

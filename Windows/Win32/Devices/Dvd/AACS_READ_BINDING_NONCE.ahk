@@ -36,7 +36,7 @@ class AACS_READ_BINDING_NONCE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     Handle {
         get => NumGet(this, 16, "ptr")

@@ -45,7 +45,7 @@ class INTERNET_BUFFERSA extends Win32Struct
 
     /**
      * Pointer to a string value that contains the headers. This member can be <b>NULL</b>.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpcszHeader {
         get => NumGet(this, 16, "ptr")

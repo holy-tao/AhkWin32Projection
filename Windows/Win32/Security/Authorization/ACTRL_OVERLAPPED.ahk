@@ -36,7 +36,7 @@ class ACTRL_OVERLAPPED extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hEvent {
         get => NumGet(this, 16, "ptr")

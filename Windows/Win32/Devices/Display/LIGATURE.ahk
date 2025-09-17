@@ -20,7 +20,7 @@ class LIGATURE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwsz {
         get => NumGet(this, 8, "ptr")

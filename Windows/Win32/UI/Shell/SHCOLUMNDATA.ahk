@@ -48,7 +48,7 @@ class SHCOLUMNDATA extends Win32Struct
      * Type: <b>WCHAR*</b>
      * 
      * A pointer to a null-terminated Unicode string with a file name extension.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszExt {
         get => NumGet(this, 16, "ptr")

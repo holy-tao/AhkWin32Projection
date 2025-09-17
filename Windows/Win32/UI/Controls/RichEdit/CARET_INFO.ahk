@@ -12,7 +12,7 @@ class CARET_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<HBITMAP>}
+     * @type {Pointer<Void>}
      */
     hbitmap {
         get => NumGet(this, 0, "ptr")

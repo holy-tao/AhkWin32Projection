@@ -15,7 +15,7 @@ class WINML_MODEL_DESC extends Win32Struct
 
     /**
      * The author of the model.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     Author {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class WINML_MODEL_DESC extends Win32Struct
 
     /**
      * The name of the model.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     Name {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class WINML_MODEL_DESC extends Win32Struct
 
     /**
      * The domain of the model.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     Domain {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class WINML_MODEL_DESC extends Win32Struct
 
     /**
      * The description of the model.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     Description {
         get => NumGet(this, 24, "ptr")

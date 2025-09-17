@@ -24,7 +24,7 @@ class TF_LBBALLOONINFO extends Win32Struct
 
     /**
      * Contains a <b>BSTR</b> that contains the string for the balloon. This string must be allocated using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a> function. The caller free this buffer when it is no longer required by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     bstrText {
         get => NumGet(this, 8, "ptr")

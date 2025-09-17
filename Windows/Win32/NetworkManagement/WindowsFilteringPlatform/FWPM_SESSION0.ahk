@@ -115,7 +115,7 @@ class FWPM_SESSION0 extends Win32Struct
 
     /**
      * User name of the client.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     username {
         get => NumGet(this, 48, "ptr")

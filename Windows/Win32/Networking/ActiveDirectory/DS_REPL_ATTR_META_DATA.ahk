@@ -16,7 +16,7 @@ class DS_REPL_ATTR_META_DATA extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the LDAP display name of the attribute corresponding to this metadata.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszAttributeName {
         get => NumGet(this, 0, "ptr")

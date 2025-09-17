@@ -39,7 +39,7 @@ class STRING extends Win32Struct
 
     /**
      * Pointer to a buffer used to contain a string of characters.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     Buffer {
         get => NumGet(this, 8, "ptr")

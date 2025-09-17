@@ -16,7 +16,7 @@ class CONTEXTMENUITEM2 extends Win32Struct
     /**
      * A pointer to a null-terminated string that contains the name of the menu item or of the submenu. This 
      *       member cannot be <b>NULL</b> except for a separator or insertion point.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     strName {
         get => NumGet(this, 0, "ptr")
@@ -26,7 +26,7 @@ class CONTEXTMENUITEM2 extends Win32Struct
     /**
      * A pointer to a null-terminated string that contains the text that is displayed on the status bar when this 
      *       item is highlighted. This member can be <b>NULL</b>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     strStatusBarText {
         get => NumGet(this, 8, "ptr")
@@ -96,7 +96,7 @@ class CONTEXTMENUITEM2 extends Win32Struct
      *       <b>NULL</b> or an empty string unless a separator or insertion point is added; otherwise, 
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icontextmenucallback-additem">IContextMenuCallback::AddItem</a> method 
      *       will fail with <b>E_INVALIDARG</b> as the return value.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     strLanguageIndependentName {
         get => NumGet(this, 32, "ptr")

@@ -60,7 +60,7 @@ class CRYPTPROTECT_PROMPTSTRUCT extends Win32Struct
 
     /**
      * Window handle to the parent window.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndApp {
         get => NumGet(this, 8, "ptr")
@@ -69,7 +69,7 @@ class CRYPTPROTECT_PROMPTSTRUCT extends Win32Struct
 
     /**
      * A string containing the text of a prompt to be displayed.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     szPrompt {
         get => NumGet(this, 16, "ptr")

@@ -16,7 +16,7 @@ class SHARE_INFO_502 extends Win32Struct
     /**
      * Pointer to a Unicode string specifying the name of a shared resource. Calls to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharesetinfo">NetShareSetInfo</a> function ignore this member.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     shi502_netname {
         get => NumGet(this, 0, "ptr")
@@ -35,7 +35,7 @@ class SHARE_INFO_502 extends Win32Struct
 
     /**
      * Pointer to a Unicode string specifying an optional comment about the shared resource.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     shi502_remark {
         get => NumGet(this, 16, "ptr")
@@ -73,7 +73,7 @@ class SHARE_INFO_502 extends Win32Struct
     /**
      * Pointer to a Unicode string that contains the local path for the shared resource. For disks, this member is the path being shared. For print queues, this member is the name of the print queue being shared. Calls to the 
      * <b>NetShareSetInfo</b> function ignore this member.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     shi502_path {
         get => NumGet(this, 40, "ptr")
@@ -88,7 +88,7 @@ class SHARE_INFO_502 extends Win32Struct
      * 
      * This member can be no longer than SHPWLEN+1 bytes (including a terminating null character). Calls to the 
      * <b>NetShareSetInfo</b> function ignore this member.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     shi502_passwd {
         get => NumGet(this, 48, "ptr")
@@ -108,7 +108,7 @@ class SHARE_INFO_502 extends Win32Struct
     /**
      * Specifies the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> associated with this share.
-     * @type {Pointer<PSECURITY_DESCRIPTOR>}
+     * @type {Pointer<Void>}
      */
     shi502_security_descriptor {
         get => NumGet(this, 64, "ptr")

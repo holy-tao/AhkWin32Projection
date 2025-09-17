@@ -289,7 +289,7 @@ class TpmBaseServices {
      * @since windows6.0.6000
      */
     static Tbsi_Context_Create(pContextParams, phContext) {
-        result := DllCall("tbs.dll\Tbsi_Context_Create", "ptr", pContextParams, "ptr", phContext, "uint")
+        result := DllCall("tbs.dll\Tbsi_Context_Create", "uint*", pContextParams, "ptr", phContext, "uint")
         return result
     }
 
@@ -357,9 +357,9 @@ class TpmBaseServices {
      * @param {Pointer<Void>} hContext The handle of the context that is submitting the command.
      * @param {Integer} Locality 
      * @param {Integer} Priority 
-     * @param {Pointer<Byte>} pabCommand A pointer to a buffer that contains the TPM command to process.
+     * @param {Pointer} pabCommand A pointer to a buffer that contains the TPM command to process.
      * @param {Integer} cbCommand The length, in bytes, of the command.
-     * @param {Pointer<Byte>} pabResult A pointer to a buffer to receive the result of the TPM command.  This buffer can be the same as <i>pabCommand</i>.
+     * @param {Pointer} pabResult A pointer to a buffer to receive the result of the TPM command.  This buffer can be the same as <i>pabCommand</i>.
      * @param {Pointer<UInt32>} pcbResult An integer that, on input, specifies the size, in bytes, of the result buffer.  This value is set when the submit command returns.  If the supplied buffer is too small, this parameter, on output, is set to the required size, in bytes, for the result.
      * @returns {Integer} If the function succeeds, the function returns TBS_SUCCESS.
      * 
@@ -473,7 +473,7 @@ class TpmBaseServices {
      * @since windows6.0.6000
      */
     static Tbsip_Submit_Command(hContext, Locality, Priority, pabCommand, cbCommand, pabResult, pcbResult) {
-        result := DllCall("tbs.dll\Tbsip_Submit_Command", "ptr", hContext, "uint", Locality, "uint", Priority, "ptr", pabCommand, "uint", cbCommand, "ptr", pabResult, "ptr", pcbResult, "uint")
+        result := DllCall("tbs.dll\Tbsip_Submit_Command", "ptr", hContext, "uint", Locality, "uint", Priority, "ptr", pabCommand, "uint", cbCommand, "ptr", pabResult, "uint*", pcbResult, "uint")
         return result
     }
 
@@ -553,12 +553,12 @@ class TpmBaseServices {
      * @remarks
      * For more information, see <a href="https://trustedcomputinggroup.org">TCG Physical Presence Interface Specification</a>.
      * @param {Pointer<Void>} hContext The context of the ACPI command.
-     * @param {Pointer<Byte>} pabInput A pointer to a buffer that contains the input to the ACPI command.
+     * @param {Pointer} pabInput A pointer to a buffer that contains the input to the ACPI command.
      * 
      * 
      * The input to the ACPI command is defined in the <i>TCG Physical Presence Interface Specification</i> at https://www.trustedcomputinggroup.org. The buffer should contain <i>Arg2</i> and <i>Arg3</i> values as defined in this document. The values for <i>Arg0</i> and <i>Arg1</i> are static and automatically added. For example, if this method is used for Get Physical Presence Interface Version, then <i>Arg2</i> is the integer value 1 and <i>Arg3</i> is empty, so the buffer should just contain an integer value of 1. If this method is used for "Submit TPM Operation Request to Pre-OS Environment", then <i>Arg2</i> is the integer value 2 and <i>Arg3</i> will be the integer for the specified operation, such as 1 for enable or 2 for disable.
      * @param {Integer} cbInput The length, in bytes, of the input buffer.
-     * @param {Pointer<Byte>} pabOutput A pointer to a buffer to contain the output of the ACPI command.
+     * @param {Pointer} pabOutput A pointer to a buffer to contain the output of the ACPI command.
      * 
      * 
      * The buffer will contain the return value from the  command as defined in the <a href="https://trustedcomputinggroup.org">TCG Physical Presence Interface Specification</a>.
@@ -637,7 +637,7 @@ class TpmBaseServices {
      * @since windows6.0.6000
      */
     static Tbsi_Physical_Presence_Command(hContext, pabInput, cbInput, pabOutput, pcbOutput) {
-        result := DllCall("tbs.dll\Tbsi_Physical_Presence_Command", "ptr", hContext, "ptr", pabInput, "uint", cbInput, "ptr", pabOutput, "ptr", pcbOutput, "uint")
+        result := DllCall("tbs.dll\Tbsi_Physical_Presence_Command", "ptr", hContext, "ptr", pabInput, "uint", cbInput, "ptr", pabOutput, "uint*", pcbOutput, "uint")
         return result
     }
 
@@ -762,7 +762,7 @@ class TpmBaseServices {
      * 
      * <b>Windows Vista with SP1 and Windows Server 2008:  </b>Calling the <b>Tbsi_Get_TCG_Log</b> function with a zero length buffer to get the required buffer size is not supported. We recommend that you use the constant <b>TBS_IN_OUT_BUF_SIZE_MAX</b>, defined in the Tbs.h header file, for the memory size for the <i>pOutputBuf</i> parameter.
      * @param {Pointer<Void>} hContext The TBS handle of the context that is retrieving the log. You get this parameter from a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/tbs/nf-tbs-tbsi_context_create">Tbsi_Context_Create</a> function.
-     * @param {Pointer<Byte>} pOutputBuf A pointer to a buffer to receive  and store the WBCL. This parameter may be NULL to estimate the required buffer when the location pointed to by <i>pcbOutput</i> is also 0 on input.
+     * @param {Pointer} pOutputBuf A pointer to a buffer to receive  and store the WBCL. This parameter may be NULL to estimate the required buffer when the location pointed to by <i>pcbOutput</i> is also 0 on input.
      * @param {Pointer<UInt32>} pOutputBufLen A pointer to an unsigned long integer that, on input, specifies the size, in bytes, of the output buffer.  If the function succeeds, this parameter, on output, receives the size, in bytes, of the data pointed to by <i>pOutputBuf</i>. If the function fails, this parameter does not receive a value.
      * 
      * Calling the <b>Tbsi_Get_TCG_Log</b> function with a zero length buffer will return the size of the buffer required. <b>Windows Vista with SP1 and Windows Server 2008:  </b>This functionality is not available.
@@ -876,14 +876,14 @@ class TpmBaseServices {
      * @since windows6.0.6000
      */
     static Tbsi_Get_TCG_Log(hContext, pOutputBuf, pOutputBufLen) {
-        result := DllCall("tbs.dll\Tbsi_Get_TCG_Log", "ptr", hContext, "ptr", pOutputBuf, "ptr", pOutputBufLen, "uint")
+        result := DllCall("tbs.dll\Tbsi_Get_TCG_Log", "ptr", hContext, "ptr", pOutputBuf, "uint*", pOutputBufLen, "uint")
         return result
     }
 
     /**
      * Obtains the version of the TPM on the computer.
      * @param {Integer} Size Size of the memory location.
-     * @param {Pointer<Void>} Info A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/tbs/ns-tbs-tpm_device_info">TPM_DEVICE_INFO</a> structure is returned containing the version information about the TPM. The location must be large enough to hold four 32-bit values.
+     * @param {Pointer} Info A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/tbs/ns-tbs-tpm_device_info">TPM_DEVICE_INFO</a> structure is returned containing the version information about the TPM. The location must be large enough to hold four 32-bit values.
      * @returns {Integer} If the function succeeds, the function returns TBS_SUCCESS.
      * 
      * If the function fails, it returns a TBS return code that indicates the error.
@@ -1029,7 +1029,7 @@ class TpmBaseServices {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} pOutputBuf A pointer to a buffer to receive the TPM owner authorization information.
+     * @param {Pointer} pOutputBuf A pointer to a buffer to receive the TPM owner authorization information.
      * @param {Pointer<UInt32>} pOutputBufLen An integer that, on input, specifies the size, in bytes, of the output buffer. On successful return, this value is set to the actual size of the TPM ownerAuth, in bytes.
      * @returns {Integer} If the function succeeds, the function returns <b>TBS_SUCCESS</b>.
      * 
@@ -1081,7 +1081,7 @@ class TpmBaseServices {
      * @since windows8.0
      */
     static Tbsi_Get_OwnerAuth(hContext, ownerauthType, pOutputBuf, pOutputBufLen) {
-        result := DllCall("tbs.dll\Tbsi_Get_OwnerAuth", "ptr", hContext, "uint", ownerauthType, "ptr", pOutputBuf, "ptr", pOutputBufLen, "uint")
+        result := DllCall("tbs.dll\Tbsi_Get_OwnerAuth", "ptr", hContext, "uint", ownerauthType, "ptr", pOutputBuf, "uint*", pOutputBufLen, "uint")
         return result
     }
 
@@ -1137,20 +1137,20 @@ class TpmBaseServices {
 
     /**
      * 
-     * @param {Pointer<Byte>} pbWindowsAIK 
+     * @param {Pointer} pbWindowsAIK 
      * @param {Integer} cbWindowsAIK 
      * @param {Pointer<UInt32>} pcbResult 
      * @param {Pointer<Int32>} pfProtectedByTPM 
      * @returns {Integer} 
      */
     static GetDeviceID(pbWindowsAIK, cbWindowsAIK, pcbResult, pfProtectedByTPM) {
-        result := DllCall("tbs.dll\GetDeviceID", "ptr", pbWindowsAIK, "uint", cbWindowsAIK, "ptr", pcbResult, "ptr", pfProtectedByTPM, "int")
+        result := DllCall("tbs.dll\GetDeviceID", "ptr", pbWindowsAIK, "uint", cbWindowsAIK, "uint*", pcbResult, "int*", pfProtectedByTPM, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pszWindowsAIK 
+     * @param {Pointer<Char>} pszWindowsAIK 
      * @param {Integer} cchWindowsAIK 
      * @param {Pointer<UInt32>} pcchResult 
      * @param {Pointer<Int32>} pfProtectedByTPM 
@@ -1159,7 +1159,7 @@ class TpmBaseServices {
     static GetDeviceIDString(pszWindowsAIK, cchWindowsAIK, pcchResult, pfProtectedByTPM) {
         pszWindowsAIK := pszWindowsAIK is String? StrPtr(pszWindowsAIK) : pszWindowsAIK
 
-        result := DllCall("tbs.dll\GetDeviceIDString", "ptr", pszWindowsAIK, "uint", cchWindowsAIK, "ptr", pcchResult, "ptr", pfProtectedByTPM, "int")
+        result := DllCall("tbs.dll\GetDeviceIDString", "ptr", pszWindowsAIK, "uint", cchWindowsAIK, "uint*", pcchResult, "int*", pfProtectedByTPM, "int")
         return result
     }
 
@@ -1338,7 +1338,7 @@ class TpmBaseServices {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} pbOutput Pointer to a buffer that receives and stores the WBCL. Set to <b>NULL</b> to estimate the required buffer when the location pointed to by <i>pcbOutput</i> is also 0 on input.
+     * @param {Pointer} pbOutput Pointer to a buffer that receives and stores the WBCL. Set to <b>NULL</b> to estimate the required buffer when the location pointed to by <i>pcbOutput</i> is also 0 on input.
      * @param {Pointer<UInt32>} pcbOutput Pointer to an unsigned long integer that specifies the size, in bytes, of the output buffer. On success, contains the size, in bytes, of the data pointed to by <i>pOutput</i>. On failure, does not contain a value.
      * 
      * <b>Note</b>  If <i>pbOutput</i> is <b>NULL</b> and the location pointed to by <i>pcbOutput</i> is 0, the function returns <b>TBS_E_BUFFER_TOO_SMALL</b>. In that case, <i>pcbOutput</i> will point to the required size of <i>pbOutput</i>.
@@ -1450,7 +1450,7 @@ class TpmBaseServices {
      * @since windows10.0.17134
      */
     static Tbsi_Get_TCG_Log_Ex(logType, pbOutput, pcbOutput) {
-        result := DllCall("tbs.dll\Tbsi_Get_TCG_Log_Ex", "uint", logType, "ptr", pbOutput, "ptr", pcbOutput, "uint")
+        result := DllCall("tbs.dll\Tbsi_Get_TCG_Log_Ex", "uint", logType, "ptr", pbOutput, "uint*", pcbOutput, "uint")
         return result
     }
 

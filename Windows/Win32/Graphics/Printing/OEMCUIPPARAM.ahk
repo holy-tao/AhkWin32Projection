@@ -28,7 +28,7 @@ class OEMCUIPPARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hPrinter {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class OEMCUIPPARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pPrinterName {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class OEMCUIPPARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hModule {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +52,7 @@ class OEMCUIPPARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hOEMHeap {
         get => NumGet(this, 40, "ptr")

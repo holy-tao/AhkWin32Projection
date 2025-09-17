@@ -26,7 +26,7 @@ class WSDXML_NAME extends Win32Struct
 
     /**
      * The local name of the qualified name.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     LocalName {
         get => NumGet(this, 8, "ptr")

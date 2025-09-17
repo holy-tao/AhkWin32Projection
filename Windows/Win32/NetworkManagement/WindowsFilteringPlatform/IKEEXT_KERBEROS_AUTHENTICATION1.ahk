@@ -26,7 +26,7 @@ class IKEEXT_KERBEROS_AUTHENTICATION1 extends Win32Struct
      * Type: <b>wchar_t*</b>
      * 
      * The Kerberos proxy server.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     proxyServer {
         get => NumGet(this, 8, "ptr")

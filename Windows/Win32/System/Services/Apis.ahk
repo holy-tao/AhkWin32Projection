@@ -667,7 +667,7 @@ class Services {
 ;@region Methods
     /**
      * Registers a service type with the service control manager and the Server service.
-     * @param {Pointer<SERVICE_STATUS_HANDLE>} hServiceStatus A handle to the status information structure for the service. A service obtains the handle by calling the 
+     * @param {Pointer<Void>} hServiceStatus A handle to the status information structure for the service. A service obtains the handle by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-registerservicectrlhandlerexa">RegisterServiceCtrlHandlerEx</a> function.
      * @param {Integer} dwServiceBits The service type. 
      * 
@@ -706,7 +706,7 @@ class Services {
      * 
      * <h3><a id="Security_Remarks"></a><a id="security_remarks"></a><a id="SECURITY_REMARKS"></a>Security Remarks</h3>
      * Setting the <i>lpServiceStartName</i> parameter changes the logon account of the service. This can cause problems. If you have registered a service principal name (SPN), it would now be registered on the wrong account. Similarly, if you have used an ACE to grant access to a service, it would now grant access to the wrong account.
-     * @param {Pointer<SC_HANDLE>} hService A handle to the service. This handle is returned by the 
+     * @param {Pointer<Void>} hService A handle to the service. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function and must have the <b>SERVICE_CHANGE_CONFIG</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
@@ -792,7 +792,7 @@ class Services {
      * </table>
      * @param {Integer} dwStartType 
      * @param {Integer} dwErrorControl 
-     * @param {Pointer<PSTR>} lpBinaryPathName The fully qualified path to the service binary file. Specify NULL if you are not changing the existing path. If the path contains a space, it must be quoted so that it is correctly interpreted. For example, "d:\\my share\\myservice.exe" should be specified as "\"d:\\my share\\myservice.exe\"". 
+     * @param {Pointer<Byte>} lpBinaryPathName The fully qualified path to the service binary file. Specify NULL if you are not changing the existing path. If the path contains a space, it must be quoted so that it is correctly interpreted. For example, "d:\\my share\\myservice.exe" should be specified as "\"d:\\my share\\myservice.exe\"". 
      * 
      * 
      * 
@@ -800,7 +800,7 @@ class Services {
      * The path can also include arguments for an auto-start service. For example, "d:\\myshare\\myservice.exe arg1 arg2". These arguments are passed to the service entry point (typically the <b>main</b> function).
      * 
      * If you specify a path on another computer, the share must be accessible by the computer account of the local computer because this is the security context used in the remote call. However, this requirement allows any potential vulnerabilities in the remote computer to affect the local computer. Therefore, it is best to use a local file.
-     * @param {Pointer<PSTR>} lpLoadOrderGroup The  name of the load ordering group of which this service is a member. Specify NULL if you are not changing the existing group. Specify an empty string if the service does not belong to a group. 
+     * @param {Pointer<Byte>} lpLoadOrderGroup The  name of the load ordering group of which this service is a member. Specify NULL if you are not changing the existing group. Specify an empty string if the service does not belong to a group. 
      * 
      * 
      * 
@@ -818,13 +818,13 @@ class Services {
      * <b>HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control</b>
      * 
      * Tags are only evaluated for driver services that have <b>SERVICE_BOOT_START</b> or <b>SERVICE_SYSTEM_START</b> start types.
-     * @param {Pointer<PSTR>} lpDependencies A pointer to a double null-terminated array of null-separated names of services or load ordering groups that the system must start before this service can be started. (Dependency on a group means that this service can run if at least one member of the group is running after an attempt to start all members of the group.) Specify NULL if you are not changing the existing dependencies. Specify an empty string if the service has no dependencies. 
+     * @param {Pointer<Byte>} lpDependencies A pointer to a double null-terminated array of null-separated names of services or load ordering groups that the system must start before this service can be started. (Dependency on a group means that this service can run if at least one member of the group is running after an attempt to start all members of the group.) Specify NULL if you are not changing the existing dependencies. Specify an empty string if the service has no dependencies. 
      * 
      * 
      * 
      * 
      * You must prefix group names with SC_GROUP_IDENTIFIER so that they can be distinguished from a service name, because services and service groups share the same name space.
-     * @param {Pointer<PSTR>} lpServiceStartName The name of the account under which the service should run. Specify <b>NULL</b> if you are not changing the existing account name. If the service type is <b>SERVICE_WIN32_OWN_PROCESS</b>, use an account name in the form <i>DomainName</i>&#92;<i>UserName</i>. The service process will be logged on as this user. If the account belongs to the built-in domain, you can specify .&#92;<i>UserName</i> (note that the corresponding C/C++ string is ".&#92;&#92;<i>UserName</i>"). For more information, see 
+     * @param {Pointer<Byte>} lpServiceStartName The name of the account under which the service should run. Specify <b>NULL</b> if you are not changing the existing account name. If the service type is <b>SERVICE_WIN32_OWN_PROCESS</b>, use an account name in the form <i>DomainName</i>&#92;<i>UserName</i>. The service process will be logged on as this user. If the account belongs to the built-in domain, you can specify .&#92;<i>UserName</i> (note that the corresponding C/C++ string is ".&#92;&#92;<i>UserName</i>"). For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-user-accounts">Service User Accounts</a> and the warning in the Remarks section. 
      * 
      * 
@@ -838,7 +838,7 @@ class Services {
      * A service can be configured to use a managed account or a virtual  account. If the service is configured to use a managed service account, the name is the managed service account name. If the service is configured to use a virtual  account, specify the name as NT SERVICE&#92;<i>ServiceName</i>. For more information about managed service accounts and virtual accounts, see the <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/dd548356(v=ws.10)">Service Accounts Step-by-Step Guide</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>Managed service accounts and virtual accounts are not supported until Windows 7 and Windows Server 2008 R2.
-     * @param {Pointer<PSTR>} lpPassword The password to the account name specified by the <i>lpServiceStartName</i> parameter. Specify <b>NULL</b> if you are not changing the existing password. Specify an empty string if the account has no password or if the service runs in the LocalService, NetworkService, or LocalSystem account. For more information, see 
+     * @param {Pointer<Byte>} lpPassword The password to the account name specified by the <i>lpServiceStartName</i> parameter. Specify <b>NULL</b> if you are not changing the existing password. Specify an empty string if the account has no password or if the service runs in the LocalService, NetworkService, or LocalSystem account. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-record-list">Service Record List</a>. 
      * 
      * 
@@ -847,7 +847,7 @@ class Services {
      * If the account name specified by the  <i>lpServiceStartName</i> parameter is the name of  a managed service account or virtual account name, the <i>lpPassword</i> parameter must be <b>NULL</b>. 
      * 
      * Passwords are ignored for driver services.
-     * @param {Pointer<PSTR>} lpDisplayName The display name to be used by applications to identify the service for its users. Specify <b>NULL</b> if you are not changing the existing display name; otherwise, this string has a maximum length of 256 characters. The name is case-preserved in the service control manager. Display name comparisons are always case-insensitive.
+     * @param {Pointer<Byte>} lpDisplayName The display name to be used by applications to identify the service for its users. Specify <b>NULL</b> if you are not changing the existing display name; otherwise, this string has a maximum length of 256 characters. The name is case-preserved in the service control manager. Display name comparisons are always case-insensitive.
      * 
      * This parameter can specify a localized string using the following format:
      * 
@@ -959,7 +959,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ChangeServiceConfigA", "ptr", hService, "uint", dwServiceType, "uint", dwStartType, "uint", dwErrorControl, "ptr", lpBinaryPathName, "ptr", lpLoadOrderGroup, "ptr", lpdwTagId, "ptr", lpDependencies, "ptr", lpServiceStartName, "ptr", lpPassword, "ptr", lpDisplayName, "int")
+        result := DllCall("ADVAPI32.dll\ChangeServiceConfigA", "ptr", hService, "uint", dwServiceType, "uint", dwStartType, "uint", dwErrorControl, "ptr", lpBinaryPathName, "ptr", lpLoadOrderGroup, "uint*", lpdwTagId, "ptr", lpDependencies, "ptr", lpServiceStartName, "ptr", lpPassword, "ptr", lpDisplayName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -977,7 +977,7 @@ class Services {
      * 
      * <h3><a id="Security_Remarks"></a><a id="security_remarks"></a><a id="SECURITY_REMARKS"></a>Security Remarks</h3>
      * Setting the <i>lpServiceStartName</i> parameter changes the logon account of the service. This can cause problems. If you have registered a service principal name (SPN), it would now be registered on the wrong account. Similarly, if you have used an ACE to grant access to a service, it would now grant access to the wrong account.
-     * @param {Pointer<SC_HANDLE>} hService A handle to the service. This handle is returned by the 
+     * @param {Pointer<Void>} hService A handle to the service. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function and must have the <b>SERVICE_CHANGE_CONFIG</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
@@ -1063,7 +1063,7 @@ class Services {
      * </table>
      * @param {Integer} dwStartType 
      * @param {Integer} dwErrorControl 
-     * @param {Pointer<PWSTR>} lpBinaryPathName The fully qualified path to the service binary file. Specify NULL if you are not changing the existing path. If the path contains a space, it must be quoted so that it is correctly interpreted. For example, "d:\\my share\\myservice.exe" should be specified as "\"d:\\my share\\myservice.exe\"". 
+     * @param {Pointer<Char>} lpBinaryPathName The fully qualified path to the service binary file. Specify NULL if you are not changing the existing path. If the path contains a space, it must be quoted so that it is correctly interpreted. For example, "d:\\my share\\myservice.exe" should be specified as "\"d:\\my share\\myservice.exe\"". 
      * 
      * 
      * 
@@ -1071,7 +1071,7 @@ class Services {
      * The path can also include arguments for an auto-start service. For example, "d:\\myshare\\myservice.exe arg1 arg2". These arguments are passed to the service entry point (typically the <b>main</b> function).
      * 
      * If you specify a path on another computer, the share must be accessible by the computer account of the local computer because this is the security context used in the remote call. However, this requirement allows any potential vulnerabilities in the remote computer to affect the local computer. Therefore, it is best to use a local file.
-     * @param {Pointer<PWSTR>} lpLoadOrderGroup The  name of the load ordering group of which this service is a member. Specify NULL if you are not changing the existing group. Specify an empty string if the service does not belong to a group. 
+     * @param {Pointer<Char>} lpLoadOrderGroup The  name of the load ordering group of which this service is a member. Specify NULL if you are not changing the existing group. Specify an empty string if the service does not belong to a group. 
      * 
      * 
      * 
@@ -1089,13 +1089,13 @@ class Services {
      * <b>HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control</b>
      * 
      * Tags are only evaluated for driver services that have <b>SERVICE_BOOT_START</b> or <b>SERVICE_SYSTEM_START</b> start types.
-     * @param {Pointer<PWSTR>} lpDependencies A pointer to a double null-terminated array of null-separated names of services or load ordering groups that the system must start before this service can be started. (Dependency on a group means that this service can run if at least one member of the group is running after an attempt to start all members of the group.) Specify NULL if you are not changing the existing dependencies. Specify an empty string if the service has no dependencies. 
+     * @param {Pointer<Char>} lpDependencies A pointer to a double null-terminated array of null-separated names of services or load ordering groups that the system must start before this service can be started. (Dependency on a group means that this service can run if at least one member of the group is running after an attempt to start all members of the group.) Specify NULL if you are not changing the existing dependencies. Specify an empty string if the service has no dependencies. 
      * 
      * 
      * 
      * 
      * You must prefix group names with SC_GROUP_IDENTIFIER so that they can be distinguished from a service name, because services and service groups share the same name space.
-     * @param {Pointer<PWSTR>} lpServiceStartName The name of the account under which the service should run. Specify <b>NULL</b> if you are not changing the existing account name. If the service type is <b>SERVICE_WIN32_OWN_PROCESS</b>, use an account name in the form <i>DomainName</i>&#92;<i>UserName</i>. The service process will be logged on as this user. If the account belongs to the built-in domain, you can specify .&#92;<i>UserName</i> (note that the corresponding C/C++ string is ".&#92;&#92;<i>UserName</i>"). For more information, see 
+     * @param {Pointer<Char>} lpServiceStartName The name of the account under which the service should run. Specify <b>NULL</b> if you are not changing the existing account name. If the service type is <b>SERVICE_WIN32_OWN_PROCESS</b>, use an account name in the form <i>DomainName</i>&#92;<i>UserName</i>. The service process will be logged on as this user. If the account belongs to the built-in domain, you can specify .&#92;<i>UserName</i> (note that the corresponding C/C++ string is ".&#92;&#92;<i>UserName</i>"). For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-user-accounts">Service User Accounts</a> and the warning in the Remarks section. 
      * 
      * 
@@ -1109,7 +1109,7 @@ class Services {
      * A service can be configured to use a managed account or a virtual  account. If the service is configured to use a managed service account, the name is the managed service account name. If the service is configured to use a virtual  account, specify the name as NT SERVICE&#92;<i>ServiceName</i>. For more information about managed service accounts and virtual accounts, see the <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/dd548356(v=ws.10)">Service Accounts Step-by-Step Guide</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>Managed service accounts and virtual accounts are not supported until Windows 7 and Windows Server 2008 R2.
-     * @param {Pointer<PWSTR>} lpPassword The password to the account name specified by the <i>lpServiceStartName</i> parameter. Specify <b>NULL</b> if you are not changing the existing password. Specify an empty string if the account has no password or if the service runs in the LocalService, NetworkService, or LocalSystem account. For more information, see 
+     * @param {Pointer<Char>} lpPassword The password to the account name specified by the <i>lpServiceStartName</i> parameter. Specify <b>NULL</b> if you are not changing the existing password. Specify an empty string if the account has no password or if the service runs in the LocalService, NetworkService, or LocalSystem account. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-record-list">Service Record List</a>. 
      * 
      * 
@@ -1118,7 +1118,7 @@ class Services {
      * If the account name specified by the  <i>lpServiceStartName</i> parameter is the name of  a managed service account or virtual account name, the <i>lpPassword</i> parameter must be <b>NULL</b>. 
      * 
      * Passwords are ignored for driver services.
-     * @param {Pointer<PWSTR>} lpDisplayName The display name to be used by applications to identify the service for its users. Specify <b>NULL</b> if you are not changing the existing display name; otherwise, this string has a maximum length of 256 characters. The name is case-preserved in the service control manager. Display name comparisons are always case-insensitive.
+     * @param {Pointer<Char>} lpDisplayName The display name to be used by applications to identify the service for its users. Specify <b>NULL</b> if you are not changing the existing display name; otherwise, this string has a maximum length of 256 characters. The name is case-preserved in the service control manager. Display name comparisons are always case-insensitive.
      * 
      * This parameter can specify a localized string using the following format:
      * 
@@ -1230,7 +1230,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ChangeServiceConfigW", "ptr", hService, "uint", dwServiceType, "uint", dwStartType, "uint", dwErrorControl, "ptr", lpBinaryPathName, "ptr", lpLoadOrderGroup, "ptr", lpdwTagId, "ptr", lpDependencies, "ptr", lpServiceStartName, "ptr", lpPassword, "ptr", lpDisplayName, "int")
+        result := DllCall("ADVAPI32.dll\ChangeServiceConfigW", "ptr", hService, "uint", dwServiceType, "uint", dwStartType, "uint", dwErrorControl, "ptr", lpBinaryPathName, "ptr", lpLoadOrderGroup, "uint*", lpdwTagId, "ptr", lpDependencies, "ptr", lpServiceStartName, "ptr", lpPassword, "ptr", lpDisplayName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1274,7 +1274,7 @@ class Services {
      * }
      * 
      * ```
-     * @param {Pointer<SC_HANDLE>} hService A handle to the service. This handle is returned by the 
+     * @param {Pointer<Void>} hService A handle to the service. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function and must have the <b>SERVICE_CHANGE_CONFIG</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>. 
@@ -1339,7 +1339,7 @@ class Services {
      * }
      * 
      * ```
-     * @param {Pointer<SC_HANDLE>} hService A handle to the service. This handle is returned by the 
+     * @param {Pointer<Void>} hService A handle to the service. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function and must have the <b>SERVICE_CHANGE_CONFIG</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>. 
@@ -1373,7 +1373,7 @@ class Services {
      * The 
      * <b>CloseServiceHandle</b> function does not destroy the service control manager object referred to by the handle. A service control manager object cannot be destroyed. A service object can be destroyed by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-deleteservice">DeleteService</a> function.
-     * @param {Pointer<SC_HANDLE>} hSCObject A handle to the service control manager object or the service object to close. Handles to service control manager objects are returned by the 
+     * @param {Pointer<Void>} hSCObject A handle to the service control manager object or the service object to close. Handles to service control manager objects are returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openscmanagera">OpenSCManager</a> function, and handles to service objects are returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function.
@@ -1510,7 +1510,7 @@ class Services {
      *     <b>ERROR_SERVICE_NOT_ACTIVE</b>.
      * </dd>
      * </dl>
-     * @param {Pointer<SC_HANDLE>} hService A handle to the service. This handle is returned by the 
+     * @param {Pointer<Void>} hService A handle to the service. This handle is returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function. The 
      *       <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">access rights</a> required for this handle 
@@ -1898,17 +1898,17 @@ class Services {
      * 
      * If you are creating services that share a process, avoid calling functions with process-wide effects, such as 
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-exitprocess">ExitProcess</a>. In addition, do not unload your service DLL.
-     * @param {Pointer<SC_HANDLE>} hSCManager A handle to the service control manager database. This handle is returned by the 
+     * @param {Pointer<Void>} hSCManager A handle to the service control manager database. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openscmanagera">OpenSCManager</a> function and must have the <b>SC_MANAGER_CREATE_SERVICE</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
-     * @param {Pointer<PSTR>} lpServiceName The name of the service to install. The maximum string length is 256 characters. The service control manager database preserves the case of the characters, but service name comparisons are always case insensitive. Forward-slash (/) and backslash (\\) are not valid service name characters.
-     * @param {Pointer<PSTR>} lpDisplayName The display name to be used by user interface programs to identify the service. This string has a maximum length of 256 characters. The name is case-preserved in the service control manager. Display name comparisons are always case-insensitive.
+     * @param {Pointer<Byte>} lpServiceName The name of the service to install. The maximum string length is 256 characters. The service control manager database preserves the case of the characters, but service name comparisons are always case insensitive. Forward-slash (/) and backslash (\\) are not valid service name characters.
+     * @param {Pointer<Byte>} lpDisplayName The display name to be used by user interface programs to identify the service. This string has a maximum length of 256 characters. The name is case-preserved in the service control manager. Display name comparisons are always case-insensitive.
      * @param {Integer} dwDesiredAccess The access to the service. Before granting the requested access, the system checks the access token of the calling process. For a list of values, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
      * @param {Integer} dwServiceType 
      * @param {Integer} dwStartType 
      * @param {Integer} dwErrorControl 
-     * @param {Pointer<PSTR>} lpBinaryPathName The fully qualified path to the service binary file. If the path contains a space, it must be quoted so that it is correctly interpreted. For example, "d:\\my share\\myservice.exe" should be specified as "\"d:\\my share\\myservice.exe\"". 
+     * @param {Pointer<Byte>} lpBinaryPathName The fully qualified path to the service binary file. If the path contains a space, it must be quoted so that it is correctly interpreted. For example, "d:\\my share\\myservice.exe" should be specified as "\"d:\\my share\\myservice.exe\"". 
      * 
      * 
      * 
@@ -1916,7 +1916,7 @@ class Services {
      * The path can also include arguments for an auto-start service. For example, "d:\\myshare\\myservice.exe arg1 arg2". These arguments are passed to the service entry point (typically the <b>main</b> function).
      * 
      * If you specify a path on another computer, the share must be accessible by the computer account of the local computer because this is the security context used in the remote call. However, this requirement allows any potential vulnerabilities in the remote computer to affect the local computer. Therefore, it is best to use a local file.
-     * @param {Pointer<PSTR>} lpLoadOrderGroup The names of the load ordering group of which this service is a member. Specify NULL or an empty string if the service does not belong to a group. 
+     * @param {Pointer<Byte>} lpLoadOrderGroup The names of the load ordering group of which this service is a member. Specify NULL or an empty string if the service does not belong to a group. 
      * 
      * 
      * 
@@ -1932,13 +1932,13 @@ class Services {
      * 
      * 
      * Tags are only evaluated for driver services that have <b>SERVICE_BOOT_START</b> or <b>SERVICE_SYSTEM_START</b> start types.
-     * @param {Pointer<PSTR>} lpDependencies A pointer to a double null-terminated array of null-separated names of services or load ordering groups that the system must start before this service. Specify NULL or an empty string if the service has no dependencies. Dependency on a group means that this service can run if at least one member of the group is running after an attempt to start all members of the group. 
+     * @param {Pointer<Byte>} lpDependencies A pointer to a double null-terminated array of null-separated names of services or load ordering groups that the system must start before this service. Specify NULL or an empty string if the service has no dependencies. Dependency on a group means that this service can run if at least one member of the group is running after an attempt to start all members of the group. 
      * 
      * 
      * 
      * 
      * You must prefix group names with <b>SC_GROUP_IDENTIFIER</b> so that they can be distinguished from a service name, because services and service groups share the same name space.
-     * @param {Pointer<PSTR>} lpServiceStartName The name of the account under which the service should run. If the service type is SERVICE_WIN32_OWN_PROCESS, use an account name in the form <i>DomainName</i>&#92;<i>UserName</i>. The service process will be logged on as this user. If the account belongs to the built-in domain, you can specify .&#92;<i>UserName</i>. 
+     * @param {Pointer<Byte>} lpServiceStartName The name of the account under which the service should run. If the service type is SERVICE_WIN32_OWN_PROCESS, use an account name in the form <i>DomainName</i>&#92;<i>UserName</i>. The service process will be logged on as this user. If the account belongs to the built-in domain, you can specify .&#92;<i>UserName</i>. 
      * 
      * 
      * 
@@ -1960,7 +1960,7 @@ class Services {
      * A service can be configured to use a managed account or a virtual  account. If the service is configured to use a managed service account, the name is the managed service account name. If the service is configured to use a virtual  account, specify the name as NT SERVICE&#92;<i>ServiceName</i>. For more information about managed service accounts and virtual accounts, see the <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/dd548356(v=ws.10)">Service Accounts Step-by-Step Guide</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>Managed service accounts and virtual accounts are not supported until Windows 7 and Windows Server 2008 R2.
-     * @param {Pointer<PSTR>} lpPassword The password to the account name specified by the <i>lpServiceStartName</i> parameter. Specify an empty string if the account has no password or if the service runs in the LocalService, NetworkService, or LocalSystem account. For more information, see 
+     * @param {Pointer<Byte>} lpPassword The password to the account name specified by the <i>lpServiceStartName</i> parameter. Specify an empty string if the account has no password or if the service runs in the LocalService, NetworkService, or LocalSystem account. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-record-list">Service Record List</a>. 
      * 
      * 
@@ -1969,7 +1969,7 @@ class Services {
      * If the account name specified by the  <i>lpServiceStartName</i> parameter is the name of  a managed service account or virtual account name, the <i>lpPassword</i> parameter must be NULL. 
      * 
      * Passwords are ignored for driver services.
-     * @returns {Pointer<SC_HANDLE>} If the function succeeds, the return value is a handle to the service.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the service.
      * 
      * If the function fails, the return value is NULL. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2095,7 +2095,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CreateServiceA", "ptr", hSCManager, "ptr", lpServiceName, "ptr", lpDisplayName, "uint", dwDesiredAccess, "uint", dwServiceType, "uint", dwStartType, "uint", dwErrorControl, "ptr", lpBinaryPathName, "ptr", lpLoadOrderGroup, "ptr", lpdwTagId, "ptr", lpDependencies, "ptr", lpServiceStartName, "ptr", lpPassword, "ptr")
+        result := DllCall("ADVAPI32.dll\CreateServiceA", "ptr", hSCManager, "ptr", lpServiceName, "ptr", lpDisplayName, "uint", dwDesiredAccess, "uint", dwServiceType, "uint", dwStartType, "uint", dwErrorControl, "ptr", lpBinaryPathName, "ptr", lpLoadOrderGroup, "uint*", lpdwTagId, "ptr", lpDependencies, "ptr", lpServiceStartName, "ptr", lpPassword)
         if(A_LastError)
             throw OSError()
 
@@ -2181,17 +2181,17 @@ class Services {
      * 
      * If you are creating services that share a process, avoid calling functions with process-wide effects, such as 
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-exitprocess">ExitProcess</a>. In addition, do not unload your service DLL.
-     * @param {Pointer<SC_HANDLE>} hSCManager A handle to the service control manager database. This handle is returned by the 
+     * @param {Pointer<Void>} hSCManager A handle to the service control manager database. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openscmanagera">OpenSCManager</a> function and must have the <b>SC_MANAGER_CREATE_SERVICE</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
-     * @param {Pointer<PWSTR>} lpServiceName The name of the service to install. The maximum string length is 256 characters. The service control manager database preserves the case of the characters, but service name comparisons are always case insensitive. Forward-slash (/) and backslash (\\) are not valid service name characters.
-     * @param {Pointer<PWSTR>} lpDisplayName The display name to be used by user interface programs to identify the service. This string has a maximum length of 256 characters. The name is case-preserved in the service control manager. Display name comparisons are always case-insensitive.
+     * @param {Pointer<Char>} lpServiceName The name of the service to install. The maximum string length is 256 characters. The service control manager database preserves the case of the characters, but service name comparisons are always case insensitive. Forward-slash (/) and backslash (\\) are not valid service name characters.
+     * @param {Pointer<Char>} lpDisplayName The display name to be used by user interface programs to identify the service. This string has a maximum length of 256 characters. The name is case-preserved in the service control manager. Display name comparisons are always case-insensitive.
      * @param {Integer} dwDesiredAccess The access to the service. Before granting the requested access, the system checks the access token of the calling process. For a list of values, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
      * @param {Integer} dwServiceType 
      * @param {Integer} dwStartType 
      * @param {Integer} dwErrorControl 
-     * @param {Pointer<PWSTR>} lpBinaryPathName The fully qualified path to the service binary file. If the path contains a space, it must be quoted so that it is correctly interpreted. For example, "d:\\my share\\myservice.exe" should be specified as "\"d:\\my share\\myservice.exe\"". 
+     * @param {Pointer<Char>} lpBinaryPathName The fully qualified path to the service binary file. If the path contains a space, it must be quoted so that it is correctly interpreted. For example, "d:\\my share\\myservice.exe" should be specified as "\"d:\\my share\\myservice.exe\"". 
      * 
      * 
      * 
@@ -2199,7 +2199,7 @@ class Services {
      * The path can also include arguments for an auto-start service. For example, "d:\\myshare\\myservice.exe arg1 arg2". These arguments are passed to the service entry point (typically the <b>main</b> function).
      * 
      * If you specify a path on another computer, the share must be accessible by the computer account of the local computer because this is the security context used in the remote call. However, this requirement allows any potential vulnerabilities in the remote computer to affect the local computer. Therefore, it is best to use a local file.
-     * @param {Pointer<PWSTR>} lpLoadOrderGroup The names of the load ordering group of which this service is a member. Specify NULL or an empty string if the service does not belong to a group. 
+     * @param {Pointer<Char>} lpLoadOrderGroup The names of the load ordering group of which this service is a member. Specify NULL or an empty string if the service does not belong to a group. 
      * 
      * 
      * 
@@ -2215,13 +2215,13 @@ class Services {
      * 
      * 
      * Tags are only evaluated for driver services that have <b>SERVICE_BOOT_START</b> or <b>SERVICE_SYSTEM_START</b> start types.
-     * @param {Pointer<PWSTR>} lpDependencies A pointer to a double null-terminated array of null-separated names of services or load ordering groups that the system must start before this service. Specify NULL or an empty string if the service has no dependencies. Dependency on a group means that this service can run if at least one member of the group is running after an attempt to start all members of the group. 
+     * @param {Pointer<Char>} lpDependencies A pointer to a double null-terminated array of null-separated names of services or load ordering groups that the system must start before this service. Specify NULL or an empty string if the service has no dependencies. Dependency on a group means that this service can run if at least one member of the group is running after an attempt to start all members of the group. 
      * 
      * 
      * 
      * 
      * You must prefix group names with <b>SC_GROUP_IDENTIFIER</b> so that they can be distinguished from a service name, because services and service groups share the same name space.
-     * @param {Pointer<PWSTR>} lpServiceStartName The name of the account under which the service should run. If the service type is SERVICE_WIN32_OWN_PROCESS, use an account name in the form <i>DomainName</i>&#92;<i>UserName</i>. The service process will be logged on as this user. If the account belongs to the built-in domain, you can specify .&#92;<i>UserName</i>. 
+     * @param {Pointer<Char>} lpServiceStartName The name of the account under which the service should run. If the service type is SERVICE_WIN32_OWN_PROCESS, use an account name in the form <i>DomainName</i>&#92;<i>UserName</i>. The service process will be logged on as this user. If the account belongs to the built-in domain, you can specify .&#92;<i>UserName</i>. 
      * 
      * 
      * 
@@ -2243,7 +2243,7 @@ class Services {
      * A service can be configured to use a managed account or a virtual  account. If the service is configured to use a managed service account, the name is the managed service account name. If the service is configured to use a virtual  account, specify the name as NT SERVICE&#92;<i>ServiceName</i>. For more information about managed service accounts and virtual accounts, see the <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/dd548356(v=ws.10)">Service Accounts Step-by-Step Guide</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>Managed service accounts and virtual accounts are not supported until Windows 7 and Windows Server 2008 R2.
-     * @param {Pointer<PWSTR>} lpPassword The password to the account name specified by the <i>lpServiceStartName</i> parameter. Specify an empty string if the account has no password or if the service runs in the LocalService, NetworkService, or LocalSystem account. For more information, see 
+     * @param {Pointer<Char>} lpPassword The password to the account name specified by the <i>lpServiceStartName</i> parameter. Specify an empty string if the account has no password or if the service runs in the LocalService, NetworkService, or LocalSystem account. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-record-list">Service Record List</a>. 
      * 
      * 
@@ -2252,7 +2252,7 @@ class Services {
      * If the account name specified by the  <i>lpServiceStartName</i> parameter is the name of  a managed service account or virtual account name, the <i>lpPassword</i> parameter must be NULL. 
      * 
      * Passwords are ignored for driver services.
-     * @returns {Pointer<SC_HANDLE>} If the function succeeds, the return value is a handle to the service.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the service.
      * 
      * If the function fails, the return value is NULL. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2378,7 +2378,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CreateServiceW", "ptr", hSCManager, "ptr", lpServiceName, "ptr", lpDisplayName, "uint", dwDesiredAccess, "uint", dwServiceType, "uint", dwStartType, "uint", dwErrorControl, "ptr", lpBinaryPathName, "ptr", lpLoadOrderGroup, "ptr", lpdwTagId, "ptr", lpDependencies, "ptr", lpServiceStartName, "ptr", lpPassword, "ptr")
+        result := DllCall("ADVAPI32.dll\CreateServiceW", "ptr", hSCManager, "ptr", lpServiceName, "ptr", lpDisplayName, "uint", dwDesiredAccess, "uint", dwServiceType, "uint", dwStartType, "uint", dwErrorControl, "ptr", lpBinaryPathName, "ptr", lpLoadOrderGroup, "uint*", lpdwTagId, "ptr", lpDependencies, "ptr", lpServiceStartName, "ptr", lpPassword)
         if(A_LastError)
             throw OSError()
 
@@ -2394,7 +2394,7 @@ class Services {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-controlservice">ControlService</a> function with the SERVICE_CONTROL_STOP control code. If the service cannot be stopped, the database entry is removed when the system is restarted.
      * 
      * The service control manager deletes the service by deleting the service key and its subkeys from the registry.
-     * @param {Pointer<SC_HANDLE>} hService A handle to the service. This handle is returned by the 
+     * @param {Pointer<Void>} hService A handle to the service. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function, and it must have the DELETE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
@@ -2461,12 +2461,12 @@ class Services {
      * Retrieves the name and status of each service that depends on the specified service. (ANSI)
      * @remarks
      * The returned services entries are ordered in the reverse order of the start order, with group order taken into account. If you need to stop the dependent services, you can use the order of entries written to the <i>lpServices</i> buffer to stop the dependent services in the proper order.
-     * @param {Pointer<SC_HANDLE>} hService A handle to the service. This handle is returned by the 
+     * @param {Pointer<Void>} hService A handle to the service. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function, and it must have the <b>SERVICE_ENUMERATE_DEPENDENTS</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
      * @param {Integer} dwServiceState 
-     * @param {Pointer<ENUM_SERVICE_STATUSA>} lpServices A pointer to an array of 
+     * @param {Pointer} lpServices A pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-enum_service_statusa">ENUM_SERVICE_STATUS</a> structures that receives the name and service status information for each dependent service in the database. The buffer must be large enough to hold the structures, plus the strings to which their members point.
      * 
      * The order of the services in this array is the reverse of the start order of the services. In other words, the first service in the array is the one that would be started last, and the last service in the array is the one that would be started first.
@@ -2538,7 +2538,7 @@ class Services {
     static EnumDependentServicesA(hService, dwServiceState, lpServices, cbBufSize, pcbBytesNeeded, lpServicesReturned) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\EnumDependentServicesA", "ptr", hService, "uint", dwServiceState, "ptr", lpServices, "uint", cbBufSize, "ptr", pcbBytesNeeded, "ptr", lpServicesReturned, "int")
+        result := DllCall("ADVAPI32.dll\EnumDependentServicesA", "ptr", hService, "uint", dwServiceState, "ptr", lpServices, "uint", cbBufSize, "uint*", pcbBytesNeeded, "uint*", lpServicesReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2549,12 +2549,12 @@ class Services {
      * Retrieves the name and status of each service that depends on the specified service. (Unicode)
      * @remarks
      * The returned services entries are ordered in the reverse order of the start order, with group order taken into account. If you need to stop the dependent services, you can use the order of entries written to the <i>lpServices</i> buffer to stop the dependent services in the proper order.
-     * @param {Pointer<SC_HANDLE>} hService A handle to the service. This handle is returned by the 
+     * @param {Pointer<Void>} hService A handle to the service. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function, and it must have the <b>SERVICE_ENUMERATE_DEPENDENTS</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
      * @param {Integer} dwServiceState 
-     * @param {Pointer<ENUM_SERVICE_STATUSW>} lpServices A pointer to an array of 
+     * @param {Pointer} lpServices A pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-enum_service_statusa">ENUM_SERVICE_STATUS</a> structures that receives the name and service status information for each dependent service in the database. The buffer must be large enough to hold the structures, plus the strings to which their members point.
      * 
      * The order of the services in this array is the reverse of the start order of the services. In other words, the first service in the array is the one that would be started last, and the last service in the array is the one that would be started first.
@@ -2626,7 +2626,7 @@ class Services {
     static EnumDependentServicesW(hService, dwServiceState, lpServices, cbBufSize, pcbBytesNeeded, lpServicesReturned) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\EnumDependentServicesW", "ptr", hService, "uint", dwServiceState, "ptr", lpServices, "uint", cbBufSize, "ptr", pcbBytesNeeded, "ptr", lpServicesReturned, "int")
+        result := DllCall("ADVAPI32.dll\EnumDependentServicesW", "ptr", hService, "uint", dwServiceState, "ptr", lpServices, "uint", cbBufSize, "uint*", pcbBytesNeeded, "uint*", lpServicesReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2638,12 +2638,12 @@ class Services {
      * @remarks
      * > [!NOTE]
      * > The winsvc.h header defines EnumServicesStatus as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<SC_HANDLE>} hSCManager A handle to the service control manager database. This handle is returned by the 
+     * @param {Pointer<Void>} hSCManager A handle to the service control manager database. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openscmanagera">OpenSCManager</a> function, and must have the SC_MANAGER_ENUMERATE_SERVICE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
      * @param {Integer} dwServiceType 
      * @param {Integer} dwServiceState 
-     * @param {Pointer<ENUM_SERVICE_STATUSA>} lpServices A pointer to a buffer that contains an array of 
+     * @param {Pointer} lpServices A pointer to a buffer that contains an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-enum_service_statusa">ENUM_SERVICE_STATUS</a> structures that receive the name and service status information for each service in the database. The buffer must be large enough to hold the structures, plus the strings to which their members point.
      * 
      * The maximum size of this array is 256K bytes. To determine the required size, specify NULL for this parameter and 0 for the <i>cbBufSize</i> parameter. The function will fail and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return ERROR_INSUFFICIENT_BUFFER. The <i>pcbBytesNeeded</i> parameter will receive the required size.
@@ -2719,7 +2719,7 @@ class Services {
     static EnumServicesStatusA(hSCManager, dwServiceType, dwServiceState, lpServices, cbBufSize, pcbBytesNeeded, lpServicesReturned, lpResumeHandle) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\EnumServicesStatusA", "ptr", hSCManager, "uint", dwServiceType, "uint", dwServiceState, "ptr", lpServices, "uint", cbBufSize, "ptr", pcbBytesNeeded, "ptr", lpServicesReturned, "ptr", lpResumeHandle, "int")
+        result := DllCall("ADVAPI32.dll\EnumServicesStatusA", "ptr", hSCManager, "uint", dwServiceType, "uint", dwServiceState, "ptr", lpServices, "uint", cbBufSize, "uint*", pcbBytesNeeded, "uint*", lpServicesReturned, "uint*", lpResumeHandle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2731,12 +2731,12 @@ class Services {
      * @remarks
      * > [!NOTE]
      * > The winsvc.h header defines EnumServicesStatus as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<SC_HANDLE>} hSCManager A handle to the service control manager database. This handle is returned by the 
+     * @param {Pointer<Void>} hSCManager A handle to the service control manager database. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openscmanagera">OpenSCManager</a> function, and must have the SC_MANAGER_ENUMERATE_SERVICE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
      * @param {Integer} dwServiceType 
      * @param {Integer} dwServiceState 
-     * @param {Pointer<ENUM_SERVICE_STATUSW>} lpServices A pointer to a buffer that contains an array of 
+     * @param {Pointer} lpServices A pointer to a buffer that contains an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-enum_service_statusa">ENUM_SERVICE_STATUS</a> structures that receive the name and service status information for each service in the database. The buffer must be large enough to hold the structures, plus the strings to which their members point.
      * 
      * The maximum size of this array is 256K bytes. To determine the required size, specify NULL for this parameter and 0 for the <i>cbBufSize</i> parameter. The function will fail and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return ERROR_INSUFFICIENT_BUFFER. The <i>pcbBytesNeeded</i> parameter will receive the required size.
@@ -2812,7 +2812,7 @@ class Services {
     static EnumServicesStatusW(hSCManager, dwServiceType, dwServiceState, lpServices, cbBufSize, pcbBytesNeeded, lpServicesReturned, lpResumeHandle) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\EnumServicesStatusW", "ptr", hSCManager, "uint", dwServiceType, "uint", dwServiceState, "ptr", lpServices, "uint", cbBufSize, "ptr", pcbBytesNeeded, "ptr", lpServicesReturned, "ptr", lpResumeHandle, "int")
+        result := DllCall("ADVAPI32.dll\EnumServicesStatusW", "ptr", hSCManager, "uint", dwServiceType, "uint", dwServiceState, "ptr", lpServices, "uint", cbBufSize, "uint*", pcbBytesNeeded, "uint*", lpServicesReturned, "uint*", lpResumeHandle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2830,7 +2830,7 @@ class Services {
      * 
      * > [!NOTE]
      * > The winsvc.h header defines EnumServicesStatusEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<SC_HANDLE>} hSCManager A handle to the service control manager database. This handle is returned by the 
+     * @param {Pointer<Void>} hSCManager A handle to the service control manager database. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openscmanagera">OpenSCManager</a> function, and must have the <b>SC_MANAGER_ENUMERATE_SERVICE</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
      * @param {Integer} InfoLevel The service attributes that are to be returned. Use <b>SC_ENUM_PROCESS_INFO</b> to retrieve the name and service status information for each service in the database. The <i>lpServices</i> parameter is a pointer to a buffer that receives an array of 
@@ -2839,7 +2839,7 @@ class Services {
      * Currently, no other information levels are defined.
      * @param {Integer} dwServiceType 
      * @param {Integer} dwServiceState 
-     * @param {Pointer<Byte>} lpServices A pointer to the buffer that receives the status information. The format of this data depends on the value of the <i>InfoLevel</i> parameter.
+     * @param {Pointer} lpServices A pointer to the buffer that receives the status information. The format of this data depends on the value of the <i>InfoLevel</i> parameter.
      * 
      * The maximum size of this array is 256K bytes. To determine the required size, specify <b>NULL</b> for this parameter and 0 for the <i>cbBufSize</i> parameter. The function will fail and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return <b>ERROR_MORE_DATA</b>. The <i>pcbBytesNeeded</i> parameter will receive the required size.
      * 
@@ -2851,7 +2851,7 @@ class Services {
      * <b>EnumServicesStatusEx</b> function is called. On output, this value is zero if the function succeeds. However, if the function returns zero and the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function returns <b>ERROR_MORE_DATA</b>, this value indicates the next service entry to be read when the 
      * <b>EnumServicesStatusEx</b> function is called to retrieve the additional data.
-     * @param {Pointer<PSTR>} pszGroupName The load-order group name. If this parameter is a string, the only services enumerated are those that belong to the group that has the name specified by the string. If this parameter is an empty string, only services that do not belong to any group are enumerated. If this parameter is <b>NULL</b>, group membership is ignored and all services are enumerated.
+     * @param {Pointer<Byte>} pszGroupName The load-order group name. If this parameter is a string, the only services enumerated are those that belong to the group that has the name specified by the string. If this parameter is an empty string, only services that do not belong to any group are enumerated. If this parameter is <b>NULL</b>, group membership is ignored and all services are enumerated.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -2937,7 +2937,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\EnumServicesStatusExA", "ptr", hSCManager, "int", InfoLevel, "uint", dwServiceType, "uint", dwServiceState, "ptr", lpServices, "uint", cbBufSize, "ptr", pcbBytesNeeded, "ptr", lpServicesReturned, "ptr", lpResumeHandle, "ptr", pszGroupName, "int")
+        result := DllCall("ADVAPI32.dll\EnumServicesStatusExA", "ptr", hSCManager, "int", InfoLevel, "uint", dwServiceType, "uint", dwServiceState, "ptr", lpServices, "uint", cbBufSize, "uint*", pcbBytesNeeded, "uint*", lpServicesReturned, "uint*", lpResumeHandle, "ptr", pszGroupName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2955,7 +2955,7 @@ class Services {
      * 
      * > [!NOTE]
      * > The winsvc.h header defines EnumServicesStatusEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<SC_HANDLE>} hSCManager A handle to the service control manager database. This handle is returned by the 
+     * @param {Pointer<Void>} hSCManager A handle to the service control manager database. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openscmanagera">OpenSCManager</a> function, and must have the <b>SC_MANAGER_ENUMERATE_SERVICE</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
      * @param {Integer} InfoLevel The service attributes that are to be returned. Use <b>SC_ENUM_PROCESS_INFO</b> to retrieve the name and service status information for each service in the database. The <i>lpServices</i> parameter is a pointer to a buffer that receives an array of 
@@ -2964,7 +2964,7 @@ class Services {
      * Currently, no other information levels are defined.
      * @param {Integer} dwServiceType 
      * @param {Integer} dwServiceState 
-     * @param {Pointer<Byte>} lpServices A pointer to the buffer that receives the status information. The format of this data depends on the value of the <i>InfoLevel</i> parameter.
+     * @param {Pointer} lpServices A pointer to the buffer that receives the status information. The format of this data depends on the value of the <i>InfoLevel</i> parameter.
      * 
      * The maximum size of this array is 256K bytes. To determine the required size, specify <b>NULL</b> for this parameter and 0 for the <i>cbBufSize</i> parameter. The function will fail and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return <b>ERROR_MORE_DATA</b>. The <i>pcbBytesNeeded</i> parameter will receive the required size.
      * 
@@ -2976,7 +2976,7 @@ class Services {
      * <b>EnumServicesStatusEx</b> function is called. On output, this value is zero if the function succeeds. However, if the function returns zero and the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function returns <b>ERROR_MORE_DATA</b>, this value indicates the next service entry to be read when the 
      * <b>EnumServicesStatusEx</b> function is called to retrieve the additional data.
-     * @param {Pointer<PWSTR>} pszGroupName The load-order group name. If this parameter is a string, the only services enumerated are those that belong to the group that has the name specified by the string. If this parameter is an empty string, only services that do not belong to any group are enumerated. If this parameter is <b>NULL</b>, group membership is ignored and all services are enumerated.
+     * @param {Pointer<Char>} pszGroupName The load-order group name. If this parameter is a string, the only services enumerated are those that belong to the group that has the name specified by the string. If this parameter is an empty string, only services that do not belong to any group are enumerated. If this parameter is <b>NULL</b>, group membership is ignored and all services are enumerated.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -3062,7 +3062,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\EnumServicesStatusExW", "ptr", hSCManager, "int", InfoLevel, "uint", dwServiceType, "uint", dwServiceState, "ptr", lpServices, "uint", cbBufSize, "ptr", pcbBytesNeeded, "ptr", lpServicesReturned, "ptr", lpResumeHandle, "ptr", pszGroupName, "int")
+        result := DllCall("ADVAPI32.dll\EnumServicesStatusExW", "ptr", hSCManager, "int", InfoLevel, "uint", dwServiceType, "uint", dwServiceState, "ptr", lpServices, "uint", cbBufSize, "uint*", pcbBytesNeeded, "uint*", lpServicesReturned, "uint*", lpResumeHandle, "ptr", pszGroupName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3084,10 +3084,10 @@ class Services {
      * 
      * > [!NOTE]
      * > The winsvc.h header defines GetServiceKeyName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<SC_HANDLE>} hSCManager A handle to the computer's service control manager database, as returned by 
+     * @param {Pointer<Void>} hSCManager A handle to the computer's service control manager database, as returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openscmanagera">OpenSCManager</a>.
-     * @param {Pointer<PSTR>} lpDisplayName The service display name. This string has a maximum length of 256 characters.
-     * @param {Pointer<PSTR>} lpServiceName A pointer to a buffer that receives the service name. If the function fails, this buffer will contain an empty string.
+     * @param {Pointer<Byte>} lpDisplayName The service display name. This string has a maximum length of 256 characters.
+     * @param {Pointer<Byte>} lpServiceName A pointer to a buffer that receives the service name. If the function fails, this buffer will contain an empty string.
      * 
      * The maximum size of this array is 4K bytes. To determine the required size, specify NULL for this parameter and 0 for the <i>lpcchBuffer</i> parameter. The function will fail and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return <b>ERROR_INSUFFICIENT_BUFFER</b>. The <i>lpcchBuffer</i> parameter will receive the required size.
      * @param {Pointer<UInt32>} lpcchBuffer A pointer to variable that specifies the size of the buffer pointed to by the <i>lpServiceName</i> parameter, in <b>TCHARs</b>. When the function returns, this parameter contains the size of the service name, in <b>TCHARs</b>, excluding the null-terminating character.
@@ -3106,7 +3106,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetServiceKeyNameA", "ptr", hSCManager, "ptr", lpDisplayName, "ptr", lpServiceName, "ptr", lpcchBuffer, "int")
+        result := DllCall("ADVAPI32.dll\GetServiceKeyNameA", "ptr", hSCManager, "ptr", lpDisplayName, "ptr", lpServiceName, "uint*", lpcchBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3128,10 +3128,10 @@ class Services {
      * 
      * > [!NOTE]
      * > The winsvc.h header defines GetServiceKeyName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<SC_HANDLE>} hSCManager A handle to the computer's service control manager database, as returned by 
+     * @param {Pointer<Void>} hSCManager A handle to the computer's service control manager database, as returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openscmanagera">OpenSCManager</a>.
-     * @param {Pointer<PWSTR>} lpDisplayName The service display name. This string has a maximum length of 256 characters.
-     * @param {Pointer<PWSTR>} lpServiceName A pointer to a buffer that receives the service name. If the function fails, this buffer will contain an empty string.
+     * @param {Pointer<Char>} lpDisplayName The service display name. This string has a maximum length of 256 characters.
+     * @param {Pointer<Char>} lpServiceName A pointer to a buffer that receives the service name. If the function fails, this buffer will contain an empty string.
      * 
      * The maximum size of this array is 4K bytes. To determine the required size, specify NULL for this parameter and 0 for the <i>lpcchBuffer</i> parameter. The function will fail and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return <b>ERROR_INSUFFICIENT_BUFFER</b>. The <i>lpcchBuffer</i> parameter will receive the required size.
      * @param {Pointer<UInt32>} lpcchBuffer A pointer to variable that specifies the size of the buffer pointed to by the <i>lpServiceName</i> parameter, in <b>TCHARs</b>. When the function returns, this parameter contains the size of the service name, in <b>TCHARs</b>, excluding the null-terminating character.
@@ -3150,7 +3150,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetServiceKeyNameW", "ptr", hSCManager, "ptr", lpDisplayName, "ptr", lpServiceName, "ptr", lpcchBuffer, "int")
+        result := DllCall("ADVAPI32.dll\GetServiceKeyNameW", "ptr", hSCManager, "ptr", lpDisplayName, "ptr", lpServiceName, "uint*", lpcchBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3166,10 +3166,10 @@ class Services {
      * 
      * > [!NOTE]
      * > The winsvc.h header defines GetServiceDisplayName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<SC_HANDLE>} hSCManager A handle to the service control manager database, as returned by the 
+     * @param {Pointer<Void>} hSCManager A handle to the service control manager database, as returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openscmanagera">OpenSCManager</a> function.
-     * @param {Pointer<PSTR>} lpServiceName The service name. This name is the same as the service's registry key name. It is best to choose a name that is less than 256 characters.
-     * @param {Pointer<PSTR>} lpDisplayName A pointer to a buffer that receives the service's display name. If the function fails, this buffer will contain an empty string.
+     * @param {Pointer<Byte>} lpServiceName The service name. This name is the same as the service's registry key name. It is best to choose a name that is less than 256 characters.
+     * @param {Pointer<Byte>} lpDisplayName A pointer to a buffer that receives the service's display name. If the function fails, this buffer will contain an empty string.
      * 
      * The maximum size of this array is 4K bytes. To determine the required size, specify NULL for this parameter and 0 for the <i>lpcchBuffer</i> parameter. The function will fail and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return <b>ERROR_INSUFFICIENT_BUFFER</b>. The <i>lpcchBuffer</i> parameter will receive the required size.
      * 
@@ -3198,7 +3198,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetServiceDisplayNameA", "ptr", hSCManager, "ptr", lpServiceName, "ptr", lpDisplayName, "ptr", lpcchBuffer, "int")
+        result := DllCall("ADVAPI32.dll\GetServiceDisplayNameA", "ptr", hSCManager, "ptr", lpServiceName, "ptr", lpDisplayName, "uint*", lpcchBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3218,10 +3218,10 @@ class Services {
      * 
      * > [!NOTE]
      * > The winsvc.h header defines GetServiceDisplayName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<SC_HANDLE>} hSCManager A handle to the service control manager database, as returned by the 
+     * @param {Pointer<Void>} hSCManager A handle to the service control manager database, as returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openscmanagera">OpenSCManager</a> function.
-     * @param {Pointer<PWSTR>} lpServiceName The service name. This name is the same as the service's registry key name. It is best to choose a name that is less than 256 characters.
-     * @param {Pointer<PWSTR>} lpDisplayName A pointer to a buffer that receives the service's display name. If the function fails, this buffer will contain an empty string.
+     * @param {Pointer<Char>} lpServiceName The service name. This name is the same as the service's registry key name. It is best to choose a name that is less than 256 characters.
+     * @param {Pointer<Char>} lpDisplayName A pointer to a buffer that receives the service's display name. If the function fails, this buffer will contain an empty string.
      * 
      * The maximum size of this array is 4K bytes. To determine the required size, specify NULL for this parameter and 0 for the <i>lpcchBuffer</i> parameter. The function will fail and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return <b>ERROR_INSUFFICIENT_BUFFER</b>. The <i>lpcchBuffer</i> parameter will receive the required size.
      * 
@@ -3251,7 +3251,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetServiceDisplayNameW", "ptr", hSCManager, "ptr", lpServiceName, "ptr", lpDisplayName, "ptr", lpcchBuffer, "int")
+        result := DllCall("ADVAPI32.dll\GetServiceDisplayNameW", "ptr", hSCManager, "ptr", lpServiceName, "ptr", lpDisplayName, "uint*", lpcchBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3275,20 +3275,66 @@ class Services {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-unlockservicedatabase">UnlockServiceDatabase</a> function. If a process that owns a lock terminates, the SCM automatically cleans up and releases ownership of the lock. 
      * 
      * Failing to release the lock can cause system problems. A process that acquires  the lock should release it as soon as possible.
-     * @param {Pointer<SC_HANDLE>} hSCManager A handle to the SCM database. This handle is returned by the 
+     * @param {Pointer<Void>} hSCManager A handle to the SCM database. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openscmanagera">OpenSCManager</a> function, and must have the <b>SC_MANAGER_LOCK</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a lock to the specified SCM database.
+     * 
+     * If the function fails, the return value is NULL. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * 
+     * The following error codes can be set by the SCM. Other error codes can be set by registry functions that are called by the SCM.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_ACCESS_DENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The handle does not have the <b>SC_MANAGER_LOCK</b> access right.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INVALID_HANDLE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified handle is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_SERVICE_DATABASE_LOCKED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The database is locked.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-lockservicedatabase
      * @since windows5.1.2600
      */
     static LockServiceDatabase(hSCManager) {
         A_LastError := 0
 
-        DllCall("ADVAPI32.dll\LockServiceDatabase", "ptr", hSCManager)
+        result := DllCall("ADVAPI32.dll\LockServiceDatabase", "ptr", hSCManager)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -3353,8 +3399,8 @@ class Services {
      * The returned handle is only valid for the process that called the 
      * <b>OpenSCManager</b> function. It can be closed by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-closeservicehandle">CloseServiceHandle</a> function.
-     * @param {Pointer<PSTR>} lpMachineName The name of the target computer. If the pointer is NULL or points to an empty string, the function connects to the service control manager on the local computer.
-     * @param {Pointer<PSTR>} lpDatabaseName The name of the service control manager database. This parameter should be set to SERVICES_ACTIVE_DATABASE. If it is NULL, the SERVICES_ACTIVE_DATABASE database is opened by default.
+     * @param {Pointer<Byte>} lpMachineName The name of the target computer. If the pointer is NULL or points to an empty string, the function connects to the service control manager on the local computer.
+     * @param {Pointer<Byte>} lpDatabaseName The name of the service control manager database. This parameter should be set to SERVICES_ACTIVE_DATABASE. If it is NULL, the SERVICES_ACTIVE_DATABASE database is opened by default.
      * @param {Integer} dwDesiredAccess The access to the service control manager. For a list of access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>. 
      * 
@@ -3364,7 +3410,7 @@ class Services {
      * Before granting the requested access rights, the system checks the access token of the calling process against the discretionary access-control list of the security descriptor associated with the service control manager.
      * 
      * The SC_MANAGER_CONNECT access right is implicitly specified by calling this function.
-     * @returns {Pointer<SC_HANDLE>} If the function succeeds, the return value is a handle to the specified service control manager database.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the specified service control manager database.
      * 
      * If the function fails, the return value is NULL. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3408,7 +3454,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\OpenSCManagerA", "ptr", lpMachineName, "ptr", lpDatabaseName, "uint", dwDesiredAccess, "ptr")
+        result := DllCall("ADVAPI32.dll\OpenSCManagerA", "ptr", lpMachineName, "ptr", lpDatabaseName, "uint", dwDesiredAccess)
         if(A_LastError)
             throw OSError()
 
@@ -3430,8 +3476,8 @@ class Services {
      * The returned handle is only valid for the process that called the 
      * <b>OpenSCManager</b> function. It can be closed by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-closeservicehandle">CloseServiceHandle</a> function.
-     * @param {Pointer<PWSTR>} lpMachineName The name of the target computer. If the pointer is NULL or points to an empty string, the function connects to the service control manager on the local computer.
-     * @param {Pointer<PWSTR>} lpDatabaseName The name of the service control manager database. This parameter should be set to SERVICES_ACTIVE_DATABASE. If it is NULL, the SERVICES_ACTIVE_DATABASE database is opened by default.
+     * @param {Pointer<Char>} lpMachineName The name of the target computer. If the pointer is NULL or points to an empty string, the function connects to the service control manager on the local computer.
+     * @param {Pointer<Char>} lpDatabaseName The name of the service control manager database. This parameter should be set to SERVICES_ACTIVE_DATABASE. If it is NULL, the SERVICES_ACTIVE_DATABASE database is opened by default.
      * @param {Integer} dwDesiredAccess The access to the service control manager. For a list of access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>. 
      * 
@@ -3441,7 +3487,7 @@ class Services {
      * Before granting the requested access rights, the system checks the access token of the calling process against the discretionary access-control list of the security descriptor associated with the service control manager.
      * 
      * The SC_MANAGER_CONNECT access right is implicitly specified by calling this function.
-     * @returns {Pointer<SC_HANDLE>} If the function succeeds, the return value is a handle to the specified service control manager database.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the specified service control manager database.
      * 
      * If the function fails, the return value is NULL. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3485,7 +3531,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\OpenSCManagerW", "ptr", lpMachineName, "ptr", lpDatabaseName, "uint", dwDesiredAccess, "ptr")
+        result := DllCall("ADVAPI32.dll\OpenSCManagerW", "ptr", lpMachineName, "ptr", lpDatabaseName, "uint", dwDesiredAccess)
         if(A_LastError)
             throw OSError()
 
@@ -3500,9 +3546,9 @@ class Services {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-closeservicehandle">CloseServiceHandle</a> function.
      * 
      * To use <b>OpenService</b>, no privileges are required aside from <b>SC_MANAGER_CONNECT</b>.
-     * @param {Pointer<SC_HANDLE>} hSCManager A handle to the service control manager database. The 
+     * @param {Pointer<Void>} hSCManager A handle to the service control manager database. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openscmanagera">OpenSCManager</a> function returns this handle. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
-     * @param {Pointer<PSTR>} lpServiceName The name of the service to be opened. This is the name specified by the <i>lpServiceName</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function when the service object was created, not the service display name that is shown by user interface applications to identify the service. 
+     * @param {Pointer<Byte>} lpServiceName The name of the service to be opened. This is the name specified by the <i>lpServiceName</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function when the service object was created, not the service display name that is shown by user interface applications to identify the service. 
      * 
      * The maximum string length is 256 characters. The service control manager database preserves the case of the characters, but service name comparisons are always case insensitive. Forward-slash (/) and backslash (\\) are invalid service name characters.
      * @param {Integer} dwDesiredAccess The access to the service. For a list of access rights, see 
@@ -3512,7 +3558,7 @@ class Services {
      * 
      * 
      * Before granting the requested access, the system checks the access token of the calling process against the discretionary access-control list of the security descriptor associated with the service object.
-     * @returns {Pointer<SC_HANDLE>} If the function succeeds, the return value is a handle to the service.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the service.
      * 
      * If the function fails, the return value is NULL. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3577,7 +3623,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\OpenServiceA", "ptr", hSCManager, "ptr", lpServiceName, "uint", dwDesiredAccess, "ptr")
+        result := DllCall("ADVAPI32.dll\OpenServiceA", "ptr", hSCManager, "ptr", lpServiceName, "uint", dwDesiredAccess)
         if(A_LastError)
             throw OSError()
 
@@ -3592,9 +3638,9 @@ class Services {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-closeservicehandle">CloseServiceHandle</a> function.
      * 
      * To use <b>OpenService</b>, no privileges are required aside from <b>SC_MANAGER_CONNECT</b>.
-     * @param {Pointer<SC_HANDLE>} hSCManager A handle to the service control manager database. The 
+     * @param {Pointer<Void>} hSCManager A handle to the service control manager database. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openscmanagera">OpenSCManager</a> function returns this handle. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
-     * @param {Pointer<PWSTR>} lpServiceName The name of the service to be opened. This is the name specified by the <i>lpServiceName</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function when the service object was created, not the service display name that is shown by user interface applications to identify the service. 
+     * @param {Pointer<Char>} lpServiceName The name of the service to be opened. This is the name specified by the <i>lpServiceName</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function when the service object was created, not the service display name that is shown by user interface applications to identify the service. 
      * 
      * The maximum string length is 256 characters. The service control manager database preserves the case of the characters, but service name comparisons are always case insensitive. Forward-slash (/) and backslash (\\) are invalid service name characters.
      * @param {Integer} dwDesiredAccess The access to the service. For a list of access rights, see 
@@ -3604,7 +3650,7 @@ class Services {
      * 
      * 
      * Before granting the requested access, the system checks the access token of the calling process against the discretionary access-control list of the security descriptor associated with the service object.
-     * @returns {Pointer<SC_HANDLE>} If the function succeeds, the return value is a handle to the service.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the service.
      * 
      * If the function fails, the return value is NULL. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3669,7 +3715,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\OpenServiceW", "ptr", hSCManager, "ptr", lpServiceName, "uint", dwDesiredAccess, "ptr")
+        result := DllCall("ADVAPI32.dll\OpenServiceW", "ptr", hSCManager, "ptr", lpServiceName, "uint", dwDesiredAccess)
         if(A_LastError)
             throw OSError()
 
@@ -3686,11 +3732,11 @@ class Services {
      * 
      * If the service was running when the configuration information was last changed, the information returned by 
      * <b>QueryServiceConfig</b> will not reflect the current configuration of the service. Instead, it will reflect the configuration of the service when it is next run. The <b>DisplayName</b> key is an exception to this. When the <b>DisplayName</b> key is changed, it takes effect immediately, regardless of whether the service is running.
-     * @param {Pointer<SC_HANDLE>} hService A handle to the service. This handle is returned by the 
+     * @param {Pointer<Void>} hService A handle to the service. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function, and it must have the SERVICE_QUERY_CONFIG access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
-     * @param {Pointer<QUERY_SERVICE_CONFIGA>} lpServiceConfig A pointer to a buffer that receives the service configuration information. The format of the data is a 
+     * @param {Pointer} lpServiceConfig A pointer to a buffer that receives the service configuration information. The format of the data is a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-query_service_configa">QUERY_SERVICE_CONFIG</a> structure.
      * 
      * The maximum size of this array is 8K bytes. To determine the required size, specify NULL for this parameter and 0 for the <i>cbBufSize</i> parameter. The function will fail and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return ERROR_INSUFFICIENT_BUFFER. The <i>pcbBytesNeeded</i> parameter will receive the required size.
@@ -3749,7 +3795,7 @@ class Services {
     static QueryServiceConfigA(hService, lpServiceConfig, cbBufSize, pcbBytesNeeded) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\QueryServiceConfigA", "ptr", hService, "ptr", lpServiceConfig, "uint", cbBufSize, "ptr", pcbBytesNeeded, "int")
+        result := DllCall("ADVAPI32.dll\QueryServiceConfigA", "ptr", hService, "ptr", lpServiceConfig, "uint", cbBufSize, "uint*", pcbBytesNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3766,11 +3812,11 @@ class Services {
      * 
      * If the service was running when the configuration information was last changed, the information returned by 
      * <b>QueryServiceConfig</b> will not reflect the current configuration of the service. Instead, it will reflect the configuration of the service when it is next run. The <b>DisplayName</b> key is an exception to this. When the <b>DisplayName</b> key is changed, it takes effect immediately, regardless of whether the service is running.
-     * @param {Pointer<SC_HANDLE>} hService A handle to the service. This handle is returned by the 
+     * @param {Pointer<Void>} hService A handle to the service. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function, and it must have the SERVICE_QUERY_CONFIG access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
-     * @param {Pointer<QUERY_SERVICE_CONFIGW>} lpServiceConfig A pointer to a buffer that receives the service configuration information. The format of the data is a 
+     * @param {Pointer} lpServiceConfig A pointer to a buffer that receives the service configuration information. The format of the data is a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-query_service_configa">QUERY_SERVICE_CONFIG</a> structure.
      * 
      * The maximum size of this array is 8K bytes. To determine the required size, specify NULL for this parameter and 0 for the <i>cbBufSize</i> parameter. The function will fail and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return ERROR_INSUFFICIENT_BUFFER. The <i>pcbBytesNeeded</i> parameter will receive the required size.
@@ -3829,7 +3875,7 @@ class Services {
     static QueryServiceConfigW(hService, lpServiceConfig, cbBufSize, pcbBytesNeeded) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\QueryServiceConfigW", "ptr", hService, "ptr", lpServiceConfig, "uint", cbBufSize, "ptr", pcbBytesNeeded, "int")
+        result := DllCall("ADVAPI32.dll\QueryServiceConfigW", "ptr", hService, "ptr", lpServiceConfig, "uint", cbBufSize, "uint*", pcbBytesNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3846,12 +3892,12 @@ class Services {
      * You can change and query additional configuration information using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-changeserviceconfiga">ChangeServiceConfig</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-queryserviceconfiga">QueryServiceConfig</a> functions, respectively.
-     * @param {Pointer<SC_HANDLE>} hService A handle to the service. This handle is returned by the 
+     * @param {Pointer<Void>} hService A handle to the service. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function and must have the <b>SERVICE_QUERY_CONFIG</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
      * @param {Integer} dwInfoLevel 
-     * @param {Pointer<Byte>} lpBuffer A pointer to the buffer that receives the service configuration information. The format of this data depends on the value of the <i>dwInfoLevel</i> parameter.
+     * @param {Pointer} lpBuffer A pointer to the buffer that receives the service configuration information. The format of this data depends on the value of the <i>dwInfoLevel</i> parameter.
      * 
      * The maximum size of this array is 8K bytes. To determine the required size, specify <b>NULL</b> for this parameter and 0 for the <i>cbBufSize</i> parameter. The function fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_INSUFFICIENT_BUFFER</b>. The <i>pcbBytesNeeded</i> parameter receives the needed size.
      * @param {Integer} cbBufSize The size of the structure pointed to by the <i>lpBuffer</i> parameter, in bytes.
@@ -3908,7 +3954,7 @@ class Services {
     static QueryServiceConfig2A(hService, dwInfoLevel, lpBuffer, cbBufSize, pcbBytesNeeded) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\QueryServiceConfig2A", "ptr", hService, "uint", dwInfoLevel, "ptr", lpBuffer, "uint", cbBufSize, "ptr", pcbBytesNeeded, "int")
+        result := DllCall("ADVAPI32.dll\QueryServiceConfig2A", "ptr", hService, "uint", dwInfoLevel, "ptr", lpBuffer, "uint", cbBufSize, "uint*", pcbBytesNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3925,12 +3971,12 @@ class Services {
      * You can change and query additional configuration information using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-changeserviceconfiga">ChangeServiceConfig</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-queryserviceconfiga">QueryServiceConfig</a> functions, respectively.
-     * @param {Pointer<SC_HANDLE>} hService A handle to the service. This handle is returned by the 
+     * @param {Pointer<Void>} hService A handle to the service. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function and must have the <b>SERVICE_QUERY_CONFIG</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
      * @param {Integer} dwInfoLevel 
-     * @param {Pointer<Byte>} lpBuffer A pointer to the buffer that receives the service configuration information. The format of this data depends on the value of the <i>dwInfoLevel</i> parameter.
+     * @param {Pointer} lpBuffer A pointer to the buffer that receives the service configuration information. The format of this data depends on the value of the <i>dwInfoLevel</i> parameter.
      * 
      * The maximum size of this array is 8K bytes. To determine the required size, specify <b>NULL</b> for this parameter and 0 for the <i>cbBufSize</i> parameter. The function fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_INSUFFICIENT_BUFFER</b>. The <i>pcbBytesNeeded</i> parameter receives the needed size.
      * @param {Integer} cbBufSize The size of the structure pointed to by the <i>lpBuffer</i> parameter, in bytes.
@@ -3987,7 +4033,7 @@ class Services {
     static QueryServiceConfig2W(hService, dwInfoLevel, lpBuffer, cbBufSize, pcbBytesNeeded) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\QueryServiceConfig2W", "ptr", hService, "uint", dwInfoLevel, "ptr", lpBuffer, "uint", cbBufSize, "ptr", pcbBytesNeeded, "int")
+        result := DllCall("ADVAPI32.dll\QueryServiceConfig2W", "ptr", hService, "uint", dwInfoLevel, "ptr", lpBuffer, "uint", cbBufSize, "uint*", pcbBytesNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4011,10 +4057,10 @@ class Services {
      * 
      * > [!NOTE]
      * > The winsvc.h header defines QueryServiceLockStatus as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<SC_HANDLE>} hSCManager A handle to the service control manager database. The 
+     * @param {Pointer<Void>} hSCManager A handle to the service control manager database. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openscmanagera">OpenSCManager</a> function returns this handle, which must have the SC_MANAGER_QUERY_LOCK_STATUS access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
-     * @param {Pointer<QUERY_SERVICE_LOCK_STATUSA>} lpLockStatus A pointer to a 
+     * @param {Pointer} lpLockStatus A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-query_service_lock_statusa">QUERY_SERVICE_LOCK_STATUS</a> structure that receives the lock status of the specified database is returned, plus the strings to which its members point.
      * @param {Integer} cbBufSize The size of the buffer pointed to by the <i>lpLockStatus</i> parameter, in bytes.
      * @param {Pointer<UInt32>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to return all the lock status information, if the function fails.
@@ -4070,7 +4116,7 @@ class Services {
     static QueryServiceLockStatusA(hSCManager, lpLockStatus, cbBufSize, pcbBytesNeeded) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\QueryServiceLockStatusA", "ptr", hSCManager, "ptr", lpLockStatus, "uint", cbBufSize, "ptr", pcbBytesNeeded, "int")
+        result := DllCall("ADVAPI32.dll\QueryServiceLockStatusA", "ptr", hSCManager, "ptr", lpLockStatus, "uint", cbBufSize, "uint*", pcbBytesNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4094,10 +4140,10 @@ class Services {
      * 
      * > [!NOTE]
      * > The winsvc.h header defines QueryServiceLockStatus as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<SC_HANDLE>} hSCManager A handle to the service control manager database. The 
+     * @param {Pointer<Void>} hSCManager A handle to the service control manager database. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openscmanagera">OpenSCManager</a> function returns this handle, which must have the SC_MANAGER_QUERY_LOCK_STATUS access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
-     * @param {Pointer<QUERY_SERVICE_LOCK_STATUSW>} lpLockStatus A pointer to a 
+     * @param {Pointer} lpLockStatus A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-query_service_lock_statusa">QUERY_SERVICE_LOCK_STATUS</a> structure that receives the lock status of the specified database is returned, plus the strings to which its members point.
      * @param {Integer} cbBufSize The size of the buffer pointed to by the <i>lpLockStatus</i> parameter, in bytes.
      * @param {Pointer<UInt32>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to return all the lock status information, if the function fails.
@@ -4153,7 +4199,7 @@ class Services {
     static QueryServiceLockStatusW(hSCManager, lpLockStatus, cbBufSize, pcbBytesNeeded) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\QueryServiceLockStatusW", "ptr", hSCManager, "ptr", lpLockStatus, "uint", cbBufSize, "ptr", pcbBytesNeeded, "int")
+        result := DllCall("ADVAPI32.dll\QueryServiceLockStatusW", "ptr", hSCManager, "ptr", lpLockStatus, "uint", cbBufSize, "uint*", pcbBytesNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4170,14 +4216,14 @@ class Services {
      * To read the owner, group, or DACL from the security descriptor of the service object, the calling process must have been granted READ_CONTROL access when the handle was opened. To get READ_CONTROL access, the caller must be the owner of the object or the DACL of the object must grant the access.
      * 
      * To read the SACL from the security descriptor, the calling process must have been granted ACCESS_SYSTEM_SECURITY access when the handle was opened. The correct way to get this access is to enable the SE_SECURITY_NAME privilege in the caller's current token, open the handle for ACCESS_SYSTEM_SECURITY access, and then disable the privilege.
-     * @param {Pointer<SC_HANDLE>} hService A handle to the service control manager or the service. Handles to the service control manager are returned by the 
+     * @param {Pointer<Void>} hService A handle to the service control manager or the service. Handles to the service control manager are returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openscmanagera">OpenSCManager</a> function, and handles to a service are returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function. The handle must have the READ_CONTROL access right.
      * @param {Integer} dwSecurityInformation A set of 
      * bit flags that indicate the type of security information to retrieve. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags, with the exception that this function does not support the <b>LABEL_SECURITY_INFORMATION</b> value.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} lpSecurityDescriptor A pointer to a buffer that receives a copy of the security descriptor of the specified service object. The calling process must have the appropriate access to view the specified aspects of the  security descriptor of the object. The 
+     * @param {Pointer} lpSecurityDescriptor A pointer to a buffer that receives a copy of the security descriptor of the specified service object. The calling process must have the appropriate access to view the specified aspects of the  security descriptor of the object. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure is returned in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative</a> format.
      * @param {Integer} cbBufSize The size of the buffer pointed to by the <i>lpSecurityDescriptor</i> parameter, in bytes. The largest size allowed is 8 kilobytes.
      * @param {Pointer<UInt32>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to return the requested security descriptor information, if the function fails.
@@ -4244,7 +4290,7 @@ class Services {
     static QueryServiceObjectSecurity(hService, dwSecurityInformation, lpSecurityDescriptor, cbBufSize, pcbBytesNeeded) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\QueryServiceObjectSecurity", "ptr", hService, "uint", dwSecurityInformation, "ptr", lpSecurityDescriptor, "uint", cbBufSize, "ptr", pcbBytesNeeded, "int")
+        result := DllCall("ADVAPI32.dll\QueryServiceObjectSecurity", "ptr", hService, "uint", dwSecurityInformation, "ptr", lpSecurityDescriptor, "uint", cbBufSize, "uint*", pcbBytesNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4256,7 +4302,7 @@ class Services {
      * @remarks
      * The 
      * <b>QueryServiceStatus</b> function returns the most recent service status information reported to the service control manager. If the service just changed its status, it may not have updated the service control manager yet.
-     * @param {Pointer<SC_HANDLE>} hService A handle to the service. This handle is returned by the 
+     * @param {Pointer<Void>} hService A handle to the service. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function, and it must have the SERVICE_QUERY_STATUS access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
@@ -4317,7 +4363,7 @@ class Services {
      * <b>QueryServiceStatusEx</b> function returns the most recent service status information reported to the service control manager. If the service just changed its status, it may not have updated the service control manager yet.
      * 
      * The process identifier returned in the <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-service_status_process">SERVICE_STATUS_PROCESS</a> structure is valid provided that the state of the service is one of SERVICE_RUNNING, SERVICE_PAUSE_PENDING, SERVICE_PAUSED, or SERVICE_CONTINUE_PENDING. If the service is in a SERVICE_START_PENDING or SERVICE_STOP_PENDING state, however, the process identifier may not be valid, and if the service is in the SERVICE_STOPPED state, it is never valid.
-     * @param {Pointer<SC_HANDLE>} hService A handle to the service. This handle is returned by the 
+     * @param {Pointer<Void>} hService A handle to the service. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> function, and it must have the SERVICE_QUERY_STATUS access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
@@ -4328,7 +4374,7 @@ class Services {
      * 
      * 
      * Currently, no other information levels are defined.
-     * @param {Pointer<Byte>} lpBuffer A pointer to the buffer that receives the status information. The format of this data depends on the value of the <i>InfoLevel</i> parameter.
+     * @param {Pointer} lpBuffer A pointer to the buffer that receives the status information. The format of this data depends on the value of the <i>InfoLevel</i> parameter.
      * 
      * The maximum size of this array is 8K bytes. To determine the required size, specify NULL for this parameter and 0 for the <i>cbBufSize</i> parameter. The function will fail and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return ERROR_INSUFFICIENT_BUFFER. The <i>pcbBytesNeeded</i> parameter will receive the required size.
      * @param {Integer} cbBufSize The size of the buffer pointed to by the <i>lpBuffer</i> parameter, in bytes.
@@ -4419,7 +4465,7 @@ class Services {
     static QueryServiceStatusEx(hService, InfoLevel, lpBuffer, cbBufSize, pcbBytesNeeded) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\QueryServiceStatusEx", "ptr", hService, "int", InfoLevel, "ptr", lpBuffer, "uint", cbBufSize, "ptr", pcbBytesNeeded, "int")
+        result := DllCall("ADVAPI32.dll\QueryServiceStatusEx", "ptr", hService, "int", InfoLevel, "ptr", lpBuffer, "uint", cbBufSize, "uint*", pcbBytesNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4444,7 +4490,7 @@ class Services {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-setservicestatus">SetServiceStatus</a> to report status to the service control manager only if the service status has changed, such as when the service is processing stop or shutdown controls. If the service status has not changed, the service should not report status to the service control manager. 
      * 
      * The service status handle does not have to be closed.
-     * @param {Pointer<PSTR>} lpServiceName The name of the service run by the calling thread. This is the service name that the service control program specified in the 
+     * @param {Pointer<Byte>} lpServiceName The name of the service run by the calling thread. This is the service name that the service control program specified in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function when creating the service. 
      * 
      * 
@@ -4453,7 +4499,7 @@ class Services {
      * If the service type is SERVICE_WIN32_OWN_PROCESS, the function does not verify that the specified name is valid, because there is only one registered service in the process.
      * @param {Pointer<LPHANDLER_FUNCTION>} lpHandlerProc A pointer to the handler function to be registered. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nc-winsvc-lphandler_function">Handler</a>.
-     * @returns {Pointer<SERVICE_STATUS_HANDLE>} If the function succeeds, the return value is a service status handle.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a service status handle.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4496,7 +4542,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerA", "ptr", lpServiceName, "ptr", lpHandlerProc, "ptr")
+        result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerA", "ptr", lpServiceName, "ptr", lpHandlerProc)
         if(A_LastError)
             throw OSError()
 
@@ -4521,7 +4567,7 @@ class Services {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-setservicestatus">SetServiceStatus</a> to report status to the service control manager only if the service status has changed, such as when the service is processing stop or shutdown controls. If the service status has not changed, the service should not report status to the service control manager. 
      * 
      * The service status handle does not have to be closed.
-     * @param {Pointer<PWSTR>} lpServiceName The name of the service run by the calling thread. This is the service name that the service control program specified in the 
+     * @param {Pointer<Char>} lpServiceName The name of the service run by the calling thread. This is the service name that the service control program specified in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function when creating the service. 
      * 
      * 
@@ -4530,7 +4576,7 @@ class Services {
      * If the service type is SERVICE_WIN32_OWN_PROCESS, the function does not verify that the specified name is valid, because there is only one registered service in the process.
      * @param {Pointer<LPHANDLER_FUNCTION>} lpHandlerProc A pointer to the handler function to be registered. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nc-winsvc-lphandler_function">Handler</a>.
-     * @returns {Pointer<SERVICE_STATUS_HANDLE>} If the function succeeds, the return value is a service status handle.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a service status handle.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4573,7 +4619,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerW", "ptr", lpServiceName, "ptr", lpHandlerProc, "ptr")
+        result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerW", "ptr", lpServiceName, "ptr", lpHandlerProc)
         if(A_LastError)
             throw OSError()
 
@@ -4605,12 +4651,12 @@ class Services {
      * 
      * > [!NOTE]
      * > The winsvc.h header defines RegisterServiceCtrlHandlerEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpServiceName The name of the service run by the calling thread. This is the service name that the service control program specified in the 
+     * @param {Pointer<Byte>} lpServiceName The name of the service run by the calling thread. This is the service name that the service control program specified in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function when creating the service.
      * @param {Pointer<LPHANDLER_FUNCTION_EX>} lpHandlerProc A pointer to the handler function to be registered. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nc-winsvc-lphandler_function_ex">HandlerEx</a>.
      * @param {Pointer<Void>} lpContext Any user-defined data. This parameter, which is passed to the handler function, can help identify the service when multiple services share a process.
-     * @returns {Pointer<SERVICE_STATUS_HANDLE>} If the function succeeds, the return value is a service status handle.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a service status handle.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4653,7 +4699,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerExA", "ptr", lpServiceName, "ptr", lpHandlerProc, "ptr", lpContext, "ptr")
+        result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerExA", "ptr", lpServiceName, "ptr", lpHandlerProc, "ptr", lpContext)
         if(A_LastError)
             throw OSError()
 
@@ -4685,12 +4731,12 @@ class Services {
      * 
      * > [!NOTE]
      * > The winsvc.h header defines RegisterServiceCtrlHandlerEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpServiceName The name of the service run by the calling thread. This is the service name that the service control program specified in the 
+     * @param {Pointer<Char>} lpServiceName The name of the service run by the calling thread. This is the service name that the service control program specified in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function when creating the service.
      * @param {Pointer<LPHANDLER_FUNCTION_EX>} lpHandlerProc A pointer to the handler function to be registered. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nc-winsvc-lphandler_function_ex">HandlerEx</a>.
      * @param {Pointer<Void>} lpContext Any user-defined data. This parameter, which is passed to the handler function, can help identify the service when multiple services share a process.
-     * @returns {Pointer<SERVICE_STATUS_HANDLE>} If the function succeeds, the return value is a service status handle.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a service status handle.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4733,7 +4779,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerExW", "ptr", lpServiceName, "ptr", lpHandlerProc, "ptr", lpContext, "ptr")
+        result := DllCall("ADVAPI32.dll\RegisterServiceCtrlHandlerExW", "ptr", lpServiceName, "ptr", lpHandlerProc, "ptr", lpContext)
         if(A_LastError)
             throw OSError()
 
@@ -4750,11 +4796,11 @@ class Services {
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>. 
      * 
      * Note that granting certain access to untrusted users (such as SERVICE_CHANGE_CONFIG or SERVICE_STOP) can allow them to interfere with the execution of your service and possibly allow them to run applications under the LocalSystem account.
-     * @param {Pointer<SC_HANDLE>} hService A handle to the service. This handle is returned by the 
+     * @param {Pointer<Void>} hService A handle to the service. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function. The access required for this handle depends on the security information specified in the <i>dwSecurityInformation</i> parameter.
      * @param {Integer} dwSecurityInformation 
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} lpSecurityDescriptor A pointer to a 
+     * @param {Pointer<Void>} lpSecurityDescriptor A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains the new security information.
      * @returns {Integer} If the function succeeds, the function returns nonzero. 
      * 
@@ -4864,7 +4910,7 @@ class Services {
      * <li>If the status is SERVICE_STOPPED, perform all necessary cleanup and call <b>SetServiceStatus</b> one time only. This function makes an LRPC call to the SCM. The first call to the function in the SERVICE_STOPPED state closes the RPC context handle and any subsequent calls can cause the process to crash. </li>
      * <li>Do not attempt to perform any additional work after calling <b>SetServiceStatus</b> with SERVICE_STOPPED, because the service process can be terminated at any time.</li>
      * </ul>
-     * @param {Pointer<SERVICE_STATUS_HANDLE>} hServiceStatus A handle to the status information structure for the current service. This handle is returned by the 
+     * @param {Pointer<Void>} hServiceStatus A handle to the status information structure for the current service. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-registerservicectrlhandlerexa">RegisterServiceCtrlHandlerEx</a> function.
      * @param {Pointer<SERVICE_STATUS>} lpServiceStatus A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-service_status">SERVICE_STATUS</a> structure the contains the latest status information for the calling service.
@@ -5122,12 +5168,12 @@ class Services {
      * <b>StartService</b>.
      * 
      * As with   <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-controlservice">ControlService</a>, <b>StartService</b> will block for 30 seconds if any service is busy handling a control code. If the busy service still has not returned from its handler function when the timeout expires,  <b>StartService</b> fails with ERROR_SERVICE_REQUEST_TIMEOUT. This is because the SCM processes only one service control notification at a time.
-     * @param {Pointer<SC_HANDLE>} hService A handle to the service. This handle is returned by the 
+     * @param {Pointer<Void>} hService A handle to the service. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function, and it must have the SERVICE_START access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
      * @param {Integer} dwNumServiceArgs The number of strings in the <i>lpServiceArgVectors</i> array. If <i>lpServiceArgVectors</i> is NULL, this parameter can be zero.
-     * @param {Pointer<PSTR>} lpServiceArgVectors The null-terminated strings to be passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nc-winsvc-lpservice_main_functiona">ServiceMain</a> function for the service as arguments. If there are no arguments, this parameter can be NULL. Otherwise, the first argument (lpServiceArgVectors[0]) is the name of the service, followed by any additional arguments (lpServiceArgVectors[1] through lpServiceArgVectors[dwNumServiceArgs-1]).
+     * @param {Pointer<Byte>} lpServiceArgVectors The null-terminated strings to be passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nc-winsvc-lpservice_main_functiona">ServiceMain</a> function for the service as arguments. If there are no arguments, this parameter can be NULL. Otherwise, the first argument (lpServiceArgVectors[0]) is the name of the service, followed by any additional arguments (lpServiceArgVectors[1] through lpServiceArgVectors[dwNumServiceArgs-1]).
      * 
      * Driver services do not receive these arguments.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -5281,8 +5327,6 @@ class Services {
      * @since windows5.1.2600
      */
     static StartServiceA(hService, dwNumServiceArgs, lpServiceArgVectors) {
-        lpServiceArgVectors := lpServiceArgVectors is String? StrPtr(lpServiceArgVectors) : lpServiceArgVectors
-
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\StartServiceA", "ptr", hService, "uint", dwNumServiceArgs, "ptr", lpServiceArgVectors, "int")
@@ -5320,12 +5364,12 @@ class Services {
      * <b>StartService</b>.
      * 
      * As with   <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-controlservice">ControlService</a>, <b>StartService</b> will block for 30 seconds if any service is busy handling a control code. If the busy service still has not returned from its handler function when the timeout expires,  <b>StartService</b> fails with ERROR_SERVICE_REQUEST_TIMEOUT. This is because the SCM processes only one service control notification at a time.
-     * @param {Pointer<SC_HANDLE>} hService A handle to the service. This handle is returned by the 
+     * @param {Pointer<Void>} hService A handle to the service. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function, and it must have the SERVICE_START access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
      * @param {Integer} dwNumServiceArgs The number of strings in the <i>lpServiceArgVectors</i> array. If <i>lpServiceArgVectors</i> is NULL, this parameter can be zero.
-     * @param {Pointer<PWSTR>} lpServiceArgVectors The null-terminated strings to be passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nc-winsvc-lpservice_main_functiona">ServiceMain</a> function for the service as arguments. If there are no arguments, this parameter can be NULL. Otherwise, the first argument (lpServiceArgVectors[0]) is the name of the service, followed by any additional arguments (lpServiceArgVectors[1] through lpServiceArgVectors[dwNumServiceArgs-1]).
+     * @param {Pointer<Char>} lpServiceArgVectors The null-terminated strings to be passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nc-winsvc-lpservice_main_functiona">ServiceMain</a> function for the service as arguments. If there are no arguments, this parameter can be NULL. Otherwise, the first argument (lpServiceArgVectors[0]) is the name of the service, followed by any additional arguments (lpServiceArgVectors[1] through lpServiceArgVectors[dwNumServiceArgs-1]).
      * 
      * Driver services do not receive these arguments.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -5479,8 +5523,6 @@ class Services {
      * @since windows5.1.2600
      */
     static StartServiceW(hService, dwNumServiceArgs, lpServiceArgVectors) {
-        lpServiceArgVectors := lpServiceArgVectors is String? StrPtr(lpServiceArgVectors) : lpServiceArgVectors
-
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\StartServiceW", "ptr", hService, "uint", dwNumServiceArgs, "ptr", lpServiceArgVectors, "int")
@@ -5556,7 +5598,7 @@ class Services {
      * 
      * > [!NOTE]
      * > The winsvc.h header defines NotifyServiceStatusChange as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<SC_HANDLE>} hService A handle to the service or the service control manager. Handles to services are returned by the 
+     * @param {Pointer<Void>} hService A handle to the service or the service control manager. Handles to services are returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function and must have the SERVICE_QUERY_STATUS access right. Handles to the service control manager are returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openscmanagera">OpenSCManager</a> function and must have the SC_MANAGER_ENUMERATE_SERVICE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
      * 
@@ -5603,7 +5645,7 @@ class Services {
      * 
      * > [!NOTE]
      * > The winsvc.h header defines NotifyServiceStatusChange as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<SC_HANDLE>} hService A handle to the service or the service control manager. Handles to services are returned by the 
+     * @param {Pointer<Void>} hService A handle to the service or the service control manager. Handles to services are returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function and must have the SERVICE_QUERY_STATUS access right. Handles to the service control manager are returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openscmanagera">OpenSCManager</a> function and must have the SC_MANAGER_ENUMERATE_SERVICE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
      * 
@@ -5711,7 +5753,7 @@ class Services {
      * 
      * > [!NOTE]
      * > The winsvc.h header defines ControlServiceEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<SC_HANDLE>} hService A handle to the service. This handle is returned by the 
+     * @param {Pointer<Void>} hService A handle to the service. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function. The 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">access rights</a> required for this handle depend on the <i>dwControl</i> code requested.
@@ -6064,7 +6106,7 @@ class Services {
      * 
      * > [!NOTE]
      * > The winsvc.h header defines ControlServiceEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<SC_HANDLE>} hService A handle to the service. This handle is returned by the 
+     * @param {Pointer<Void>} hService A handle to the service. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function. The 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">access rights</a> required for this handle depend on the <i>dwControl</i> code requested.
@@ -6333,7 +6375,7 @@ class Services {
 
     /**
      * Retrieves dynamic information related to the current service start.
-     * @param {Pointer<SERVICE_STATUS_HANDLE>} hServiceStatus A service status handle provided by <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-registerservicectrlhandlerexa">RegisterServiceCtrlHandlerEx</a>
+     * @param {Pointer<Void>} hServiceStatus A service status handle provided by <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-registerservicectrlhandlerexa">RegisterServiceCtrlHandlerEx</a>
      * @param {Integer} dwInfoLevel Indicates the information level.
      * 
      * <table>
@@ -6388,7 +6430,7 @@ class Services {
      * The callback function receives a pointer to the context provided by the caller. The callback is invoked as a result of the service status change event. When the callback is invoked, it is provided with a bitmask of **SERVICE\_NOTIFY\_*XXX*** values that indicating the type of service status change. When the callback is provided with zero instead of a valid **SERVICE\_NOTIFY\_*XXX*** value, the application must verify what was changed.
      * 
      * The callback function must not block execution. If you expect the execution of the callback function to take time, offload the work that you perform in the callback function to a separate thread by queuing a work item to a thread in a thread pool. Some types of work that can make the callback function take time include performing file I/O, waiting on an event, and making external remote procedure calls.
-     * @param {Pointer<SC_HANDLE>} hService A handle to the service or a handle to the service control manager (SCM) to monitor for changes.
+     * @param {Pointer<Void>} hService A handle to the service or a handle to the service control manager (SCM) to monitor for changes.
      * 
      * Handles to services are returned by the [**OpenService**](/windows/desktop/api/Winsvc/nf-winsvc-openservicea) and [**CreateService**](/windows/desktop/api/Winsvc/nf-winsvc-createservicea) function and must have the **SERVICE\_QUERY\_STATUS** access right. Handles to the service control manager are returned by the [**OpenSCManager**](/windows/desktop/api/Winsvc/nf-winsvc-openscmanagera) function and must have the **SC\_MANAGER\_ENUMERATE\_SERVICE** access right.
      * @param {Integer} eEventType Specifies the type of status changes that should be reported. This parameter is set to one of the values specified in [**SC\_EVENT\_TYPE**](sc-event-type.md). The behavior for this function is different depending on the event type as follows.
@@ -6409,7 +6451,7 @@ class Services {
      * @see https://learn.microsoft.com/windows/win32/Services/subscribeservicechangenotifications
      */
     static SubscribeServiceChangeNotifications(hService, eEventType, pCallback, pCallbackContext, pSubscription) {
-        result := DllCall("SecHost.dll\SubscribeServiceChangeNotifications", "ptr", hService, "int", eEventType, "ptr", pCallback, "ptr", pCallbackContext, "ptr", pSubscription, "uint")
+        result := DllCall("SecHost.dll\SubscribeServiceChangeNotifications", "ptr", hService, "int", eEventType, "ptr", pCallback, "ptr", pCallbackContext, "ptr*", pSubscription, "uint")
         return result
     }
 
@@ -6418,19 +6460,20 @@ class Services {
      * @remarks
      * **UnsubscribeServiceChangeNotifications** does not return until outstanding in-process callbacks are complete. So, you cannot call **UnsubscribeServiceChangeNotifications** within the callback without causing a deadlock.
      * @param {Pointer} pSubscription A pointer to the subscription to be unsubscribed.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} This function does not return a value.
      * @see https://learn.microsoft.com/windows/win32/Services/unsubscribeservicechangenotifications
      */
     static UnsubscribeServiceChangeNotifications(pSubscription) {
-        DllCall("SecHost.dll\UnsubscribeServiceChangeNotifications", "ptr", pSubscription)
+        result := DllCall("SecHost.dll\UnsubscribeServiceChangeNotifications", "ptr", pSubscription)
+        return result
     }
 
     /**
      * 
-     * @param {Pointer<SC_HANDLE>} hService 
+     * @param {Pointer<Void>} hService 
      * @param {Integer} dwNotify 
      * @param {Integer} dwTimeout 
-     * @param {Pointer<HANDLE>} hCancelEvent 
+     * @param {Pointer<Void>} hCancelEvent 
      * @returns {Integer} 
      */
     static WaitServiceState(hService, dwNotify, dwTimeout, hCancelEvent) {
@@ -6446,11 +6489,11 @@ class Services {
      * For a similar API that provides service state that can be shared with associated programs, see [GetSharedServiceRegistryStateKey](nf-winsvc-getsharedserviceregistrystatekey.md).
      * 
      * All service state registry keys are deleted by the service control manager once the service is uninstalled.
-     * @param {Pointer<SERVICE_STATUS_HANDLE>} ServiceStatusHandle A handle to the status information structure for the current service. This handle is returned by the [RegisterServiceCtrlHandler](./nf-winsvc-registerservicectrlhandlera.md) function.
+     * @param {Pointer<Void>} ServiceStatusHandle A handle to the status information structure for the current service. This handle is returned by the [RegisterServiceCtrlHandler](./nf-winsvc-registerservicectrlhandlera.md) function.
      * @param {Integer} StateType A member of the [SERVICE_REGISTRY_STATE_TYPE](./ne-winsvc-service_registry_state_type.md) specifying the state type for which the service registry key is retreived.
      * @param {Integer} AccessMask The access mask with which to attempt to open the state key. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
-     * @param {Pointer<HKEY>} ServiceStateKey Receives the output registry key handle.
+     * @param {Pointer<Void>} ServiceStateKey Receives the output registry key handle.
      * @returns {Integer} ERROR_SUCCESS when all operations complete successfully; otherwise, a Win32 error code.
      * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-getserviceregistrystatekey
      * @since windows10.0.19041
@@ -6468,9 +6511,9 @@ class Services {
      * For a similar API that provides service state that can be shared with associated programs, see [GetSharedServiceDirectory](nf-winsvc-getsharedservicedirectory.md).
      * 
      * All service state directories are deleted by the service control manager once the service is uninstalled.
-     * @param {Pointer<SERVICE_STATUS_HANDLE>} hServiceStatus A handle to the status information structure for the current service. This handle is returned by the [RegisterServiceCtrlHandler](./nf-winsvc-registerservicectrlhandlera.md) function.
+     * @param {Pointer<Void>} hServiceStatus A handle to the status information structure for the current service. This handle is returned by the [RegisterServiceCtrlHandler](./nf-winsvc-registerservicectrlhandlera.md) function.
      * @param {Integer} eDirectoryType A member of the [SERVICE_DIRECTORY_TYPE](./ne-winsvc-service_directory_type.md) enumeration that identifies the type of per-service directory path to retrieve.
-     * @param {Pointer<PWSTR>} lpPathBuffer A caller-allocated buffer into which the path string will be copied. If NULL, the function call will fail with ERROR_INSUFFICIENT_BUFFER and return the required buffer length, in WCHARs, in *lpcchRequiredBufferLength*. If non-NULL, the length of the buffer should be specified in *cchPathBufferLength*. The path, if written, will be NULL terminated.
+     * @param {Pointer<Char>} lpPathBuffer A caller-allocated buffer into which the path string will be copied. If NULL, the function call will fail with ERROR_INSUFFICIENT_BUFFER and return the required buffer length, in WCHARs, in *lpcchRequiredBufferLength*. If non-NULL, the length of the buffer should be specified in *cchPathBufferLength*. The path, if written, will be NULL terminated.
      * @param {Integer} cchPathBufferLength The length of the buffer supplied in *lpPathBuffer*, in units of WCHARS. This argument is ignored if *lpPathBuffer* is NULL.
      * @param {Pointer<UInt32>} lpcchRequiredBufferLength This value is set to the required length of the buffer in units of WCHARs. This length includes the terminating NULL character.
      * @returns {Integer} Returns ERROR_SUCCESS when all operations complete successfully and the NULL-terminated state path is written to *lpPathBuffer*. Returns ERROR_INSUFFICIENT_BUFFER if *lpPathBuffer* was not large enough to contain the state path, or if *lpPathBuffer* was NULL. In this case the required buffer length in WCHARs is returned via *lpcchRequiredBufferLength*. If some other failure occurs, a Win32 error code is returned.
@@ -6480,7 +6523,7 @@ class Services {
     static GetServiceDirectory(hServiceStatus, eDirectoryType, lpPathBuffer, cchPathBufferLength, lpcchRequiredBufferLength) {
         lpPathBuffer := lpPathBuffer is String? StrPtr(lpPathBuffer) : lpPathBuffer
 
-        result := DllCall("api-ms-win-service-core-l1-1-4.dll\GetServiceDirectory", "ptr", hServiceStatus, "int", eDirectoryType, "ptr", lpPathBuffer, "uint", cchPathBufferLength, "ptr", lpcchRequiredBufferLength, "uint")
+        result := DllCall("api-ms-win-service-core-l1-1-4.dll\GetServiceDirectory", "ptr", hServiceStatus, "int", eDirectoryType, "ptr", lpPathBuffer, "uint", cchPathBufferLength, "uint*", lpcchRequiredBufferLength, "uint")
         return result
     }
 
@@ -6492,11 +6535,11 @@ class Services {
      * For a similar API that provides service state exclusively for use by the service itself, see [GetServiceRegistryStateKey](nf-winsvc-getserviceregistrystatekey.md).
      * 
      * All service state registry keys are deleted by the service control manager once the service is uninstalled.
-     * @param {Pointer<SC_HANDLE>} ServiceHandle 
+     * @param {Pointer<Void>} ServiceHandle 
      * @param {Integer} StateType A member of the [SERVICE_SHARED_REGISTRY_STATE_TYPE](./ne-winsvc-service_shared_registry_state_type.md) specifying the shared state type for which the service registry key is retrieved.
      * @param {Integer} AccessMask The access mask with which to attempt to open the state key. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
-     * @param {Pointer<HKEY>} ServiceStateKey Receives the output registry key handle.
+     * @param {Pointer<Void>} ServiceStateKey Receives the output registry key handle.
      * @returns {Integer} ERROR_SUCCESS when all operations complete successfully; otherwise, a Win32 error code.
      * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-getsharedserviceregistrystatekey
      */
@@ -6513,9 +6556,9 @@ class Services {
      * For a similar API that provides service state exclusively for use by the service itself, see [GetServiceDirectory](nf-winsvc-getservicedirectory.md).
      * 
      * All service state directories are deleted by the service control manager once the service is uninstalled.
-     * @param {Pointer<SC_HANDLE>} ServiceHandle A handle to the service. This handle is returned by the [OpenService](./nf-winsvc-openservicea.md) function.
+     * @param {Pointer<Void>} ServiceHandle A handle to the service. This handle is returned by the [OpenService](./nf-winsvc-openservicea.md) function.
      * @param {Integer} DirectoryType A member of the [SERVICE_SHARED_DIRECTORY_TYPE](./ne-winsvc-service_shared_directory_type.md) enumeration that identifies the type of per-service shared directory path to retrieve.
-     * @param {Pointer<PWSTR>} PathBuffer A caller-allocated buffer into which the path string will be copied. If NULL, the function call will fail with ERROR_INSUFFICIENT_BUFFER and return the required buffer length, in WCHARs, in *RequiredBufferLength*. If non-NULL, the length of the buffer should be specified in *PathBufferLength*. The path, if written, will be NULL terminated.
+     * @param {Pointer<Char>} PathBuffer A caller-allocated buffer into which the path string will be copied. If NULL, the function call will fail with ERROR_INSUFFICIENT_BUFFER and return the required buffer length, in WCHARs, in *RequiredBufferLength*. If non-NULL, the length of the buffer should be specified in *PathBufferLength*. The path, if written, will be NULL terminated.
      * @param {Integer} PathBufferLength The length of the buffer supplied in *PathBuffer*, in units of WCHARS. This argument is ignored if *PathBuffer* is NULL.
      * @param {Pointer<UInt32>} RequiredBufferLength This value is set to the required length of the buffer in units of WCHARs. This length includes the terminating NULL character.
      * @returns {Integer} Returns ERROR_SUCCESS when all operations complete successfully and the NULL-terminated state path is written to *PathBuffer*. Returns ERROR_INSUFFICIENT_BUFFER if *PathBuffer* was not large enough to contain the state path, or if *PathBuffer* was NULL. In this case the required buffer length in WCHARs is returned via *RequiredBufferLength*. If some other failure occurs, a Win32 error code is returned.
@@ -6524,7 +6567,7 @@ class Services {
     static GetSharedServiceDirectory(ServiceHandle, DirectoryType, PathBuffer, PathBufferLength, RequiredBufferLength) {
         PathBuffer := PathBuffer is String? StrPtr(PathBuffer) : PathBuffer
 
-        result := DllCall("api-ms-win-service-core-l1-1-5.dll\GetSharedServiceDirectory", "ptr", ServiceHandle, "int", DirectoryType, "ptr", PathBuffer, "uint", PathBufferLength, "ptr", RequiredBufferLength, "uint")
+        result := DllCall("api-ms-win-service-core-l1-1-5.dll\GetSharedServiceDirectory", "ptr", ServiceHandle, "int", DirectoryType, "ptr", PathBuffer, "uint", PathBufferLength, "uint*", RequiredBufferLength, "uint")
         return result
     }
 

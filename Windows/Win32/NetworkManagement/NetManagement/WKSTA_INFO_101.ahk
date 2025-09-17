@@ -95,7 +95,7 @@ class WKSTA_INFO_101 extends Win32Struct
      * A pointer to a string specifying the name of the local computer.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     wki101_computername {
         get => NumGet(this, 8, "ptr")
@@ -108,7 +108,7 @@ class WKSTA_INFO_101 extends Win32Struct
      * A pointer to a string specifying the name of the domain to which the computer belongs.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     wki101_langroup {
         get => NumGet(this, 16, "ptr")
@@ -143,7 +143,7 @@ class WKSTA_INFO_101 extends Win32Struct
      * A pointer to a string that contains the path to the LANMAN directory.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     wki101_lanroot {
         get => NumGet(this, 32, "ptr")

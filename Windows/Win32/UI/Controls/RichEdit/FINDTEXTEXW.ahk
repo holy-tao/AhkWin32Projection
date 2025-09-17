@@ -36,7 +36,7 @@ class FINDTEXTEXW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCTSTR</a></b>
      * 
      * The null-terminated string to find.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpstrText {
         get => NumGet(this, 8, "ptr")

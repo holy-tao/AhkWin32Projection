@@ -24,7 +24,7 @@ class IMEDLG extends Win32Struct
 
     /**
      * The parent window handle of the Register Word Dialog.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwnd {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class IMEDLG extends Win32Struct
 
     /**
      * <b>NULL</b>, or  the string to be registered. It shows in the Word Register Dialog's "Display" field.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpwstrWord {
         get => NumGet(this, 16, "ptr")

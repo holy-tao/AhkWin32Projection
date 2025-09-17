@@ -17,7 +17,7 @@ class HYPOTHESIS extends Win32Struct
      * Type: <b>[string] LPWSTR</b>
      * 
      * A pointer to a null-terminated string that contains the name of the helper class.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszClassName {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class HYPOTHESIS extends Win32Struct
      * Type: <b>[string] LPWSTR</b>
      * 
      * A  pointer to a null-terminated string that contains a user-friendly description of the data being passed to the helper class..
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszDescription {
         get => NumGet(this, 8, "ptr")

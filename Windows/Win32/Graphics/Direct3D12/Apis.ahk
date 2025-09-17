@@ -2439,7 +2439,7 @@ class Direct3D12 {
      *       
      * 
      * The function signature PFN_D3D12_CREATE_ROOT_SIGNATURE_DESERIALIZER is provided as a typedef, so that you can use dynamic linking techniques (<a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>) instead of statically linking.
-     * @param {Pointer<Void>} pSrcData Type: <b>LPCVOID</b>
+     * @param {Pointer} pSrcData Type: <b>LPCVOID</b>
      * 
      * A pointer to the source data for the serialized root signature.
      * @param {Pointer} SrcDataSizeInBytes Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -2511,7 +2511,7 @@ class Direct3D12 {
      *       
      * 
      * This function supercedes <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-d3d12createrootsignaturedeserializer">D3D12CreateRootSignatureDeserializer</a>.
-     * @param {Pointer<Void>} pSrcData Type: <b>LPCVOID</b>
+     * @param {Pointer} pSrcData Type: <b>LPCVOID</b>
      * 
      * A pointer to the source data for the serialized root signature.
      * @param {Pointer} SrcDataSizeInBytes Type: <b>SIZE_T</b>
@@ -2669,7 +2669,7 @@ class Direct3D12 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12enableexperimentalfeatures
      */
     static D3D12EnableExperimentalFeatures(NumFeatures, pIIDs, pConfigurationStructs, pConfigurationStructSizes) {
-        result := DllCall("d3d12.dll\D3D12EnableExperimentalFeatures", "uint", NumFeatures, "ptr", pIIDs, "ptr", pConfigurationStructs, "ptr", pConfigurationStructSizes, "int")
+        result := DllCall("d3d12.dll\D3D12EnableExperimentalFeatures", "uint", NumFeatures, "ptr", pIIDs, "ptr", pConfigurationStructs, "uint*", pConfigurationStructSizes, "int")
         return result
     }
 

@@ -1236,14 +1236,14 @@ class HtmlHelp {
      * The  syntax applies to ANSI character sets.  When using a Unicode character set, the type of the <i>pszFile</i> parameter should be "LPCTSTR  ".
      * 
      * When using the HTML Help API, set the stack size of the hosting executable to at least 100k. If the defined stack size is too small, then the thread created to run HTML Help will also be created with this stack size, and failure could result. Optionally, you can remove /STACK from the link command line, and remove any STACK setting in the executable's DEF file (default stack size is 1MB in this case). You can also you can set the stack size using the /Fnumber compiler command (the compiler will pass this to the linker as /STACK).
-     * @param {Pointer<HWND>} hwndCaller Specifies the handle (<i>hwnd</i>) of the window calling <b>HtmlHelp</b>. The help window is owned by this window. 
+     * @param {Pointer<Void>} hwndCaller Specifies the handle (<i>hwnd</i>) of the window calling <b>HtmlHelp</b>. The help window is owned by this window. 
      * 
      * 
      * 
      * When the help window is closed, <b>HtmlHelp</b> will return focus to the owner unless the owner is the desktop. If <i>hwndCaller</i> is the desktop, then the operating system determines where focus is returned.
      * 
      * In addition, if <b>HtmlHelp</b> sends any notification messages from the help window, they are sent to <i>hwndCaller</i> as long as you have enabled <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/about-notification-messages">notification message</a> tracking in the help window definition.
-     * @param {Pointer<PSTR>} pszFile Depending on the <i>uCommand</i> value, specifies the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/about-html-help-urls">file path</a> to either a compiled help (.chm) file, or a topic file within a specified help file. 
+     * @param {Pointer<Byte>} pszFile Depending on the <i>uCommand</i> value, specifies the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/about-html-help-urls">file path</a> to either a compiled help (.chm) file, or a topic file within a specified help file. 
      * 
      * 
      * 
@@ -1252,7 +1252,7 @@ class HtmlHelp {
      * If the specified command does not require a file, this value may be NULL.
      * @param {Integer} uCommand Specifies the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/about-commands">command</a> to complete.
      * @param {Pointer} dwData Specifies any data that may be required, based on the value of the <i>uCommand</i> parameter.
-     * @returns {Pointer<HWND>} Depending on the specified <i>uCommand</i> and the result, <b>HtmlHelp</b> returns one or both of the following: 
+     * @returns {Pointer<Void>} Depending on the specified <i>uCommand</i> and the result, <b>HtmlHelp</b> returns one or both of the following: 
      * 
      * <ul>
      * <li>The handle (hwnd) of the help window.</li>
@@ -1263,7 +1263,7 @@ class HtmlHelp {
     static HtmlHelpA(hwndCaller, pszFile, uCommand, dwData) {
         pszFile := pszFile is String? StrPtr(pszFile) : pszFile
 
-        result := DllCall("hhctrl.ocx\HtmlHelpA", "ptr", hwndCaller, "ptr", pszFile, "uint", uCommand, "ptr", dwData, "ptr")
+        result := DllCall("hhctrl.ocx\HtmlHelpA", "ptr", hwndCaller, "ptr", pszFile, "uint", uCommand, "ptr", dwData)
         return result
     }
 
@@ -1273,14 +1273,14 @@ class HtmlHelp {
      * The  syntax applies to ANSI character sets.  When using a Unicode character set, the type of the <i>pszFile</i> parameter should be "LPCTSTR  ".
      * 
      * When using the HTML Help API, set the stack size of the hosting executable to at least 100k. If the defined stack size is too small, then the thread created to run HTML Help will also be created with this stack size, and failure could result. Optionally, you can remove /STACK from the link command line, and remove any STACK setting in the executable's DEF file (default stack size is 1MB in this case). You can also you can set the stack size using the /Fnumber compiler command (the compiler will pass this to the linker as /STACK).
-     * @param {Pointer<HWND>} hwndCaller Specifies the handle (<i>hwnd</i>) of the window calling <b>HtmlHelp</b>. The help window is owned by this window. 
+     * @param {Pointer<Void>} hwndCaller Specifies the handle (<i>hwnd</i>) of the window calling <b>HtmlHelp</b>. The help window is owned by this window. 
      * 
      * 
      * 
      * When the help window is closed, <b>HtmlHelp</b> will return focus to the owner unless the owner is the desktop. If <i>hwndCaller</i> is the desktop, then the operating system determines where focus is returned.
      * 
      * In addition, if <b>HtmlHelp</b> sends any notification messages from the help window, they are sent to <i>hwndCaller</i> as long as you have enabled <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/about-notification-messages">notification message</a> tracking in the help window definition.
-     * @param {Pointer<PWSTR>} pszFile Depending on the <i>uCommand</i> value, specifies the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/about-html-help-urls">file path</a> to either a compiled help (.chm) file, or a topic file within a specified help file. 
+     * @param {Pointer<Char>} pszFile Depending on the <i>uCommand</i> value, specifies the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/about-html-help-urls">file path</a> to either a compiled help (.chm) file, or a topic file within a specified help file. 
      * 
      * 
      * 
@@ -1289,7 +1289,7 @@ class HtmlHelp {
      * If the specified command does not require a file, this value may be NULL.
      * @param {Integer} uCommand Specifies the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/about-commands">command</a> to complete.
      * @param {Pointer} dwData Specifies any data that may be required, based on the value of the <i>uCommand</i> parameter.
-     * @returns {Pointer<HWND>} Depending on the specified <i>uCommand</i> and the result, <b>HtmlHelp</b> returns one or both of the following: 
+     * @returns {Pointer<Void>} Depending on the specified <i>uCommand</i> and the result, <b>HtmlHelp</b> returns one or both of the following: 
      * 
      * <ul>
      * <li>The handle (hwnd) of the help window.</li>
@@ -1300,7 +1300,7 @@ class HtmlHelp {
     static HtmlHelpW(hwndCaller, pszFile, uCommand, dwData) {
         pszFile := pszFile is String? StrPtr(pszFile) : pszFile
 
-        result := DllCall("hhctrl.ocx\HtmlHelpW", "ptr", hwndCaller, "ptr", pszFile, "uint", uCommand, "ptr", dwData, "ptr")
+        result := DllCall("hhctrl.ocx\HtmlHelpW", "ptr", hwndCaller, "ptr", pszFile, "uint", uCommand, "ptr", dwData)
         return result
     }
 

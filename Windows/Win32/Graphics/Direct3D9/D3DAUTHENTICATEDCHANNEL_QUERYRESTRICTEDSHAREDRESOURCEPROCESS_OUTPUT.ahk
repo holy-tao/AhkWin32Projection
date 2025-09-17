@@ -49,7 +49,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYRESTRICTEDSHAREDRESOURCEPROCESS_OUTPUT extend
 
     /**
      * A process handle. If the **ProcessIdentifier** member equals **PROCESSIDTYPE\_HANDLE**, the **ProcessHandle** member contains a valid handle to a process. Otherwise, this member is ignored.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     ProcessHandle {
         get => NumGet(this, 48, "ptr")

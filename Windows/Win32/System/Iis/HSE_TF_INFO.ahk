@@ -28,7 +28,7 @@ class HSE_TF_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hFile {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class HSE_TF_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszStatusCode {
         get => NumGet(this, 24, "ptr")

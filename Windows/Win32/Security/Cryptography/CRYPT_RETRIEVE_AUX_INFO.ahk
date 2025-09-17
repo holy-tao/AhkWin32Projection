@@ -70,7 +70,7 @@ class CRYPT_RETRIEVE_AUX_INFO extends Win32Struct
 
     /**
      * A pointer to a string that contains a prefix for a cached file name. If not <b>NULL</b>, the specified prefix string is concatenated to the front of the cached file name.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszCacheFileNamePrefix {
         get => NumGet(this, 48, "ptr")
@@ -106,7 +106,7 @@ class CRYPT_RETRIEVE_AUX_INFO extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ppwszErrorResponseHeaders {
         get => NumGet(this, 72, "ptr")

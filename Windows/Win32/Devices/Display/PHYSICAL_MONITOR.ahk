@@ -17,7 +17,7 @@ class PHYSICAL_MONITOR extends Win32Struct
 
     /**
      * Handle to the physical monitor.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hPhysicalMonitor {
         get => NumGet(this, 0, "ptr")

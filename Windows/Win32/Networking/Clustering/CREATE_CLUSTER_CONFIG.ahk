@@ -24,7 +24,7 @@ class CREATE_CLUSTER_CONFIG extends Win32Struct
 
     /**
      * Name of the cluster.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpszClusterName {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class CREATE_CLUSTER_CONFIG extends Win32Struct
 
     /**
      * Address of array of pointers to strings, each naming a node to be added to the new cluster.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ppszNodeNames {
         get => NumGet(this, 24, "ptr")

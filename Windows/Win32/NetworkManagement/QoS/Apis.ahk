@@ -2657,7 +2657,7 @@ class QoS {
      * 
      * If a machine enters a power save mode that interrupts connectivity such as sleep or standby, existing and active network experiments such as <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qosstarttrackingclient">QOSStartTrackingClient</a> must be reinitiated.  This recreation of the flow mirrors the cleanup and creation activities also necessary for existing sockets. A new handle must be created, and the flow must be recreated and readmitted.
      * @param {Pointer<QOS_VERSION>} Version Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/qos2/ns-qos2-qos_version">QOS_VERSION</a> structure that indicates the version of QOS being used.  The <b>MajorVersion</b> member must be set to 1, and the <b>MinorVersion</b> member must be set to 0.
-     * @param {Pointer<HANDLE>} QOSHandle Pointer to a variable that receives a QOS handle.  This handle is used when calling other QOS functions.
+     * @param {Pointer<Void>} QOSHandle Pointer to a variable that receives a QOS handle.  This handle is used when calling other QOS functions.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0.  To get extended error information, call <b>GetLastError</b>.  Some possible error codes follow.
@@ -2748,7 +2748,7 @@ class QoS {
      * All flows added on the handle being closed are immediately removed from the system.  Any traffic going out of a socket used to create these flows will no longer be marked with priority values.  Any pending operations on these flows are immediately completed with <b>ERROR_ABORTED</b>.
      * 
      * If any clients were being tracked through the handle being closed by a previous call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qosstarttrackingclient">QOSStartTrackingClient</a> function, <b>QOSCloseHandle</b> indicates that the application is no longer using the client endpoint.
-     * @param {Pointer<HANDLE>} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
+     * @param {Pointer<Void>} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0.  To get extended error information, call <b>GetLastError</b>.
@@ -2788,7 +2788,7 @@ class QoS {
      * Network experiments performed by <b>QOSStartTrackingClient</b> do not introduce noteworthy load on the network even if no stream is started for a long period of time.  The qWAVE service dynamically adjusts experiment traffic based on QoS subsystem activity.
      * 
      * Link Layer Topology Discovery (LLTD) must be implemented on the sink PC or device for this function to work.
-     * @param {Pointer<HANDLE>} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
+     * @param {Pointer<Void>} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
      * @param {Pointer<SOCKADDR>} DestAddr A pointer to a <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure that contains the IP address of the client device.  Clients are identified by their IP address and address family.  Any port number specified in the sockaddr structure will be ignored.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
@@ -2913,7 +2913,7 @@ class QoS {
      * The QOSStopTrackingClient function notifies the QoS subsystem to stop tracking a client that has previously used the QOSStartTrackingClient function. If a flow is currently in progress, this function will not affect it.
      * @remarks
      * The Winsock2.h header file must be included to use Winsock defined identifiers or functions.
-     * @param {Pointer<HANDLE>} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
+     * @param {Pointer<Void>} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
      * @param {Pointer<SOCKADDR>} DestAddr Pointer to a <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure that contains the IP address of the client device.  Clients are identified by their IP address and address family.  A port number is not required and will be ignored.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
@@ -3022,13 +3022,13 @@ class QoS {
      * This function has call-twice semantics. First call to get the <i>Buffer</i> size, then call again (with an appropriately sized <i>Buffer</i> if the first call failed with <b>ERROR_INSUFFICIENT_BUFFER</b>) to retrieve the list of flows.  The second call may fail again with <b>ERROR_INSUFFICIENT_BUFFER</b> if new flows ere added since the first call.
      * 
      * Flows from another process cannot be modified.
-     * @param {Pointer<HANDLE>} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
+     * @param {Pointer<Void>} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
      * @param {Pointer<UInt32>} Size Indicates the size of the <i>Buffer</i> parameter, in bytes.
      * 
      * On function return, if successful, this parameter will specify the number of bytes copied into <i>Buffer</i>.
      * 
      * If this call fails with <b>ERROR_INSUFFICIENT_BUFFER</b>, this parameter will indicate the minimum required <i>Buffer</i> size in order to successfully complete this operation.
-     * @param {Pointer<Void>} Buffer Pointer to an array of <b>QOS_FlowId</b> flow identifiers. A <b>QOS_FlowId</b> is an unsigned 32-bit integer.
+     * @param {Pointer} Buffer Pointer to an array of <b>QOS_FlowId</b> flow identifiers. A <b>QOS_FlowId</b> is an unsigned 32-bit integer.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0.  To get extended error information, call <b>GetLastError</b>.  Some possible error codes follow.
@@ -3120,7 +3120,7 @@ class QoS {
      * @since windows6.0.6000
      */
     static QOSEnumerateFlows(QOSHandle, Size, Buffer) {
-        result := DllCall("qwave.dll\QOSEnumerateFlows", "ptr", QOSHandle, "ptr", Size, "ptr", Buffer, "int")
+        result := DllCall("qwave.dll\QOSEnumerateFlows", "ptr", QOSHandle, "uint*", Size, "ptr", Buffer, "int")
         return result
     }
 
@@ -3140,7 +3140,7 @@ class QoS {
      * A non-adaptive application either does not adapt to changing network characteristics or is sending traffic to an endpoint that does not support adaptive capabilities as indicated by ERROR_NOT_SUPPORTED.
      * 
      * Non-adaptive applications, or adaptive applications making non-adaptive flows, should call this function with the <b>QOS_NON_ADAPTIVE_FLOW</b> flag.  After calling this function A/V applications should call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qossetflow">QOSSetFlow</a> function with a <i>Operation</i>. <b>QOSSetFlow</b> does not need to be called unless shaping is desired.
-     * @param {Pointer<HANDLE>} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
+     * @param {Pointer<Void>} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
      * @param {Pointer} Socket Identifies the socket that the application will use to flow traffic.
      * @param {Pointer<SOCKADDR>} DestAddr Pointer to a <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure that contains the destination IP address to which the application will send traffic.  The sockaddr structure must specify a destination port.
      * 
@@ -3302,7 +3302,7 @@ class QoS {
      * @since windows6.0.6000
      */
     static QOSAddSocketToFlow(QOSHandle, Socket, DestAddr, TrafficType, Flags, FlowId) {
-        result := DllCall("qwave.dll\QOSAddSocketToFlow", "ptr", QOSHandle, "ptr", Socket, "ptr", DestAddr, "int", TrafficType, "uint", Flags, "ptr", FlowId, "int")
+        result := DllCall("qwave.dll\QOSAddSocketToFlow", "ptr", QOSHandle, "ptr", Socket, "ptr", DestAddr, "int", TrafficType, "uint", Flags, "uint*", FlowId, "int")
         return result
     }
 
@@ -3310,7 +3310,7 @@ class QoS {
      * Notifies the QOS subsystem that a previously added flow has been terminated.
      * @remarks
      * Calling the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qosclosehandle">QOSCloseHandle</a> function immediately aborts all pending operations and flows added by that handle.  If a handle is closed while a <b>QOSRemoveSocketFromFlow</b> call is still progress, the call will complete with <b>ERROR_OPERATION_ABORTED</b>.
-     * @param {Pointer<HANDLE>} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
+     * @param {Pointer<Void>} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
      * @param {Pointer} Socket Socket to be removed from the flow.
      * 
      * Only flows created with the <b>QOS_NON_ADAPTIVE_FLOW</b> flag may have multiple sockets added to the same flow.  By passing the <i>Socket</i> parameter in this call, each socket can be removed individually.  If the <i>Socket</i> parameter is not passed, the entire flow will be destroyed.  If only one socket was attached to the flow, passing this socket as a parameter to this function and passing <b>NULL</b> as a socket are equivalent calls.
@@ -3439,7 +3439,7 @@ class QoS {
      * 
      * 
      * This function may optionally be called asynchronously.
-     * @param {Pointer<HANDLE>} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
+     * @param {Pointer<Void>} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
      * @param {Integer} FlowId A flow identifier. A <b>QOS_FLOWID</b> is an unsigned 32-bit integer.
      * @param {Integer} Operation A <a href="https://docs.microsoft.com/windows/desktop/api/qos2/ne-qos2-qos_set_flow">QOS_SET_FLOW</a> enumerated type that identifies what will be changed in the flow.  This parameter specifies what structure the <i>Buffer</i> will contain.
      * 
@@ -3485,7 +3485,7 @@ class QoS {
      * </tr>
      * </table>
      * @param {Integer} Size The size of the <i>Buffer</i> parameter, in bytes.
-     * @param {Pointer<Void>} Buffer Pointer to the structure specified by the value of the <i>Operation</i> parameter.
+     * @param {Pointer} Buffer Pointer to the structure specified by the value of the <i>Operation</i> parameter.
      * @param {Pointer<OVERLAPPED>} Overlapped Pointer to an OVERLAPPED structure used for asynchronous output.  This must be set to <b>NULL</b> if this function is not being called asynchronously.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
@@ -3685,7 +3685,7 @@ class QoS {
 
     /**
      * Requests information about a specific flow.
-     * @param {Pointer<HANDLE>} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
+     * @param {Pointer<Void>} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
      * @param {Integer} FlowId Specifies a flow identifier. A <b>QOS_FLOWID</b> is an unsigned 32-bit integer.
      * @param {Integer} Operation Specifies which type of flow information is being queried. This parameter specifies what structure the <i>Buffer</i> will contain.
      * 
@@ -3730,7 +3730,7 @@ class QoS {
      * On function return, if successful, this parameter will specify the number of bytes copied into <i>Buffer</i>.
      * 
      * If this call fails with <b>ERROR_INSUFFICIENT_BUFFER</b>, this parameter will indicate the minimum required <i>Buffer</i> size in order to successfully complete this operation.
-     * @param {Pointer<Void>} Buffer Pointer to the structure specified by the value of the <i>Operation</i> parameter.
+     * @param {Pointer} Buffer Pointer to the structure specified by the value of the <i>Operation</i> parameter.
      * @param {Integer} Flags Flags pertaining to the data being returned.
      * 
      * <table>
@@ -3942,7 +3942,7 @@ class QoS {
      * @since windows6.0.6000
      */
     static QOSQueryFlow(QOSHandle, FlowId, Operation, Size, Buffer, Flags, Overlapped) {
-        result := DllCall("qwave.dll\QOSQueryFlow", "ptr", QOSHandle, "uint", FlowId, "int", Operation, "ptr", Size, "ptr", Buffer, "uint", Flags, "ptr", Overlapped, "int")
+        result := DllCall("qwave.dll\QOSQueryFlow", "ptr", QOSHandle, "uint", FlowId, "int", Operation, "uint*", Size, "ptr", Buffer, "uint", Flags, "ptr", Overlapped, "int")
         return result
     }
 
@@ -3950,7 +3950,7 @@ class QoS {
      * Registers the calling application to receive a notification.
      * @remarks
      * This function may be called asynchronously.
-     * @param {Pointer<HANDLE>} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
+     * @param {Pointer<Void>} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
      * @param {Integer} FlowId Specifies the flow identifier from which the application wishes to receive notifications. A <b>QOS_FLOWID</b> is an unsigned 32-bit integer.
      * @param {Integer} Operation A <a href="https://docs.microsoft.com/windows/desktop/api/qos2/ne-qos2-qos_notify_flow">QOS_NOTIFY_FLOW</a> value that indicates what the type of  notification being requested.
      * @param {Pointer<UInt32>} Size Indicates the size of the <i>Buffer</i> parameter, in bytes.
@@ -3958,7 +3958,7 @@ class QoS {
      * On function return, if successful, this parameter will specify the number of bytes copied into <i>Buffer</i>.
      * 
      * If this call fails with <b>ERROR_INSUFFICIENT_BUFFER</b>, this parameter will indicate the minimum required <i>Buffer</i> size in order to successfully complete this operation.
-     * @param {Pointer<Void>} Buffer Pointer to a UINT64 that indicates the bandwidth at which point a notification will be sent.  This parameter is only used if the <i>Operation</i> parameter is set to <b>QOSNotifyAvailable</b>. For the <b>QOSNotifyCongested</b> and <b>QOSNotifyUncongested</b> options, this parameter must be set to <b>NULL</b> on input.
+     * @param {Pointer} Buffer Pointer to a UINT64 that indicates the bandwidth at which point a notification will be sent.  This parameter is only used if the <i>Operation</i> parameter is set to <b>QOSNotifyAvailable</b>. For the <b>QOSNotifyCongested</b> and <b>QOSNotifyUncongested</b> options, this parameter must be set to <b>NULL</b> on input.
      * @param {Pointer<OVERLAPPED>} Overlapped Pointer to an OVERLAPPED structure used for asynchronous output. This must be se to <b>NULL</b> if this function is not being called asynchronously.
      * @returns {Integer} If the function succeeds, a return value of nonzero is sent when the conditions set by the <i>Operation</i> parameter are met.
      * 
@@ -4141,7 +4141,7 @@ class QoS {
     static QOSNotifyFlow(QOSHandle, FlowId, Operation, Size, Buffer, Overlapped) {
         static Flags := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("qwave.dll\QOSNotifyFlow", "ptr", QOSHandle, "uint", FlowId, "int", Operation, "ptr", Size, "ptr", Buffer, "uint", Flags, "ptr", Overlapped, "int")
+        result := DllCall("qwave.dll\QOSNotifyFlow", "ptr", QOSHandle, "uint", FlowId, "int", Operation, "uint*", Size, "ptr", Buffer, "uint", Flags, "ptr", Overlapped, "int")
         return result
     }
 
@@ -4153,7 +4153,7 @@ class QoS {
      * Successfully canceled operations complete normal completion mechanisms and return <b>ERROR_OPERATION_ABORTED</b> as their completion return code.
      * 
      * Closing a handle with the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qosclosehandle">QOSCloseHandle</a> will automatically abort all pending operations issued with that handle.  If the handle is closed while a <b>QOSCancel</b> is still in progress, the call will complete with <b>ERROR_OPERATION_ABORTED</b> as the return code.
-     * @param {Pointer<HANDLE>} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
+     * @param {Pointer<Void>} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
      * @param {Pointer<OVERLAPPED>} Overlapped Pointer to the OVERLAPPED structure used in the operation to be canceled.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
@@ -4259,9 +4259,9 @@ class QoS {
      * <b>TcRegisterClient</b> function requires administrative privilege.</div>
      * <div> </div>
      * @param {Integer} TciVersion Traffic control version expected by the client, included to ensure compatibility between traffic control and the client. Clients can pass CURRENT_TCI_VERSION, defined in Traffic.h.
-     * @param {Pointer<HANDLE>} ClRegCtx Client registration context. <i>ClRegCtx</i> is returned when the client's notification handler function is called. This can be a container to hold an arbitrary client-defined context for this instance of the interface.
+     * @param {Pointer<Void>} ClRegCtx Client registration context. <i>ClRegCtx</i> is returned when the client's notification handler function is called. This can be a container to hold an arbitrary client-defined context for this instance of the interface.
      * @param {Pointer<TCI_CLIENT_FUNC_LIST>} ClientHandlerList Pointer to a list of client-supplied handlers. Client-supplied handlers are used for notification events and asynchronous completions. Each completion routine is optional, with the exception of the notification handler. Setting the notification handler to <b>NULL</b> will return an ERROR_INVALID_PARAMETER.
-     * @param {Pointer<HANDLE>} pClientHandle Pointer to the buffer that traffic control uses to return a registration handle to the client.
+     * @param {Pointer<Void>} pClientHandle Pointer to the buffer that traffic control uses to return a registration handle to the client.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return code</th>
@@ -4370,7 +4370,7 @@ class QoS {
      * <div class="alert"><b>Note</b>  Use of the 
      * <b>TcEnumerateInterfaces</b> function requires administrative privilege.</div>
      * <div> </div>
-     * @param {Pointer<HANDLE>} ClientHandle Handle used by traffic control to identify the client. Clients receive handles when registering with traffic control through the 
+     * @param {Pointer<Void>} ClientHandle Handle used by traffic control to identify the client. Clients receive handles when registering with traffic control through the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcregisterclient">TcRegisterClient</a> function.
      * @param {Pointer<UInt32>} pBufferSize Pointer to a value indicating the size of the buffer. For input, this value is the size of the buffer, in bytes, allocated by the caller. For output, this value is the actual size of the buffer, in bytes, used or needed by traffic control. A value of zero on output indicates that no traffic control interfaces are available, indicating that the QOS Packet Scheduler is not installed.
      * @param {Pointer<TC_IFC_DESCRIPTOR>} InterfaceBuffer Pointer to the buffer containing the returned list of interface descriptors.
@@ -4441,7 +4441,7 @@ class QoS {
      * @since windows5.0
      */
     static TcEnumerateInterfaces(ClientHandle, pBufferSize, InterfaceBuffer) {
-        result := DllCall("TRAFFIC.dll\TcEnumerateInterfaces", "ptr", ClientHandle, "ptr", pBufferSize, "ptr", InterfaceBuffer, "uint")
+        result := DllCall("TRAFFIC.dll\TcEnumerateInterfaces", "ptr", ClientHandle, "uint*", pBufferSize, "ptr", InterfaceBuffer, "uint")
         return result
     }
 
@@ -4457,12 +4457,12 @@ class QoS {
      * 
      * > [!NOTE]
      * > The traffic.h header defines TcOpenInterface as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} pInterfaceName Pointer to the text string identifying the interface to be opened. This text string is part of the information returned in a previous call to 
+     * @param {Pointer<Byte>} pInterfaceName Pointer to the text string identifying the interface to be opened. This text string is part of the information returned in a previous call to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcenumerateinterfaces">TcEnumerateInterfaces</a>.
-     * @param {Pointer<HANDLE>} ClientHandle Handle used by traffic control to identify the client, obtained through the <i>pClientHandle</i> parameter of the client's call to 
+     * @param {Pointer<Void>} ClientHandle Handle used by traffic control to identify the client, obtained through the <i>pClientHandle</i> parameter of the client's call to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcregisterclient">TcRegisterClient</a>.
-     * @param {Pointer<HANDLE>} ClIfcCtx Client's interface–context handle for the opened interface. Used as a callback parameter by traffic control when communicating with the client about the opened interface. This can be a container to hold an arbitrary client-defined context for this instance of the interface.
-     * @param {Pointer<HANDLE>} pIfcHandle Pointer to the buffer where traffic control can return an interface handle. The interface handle returned to <i>pIfcHandle</i> must be used by the client to identify the interface in subsequent calls to traffic control.
+     * @param {Pointer<Void>} ClIfcCtx Client's interface–context handle for the opened interface. Used as a callback parameter by traffic control when communicating with the client about the opened interface. This can be a container to hold an arbitrary client-defined context for this instance of the interface.
+     * @param {Pointer<Void>} pIfcHandle Pointer to the buffer where traffic control can return an interface handle. The interface handle returned to <i>pIfcHandle</i> must be used by the client to identify the interface in subsequent calls to traffic control.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return code</th>
@@ -4546,12 +4546,12 @@ class QoS {
      * 
      * > [!NOTE]
      * > The traffic.h header defines TcOpenInterface as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} pInterfaceName Pointer to the text string identifying the interface to be opened. This text string is part of the information returned in a previous call to 
+     * @param {Pointer<Char>} pInterfaceName Pointer to the text string identifying the interface to be opened. This text string is part of the information returned in a previous call to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcenumerateinterfaces">TcEnumerateInterfaces</a>.
-     * @param {Pointer<HANDLE>} ClientHandle Handle used by traffic control to identify the client, obtained through the <i>pClientHandle</i> parameter of the client's call to 
+     * @param {Pointer<Void>} ClientHandle Handle used by traffic control to identify the client, obtained through the <i>pClientHandle</i> parameter of the client's call to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcregisterclient">TcRegisterClient</a>.
-     * @param {Pointer<HANDLE>} ClIfcCtx Client's interface–context handle for the opened interface. Used as a callback parameter by traffic control when communicating with the client about the opened interface. This can be a container to hold an arbitrary client-defined context for this instance of the interface.
-     * @param {Pointer<HANDLE>} pIfcHandle Pointer to the buffer where traffic control can return an interface handle. The interface handle returned to <i>pIfcHandle</i> must be used by the client to identify the interface in subsequent calls to traffic control.
+     * @param {Pointer<Void>} ClIfcCtx Client's interface–context handle for the opened interface. Used as a callback parameter by traffic control when communicating with the client about the opened interface. This can be a container to hold an arbitrary client-defined context for this instance of the interface.
+     * @param {Pointer<Void>} pIfcHandle Pointer to the buffer where traffic control can return an interface handle. The interface handle returned to <i>pIfcHandle</i> must be used by the client to identify the interface in subsequent calls to traffic control.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return code</th>
@@ -4634,7 +4634,7 @@ class QoS {
      * <div class="alert"><b>Note</b>  Use of 
      * <b>TcCloseInterface</b> requires administrative privilege.</div>
      * <div> </div>
-     * @param {Pointer<HANDLE>} IfcHandle Handle associated with the interface to be closed. This handle is obtained by a previous call to the 
+     * @param {Pointer<Void>} IfcHandle Handle associated with the interface to be closed. This handle is obtained by a previous call to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcopeninterfacea">TcOpenInterface</a> function.
      * @returns {Integer} <table>
      * <tr>
@@ -4689,13 +4689,13 @@ class QoS {
      * <div class="alert"><b>Note</b>  Use of the 
      * <b>TcQueryInterface</b> function requires administrative privilege.</div>
      * <div> </div>
-     * @param {Pointer<HANDLE>} IfcHandle Handle associated with the interface to be queried. This handle is obtained by a previous call to the 
+     * @param {Pointer<Void>} IfcHandle Handle associated with the interface to be queried. This handle is obtained by a previous call to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcopeninterfacea">TcOpenInterface</a> function.
      * @param {Pointer<Guid>} pGuidParam Pointer to the globally unique identifier (GUID) that corresponds to the traffic control parameter being queried.
      * @param {Integer} NotifyChange Used to request notifications from traffic control for the parameter being queried. If <b>TRUE</b>, traffic control will notify the client, through the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nc-traffic-tci_notify_handler">ClNotifyHandler</a> function, upon changes to the parameter corresponding to the GUID provided in <i>pGuidParam</i>. Notifications are off by default.
      * @param {Pointer<UInt32>} pBufferSize Indicates the size of the buffer, in bytes. For input, this value is the size of the buffer allocated by the caller. For output, this value is the actual size of the buffer, in bytes, used by traffic control.
-     * @param {Pointer<Void>} Buffer Pointer to a client-allocated buffer into which returned data will be written.
+     * @param {Pointer} Buffer Pointer to a client-allocated buffer into which returned data will be written.
      * @returns {Integer} Note that, with regard to a requested notification state, only a return value of NO_ERROR will result in the application of the requested notification state. If a return value other than NO_ERROR is returned from a call to the 
      * <b>TcQueryInterface</b> function, the requested change in notification state will not be accepted.
      * 
@@ -4786,7 +4786,7 @@ class QoS {
      * @since windows5.0
      */
     static TcQueryInterface(IfcHandle, pGuidParam, NotifyChange, pBufferSize, Buffer) {
-        result := DllCall("TRAFFIC.dll\TcQueryInterface", "ptr", IfcHandle, "ptr", pGuidParam, "char", NotifyChange, "ptr", pBufferSize, "ptr", Buffer, "uint")
+        result := DllCall("TRAFFIC.dll\TcQueryInterface", "ptr", IfcHandle, "ptr", pGuidParam, "char", NotifyChange, "uint*", pBufferSize, "ptr", Buffer, "uint")
         return result
     }
 
@@ -4797,12 +4797,12 @@ class QoS {
      * <b>TcSetInterface</b> function requires administrative privilege. The list of GUIDs that can be set is explained in 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/qos/guid">GUID</a>.</div>
      * <div> </div>
-     * @param {Pointer<HANDLE>} IfcHandle Handle associated with the interface to be set. This handle is obtained by a previous call to the 
+     * @param {Pointer<Void>} IfcHandle Handle associated with the interface to be set. This handle is obtained by a previous call to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcopeninterfacea">TcOpenInterface</a> function.
      * @param {Pointer<Guid>} pGuidParam Pointer to the globally unique identifier (GUID) that corresponds to the parameter to be set. A list of available GUIDs can be found in 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/qos/guid">GUID</a>.
      * @param {Integer} BufferSize Size of the client-provided buffer, in bytes.
-     * @param {Pointer<Void>} Buffer Pointer to a client-provided buffer. <i>Buffer</i> must contain the value to which the traffic control parameter provided in <i>pGuidParam</i> should be set.
+     * @param {Pointer} Buffer Pointer to a client-provided buffer. <i>Buffer</i> must contain the value to which the traffic control parameter provided in <i>pGuidParam</i> should be set.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return code</th>
@@ -4895,11 +4895,11 @@ class QoS {
      * 
      * > [!NOTE]
      * > The traffic.h header defines TcQueryFlow as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} pFlowName Name of the flow being queried.
+     * @param {Pointer<Byte>} pFlowName Name of the flow being queried.
      * @param {Pointer<Guid>} pGuidParam Pointer to the globally unique identifier (GUID) that corresponds to the flow parameter of interest. A list of traffic control's GUIDs can be found in 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/qos/guid">GUID</a>.
      * @param {Pointer<UInt32>} pBufferSize Pointer to the size of the client-provided buffer or the number of bytes used by traffic control. For input, points to the size of <i>Buffer</i>, in bytes. For output, points to the actual amount of buffer space written with returned flow-parameter data, in bytes.
-     * @param {Pointer<Void>} Buffer Pointer to the client-provided buffer in which the returned flow parameter is written.
+     * @param {Pointer} Buffer Pointer to the client-provided buffer in which the returned flow parameter is written.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return code</th>
@@ -4978,7 +4978,7 @@ class QoS {
     static TcQueryFlowA(pFlowName, pGuidParam, pBufferSize, Buffer) {
         pFlowName := pFlowName is String? StrPtr(pFlowName) : pFlowName
 
-        result := DllCall("TRAFFIC.dll\TcQueryFlowA", "ptr", pFlowName, "ptr", pGuidParam, "ptr", pBufferSize, "ptr", Buffer, "uint")
+        result := DllCall("TRAFFIC.dll\TcQueryFlowA", "ptr", pFlowName, "ptr", pGuidParam, "uint*", pBufferSize, "ptr", Buffer, "uint")
         return result
     }
 
@@ -4994,11 +4994,11 @@ class QoS {
      * 
      * > [!NOTE]
      * > The traffic.h header defines TcQueryFlow as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} pFlowName Name of the flow being queried.
+     * @param {Pointer<Char>} pFlowName Name of the flow being queried.
      * @param {Pointer<Guid>} pGuidParam Pointer to the globally unique identifier (GUID) that corresponds to the flow parameter of interest. A list of traffic control's GUIDs can be found in 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/qos/guid">GUID</a>.
      * @param {Pointer<UInt32>} pBufferSize Pointer to the size of the client-provided buffer or the number of bytes used by traffic control. For input, points to the size of <i>Buffer</i>, in bytes. For output, points to the actual amount of buffer space written with returned flow-parameter data, in bytes.
-     * @param {Pointer<Void>} Buffer Pointer to the client-provided buffer in which the returned flow parameter is written.
+     * @param {Pointer} Buffer Pointer to the client-provided buffer in which the returned flow parameter is written.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return code</th>
@@ -5077,7 +5077,7 @@ class QoS {
     static TcQueryFlowW(pFlowName, pGuidParam, pBufferSize, Buffer) {
         pFlowName := pFlowName is String? StrPtr(pFlowName) : pFlowName
 
-        result := DllCall("TRAFFIC.dll\TcQueryFlowW", "ptr", pFlowName, "ptr", pGuidParam, "ptr", pBufferSize, "ptr", Buffer, "uint")
+        result := DllCall("TRAFFIC.dll\TcQueryFlowW", "ptr", pFlowName, "ptr", pGuidParam, "uint*", pBufferSize, "ptr", Buffer, "uint")
         return result
     }
 
@@ -5092,13 +5092,13 @@ class QoS {
      * 
      * > [!NOTE]
      * > The traffic.h header defines TcSetFlow as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} pFlowName Name of the flow being set. The value for this parameter is obtained by a previous call to the 
+     * @param {Pointer<Byte>} pFlowName Name of the flow being set. The value for this parameter is obtained by a previous call to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcenumerateflows">TcEnumerateFlows</a> function or the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcgetflownamea">TcGetFlowName</a> function.
      * @param {Pointer<Guid>} pGuidParam Pointer to the globally unique identifier (GUID) that corresponds to the parameter to be set. A list of available GUIDs can be found in 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/qos/guid">GUID</a>.
      * @param {Integer} BufferSize Size of the client-provided buffer, in bytes.
-     * @param {Pointer<Void>} Buffer Pointer to a client-provided buffer. Buffer must contain the value to which the traffic control parameter provided in <i>pGuidParam</i> should be set.
+     * @param {Pointer} Buffer Pointer to a client-provided buffer. Buffer must contain the value to which the traffic control parameter provided in <i>pGuidParam</i> should be set.
      * @returns {Integer} The 
      * <b>TcSetFlow</b> function has the following return values.
      * 
@@ -5206,13 +5206,13 @@ class QoS {
      * 
      * > [!NOTE]
      * > The traffic.h header defines TcSetFlow as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} pFlowName Name of the flow being set. The value for this parameter is obtained by a previous call to the 
+     * @param {Pointer<Char>} pFlowName Name of the flow being set. The value for this parameter is obtained by a previous call to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcenumerateflows">TcEnumerateFlows</a> function or the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcgetflownamea">TcGetFlowName</a> function.
      * @param {Pointer<Guid>} pGuidParam Pointer to the globally unique identifier (GUID) that corresponds to the parameter to be set. A list of available GUIDs can be found in 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/qos/guid">GUID</a>.
      * @param {Integer} BufferSize Size of the client-provided buffer, in bytes.
-     * @param {Pointer<Void>} Buffer Pointer to a client-provided buffer. Buffer must contain the value to which the traffic control parameter provided in <i>pGuidParam</i> should be set.
+     * @param {Pointer} Buffer Pointer to a client-provided buffer. Buffer must contain the value to which the traffic control parameter provided in <i>pGuidParam</i> should be set.
      * @returns {Integer} The 
      * <b>TcSetFlow</b> function has the following return values.
      * 
@@ -5325,12 +5325,12 @@ class QoS {
      * <div class="alert"><b>Note</b>  Use of the 
      * <b>TcAddFlow</b> function requires administrative privilege.</div>
      * <div> </div>
-     * @param {Pointer<HANDLE>} IfcHandle Handle associated with the interface on which the flow is to be added. This handle is obtained by a previous call to the 
+     * @param {Pointer<Void>} IfcHandle Handle associated with the interface on which the flow is to be added. This handle is obtained by a previous call to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcopeninterfacea">TcOpenInterface</a> function.
-     * @param {Pointer<HANDLE>} ClFlowCtx Client provided–flow context handle. Used subsequently by traffic control when referring to the added flow.
+     * @param {Pointer<Void>} ClFlowCtx Client provided–flow context handle. Used subsequently by traffic control when referring to the added flow.
      * @param {Integer} Flags Reserved for future use. Must be set to zero.
      * @param {Pointer<TC_GEN_FLOW>} pGenericFlow Pointer to a description of the flow being installed.
-     * @param {Pointer<HANDLE>} pFlowHandle Pointer to a location into which traffic control will return the flow handle. This flow handle should be used in subsequent calls to traffic control to refer to the installed flow.
+     * @param {Pointer<Void>} pFlowHandle Pointer to a location into which traffic control will return the flow handle. This flow handle should be used in subsequent calls to traffic control to refer to the installed flow.
      * @returns {Integer} There are many reasons why a request to add a flow might be rejected. Error codes returned by traffic control from calls to 
      * <b>TcAddFlow</b> are provided to aid in determining the reason for rejection.
      * 
@@ -5562,9 +5562,9 @@ class QoS {
      * 
      * > [!NOTE]
      * > The traffic.h header defines TcGetFlowName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FlowHandle Handle for the flow.
+     * @param {Pointer<Void>} FlowHandle Handle for the flow.
      * @param {Integer} StrSize Size of the string buffer provided in <i>pFlowName</i>.
-     * @param {Pointer<PSTR>} pFlowName Pointer to the output buffer holding the flow name.
+     * @param {Pointer<Byte>} pFlowName Pointer to the output buffer holding the flow name.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return code</th>
@@ -5637,9 +5637,9 @@ class QoS {
      * 
      * > [!NOTE]
      * > The traffic.h header defines TcGetFlowName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} FlowHandle Handle for the flow.
+     * @param {Pointer<Void>} FlowHandle Handle for the flow.
      * @param {Integer} StrSize Size of the string buffer provided in <i>pFlowName</i>.
-     * @param {Pointer<PWSTR>} pFlowName Pointer to the output buffer holding the flow name.
+     * @param {Pointer<Char>} pFlowName Pointer to the output buffer holding the flow name.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return code</th>
@@ -5711,7 +5711,7 @@ class QoS {
      * <div class="alert"><b>Note</b>  Use of the 
      * <b>TcModifyFlow</b> function requires administrative privilege.</div>
      * <div> </div>
-     * @param {Pointer<HANDLE>} FlowHandle Handle for the flow, as received from a previous call to the 
+     * @param {Pointer<Void>} FlowHandle Handle for the flow, as received from a previous call to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcaddflow">TcAddFlow</a> function.
      * @param {Pointer<TC_GEN_FLOW>} pGenericFlow Pointer to a description of the flow modifications.
      * @returns {Integer} <table>
@@ -5958,10 +5958,10 @@ class QoS {
      * <b>TcAddFilter</b> function requires administrative privilege.</div>
      * <div> </div>
      * In Windows Vista, overlapping and identical filters can be created.  In these situations, the more specific filter takes precedence.
-     * @param {Pointer<HANDLE>} FlowHandle Handle for the flow, as received from a previous call to the 
+     * @param {Pointer<Void>} FlowHandle Handle for the flow, as received from a previous call to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcaddflow">TcAddFlow</a> function.
      * @param {Pointer<TC_GEN_FILTER>} pGenericFilter Pointer to a description of the filter to be installed.
-     * @param {Pointer<HANDLE>} pFilterHandle Pointer to a buffer where traffic control returns the filter handle. This filter handle is used by the client in subsequent calls to refer to the added filter.
+     * @param {Pointer<Void>} pFilterHandle Pointer to a buffer where traffic control returns the filter handle. This filter handle is used by the client in subsequent calls to refer to the added filter.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return code</th>
@@ -6078,7 +6078,7 @@ class QoS {
      * <div class="alert"><b>Note</b>  Use of the 
      * <b>TcDeregisterClient</b> function requires administrative privilege.</div>
      * <div> </div>
-     * @param {Pointer<HANDLE>} ClientHandle Handle assigned to the client through the previous call to the 
+     * @param {Pointer<Void>} ClientHandle Handle assigned to the client through the previous call to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcregisterclient">TcRegisterClient</a> function.
      * @returns {Integer} <table>
      * <tr>
@@ -6138,7 +6138,7 @@ class QoS {
      * <div class="alert"><b>Note</b>  Use of the 
      * <b>TcDeleteFlow</b> function requires administrative privilege.</div>
      * <div> </div>
-     * @param {Pointer<HANDLE>} FlowHandle Handle for the flow, as received from a previous call to the 
+     * @param {Pointer<Void>} FlowHandle Handle for the flow, as received from a previous call to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcaddflow">TcAddFlow</a> function.
      * @returns {Integer} <table>
      * <tr>
@@ -6215,7 +6215,7 @@ class QoS {
 
     /**
      * The TcDeleteFilter function deletes a filter previously added with the TcAddFilter function.
-     * @param {Pointer<HANDLE>} FilterHandle Handle to the filter to be deleted, as received in a previous call to the 
+     * @param {Pointer<Void>} FilterHandle Handle to the filter to be deleted, as received in a previous call to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcaddfilter">TcAddFilter</a> function.
      * @returns {Integer} <table>
      * <tr>
@@ -6271,9 +6271,9 @@ class QoS {
      * <div class="alert"><b>Note</b>  Use of the 
      * <b>TcEnumerateFlows</b> function requires administrative privilege.</div>
      * <div> </div>
-     * @param {Pointer<HANDLE>} IfcHandle Handle associated with the interface on which flows are to be enumerated. This handle is obtained by a previous call to the 
+     * @param {Pointer<Void>} IfcHandle Handle associated with the interface on which flows are to be enumerated. This handle is obtained by a previous call to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcopeninterfacea">TcOpenInterface</a> function.
-     * @param {Pointer<HANDLE>} pEnumHandle Pointer to the enumeration token, used internally by traffic control to maintain returned flow information state. 
+     * @param {Pointer<Void>} pEnumHandle Pointer to the enumeration token, used internally by traffic control to maintain returned flow information state. 
      * 
      * 
      * 
@@ -6364,7 +6364,7 @@ class QoS {
      * @since windows5.0
      */
     static TcEnumerateFlows(IfcHandle, pEnumHandle, pFlowCount, pBufSize, Buffer) {
-        result := DllCall("TRAFFIC.dll\TcEnumerateFlows", "ptr", IfcHandle, "ptr", pEnumHandle, "ptr", pFlowCount, "ptr", pBufSize, "ptr", Buffer, "uint")
+        result := DllCall("TRAFFIC.dll\TcEnumerateFlows", "ptr", IfcHandle, "ptr", pEnumHandle, "uint*", pFlowCount, "uint*", pBufSize, "ptr", Buffer, "uint")
         return result
     }
 

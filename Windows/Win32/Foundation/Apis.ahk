@@ -33724,14 +33724,14 @@ class Foundation {
      * Allocates a new string and copies the passed string into it.
      * @remarks
      * You can free strings created with <b>SysAllocString</b> using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
-     * @param {Pointer<PWSTR>} psz The string to copy.
-     * @returns {Pointer<BSTR>} If successful, returns the string. If <i>psz</i> is a zero-length string, returns a zero-length <b>BSTR</b>. If <i>psz</i> is NULL or insufficient memory exists, returns NULL.
+     * @param {Pointer<Char>} psz The string to copy.
+     * @returns {Pointer<Char>} If successful, returns the string. If <i>psz</i> is a zero-length string, returns a zero-length <b>BSTR</b>. If <i>psz</i> is NULL or insufficient memory exists, returns NULL.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysallocstring
      */
     static SysAllocString(psz) {
         psz := psz is String? StrPtr(psz) : psz
 
-        result := DllCall("OLEAUT32.dll\SysAllocString", "ptr", psz, "ptr")
+        result := DllCall("OLEAUT32.dll\SysAllocString", "ptr", psz, "char*")
         return result
     }
 
@@ -33741,15 +33741,44 @@ class Foundation {
      * The address passed in psz cannot be part of the string passed in pbstr, or unexpected results may occur.
      * 
      * If pbstr is NULL, there will be an access violation and the program will crash. It is your responsibility to protect this function against NULL pointers.
-     * @param {Pointer<BSTR>} pbstr The previously allocated string.
-     * @param {Pointer<PWSTR>} psz The string to copy.
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Char>} pbstr The previously allocated string.
+     * @param {Pointer<Char>} psz The string to copy.
+     * @returns {Pointer} <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TRUE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The string is reallocated successfully.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory exists.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysreallocstring
      */
     static SysReAllocString(pbstr, psz) {
         psz := psz is String? StrPtr(psz) : psz
 
-        DllCall("OLEAUT32.dll\SysReAllocString", "ptr", pbstr, "ptr", psz)
+        result := DllCall("OLEAUT32.dll\SysReAllocString", "ptr", pbstr, "ptr", psz)
+        return result
     }
 
     /**
@@ -33759,15 +33788,15 @@ class Foundation {
      * 
      * <div class="alert"><b>Note</b>  This function does not convert a <b>char *</b> string into a Unicode <b>BSTR</b>.</div>
      * <div> </div>
-     * @param {Pointer<PWSTR>} strIn The input string.
+     * @param {Pointer<Char>} strIn The input string.
      * @param {Integer} ui The number of characters to copy. A null character is placed afterwards, allocating a total of <i>ui</i> plus one characters.
-     * @returns {Pointer<BSTR>} A copy of the string, or <b>NULL</b> if there is insufficient memory to complete the operation.
+     * @returns {Pointer<Char>} A copy of the string, or <b>NULL</b> if there is insufficient memory to complete the operation.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysallocstringlen
      */
     static SysAllocStringLen(strIn, ui) {
         strIn := strIn is String? StrPtr(strIn) : strIn
 
-        result := DllCall("OLEAUT32.dll\SysAllocStringLen", "ptr", strIn, "uint", ui, "ptr")
+        result := DllCall("OLEAUT32.dll\SysAllocStringLen", "ptr", strIn, "uint", ui, "char*")
         return result
     }
 
@@ -33779,29 +33808,58 @@ class Foundation {
      * The <i>psz</i> string can contain embedded null characters and does not need to end with a null.
      * 
      * If this function is passed a NULL pointer, there will be an access violation and the program will crash. It is your responsibility to protect this function against NULL pointers.
-     * @param {Pointer<BSTR>} pbstr The previously allocated string.
-     * @param {Pointer<PWSTR>} psz The string from which to copy <i>len</i> characters, or NULL to keep the string uninitialized.
+     * @param {Pointer<Char>} pbstr The previously allocated string.
+     * @param {Pointer<Char>} psz The string from which to copy <i>len</i> characters, or NULL to keep the string uninitialized.
      * @param {Integer} len The number of characters to copy. A null character is placed afterward, allocating a total of <i>len</i> plus one characters.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TRUE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The string is reallocated successfully.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory exists.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysreallocstringlen
      */
     static SysReAllocStringLen(pbstr, psz, len) {
         psz := psz is String? StrPtr(psz) : psz
 
-        DllCall("OLEAUT32.dll\SysReAllocStringLen", "ptr", pbstr, "ptr", psz, "uint", len)
+        result := DllCall("OLEAUT32.dll\SysReAllocStringLen", "ptr", pbstr, "ptr", psz, "uint", len)
+        return result
     }
 
     /**
      * Increases the pinning reference count for the specified string by one.
      * @remarks
      * Strings with the <b>BSTR</b> data type have not traditionally had a reference count. All existing usage of these strings will continue to work with no changes. The <b>SysAddRefString</b> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysreleasestring">SysReleaseString</a> functions add the ability to use reference counting to pin the string into memory before calling from an untrusted script into an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> method that may not expect the script to free that memory before the method returns, so that the script cannot force the code for that method into accessing memory that has been freed. After such a method safely returns, the pinning references should be released by calling <b>SysReleaseString</b>.
-     * @param {Pointer<BSTR>} bstrString The string for which the pinning reference count should increase. While that count remains greater than 0, the memory for the string is prevented from being freed by calls to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
+     * @param {Pointer<Char>} bstrString The string for which the pinning reference count should increase. While that count remains greater than 0, the memory for the string is prevented from being freed by calls to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
      * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysaddrefstring
      * @since windows5.1.2600
      */
     static SysAddRefString(bstrString) {
-        result := DllCall("OLEAUT32.dll\SysAddRefString", "ptr", bstrString, "int")
+        result := DllCall("OLEAUT32.dll\SysAddRefString", "char*", bstrString, "int")
         return result
     }
 
@@ -33809,47 +33867,51 @@ class Foundation {
      * Decreases the pinning reference count for the specified string by one. When that count reaches 0, the memory for that string is no longer prevented from being freed.
      * @remarks
      * A call to the <b>SysReleaseString</b> function should match every previous call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysaddrefstring">SysAddRefString</a> function.
-     * @param {Pointer<BSTR>} bstrString The string for which the  pinning reference count should decrease.
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Char>} bstrString The string for which the  pinning reference count should decrease.
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysreleasestring
      * @since windows5.1.2600
      */
     static SysReleaseString(bstrString) {
-        DllCall("OLEAUT32.dll\SysReleaseString", "ptr", bstrString)
+        result := DllCall("OLEAUT32.dll\SysReleaseString", "char*", bstrString)
+        return result
     }
 
     /**
      * Deallocates a string allocated previously by SysAllocString, SysAllocStringByteLen, SysReAllocString, SysAllocStringLen, or SysReAllocStringLen.
-     * @param {Pointer<BSTR>} bstrString The previously allocated string. If this parameter is <b>NULL</b>, the function simply returns.
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Char>} bstrString The previously allocated string. If this parameter is <b>NULL</b>, the function simply returns.
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring
      */
     static SysFreeString(bstrString) {
-        DllCall("OLEAUT32.dll\SysFreeString", "ptr", bstrString)
+        result := DllCall("OLEAUT32.dll\SysFreeString", "char*", bstrString)
+        return result
     }
 
     /**
      * Returns the length of a BSTR.
      * @remarks
      * The returned value may be different from <b>strlen</b>(bstr) if the BSTR contains embedded Null characters. This function always returns the number of characters specified in the cch parameter of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstringlen">SysAllocStringLen</a> function used to allocate the BSTR.
-     * @param {Pointer<BSTR>} pbstr A previously allocated string.
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Char>} pbstr A previously allocated string.
+     * @returns {Pointer} The number of characters in <i>bstr</i>, not including the terminating null character. If <i>bstr</i> is null the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysstringlen
      */
     static SysStringLen(pbstr) {
-        DllCall("OLEAUT32.dll\SysStringLen", "ptr", pbstr)
+        result := DllCall("OLEAUT32.dll\SysStringLen", "char*", pbstr)
+        return result
     }
 
     /**
      * Returns the length (in bytes) of a BSTR.
      * @remarks
      * The returned value may be different from <b>strlen</b>(bstr) if the BSTR contains embedded null characters. This function always returns the number of bytes specified in the len parameter of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstringbytelen">SysAllocStringByteLen</a> function used to allocate the BSTR.
-     * @param {Pointer<BSTR>} bstr A previously allocated string.
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Char>} bstr A previously allocated string.
+     * @returns {Pointer} The number of bytes in <i>bstr</i>, not including the terminating null character. If <i>bstr</i> is null the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysstringbytelen
      */
     static SysStringByteLen(bstr) {
-        DllCall("OLEAUT32.dll\SysStringByteLen", "ptr", bstr)
+        result := DllCall("OLEAUT32.dll\SysStringByteLen", "char*", bstr)
+        return result
     }
 
     /**
@@ -33860,15 +33922,15 @@ class Foundation {
      * For example, do not use these BSTRs between a 16-bit and a 32-bit application running on a 32-bit Windows system. The OLE 16-bit to 32-bit (and 32-bit to 16-bit) interoperability layer will translate the BSTR and corrupt the binary data. The preferred method of passing binary data is to use a SAFEARRAY of VT_UI1, which will not be translated by OLE.
      * 
      * If psz is Null, a string of the requested length is allocated, but not initialized. The string psz can contain embedded null characters, and does not need to end with a Null. Free the returned string later with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
-     * @param {Pointer<PSTR>} psz The string to copy, or NULL to keep the string uninitialized.
+     * @param {Pointer<Byte>} psz The string to copy, or NULL to keep the string uninitialized.
      * @param {Integer} len The number of bytes to copy. A null character is placed afterwards, allocating a total of <i>len</i> plus the size of <b>OLECHAR</b> bytes.
-     * @returns {Pointer<BSTR>} A copy of the string, or NULL if there is insufficient memory to complete the operation.
+     * @returns {Pointer<Char>} A copy of the string, or NULL if there is insufficient memory to complete the operation.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysallocstringbytelen
      */
     static SysAllocStringByteLen(psz, len) {
         psz := psz is String? StrPtr(psz) : psz
 
-        result := DllCall("OLEAUT32.dll\SysAllocStringByteLen", "ptr", psz, "uint", len, "ptr")
+        result := DllCall("OLEAUT32.dll\SysAllocStringByteLen", "ptr", psz, "uint", len, "char*")
         return result
     }
 
@@ -33912,7 +33974,7 @@ class Foundation {
      * Do not use the <b>CloseHandle</b>  function to close a socket. Instead, use  the <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-closesocket">closesocket</a> function, which releases all resources associated with the socket including the handle to the socket object. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinSock/graceful-shutdown-linger-options-and-socket-closure-2">Socket Closure</a>.
      * 
      * Do not use the <b>CloseHandle</b>  function to close a handle to an open registry key. Instead, use  the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a> function. <b>CloseHandle</b> does not close the handle to the registry key, but does not return an error to indicate this failure.
-     * @param {Pointer<HANDLE>} hObject A valid handle to an open object.
+     * @param {Pointer<Void>} hObject A valid handle to an open object.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -34128,18 +34190,18 @@ class Foundation {
      * <li>Set <i>hTargetProcessHandle</i> to <b>NULL</b>.</li>
      * <li>Set <i>dwOptions</i> to DUPLICATE_CLOSE_SOURCE.</li>
      * </ul>
-     * @param {Pointer<HANDLE>} hSourceProcessHandle A handle to the process with the handle to be duplicated. 
+     * @param {Pointer<Void>} hSourceProcessHandle A handle to the process with the handle to be duplicated. 
      * 
      * 
      * 
      * 
      * The handle must have the PROCESS_DUP_HANDLE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Pointer<HANDLE>} hSourceHandle The handle to be duplicated. This is an open object handle that is valid in the context of the source process. For a list of objects whose handles can be duplicated, see the following Remarks section.
-     * @param {Pointer<HANDLE>} hTargetProcessHandle A handle to the process that is to receive the duplicated handle. The handle must have the PROCESS_DUP_HANDLE access right.
+     * @param {Pointer<Void>} hSourceHandle The handle to be duplicated. This is an open object handle that is valid in the context of the source process. For a list of objects whose handles can be duplicated, see the following Remarks section.
+     * @param {Pointer<Void>} hTargetProcessHandle A handle to the process that is to receive the duplicated handle. The handle must have the PROCESS_DUP_HANDLE access right.
      * 
      * This parameter is optional and can be specified as NULL if the **DUPLICATE_CLOSE_SOURCE** flag is set in _Options_.
-     * @param {Pointer<HANDLE>} lpTargetHandle A pointer to a variable that receives the duplicate handle. This handle value is valid in the context of the target process. 
+     * @param {Pointer<Void>} lpTargetHandle A pointer to a variable that receives the duplicate handle. This handle value is valid in the context of the target process. 
      * 
      * If <i>hSourceHandle</i> is a pseudo handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess">GetCurrentProcess</a> or <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getcurrentthread">GetCurrentThread</a>, <b>DuplicateHandle</b> converts it to a real handle to a process or thread, respectively.
      * 
@@ -34176,8 +34238,8 @@ class Foundation {
      * Compares two object handles to determine if they refer to the same underlying kernel object.
      * @remarks
      * The <b>CompareObjectHandles</b> function is useful to determine if two kernel handles refer to the same kernel object without imposing a requirement that specific access rights be granted to either handle in order to perform the comparison.  For example, if a process desires to determine whether a process handle is a handle to the current process, a call to <b>CompareObjectHandles</b> (GetCurrentProcess (), hProcess) can be used to determine if hProcess refers to the current process.  Notably, this does not require the use of object-specific access rights, whereas in this example, calling <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getprocessid">GetProcessId</a> to check the process IDs of two process handles imposes a requirement that the handles grant PROCESS_QUERY_LIMITED_INFORMATION access. However it is legal for a process handle to not have that access right granted depending on how the handle is intended to be used.
-     * @param {Pointer<HANDLE>} hFirstObjectHandle The first object handle to compare.
-     * @param {Pointer<HANDLE>} hSecondObjectHandle The second object handle to compare.
+     * @param {Pointer<Void>} hFirstObjectHandle The first object handle to compare.
+     * @param {Pointer<Void>} hSecondObjectHandle The second object handle to compare.
      * @returns {Integer} A Boolean value that indicates if the two handles refer to the same underlying kernel object. TRUE if the same, otherwise FALSE.
      * @see https://learn.microsoft.com/windows/win32/api/handleapi/nf-handleapi-compareobjecthandles
      * @since windows10.0.10240
@@ -34189,7 +34251,7 @@ class Foundation {
 
     /**
      * Retrieves certain properties of an object handle.
-     * @param {Pointer<HANDLE>} hObject A handle to an object whose information is to be retrieved. 
+     * @param {Pointer<Void>} hObject A handle to an object whose information is to be retrieved. 
      * 
      * 
      * 
@@ -34239,7 +34301,7 @@ class Foundation {
     static GetHandleInformation(hObject, lpdwFlags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetHandleInformation", "ptr", hObject, "ptr", lpdwFlags, "int")
+        result := DllCall("KERNEL32.dll\GetHandleInformation", "ptr", hObject, "uint*", lpdwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -34250,7 +34312,7 @@ class Foundation {
      * Sets certain properties of an object handle.
      * @remarks
      * To set or clear the associated bit flag in <i>dwFlags</i>, you must set a change mask bit flag in <i>dwMask</i>.
-     * @param {Pointer<HANDLE>} hObject A handle to an object whose information is to be set. 
+     * @param {Pointer<Void>} hObject A handle to an object whose information is to be set. 
      * 
      * 
      * 
@@ -34296,7 +34358,7 @@ class Foundation {
      * Use caution when calling <b>FreeLibrary</b> with a handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a>. The <b>GetModuleHandle</b> function does not increment a module's reference count, so passing this handle to <b>FreeLibrary</b> can cause a module to be unloaded prematurely.
      * 
      * A thread that must unload the DLL in which it is executing and then terminate itself should call <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-freelibraryandexitthread">FreeLibraryAndExitThread</a> instead of calling <b>FreeLibrary</b> and <b>ExitThread</b> separately. Otherwise, a race condition can occur. For details, see the Remarks section of <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-freelibraryandexitthread">FreeLibraryAndExitThread</a>.
-     * @param {Pointer<HMODULE>} hLibModule A handle to the loaded library module. The 
+     * @param {Pointer<Void>} hLibModule A handle to the loaded library module. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a>, <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>,  
      * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandleexa">GetModuleHandleEx</a> function returns this handle.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -34359,17 +34421,18 @@ class Foundation {
      * 
      * Error codes are 32-bit values (bit 31 is the most significant bit). Bit 29 is reserved for application-defined error codes; no system error code has this bit set. If you are defining an error code for your application, set this bit to indicate that the error code has been defined by your application and to ensure that your error code does not conflict with any system-defined error codes.
      * @param {Integer} dwErrCode The last-error code for the thread.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-setlasterror
      * @since windows5.1.2600
      */
     static SetLastError(dwErrCode) {
         A_LastError := 0
 
-        DllCall("KERNEL32.dll\SetLastError", "uint", dwErrCode)
+        result := DllCall("KERNEL32.dll\SetLastError", "uint", dwErrCode)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -34387,17 +34450,18 @@ class Foundation {
      * Error codes are 32-bit values (bit 31 is the most significant bit). Bit 29 is reserved for application-defined error codes; no system error code has this bit set. If you are defining an error code for your application, set this bit to indicate that the error code has been defined by the application and to ensure that your error code does not conflict with any system-defined error codes.
      * @param {Integer} dwErrCode The last-error code for the thread.
      * @param {Integer} dwType This parameter is ignored.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setlasterrorex
      * @since windows5.1.2600
      */
     static SetLastErrorEx(dwErrCode, dwType) {
         A_LastError := 0
 
-        DllCall("USER32.dll\SetLastErrorEx", "uint", dwErrCode, "uint", dwType)
+        result := DllCall("USER32.dll\SetLastErrorEx", "uint", dwErrCode, "uint", dwType)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -34414,10 +34478,10 @@ class Foundation {
      * If an application is running under a debug version of the system, 
      * <b>GlobalFree</b> will issue a message that tells you that a locked object is being freed. If you are debugging the application, 
      * <b>GlobalFree</b> will enter a breakpoint just before freeing a locked object. This allows you to verify the intended behavior, then continue execution.
-     * @param {Pointer<HGLOBAL>} hMem A handle to the global memory object. This handle is returned by either the 
+     * @param {Pointer<Void>} hMem A handle to the global memory object. This handle is returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalrealloc">GlobalReAlloc</a> function. It is not safe to free memory allocated with <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a>.
-     * @returns {Pointer<HGLOBAL>} If the function succeeds, the return value is <b>NULL</b>.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is <b>NULL</b>.
      * 
      * If the function fails, the return value is equal to a handle to the global memory object. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -34427,7 +34491,7 @@ class Foundation {
     static GlobalFree(hMem) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GlobalFree", "ptr", hMem, "ptr")
+        result := DllCall("KERNEL32.dll\GlobalFree", "ptr", hMem)
         if(A_LastError)
             throw OSError()
 
@@ -34451,10 +34515,10 @@ class Foundation {
      * If an application is running under a debug version of the system, 
      * <b>LocalFree</b> will issue a message that tells you that a locked object is being freed. If you are debugging the application, 
      * <b>LocalFree</b> will enter a breakpoint just before freeing a locked object. This allows you to verify the intended behavior, then continue execution.
-     * @param {Pointer<HLOCAL>} hMem A handle to the local memory object. This handle is returned by either the 
+     * @param {Pointer<Void>} hMem A handle to the local memory object. This handle is returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localrealloc">LocalReAlloc</a> function. It is not safe to free memory allocated with <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a>.
-     * @returns {Pointer<HLOCAL>} If the function succeeds, the return value is <b>NULL</b>.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is <b>NULL</b>.
      * 
      * If the function fails, the return value is equal to a handle to the local memory object. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -34464,7 +34528,7 @@ class Foundation {
     static LocalFree(hMem) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\LocalFree", "ptr", hMem, "ptr")
+        result := DllCall("KERNEL32.dll\LocalFree", "ptr", hMem)
         if(A_LastError)
             throw OSError()
 

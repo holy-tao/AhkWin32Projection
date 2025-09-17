@@ -28,7 +28,7 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HCONN>}
+     * @type {Pointer<Void>}
      */
     ConnID {
         get => NumGet(this, 8, "ptr")
@@ -52,7 +52,7 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpszMethod {
         get => NumGet(this, 184, "ptr")
@@ -60,7 +60,7 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpszQueryString {
         get => NumGet(this, 192, "ptr")
@@ -68,7 +68,7 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpszPathInfo {
         get => NumGet(this, 200, "ptr")
@@ -76,7 +76,7 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpszPathTranslated {
         get => NumGet(this, 208, "ptr")
@@ -108,7 +108,7 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpszContentType {
         get => NumGet(this, 232, "ptr")

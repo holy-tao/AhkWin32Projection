@@ -13,7 +13,7 @@ class DOT11EXT_IHV_DISCOVERY_PROFILE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     IhvConnectivityProfile {
         get => NumGet(this, 0, "ptr")

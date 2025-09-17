@@ -41,7 +41,7 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
      * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * The PAC URL for the network (for example, L"http://proxy.contoso.com/wpad.dat").
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pcwszAutoconfigUrl {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +52,7 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
      * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * The proxy address and port for HTTP traffic (for example, L"http://192.168.1.1:8888").
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pcwszProxy {
         get => NumGet(this, 24, "ptr")
@@ -63,7 +63,7 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
      * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * The proxy address and port for HTTPS traffic (for example, L"http://192.168.1.1:8888").
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pcwszSecureProxy {
         get => NumGet(this, 32, "ptr")
@@ -85,7 +85,7 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
      * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)\***
      * 
      * An array of strings containing each site in the proxy bypass list. (for example, L"contoso.com").
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     rgpcwszProxyBypasses {
         get => NumGet(this, 48, "ptr")
@@ -107,7 +107,7 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
      * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * The WCM connection name for which settings were retrieved.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pcwszConnectionName {
         get => NumGet(this, 64, "ptr")

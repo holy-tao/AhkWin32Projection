@@ -324,12 +324,13 @@ class ComponentServices {
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-coenterservicedomain">CoEnterServiceDomain</a> and <b>CoLeaveServiceDomain</b> pairs can be nested. It is up to the user to make sure that the pairs of calls are balanced so that every call to <b>CoLeaveServiceDomain</b> matches a previous call to <b>CoEnterServiceDomain</b>.
      * @param {Pointer<IUnknown>} pUnkStatus If you want to know the status of the transaction that is completed by the call, this must be a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of an object that implements the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-itransactionstatus">ITransactionStatus</a> interface. If the enclosed code did not use transactions or if you do not need to know the transaction status, this parameter should be <b>NULL</b>. This parameter is ignored if it is non-<b>NULL</b> and if no transactions were used in the service domain.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-coleaveservicedomain
      * @since windows5.1.2600
      */
     static CoLeaveServiceDomain(pUnkStatus) {
-        DllCall("comsvcs.dll\CoLeaveServiceDomain", "ptr", pUnkStatus)
+        result := DllCall("comsvcs.dll\CoLeaveServiceDomain", "ptr", pUnkStatus)
+        return result
     }
 
     /**
@@ -342,7 +343,7 @@ class ComponentServices {
      * @since windows5.1.2600
      */
     static GetManagedExtensions(dwExts) {
-        result := DllCall("comsvcs.dll\GetManagedExtensions", "ptr", dwExts, "int")
+        result := DllCall("comsvcs.dll\GetManagedExtensions", "uint*", dwExts, "int")
         return result
     }
 
@@ -350,12 +351,13 @@ class ComponentServices {
      * SafeRef function
      * @param {Pointer<Guid>} rid A reference to the IID of the interface that the current object wants to pass to another object or client.
      * @param {Pointer<IUnknown>} pUnk A reference to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the current object.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is a pointer to the specified interface that can be passed outside the current object's context. Otherwise, the return value is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-saferef
      * @since windows5.0
      */
     static SafeRef(rid, pUnk) {
-        DllCall("comsvcs.dll\SafeRef", "ptr", rid, "ptr", pUnk, "CDecl ")
+        result := DllCall("comsvcs.dll\SafeRef", "ptr", rid, "ptr", pUnk, "CDecl ptr")
+        return result
     }
 
     /**

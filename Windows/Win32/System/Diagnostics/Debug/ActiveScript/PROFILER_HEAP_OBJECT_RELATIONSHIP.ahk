@@ -36,7 +36,7 @@ class PROFILER_HEAP_OBJECT_RELATIONSHIP extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     stringValue {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +44,7 @@ class PROFILER_HEAP_OBJECT_RELATIONSHIP extends Win32Struct
     }
 
     /**
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     bstrValue {
         get => NumGet(this, 8, "ptr")

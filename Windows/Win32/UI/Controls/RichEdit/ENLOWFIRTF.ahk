@@ -34,7 +34,7 @@ class ENLOWFIRTF extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">CHAR</a>*</b>
      * 
      * The unsupported RTF keyword.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     szControl {
         get => NumGet(this, 24, "ptr")

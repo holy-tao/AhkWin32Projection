@@ -35,7 +35,7 @@ class WM_SYNCHRONISED_LYRICS extends Win32Struct
 
     /**
      * Pointer to a wide-character null-terminated string containing data from the encoding application. An individual application can use this member in any way desired.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszContentDescriptor {
         get => NumGet(this, 8, "ptr")

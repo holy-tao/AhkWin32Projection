@@ -237,7 +237,7 @@ class DeviceAccess {
 ;@region Methods
     /**
      * Creates the object that's used to access a device. The instantiated object implements the IDeviceIoControl and ICreateDeviceAccessAsync interfaces.
-     * @param {Pointer<PWSTR>} deviceInterfacePath A valid device interface path for the device that this instance should bind to.
+     * @param {Pointer<Char>} deviceInterfacePath A valid device interface path for the device that this instance should bind to.
      * @param {Integer} desiredAccess The requested level of access to the device, which can be summarized as read, write, both, or neither (zero).
      *  
      * 

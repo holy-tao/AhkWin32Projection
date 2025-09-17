@@ -2944,29 +2944,32 @@ class WindowsProgramming {
      * 
      * @param {Pointer<UInt16>} String1 
      * @param {Pointer<UInt16>} String2 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static uaw_lstrcmpW(String1, String2) {
-        DllCall("KERNEL32.dll\uaw_lstrcmpW", "ptr", String1, "ptr", String2)
+        result := DllCall("KERNEL32.dll\uaw_lstrcmpW", "ushort*", String1, "ushort*", String2)
+        return result
     }
 
     /**
      * 
      * @param {Pointer<UInt16>} String1 
      * @param {Pointer<UInt16>} String2 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static uaw_lstrcmpiW(String1, String2) {
-        DllCall("KERNEL32.dll\uaw_lstrcmpiW", "ptr", String1, "ptr", String2)
+        result := DllCall("KERNEL32.dll\uaw_lstrcmpiW", "ushort*", String1, "ushort*", String2)
+        return result
     }
 
     /**
      * 
      * @param {Pointer<UInt16>} String 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static uaw_lstrlenW(String) {
-        DllCall("KERNEL32.dll\uaw_lstrlenW", "ptr", String)
+        result := DllCall("KERNEL32.dll\uaw_lstrlenW", "ushort*", String)
+        return result
     }
 
     /**
@@ -2976,7 +2979,7 @@ class WindowsProgramming {
      * @returns {Pointer<UInt16>} 
      */
     static uaw_wcschr(String, Character) {
-        result := DllCall("KERNEL32.dll\uaw_wcschr", "ptr", String, "char", Character, "ptr")
+        result := DllCall("KERNEL32.dll\uaw_wcschr", "ushort*", String, "char", Character, "ushort*")
         return result
     }
 
@@ -2987,7 +2990,7 @@ class WindowsProgramming {
      * @returns {Pointer<UInt16>} 
      */
     static uaw_wcscpy(Destination, Source) {
-        result := DllCall("KERNEL32.dll\uaw_wcscpy", "ptr", Destination, "ptr", Source, "ptr")
+        result := DllCall("KERNEL32.dll\uaw_wcscpy", "ushort*", Destination, "ushort*", Source, "ushort*")
         return result
     }
 
@@ -2995,10 +2998,11 @@ class WindowsProgramming {
      * 
      * @param {Pointer<UInt16>} String1 
      * @param {Pointer<UInt16>} String2 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static uaw_wcsicmp(String1, String2) {
-        DllCall("KERNEL32.dll\uaw_wcsicmp", "ptr", String1, "ptr", String2)
+        result := DllCall("KERNEL32.dll\uaw_wcsicmp", "ushort*", String1, "ushort*", String2)
+        return result
     }
 
     /**
@@ -3010,7 +3014,7 @@ class WindowsProgramming {
      * @see https://learn.microsoft.com/windows/win32/api/stralign/nf-stralign-uaw_wcslen
      */
     static uaw_wcslen(String) {
-        result := DllCall("KERNEL32.dll\uaw_wcslen", "ptr", String, "ptr")
+        result := DllCall("KERNEL32.dll\uaw_wcslen", "ushort*", String, "ptr")
         return result
     }
 
@@ -3021,7 +3025,7 @@ class WindowsProgramming {
      * @returns {Pointer<UInt16>} 
      */
     static uaw_wcsrchr(String, Character) {
-        result := DllCall("KERNEL32.dll\uaw_wcsrchr", "ptr", String, "char", Character, "ptr")
+        result := DllCall("KERNEL32.dll\uaw_wcsrchr", "ushort*", String, "char", Character, "ushort*")
         return result
     }
 
@@ -3054,7 +3058,7 @@ class WindowsProgramming {
      * When writing code that targets both desktop and non-desktop Windows 10 devices, wrap the API call in **IsApiSetImplemented**. This function tests at runtime if the API set that the API belongs to is present on the target platform. For more details see [Detect API set availability](/windows/win32/apiindex/detect-api-set-availability).
      * 
      * To identify whether a given Win32 API belongs to an API set, review the requirements table in the reference documentation for the API. If the API belongs to an API set, the requirements table in the article lists the API set name.
-     * @param {Pointer<PSTR>} Contract Specifies the name of the API set to query. For more info, see the Remarks section.
+     * @param {Pointer<Byte>} Contract Specifies the name of the API set to query. For more info, see the Remarks section.
      * @returns {Integer} **IsApiSetImplemented** returns **TRUE** if the specified API set is present. In this case, APIs in the target API set have valid implementations on the current platform.
      * 
      * Otherwise, this function returns **FALSE**.
@@ -3076,7 +3080,7 @@ class WindowsProgramming {
      * Do not attempt to convert the CPU clock cycles returned by <b>QueryThreadCycleTime</b> to elapsed time. This function uses timer services provided by the CPU, which can vary in implementation. For example, some CPUs will vary the frequency of the timer when changing the frequency at which the CPU runs and others will leave it at a fixed rate. The behavior of each CPU is described in the documentation provided by the CPU vendor.
      * 
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later.
-     * @param {Pointer<HANDLE>} ThreadHandle A handle to the thread. The handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see 
+     * @param {Pointer<Void>} ThreadHandle A handle to the thread. The handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Pointer<UInt64>} CycleTime The number of CPU clock cycles used by the thread. This value includes cycles spent in both user mode and kernel mode.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -3089,7 +3093,7 @@ class WindowsProgramming {
     static QueryThreadCycleTime(ThreadHandle, CycleTime) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryThreadCycleTime", "ptr", ThreadHandle, "ptr", CycleTime, "int")
+        result := DllCall("KERNEL32.dll\QueryThreadCycleTime", "ptr", ThreadHandle, "uint*", CycleTime, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3103,7 +3107,7 @@ class WindowsProgramming {
      * <a href="https://docs.microsoft.com/windows/desktop/api/psapi/nf-psapi-enumprocesses">EnumProcesses</a> function.
      * 
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later.
-     * @param {Pointer<HANDLE>} ProcessHandle A handle to the process. The handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see 
+     * @param {Pointer<Void>} ProcessHandle A handle to the process. The handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Pointer<UInt64>} CycleTime The number of CPU clock cycles used by the threads of the process. This value includes cycles spent in both user mode and kernel mode.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -3116,7 +3120,7 @@ class WindowsProgramming {
     static QueryProcessCycleTime(ProcessHandle, CycleTime) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryProcessCycleTime", "ptr", ProcessHandle, "ptr", CycleTime, "int")
+        result := DllCall("KERNEL32.dll\QueryProcessCycleTime", "ptr", ProcessHandle, "uint*", CycleTime, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3130,7 +3134,7 @@ class WindowsProgramming {
      * @param {Pointer<UInt32>} BufferLength On input, specifies the size of the <i>ProcessorIdleCycleTime</i> buffer, in bytes. This buffer is expected to be 8 times the number of processors in the group.
      * 
      * On output, specifies the number of elements written to the buffer. If the buffer size is not sufficient, the function fails and this parameter receives the required length of the buffer.
-     * @param {Pointer<UInt64>} ProcessorIdleCycleTime The number of CPU clock cycles used by each idle thread. This buffer must be 8  times the number of processors in the system in size.
+     * @param {Pointer} ProcessorIdleCycleTime The number of CPU clock cycles used by each idle thread. This buffer must be 8  times the number of processors in the system in size.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -3141,7 +3145,7 @@ class WindowsProgramming {
     static QueryIdleProcessorCycleTime(BufferLength, ProcessorIdleCycleTime) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryIdleProcessorCycleTime", "ptr", BufferLength, "ptr", ProcessorIdleCycleTime, "int")
+        result := DllCall("KERNEL32.dll\QueryIdleProcessorCycleTime", "uint*", BufferLength, "ptr", ProcessorIdleCycleTime, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3156,7 +3160,7 @@ class WindowsProgramming {
      * @param {Pointer<UInt32>} BufferLength On input, specifies the size of the <i>ProcessorIdleCycleTime</i> buffer, in bytes. This buffer is expected to be 8 times the number of processors in the group. 
      * 
      * On output, specifies the number of elements written to the buffer. If the buffer size is not sufficient, the function fails and this parameter receives the required length of the buffer.
-     * @param {Pointer<UInt64>} ProcessorIdleCycleTime The number of CPU clock cycles used by each idle thread. If this parameter is NULL, the function updates the <i>BufferLength</i> parameter with the required length.
+     * @param {Pointer} ProcessorIdleCycleTime The number of CPU clock cycles used by each idle thread. If this parameter is NULL, the function updates the <i>BufferLength</i> parameter with the required length.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, use <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-adsgetlasterror">GetLastError</a>.
@@ -3164,7 +3168,7 @@ class WindowsProgramming {
      * @since windows6.1
      */
     static QueryIdleProcessorCycleTimeEx(Group, BufferLength, ProcessorIdleCycleTime) {
-        result := DllCall("KERNEL32.dll\QueryIdleProcessorCycleTimeEx", "ushort", Group, "ptr", BufferLength, "ptr", ProcessorIdleCycleTime, "int")
+        result := DllCall("KERNEL32.dll\QueryIdleProcessorCycleTimeEx", "ushort", Group, "uint*", BufferLength, "ptr", ProcessorIdleCycleTime, "int")
         return result
     }
 
@@ -3184,12 +3188,13 @@ class WindowsProgramming {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0601 or later. For more information, see
      * 				<a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Pointer<UInt64>} lpInterruptTimePrecise A pointer to a ULONGLONG in which to receive the interrupt-time count in system time units of 100 nanoseconds. Divide by ten million, or 1e7, to get seconds (there are 1e9 nanoseconds in a second, so there are 1e7 100-nanoseconds in a second).
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryinterrupttimeprecise
      * @since windows10.0.10240
      */
     static QueryInterruptTimePrecise(lpInterruptTimePrecise) {
-        DllCall("api-ms-win-core-realtime-l1-1-1.dll\QueryInterruptTimePrecise", "ptr", lpInterruptTimePrecise)
+        result := DllCall("api-ms-win-core-realtime-l1-1-1.dll\QueryInterruptTimePrecise", "uint*", lpInterruptTimePrecise)
+        return result
     }
 
     /**
@@ -3208,12 +3213,13 @@ class WindowsProgramming {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0601 or later. For more information, see
      * 				<a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Pointer<UInt64>} lpUnbiasedInterruptTimePrecise A pointer to a ULONGLONG in which to receive the unbiased interrupt-time count in system time units of 100 nanoseconds. Divide by ten million, or 1e7, to get seconds (there are 1e9 nanoseconds in a second, so there are 1e7 100-nanoseconds in a second).
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryunbiasedinterrupttimeprecise
      * @since windows10.0.10240
      */
     static QueryUnbiasedInterruptTimePrecise(lpUnbiasedInterruptTimePrecise) {
-        DllCall("api-ms-win-core-realtime-l1-1-1.dll\QueryUnbiasedInterruptTimePrecise", "ptr", lpUnbiasedInterruptTimePrecise)
+        result := DllCall("api-ms-win-core-realtime-l1-1-1.dll\QueryUnbiasedInterruptTimePrecise", "uint*", lpUnbiasedInterruptTimePrecise)
+        return result
     }
 
     /**
@@ -3230,12 +3236,13 @@ class WindowsProgramming {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0601 or later. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Pointer<UInt64>} lpInterruptTime A pointer to a ULONGLONG in which to receive the interrupt-time count in system time units of 100 nanoseconds. Divide by ten million, or 1e7, to get seconds (there are 1e9 nanoseconds in a second, so there are 1e7 100-nanoseconds in a second).
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryinterrupttime
      * @since windows10.0.10240
      */
     static QueryInterruptTime(lpInterruptTime) {
-        DllCall("api-ms-win-core-realtime-l1-1-1.dll\QueryInterruptTime", "ptr", lpInterruptTime)
+        result := DllCall("api-ms-win-core-realtime-l1-1-1.dll\QueryInterruptTime", "uint*", lpInterruptTime)
+        return result
     }
 
     /**
@@ -3259,7 +3266,7 @@ class WindowsProgramming {
      * @since windows6.1
      */
     static QueryUnbiasedInterruptTime(UnbiasedTime) {
-        result := DllCall("KERNEL32.dll\QueryUnbiasedInterruptTime", "ptr", UnbiasedTime, "int")
+        result := DllCall("KERNEL32.dll\QueryUnbiasedInterruptTime", "uint*", UnbiasedTime, "int")
         return result
     }
 
@@ -3273,7 +3280,7 @@ class WindowsProgramming {
      * @since windows10.0.15063
      */
     static QueryAuxiliaryCounterFrequency(lpAuxiliaryCounterFrequency) {
-        result := DllCall("api-ms-win-core-realtime-l1-1-2.dll\QueryAuxiliaryCounterFrequency", "ptr", lpAuxiliaryCounterFrequency, "int")
+        result := DllCall("api-ms-win-core-realtime-l1-1-2.dll\QueryAuxiliaryCounterFrequency", "uint*", lpAuxiliaryCounterFrequency, "int")
         return result
     }
 
@@ -3327,7 +3334,7 @@ class WindowsProgramming {
      * @since windows10.0.15063
      */
     static ConvertAuxiliaryCounterToPerformanceCounter(ullAuxiliaryCounterValue, lpPerformanceCounterValue, lpConversionError) {
-        result := DllCall("api-ms-win-core-realtime-l1-1-2.dll\ConvertAuxiliaryCounterToPerformanceCounter", "uint", ullAuxiliaryCounterValue, "ptr", lpPerformanceCounterValue, "ptr", lpConversionError, "int")
+        result := DllCall("api-ms-win-core-realtime-l1-1-2.dll\ConvertAuxiliaryCounterToPerformanceCounter", "uint", ullAuxiliaryCounterValue, "uint*", lpPerformanceCounterValue, "uint*", lpConversionError, "int")
         return result
     }
 
@@ -3392,7 +3399,7 @@ class WindowsProgramming {
      * @since windows10.0.15063
      */
     static ConvertPerformanceCounterToAuxiliaryCounter(ullPerformanceCounterValue, lpAuxiliaryCounterValue, lpConversionError) {
-        result := DllCall("api-ms-win-core-realtime-l1-1-2.dll\ConvertPerformanceCounterToAuxiliaryCounter", "uint", ullPerformanceCounterValue, "ptr", lpAuxiliaryCounterValue, "ptr", lpConversionError, "int")
+        result := DllCall("api-ms-win-core-realtime-l1-1-2.dll\ConvertPerformanceCounterToAuxiliaryCounter", "uint", ullPerformanceCounterValue, "uint*", lpAuxiliaryCounterValue, "uint*", lpConversionError, "int")
         return result
     }
 
@@ -3408,34 +3415,37 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HGLOBAL>} hMem 
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Void>} hMem 
+     * @returns {Pointer} 
      */
     static GlobalFix(hMem) {
-        DllCall("KERNEL32.dll\GlobalFix", "ptr", hMem)
+        result := DllCall("KERNEL32.dll\GlobalFix", "ptr", hMem)
+        return result
     }
 
     /**
      * 
-     * @param {Pointer<HGLOBAL>} hMem 
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Void>} hMem 
+     * @returns {Pointer} 
      */
     static GlobalUnfix(hMem) {
-        DllCall("KERNEL32.dll\GlobalUnfix", "ptr", hMem)
+        result := DllCall("KERNEL32.dll\GlobalUnfix", "ptr", hMem)
+        return result
     }
 
     /**
      * 
-     * @param {Pointer<HGLOBAL>} hMem 
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Void>} hMem 
+     * @returns {Pointer<Void>} 
      */
     static GlobalWire(hMem) {
-        DllCall("KERNEL32.dll\GlobalWire", "ptr", hMem)
+        result := DllCall("KERNEL32.dll\GlobalWire", "ptr", hMem)
+        return result
     }
 
     /**
      * 
-     * @param {Pointer<HGLOBAL>} hMem 
+     * @param {Pointer<Void>} hMem 
      * @returns {Integer} 
      */
     static GlobalUnWire(hMem) {
@@ -3445,7 +3455,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HLOCAL>} hMem 
+     * @param {Pointer<Void>} hMem 
      * @param {Integer} cbNewSize 
      * @returns {Pointer} 
      */
@@ -3466,7 +3476,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<PSTR>} NewEnvironment 
+     * @param {Pointer<Byte>} NewEnvironment 
      * @returns {Integer} 
      */
     static SetEnvironmentStringsA(NewEnvironment) {
@@ -3479,16 +3489,17 @@ class WindowsProgramming {
     /**
      * The SetHandleCount function changes the number of file handles available to a process.
      * @param {Integer} uNumber The requested number of available file handles.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The number of available file handles.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-sethandlecount
      */
     static SetHandleCount(uNumber) {
-        DllCall("KERNEL32.dll\SetHandleCount", "uint", uNumber)
+        result := DllCall("KERNEL32.dll\SetHandleCount", "uint", uNumber)
+        return result
     }
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hDevice 
+     * @param {Pointer<Void>} hDevice 
      * @returns {Integer} 
      */
     static RequestDeviceWakeup(hDevice) {
@@ -3498,7 +3509,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hDevice 
+     * @param {Pointer<Void>} hDevice 
      * @returns {Integer} 
      */
     static CancelDeviceWakeupRequest(hDevice) {
@@ -3508,7 +3519,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hMsgIndicator 
+     * @param {Pointer<Void>} hMsgIndicator 
      * @param {Integer} ulMsgCount 
      * @returns {Integer} 
      */
@@ -3522,12 +3533,15 @@ class WindowsProgramming {
      * @param {Integer} nNumber The multiplicand.
      * @param {Integer} nNumerator The multiplier.
      * @param {Integer} nDenominator The number by which the result of the multiplication operation is to be divided.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is the result of the multiplication and division, rounded to the nearest integer. If the result is a positive half integer (ends in .5), it is rounded up. If the result is a negative half integer, it is rounded down.
+     * 
+     * If either an overflow occurred or <i>nDenominator</i> was 0, the return value is -1.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-muldiv
      * @since windows5.1.2600
      */
     static MulDiv(nNumber, nNumerator, nDenominator) {
-        DllCall("KERNEL32.dll\MulDiv", "int", nNumber, "int", nNumerator, "int", nDenominator)
+        result := DllCall("KERNEL32.dll\MulDiv", "int", nNumber, "int", nNumerator, "int", nDenominator)
+        return result
     }
 
     /**
@@ -3545,7 +3559,7 @@ class WindowsProgramming {
     static GetSystemRegistryQuota(pdwQuotaAllowed, pdwQuotaUsed) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetSystemRegistryQuota", "ptr", pdwQuotaAllowed, "ptr", pdwQuotaUsed, "int")
+        result := DllCall("KERNEL32.dll\GetSystemRegistryQuota", "uint*", pdwQuotaAllowed, "uint*", pdwQuotaUsed, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3612,7 +3626,7 @@ class WindowsProgramming {
     static FileTimeToDosDateTime(lpFileTime, lpFatDate, lpFatTime) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FileTimeToDosDateTime", "ptr", lpFileTime, "ptr", lpFatDate, "ptr", lpFatTime, "int")
+        result := DllCall("KERNEL32.dll\FileTimeToDosDateTime", "ptr", lpFileTime, "ushort*", lpFatDate, "ushort*", lpFatTime, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3686,7 +3700,7 @@ class WindowsProgramming {
 
     /**
      * The _lopen function opens an existing file and sets the file pointer to the beginning of the file. This function is provided for compatibility with 16-bit versions of Windows. Win32-based applications should use the CreateFile function.
-     * @param {Pointer<PSTR>} lpPathName Pointer to a null-terminated string that names the file to open. The string must consist of characters from the Windows ANSI character set.
+     * @param {Pointer<Byte>} lpPathName Pointer to a null-terminated string that names the file to open. The string must consist of characters from the Windows ANSI character set.
      * @param {Integer} iReadWrite 
      * @returns {Integer} If the function succeeds, the return value is a file handle.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_lopen
@@ -3706,7 +3720,7 @@ class WindowsProgramming {
      * When the function opens a file, the pointer is set to the beginning of the file.
      * 
      * Use the <b>_lcreat</b> function with care. It can open any file, even one already opened by another function.
-     * @param {Pointer<PSTR>} lpPathName The name of the file. The string must consist of characters from the Windows ANSI character set.
+     * @param {Pointer<Byte>} lpPathName The name of the file. The string must consist of characters from the Windows ANSI character set.
      * @param {Integer} iAttribute The attributes of the file.
      * @returns {Integer} If the function succeeds, the return value is a file handle. Otherwise, the return value is HFILE_ERROR. To get extended error information, use the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_lcreat
@@ -3726,38 +3740,38 @@ class WindowsProgramming {
     /**
      * The _lread function reads data from the specified file. This function is provided for compatibility with 16-bit versions of Windows. Win32-based applications should use the ReadFile function.
      * @param {Integer} hFile Identifies the specified file.
-     * @param {Pointer<Void>} lpBuffer Pointer to a buffer that contains the data read from the file.
+     * @param {Pointer} lpBuffer Pointer to a buffer that contains the data read from the file.
      * @param {Integer} uBytes Specifies the number of bytes to be read from the file.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The return value indicates the number of bytes actually read from the file. If the number of bytes read is less than uBytes, the function has reached the end of file (EOF) before reading the specified number of bytes.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_lread
      */
     static _lread(hFile, lpBuffer, uBytes) {
-        DllCall("KERNEL32.dll\_lread", "int", hFile, "ptr", lpBuffer, "uint", uBytes)
+        result := DllCall("KERNEL32.dll\_lread", "int", hFile, "ptr", lpBuffer, "uint", uBytes)
+        return result
     }
 
     /**
      * Writes data to the specified file.
      * @param {Integer} hFile A handle to the file that receives the data. This handle is created by <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-_lcreat">_lcreat</a>.
-     * @param {Pointer<PSTR>} lpBuffer The buffer that contains the data to be added.
+     * @param {Pointer} lpBuffer The buffer that contains the data to be added.
      * @param {Integer} uBytes The number of bytes to write to the file.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is the number of bytes written to the file. Otherwise, the return value is HFILE_ERROR. To get extended error information, use the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_lwrite
      */
     static _lwrite(hFile, lpBuffer, uBytes) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
-
         A_LastError := 0
 
-        DllCall("KERNEL32.dll\_lwrite", "int", hFile, "ptr", lpBuffer, "uint", uBytes)
+        result := DllCall("KERNEL32.dll\_lwrite", "int", hFile, "ptr", lpBuffer, "uint", uBytes)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
      * 
      * @param {Integer} hFile 
-     * @param {Pointer<Void>} lpBuffer 
+     * @param {Pointer} lpBuffer 
      * @param {Integer} lBytes 
      * @returns {Integer} 
      */
@@ -3769,13 +3783,11 @@ class WindowsProgramming {
     /**
      * 
      * @param {Integer} hFile 
-     * @param {Pointer<PSTR>} lpBuffer 
+     * @param {Pointer} lpBuffer 
      * @param {Integer} lBytes 
      * @returns {Integer} 
      */
     static _hwrite(hFile, lpBuffer, lBytes) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
-
         result := DllCall("KERNEL32.dll\_hwrite", "int", hFile, "ptr", lpBuffer, "int", lBytes, "int")
         return result
     }
@@ -3825,7 +3837,7 @@ class WindowsProgramming {
      * @param {Integer} dwDesiredAccess The access to the mutex object. Only the <b>SYNCHRONIZE</b> access right is required to use a mutex; to change the mutex's security, specify <b>MUTEX_ALL_ACCESS</b>. The function fails if the security descriptor of the specified object does not permit the requested access for the calling process. For a list of access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
      * @param {Integer} bInheritHandle If this value is <b>TRUE</b>, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.
-     * @param {Pointer<PSTR>} lpName The name of the mutex to be opened. Name comparisons are case sensitive. 
+     * @param {Pointer<Byte>} lpName The name of the mutex to be opened. Name comparisons are case sensitive. 
      * 
      * 
      * 
@@ -3836,7 +3848,7 @@ class WindowsProgramming {
      * <a href="https://docs.microsoft.com/windows/desktop/TermServ/kernel-object-namespaces">Kernel Object Namespaces</a>.
      * 
      * <b>Note</b>  Fast user switching is implemented using Terminal Services sessions. The first user to log on uses session 0, the next user to log on uses session 1, and so on. Kernel object names must follow the guidelines outlined for Terminal Services so that applications can support multiple users.
-     * @returns {Pointer<HANDLE>} If the function succeeds, the return value is a handle to the mutex object.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the mutex object.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3847,7 +3859,7 @@ class WindowsProgramming {
     static OpenMutexA(dwDesiredAccess, bInheritHandle, lpName) {
         lpName := lpName is String? StrPtr(lpName) : lpName
 
-        result := DllCall("KERNEL32.dll\OpenMutexA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
+        result := DllCall("KERNEL32.dll\OpenMutexA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName)
         return result
     }
 
@@ -3863,7 +3875,7 @@ class WindowsProgramming {
      * @param {Integer} dwDesiredAccess The access to the semaphore object. The function fails if the security descriptor of the specified object does not permit the requested access for the calling process. For a list of access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
      * @param {Integer} bInheritHandle If this value is <b>TRUE</b>, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.
-     * @param {Pointer<PSTR>} lpName The name of the semaphore to be opened. Name comparisons are case sensitive. 
+     * @param {Pointer<Byte>} lpName The name of the semaphore to be opened. Name comparisons are case sensitive. 
      * 
      * 
      * 
@@ -3874,7 +3886,7 @@ class WindowsProgramming {
      * <a href="https://docs.microsoft.com/windows/desktop/TermServ/kernel-object-namespaces">Kernel Object Namespaces</a>.
      * 
      * <b>Note</b>  Fast user switching is implemented using Terminal Services sessions. The first user to log on uses session 0, the next user to log on uses session 1, and so on. Kernel object names must follow the guidelines outlined for Terminal Services so that applications can support multiple users.
-     * @returns {Pointer<HANDLE>} If the function succeeds, the return value is a handle to the semaphore object.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the semaphore object.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3883,7 +3895,7 @@ class WindowsProgramming {
     static OpenSemaphoreA(dwDesiredAccess, bInheritHandle, lpName) {
         lpName := lpName is String? StrPtr(lpName) : lpName
 
-        result := DllCall("KERNEL32.dll\OpenSemaphoreA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
+        result := DllCall("KERNEL32.dll\OpenSemaphoreA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName)
         return result
     }
 
@@ -3911,9 +3923,9 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines GetFirmwareEnvironmentVariable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
-     * @param {Pointer<PSTR>} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be  a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}" where 'x' represents a hexadecimal value.
-     * @param {Pointer<Void>} pBuffer A pointer to a buffer that receives the value of the specified firmware environment variable.
+     * @param {Pointer<Byte>} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
+     * @param {Pointer<Byte>} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be  a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}" where 'x' represents a hexadecimal value.
+     * @param {Pointer} pBuffer A pointer to a buffer that receives the value of the specified firmware environment variable.
      * @param {Integer} nSize The size of the <i>pBuffer</i> buffer, in bytes.
      * @returns {Integer} If the function succeeds, the return value is the number of bytes stored in the <i>pBuffer</i> buffer.
      * 
@@ -3959,9 +3971,9 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines GetFirmwareEnvironmentVariable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
-     * @param {Pointer<PWSTR>} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be  a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}" where 'x' represents a hexadecimal value.
-     * @param {Pointer<Void>} pBuffer A pointer to a buffer that receives the value of the specified firmware environment variable.
+     * @param {Pointer<Char>} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
+     * @param {Pointer<Char>} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be  a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}" where 'x' represents a hexadecimal value.
+     * @param {Pointer} pBuffer A pointer to a buffer that receives the value of the specified firmware environment variable.
      * @param {Integer} nSize The size of the <i>pBuffer</i> buffer, in bytes.
      * @returns {Integer} If the function succeeds, the return value is the number of bytes stored in the <i>pBuffer</i> buffer.
      * 
@@ -4005,9 +4017,9 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines GetFirmwareEnvironmentVariableEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
-     * @param {Pointer<PSTR>} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be  a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}" where 'x' represents a hexadecimal value. The pointer must not be <b>NULL</b>.
-     * @param {Pointer<Void>} pBuffer A pointer to a buffer that receives the value of the specified firmware environment variable.
+     * @param {Pointer<Byte>} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
+     * @param {Pointer<Byte>} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be  a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}" where 'x' represents a hexadecimal value. The pointer must not be <b>NULL</b>.
+     * @param {Pointer} pBuffer A pointer to a buffer that receives the value of the specified firmware environment variable.
      * @param {Integer} nSize The size of the <i>pValue</i> buffer, in bytes.
      * @param {Pointer<UInt32>} pdwAttribubutes Bitmask identifying UEFI variable attributes associated with the variable. See <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setfirmwareenvironmentvariableexa">SetFirmwareEnvironmentVariableEx</a> for the bitmask definition.
      * @returns {Integer} If the function succeeds, the return value is the number of bytes stored in the <i>pValue</i> buffer.
@@ -4023,7 +4035,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetFirmwareEnvironmentVariableExA", "ptr", lpName, "ptr", lpGuid, "ptr", pBuffer, "uint", nSize, "ptr", pdwAttribubutes, "uint")
+        result := DllCall("KERNEL32.dll\GetFirmwareEnvironmentVariableExA", "ptr", lpName, "ptr", lpGuid, "ptr", pBuffer, "uint", nSize, "uint*", pdwAttribubutes, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -4052,9 +4064,9 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines GetFirmwareEnvironmentVariableEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
-     * @param {Pointer<PWSTR>} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be  a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}" where 'x' represents a hexadecimal value. The pointer must not be <b>NULL</b>.
-     * @param {Pointer<Void>} pBuffer A pointer to a buffer that receives the value of the specified firmware environment variable.
+     * @param {Pointer<Char>} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
+     * @param {Pointer<Char>} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be  a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}" where 'x' represents a hexadecimal value. The pointer must not be <b>NULL</b>.
+     * @param {Pointer} pBuffer A pointer to a buffer that receives the value of the specified firmware environment variable.
      * @param {Integer} nSize The size of the <i>pValue</i> buffer, in bytes.
      * @param {Pointer<UInt32>} pdwAttribubutes Bitmask identifying UEFI variable attributes associated with the variable. See <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setfirmwareenvironmentvariableexa">SetFirmwareEnvironmentVariableEx</a> for the bitmask definition.
      * @returns {Integer} If the function succeeds, the return value is the number of bytes stored in the <i>pValue</i> buffer.
@@ -4070,7 +4082,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetFirmwareEnvironmentVariableExW", "ptr", lpName, "ptr", lpGuid, "ptr", pBuffer, "uint", nSize, "ptr", pdwAttribubutes, "uint")
+        result := DllCall("KERNEL32.dll\GetFirmwareEnvironmentVariableExW", "ptr", lpName, "ptr", lpGuid, "ptr", pBuffer, "uint", nSize, "uint*", pdwAttribubutes, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -4098,9 +4110,9 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines SetFirmwareEnvironmentVariable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
-     * @param {Pointer<PSTR>} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}". If the system does not support GUID-based namespaces, this parameter is ignored.
-     * @param {Pointer<Void>} pValue A pointer to the new value for the  firmware environment variable.
+     * @param {Pointer<Byte>} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
+     * @param {Pointer<Byte>} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}". If the system does not support GUID-based namespaces, this parameter is ignored.
+     * @param {Pointer} pValue A pointer to the new value for the  firmware environment variable.
      * @param {Integer} nSize The size of the <i>pBuffer</i> buffer, in bytes. If this parameter is zero, the firmware environment variable is deleted.
      * @returns {Integer} If the function succeeds, the return value is a nonzero value.
      * 
@@ -4143,9 +4155,9 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines SetFirmwareEnvironmentVariable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
-     * @param {Pointer<PWSTR>} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}". If the system does not support GUID-based namespaces, this parameter is ignored.
-     * @param {Pointer<Void>} pValue A pointer to the new value for the  firmware environment variable.
+     * @param {Pointer<Char>} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
+     * @param {Pointer<Char>} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}". If the system does not support GUID-based namespaces, this parameter is ignored.
+     * @param {Pointer} pValue A pointer to the new value for the  firmware environment variable.
      * @param {Integer} nSize The size of the <i>pBuffer</i> buffer, in bytes. If this parameter is zero, the firmware environment variable is deleted.
      * @returns {Integer} If the function succeeds, the return value is a nonzero value.
      * 
@@ -4189,9 +4201,9 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines SetFirmwareEnvironmentVariableEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
-     * @param {Pointer<PSTR>} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}". If the system does not support GUID-based namespaces, this parameter is ignored. The pointer must not be <b>NULL</b>.
-     * @param {Pointer<Void>} pValue A pointer to the new value for the  firmware environment variable.
+     * @param {Pointer<Byte>} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
+     * @param {Pointer<Byte>} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}". If the system does not support GUID-based namespaces, this parameter is ignored. The pointer must not be <b>NULL</b>.
+     * @param {Pointer} pValue A pointer to the new value for the  firmware environment variable.
      * @param {Integer} nSize The size of the <i>pValue</i> buffer, in bytes. Unless the VARIABLE_ATTRIBUTE_APPEND_WRITE,
      * VARIABLE_ATTRIBUTE_AUTHENTICATED_WRITE_ACCESS, or
      * VARIABLE_ATTRIBUTE_TIME_BASED_AUTHENTICATED_WRITE_ACCESS variable attribute is set via <i>dwAttributes</i>,
@@ -4328,9 +4340,9 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines SetFirmwareEnvironmentVariableEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
-     * @param {Pointer<PWSTR>} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}". If the system does not support GUID-based namespaces, this parameter is ignored. The pointer must not be <b>NULL</b>.
-     * @param {Pointer<Void>} pValue A pointer to the new value for the  firmware environment variable.
+     * @param {Pointer<Char>} lpName The name of the firmware environment variable. The pointer must not be <b>NULL</b>.
+     * @param {Pointer<Char>} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}". If the system does not support GUID-based namespaces, this parameter is ignored. The pointer must not be <b>NULL</b>.
+     * @param {Pointer} pValue A pointer to the new value for the  firmware environment variable.
      * @param {Integer} nSize The size of the <i>pValue</i> buffer, in bytes. Unless the VARIABLE_ATTRIBUTE_APPEND_WRITE,
      * VARIABLE_ATTRIBUTE_AUTHENTICATED_WRITE_ACCESS, or
      * VARIABLE_ATTRIBUTE_TIME_BASED_AUTHENTICATED_WRITE_ACCESS variable attribute is set via <i>dwAttributes</i>,
@@ -4458,7 +4470,7 @@ class WindowsProgramming {
     static IsNativeVhdBoot(NativeVhdBoot) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\IsNativeVhdBoot", "ptr", NativeVhdBoot, "int")
+        result := DllCall("KERNEL32.dll\IsNativeVhdBoot", "int*", NativeVhdBoot, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4504,11 +4516,11 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines GetProfileInt as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpAppName The name of the section containing the key name.
-     * @param {Pointer<PSTR>} lpKeyName The name of the key whose value is to be retrieved. This value is in the form of a string; the 
+     * @param {Pointer<Byte>} lpAppName The name of the section containing the key name.
+     * @param {Pointer<Byte>} lpKeyName The name of the key whose value is to be retrieved. This value is in the form of a string; the 
      * <b>GetProfileInt</b> function converts the string into an integer and returns the integer.
      * @param {Integer} nDefault The default value to return if the key name cannot be found in the initialization file.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The return value is the integer equivalent of the string following the key name in Win.ini. If the function cannot find the key, the return value is the default value. If the value of the key is less than zero, the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprofileinta
      * @since windows5.0
      */
@@ -4516,7 +4528,8 @@ class WindowsProgramming {
         lpAppName := lpAppName is String? StrPtr(lpAppName) : lpAppName
         lpKeyName := lpKeyName is String? StrPtr(lpKeyName) : lpKeyName
 
-        DllCall("KERNEL32.dll\GetProfileIntA", "ptr", lpAppName, "ptr", lpKeyName, "int", nDefault)
+        result := DllCall("KERNEL32.dll\GetProfileIntA", "ptr", lpAppName, "ptr", lpKeyName, "int", nDefault)
+        return result
     }
 
     /**
@@ -4558,11 +4571,11 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines GetProfileInt as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpAppName The name of the section containing the key name.
-     * @param {Pointer<PWSTR>} lpKeyName The name of the key whose value is to be retrieved. This value is in the form of a string; the 
+     * @param {Pointer<Char>} lpAppName The name of the section containing the key name.
+     * @param {Pointer<Char>} lpKeyName The name of the key whose value is to be retrieved. This value is in the form of a string; the 
      * <b>GetProfileInt</b> function converts the string into an integer and returns the integer.
      * @param {Integer} nDefault The default value to return if the key name cannot be found in the initialization file.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The return value is the integer equivalent of the string following the key name in Win.ini. If the function cannot find the key, the return value is the default value. If the value of the key is less than zero, the return value is zero.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprofileintw
      * @since windows5.0
      */
@@ -4570,7 +4583,8 @@ class WindowsProgramming {
         lpAppName := lpAppName is String? StrPtr(lpAppName) : lpAppName
         lpKeyName := lpKeyName is String? StrPtr(lpKeyName) : lpKeyName
 
-        DllCall("KERNEL32.dll\GetProfileIntW", "ptr", lpAppName, "ptr", lpKeyName, "int", nDefault)
+        result := DllCall("KERNEL32.dll\GetProfileIntW", "ptr", lpAppName, "ptr", lpKeyName, "int", nDefault)
+        return result
     }
 
     /**
@@ -4633,16 +4647,16 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines GetProfileString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpAppName The name of the section containing the key. If this parameter is <b>NULL</b>, the function copies all section names in the file to the supplied buffer.
-     * @param {Pointer<PSTR>} lpKeyName The name of the key whose associated string is to be retrieved. If this parameter is <b>NULL</b>, the function copies all keys in the given section to the supplied buffer. Each string is followed by a <b>null</b> character, and the final string is followed by a second <b>null</b> character.
-     * @param {Pointer<PSTR>} lpDefault A default string. If the <i>lpKeyName</i> key cannot be found in the initialization file, 
+     * @param {Pointer<Byte>} lpAppName The name of the section containing the key. If this parameter is <b>NULL</b>, the function copies all section names in the file to the supplied buffer.
+     * @param {Pointer<Byte>} lpKeyName The name of the key whose associated string is to be retrieved. If this parameter is <b>NULL</b>, the function copies all keys in the given section to the supplied buffer. Each string is followed by a <b>null</b> character, and the final string is followed by a second <b>null</b> character.
+     * @param {Pointer<Byte>} lpDefault A default string. If the <i>lpKeyName</i> key cannot be found in the initialization file, 
      * <b>GetProfileString</b> copies the default string to the <i>lpReturnedString</i> buffer. If this parameter is <b>NULL</b>, the default is an empty string, "". 
      * 
      * 
      * 
      * 
      * Avoid specifying a default string with trailing blank characters. The function inserts a <b>null</b> character in the <i>lpReturnedString</i> buffer to strip any trailing blanks.
-     * @param {Pointer<PSTR>} lpReturnedString A pointer to a buffer that receives the character string.
+     * @param {Pointer<Byte>} lpReturnedString A pointer to a buffer that receives the character string.
      * @param {Integer} nSize The size of the buffer pointed to by the <i>lpReturnedString</i> parameter, in characters.
      * @returns {Integer} The return value is the number of characters copied to the buffer, not including the <b>null</b>-terminating character.
      * 
@@ -4722,16 +4736,16 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines GetProfileString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpAppName The name of the section containing the key. If this parameter is <b>NULL</b>, the function copies all section names in the file to the supplied buffer.
-     * @param {Pointer<PWSTR>} lpKeyName The name of the key whose associated string is to be retrieved. If this parameter is <b>NULL</b>, the function copies all keys in the given section to the supplied buffer. Each string is followed by a <b>null</b> character, and the final string is followed by a second <b>null</b> character.
-     * @param {Pointer<PWSTR>} lpDefault A default string. If the <i>lpKeyName</i> key cannot be found in the initialization file, 
+     * @param {Pointer<Char>} lpAppName The name of the section containing the key. If this parameter is <b>NULL</b>, the function copies all section names in the file to the supplied buffer.
+     * @param {Pointer<Char>} lpKeyName The name of the key whose associated string is to be retrieved. If this parameter is <b>NULL</b>, the function copies all keys in the given section to the supplied buffer. Each string is followed by a <b>null</b> character, and the final string is followed by a second <b>null</b> character.
+     * @param {Pointer<Char>} lpDefault A default string. If the <i>lpKeyName</i> key cannot be found in the initialization file, 
      * <b>GetProfileString</b> copies the default string to the <i>lpReturnedString</i> buffer. If this parameter is <b>NULL</b>, the default is an empty string, "". 
      * 
      * 
      * 
      * 
      * Avoid specifying a default string with trailing blank characters. The function inserts a <b>null</b> character in the <i>lpReturnedString</i> buffer to strip any trailing blanks.
-     * @param {Pointer<PWSTR>} lpReturnedString A pointer to a buffer that receives the character string.
+     * @param {Pointer<Char>} lpReturnedString A pointer to a buffer that receives the character string.
      * @param {Integer} nSize The size of the buffer pointed to by the <i>lpReturnedString</i> parameter, in characters.
      * @returns {Integer} The return value is the number of characters copied to the buffer, not including the <b>null</b>-terminating character.
      * 
@@ -4794,9 +4808,9 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines WriteProfileString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpAppName The section to which the string is to be copied. If the section does not exist, it is created. The name of the section is not case-sensitive; the string can be any combination of uppercase and lowercase letters.
-     * @param {Pointer<PSTR>} lpKeyName The key to be associated with the string. If the key does not exist in the specified section, it is created. If this parameter is <b>NULL</b>, the entire section, including all entries in the section, is deleted.
-     * @param {Pointer<PSTR>} lpString A <b>null</b>-terminated string to be written to the file. If this parameter is <b>NULL</b>, the key pointed to by the <i>lpKeyName</i> parameter is deleted.
+     * @param {Pointer<Byte>} lpAppName The section to which the string is to be copied. If the section does not exist, it is created. The name of the section is not case-sensitive; the string can be any combination of uppercase and lowercase letters.
+     * @param {Pointer<Byte>} lpKeyName The key to be associated with the string. If the key does not exist in the specified section, it is created. If this parameter is <b>NULL</b>, the entire section, including all entries in the section, is deleted.
+     * @param {Pointer<Byte>} lpString A <b>null</b>-terminated string to be written to the file. If this parameter is <b>NULL</b>, the key pointed to by the <i>lpKeyName</i> parameter is deleted.
      * @returns {Integer} If the function successfully copies the string to the Win.ini file, the return value is nonzero.
      * 
      * If the function fails, or if it flushes the cached version of Win.ini, the return value is zero. To get extended error information, call 
@@ -4861,9 +4875,9 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines WriteProfileString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpAppName The section to which the string is to be copied. If the section does not exist, it is created. The name of the section is not case-sensitive; the string can be any combination of uppercase and lowercase letters.
-     * @param {Pointer<PWSTR>} lpKeyName The key to be associated with the string. If the key does not exist in the specified section, it is created. If this parameter is <b>NULL</b>, the entire section, including all entries in the section, is deleted.
-     * @param {Pointer<PWSTR>} lpString A <b>null</b>-terminated string to be written to the file. If this parameter is <b>NULL</b>, the key pointed to by the <i>lpKeyName</i> parameter is deleted.
+     * @param {Pointer<Char>} lpAppName The section to which the string is to be copied. If the section does not exist, it is created. The name of the section is not case-sensitive; the string can be any combination of uppercase and lowercase letters.
+     * @param {Pointer<Char>} lpKeyName The key to be associated with the string. If the key does not exist in the specified section, it is created. If this parameter is <b>NULL</b>, the entire section, including all entries in the section, is deleted.
+     * @param {Pointer<Char>} lpString A <b>null</b>-terminated string to be written to the file. If this parameter is <b>NULL</b>, the key pointed to by the <i>lpKeyName</i> parameter is deleted.
      * @returns {Integer} If the function successfully copies the string to the Win.ini file, the return value is nonzero.
      * 
      * If the function fails, or if it flushes the cached version of Win.ini, the return value is zero. To get extended error information, call 
@@ -4925,8 +4939,8 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines GetProfileSection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpAppName The name of the section in the Win.ini file.
-     * @param {Pointer<PSTR>} lpReturnedString A pointer to a buffer that receives the keys and values associated with the named section. The buffer is filled with one or more null-terminated strings; the last string is followed by a second null character.
+     * @param {Pointer<Byte>} lpAppName The name of the section in the Win.ini file.
+     * @param {Pointer<Byte>} lpReturnedString A pointer to a buffer that receives the keys and values associated with the named section. The buffer is filled with one or more null-terminated strings; the last string is followed by a second null character.
      * @param {Integer} nSize The size of the buffer pointed to by the <i>lpReturnedString</i> parameter, in characters. 
      * 
      * 
@@ -4986,8 +5000,8 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines GetProfileSection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpAppName The name of the section in the Win.ini file.
-     * @param {Pointer<PWSTR>} lpReturnedString A pointer to a buffer that receives the keys and values associated with the named section. The buffer is filled with one or more null-terminated strings; the last string is followed by a second null character.
+     * @param {Pointer<Char>} lpAppName The name of the section in the Win.ini file.
+     * @param {Pointer<Char>} lpReturnedString A pointer to a buffer that receives the keys and values associated with the named section. The buffer is filled with one or more null-terminated strings; the last string is followed by a second null character.
      * @param {Integer} nSize The size of the buffer pointed to by the <i>lpReturnedString</i> parameter, in characters. 
      * 
      * 
@@ -5057,8 +5071,8 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines WriteProfileSection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpAppName The name of the section. This section name is typically the name of the calling application.
-     * @param {Pointer<PSTR>} lpString The new key names and associated values that are to be written to the named section. This string is limited to 65,535 bytes.
+     * @param {Pointer<Byte>} lpAppName The name of the section. This section name is typically the name of the calling application.
+     * @param {Pointer<Byte>} lpString The new key names and associated values that are to be written to the named section. This string is limited to 65,535 bytes.
      * 
      * If the file exists and was created using Unicode characters, the function writes Unicode characters to the file. Otherwise, the function creates a file using ANSI characters.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -5131,8 +5145,8 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines WriteProfileSection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpAppName The name of the section. This section name is typically the name of the calling application.
-     * @param {Pointer<PWSTR>} lpString The new key names and associated values that are to be written to the named section. This string is limited to 65,535 bytes.
+     * @param {Pointer<Char>} lpAppName The name of the section. This section name is typically the name of the calling application.
+     * @param {Pointer<Char>} lpString The new key names and associated values that are to be written to the named section. This string is limited to 65,535 bytes.
      * 
      * If the file exists and was created using Unicode characters, the function writes Unicode characters to the file. Otherwise, the function creates a file using ANSI characters.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -5207,12 +5221,12 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines GetPrivateProfileInt as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpAppName The name of the section in the initialization file.
-     * @param {Pointer<PSTR>} lpKeyName The name of the key whose value is to be retrieved. This value is in the form of a string; the 
+     * @param {Pointer<Byte>} lpAppName The name of the section in the initialization file.
+     * @param {Pointer<Byte>} lpKeyName The name of the key whose value is to be retrieved. This value is in the form of a string; the 
      * <b>GetPrivateProfileInt</b> function converts the string into an integer and returns the integer.
      * @param {Integer} nDefault The default value to return if the key name cannot be found in the initialization file.
-     * @param {Pointer<PSTR>} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Byte>} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
+     * @returns {Pointer} The return value is the integer equivalent of the string following the specified key name in the specified initialization file. If the key is not found, the return value is the specified default value.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofileinta
      * @since windows5.0
      */
@@ -5221,7 +5235,8 @@ class WindowsProgramming {
         lpKeyName := lpKeyName is String? StrPtr(lpKeyName) : lpKeyName
         lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
 
-        DllCall("KERNEL32.dll\GetPrivateProfileIntA", "ptr", lpAppName, "ptr", lpKeyName, "int", nDefault, "ptr", lpFileName)
+        result := DllCall("KERNEL32.dll\GetPrivateProfileIntA", "ptr", lpAppName, "ptr", lpKeyName, "int", nDefault, "ptr", lpFileName)
+        return result
     }
 
     /**
@@ -5276,11 +5291,11 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines GetPrivateProfileInt as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpAppName The name of the section in the initialization file.
-     * @param {Pointer<PWSTR>} lpKeyName The name of the key whose value is to be retrieved. This value is in the form of a string; the 
+     * @param {Pointer<Char>} lpAppName The name of the section in the initialization file.
+     * @param {Pointer<Char>} lpKeyName The name of the key whose value is to be retrieved. This value is in the form of a string; the 
      * <b>GetPrivateProfileInt</b> function converts the string into an integer and returns the integer.
      * @param {Integer} nDefault The default value to return if the key name cannot be found in the initialization file.
-     * @param {Pointer<PWSTR>} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
+     * @param {Pointer<Char>} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
      * @returns {Integer} The return value is the integer equivalent of the string following the specified key name in the specified initialization file. If the key is not found, the return value is the specified default value.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofileintw
      * @since windows5.0
@@ -5349,19 +5364,19 @@ class WindowsProgramming {
      * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
      * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
      * </ul>
-     * @param {Pointer<PSTR>} lpAppName The name of the section containing the key name. If this parameter is <b>NULL</b>, the 
+     * @param {Pointer<Byte>} lpAppName The name of the section containing the key name. If this parameter is <b>NULL</b>, the 
      * <b>GetPrivateProfileString</b> function copies all section names in the file to the supplied buffer.
-     * @param {Pointer<PSTR>} lpKeyName The name of the key whose associated string is to be retrieved. If this parameter is <b>NULL</b>, all key names in the section specified by the <i>lpAppName</i> parameter are copied to the buffer specified by the <i>lpReturnedString</i> parameter.
-     * @param {Pointer<PSTR>} lpDefault A default string. If the <i>lpKeyName</i> key cannot be found in the initialization file, 
+     * @param {Pointer<Byte>} lpKeyName The name of the key whose associated string is to be retrieved. If this parameter is <b>NULL</b>, all key names in the section specified by the <i>lpAppName</i> parameter are copied to the buffer specified by the <i>lpReturnedString</i> parameter.
+     * @param {Pointer<Byte>} lpDefault A default string. If the <i>lpKeyName</i> key cannot be found in the initialization file, 
      * <b>GetPrivateProfileString</b> copies the default string to the <i>lpReturnedString</i> buffer.  
      * 
      * 
      * If this parameter is <b>NULL</b>, the default is an empty string, "".
      * 
      * Avoid specifying a default string with trailing blank characters. The function inserts a <b>null</b> character in the <i>lpReturnedString</i> buffer to strip any trailing blanks.
-     * @param {Pointer<PSTR>} lpReturnedString A pointer to the buffer that receives the retrieved string.
+     * @param {Pointer<Byte>} lpReturnedString A pointer to the buffer that receives the retrieved string.
      * @param {Integer} nSize The size of the buffer pointed to by the <i>lpReturnedString</i> parameter, in characters.
-     * @param {Pointer<PSTR>} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
+     * @param {Pointer<Byte>} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
      * @returns {Integer} The return value is the number of characters copied to the buffer, not including the terminating <b>null</b> character.
      * 
      * If neither <i>lpAppName</i> nor <i>lpKeyName</i> is <b>NULL</b> and the supplied destination buffer is too small to hold the requested string, the string is truncated and followed by a <b>null</b> character, and the return value is equal to <i>nSize</i> minus one.
@@ -5443,19 +5458,19 @@ class WindowsProgramming {
      * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
      * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
      * </ul>
-     * @param {Pointer<PWSTR>} lpAppName The name of the section containing the key name. If this parameter is <b>NULL</b>, the 
+     * @param {Pointer<Char>} lpAppName The name of the section containing the key name. If this parameter is <b>NULL</b>, the 
      * <b>GetPrivateProfileString</b> function copies all section names in the file to the supplied buffer.
-     * @param {Pointer<PWSTR>} lpKeyName The name of the key whose associated string is to be retrieved. If this parameter is <b>NULL</b>, all key names in the section specified by the <i>lpAppName</i> parameter are copied to the buffer specified by the <i>lpReturnedString</i> parameter.
-     * @param {Pointer<PWSTR>} lpDefault A default string. If the <i>lpKeyName</i> key cannot be found in the initialization file, 
+     * @param {Pointer<Char>} lpKeyName The name of the key whose associated string is to be retrieved. If this parameter is <b>NULL</b>, all key names in the section specified by the <i>lpAppName</i> parameter are copied to the buffer specified by the <i>lpReturnedString</i> parameter.
+     * @param {Pointer<Char>} lpDefault A default string. If the <i>lpKeyName</i> key cannot be found in the initialization file, 
      * <b>GetPrivateProfileString</b> copies the default string to the <i>lpReturnedString</i> buffer.  
      * 
      * 
      * If this parameter is <b>NULL</b>, the default is an empty string, "".
      * 
      * Avoid specifying a default string with trailing blank characters. The function inserts a <b>null</b> character in the <i>lpReturnedString</i> buffer to strip any trailing blanks.
-     * @param {Pointer<PWSTR>} lpReturnedString A pointer to the buffer that receives the retrieved string.
+     * @param {Pointer<Char>} lpReturnedString A pointer to the buffer that receives the retrieved string.
      * @param {Integer} nSize The size of the buffer pointed to by the <i>lpReturnedString</i> parameter, in characters.
-     * @param {Pointer<PWSTR>} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
+     * @param {Pointer<Char>} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
      * @returns {Integer} The return value is the number of characters copied to the buffer, not including the terminating <b>null</b> character.
      * 
      * If neither <i>lpAppName</i> nor <i>lpKeyName</i> is <b>NULL</b> and the supplied destination buffer is too small to hold the requested string, the string is truncated and followed by a <b>null</b> character, and the return value is equal to <i>nSize</i> minus one.
@@ -5553,10 +5568,10 @@ class WindowsProgramming {
      * </li>
      * <li>Such a call causes the mapping of an .ini file to the registry to take effect before the next system reboot. The system rereads the mapping information into shared memory. A user will not have to reboot their computer after installing an application in order to have future invocations of the application see the mapping of the .ini file to the registry.</li>
      * </ul>
-     * @param {Pointer<PSTR>} lpAppName The name of the section to which the string will be copied. If the section does not exist, it is created. The name of the section is case-independent; the string can be any combination of uppercase and lowercase letters.
-     * @param {Pointer<PSTR>} lpKeyName The name of the key to be associated with a string. If the key does not exist in the specified section, it is created. If this parameter is <b>NULL</b>, the entire section, including all entries within the section, is deleted.
-     * @param {Pointer<PSTR>} lpString A <b>null</b>-terminated string to be written to the file. If this parameter is <b>NULL</b>, the key pointed to by the <i>lpKeyName</i> parameter is deleted.
-     * @param {Pointer<PSTR>} lpFileName The name of the initialization file.
+     * @param {Pointer<Byte>} lpAppName The name of the section to which the string will be copied. If the section does not exist, it is created. The name of the section is case-independent; the string can be any combination of uppercase and lowercase letters.
+     * @param {Pointer<Byte>} lpKeyName The name of the key to be associated with a string. If the key does not exist in the specified section, it is created. If this parameter is <b>NULL</b>, the entire section, including all entries within the section, is deleted.
+     * @param {Pointer<Byte>} lpString A <b>null</b>-terminated string to be written to the file. If this parameter is <b>NULL</b>, the key pointed to by the <i>lpKeyName</i> parameter is deleted.
+     * @param {Pointer<Byte>} lpFileName The name of the initialization file.
      * 
      * If the file was created using Unicode characters, the function writes Unicode characters to the file. Otherwise, the function writes ANSI characters.
      * @returns {Integer} If the function successfully copies the string to the initialization file, the return value is nonzero.
@@ -5652,10 +5667,10 @@ class WindowsProgramming {
      * </li>
      * <li>Such a call causes the mapping of an .ini file to the registry to take effect before the next system reboot. The system rereads the mapping information into shared memory. A user will not have to reboot their computer after installing an application in order to have future invocations of the application see the mapping of the .ini file to the registry.</li>
      * </ul>
-     * @param {Pointer<PWSTR>} lpAppName The name of the section to which the string will be copied. If the section does not exist, it is created. The name of the section is case-independent; the string can be any combination of uppercase and lowercase letters.
-     * @param {Pointer<PWSTR>} lpKeyName The name of the key to be associated with a string. If the key does not exist in the specified section, it is created. If this parameter is <b>NULL</b>, the entire section, including all entries within the section, is deleted.
-     * @param {Pointer<PWSTR>} lpString A <b>null</b>-terminated string to be written to the file. If this parameter is <b>NULL</b>, the key pointed to by the <i>lpKeyName</i> parameter is deleted.
-     * @param {Pointer<PWSTR>} lpFileName The name of the initialization file.
+     * @param {Pointer<Char>} lpAppName The name of the section to which the string will be copied. If the section does not exist, it is created. The name of the section is case-independent; the string can be any combination of uppercase and lowercase letters.
+     * @param {Pointer<Char>} lpKeyName The name of the key to be associated with a string. If the key does not exist in the specified section, it is created. If this parameter is <b>NULL</b>, the entire section, including all entries within the section, is deleted.
+     * @param {Pointer<Char>} lpString A <b>null</b>-terminated string to be written to the file. If this parameter is <b>NULL</b>, the key pointed to by the <i>lpKeyName</i> parameter is deleted.
+     * @param {Pointer<Char>} lpFileName The name of the initialization file.
      * 
      * If the file was created using Unicode characters, the function writes Unicode characters to the file. Otherwise, the function writes ANSI characters.
      * @returns {Integer} If the function successfully copies the string to the initialization file, the return value is nonzero.
@@ -5726,13 +5741,13 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines GetPrivateProfileSection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpAppName The name of the section in the initialization file.
-     * @param {Pointer<PSTR>} lpReturnedString A pointer to a buffer that receives the key name and value pairs associated with the named section. The buffer is filled with one or more null-terminated strings; the last string is followed by a second null character.
+     * @param {Pointer<Byte>} lpAppName The name of the section in the initialization file.
+     * @param {Pointer<Byte>} lpReturnedString A pointer to a buffer that receives the key name and value pairs associated with the named section. The buffer is filled with one or more null-terminated strings; the last string is followed by a second null character.
      * @param {Integer} nSize The size of the buffer pointed to by the <i>lpReturnedString</i> parameter, in characters. 
      * 
      * 
      * The maximum profile section size is 32,767 characters.
-     * @param {Pointer<PSTR>} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
+     * @param {Pointer<Byte>} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
      * @returns {Integer} The return value specifies the number of characters copied to the buffer, not including the terminating null character. If the buffer is not large enough to contain all the key name and value pairs associated with the named section, the return value is equal to <i>nSize</i> minus two.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilesectiona
      * @since windows5.0
@@ -5792,13 +5807,13 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines GetPrivateProfileSection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpAppName The name of the section in the initialization file.
-     * @param {Pointer<PWSTR>} lpReturnedString A pointer to a buffer that receives the key name and value pairs associated with the named section. The buffer is filled with one or more null-terminated strings; the last string is followed by a second null character.
+     * @param {Pointer<Char>} lpAppName The name of the section in the initialization file.
+     * @param {Pointer<Char>} lpReturnedString A pointer to a buffer that receives the key name and value pairs associated with the named section. The buffer is filled with one or more null-terminated strings; the last string is followed by a second null character.
      * @param {Integer} nSize The size of the buffer pointed to by the <i>lpReturnedString</i> parameter, in characters. 
      * 
      * 
      * The maximum profile section size is 32,767 characters.
-     * @param {Pointer<PWSTR>} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
+     * @param {Pointer<Char>} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
      * @returns {Integer} The return value specifies the number of characters copied to the buffer, not including the terminating null character. If the buffer is not large enough to contain all the key name and value pairs associated with the named section, the return value is equal to <i>nSize</i> minus two.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilesectionw
      * @since windows5.0
@@ -5869,9 +5884,9 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines WritePrivateProfileSection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpAppName The name of the section in which data is written. This section name is typically the name of the calling application.
-     * @param {Pointer<PSTR>} lpString The new key names and associated values that are to be written to the named section. This string is limited to 65,535 bytes.
-     * @param {Pointer<PSTR>} lpFileName The name of the initialization file. If this parameter does not contain a full path for the file, the function searches the Windows directory for the file. If the file does not exist and <i>lpFileName</i> does not contain a full path, the function creates the file in the Windows directory. 
+     * @param {Pointer<Byte>} lpAppName The name of the section in which data is written. This section name is typically the name of the calling application.
+     * @param {Pointer<Byte>} lpString The new key names and associated values that are to be written to the named section. This string is limited to 65,535 bytes.
+     * @param {Pointer<Byte>} lpFileName The name of the initialization file. If this parameter does not contain a full path for the file, the function searches the Windows directory for the file. If the file does not exist and <i>lpFileName</i> does not contain a full path, the function creates the file in the Windows directory. 
      * 
      * If the file exists and was created using Unicode characters, the function writes Unicode characters to the file. Otherwise, the function creates a file using ANSI characters.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -5952,9 +5967,9 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines WritePrivateProfileSection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpAppName The name of the section in which data is written. This section name is typically the name of the calling application.
-     * @param {Pointer<PWSTR>} lpString The new key names and associated values that are to be written to the named section. This string is limited to 65,535 bytes.
-     * @param {Pointer<PWSTR>} lpFileName The name of the initialization file. If this parameter does not contain a full path for the file, the function searches the Windows directory for the file. If the file does not exist and <i>lpFileName</i> does not contain a full path, the function creates the file in the Windows directory. 
+     * @param {Pointer<Char>} lpAppName The name of the section in which data is written. This section name is typically the name of the calling application.
+     * @param {Pointer<Char>} lpString The new key names and associated values that are to be written to the named section. This string is limited to 65,535 bytes.
+     * @param {Pointer<Char>} lpFileName The name of the initialization file. If this parameter does not contain a full path for the file, the function searches the Windows directory for the file. If the file does not exist and <i>lpFileName</i> does not contain a full path, the function creates the file in the Windows directory. 
      * 
      * If the file exists and was created using Unicode characters, the function writes Unicode characters to the file. Otherwise, the function creates a file using ANSI characters.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -6015,9 +6030,9 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines GetPrivateProfileSectionNames as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszReturnBuffer A pointer to a buffer that receives the section names associated with the named file. The buffer is filled with one or more <b>null</b>-terminated strings; the last string is followed by a second <b>null</b> character.
+     * @param {Pointer<Byte>} lpszReturnBuffer A pointer to a buffer that receives the section names associated with the named file. The buffer is filled with one or more <b>null</b>-terminated strings; the last string is followed by a second <b>null</b> character.
      * @param {Integer} nSize The size of the buffer pointed to by the <i>lpszReturnBuffer</i> parameter, in characters.
-     * @param {Pointer<PSTR>} lpFileName The name of the initialization file. If this parameter is <b>NULL</b>, the function searches the Win.ini file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
+     * @param {Pointer<Byte>} lpFileName The name of the initialization file. If this parameter is <b>NULL</b>, the function searches the Win.ini file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
      * @returns {Integer} The return value specifies the number of characters copied to the specified buffer, not including the terminating <b>null</b> character. If the buffer is not large enough to contain all the section names associated with the specified initialization file, the return value is equal to the size specified by <i>nSize</i> minus two.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilesectionnamesa
      * @since windows5.0
@@ -6067,9 +6082,9 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines GetPrivateProfileSectionNames as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszReturnBuffer A pointer to a buffer that receives the section names associated with the named file. The buffer is filled with one or more <b>null</b>-terminated strings; the last string is followed by a second <b>null</b> character.
+     * @param {Pointer<Char>} lpszReturnBuffer A pointer to a buffer that receives the section names associated with the named file. The buffer is filled with one or more <b>null</b>-terminated strings; the last string is followed by a second <b>null</b> character.
      * @param {Integer} nSize The size of the buffer pointed to by the <i>lpszReturnBuffer</i> parameter, in characters.
-     * @param {Pointer<PWSTR>} lpFileName The name of the initialization file. If this parameter is <b>NULL</b>, the function searches the Win.ini file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
+     * @param {Pointer<Char>} lpFileName The name of the initialization file. If this parameter is <b>NULL</b>, the function searches the Win.ini file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
      * @returns {Integer} The return value specifies the number of characters copied to the specified buffer, not including the terminating <b>null</b> character. If the buffer is not large enough to contain all the section names associated with the specified initialization file, the return value is equal to the size specified by <i>nSize</i> minus two.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilesectionnamesw
      * @since windows5.0
@@ -6130,11 +6145,11 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines GetPrivateProfileStruct as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszSection The name of the section in the initialization file.
-     * @param {Pointer<PSTR>} lpszKey The name of the key whose data is to be retrieved.
-     * @param {Pointer<Void>} lpStruct A pointer to the buffer that receives the data associated with the file, section, and key names.
+     * @param {Pointer<Byte>} lpszSection The name of the section in the initialization file.
+     * @param {Pointer<Byte>} lpszKey The name of the key whose data is to be retrieved.
+     * @param {Pointer} lpStruct A pointer to the buffer that receives the data associated with the file, section, and key names.
      * @param {Integer} uSizeStruct The size of the buffer pointed to by the <i>lpStruct</i> parameter, in bytes.
-     * @param {Pointer<PSTR>} szFile The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
+     * @param {Pointer<Byte>} szFile The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
@@ -6198,11 +6213,11 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines GetPrivateProfileStruct as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszSection The name of the section in the initialization file.
-     * @param {Pointer<PWSTR>} lpszKey The name of the key whose data is to be retrieved.
-     * @param {Pointer<Void>} lpStruct A pointer to the buffer that receives the data associated with the file, section, and key names.
+     * @param {Pointer<Char>} lpszSection The name of the section in the initialization file.
+     * @param {Pointer<Char>} lpszKey The name of the key whose data is to be retrieved.
+     * @param {Pointer} lpStruct A pointer to the buffer that receives the data associated with the file, section, and key names.
      * @param {Integer} uSizeStruct The size of the buffer pointed to by the <i>lpStruct</i> parameter, in bytes.
-     * @param {Pointer<PWSTR>} szFile The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
+     * @param {Pointer<Char>} szFile The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
@@ -6279,11 +6294,11 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines WritePrivateProfileStruct as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszSection The name of the section to which the string will be copied. If the section does not exist, it is created. The name of the section is case independent, the string can be any combination of uppercase and lowercase letters.
-     * @param {Pointer<PSTR>} lpszKey The name of the key to be associated with a string. If the key does not exist in the specified section, it is created. If this parameter is <b>NULL</b>, the entire section, including all keys and entries within the section, is deleted.
-     * @param {Pointer<Void>} lpStruct The data to be copied. If this parameter is <b>NULL</b>, the key is deleted.
+     * @param {Pointer<Byte>} lpszSection The name of the section to which the string will be copied. If the section does not exist, it is created. The name of the section is case independent, the string can be any combination of uppercase and lowercase letters.
+     * @param {Pointer<Byte>} lpszKey The name of the key to be associated with a string. If the key does not exist in the specified section, it is created. If this parameter is <b>NULL</b>, the entire section, including all keys and entries within the section, is deleted.
+     * @param {Pointer} lpStruct The data to be copied. If this parameter is <b>NULL</b>, the key is deleted.
      * @param {Integer} uSizeStruct The size of the buffer pointed to by the <i>lpStruct</i> parameter, in bytes.
-     * @param {Pointer<PSTR>} szFile The  name of the initialization file. If this parameter is <b>NULL</b>, the information is copied into the Win.ini file.
+     * @param {Pointer<Byte>} szFile The  name of the initialization file. If this parameter is <b>NULL</b>, the information is copied into the Win.ini file.
      * 
      * If the file was created using Unicode characters, the function writes Unicode characters to the file. Otherwise, the function writes ANSI characters.
      * @returns {Integer} If the function successfully copies the string to the initialization file, the return value is nonzero.
@@ -6370,11 +6385,11 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines WritePrivateProfileStruct as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszSection The name of the section to which the struct data will be copied. If the section does not exist, it is created. The name of the section is case independent.
-     * @param {Pointer<PWSTR>} lpszKey The name of the key to be associated with a struct. If the key does not exist in the specified section, it is created. If this parameter is <b>NULL</b>, the entire section, including all keys and entries within the section, is deleted.
-     * @param {Pointer<Void>} lpStruct The data to be copied. If this parameter is <b>NULL</b>, the key is deleted.
+     * @param {Pointer<Char>} lpszSection The name of the section to which the struct data will be copied. If the section does not exist, it is created. The name of the section is case independent.
+     * @param {Pointer<Char>} lpszKey The name of the key to be associated with a struct. If the key does not exist in the specified section, it is created. If this parameter is <b>NULL</b>, the entire section, including all keys and entries within the section, is deleted.
+     * @param {Pointer} lpStruct The data to be copied. If this parameter is <b>NULL</b>, the key is deleted.
      * @param {Integer} uSizeStruct The size of the buffer pointed to by the <i>lpStruct</i> parameter, in bytes.
-     * @param {Pointer<PWSTR>} szFile The  name of the initialization file. If this parameter is <b>NULL</b>, the information is copied into the Win.ini file.
+     * @param {Pointer<Char>} szFile The  name of the initialization file. If this parameter is <b>NULL</b>, the information is copied into the Win.ini file.
      * 
      * If the file was created using Unicode characters, the function writes Unicode characters to the file. Otherwise, the function writes ANSI characters.
      * @returns {Integer} If the function successfully copies the struct to the initialization file, the return value is nonzero.
@@ -6429,7 +6444,7 @@ class WindowsProgramming {
      * <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-setcomputernameexa">SetComputerNameEx</a> functions do not take effect until the user restarts the computer.
      * 
      * If the caller is running under a client session, this function returns the server name. To retrieve the client name, use the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsquerysessioninformationa">WTSQuerySessionInformation</a> function.
-     * @param {Pointer<PSTR>} lpBuffer A pointer to a buffer that receives the computer name or the cluster virtual server name. The buffer size should be large enough to contain MAX_COMPUTERNAME_LENGTH + 1 characters.
+     * @param {Pointer<Byte>} lpBuffer A pointer to a buffer that receives the computer name or the cluster virtual server name. The buffer size should be large enough to contain MAX_COMPUTERNAME_LENGTH + 1 characters.
      * @param {Pointer<UInt32>} nSize On input, specifies the size of the buffer, in <b>TCHARs</b>. On output, the number of <b>TCHARs</b> copied to the destination buffer, not including the terminating null character. 
      * 
      * 
@@ -6448,7 +6463,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetComputerNameA", "ptr", lpBuffer, "ptr", nSize, "int")
+        result := DllCall("KERNEL32.dll\GetComputerNameA", "ptr", lpBuffer, "uint*", nSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6464,7 +6479,7 @@ class WindowsProgramming {
      * <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-setcomputernameexa">SetComputerNameEx</a> functions do not take effect until the user restarts the computer.
      * 
      * If the caller is running under a client session, this function returns the server name. To retrieve the client name, use the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsquerysessioninformationa">WTSQuerySessionInformation</a> function.
-     * @param {Pointer<PWSTR>} lpBuffer A pointer to a buffer that receives the computer name or the cluster virtual server name. The buffer size should be large enough to contain MAX_COMPUTERNAME_LENGTH + 1 characters.
+     * @param {Pointer<Char>} lpBuffer A pointer to a buffer that receives the computer name or the cluster virtual server name. The buffer size should be large enough to contain MAX_COMPUTERNAME_LENGTH + 1 characters.
      * @param {Pointer<UInt32>} nSize On input, specifies the size of the buffer, in <b>TCHARs</b>. On output, the number of <b>TCHARs</b> copied to the destination buffer, not including the terminating null character. 
      * 
      * 
@@ -6483,7 +6498,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetComputerNameW", "ptr", lpBuffer, "ptr", nSize, "int")
+        result := DllCall("KERNEL32.dll\GetComputerNameW", "ptr", lpBuffer, "uint*", nSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6504,8 +6519,8 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines DnsHostnameToComputerName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} Hostname The DNS name. If the DNS name is not a valid, translatable name, the function fails. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/computer-names">Computer Names</a>.
-     * @param {Pointer<PSTR>} ComputerName A pointer to a buffer that receives the computer name. The buffer size should be large enough to contain MAX_COMPUTERNAME_LENGTH + 1 characters.
+     * @param {Pointer<Byte>} Hostname The DNS name. If the DNS name is not a valid, translatable name, the function fails. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/computer-names">Computer Names</a>.
+     * @param {Pointer<Byte>} ComputerName A pointer to a buffer that receives the computer name. The buffer size should be large enough to contain MAX_COMPUTERNAME_LENGTH + 1 characters.
      * @param {Pointer<UInt32>} nSize On input, specifies the size of the buffer, in <b>TCHARs</b>. On output, receives the number of <b>TCHARs</b> copied to the destination buffer, not including the terminating null character. 
      * 
      * 
@@ -6543,7 +6558,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DnsHostnameToComputerNameA", "ptr", Hostname, "ptr", ComputerName, "ptr", nSize, "int")
+        result := DllCall("KERNEL32.dll\DnsHostnameToComputerNameA", "ptr", Hostname, "ptr", ComputerName, "uint*", nSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6564,8 +6579,8 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The winbase.h header defines DnsHostnameToComputerName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} Hostname The DNS name. If the DNS name is not a valid, translatable name, the function fails. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/computer-names">Computer Names</a>.
-     * @param {Pointer<PWSTR>} ComputerName A pointer to a buffer that receives the computer name. The buffer size should be large enough to contain MAX_COMPUTERNAME_LENGTH + 1 characters.
+     * @param {Pointer<Char>} Hostname The DNS name. If the DNS name is not a valid, translatable name, the function fails. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/computer-names">Computer Names</a>.
+     * @param {Pointer<Char>} ComputerName A pointer to a buffer that receives the computer name. The buffer size should be large enough to contain MAX_COMPUTERNAME_LENGTH + 1 characters.
      * @param {Pointer<UInt32>} nSize On input, specifies the size of the buffer, in <b>TCHARs</b>. On output, receives the number of <b>TCHARs</b> copied to the destination buffer, not including the terminating null character. 
      * 
      * 
@@ -6603,7 +6618,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DnsHostnameToComputerNameW", "ptr", Hostname, "ptr", ComputerName, "ptr", nSize, "int")
+        result := DllCall("KERNEL32.dll\DnsHostnameToComputerNameW", "ptr", Hostname, "ptr", ComputerName, "uint*", nSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6617,7 +6632,7 @@ class WindowsProgramming {
      * <b>GetUserName</b> function returns the user name of the client that the thread is impersonating.
      * 
      * If <b>GetUserName</b> is called from a process that is running under the  "NETWORK SERVICE" account, the string returned in <i>lpBuffer</i> may be different depending on the version of Windows.  On Windows XP, the "NETWORK SERVICE" string is returned. On Windows Vista, the “&lt;HOSTNAME&gt;$” string is returned.
-     * @param {Pointer<PSTR>} lpBuffer A pointer to the buffer to receive the user's logon name. If this buffer is not large enough to contain the entire user name, the function fails. A buffer size of (UNLEN + 1) characters will hold the maximum length user name including the terminating null character. UNLEN is defined in Lmcons.h.
+     * @param {Pointer<Byte>} lpBuffer A pointer to the buffer to receive the user's logon name. If this buffer is not large enough to contain the entire user name, the function fails. A buffer size of (UNLEN + 1) characters will hold the maximum length user name including the terminating null character. UNLEN is defined in Lmcons.h.
      * @param {Pointer<UInt32>} pcbBuffer On input, this variable specifies the size of the <i>lpBuffer</i> buffer, in <b>TCHARs</b>. On output, the variable receives the number of <b>TCHARs</b> copied to the buffer, including the terminating null character. 
      * 
      * 
@@ -6636,7 +6651,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetUserNameA", "ptr", lpBuffer, "ptr", pcbBuffer, "int")
+        result := DllCall("ADVAPI32.dll\GetUserNameA", "ptr", lpBuffer, "uint*", pcbBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6650,7 +6665,7 @@ class WindowsProgramming {
      * <b>GetUserName</b> function returns the user name of the client that the thread is impersonating.
      * 
      * If <b>GetUserName</b> is called from a process that is running under the  "NETWORK SERVICE" account, the string returned in <i>lpBuffer</i> may be different depending on the version of Windows.  On Windows XP, the "NETWORK SERVICE" string is returned. On Windows Vista, the “&lt;HOSTNAME&gt;$” string is returned.
-     * @param {Pointer<PWSTR>} lpBuffer A pointer to the buffer to receive the user's logon name. If this buffer is not large enough to contain the entire user name, the function fails. A buffer size of (UNLEN + 1) characters will hold the maximum length user name including the terminating null character. UNLEN is defined in Lmcons.h.
+     * @param {Pointer<Char>} lpBuffer A pointer to the buffer to receive the user's logon name. If this buffer is not large enough to contain the entire user name, the function fails. A buffer size of (UNLEN + 1) characters will hold the maximum length user name including the terminating null character. UNLEN is defined in Lmcons.h.
      * @param {Pointer<UInt32>} pcbBuffer On input, this variable specifies the size of the <i>lpBuffer</i> buffer, in <b>TCHARs</b>. On output, the variable receives the number of <b>TCHARs</b> copied to the buffer, including the terminating null character. 
      * 
      * 
@@ -6669,7 +6684,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetUserNameW", "ptr", lpBuffer, "ptr", pcbBuffer, "int")
+        result := DllCall("ADVAPI32.dll\GetUserNameW", "ptr", lpBuffer, "uint*", pcbBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6678,7 +6693,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HANDLE>} TokenHandle 
+     * @param {Pointer<Void>} TokenHandle 
      * @returns {Integer} 
      */
     static IsTokenUntrusted(TokenHandle) {
@@ -6754,8 +6769,8 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} TargetPartition 
-     * @param {Pointer<PWSTR>} SparePartition 
+     * @param {Pointer<Char>} TargetPartition 
+     * @param {Pointer<Char>} SparePartition 
      * @param {Integer} Flags 
      * @returns {Integer} 
      */
@@ -6831,7 +6846,7 @@ class WindowsProgramming {
      * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlisnamelegaldos8dot3
      */
     static RtlIsNameLegalDOS8Dot3(Name, OemName, NameContainsSpaces) {
-        result := DllCall("ntdll.dll\RtlIsNameLegalDOS8Dot3", "ptr", Name, "ptr", OemName, "ptr", NameContainsSpaces, "char")
+        result := DllCall("ntdll.dll\RtlIsNameLegalDOS8Dot3", "ptr", Name, "ptr", OemName, "char*", NameContainsSpaces, "char")
         return result
     }
 
@@ -6845,7 +6860,7 @@ class WindowsProgramming {
      * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtllocaltimetosystemtime
      */
     static RtlLocalTimeToSystemTime(LocalTime, SystemTime) {
-        result := DllCall("ntdll.dll\RtlLocalTimeToSystemTime", "ptr", LocalTime, "ptr", SystemTime, "int")
+        result := DllCall("ntdll.dll\RtlLocalTimeToSystemTime", "int64*", LocalTime, "int64*", SystemTime, "int")
         return result
     }
 
@@ -6873,7 +6888,7 @@ class WindowsProgramming {
      * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtltimetosecondssince1970
      */
     static RtlTimeToSecondsSince1970(Time, ElapsedSeconds) {
-        result := DllCall("ntdll.dll\RtlTimeToSecondsSince1970", "ptr", Time, "ptr", ElapsedSeconds, "char")
+        result := DllCall("ntdll.dll\RtlTimeToSecondsSince1970", "int64*", Time, "uint*", ElapsedSeconds, "char")
         return result
     }
 
@@ -6882,12 +6897,13 @@ class WindowsProgramming {
      * @remarks
      * This routine does not release the Unicode string buffer passed to <a href="https://docs.microsoft.com/windows/desktop/api/winternl/nf-winternl-rtlunicodestringtoansistring">RtlUnicodeStringToAnsiString</a>.
      * @param {Pointer<STRING>} AnsiString A pointer to an ANSI string whose buffer was previously allocated by <a href="https://docs.microsoft.com/windows/desktop/api/winternl/nf-winternl-rtlunicodestringtoansistring">RtlUnicodeStringToAnsiString</a>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlfreeansistring
      * @since windows5.0
      */
     static RtlFreeAnsiString(AnsiString) {
-        DllCall("ntdll.dll\RtlFreeAnsiString", "ptr", AnsiString)
+        result := DllCall("ntdll.dll\RtlFreeAnsiString", "ptr", AnsiString)
+        return result
     }
 
     /**
@@ -6899,12 +6915,13 @@ class WindowsProgramming {
      * Because there is no import library for this function, you must use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
      * @param {Pointer<UNICODE_STRING>} UnicodeString A pointer to the Unicode string whose
      *         buffer was previously allocated by <a href="https://docs.microsoft.com/windows/desktop/api/winternl/nf-winternl-rtlansistringtounicodestring">RtlAnsiStringToUnicodeString</a>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlfreeunicodestring
      * @since windows5.0
      */
     static RtlFreeUnicodeString(UnicodeString) {
-        DllCall("ntdll.dll\RtlFreeUnicodeString", "ptr", UnicodeString)
+        result := DllCall("ntdll.dll\RtlFreeUnicodeString", "ptr", UnicodeString)
+        return result
     }
 
     /**
@@ -6913,12 +6930,13 @@ class WindowsProgramming {
      * This routine releases the <b>Buffer</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winternl/ns-winternl-string">OEM_STRING</a> structure. The <b>Length</b> and <b>MaximumLength</b> members are not affected by this routine.
      * @param {Pointer<STRING>} OemString Address of the OEM string whose buffer
      *         was previously allocated by <a href="https://docs.microsoft.com/windows/desktop/api/winternl/nf-winternl-rtlunicodestringtooemstring">RtlUnicodeStringToOemString</a>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlfreeoemstring
      * @since windows5.0
      */
     static RtlFreeOemString(OemString) {
-        DllCall("ntdll.dll\RtlFreeOemString", "ptr", OemString)
+        result := DllCall("ntdll.dll\RtlFreeOemString", "ptr", OemString)
+        return result
     }
 
     /**
@@ -6935,11 +6953,12 @@ class WindowsProgramming {
      * <div> </div>
      * @param {Pointer<STRING>} DestinationString The counted string to be initialized. The <i>DestinationString</i> is initialized to point to the <i>SourceString</i>. The <b>Length</b> and <b>MaximumLength</b> fields of the <i>DestinationString</i> are initialized to the length of the <i>SourceString</i>.
      * @param {Pointer<SByte>} SourceString A pointer to a null-terminated string. If the <i>SourceString</i> is not specified, the <b>Length</b> and <b>MaximumLength</b> fields of the <i>DestinationString</i> are initialized to zero.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlinitstring
      */
     static RtlInitString(DestinationString, SourceString) {
-        DllCall("ntdll.dll\RtlInitString", "ptr", DestinationString, "ptr", SourceString)
+        result := DllCall("ntdll.dll\RtlInitString", "ptr", DestinationString, "char*", SourceString)
+        return result
     }
 
     /**
@@ -6949,7 +6968,7 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static RtlInitStringEx(DestinationString, SourceString) {
-        result := DllCall("ntdll.dll\RtlInitStringEx", "ptr", DestinationString, "ptr", SourceString, "int")
+        result := DllCall("ntdll.dll\RtlInitStringEx", "ptr", DestinationString, "char*", SourceString, "int")
         return result
     }
 
@@ -6957,10 +6976,11 @@ class WindowsProgramming {
      * 
      * @param {Pointer<STRING>} DestinationString 
      * @param {Pointer<SByte>} SourceString 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static RtlInitAnsiString(DestinationString, SourceString) {
-        DllCall("ntdll.dll\RtlInitAnsiString", "ptr", DestinationString, "ptr", SourceString)
+        result := DllCall("ntdll.dll\RtlInitAnsiString", "ptr", DestinationString, "char*", SourceString)
+        return result
     }
 
     /**
@@ -6970,23 +6990,24 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static RtlInitAnsiStringEx(DestinationString, SourceString) {
-        result := DllCall("ntdll.dll\RtlInitAnsiStringEx", "ptr", DestinationString, "ptr", SourceString, "int")
+        result := DllCall("ntdll.dll\RtlInitAnsiStringEx", "ptr", DestinationString, "char*", SourceString, "int")
         return result
     }
 
     /**
      * Initializes a counted Unicode string.
      * @param {Pointer<UNICODE_STRING>} DestinationString The buffer for a counted Unicode string to be initialized. The length is initialized to zero if the <i>SourceString</i> is not specified.
-     * @param {Pointer<PWSTR>} SourceString Optional pointer to a null-terminated Unicode string with
+     * @param {Pointer<Char>} SourceString Optional pointer to a null-terminated Unicode string with
      *         which to initialize the counted string.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlinitunicodestring
      * @since windows5.0
      */
     static RtlInitUnicodeString(DestinationString, SourceString) {
         SourceString := SourceString is String? StrPtr(SourceString) : SourceString
 
-        DllCall("ntdll.dll\RtlInitUnicodeString", "ptr", DestinationString, "ptr", SourceString)
+        result := DllCall("ntdll.dll\RtlInitUnicodeString", "ptr", DestinationString, "ptr", SourceString)
+        return result
     }
 
     /**
@@ -7109,7 +7130,7 @@ class WindowsProgramming {
      * @remarks
      * It is recommended that you use <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-widechartomultibyte">WideCharToMultiByte</a> instead of <b>RtlUnicodeToMultiByteSize</b>. When its <i>cbMultiByte</i> parameter is set to zero, the <b>WideCharToMultiByte</b> function returns the number of bytes required for the buffer.
      * @param {Pointer<UInt32>} BytesInMultiByteString Returns the number of bytes for the ANSI equivalent of the Unicode string pointed to by <i>UnicodeString</i>. This number does not include the terminating <b>NULL</b> character.
-     * @param {Pointer<PWSTR>} UnicodeString The Unicode source string for which the ANSI length is calculated.
+     * @param {Pointer} UnicodeString The Unicode source string for which the ANSI length is calculated.
      * @param {Integer} BytesInUnicodeString The number of bytes in the string pointed to by
      *         <i>UnicodeString</i>.
      * @returns {Integer} <table>
@@ -7133,9 +7154,7 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static RtlUnicodeToMultiByteSize(BytesInMultiByteString, UnicodeString, BytesInUnicodeString) {
-        UnicodeString := UnicodeString is String? StrPtr(UnicodeString) : UnicodeString
-
-        result := DllCall("ntdll.dll\RtlUnicodeToMultiByteSize", "ptr", BytesInMultiByteString, "ptr", UnicodeString, "uint", BytesInUnicodeString, "int")
+        result := DllCall("ntdll.dll\RtlUnicodeToMultiByteSize", "uint*", BytesInMultiByteString, "ptr", UnicodeString, "uint", BytesInUnicodeString, "int")
         return result
     }
 
@@ -7155,7 +7174,7 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static RtlCharToInteger(String, Base, Value) {
-        result := DllCall("ntdll.dll\RtlCharToInteger", "ptr", String, "uint", Base, "ptr", Value, "int")
+        result := DllCall("ntdll.dll\RtlCharToInteger", "char*", String, "uint", Base, "uint*", Value, "int")
         return result
     }
 
@@ -7168,7 +7187,7 @@ class WindowsProgramming {
      * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtluniform
      */
     static RtlUniform(Seed) {
-        result := DllCall("ntdll.dll\RtlUniform", "ptr", Seed, "uint")
+        result := DllCall("ntdll.dll\RtlUniform", "uint*", Seed, "uint")
         return result
     }
 
@@ -7176,11 +7195,12 @@ class WindowsProgramming {
      * This function is intended for infrastructure use only. (GetFeatureEnabledState)
      * @param {Integer} featureId Infrastructure use only.
      * @param {Integer} changeTime Infrastructure use only.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} Infrastructure use only.
      * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-getfeatureenabledstate
      */
     static GetFeatureEnabledState(featureId, changeTime) {
-        DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\GetFeatureEnabledState", "uint", featureId, "int", changeTime)
+        result := DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\GetFeatureEnabledState", "uint", featureId, "int", changeTime)
+        return result
     }
 
     /**
@@ -7188,47 +7208,51 @@ class WindowsProgramming {
      * @param {Integer} featureId Infrastructure use only.
      * @param {Integer} kind Infrastructure use only.
      * @param {Integer} addend Infrastructure use only.
-     * @param {Pointer<PSTR>} originName Infrastructure use only.
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Byte>} originName Infrastructure use only.
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-recordfeatureusage
      */
     static RecordFeatureUsage(featureId, kind, addend, originName) {
         originName := originName is String? StrPtr(originName) : originName
 
-        DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\RecordFeatureUsage", "uint", featureId, "uint", kind, "uint", addend, "ptr", originName)
+        result := DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\RecordFeatureUsage", "uint", featureId, "uint", kind, "uint", addend, "ptr", originName)
+        return result
     }
 
     /**
      * This function is intended for infrastructure use only. (RecordFeatureError)
      * @param {Integer} featureId Infrastructure use only.
      * @param {Pointer<FEATURE_ERROR>} error Infrastructure use only.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-recordfeatureerror
      */
     static RecordFeatureError(featureId, error) {
-        DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\RecordFeatureError", "uint", featureId, "ptr", error)
+        result := DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\RecordFeatureError", "uint", featureId, "ptr", error)
+        return result
     }
 
     /**
      * This function is intended for infrastructure use only. (SubscribeFeatureStateChangeNotification)
-     * @param {Pointer<FEATURE_STATE_CHANGE_SUBSCRIPTION>} subscription Infrastructure use only.
+     * @param {Pointer<Void>} subscription Infrastructure use only.
      * @param {Pointer<PFEATURE_STATE_CHANGE_CALLBACK>} callback Infrastructure use only.
      * @param {Pointer<Void>} context Infrastructure use only.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-subscribefeaturestatechangenotification
      */
     static SubscribeFeatureStateChangeNotification(subscription, callback, context) {
-        DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\SubscribeFeatureStateChangeNotification", "ptr", subscription, "ptr", callback, "ptr", context)
+        result := DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\SubscribeFeatureStateChangeNotification", "ptr", subscription, "ptr", callback, "ptr", context)
+        return result
     }
 
     /**
      * This function is intended for infrastructure use only. (UnsubscribeFeatureStateChangeNotification)
-     * @param {Pointer<FEATURE_STATE_CHANGE_SUBSCRIPTION>} subscription Infrastructure use only.
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Void>} subscription Infrastructure use only.
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-unsubscribefeaturestatechangenotification
      */
     static UnsubscribeFeatureStateChangeNotification(subscription) {
-        DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\UnsubscribeFeatureStateChangeNotification", "ptr", subscription)
+        result := DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\UnsubscribeFeatureStateChangeNotification", "ptr", subscription)
+        return result
     }
 
     /**
@@ -7241,47 +7265,49 @@ class WindowsProgramming {
      * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-getfeaturevariant
      */
     static GetFeatureVariant(featureId, changeTime, payloadId, hasNotification) {
-        result := DllCall("api-ms-win-core-featurestaging-l1-1-1.dll\GetFeatureVariant", "uint", featureId, "int", changeTime, "ptr", payloadId, "ptr", hasNotification, "uint")
+        result := DllCall("api-ms-win-core-featurestaging-l1-1-1.dll\GetFeatureVariant", "uint", featureId, "int", changeTime, "uint*", payloadId, "int*", hasNotification, "uint")
         return result
     }
 
     /**
      * Obtains a device context handle of display.
-     * @returns {Pointer<HDC>} Device context handle of display.
+     * @returns {Pointer<Void>} Device context handle of display.
      * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dciopenprovider
      * @since windows5.0
      */
     static DCIOpenProvider() {
-        result := DllCall("DCIMAN32.dll\DCIOpenProvider", "ptr")
+        result := DllCall("DCIMAN32.dll\DCIOpenProvider")
         return result
     }
 
     /**
      * Closes a device context of a display.
-     * @param {Pointer<HDC>} hdc The device context handle to be closed.  The handle was created with <a href="https://docs.microsoft.com/windows/desktop/api/dciman/nf-dciman-dciopenprovider">DCIOpenProvider</a>.
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Void>} hdc The device context handle to be closed.  The handle was created with <a href="https://docs.microsoft.com/windows/desktop/api/dciman/nf-dciman-dciopenprovider">DCIOpenProvider</a>.
+     * @returns {Pointer} If the function succeeds, the return value is nonzero.  Otherwise, it returns zero.
      * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dcicloseprovider
      * @since windows5.0
      */
     static DCICloseProvider(hdc) {
-        DllCall("DCIMAN32.dll\DCICloseProvider", "ptr", hdc)
+        result := DllCall("DCIMAN32.dll\DCICloseProvider", "ptr", hdc)
+        return result
     }
 
     /**
      * Creates a primary surface and obtains surface information.
-     * @param {Pointer<HDC>} hdc The device context handle of the device for the primary surface to be created.
+     * @param {Pointer<Void>} hdc The device context handle of the device for the primary surface to be created.
      * @param {Pointer<DCISURFACEINFO>} lplpSurface A pointer to a <b>DCISURFACEINFO</b> structure.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, DCI_OK is returned.  Otherwise, it returns one of the DCI errors.
      * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dcicreateprimary
      * @since windows5.0
      */
     static DCICreatePrimary(hdc, lplpSurface) {
-        DllCall("DCIMAN32.dll\DCICreatePrimary", "ptr", hdc, "ptr", lplpSurface)
+        result := DllCall("DCIMAN32.dll\DCICreatePrimary", "ptr", hdc, "ptr", lplpSurface)
+        return result
     }
 
     /**
      * 
-     * @param {Pointer<HDC>} hdc 
+     * @param {Pointer<Void>} hdc 
      * @param {Integer} dwCompression 
      * @param {Integer} dwRedMask 
      * @param {Integer} dwGreenMask 
@@ -7291,34 +7317,37 @@ class WindowsProgramming {
      * @param {Integer} dwDCICaps 
      * @param {Integer} dwBitCount 
      * @param {Pointer<DCIOFFSCREEN>} lplpSurface 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static DCICreateOffscreen(hdc, dwCompression, dwRedMask, dwGreenMask, dwBlueMask, dwWidth, dwHeight, dwDCICaps, dwBitCount, lplpSurface) {
-        DllCall("DCIMAN32.dll\DCICreateOffscreen", "ptr", hdc, "uint", dwCompression, "uint", dwRedMask, "uint", dwGreenMask, "uint", dwBlueMask, "uint", dwWidth, "uint", dwHeight, "uint", dwDCICaps, "uint", dwBitCount, "ptr", lplpSurface)
+        result := DllCall("DCIMAN32.dll\DCICreateOffscreen", "ptr", hdc, "uint", dwCompression, "uint", dwRedMask, "uint", dwGreenMask, "uint", dwBlueMask, "uint", dwWidth, "uint", dwHeight, "uint", dwDCICaps, "uint", dwBitCount, "ptr", lplpSurface)
+        return result
     }
 
     /**
      * 
-     * @param {Pointer<HDC>} hdc 
+     * @param {Pointer<Void>} hdc 
      * @param {Pointer<Void>} lpOffscreenSurf 
      * @param {Pointer<DCIOVERLAY>} lplpSurface 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static DCICreateOverlay(hdc, lpOffscreenSurf, lplpSurface) {
-        DllCall("DCIMAN32.dll\DCICreateOverlay", "ptr", hdc, "ptr", lpOffscreenSurf, "ptr", lplpSurface)
+        result := DllCall("DCIMAN32.dll\DCICreateOverlay", "ptr", hdc, "ptr", lpOffscreenSurf, "ptr", lplpSurface)
+        return result
     }
 
     /**
      * 
-     * @param {Pointer<HDC>} hdc 
+     * @param {Pointer<Void>} hdc 
      * @param {Pointer<RECT>} lprDst 
      * @param {Pointer<RECT>} lprSrc 
      * @param {Pointer<Void>} lpFnCallback 
      * @param {Pointer<Void>} lpContext 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static DCIEnum(hdc, lprDst, lprSrc, lpFnCallback, lpContext) {
-        DllCall("DCIMAN32.dll\DCIEnum", "ptr", hdc, "ptr", lprDst, "ptr", lprSrc, "ptr", lpFnCallback, "ptr", lpContext)
+        result := DllCall("DCIMAN32.dll\DCIEnum", "ptr", hdc, "ptr", lprDst, "ptr", lprSrc, "ptr", lpFnCallback, "ptr", lpContext)
+        return result
     }
 
     /**
@@ -7336,38 +7365,40 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} hwnd 
-     * @returns {Pointer<HWINWATCH>} 
+     * @param {Pointer<Void>} hwnd 
+     * @returns {Pointer<Void>} 
      */
     static WinWatchOpen(hwnd) {
-        result := DllCall("DCIMAN32.dll\WinWatchOpen", "ptr", hwnd, "ptr")
+        result := DllCall("DCIMAN32.dll\WinWatchOpen", "ptr", hwnd)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<HWINWATCH>} hWW 
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Void>} hWW 
+     * @returns {Pointer} 
      */
     static WinWatchClose(hWW) {
-        DllCall("DCIMAN32.dll\WinWatchClose", "ptr", hWW)
+        result := DllCall("DCIMAN32.dll\WinWatchClose", "ptr", hWW)
+        return result
     }
 
     /**
      * 
-     * @param {Pointer<HWINWATCH>} hWW 
+     * @param {Pointer<Void>} hWW 
      * @param {Pointer<RECT>} prc 
      * @param {Integer} size 
      * @param {Pointer<RGNDATA>} prd 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static WinWatchGetClipList(hWW, prc, size, prd) {
-        DllCall("DCIMAN32.dll\WinWatchGetClipList", "ptr", hWW, "ptr", prc, "uint", size, "ptr", prd)
+        result := DllCall("DCIMAN32.dll\WinWatchGetClipList", "ptr", hWW, "ptr", prc, "uint", size, "ptr", prd)
+        return result
     }
 
     /**
      * 
-     * @param {Pointer<HWINWATCH>} hWW 
+     * @param {Pointer<Void>} hWW 
      * @returns {Integer} 
      */
     static WinWatchDidStatusChange(hWW) {
@@ -7377,7 +7408,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} hwnd 
+     * @param {Pointer<Void>} hwnd 
      * @param {Integer} size 
      * @param {Pointer<RGNDATA>} prd 
      * @returns {Integer} 
@@ -7389,7 +7420,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HDC>} hdc 
+     * @param {Pointer<Void>} hdc 
      * @param {Integer} size 
      * @param {Pointer<RGNDATA>} prd 
      * @returns {Integer} 
@@ -7401,7 +7432,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWINWATCH>} hWW 
+     * @param {Pointer<Void>} hWW 
      * @param {Pointer<WINWATCHNOTIFYPROC>} NotifyCallback 
      * @param {Pointer} NotifyParam 
      * @returns {Integer} 
@@ -7414,12 +7445,13 @@ class WindowsProgramming {
     /**
      * Releases access to display frame buffer.
      * @param {Pointer<DCISURFACEINFO>} pdci A pointer to a <b>DCISURFACEINFO</b> structure.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dciendaccess
      * @since windows5.0
      */
     static DCIEndAccess(pdci) {
-        DllCall("DCIMAN32.dll\DCIEndAccess", "ptr", pdci)
+        result := DllCall("DCIMAN32.dll\DCIEndAccess", "ptr", pdci)
+        return result
     }
 
     /**
@@ -7441,12 +7473,13 @@ class WindowsProgramming {
     /**
      * Destroys a primary surface on the display device.
      * @param {Pointer<DCISURFACEINFO>} pdci A pointer to a <b>DCISURFACEINFO</b> structure.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dcidestroy
      * @since windows5.0
      */
     static DCIDestroy(pdci) {
-        DllCall("DCIMAN32.dll\DCIDestroy", "ptr", pdci)
+        result := DllCall("DCIMAN32.dll\DCIDestroy", "ptr", pdci)
+        return result
     }
 
     /**
@@ -7494,12 +7527,12 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} hWnd 
-     * @param {Pointer<PSTR>} szCmdName 
-     * @param {Pointer<PSTR>} szInfSection 
-     * @param {Pointer<PSTR>} szDir 
-     * @param {Pointer<PSTR>} lpszTitle 
-     * @param {Pointer<HANDLE>} phEXE 
+     * @param {Pointer<Void>} hWnd 
+     * @param {Pointer<Byte>} szCmdName 
+     * @param {Pointer<Byte>} szInfSection 
+     * @param {Pointer<Byte>} szDir 
+     * @param {Pointer<Byte>} lpszTitle 
+     * @param {Pointer<Void>} phEXE 
      * @param {Integer} dwFlags 
      * @param {Pointer<Void>} pvReserved 
      * @returns {Integer} 
@@ -7516,12 +7549,12 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} hWnd 
-     * @param {Pointer<PWSTR>} szCmdName 
-     * @param {Pointer<PWSTR>} szInfSection 
-     * @param {Pointer<PWSTR>} szDir 
-     * @param {Pointer<PWSTR>} lpszTitle 
-     * @param {Pointer<HANDLE>} phEXE 
+     * @param {Pointer<Void>} hWnd 
+     * @param {Pointer<Char>} szCmdName 
+     * @param {Pointer<Char>} szInfSection 
+     * @param {Pointer<Char>} szDir 
+     * @param {Pointer<Char>} lpszTitle 
+     * @param {Pointer<Void>} phEXE 
      * @param {Integer} dwFlags 
      * @param {Pointer<Void>} pvReserved 
      * @returns {Integer} 
@@ -7557,9 +7590,9 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} hwnd 
-     * @param {Pointer<PSTR>} pszINF 
-     * @param {Pointer<PSTR>} pszSec 
+     * @param {Pointer<Void>} hwnd 
+     * @param {Pointer<Byte>} pszINF 
+     * @param {Pointer<Byte>} pszSec 
      * @param {Integer} dwReserved 
      * @returns {Integer} 
      */
@@ -7573,9 +7606,9 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} hwnd 
-     * @param {Pointer<PWSTR>} pszINF 
-     * @param {Pointer<PWSTR>} pszSec 
+     * @param {Pointer<Void>} hwnd 
+     * @param {Pointer<Char>} pszINF 
+     * @param {Pointer<Char>} pszSec 
      * @param {Integer} dwReserved 
      * @returns {Integer} 
      */
@@ -7589,11 +7622,11 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<PSTR>} pszInfFilename 
-     * @param {Pointer<PSTR>} pszInstallSection 
-     * @param {Pointer<PSTR>} pszTranslateSection 
-     * @param {Pointer<PSTR>} pszTranslateKey 
-     * @param {Pointer<PSTR>} pszBuffer 
+     * @param {Pointer<Byte>} pszInfFilename 
+     * @param {Pointer<Byte>} pszInstallSection 
+     * @param {Pointer<Byte>} pszTranslateSection 
+     * @param {Pointer<Byte>} pszTranslateKey 
+     * @param {Pointer<Byte>} pszBuffer 
      * @param {Integer} cchBuffer 
      * @param {Pointer<UInt32>} pdwRequiredSize 
      * @returns {Integer} 
@@ -7607,17 +7640,17 @@ class WindowsProgramming {
         pszTranslateKey := pszTranslateKey is String? StrPtr(pszTranslateKey) : pszTranslateKey
         pszBuffer := pszBuffer is String? StrPtr(pszBuffer) : pszBuffer
 
-        result := DllCall("ADVPACK.dll\TranslateInfStringA", "ptr", pszInfFilename, "ptr", pszInstallSection, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", cchBuffer, "ptr", pdwRequiredSize, "ptr", pvReserved, "int")
+        result := DllCall("ADVPACK.dll\TranslateInfStringA", "ptr", pszInfFilename, "ptr", pszInstallSection, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", cchBuffer, "uint*", pdwRequiredSize, "ptr", pvReserved, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pszInfFilename 
-     * @param {Pointer<PWSTR>} pszInstallSection 
-     * @param {Pointer<PWSTR>} pszTranslateSection 
-     * @param {Pointer<PWSTR>} pszTranslateKey 
-     * @param {Pointer<PWSTR>} pszBuffer 
+     * @param {Pointer<Char>} pszInfFilename 
+     * @param {Pointer<Char>} pszInstallSection 
+     * @param {Pointer<Char>} pszTranslateSection 
+     * @param {Pointer<Char>} pszTranslateKey 
+     * @param {Pointer<Char>} pszBuffer 
      * @param {Integer} cchBuffer 
      * @param {Pointer<UInt32>} pdwRequiredSize 
      * @returns {Integer} 
@@ -7631,7 +7664,7 @@ class WindowsProgramming {
         pszTranslateKey := pszTranslateKey is String? StrPtr(pszTranslateKey) : pszTranslateKey
         pszBuffer := pszBuffer is String? StrPtr(pszBuffer) : pszBuffer
 
-        result := DllCall("ADVPACK.dll\TranslateInfStringW", "ptr", pszInfFilename, "ptr", pszInstallSection, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", cchBuffer, "ptr", pdwRequiredSize, "ptr", pvReserved, "int")
+        result := DllCall("ADVPACK.dll\TranslateInfStringW", "ptr", pszInfFilename, "ptr", pszInstallSection, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", cchBuffer, "uint*", pdwRequiredSize, "ptr", pvReserved, "int")
         return result
     }
 
@@ -7640,8 +7673,8 @@ class WindowsProgramming {
      * @remarks
      * > [!NOTE]
      * > The advpub.h header defines RegInstall as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HMODULE>} hmod The module containing the values to be updated.
-     * @param {Pointer<PSTR>} pszSection The sections containing the values to be updated.
+     * @param {Pointer<Void>} hmod The module containing the values to be updated.
+     * @param {Pointer<Byte>} pszSection The sections containing the values to be updated.
      * @param {Pointer<STRTABLEA>} pstTable The table of values to be updated.
      * @returns {Integer} Returns S_OK on success. Returns E_FAIL on failure.
      * @see https://learn.microsoft.com/windows/win32/api/advpub/nf-advpub-reginstalla
@@ -7659,8 +7692,8 @@ class WindowsProgramming {
      * @remarks
      * > [!NOTE]
      * > The advpub.h header defines RegInstall as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HMODULE>} hmod The module containing the values to be updated.
-     * @param {Pointer<PWSTR>} pszSection The sections containing the values to be updated.
+     * @param {Pointer<Void>} hmod The module containing the values to be updated.
+     * @param {Pointer<Char>} pszSection The sections containing the values to be updated.
      * @param {Pointer<STRTABLEW>} pstTable The table of values to be updated.
      * @returns {Integer} Returns S_OK on success. Returns E_FAIL on failure.
      * @see https://learn.microsoft.com/windows/win32/api/advpub/nf-advpub-reginstallw
@@ -7675,9 +7708,9 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} hwnd 
-     * @param {Pointer<HINSTANCE>} hInstance 
-     * @param {Pointer<PWSTR>} pszParms 
+     * @param {Pointer<Void>} hwnd 
+     * @param {Pointer<Void>} hInstance 
+     * @param {Pointer<Char>} pszParms 
      * @param {Integer} nShow 
      * @returns {Integer} 
      */
@@ -7690,7 +7723,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} hwnd 
+     * @param {Pointer<Void>} hwnd 
      * @param {Pointer<CABINFOA>} pCab 
      * @param {Pointer<Void>} pReserved 
      * @returns {Integer} 
@@ -7702,7 +7735,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} hwnd 
+     * @param {Pointer<Void>} hwnd 
      * @param {Pointer<CABINFOW>} pCab 
      * @param {Pointer<Void>} pReserved 
      * @returns {Integer} 
@@ -7714,11 +7747,11 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} hwnd 
-     * @param {Pointer<PSTR>} lpszSourceDir 
-     * @param {Pointer<PSTR>} lpszSourceFile 
-     * @param {Pointer<PSTR>} lpszDestDir 
-     * @param {Pointer<PSTR>} lpszDestFile 
+     * @param {Pointer<Void>} hwnd 
+     * @param {Pointer<Byte>} lpszSourceDir 
+     * @param {Pointer<Byte>} lpszSourceFile 
+     * @param {Pointer<Byte>} lpszDestDir 
+     * @param {Pointer<Byte>} lpszDestFile 
      * @param {Integer} dwFlags 
      * @param {Integer} dwReserved 
      * @returns {Integer} 
@@ -7735,11 +7768,11 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} hwnd 
-     * @param {Pointer<PWSTR>} lpszSourceDir 
-     * @param {Pointer<PWSTR>} lpszSourceFile 
-     * @param {Pointer<PWSTR>} lpszDestDir 
-     * @param {Pointer<PWSTR>} lpszDestFile 
+     * @param {Pointer<Void>} hwnd 
+     * @param {Pointer<Char>} lpszSourceDir 
+     * @param {Pointer<Char>} lpszSourceFile 
+     * @param {Pointer<Char>} lpszDestDir 
+     * @param {Pointer<Char>} lpszDestFile 
      * @param {Integer} dwFlags 
      * @param {Integer} dwReserved 
      * @returns {Integer} 
@@ -7756,12 +7789,12 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} hWnd 
-     * @param {Pointer<PSTR>} pszTitleString 
-     * @param {Pointer<HKEY>} hkBckupKey 
-     * @param {Pointer<PSTR>} pcszRootKey 
-     * @param {Pointer<PSTR>} pcszSubKey 
-     * @param {Pointer<PSTR>} pcszValueName 
+     * @param {Pointer<Void>} hWnd 
+     * @param {Pointer<Byte>} pszTitleString 
+     * @param {Pointer<Void>} hkBckupKey 
+     * @param {Pointer<Byte>} pcszRootKey 
+     * @param {Pointer<Byte>} pcszSubKey 
+     * @param {Pointer<Byte>} pcszValueName 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
      */
@@ -7777,12 +7810,12 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} hWnd 
-     * @param {Pointer<PWSTR>} pszTitleString 
-     * @param {Pointer<HKEY>} hkBckupKey 
-     * @param {Pointer<PWSTR>} pcszRootKey 
-     * @param {Pointer<PWSTR>} pcszSubKey 
-     * @param {Pointer<PWSTR>} pcszValueName 
+     * @param {Pointer<Void>} hWnd 
+     * @param {Pointer<Char>} pszTitleString 
+     * @param {Pointer<Void>} hkBckupKey 
+     * @param {Pointer<Char>} pcszRootKey 
+     * @param {Pointer<Char>} pcszSubKey 
+     * @param {Pointer<Char>} pcszValueName 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
      */
@@ -7798,12 +7831,12 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} hWnd 
-     * @param {Pointer<PSTR>} pszTitle 
-     * @param {Pointer<PSTR>} pszINF 
-     * @param {Pointer<PSTR>} pszSection 
-     * @param {Pointer<HKEY>} hHKLMBackKey 
-     * @param {Pointer<HKEY>} hHKCUBackKey 
+     * @param {Pointer<Void>} hWnd 
+     * @param {Pointer<Byte>} pszTitle 
+     * @param {Pointer<Byte>} pszINF 
+     * @param {Pointer<Byte>} pszSection 
+     * @param {Pointer<Void>} hHKLMBackKey 
+     * @param {Pointer<Void>} hHKCUBackKey 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
      */
@@ -7818,12 +7851,12 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} hWnd 
-     * @param {Pointer<PWSTR>} pszTitle 
-     * @param {Pointer<PWSTR>} pszINF 
-     * @param {Pointer<PWSTR>} pszSection 
-     * @param {Pointer<HKEY>} hHKLMBackKey 
-     * @param {Pointer<HKEY>} hHKCUBackKey 
+     * @param {Pointer<Void>} hWnd 
+     * @param {Pointer<Char>} pszTitle 
+     * @param {Pointer<Char>} pszINF 
+     * @param {Pointer<Char>} pszSection 
+     * @param {Pointer<Void>} hHKLMBackKey 
+     * @param {Pointer<Void>} hHKCUBackKey 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
      */
@@ -7838,9 +7871,9 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} hWnd 
-     * @param {Pointer<PSTR>} pszTitleString 
-     * @param {Pointer<HKEY>} hkBckupKey 
+     * @param {Pointer<Void>} hWnd 
+     * @param {Pointer<Byte>} pszTitleString 
+     * @param {Pointer<Void>} hkBckupKey 
      * @returns {Integer} 
      */
     static RegRestoreAllA(hWnd, pszTitleString, hkBckupKey) {
@@ -7852,9 +7885,9 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} hWnd 
-     * @param {Pointer<PWSTR>} pszTitleString 
-     * @param {Pointer<HKEY>} hkBckupKey 
+     * @param {Pointer<Void>} hWnd 
+     * @param {Pointer<Char>} pszTitleString 
+     * @param {Pointer<Void>} hkBckupKey 
      * @returns {Integer} 
      */
     static RegRestoreAllW(hWnd, pszTitleString, hkBckupKey) {
@@ -7866,10 +7899,10 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} hDlg 
-     * @param {Pointer<PWSTR>} lpFileList 
-     * @param {Pointer<PWSTR>} lpDir 
-     * @param {Pointer<PWSTR>} lpBaseName 
+     * @param {Pointer<Void>} hDlg 
+     * @param {Pointer<Char>} lpFileList 
+     * @param {Pointer<Char>} lpDir 
+     * @param {Pointer<Char>} lpBaseName 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
      */
@@ -7884,12 +7917,12 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} hWnd 
-     * @param {Pointer<PSTR>} pszTitle 
-     * @param {Pointer<PSTR>} pszINF 
-     * @param {Pointer<PSTR>} pszSection 
-     * @param {Pointer<PSTR>} pszBackupDir 
-     * @param {Pointer<PSTR>} pszBaseBackupFile 
+     * @param {Pointer<Void>} hWnd 
+     * @param {Pointer<Byte>} pszTitle 
+     * @param {Pointer<Byte>} pszINF 
+     * @param {Pointer<Byte>} pszSection 
+     * @param {Pointer<Byte>} pszBackupDir 
+     * @param {Pointer<Byte>} pszBaseBackupFile 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
      */
@@ -7906,12 +7939,12 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} hWnd 
-     * @param {Pointer<PWSTR>} pszTitle 
-     * @param {Pointer<PWSTR>} pszINF 
-     * @param {Pointer<PWSTR>} pszSection 
-     * @param {Pointer<PWSTR>} pszBackupDir 
-     * @param {Pointer<PWSTR>} pszBaseBackupFile 
+     * @param {Pointer<Void>} hWnd 
+     * @param {Pointer<Char>} pszTitle 
+     * @param {Pointer<Char>} pszINF 
+     * @param {Pointer<Char>} pszSection 
+     * @param {Pointer<Char>} pszBackupDir 
+     * @param {Pointer<Char>} pszBaseBackupFile 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
      */
@@ -7928,9 +7961,9 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<PSTR>} lpcszFileList 
-     * @param {Pointer<PSTR>} lpcszBackupDir 
-     * @param {Pointer<PSTR>} lpcszBaseName 
+     * @param {Pointer<Byte>} lpcszFileList 
+     * @param {Pointer<Byte>} lpcszBackupDir 
+     * @param {Pointer<Byte>} lpcszBaseName 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
      */
@@ -7945,9 +7978,9 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpcszFileList 
-     * @param {Pointer<PWSTR>} lpcszBackupDir 
-     * @param {Pointer<PWSTR>} lpcszBaseName 
+     * @param {Pointer<Char>} lpcszFileList 
+     * @param {Pointer<Char>} lpcszBackupDir 
+     * @param {Pointer<Char>} lpcszBaseName 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
      */
@@ -7962,9 +7995,9 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<PSTR>} lpFileList 
-     * @param {Pointer<PSTR>} lpDir 
-     * @param {Pointer<PSTR>} lpBaseName 
+     * @param {Pointer<Byte>} lpFileList 
+     * @param {Pointer<Byte>} lpDir 
+     * @param {Pointer<Byte>} lpBaseName 
      * @returns {Integer} 
      */
     static FileSaveMarkNotExistA(lpFileList, lpDir, lpBaseName) {
@@ -7978,9 +8011,9 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpFileList 
-     * @param {Pointer<PWSTR>} lpDir 
-     * @param {Pointer<PWSTR>} lpBaseName 
+     * @param {Pointer<Char>} lpFileList 
+     * @param {Pointer<Char>} lpDir 
+     * @param {Pointer<Char>} lpBaseName 
      * @returns {Integer} 
      */
     static FileSaveMarkNotExistW(lpFileList, lpDir, lpBaseName) {
@@ -7994,7 +8027,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<PSTR>} lpszFilename 
+     * @param {Pointer<Byte>} lpszFilename 
      * @param {Pointer<UInt32>} pdwMSVer 
      * @param {Pointer<UInt32>} pdwLSVer 
      * @param {Integer} bVersion 
@@ -8003,13 +8036,13 @@ class WindowsProgramming {
     static GetVersionFromFileA(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
         lpszFilename := lpszFilename is String? StrPtr(lpszFilename) : lpszFilename
 
-        result := DllCall("ADVPACK.dll\GetVersionFromFileA", "ptr", lpszFilename, "ptr", pdwMSVer, "ptr", pdwLSVer, "int", bVersion, "int")
+        result := DllCall("ADVPACK.dll\GetVersionFromFileA", "ptr", lpszFilename, "uint*", pdwMSVer, "uint*", pdwLSVer, "int", bVersion, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpszFilename 
+     * @param {Pointer<Char>} lpszFilename 
      * @param {Pointer<UInt32>} pdwMSVer 
      * @param {Pointer<UInt32>} pdwLSVer 
      * @param {Integer} bVersion 
@@ -8018,13 +8051,13 @@ class WindowsProgramming {
     static GetVersionFromFileW(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
         lpszFilename := lpszFilename is String? StrPtr(lpszFilename) : lpszFilename
 
-        result := DllCall("ADVPACK.dll\GetVersionFromFileW", "ptr", lpszFilename, "ptr", pdwMSVer, "ptr", pdwLSVer, "int", bVersion, "int")
+        result := DllCall("ADVPACK.dll\GetVersionFromFileW", "ptr", lpszFilename, "uint*", pdwMSVer, "uint*", pdwLSVer, "int", bVersion, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PSTR>} lpszFilename 
+     * @param {Pointer<Byte>} lpszFilename 
      * @param {Pointer<UInt32>} pdwMSVer 
      * @param {Pointer<UInt32>} pdwLSVer 
      * @param {Integer} bVersion 
@@ -8033,13 +8066,13 @@ class WindowsProgramming {
     static GetVersionFromFileExA(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
         lpszFilename := lpszFilename is String? StrPtr(lpszFilename) : lpszFilename
 
-        result := DllCall("ADVPACK.dll\GetVersionFromFileExA", "ptr", lpszFilename, "ptr", pdwMSVer, "ptr", pdwLSVer, "int", bVersion, "int")
+        result := DllCall("ADVPACK.dll\GetVersionFromFileExA", "ptr", lpszFilename, "uint*", pdwMSVer, "uint*", pdwLSVer, "int", bVersion, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpszFilename 
+     * @param {Pointer<Char>} lpszFilename 
      * @param {Pointer<UInt32>} pdwMSVer 
      * @param {Pointer<UInt32>} pdwLSVer 
      * @param {Integer} bVersion 
@@ -8048,7 +8081,7 @@ class WindowsProgramming {
     static GetVersionFromFileExW(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
         lpszFilename := lpszFilename is String? StrPtr(lpszFilename) : lpszFilename
 
-        result := DllCall("ADVPACK.dll\GetVersionFromFileExW", "ptr", lpszFilename, "ptr", pdwMSVer, "ptr", pdwLSVer, "int", bVersion, "int")
+        result := DllCall("ADVPACK.dll\GetVersionFromFileExW", "ptr", lpszFilename, "uint*", pdwMSVer, "uint*", pdwLSVer, "int", bVersion, "int")
         return result
     }
 
@@ -8059,13 +8092,13 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static IsNTAdmin(dwReserved, lpdwReserved) {
-        result := DllCall("ADVPACK.dll\IsNTAdmin", "uint", dwReserved, "ptr", lpdwReserved, "int")
+        result := DllCall("ADVPACK.dll\IsNTAdmin", "uint", dwReserved, "uint*", lpdwReserved, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PSTR>} pszFileOrDirName 
+     * @param {Pointer<Byte>} pszFileOrDirName 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
      */
@@ -8078,7 +8111,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pszFileOrDirName 
+     * @param {Pointer<Char>} pszFileOrDirName 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
      */
@@ -8091,9 +8124,9 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} hwnd 
-     * @param {Pointer<HINSTANCE>} hInstance 
-     * @param {Pointer<PWSTR>} pszParms 
+     * @param {Pointer<Void>} hwnd 
+     * @param {Pointer<Void>} hInstance 
+     * @param {Pointer<Char>} pszParms 
      * @param {Integer} nShow 
      * @returns {Integer} 
      */
@@ -8106,8 +8139,8 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<PSTR>} pszInfFilename 
-     * @param {Pointer<PSTR>} pszInstallSection 
+     * @param {Pointer<Byte>} pszInfFilename 
+     * @param {Pointer<Byte>} pszInstallSection 
      * @param {Integer} dwFlags 
      * @param {Pointer<Void>} phInf 
      * @param {Pointer<Void>} pvReserved 
@@ -8123,8 +8156,8 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pszInfFilename 
-     * @param {Pointer<PWSTR>} pszInstallSection 
+     * @param {Pointer<Char>} pszInfFilename 
+     * @param {Pointer<Char>} pszInstallSection 
      * @param {Integer} dwFlags 
      * @param {Pointer<Void>} phInf 
      * @param {Pointer<Void>} pvReserved 
@@ -8141,10 +8174,10 @@ class WindowsProgramming {
     /**
      * 
      * @param {Pointer<Void>} hInf 
-     * @param {Pointer<PSTR>} pszInfFilename 
-     * @param {Pointer<PSTR>} pszTranslateSection 
-     * @param {Pointer<PSTR>} pszTranslateKey 
-     * @param {Pointer<PSTR>} pszBuffer 
+     * @param {Pointer<Byte>} pszInfFilename 
+     * @param {Pointer<Byte>} pszTranslateSection 
+     * @param {Pointer<Byte>} pszTranslateKey 
+     * @param {Pointer<Byte>} pszBuffer 
      * @param {Integer} dwBufferSize 
      * @param {Pointer<UInt32>} pdwRequiredSize 
      * @returns {Integer} 
@@ -8157,17 +8190,17 @@ class WindowsProgramming {
         pszTranslateKey := pszTranslateKey is String? StrPtr(pszTranslateKey) : pszTranslateKey
         pszBuffer := pszBuffer is String? StrPtr(pszBuffer) : pszBuffer
 
-        result := DllCall("ADVPACK.dll\TranslateInfStringExA", "ptr", hInf, "ptr", pszInfFilename, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", dwBufferSize, "ptr", pdwRequiredSize, "ptr", pvReserved, "int")
+        result := DllCall("ADVPACK.dll\TranslateInfStringExA", "ptr", hInf, "ptr", pszInfFilename, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", dwBufferSize, "uint*", pdwRequiredSize, "ptr", pvReserved, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} hInf 
-     * @param {Pointer<PWSTR>} pszInfFilename 
-     * @param {Pointer<PWSTR>} pszTranslateSection 
-     * @param {Pointer<PWSTR>} pszTranslateKey 
-     * @param {Pointer<PWSTR>} pszBuffer 
+     * @param {Pointer<Char>} pszInfFilename 
+     * @param {Pointer<Char>} pszTranslateSection 
+     * @param {Pointer<Char>} pszTranslateKey 
+     * @param {Pointer<Char>} pszBuffer 
      * @param {Integer} dwBufferSize 
      * @param {Pointer<UInt32>} pdwRequiredSize 
      * @returns {Integer} 
@@ -8180,7 +8213,7 @@ class WindowsProgramming {
         pszTranslateKey := pszTranslateKey is String? StrPtr(pszTranslateKey) : pszTranslateKey
         pszBuffer := pszBuffer is String? StrPtr(pszBuffer) : pszBuffer
 
-        result := DllCall("ADVPACK.dll\TranslateInfStringExW", "ptr", hInf, "ptr", pszInfFilename, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", dwBufferSize, "ptr", pdwRequiredSize, "ptr", pvReserved, "int")
+        result := DllCall("ADVPACK.dll\TranslateInfStringExW", "ptr", hInf, "ptr", pszInfFilename, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", dwBufferSize, "uint*", pdwRequiredSize, "ptr", pvReserved, "int")
         return result
     }
 
@@ -8196,10 +8229,10 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<PSTR>} pszCabName 
-     * @param {Pointer<PSTR>} pszExpandDir 
+     * @param {Pointer<Byte>} pszCabName 
+     * @param {Pointer<Byte>} pszExpandDir 
      * @param {Integer} dwFlags 
-     * @param {Pointer<PSTR>} pszFileList 
+     * @param {Pointer<Byte>} pszFileList 
      * @param {Pointer<Void>} lpReserved 
      * @param {Integer} dwReserved 
      * @returns {Integer} 
@@ -8215,10 +8248,10 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pszCabName 
-     * @param {Pointer<PWSTR>} pszExpandDir 
+     * @param {Pointer<Char>} pszCabName 
+     * @param {Pointer<Char>} pszExpandDir 
      * @param {Integer} dwFlags 
-     * @param {Pointer<PWSTR>} pszFileList 
+     * @param {Pointer<Char>} pszFileList 
      * @param {Pointer<Void>} lpReserved 
      * @param {Integer} dwReserved 
      * @returns {Integer} 
@@ -8234,23 +8267,24 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} hwndOwner 
-     * @param {Pointer<HINSTANCE>} hInstance 
-     * @param {Pointer<PWSTR>} pszParams 
+     * @param {Pointer<Void>} hwndOwner 
+     * @param {Pointer<Void>} hInstance 
+     * @param {Pointer<Char>} pszParams 
      * @param {Integer} nShow 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static LaunchINFSectionW(hwndOwner, hInstance, pszParams, nShow) {
         pszParams := pszParams is String? StrPtr(pszParams) : pszParams
 
-        DllCall("ADVPACK.dll\LaunchINFSectionW", "ptr", hwndOwner, "ptr", hInstance, "ptr", pszParams, "int", nShow)
+        result := DllCall("ADVPACK.dll\LaunchINFSectionW", "ptr", hwndOwner, "ptr", hInstance, "ptr", pszParams, "int", nShow)
+        return result
     }
 
     /**
      * 
-     * @param {Pointer<HWND>} hwnd 
-     * @param {Pointer<HINSTANCE>} hInstance 
-     * @param {Pointer<PSTR>} pszParms 
+     * @param {Pointer<Void>} hwnd 
+     * @param {Pointer<Void>} hInstance 
+     * @param {Pointer<Byte>} pszParms 
      * @param {Integer} nShow 
      * @returns {Integer} 
      */
@@ -8263,9 +8297,9 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} hwnd 
-     * @param {Pointer<HINSTANCE>} hInstance 
-     * @param {Pointer<PWSTR>} pszParms 
+     * @param {Pointer<Void>} hwnd 
+     * @param {Pointer<Void>} hInstance 
+     * @param {Pointer<Char>} pszParms 
      * @param {Integer} nShow 
      * @returns {Integer} 
      */
@@ -8278,9 +8312,9 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} hwnd 
-     * @param {Pointer<HINSTANCE>} hInstance 
-     * @param {Pointer<PSTR>} pszParms 
+     * @param {Pointer<Void>} hwnd 
+     * @param {Pointer<Void>} hInstance 
+     * @param {Pointer<Byte>} pszParms 
      * @param {Integer} nShow 
      * @returns {Integer} 
      */
@@ -8293,9 +8327,9 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} hwnd 
-     * @param {Pointer<HINSTANCE>} hInstance 
-     * @param {Pointer<PWSTR>} pszParms 
+     * @param {Pointer<Void>} hwnd 
+     * @param {Pointer<Void>} hInstance 
+     * @param {Pointer<Char>} pszParms 
      * @param {Integer} nShow 
      * @returns {Integer} 
      */
@@ -8336,7 +8370,7 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The ime.h header defines SendIMEMessageEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HWND>} param0 
+     * @param {Pointer<Void>} param0 
      * @param {Pointer} param1 
      * @returns {Pointer} The result of processing of the subfunction. If the result is not success, one of the following error codes is stored into the <b>wParam</b> of the <a href="https://docs.microsoft.com/windows/desktop/api/ime/ns-ime-imestruct">IMESTRUCT</a> structure.
      * 
@@ -8474,7 +8508,7 @@ class WindowsProgramming {
      * 
      * > [!NOTE]
      * > The ime.h header defines SendIMEMessageEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HWND>} param0 
+     * @param {Pointer<Void>} param0 
      * @param {Pointer} param1 
      * @returns {Pointer} The result of processing of the subfunction. If the result is not success, one of the following error codes is stored into the <b>wParam</b> of the <a href="https://docs.microsoft.com/windows/desktop/api/ime/ns-ime-imestruct">IMESTRUCT</a> structure.
      * 
@@ -8604,7 +8638,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} param0 
+     * @param {Pointer<Void>} param0 
      * @param {Pointer<IMEPROA>} param1 
      * @returns {Integer} 
      */
@@ -8615,7 +8649,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} param0 
+     * @param {Pointer<Void>} param0 
      * @param {Pointer<IMEPROW>} param1 
      * @returns {Integer} 
      */
@@ -8646,7 +8680,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} param0 
+     * @param {Pointer<Void>} param0 
      * @param {Pointer<IMEPROA>} param1 
      * @returns {Integer} 
      */
@@ -8657,7 +8691,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} param0 
+     * @param {Pointer<Void>} param0 
      * @param {Pointer<IMEPROW>} param1 
      * @returns {Integer} 
      */
@@ -8668,11 +8702,12 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} param0 
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Void>} param0 
+     * @returns {Pointer} 
      */
     static WINNLSGetIMEHotkey(param0) {
-        DllCall("USER32.dll\WINNLSGetIMEHotkey", "ptr", param0)
+        result := DllCall("USER32.dll\WINNLSGetIMEHotkey", "ptr", param0)
+        return result
     }
 
     /**
@@ -8685,7 +8720,7 @@ class WindowsProgramming {
      * If an IME is disabled, <a href="https://docs.microsoft.com/windows/desktop/api/ime/ns-ime-imestruct">IME_WINDOWUPDATE(FALSE)</a> is issued to the IME, which responds by deleting the conversion and system windows. With the IME disabled, keyboard messages are not sent to the IME, but are sent directly to the application. Even if the IME is disabled, the API that uses the <a href="https://docs.microsoft.com/windows/desktop/api/ime/nf-ime-sendimemessageexa">SendIMEMessageEx</a> function is still valid.
      * 
      * If an IME is enabled, <a href="https://docs.microsoft.com/windows/desktop/api/ime/ns-ime-imestruct">IME_WINDOWUPDATE(TRUE)</a> is issued to the IME, which responds by redisplaying the conversion and system windows. With the IME enabled, keyboard messages are sent to the IME.
-     * @param {Pointer<HWND>} param0 
+     * @param {Pointer<Void>} param0 
      * @param {Integer} param1 
      * @returns {Integer} The previous state of the IME. <b>TRUE</b> if it was enabled before this call, otherwise, <b>FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winnls32/nf-winnls32-winnlsenableime
@@ -8698,7 +8733,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<HWND>} param0 
+     * @param {Pointer<Void>} param0 
      * @returns {Integer} 
      */
     static WINNLSGetEnableStatus(param0) {
@@ -8724,7 +8759,7 @@ class WindowsProgramming {
      * @see https://learn.microsoft.com/windows/win32/api/appcompatapi/nf-appcompatapi-apphelpcheckshellobject
      */
     static ApphelpCheckShellObject(ObjectCLSID, bShimIfNecessary, pullFlags) {
-        result := DllCall("APPHELP.dll\ApphelpCheckShellObject", "ptr", ObjectCLSID, "int", bShimIfNecessary, "ptr", pullFlags, "int")
+        result := DllCall("APPHELP.dll\ApphelpCheckShellObject", "ptr", ObjectCLSID, "int", bShimIfNecessary, "uint*", pullFlags, "int")
         return result
     }
 
@@ -8746,7 +8781,7 @@ class WindowsProgramming {
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpgetlockdownpolicy
      */
     static WldpGetLockdownPolicy(hostInformation, lockdownState, lockdownFlags) {
-        result := DllCall("Wldp.dll\WldpGetLockdownPolicy", "ptr", hostInformation, "ptr", lockdownState, "uint", lockdownFlags, "int")
+        result := DllCall("Wldp.dll\WldpGetLockdownPolicy", "ptr", hostInformation, "uint*", lockdownState, "uint", lockdownFlags, "int")
         return result
     }
 
@@ -8760,13 +8795,13 @@ class WindowsProgramming {
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpisclassinapprovedlist
      */
     static WldpIsClassInApprovedList(classID, hostInformation, isApproved, optionalFlags) {
-        result := DllCall("Wldp.dll\WldpIsClassInApprovedList", "ptr", classID, "ptr", hostInformation, "ptr", isApproved, "uint", optionalFlags, "int")
+        result := DllCall("Wldp.dll\WldpIsClassInApprovedList", "ptr", classID, "ptr", hostInformation, "int*", isApproved, "uint", optionalFlags, "int")
         return result
     }
 
     /**
      * Sets an on-disk .NET CRL Dynamic Code trustable for .NET.
-     * @param {Pointer<HANDLE>} fileHandle Handle to a on-disk dynamic code file.
+     * @param {Pointer<Void>} fileHandle Handle to a on-disk dynamic code file.
      * @returns {Integer} This method returns **S\_OK** if successful or a failure code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpsetdynamiccodetrust
      */
@@ -8784,14 +8819,14 @@ class WindowsProgramming {
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpisdynamiccodepolicyenabled
      */
     static WldpIsDynamicCodePolicyEnabled(isEnabled) {
-        result := DllCall("Wldp.dll\WldpIsDynamicCodePolicyEnabled", "ptr", isEnabled, "int")
+        result := DllCall("Wldp.dll\WldpIsDynamicCodePolicyEnabled", "int*", isEnabled, "int")
         return result
     }
 
     /**
      * Retrieves a value that determines if the specified in-memory or on-disk .NET CRL dynamic code is trusted by Device Guard policy.
-     * @param {Pointer<HANDLE>} fileHandle Handle to the on-disk dynamic code file to check. If *fileHandle* is non-**NULL**, *baseImage* should be **NULL**.
-     * @param {Pointer<Void>} baseImage Pointer to the in-memory PE file to check. If *baseImage* is non-**NULL**, *FileHandle* should be **NULL**.
+     * @param {Pointer<Void>} fileHandle Handle to the on-disk dynamic code file to check. If *fileHandle* is non-**NULL**, *baseImage* should be **NULL**.
+     * @param {Pointer} baseImage Pointer to the in-memory PE file to check. If *baseImage* is non-**NULL**, *FileHandle* should be **NULL**.
      * @param {Integer} imageSize When *baseImage* is non-**NULL**, indicates the buffer size that *baseImage* points to.
      * @returns {Integer} This method returns **S\_OK** if successful or a failure code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpquerydynamiccodetrust
@@ -8809,7 +8844,7 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static WldpQueryDeviceSecurityInformation(information, informationLength, returnLength) {
-        result := DllCall("Wldp.dll\WldpQueryDeviceSecurityInformation", "ptr", information, "uint", informationLength, "ptr", returnLength, "int")
+        result := DllCall("Wldp.dll\WldpQueryDeviceSecurityInformation", "ptr", information, "uint", informationLength, "uint*", returnLength, "int")
         return result
     }
 
@@ -8825,11 +8860,11 @@ class WindowsProgramming {
      * - Supports fine grained execution policies like for example interactive mode in cmd or powershell
      * @param {Pointer<Guid>} host A GUID specifying the calling program. For the list of pre-defined GUIDs that can be used for this parameter, see [WLDP Host GUIDs](/windows/win32/devnotes/wldp-host-guids). For hosts for which a specific value is not defined, use GUID WLDP_HOST_GUID_OTHER.
      * @param {Integer} options A value from the [WLDP_EXECUTION_EVALUATION_OPTIONS](ne-wldp-wldp_execution_evaluation_options.md) specifying options for the execution authorization request.
-     * @param {Pointer<HANDLE>} fileHandle The handle to the file being validated for execution approval. 
+     * @param {Pointer<Void>} fileHandle The handle to the file being validated for execution approval. 
      * 
      * > [!IMPORTANT]
      * > Callers should only pass open file handles to **WldpCanExecuteFile** and should not cache the security authorization on a specific file. It should be assumed that authorization to run a particular file is revoked when its file handle is closed. These measures are necessary to prevent [TOC/TOU vulnerabilities](https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use) that could subvert script enforcement policy.
-     * @param {Pointer<PWSTR>} auditInfo A string that should include relevant contextual information for the caller to use in debugging. If an authorization request fails this string will be recorded in the event log, under “Applocker/MSI and Scripts/Operational”. Callers should note that, while the *AuditInfo* is not size limited, the string should be less than 4K bytes in size because it will be placed in the event log.
+     * @param {Pointer<Char>} auditInfo A string that should include relevant contextual information for the caller to use in debugging. If an authorization request fails this string will be recorded in the event log, under “Applocker/MSI and Scripts/Operational”. Callers should note that, while the *AuditInfo* is not size limited, the string should be less than 4K bytes in size because it will be placed in the event log.
      * @param {Pointer<Int32>} result Receives a pointer to a value from the [WLDP_EXECUTION_POLICY](ne-wldp-wldp_execution_policy.md) enumeration, indicating the execution policy result of the query.
      * @returns {Integer} Returns S_OK on success and a failure code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutefile
@@ -8837,7 +8872,7 @@ class WindowsProgramming {
     static WldpCanExecuteFile(host, options, fileHandle, auditInfo, result) {
         auditInfo := auditInfo is String? StrPtr(auditInfo) : auditInfo
 
-        result := DllCall("Wldp.dll\WldpCanExecuteFile", "ptr", host, "int", options, "ptr", fileHandle, "ptr", auditInfo, "ptr", result, "int")
+        result := DllCall("Wldp.dll\WldpCanExecuteFile", "ptr", host, "int", options, "ptr", fileHandle, "ptr", auditInfo, "int*", result, "int")
         return result
     }
 
@@ -8858,7 +8893,7 @@ class WindowsProgramming {
      * > [!IMPORTANT]
      * > Buffers passed to **WldpCanExecuteBuffer** should be read-only and the caller should not cache the security authorization on a specific buffer. These measures are necessary to prevent [TOC/TOU vulnerabilities](https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use) that could subvert script enforcement policy.
      * @param {Integer} bufferSize The size of *buffer*, in bytes.
-     * @param {Pointer<PWSTR>} auditInfo A string that should include relevant contextual information for the caller to use in debugging. If an authorization request fails this string will be recorded in the event log, under “Applocker/MSI and Scripts/Operational”. Callers should note that, while the *AuditInfo* is not size limited, the string should be less than 4K bytes in size because it will be placed in the event log.
+     * @param {Pointer<Char>} auditInfo A string that should include relevant contextual information for the caller to use in debugging. If an authorization request fails this string will be recorded in the event log, under “Applocker/MSI and Scripts/Operational”. Callers should note that, while the *AuditInfo* is not size limited, the string should be less than 4K bytes in size because it will be placed in the event log.
      * @param {Pointer<Int32>} result Receives a pointer to a value from the [WLDP_EXECUTION_POLICY](ne-wldp-wldp_execution_policy.md) enumeration, indicating the execution policy result of the query.
      * @returns {Integer} Returns S_OK on success and a failure code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutebuffer
@@ -8866,7 +8901,7 @@ class WindowsProgramming {
     static WldpCanExecuteBuffer(host, options, buffer, bufferSize, auditInfo, result) {
         auditInfo := auditInfo is String? StrPtr(auditInfo) : auditInfo
 
-        result := DllCall("Wldp.dll\WldpCanExecuteBuffer", "ptr", host, "int", options, "ptr", buffer, "uint", bufferSize, "ptr", auditInfo, "ptr", result, "int")
+        result := DllCall("Wldp.dll\WldpCanExecuteBuffer", "ptr", host, "int", options, "char*", buffer, "uint", bufferSize, "ptr", auditInfo, "int*", result, "int")
         return result
     }
 
@@ -8883,7 +8918,7 @@ class WindowsProgramming {
      * @param {Pointer<Guid>} host A GUID specifying the calling program. For the list of pre-defined GUIDs that can be used for this parameter, see [WLDP Host GUIDs](/windows/win32/devnotes/wldp-host-guids). For hosts for which a specific value is not defined, use GUID WLDP_HOST_GUID_OTHER.
      * @param {Integer} options A value from the [WLDP_EXECUTION_EVALUATION_OPTIONS](ne-wldp-wldp_execution_evaluation_options.md) specifying options for the execution authorization request.
      * @param {Pointer<IStream>} stream 
-     * @param {Pointer<PWSTR>} auditInfo A string that should include relevant contextual information for the caller to use in debugging. If an authorization request fails this string will be recorded in the event log, under “Applocker/MSI and Scripts/Operational”. Callers should note that, while the *AuditInfo* is not size limited, the string should be less than 4K bytes in size because it will be placed in the event log.
+     * @param {Pointer<Char>} auditInfo A string that should include relevant contextual information for the caller to use in debugging. If an authorization request fails this string will be recorded in the event log, under “Applocker/MSI and Scripts/Operational”. Callers should note that, while the *AuditInfo* is not size limited, the string should be less than 4K bytes in size because it will be placed in the event log.
      * @param {Pointer<Int32>} result Receives a pointer to a value from the [WLDP_EXECUTION_POLICY](ne-wldp-wldp_execution_policy.md) enumeration, indicating the execution policy result of the query.
      * @returns {Integer} Returns S_OK on success and a failure code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutestream
@@ -8891,7 +8926,7 @@ class WindowsProgramming {
     static WldpCanExecuteStream(host, options, stream, auditInfo, result) {
         auditInfo := auditInfo is String? StrPtr(auditInfo) : auditInfo
 
-        result := DllCall("Wldp.dll\WldpCanExecuteStream", "ptr", host, "int", options, "ptr", stream, "ptr", auditInfo, "ptr", result, "int")
+        result := DllCall("Wldp.dll\WldpCanExecuteStream", "ptr", host, "int", options, "ptr", stream, "ptr", auditInfo, "int*", result, "int")
         return result
     }
 

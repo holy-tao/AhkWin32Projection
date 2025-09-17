@@ -321,7 +321,7 @@ class AppLocker {
      * </tr>
      * </table>
      * @param {Integer} InfoBufferSize The size, in bytes, of the <i>InfoBuffer</i> parameter.
-     * @param {Pointer<Void>} InfoBuffer A buffer to contain the results of the query. The size and type of the returned information is determined by the <i>SaferPolicyInfoClass</i> parameter. For the type of the returned information for each possible value of the <i>SaferPolicyInfoClass</i> parameter, see the <i>SaferPolicyInfoClass</i> parameter.
+     * @param {Pointer} InfoBuffer A buffer to contain the results of the query. The size and type of the returned information is determined by the <i>SaferPolicyInfoClass</i> parameter. For the type of the returned information for each possible value of the <i>SaferPolicyInfoClass</i> parameter, see the <i>SaferPolicyInfoClass</i> parameter.
      * @param {Pointer<UInt32>} InfoBufferRetSize The number of bytes in the <i>InfoBuffer</i> parameter that were filled with policy information.
      * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -333,7 +333,7 @@ class AppLocker {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\SaferGetPolicyInformation", "uint", dwScopeId, "int", SaferPolicyInfoClass, "uint", InfoBufferSize, "ptr", InfoBuffer, "ptr", InfoBufferRetSize, "ptr", lpReserved, "int")
+        result := DllCall("ADVAPI32.dll\SaferGetPolicyInformation", "uint", dwScopeId, "int", SaferPolicyInfoClass, "uint", InfoBufferSize, "ptr", InfoBuffer, "uint*", InfoBufferRetSize, "ptr", lpReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -446,7 +446,7 @@ class AppLocker {
      * </tr>
      * </table>
      * @param {Integer} InfoBufferSize The size, in bytes, of the <i>InfoBuffer</i> parameter.
-     * @param {Pointer<Void>} InfoBuffer A buffer to contain the results of the query. The size and type of the returned information is determined by the <i>SaferPolicyInfoClass</i> parameter. For the type of the returned information for each possible value of the <i>SaferPolicyInfoClass</i> parameter, see the <i>SaferPolicyInfoClass</i> parameter.
+     * @param {Pointer} InfoBuffer A buffer to contain the results of the query. The size and type of the returned information is determined by the <i>SaferPolicyInfoClass</i> parameter. For the type of the returned information for each possible value of the <i>SaferPolicyInfoClass</i> parameter, see the <i>SaferPolicyInfoClass</i> parameter.
      * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/winsafer/nf-winsafer-safersetpolicyinformation
@@ -577,7 +577,7 @@ class AppLocker {
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @param {Pointer<SAFER_LEVEL_HANDLE>} pLevelHandle The returned SAFER_LEVEL_HANDLE. When you have finished using the handle, close it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/nf-winsafer-safercloselevel">SaferCloseLevel</a> function.
+     * @param {Pointer<Void>} pLevelHandle The returned SAFER_LEVEL_HANDLE. When you have finished using the handle, close it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/nf-winsafer-safercloselevel">SaferCloseLevel</a> function.
      * @returns {Integer} Returns nonzero if successful or zero otherwise. 
      * 						
      * 
@@ -600,7 +600,7 @@ class AppLocker {
 
     /**
      * Closes a SAFER_LEVEL_HANDLE that was opened by using the SaferIdentifyLevel function or the SaferCreateLevel function.
-     * @param {Pointer<SAFER_LEVEL_HANDLE>} hLevelHandle The SAFER_LEVEL_HANDLE to be closed.
+     * @param {Pointer<Void>} hLevelHandle The SAFER_LEVEL_HANDLE to be closed.
      * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/winsafer/nf-winsafer-safercloselevel
@@ -621,7 +621,7 @@ class AppLocker {
      * @param {Integer} dwNumProperties Number of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/ns-winsafer-safer_code_properties_v2">SAFER_CODE_PROPERTIES</a> structures in the <i>pCodeproperties</i>  parameter.
      * @param {Pointer<SAFER_CODE_PROPERTIES_V2>} pCodeProperties Array of <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/ns-winsafer-safer_code_properties_v2">SAFER_CODE_PROPERTIES</a> structures. Each structure contains a code file to be checked and the  criteria used to check the file.
-     * @param {Pointer<SAFER_LEVEL_HANDLE>} pLevelHandle The returned SAFER_LEVEL_HANDLE. When you have finished using the handle, close it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/nf-winsafer-safercloselevel">SaferCloseLevel</a> function.
+     * @param {Pointer<Void>} pLevelHandle The returned SAFER_LEVEL_HANDLE. When you have finished using the handle, close it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/nf-winsafer-safercloselevel">SaferCloseLevel</a> function.
      * @param {Pointer<Void>} lpReserved Reserved for future use. Should be set to <b>NULL</b>.
      * 
      * Beginning with Windows 8 and Windows Server 2012 SRP_POLICY_APPX is defined as Windows Store app.
@@ -642,9 +642,9 @@ class AppLocker {
 
     /**
      * Restricts a token using restrictions specified by a SAFER_LEVEL_HANDLE.
-     * @param {Pointer<SAFER_LEVEL_HANDLE>} LevelHandle <b>SAFER_LEVEL_HANDLE</b> that contains the restrictions to place on the input token. Do not pass handles with a LevelId of <b>SAFER_LEVELID_FULLYTRUSTED</b> or <b>SAFER_LEVELID_DISALLOWED</b> to this function. This is because <b>SAFER_LEVELID_FULLYTRUSTED</b> is unrestricted and <b>SAFER_LEVELID_DISALLOWED</b> does not contain a token.
-     * @param {Pointer<HANDLE>} InAccessToken Token to be restricted. If this parameter is <b>NULL</b>, the token of the current thread will be used. If the current thread does not contain a token, the token of the current process is used.
-     * @param {Pointer<HANDLE>} OutAccessToken The resulting restricted token.
+     * @param {Pointer<Void>} LevelHandle <b>SAFER_LEVEL_HANDLE</b> that contains the restrictions to place on the input token. Do not pass handles with a LevelId of <b>SAFER_LEVELID_FULLYTRUSTED</b> or <b>SAFER_LEVELID_DISALLOWED</b> to this function. This is because <b>SAFER_LEVELID_FULLYTRUSTED</b> is unrestricted and <b>SAFER_LEVELID_DISALLOWED</b> does not contain a token.
+     * @param {Pointer<Void>} InAccessToken Token to be restricted. If this parameter is <b>NULL</b>, the token of the current thread will be used. If the current thread does not contain a token, the token of the current process is used.
+     * @param {Pointer<Void>} OutAccessToken The resulting restricted token.
      * @param {Integer} dwFlags 
      * @param {Pointer<Void>} lpReserved If the <b>SAFER_TOKEN_COMPARE_ONLY</b>  flag is set, this parameter, on output, specifies the result of the token comparison. The output value is an <b>LPDWORD</b>. A value of –1 indicates that the resulting token would be less privileged than the token specified by the <i>InAccessToken</i> parameter.
      * 
@@ -665,7 +665,7 @@ class AppLocker {
 
     /**
      * Retrieves information about a policy level.
-     * @param {Pointer<SAFER_LEVEL_HANDLE>} LevelHandle The handle of the level to be queried.
+     * @param {Pointer<Void>} LevelHandle The handle of the level to be queried.
      * @param {Integer} dwInfoType A SAFER_OBJECT_INFO_CLASS enumeration value that specifies the type of object information that should be returned.  The specified value determines the size and type of the <i>lpQueryBuffer</i> parameter. The following table shows the possible values.
      * 
      * <table>
@@ -726,7 +726,7 @@ class AppLocker {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} lpQueryBuffer A buffer to contain the results of the query. For the type of the returned information for each possible value of the <i>dwInfoType</i> parameter, see the <i>dwInfoType</i> parameter.
+     * @param {Pointer} lpQueryBuffer A buffer to contain the results of the query. For the type of the returned information for each possible value of the <i>dwInfoType</i> parameter, see the <i>dwInfoType</i> parameter.
      * @param {Integer} dwInBufferSize The size of the <i>lpQueryBuffer</i> parameter in bytes.
      * @param {Pointer<UInt32>} lpdwOutBufferSize A pointer to return the output size of the <i>lpQueryBuffer</i> parameter.
      * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>. For extended error information, call 
@@ -737,7 +737,7 @@ class AppLocker {
     static SaferGetLevelInformation(LevelHandle, dwInfoType, lpQueryBuffer, dwInBufferSize, lpdwOutBufferSize) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\SaferGetLevelInformation", "ptr", LevelHandle, "int", dwInfoType, "ptr", lpQueryBuffer, "uint", dwInBufferSize, "ptr", lpdwOutBufferSize, "int")
+        result := DllCall("ADVAPI32.dll\SaferGetLevelInformation", "ptr", LevelHandle, "int", dwInfoType, "ptr", lpQueryBuffer, "uint", dwInBufferSize, "uint*", lpdwOutBufferSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -746,7 +746,7 @@ class AppLocker {
 
     /**
      * Sets the information about a policy level.
-     * @param {Pointer<SAFER_LEVEL_HANDLE>} LevelHandle The handle of the level to be set.
+     * @param {Pointer<Void>} LevelHandle The handle of the level to be set.
      * @param {Integer} dwInfoType A <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/ne-winsafer-safer_object_info_class">SAFER_OBJECT_INFO_CLASS</a> enumeration value that specifies the type of object information that should be set.  The specified value determines the size and type of the <i>lpQueryBuffer</i> parameter. The following table shows the possible values.
      * 
      * <table>
@@ -807,7 +807,7 @@ class AppLocker {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} lpQueryBuffer A buffer to contain the results of the query. For the type of the returned information for each possible value of the <i>dwInfoType</i> parameter, see the <i>dwInfoType</i> parameter.
+     * @param {Pointer} lpQueryBuffer A buffer to contain the results of the query. For the type of the returned information for each possible value of the <i>dwInfoType</i> parameter, see the <i>dwInfoType</i> parameter.
      * @param {Integer} dwInBufferSize The size, in bytes, of the <i>lpQueryBuffer</i> parameter.
      * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -828,8 +828,8 @@ class AppLocker {
      * Saves messages to an event log.
      * @remarks
      * If <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/nf-winsafer-saferidentifylevel">SaferIdentifyLevel</a> returns a SAFER_LEVEL_HANDLE with a LevelId that is anything other than SAFER_LEVELID_FULLYTRUSTED (0x40000), <b>SaferRecordEventLogEntry</b> can be called to facilitate troubleshooting. For example, clicking a button in excel.exe might attempt to launch another process that is not fully trusted. This might display an obscure error message because the program remapped the error returned from CreateProcess. To ease troubleshooting, some Safer functions call <b>SaferRecordEventLogEntry</b> to send an event to the event log.
-     * @param {Pointer<SAFER_LEVEL_HANDLE>} hLevel SAFER_LEVEL_HANDLE that contains the details of the rule to send to the event log.
-     * @param {Pointer<PWSTR>} szTargetPath Path of the file that attempted to run.
+     * @param {Pointer<Void>} hLevel SAFER_LEVEL_HANDLE that contains the details of the rule to send to the event log.
+     * @param {Pointer<Char>} szTargetPath Path of the file that attempted to run.
      * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/winsafer/nf-winsafer-saferrecordeventlogentry
@@ -877,7 +877,7 @@ class AppLocker {
      * </ol>
      * <div class="alert"><b>Note</b>  To view the <b>Designated File Types</b> property page, you may need to create  the <b>Software Restriction Policies</b> node. To create  the <b>Software Restriction Policies</b> node, follow the instructions that appear when you expand <b>Software Restriction Policies</b>.</div>
      * <div> </div>
-     * @param {Pointer<PWSTR>} szFullPathname Pointer to a <b>null</b>-terminated <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">Unicode</a> character string for the name of the file. The path is optional because only the file name extension is evaluated. The evaluation of the file name extension is not case-sensitive. This parameter cannot be <b>NULL</b> or an empty string, and the specified file must include a file name extension.
+     * @param {Pointer<Char>} szFullPathname Pointer to a <b>null</b>-terminated <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">Unicode</a> character string for the name of the file. The path is optional because only the file name extension is evaluated. The evaluation of the file name extension is not case-sensitive. This parameter cannot be <b>NULL</b> or an empty string, and the specified file must include a file name extension.
      * @param {Integer} bFromShellExecute Boolean value that determines whether .exe files are treated as executable files for the file type evaluation. Set this value to <b>TRUE</b> to omit .exe files from the evaluation or to <b>FALSE</b> to include them.
      * @returns {Integer} If the function  successfully recognizes the file name's extension as an executable file type, the return value is <b>TRUE</b>.
      * 

@@ -38,7 +38,7 @@ class NOTIFYICONIDENTIFIER extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the parent window used by the notification's callback function. For more information, see the <i>hWnd</i> member of the <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-notifyicondataa">NOTIFYICONDATA</a> structure.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hWnd {
         get => NumGet(this, 8, "ptr")

@@ -83,7 +83,7 @@ class SECPKG_PRIMARY_CRED extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a>.
-     * @type {Pointer<PSID>}
+     * @type {Pointer<Void>}
      */
     UserSid {
         get => NumGet(this, 72, "ptr")

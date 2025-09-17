@@ -17,7 +17,7 @@ class ProofOfPossessionCookieInfo extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     name {
         get => NumGet(this, 0, "ptr")
@@ -26,7 +26,7 @@ class ProofOfPossessionCookieInfo extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     data {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +44,7 @@ class ProofOfPossessionCookieInfo extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     p3pHeader {
         get => NumGet(this, 24, "ptr")

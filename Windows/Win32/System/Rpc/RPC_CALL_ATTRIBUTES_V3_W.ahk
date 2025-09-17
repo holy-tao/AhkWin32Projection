@@ -109,7 +109,7 @@ class RPC_CALL_ATTRIBUTES_V3_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     ClientPID {
         get => NumGet(this, 64, "ptr")

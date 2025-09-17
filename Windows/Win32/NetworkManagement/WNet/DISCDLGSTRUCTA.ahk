@@ -33,7 +33,7 @@ class DISCDLGSTRUCTA extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the owner window of the dialog box.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndOwner {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +44,7 @@ class DISCDLGSTRUCTA extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to a <b>NULL</b>-terminated  string that specifies the local device name that is redirected to the network resource, such as "F:" or "LPT1".
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpLocalName {
         get => NumGet(this, 16, "ptr")
@@ -55,7 +55,7 @@ class DISCDLGSTRUCTA extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to a <b>NULL</b>-terminated  string that specifies the name of the network resource to disconnect. This member can be NULL if the <b>lpLocalName</b> member is specified. When <b>lpLocalName</b> is specified, the connection to the network resource redirected from <b>lpLocalName</b>  is disconnected.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpRemoteName {
         get => NumGet(this, 24, "ptr")

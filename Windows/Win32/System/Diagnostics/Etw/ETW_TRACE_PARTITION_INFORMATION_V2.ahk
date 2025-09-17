@@ -28,7 +28,7 @@ class ETW_TRACE_PARTITION_INFORMATION_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     PartitionId {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class ETW_TRACE_PARTITION_INFORMATION_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ParentId {
         get => NumGet(this, 24, "ptr")

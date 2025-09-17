@@ -28,7 +28,7 @@ class COMPROPSHEETUI extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HINSTANCE>}
+     * @type {Pointer<Void>}
      */
     hInstCaller {
         get => NumGet(this, 8, "ptr")

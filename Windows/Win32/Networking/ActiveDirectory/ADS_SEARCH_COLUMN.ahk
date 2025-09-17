@@ -19,7 +19,7 @@ class ADS_SEARCH_COLUMN extends Win32Struct
 
     /**
      * A  null-terminated Unicode string that contains the name of the attribute whose values are contained in the current search column.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszAttrName {
         get => NumGet(this, 0, "ptr")
@@ -55,7 +55,7 @@ class ADS_SEARCH_COLUMN extends Win32Struct
 
     /**
      * Reserved for internal use by providers.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hReserved {
         get => NumGet(this, 32, "ptr")

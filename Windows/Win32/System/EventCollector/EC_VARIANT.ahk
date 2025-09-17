@@ -38,7 +38,7 @@ class EC_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     StringVal {
         get => NumGet(this, 0, "ptr")
@@ -70,7 +70,7 @@ class EC_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     StringArr {
         get => NumGet(this, 0, "ptr")

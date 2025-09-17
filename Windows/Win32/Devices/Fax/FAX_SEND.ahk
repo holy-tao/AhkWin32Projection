@@ -32,7 +32,7 @@ class FAX_SEND extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Pointer to a null-terminated Unicode character string that specifies the full path to the file that contains the data stream for an outbound fax document. The data stream is a TIFF Class F file. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-fax-image-format">Fax Image Format</a>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     FileName {
         get => NumGet(this, 8, "ptr")
@@ -43,7 +43,7 @@ class FAX_SEND extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Pointer to a null-terminated Unicode character string that specifies the name of the calling device. The FSP will send this name to the remote receiving device when the FSP sends the fax. For more information, see the following Remarks section.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     CallerName {
         get => NumGet(this, 16, "ptr")
@@ -54,7 +54,7 @@ class FAX_SEND extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Pointer to a null-terminated Unicode character string that specifies the telephone number of the calling device. (This number is also the TSID.) The FSP will send this number to the remote receiving device when the FSP sends the fax. For more information, see the following Remarks section.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     CallerNumber {
         get => NumGet(this, 24, "ptr")
@@ -65,7 +65,7 @@ class FAX_SEND extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Pointer to a null-terminated Unicode character string that specifies the name of the device that will receive the outbound fax document.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ReceiverName {
         get => NumGet(this, 32, "ptr")
@@ -78,7 +78,7 @@ class FAX_SEND extends Win32Struct
      * Pointer to a null-terminated Unicode character string that specifies the telephone number of the device that will receive the outbound fax document. This is the telephone number that the FSP will dial.
      * 
      * If you specify the <b>CallHandle</b> member, the <b>ReceiverNumber</b> member must be <b>NULL</b>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ReceiverNumber {
         get => NumGet(this, 40, "ptr")

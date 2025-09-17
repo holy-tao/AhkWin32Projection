@@ -16,7 +16,7 @@ class LINEREQMEDIACALL extends Win32Struct
 
     /**
      * A handle to the window of the application that  made the request.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hWnd {
         get => NumGet(this, 0, "ptr")

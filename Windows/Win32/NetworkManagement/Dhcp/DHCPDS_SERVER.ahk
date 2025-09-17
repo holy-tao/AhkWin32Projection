@@ -24,7 +24,7 @@ class DHCPDS_SERVER extends Win32Struct
 
     /**
      * Unicode string that contains the unique name of the DHCP server.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ServerName {
         get => NumGet(this, 8, "ptr")
@@ -60,7 +60,7 @@ class DHCPDS_SERVER extends Win32Struct
 
     /**
      * Unicode string that contains the active directory path to the DHCP server.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     DsLocation {
         get => NumGet(this, 32, "ptr")

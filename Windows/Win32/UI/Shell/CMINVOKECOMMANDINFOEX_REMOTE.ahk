@@ -29,7 +29,7 @@ class CMINVOKECOMMANDINFOEX_REMOTE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwnd {
         get => NumGet(this, 8, "ptr")
@@ -37,7 +37,7 @@ class CMINVOKECOMMANDINFOEX_REMOTE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpVerbString {
         get => NumGet(this, 16, "ptr")
@@ -45,7 +45,7 @@ class CMINVOKECOMMANDINFOEX_REMOTE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpParameters {
         get => NumGet(this, 24, "ptr")
@@ -53,7 +53,7 @@ class CMINVOKECOMMANDINFOEX_REMOTE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpDirectory {
         get => NumGet(this, 32, "ptr")
@@ -77,7 +77,7 @@ class CMINVOKECOMMANDINFOEX_REMOTE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpTitle {
         get => NumGet(this, 48, "ptr")
@@ -85,7 +85,7 @@ class CMINVOKECOMMANDINFOEX_REMOTE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpVerbWString {
         get => NumGet(this, 56, "ptr")
@@ -93,7 +93,7 @@ class CMINVOKECOMMANDINFOEX_REMOTE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpParametersW {
         get => NumGet(this, 64, "ptr")
@@ -101,7 +101,7 @@ class CMINVOKECOMMANDINFOEX_REMOTE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpDirectoryW {
         get => NumGet(this, 72, "ptr")
@@ -109,7 +109,7 @@ class CMINVOKECOMMANDINFOEX_REMOTE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpTitleW {
         get => NumGet(this, 80, "ptr")

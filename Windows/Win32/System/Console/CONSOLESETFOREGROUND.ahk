@@ -12,7 +12,7 @@ class CONSOLESETFOREGROUND extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hProcess {
         get => NumGet(this, 0, "ptr")

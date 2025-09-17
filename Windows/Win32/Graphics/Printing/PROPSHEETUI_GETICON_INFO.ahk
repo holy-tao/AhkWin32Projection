@@ -44,7 +44,7 @@ class PROPSHEETUI_GETICON_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HICON>}
+     * @type {Pointer<Void>}
      */
     hIcon {
         get => NumGet(this, 8, "ptr")

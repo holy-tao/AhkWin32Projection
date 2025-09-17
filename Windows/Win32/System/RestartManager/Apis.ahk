@@ -44,7 +44,7 @@ class RestartManager {
      * 
      * A secondary installer can join an existing Restart Manager session by calling the <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/nf-restartmanager-rmjoinsession">RmJoinSession</a> function with the session handle and session key returned from the <b>RmStartSession</b> function call of the primary installer.
      * @param {Pointer<UInt32>} pSessionHandle A pointer to the handle of a Restart Manager session. The session handle can be passed in subsequent calls to the Restart Manager API.
-     * @param {Pointer<PWSTR>} strSessionKey A <b>null</b>-terminated string that contains the session key to the new session. The string must be allocated before calling  the <b>RmStartSession</b> function.
+     * @param {Pointer<Char>} strSessionKey A <b>null</b>-terminated string that contains the session key to the new session. The string must be allocated before calling  the <b>RmStartSession</b> function.
      * @returns {Integer} This is the most recent error received. The function can return one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h. 
      * 
      * <table>
@@ -133,7 +133,7 @@ class RestartManager {
 
         strSessionKey := strSessionKey is String? StrPtr(strSessionKey) : strSessionKey
 
-        result := DllCall("rstrtmgr.dll\RmStartSession", "ptr", pSessionHandle, "uint", dwSessionFlags, "ptr", strSessionKey, "uint")
+        result := DllCall("rstrtmgr.dll\RmStartSession", "uint*", pSessionHandle, "uint", dwSessionFlags, "ptr", strSessionKey, "uint")
         return result
     }
 
@@ -142,7 +142,7 @@ class RestartManager {
      * @remarks
      * The <b>RmJoinSession</b> function joins a secondary installer to an existing Restart Manager session. This is typically an installer that does not control the user interface and can run either in-process or out-of-process of the primary installer. Only the primary installer can call the <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/nf-restartmanager-rmstartsession">RmStartSession</a> function and this is typically the application that controls the user interface or that controls the installation sequence of multiple patches in an update.
      * @param {Pointer<UInt32>} pSessionHandle A pointer to the handle of an existing Restart Manager Session.
-     * @param {Pointer<PWSTR>} strSessionKey A <b>null</b>-terminated string that contains the session key of an existing session.
+     * @param {Pointer<Char>} strSessionKey A <b>null</b>-terminated string that contains the session key of an existing session.
      * @returns {Integer} This is the most recent error received. The function can return one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h. 
      * 
      * <table>
@@ -241,7 +241,7 @@ class RestartManager {
     static RmJoinSession(pSessionHandle, strSessionKey) {
         strSessionKey := strSessionKey is String? StrPtr(strSessionKey) : strSessionKey
 
-        result := DllCall("RstrtMgr.dll\RmJoinSession", "ptr", pSessionHandle, "ptr", strSessionKey, "uint")
+        result := DllCall("RstrtMgr.dll\RmJoinSession", "uint*", pSessionHandle, "ptr", strSessionKey, "uint")
         return result
     }
 
@@ -330,11 +330,11 @@ class RestartManager {
      * Each call to the <b>RmRegisterResources</b> function performs relatively expensive write operations. Do not call this function once per file, instead group related files together into components and register these together.
      * @param {Integer} dwSessionHandle A handle to an existing Restart Manager session.
      * @param {Integer} nFiles The number of files being registered.
-     * @param {Pointer<PWSTR>} rgsFileNames An array of <b>null</b>-terminated strings of full filename paths. This parameter can be <b>NULL</b> if <i>nFiles</i> is 0.
+     * @param {Pointer<Char>} rgsFileNames An array of <b>null</b>-terminated strings of full filename paths. This parameter can be <b>NULL</b> if <i>nFiles</i> is 0.
      * @param {Integer} nApplications The number of processes being registered.
      * @param {Pointer<RM_UNIQUE_PROCESS>} rgApplications An array of <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/ns-restartmanager-rm_unique_process">RM_UNIQUE_PROCESS</a> structures. This parameter can be <b>NULL</b> if <i>nApplications</i> is 0.
      * @param {Integer} nServices The number of services to be registered.
-     * @param {Pointer<PWSTR>} rgsServiceNames An array of <b>null</b>-terminated strings of service short names. This parameter can be <b>NULL</b> if <i>nServices</i> is 0.
+     * @param {Pointer<Char>} rgsServiceNames An array of <b>null</b>-terminated strings of service short names. This parameter can be <b>NULL</b> if <i>nServices</i> is 0.
      * @returns {Integer} This is the most recent error received. The function can return one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h. 
      * 
      * <table>
@@ -419,9 +419,6 @@ class RestartManager {
      * @since windows6.0.6000
      */
     static RmRegisterResources(dwSessionHandle, nFiles, rgsFileNames, nApplications, rgApplications, nServices, rgsServiceNames) {
-        rgsFileNames := rgsFileNames is String? StrPtr(rgsFileNames) : rgsFileNames
-        rgsServiceNames := rgsServiceNames is String? StrPtr(rgsServiceNames) : rgsServiceNames
-
         result := DllCall("rstrtmgr.dll\RmRegisterResources", "uint", dwSessionHandle, "uint", nFiles, "ptr", rgsFileNames, "uint", nApplications, "ptr", rgApplications, "uint", nServices, "ptr", rgsServiceNames, "uint")
         return result
     }
@@ -541,7 +538,7 @@ class RestartManager {
      * @since windows6.0.6000
      */
     static RmGetList(dwSessionHandle, pnProcInfoNeeded, pnProcInfo, rgAffectedApps, lpdwRebootReasons) {
-        result := DllCall("rstrtmgr.dll\RmGetList", "uint", dwSessionHandle, "ptr", pnProcInfoNeeded, "ptr", pnProcInfo, "ptr", rgAffectedApps, "ptr", lpdwRebootReasons, "uint")
+        result := DllCall("rstrtmgr.dll\RmGetList", "uint", dwSessionHandle, "uint*", pnProcInfoNeeded, "uint*", pnProcInfo, "ptr", rgAffectedApps, "uint*", lpdwRebootReasons, "uint")
         return result
     }
 
@@ -922,9 +919,9 @@ class RestartManager {
     /**
      * Modifies the shutdown or restart actions that are applied to an application or service.
      * @param {Integer} dwSessionHandle A handle to an existing Restart Manager session.
-     * @param {Pointer<PWSTR>} strModuleName A pointer to a <b>null</b>-terminated string value that contains the full path to the application's executable file. Modifications to shutdown or restart actions are applied for the application that is referenced by the full path.  This parameter must be <b>NULL</b> if the <i>Application</i> or <i>strServiceShortName</i> parameter is non-<b>NULL</b>.
+     * @param {Pointer<Char>} strModuleName A pointer to a <b>null</b>-terminated string value that contains the full path to the application's executable file. Modifications to shutdown or restart actions are applied for the application that is referenced by the full path.  This parameter must be <b>NULL</b> if the <i>Application</i> or <i>strServiceShortName</i> parameter is non-<b>NULL</b>.
      * @param {Pointer<RM_UNIQUE_PROCESS>} pProcess A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/ns-restartmanager-rm_unique_process">RM_UNIQUE_PROCESS</a> structure for the application.  Modifications to shutdown or restart actions are applied for the application that is referenced by the <b>RM_UNIQUE_PROCESS</b> structure. This parameter must be <b>NULL</b> if the <i>strFilename</i>  or <i>strShortServiceName</i> parameter is non-<b>NULL</b>.
-     * @param {Pointer<PWSTR>} strServiceShortName A pointer to a <b>null</b>-terminated string value that contains the short service name. Modifications to shutdown or restart actions are applied for the service that is referenced by short service filename.  This parameter must be <b>NULL</b> if the <i>strFilename</i> or <i>Application</i> parameter is non-<b>NULL</b>.
+     * @param {Pointer<Char>} strServiceShortName A pointer to a <b>null</b>-terminated string value that contains the short service name. Modifications to shutdown or restart actions are applied for the service that is referenced by short service filename.  This parameter must be <b>NULL</b> if the <i>strFilename</i> or <i>Application</i> parameter is non-<b>NULL</b>.
      * @param {Integer} FilterAction An <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/ne-restartmanager-rm_filter_action">RM_FILTER_ACTION</a> enumeration value that specifies the type of modification to be applied.
      * @returns {Integer} This is the most recent error received. The function can return one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h.
      * 
@@ -984,9 +981,9 @@ class RestartManager {
     /**
      * Removes any modifications to shutdown or restart actions that have been applied using the RmAddFilter function.
      * @param {Integer} dwSessionHandle A handle to an existing Restart Manager session.
-     * @param {Pointer<PWSTR>} strModuleName A pointer to a <b>null</b>-terminated string value that contains the full path for the application's  executable file. The <b>RmRemoveFilter</b> function removes any modifications to the referenced application's shutdown or restart actions previously applied by the <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/nf-restartmanager-rmaddfilter">RmAddFilter</a> function.  This parameter must be <b>NULL</b> if the <i>Application</i> or <i>strServiceShortName</i> parameter is non-<b>NULL</b>.
+     * @param {Pointer<Char>} strModuleName A pointer to a <b>null</b>-terminated string value that contains the full path for the application's  executable file. The <b>RmRemoveFilter</b> function removes any modifications to the referenced application's shutdown or restart actions previously applied by the <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/nf-restartmanager-rmaddfilter">RmAddFilter</a> function.  This parameter must be <b>NULL</b> if the <i>Application</i> or <i>strServiceShortName</i> parameter is non-<b>NULL</b>.
      * @param {Pointer<RM_UNIQUE_PROCESS>} pProcess The <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/ns-restartmanager-rm_unique_process">RM_UNIQUE_PROCESS</a> structure for the application. The <b>RmRemoveFilter</b> function removes any modifications to the referenced application's shutdown or restart actions previously applied by the <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/nf-restartmanager-rmaddfilter">RmAddFilter</a> function.  This parameter must be <b>NULL</b> if the <i>strFilename</i>  or <i>strShortServiceName</i> parameter is non-<b>NULL</b>.
-     * @param {Pointer<PWSTR>} strServiceShortName A pointer to a <b>null</b>-terminated string value that contains the short service name.  The <b>RmRemoveFilter</b> function removes any modifications to the referenced service's shutdown or restart actions previously applied by the <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/nf-restartmanager-rmaddfilter">RmAddFilter</a> function.  This parameter must be <b>NULL</b> if the <i>strFilename</i> or <i>Application</i> parameter is non-<b>NULL</b>.
+     * @param {Pointer<Char>} strServiceShortName A pointer to a <b>null</b>-terminated string value that contains the short service name.  The <b>RmRemoveFilter</b> function removes any modifications to the referenced service's shutdown or restart actions previously applied by the <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/nf-restartmanager-rmaddfilter">RmAddFilter</a> function.  This parameter must be <b>NULL</b> if the <i>strFilename</i> or <i>Application</i> parameter is non-<b>NULL</b>.
      * @returns {Integer} This is the most recent error received. The function can return one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h.
      * 
      * <table>
@@ -1047,7 +1044,7 @@ class RestartManager {
      * @remarks
      * The returned <i>pbFilterBuf</i> buffer has to be typecast to <b>RM_FILTER_INFO</b> to access the filter list.
      * @param {Integer} dwSessionHandle A handle to an existing Restart Manager session.
-     * @param {Pointer<Byte>} pbFilterBuf A pointer to a buffer that contains modification information.
+     * @param {Pointer} pbFilterBuf A pointer to a buffer that contains modification information.
      * @param {Integer} cbFilterBuf The size of the buffer that contains modification information in bytes.
      * @param {Pointer<UInt32>} cbFilterBufNeeded The number of bytes needed in the buffer.
      * @returns {Integer} This is the most recent error received. The function can return one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h.
@@ -1110,7 +1107,7 @@ class RestartManager {
      * @since windows6.0.6000
      */
     static RmGetFilterList(dwSessionHandle, pbFilterBuf, cbFilterBuf, cbFilterBufNeeded) {
-        result := DllCall("RstrtMgr.dll\RmGetFilterList", "uint", dwSessionHandle, "ptr", pbFilterBuf, "uint", cbFilterBuf, "ptr", cbFilterBufNeeded, "uint")
+        result := DllCall("RstrtMgr.dll\RmGetFilterList", "uint", dwSessionHandle, "ptr", pbFilterBuf, "uint", cbFilterBuf, "uint*", cbFilterBufNeeded, "uint")
         return result
     }
 

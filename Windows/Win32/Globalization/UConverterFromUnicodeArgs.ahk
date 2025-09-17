@@ -52,7 +52,7 @@ class UConverterFromUnicodeArgs extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     target {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +60,7 @@ class UConverterFromUnicodeArgs extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     targetLimit {
         get => NumGet(this, 40, "ptr")

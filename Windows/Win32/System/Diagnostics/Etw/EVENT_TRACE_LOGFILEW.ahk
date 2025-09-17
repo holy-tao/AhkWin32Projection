@@ -84,7 +84,7 @@ class EVENT_TRACE_LOGFILEW extends Win32Struct
      * > This can also occur if the file was created using the
      * > **EVENT_TRACE_FILE_MODE_NEWFILE** mode, in which case the generated ETL file
      * > will include a sequence number.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     LogFileName {
         get => NumGet(this, 0, "ptr")
@@ -111,7 +111,7 @@ class EVENT_TRACE_LOGFILEW extends Win32Struct
      * [EventAccessControl](/windows/desktop/api/evntcons/nf-evntcons-eventaccesscontrol).
      * 
      * **Windows XP and Windows 2000:** Anyone can consume real time events.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     LoggerName {
         get => NumGet(this, 8, "ptr")

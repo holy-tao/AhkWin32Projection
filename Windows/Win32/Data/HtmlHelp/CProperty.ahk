@@ -36,7 +36,7 @@ class CProperty extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpszwData {
         get => NumGet(this, 16, "ptr")

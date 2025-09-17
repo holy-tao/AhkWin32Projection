@@ -84,7 +84,7 @@ class CTAPCBOR_HYBRID_STORAGE_LINKED_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszAuthenticatorName {
         get => NumGet(this, 64, "ptr")

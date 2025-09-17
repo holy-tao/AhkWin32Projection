@@ -27,7 +27,7 @@ class VDS_CONTROLLER_PROP extends Win32Struct
 
     /**
      * The name of the controller; a zero-terminated, human-readable string.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszFriendlyName {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class VDS_CONTROLLER_PROP extends Win32Struct
 
     /**
      * The subsystem identifier, typically a serial number; a zero-terminated, human-readable string.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszIdentification {
         get => NumGet(this, 16, "ptr")

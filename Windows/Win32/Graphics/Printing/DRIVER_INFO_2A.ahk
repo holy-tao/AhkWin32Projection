@@ -25,7 +25,7 @@ class DRIVER_INFO_2A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the name of the driver (for example, "QMS 810").
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pName {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +34,7 @@ class DRIVER_INFO_2A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the environment for which the driver was written (for example, Windows x86, Windows IA64, and Windows x64).
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pEnvironment {
         get => NumGet(this, 16, "ptr")
@@ -43,7 +43,7 @@ class DRIVER_INFO_2A extends Win32Struct
 
     /**
      * A pointer to null-terminated string that specifies a file name or full path and file name for the file that contains the device driver (for example, "c:\\drivers\\pscript.dll").
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pDriverPath {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +52,7 @@ class DRIVER_INFO_2A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies a file name or a full path and file name for the file that contains driver data (for example, "c:\\drivers\\Qms810.ppd").
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pDataFile {
         get => NumGet(this, 32, "ptr")
@@ -61,7 +61,7 @@ class DRIVER_INFO_2A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies a file name or a full path and file name for the device-driver's configuration .dll (for example, "c:\\drivers\\Pscrptui.dll").
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pConfigFile {
         get => NumGet(this, 40, "ptr")

@@ -20,7 +20,7 @@ class VALENTW extends Win32Struct
     /**
      * The name of the value to be retrieved. Be sure to set this member before calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regquerymultiplevaluesa">RegQueryMultipleValues</a>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ve_valuename {
         get => NumGet(this, 0, "ptr")

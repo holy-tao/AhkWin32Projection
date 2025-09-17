@@ -24,14 +24,14 @@ class WindowsNetworkVirtualization {
      * Provides a handle to the Windows Network Virtualization (WNV) driver object to be used to request and receive WNV notifications.
      * @remarks
      * This handle is used for multiple invocations of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wnvapi/nf-wnvapi-wnvrequestnotification">WnvRequestNotification</a> function. When you have finished using the handle, close it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function.
-     * @returns {Pointer<HANDLE>} Type: <b>HANDLE</b>
+     * @returns {Pointer<Void>} Type: <b>HANDLE</b>
      * 
      * If the function succeeds, it returns the handle to the WNV driver object. If the function fails, it returns <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wnvapi/nf-wnvapi-wnvopen
      * @since windowsserver2012
      */
     static WnvOpen() {
-        result := DllCall("wnvapi.dll\WnvOpen", "ptr")
+        result := DllCall("wnvapi.dll\WnvOpen")
         return result
     }
 
@@ -41,7 +41,7 @@ class WindowsNetworkVirtualization {
      * This function can be called synchronously or asynchronously.
      * 
      * Three notification types are defined in the <a href="https://docs.microsoft.com/windows/desktop/api/wnvapi/ns-wnvapi-wnv_notification_param">WNV_NOTIFICATION_PARAM</a> structure. Each call to this function can request only one type of notification. To receive multiple notification types, the process must make one call for each notification on the same handle. The WNV driver returns at least one notification of the type specified in each call when the notification events occur.
-     * @param {Pointer<HANDLE>} WnvHandle Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} WnvHandle Type: <b>HANDLE</b>
      * 
      * An object handle that is returned from a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wnvapi/nf-wnvapi-wnvopen">WnvOpen</a> function.
      * @param {Pointer<WNV_NOTIFICATION_PARAM>} NotificationParam Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wnvapi/ns-wnvapi-wnv_notification_param">PWNV_NOTIFICATION_PARAM</a></b>
@@ -95,7 +95,7 @@ class WindowsNetworkVirtualization {
      * @since windowsserver2012
      */
     static WnvRequestNotification(WnvHandle, NotificationParam, Overlapped, BytesTransferred) {
-        result := DllCall("wnvapi.dll\WnvRequestNotification", "ptr", WnvHandle, "ptr", NotificationParam, "ptr", Overlapped, "ptr", BytesTransferred, "uint")
+        result := DllCall("wnvapi.dll\WnvRequestNotification", "ptr", WnvHandle, "ptr", NotificationParam, "ptr", Overlapped, "uint*", BytesTransferred, "uint")
         return result
     }
 

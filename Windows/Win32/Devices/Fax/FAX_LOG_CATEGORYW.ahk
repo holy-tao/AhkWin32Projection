@@ -27,7 +27,7 @@ class FAX_LOG_CATEGORYW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is a descriptive name for the logging category.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     Name {
         get => NumGet(this, 0, "ptr")

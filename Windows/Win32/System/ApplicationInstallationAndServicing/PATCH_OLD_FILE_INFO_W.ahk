@@ -21,7 +21,7 @@ class PATCH_OLD_FILE_INFO_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     OldFileName {
         get => NumGet(this, 8, "ptr")

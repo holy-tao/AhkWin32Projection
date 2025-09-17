@@ -12,7 +12,7 @@ class REPL_EDIR_INFO_2 extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     rped2_dirname {
         get => NumGet(this, 0, "ptr")

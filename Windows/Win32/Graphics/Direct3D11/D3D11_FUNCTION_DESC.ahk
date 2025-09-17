@@ -28,7 +28,7 @@ class D3D11_FUNCTION_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The name of the originator of the function.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     Creator {
         get => NumGet(this, 8, "ptr")
@@ -325,7 +325,7 @@ class D3D11_FUNCTION_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The name of the function.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     Name {
         get => NumGet(this, 128, "ptr")

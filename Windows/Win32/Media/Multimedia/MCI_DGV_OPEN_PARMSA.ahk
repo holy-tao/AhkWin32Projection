@@ -43,7 +43,7 @@ class MCI_DGV_OPEN_PARMSA extends Win32Struct
 
     /**
      * Name or constant ID of device type.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpstrDeviceType {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +52,7 @@ class MCI_DGV_OPEN_PARMSA extends Win32Struct
 
     /**
      * Optional device alias.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpstrElementName {
         get => NumGet(this, 24, "ptr")
@@ -61,7 +61,7 @@ class MCI_DGV_OPEN_PARMSA extends Win32Struct
 
     /**
      * Optional device alias.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpstrAlias {
         get => NumGet(this, 32, "ptr")
@@ -79,7 +79,7 @@ class MCI_DGV_OPEN_PARMSA extends Win32Struct
 
     /**
      * Handle to parent window.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hWndParent {
         get => NumGet(this, 48, "ptr")

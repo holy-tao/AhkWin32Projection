@@ -24,7 +24,7 @@ class WSD_URI_LIST extends Win32Struct
 
     /**
      * The URI referenced by this node.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     Element {
         get => NumGet(this, 8, "ptr")

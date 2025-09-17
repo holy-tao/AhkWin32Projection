@@ -81,7 +81,7 @@ class PEER_RECORD extends Win32Struct
 
     /**
      * Pointer to the unique ID of a record creator.   This member is set to <b>NULL</b> for calls to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphaddrecord">PeerGraphAddRecord</a> and <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphupdaterecord">PeerGraphUpdateRecord</a>. An application cannot set this member.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwzCreatorId {
         get => NumGet(this, 32, "ptr")
@@ -90,7 +90,7 @@ class PEER_RECORD extends Win32Struct
 
     /**
      * Specifies the unique ID of  the last person who changes a record. An application cannot set this member.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwzModifiedById {
         get => NumGet(this, 40, "ptr")
@@ -109,7 +109,7 @@ class PEER_RECORD extends Win32Struct
      * <li><b>peercreationtime</b></li>
      * <li><b>peerlastmodificationtime</b></li>
      * </ul>
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwzAttributes {
         get => NumGet(this, 48, "ptr")

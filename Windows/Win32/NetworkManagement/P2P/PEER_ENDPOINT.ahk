@@ -36,7 +36,7 @@ class PEER_ENDPOINT extends Win32Struct
 
     /**
      * Zero-terminated Unicode string that contains the specific displayable name of the endpoint.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwzEndpointName {
         get => NumGet(this, 40, "ptr")

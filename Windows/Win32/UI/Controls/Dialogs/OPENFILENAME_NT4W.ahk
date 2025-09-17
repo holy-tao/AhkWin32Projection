@@ -25,7 +25,7 @@ class OPENFILENAME_NT4W extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndOwner {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +34,7 @@ class OPENFILENAME_NT4W extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<HINSTANCE>}
+     * @type {Pointer<Void>}
      */
     hInstance {
         get => NumGet(this, 16, "ptr")
@@ -43,7 +43,7 @@ class OPENFILENAME_NT4W extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpstrFilter {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +52,7 @@ class OPENFILENAME_NT4W extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpstrCustomFilter {
         get => NumGet(this, 32, "ptr")
@@ -79,7 +79,7 @@ class OPENFILENAME_NT4W extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpstrFile {
         get => NumGet(this, 48, "ptr")
@@ -97,7 +97,7 @@ class OPENFILENAME_NT4W extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpstrFileTitle {
         get => NumGet(this, 64, "ptr")
@@ -115,7 +115,7 @@ class OPENFILENAME_NT4W extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpstrInitialDir {
         get => NumGet(this, 80, "ptr")
@@ -124,7 +124,7 @@ class OPENFILENAME_NT4W extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpstrTitle {
         get => NumGet(this, 88, "ptr")
@@ -160,7 +160,7 @@ class OPENFILENAME_NT4W extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpstrDefExt {
         get => NumGet(this, 104, "ptr")
@@ -187,7 +187,7 @@ class OPENFILENAME_NT4W extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpTemplateName {
         get => NumGet(this, 128, "ptr")

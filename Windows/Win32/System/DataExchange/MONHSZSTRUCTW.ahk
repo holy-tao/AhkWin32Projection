@@ -105,7 +105,7 @@ class MONHSZSTRUCTW extends Win32Struct
      * Type: <b>HSZ</b>
      * 
      * A handle to the string. Because string handles are local to the process, this member is a global atom.
-     * @type {Pointer<HSZ>}
+     * @type {Pointer<Void>}
      */
     hsz {
         get => NumGet(this, 16, "ptr")
@@ -116,7 +116,7 @@ class MONHSZSTRUCTW extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * A handle to the task (application instance) performing the action on the string handle.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hTask {
         get => NumGet(this, 24, "ptr")

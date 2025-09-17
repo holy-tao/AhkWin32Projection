@@ -53,7 +53,7 @@ class SHELLEXECUTEINFOA extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * Optional. A handle to the owner window, used to display and position any UI that the system might produce while executing this function.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwnd {
         get => NumGet(this, 8, "ptr")
@@ -72,7 +72,7 @@ class SHELLEXECUTEINFOA extends Win32Struct
      * - **print**: Prints the document file specified by <b>lpFile</b>. If <b>lpFile</b> is not a document file, the function will fail.
      * - **properties**: Displays the file or folder's properties.
      * - **runas**: Launches an application as Administrator. User Account Control (UAC) will prompt the user for consent to run the application elevated or enter the credentials of an administrator account used to run the application.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpVerb {
         get => NumGet(this, 16, "ptr")
@@ -87,7 +87,7 @@ class SHELLEXECUTEINFOA extends Win32Struct
      * <div class="alert"><b>Note:</b> If the <b>SEE_MASK_INVOKEIDLIST</b> flag is set, you can use either <b>lpFile</b> or <b>lpIDList</b> to identify the item by its file system path or its PIDL respectively. One of the two values—<b>lpFile</b> or <b>lpIDList</b>—must be set.</div>
      * 
      * <div class="alert"><b>Note:</b> If the path is not included with the name, the current directory is assumed.</div>
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpFile {
         get => NumGet(this, 24, "ptr")
@@ -98,7 +98,7 @@ class SHELLEXECUTEINFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Optional. The address of a null-terminated string that contains the application parameters. The parameters must be separated by spaces. If the <b>lpFile</b> member specifies a document file, <b>lpParameters</b> should be <b>NULL</b>.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpParameters {
         get => NumGet(this, 32, "ptr")
@@ -109,7 +109,7 @@ class SHELLEXECUTEINFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Optional. The address of a null-terminated string that specifies the name of the working directory. If this member is <b>NULL</b>, the current directory is used as the working directory.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpDirectory {
         get => NumGet(this, 40, "ptr")
@@ -147,7 +147,7 @@ class SHELLEXECUTEINFOA extends Win32Struct
      * | SE_ERR_DDEFAIL (29) | DDE operation failed. |
      * | SE_ERR_DDEBUSY (30) | DDE operation is busy. |
      * | SE_ERR_NOASSOC (31) | File association not available. |
-     * @type {Pointer<HINSTANCE>}
+     * @type {Pointer<Void>}
      */
     hInstApp {
         get => NumGet(this, 56, "ptr")
@@ -176,7 +176,7 @@ class SHELLEXECUTEINFOA extends Win32Struct
      * - A registry path under HKEY_CLASSES_ROOT that names a subkey that contains one or more Shell verbs. This key will have a subkey that conforms to the Shell verb registry schema, such as <b>shell</b>&#92;<i>verb name</i>.
      * 
      * This member is ignored if <b>fMask</b> does not include <b>SEE_MASK_CLASSNAME</b>.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpClass {
         get => NumGet(this, 72, "ptr")
@@ -187,7 +187,7 @@ class SHELLEXECUTEINFOA extends Win32Struct
      * Type: <b>HKEY</b>
      * 
      * A handle to the registry key for the file type. The access rights for this registry key should be set to KEY_READ. This member is ignored if <b>fMask</b> does not include <b>SEE_MASK_CLASSKEY</b>.
-     * @type {Pointer<HKEY>}
+     * @type {Pointer<Void>}
      */
     hkeyClass {
         get => NumGet(this, 80, "ptr")
@@ -206,7 +206,7 @@ class SHELLEXECUTEINFOA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hIcon {
         get => NumGet(this, 96, "ptr")
@@ -214,7 +214,7 @@ class SHELLEXECUTEINFOA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hMonitor {
         get => NumGet(this, 96, "ptr")
@@ -227,7 +227,7 @@ class SHELLEXECUTEINFOA extends Win32Struct
      * A handle to the newly started application. This member is set on return and is always <b>NULL</b> unless <b>fMask</b> is set to <b>SEE_MASK_NOCLOSEPROCESS</b>. Even if <b>fMask</b> is set to <b>SEE_MASK_NOCLOSEPROCESS</b>, <b>hProcess</b> will be <b>NULL</b> if no process was launched. For example, if a document to be launched is a URL and an instance of Internet Explorer is already running, it will display the document. No new process is launched, and <b>hProcess</b> will be <b>NULL</b>.
      * 
      * <div class="alert"><b>Note:</b> <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shellexecuteexa">ShellExecuteEx</a> does not always return an <b>hProcess</b>, even if a process is launched as the result of the call. For example, an <b>hProcess</b> does not return when you use <b>SEE_MASK_INVOKEIDLIST</b> to invoke <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu">IContextMenu</a>.</div>
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hProcess {
         get => NumGet(this, 104, "ptr")

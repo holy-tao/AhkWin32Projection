@@ -15,7 +15,7 @@ class WDS_CLI_CRED extends Win32Struct
 
     /**
      * The user name associated with the credentials.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszUserName {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class WDS_CLI_CRED extends Win32Struct
 
     /**
      * The domain for the user name associated with the credentials.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszDomain {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class WDS_CLI_CRED extends Win32Struct
 
     /**
      * The password for the user name associated with the credentials.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszPassword {
         get => NumGet(this, 16, "ptr")

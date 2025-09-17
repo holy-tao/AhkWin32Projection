@@ -17,7 +17,7 @@ class UIAutomationMethodInfo extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
      * The name of the method (a non-localizable string).
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pProgrammaticName {
         get => NumGet(this, 0, "ptr")
@@ -72,7 +72,7 @@ class UIAutomationMethodInfo extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a>*</b>
      * 
      * A pointer to an array containing the parameter names (non-localizable strings).
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pParameterNames {
         get => NumGet(this, 32, "ptr")

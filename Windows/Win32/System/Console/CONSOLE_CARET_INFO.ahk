@@ -13,7 +13,7 @@ class CONSOLE_CARET_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwnd {
         get => NumGet(this, 0, "ptr")

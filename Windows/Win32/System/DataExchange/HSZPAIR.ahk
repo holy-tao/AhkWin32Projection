@@ -17,7 +17,7 @@ class HSZPAIR extends Win32Struct
      * Type: <b>HSZ</b>
      * 
      * A handle to the service name.
-     * @type {Pointer<HSZ>}
+     * @type {Pointer<Void>}
      */
     hszSvc {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class HSZPAIR extends Win32Struct
      * Type: <b>HSZ</b>
      * 
      * A handle to the topic name.
-     * @type {Pointer<HSZ>}
+     * @type {Pointer<Void>}
      */
     hszTopic {
         get => NumGet(this, 8, "ptr")

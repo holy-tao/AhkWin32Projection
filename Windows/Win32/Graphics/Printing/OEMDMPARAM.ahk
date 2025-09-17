@@ -28,7 +28,7 @@ class OEMDMPARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hPrinter {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class OEMDMPARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hModule {
         get => NumGet(this, 24, "ptr")

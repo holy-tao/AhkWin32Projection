@@ -33,7 +33,7 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_STORE_INFO extends Win32Struct
 
     /**
      * A pointer to a handle to the certificate store that will be used by the digital signature wizard.
-     * @type {Pointer<HCERTSTORE>}
+     * @type {Pointer<Void>}
      */
     rghCertStore {
         get => NumGet(this, 8, "ptr")

@@ -34,7 +34,7 @@ class SPVTEXTFRAG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pTextStart {
         get => NumGet(this, 88, "ptr")

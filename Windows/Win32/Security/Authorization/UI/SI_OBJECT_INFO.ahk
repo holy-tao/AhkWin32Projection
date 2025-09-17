@@ -26,7 +26,7 @@ class SI_OBJECT_INFO extends Win32Struct
      * Identifies a module that contains string resources to be used in the property sheet. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nf-aclui-isecurityinformation-getaccessrights">ISecurityInformation::GetAccessRights</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nf-aclui-isecurityinformation-getinherittypes">ISecurityInformation::GetInheritTypes</a> methods can specify string resource identifiers for display names.
-     * @type {Pointer<HINSTANCE>}
+     * @type {Pointer<Void>}
      */
     hInstance {
         get => NumGet(this, 8, "ptr")
@@ -35,7 +35,7 @@ class SI_OBJECT_INFO extends Win32Struct
 
     /**
      * A pointer to a <b>null</b>-terminated, <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">Unicode</a> string that names the computer on which to look up account names and SIDs. This value can be <b>NULL</b> to specify the local computer. The access control editor does not free this pointer.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszServerName {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class SI_OBJECT_INFO extends Win32Struct
 
     /**
      * A pointer to a <b>null</b>-terminated, Unicode string that names the object being edited. This name appears in the title of the advanced security property sheet and any error message boxes displayed by the access control editor. The access control editor does not free this pointer.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszObjectName {
         get => NumGet(this, 24, "ptr")
@@ -53,7 +53,7 @@ class SI_OBJECT_INFO extends Win32Struct
 
     /**
      * A pointer to a <b>null</b>-terminated, Unicode string used as the title of the basic security property page. This member is ignored unless the SI_PAGE_TITLE flag is set in <b>dwFlags</b>. If the page title is not provided, a default title is used. The access control editor does not free this pointer.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszPageTitle {
         get => NumGet(this, 32, "ptr")

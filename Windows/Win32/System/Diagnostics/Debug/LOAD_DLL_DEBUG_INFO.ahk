@@ -17,7 +17,7 @@ class LOAD_DLL_DEBUG_INFO extends Win32Struct
      * A handle to the loaded DLL. If this member is <b>NULL</b>, the handle is not valid. Otherwise, the member is opened for reading and read-sharing in the context of the debugger.
      * 
      * When the debugger is finished with this file, it should close the handle using the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hFile {
         get => NumGet(this, 0, "ptr")

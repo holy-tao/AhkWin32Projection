@@ -52,7 +52,7 @@ class IKEEXT_CREDENTIAL2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     name {
         get => NumGet(this, 8, "ptr")

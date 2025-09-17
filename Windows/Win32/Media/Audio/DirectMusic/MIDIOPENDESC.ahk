@@ -16,7 +16,7 @@ class MIDIOPENDESC extends Win32Struct
 
     /**
      * Specifies the handle that the client uses to reference the device. This handle is assigned by WINMM. Use this handle when you notify the client with the <a href="https://docs.microsoft.com/previous-versions//ms708182(v=vs.85)">DriverCallback</a> function.
-     * @type {Pointer<HMIDI>}
+     * @type {Pointer<Void>}
      */
     hMidi {
         get => NumGet(this, 0, "ptr")

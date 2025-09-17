@@ -124,7 +124,7 @@ class WER_DUMP_CUSTOM_OPTIONS_V3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hSnapshot {
         get => NumGet(this, 568, "ptr")

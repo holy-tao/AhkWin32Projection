@@ -51,18 +51,19 @@ class Multicast {
      * @since windows5.0
      */
     static McastApiStartup(Version) {
-        result := DllCall("dhcpcsvc.dll\McastApiStartup", "ptr", Version, "uint")
+        result := DllCall("dhcpcsvc.dll\McastApiStartup", "uint*", Version, "uint")
         return result
     }
 
     /**
      * The McastApiCleanup function deallocates resources that are allocated with McastApiStartup. The McastApiCleanup function must only be called after a successful call to McastApiStartup.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/madcapcl/nf-madcapcl-mcastapicleanup
      * @since windows5.0
      */
     static McastApiCleanup() {
-        DllCall("dhcpcsvc.dll\McastApiCleanup")
+        result := DllCall("dhcpcsvc.dll\McastApiCleanup")
+        return result
     }
 
     /**
@@ -125,7 +126,7 @@ class Multicast {
      * @since windows5.0
      */
     static McastEnumerateScopes(AddrFamily, ReQuery, pScopeList, pScopeLen, pScopeCount) {
-        result := DllCall("dhcpcsvc.dll\McastEnumerateScopes", "ushort", AddrFamily, "int", ReQuery, "ptr", pScopeList, "ptr", pScopeLen, "ptr", pScopeCount, "uint")
+        result := DllCall("dhcpcsvc.dll\McastEnumerateScopes", "ushort", AddrFamily, "int", ReQuery, "ptr", pScopeList, "uint*", pScopeLen, "uint*", pScopeCount, "uint")
         return result
     }
 

@@ -28,7 +28,7 @@ class APPCATEGORYINFO extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a string containing the display name of the category. This string displays in the <b>Category</b> list in Add/Remove Programs. This string buffer must be allocated using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> and freed using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszDescription {
         get => NumGet(this, 8, "ptr")

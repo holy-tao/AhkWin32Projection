@@ -32,7 +32,7 @@ class DEVPROPCOMPKEY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     LocaleName {
         get => NumGet(this, 24, "ptr")

@@ -22,7 +22,7 @@ class USE_INFO_2 extends Win32Struct
      * A pointer to a string that contains the local device name (for example, drive E or LPT1) being redirected to the shared resource. The constant DEVLEN specifies the maximum number of characters in the string. This member can be <b>NULL</b>. For more information, see the following Remarks section.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ui2_local {
         get => NumGet(this, 0, "ptr")
@@ -44,7 +44,7 @@ class USE_INFO_2 extends Win32Struct
      * ```
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ui2_remote {
         get => NumGet(this, 8, "ptr")
@@ -57,7 +57,7 @@ class USE_INFO_2 extends Win32Struct
      * A pointer to a string that contains the password needed to establish a session with a specific workstation.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ui2_password {
         get => NumGet(this, 16, "ptr")
@@ -193,7 +193,7 @@ class USE_INFO_2 extends Win32Struct
      * A pointer to a string that contains the name of the user who initiated the connection.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ui2_username {
         get => NumGet(this, 40, "ptr")
@@ -206,7 +206,7 @@ class USE_INFO_2 extends Win32Struct
      * A pointer to a string that contains the domain name of the remote resource.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ui2_domainname {
         get => NumGet(this, 48, "ptr")

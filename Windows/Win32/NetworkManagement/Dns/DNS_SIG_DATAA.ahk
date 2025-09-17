@@ -156,7 +156,7 @@ class DNS_SIG_DATAA extends Win32Struct
 
     /**
      * A pointer to a string that represents  the name of the <b>Signature</b> generator.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pNameSigner {
         get => NumGet(this, 24, "ptr")

@@ -44,7 +44,7 @@ class NMCUSTOMDRAW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
      * 
      * A handle to the control's device context. Use this HDC to perform any GDI functions.
-     * @type {Pointer<HDC>}
+     * @type {Pointer<Void>}
      */
     hdc {
         get => NumGet(this, 32, "ptr")

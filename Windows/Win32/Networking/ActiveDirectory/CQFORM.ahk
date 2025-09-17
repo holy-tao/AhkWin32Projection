@@ -42,7 +42,7 @@ class CQFORM extends Win32Struct
 
     /**
      * Contains the  handle of the icon to be displayed with the query form.
-     * @type {Pointer<HICON>}
+     * @type {Pointer<Void>}
      */
     hIcon {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +51,7 @@ class CQFORM extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the title of the query form.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszTitle {
         get => NumGet(this, 24, "ptr")

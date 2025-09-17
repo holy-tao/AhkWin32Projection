@@ -5694,18 +5694,61 @@ class WinSock {
      * The order in which the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infow">WSAPROTOCOL_INFOW</a> structures appear in the buffer coincides with the order in which the protocol entries were registered by the service provider with the WS2_32.dll, or with any subsequent reordering that may have occurred through the Windows Sockets applet supplied for establishing default transport providers.
      * @param {Pointer<Int32>} lpiProtocols Null-terminated array of <i>iProtocol</i> values. This parameter is optional; if <i>lpiProtocols</i> is null, information on all available protocols is returned. Otherwise, information is retrieved only for those protocols listed in the array.
-     * @param {Pointer<WSAPROTOCOL_INFOW>} lpProtocolBuffer Buffer that is filled with 
+     * @param {Pointer} lpProtocolBuffer Buffer that is filled with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infow">WSAPROTOCOL_INFOW</a> structures.
      * @param {Pointer<UInt32>} lpdwBufferLength On input, size of the <i>lpProtocolBuffer</i> buffer passed to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wscenumprotocols">WSCEnumProtocols</a>, in bytes. On output, the minimum buffer size, in bytes, that can be passed to 
      * **WSCEnumProtocols** to retrieve all the requested information.
      * @param {Pointer<Int32>} lpErrno Pointer to the error code.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * **WSCEnumProtocols32** returns the number of protocols to be reported on. Otherwise, a value of SOCKET_ERROR is returned and a specific error code is available in <i>lpErrno</i>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of more of the arguments is not in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Indicates that one of the specified parameters was invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOBUFS</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Buffer length was too small to receive all the relevant 
+     * <a href="https://docs.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAProtocol_Info</a> structures and associated information. Pass in a buffer at least as large as the value returned in <i>lpdwBufferLength</i>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wscenumprotocols32
      * @since windows6.0.6000
      */
     static WSCEnumProtocols32(lpiProtocols, lpProtocolBuffer, lpdwBufferLength, lpErrno) {
-        DllCall("WS2_32.dll\WSCEnumProtocols32", "ptr", lpiProtocols, "ptr", lpProtocolBuffer, "ptr", lpdwBufferLength, "ptr", lpErrno)
+        result := DllCall("WS2_32.dll\WSCEnumProtocols32", "int*", lpiProtocols, "ptr", lpProtocolBuffer, "uint*", lpdwBufferLength, "int*", lpErrno)
+        return result
     }
 
     /**
@@ -5727,12 +5770,65 @@ class WinSock {
      * @param {Pointer<Guid>} lpProviderId A pointer to a globally unique identifier (GUID)  for the provider. This value is stored within each 
      * <a href="https://docs.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAProtocol_Info</a> structure.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code if the function fails.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * **WSCDeinstallProvider32** returns zero. Otherwise, it returns **SOCKET_ERROR**, and a specific error code is available in <i>lpErrno</i>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpProviderId</i> parameter does not specify a valid provider.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpErrno</i> parameter is not in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonrecoverable error occurred. This error is returned under several conditions including the following: the user lacks the administrative privileges required to write to the  Windows Sockets registry, or a failure occurred when opening a catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  Insufficient memory was available. This error is returned when there is insufficient memory to allocate a new catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wscdeinstallprovider32
      * @since windows6.0.6000
      */
     static WSCDeinstallProvider32(lpProviderId, lpErrno) {
-        DllCall("WS2_32.dll\WSCDeinstallProvider32", "ptr", lpProviderId, "ptr", lpErrno)
+        result := DllCall("WS2_32.dll\WSCDeinstallProvider32", "ptr", lpProviderId, "int*", lpErrno)
+        return result
     }
 
     /**
@@ -5767,19 +5863,93 @@ class WinSock {
      * 
      * If the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wscinstallprovider">WSCInstallProvider</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wscinstallproviderandchains">WSCInstallProviderAndChains</a> function is used, the function must be called once to install the provider in the 32-bit catalog and once to install the provider in the 64-bit catalog on a 64-bit platform.
      * @param {Pointer<Guid>} lpProviderId A pointer to a globally unique identifier (GUID)  for the provider.
-     * @param {Pointer<PWSTR>} lpszProviderDllPath A pointer to a Unicode string that contains the load path to the provider 64-bit DLL. This string observes the usual rules for path resolution and can contain embedded environment strings (such as %SystemRoot%). Such environment strings are expanded when the Ws2_32.dll must subsequently load the provider DLL on behalf of an application. After any embedded environment strings are expanded, the Ws2_32.dll passes the resulting string to the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function which loads the provider into memory. For more information, see **LoadLibrary**.
+     * @param {Pointer<Char>} lpszProviderDllPath A pointer to a Unicode string that contains the load path to the provider 64-bit DLL. This string observes the usual rules for path resolution and can contain embedded environment strings (such as %SystemRoot%). Such environment strings are expanded when the Ws2_32.dll must subsequently load the provider DLL on behalf of an application. After any embedded environment strings are expanded, the Ws2_32.dll passes the resulting string to the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function which loads the provider into memory. For more information, see **LoadLibrary**.
      * @param {Pointer<WSAPROTOCOL_INFOW>} lpProtocolInfoList A pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAProtocol_Info</a> structures. Each structure defines a protocol, address family, and socket type supported by the provider.
      * @param {Integer} dwNumberOfEntries The number of entries in the <i>lpProtocolInfoList</i> array.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code if the function fails.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If **WSCInstallProvider64_32** succeeds, it returns zero. Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments is not in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments are invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOBUFS</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  Memory could not be allocated for buffers.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonrecoverable error occurred. This error is returned under several conditions including the following: the provider is already installed, the user lacks the administrative privileges required to write to the  Winsock registry, or a failure occurred when creating or installing a catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSASYSCALLFAILURE</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  A system call that should never fail has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  Insufficient memory was available. This error is returned when there is insufficient memory to allocate a new catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wscinstallprovider64_32
      * @since windows5.1.2600
      */
     static WSCInstallProvider64_32(lpProviderId, lpszProviderDllPath, lpProtocolInfoList, dwNumberOfEntries, lpErrno) {
         lpszProviderDllPath := lpszProviderDllPath is String? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
 
-        DllCall("WS2_32.dll\WSCInstallProvider64_32", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "ptr", lpErrno)
+        result := DllCall("WS2_32.dll\WSCInstallProvider64_32", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "int*", lpErrno)
+        return result
     }
 
     /**
@@ -5791,17 +5961,48 @@ class WinSock {
      * **WSCGetProviderPath32** function retrieves the DLL path for the specified provider. The DLL path can contain embedded environment strings, such as %SystemRoot%, and thus should be expanded prior to being used with the Windows <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function. For more information, see **LoadLibrary**.
      * @param {Pointer<Guid>} lpProviderId Locally unique identifier of the provider. This value is obtained by using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wscenumprotocols32">WSCEnumProtocols32</a>.
-     * @param {Pointer<PWSTR>} lpszProviderDllPath Pointer to a buffer into which the provider DLL's path string is returned. The path is a null-terminated string and any embedded environment strings, such as %SystemRoot%, have not been expanded.
+     * @param {Pointer<Char>} lpszProviderDllPath Pointer to a buffer into which the provider DLL's path string is returned. The path is a null-terminated string and any embedded environment strings, such as %SystemRoot%, have not been expanded.
      * @param {Pointer<Int32>} lpProviderDllPathLen Size of the buffer pointed to by the <i>lpszProviderDllPath</i> parameter, in characters.
      * @param {Pointer<Int32>} lpErrno Pointer to the error code.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If 
+     * no error occurs, **WSCGetProviderPath32** returns zero. Otherwise, it returns SOCKET_ERROR. The specific error code is available in <i>lpErrno</i>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpProviderId</i> parameter does not specify a valid provider.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszProviderDllPath</i> or <i>lpErrno</i> parameter is not in a valid part of the user address space, or <i>lpProviderDllPathLen</i> is too small.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wscgetproviderpath32
      * @since windows6.0.6000
      */
     static WSCGetProviderPath32(lpProviderId, lpszProviderDllPath, lpProviderDllPathLen, lpErrno) {
         lpszProviderDllPath := lpszProviderDllPath is String? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
 
-        DllCall("WS2_32.dll\WSCGetProviderPath32", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProviderDllPathLen, "ptr", lpErrno)
+        result := DllCall("WS2_32.dll\WSCGetProviderPath32", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "int*", lpProviderDllPathLen, "int*", lpErrno)
+        return result
     }
 
     /**
@@ -5825,19 +6026,72 @@ class WinSock {
      * 
      * Any file installation or service provider-specific configuration must be performed by the caller.
      * @param {Pointer<Guid>} lpProviderId A pointer to a globally unique identifier (GUID)  for the provider.
-     * @param {Pointer<PWSTR>} lpszProviderDllPath A pointer to a Unicode string that contains the load path to the provider 64-bit DLL. This string observes the usual rules for path resolution and can contain embedded environment strings (such as <i>%SystemRoot%</i>). Such environment strings are expanded when the Ws2_32.dll must subsequently load the provider DLL on behalf of an application. After any embedded environment strings are expanded, the Ws2_32.dll passes the resulting string to the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function which loads the provider into memory. For more information, see **LoadLibrary**.
+     * @param {Pointer<Char>} lpszProviderDllPath A pointer to a Unicode string that contains the load path to the provider 64-bit DLL. This string observes the usual rules for path resolution and can contain embedded environment strings (such as <i>%SystemRoot%</i>). Such environment strings are expanded when the Ws2_32.dll must subsequently load the provider DLL on behalf of an application. After any embedded environment strings are expanded, the Ws2_32.dll passes the resulting string to the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function which loads the provider into memory. For more information, see **LoadLibrary**.
      * @param {Pointer<WSAPROTOCOL_INFOW>} lpProtocolInfoList A pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAProtocol_Info</a> structures. Each structure specifies or modifies a protocol, address family, and socket type supported by the provider.
      * @param {Integer} dwNumberOfEntries The number of entries in the <i>lpProtocolInfoList</i> array.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code if the function fails.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * **WSCUpdateProvider32** returns zero. Otherwise, it returns SOCKET_ERROR, and a specific error code is available in <i>lpErrno</i>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments is not in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments are invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonrecoverable error occurred. This error is returned under several conditions including the following: the user lacks the administrative privileges required to write to the  Winsock registry, or a failure occurred when opening or writing a catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  Insufficient memory was available. This error is returned when there is insufficient memory to allocate a new catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wscupdateprovider32
      * @since windows6.0.6000
      */
     static WSCUpdateProvider32(lpProviderId, lpszProviderDllPath, lpProtocolInfoList, dwNumberOfEntries, lpErrno) {
         lpszProviderDllPath := lpszProviderDllPath is String? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
 
-        DllCall("WS2_32.dll\WSCUpdateProvider32", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "ptr", lpErrno)
+        result := DllCall("WS2_32.dll\WSCUpdateProvider32", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "int*", lpErrno)
+        return result
     }
 
     /**
@@ -5918,16 +6172,79 @@ class WinSock {
      *  This function can also fail because of user account control (UAC). If an application  that contains this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will fail unless the application has been marked in the manifest file with a **requestedExecutionLevel** set to **requireAdministrator**. If the application on Windows Vista or Windows Server 2008 lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for this function to succeed.
      * @param {Pointer<Guid>} lpProviderId A pointer to a globally unique identifier (GUID)  for the provider.
      * @param {Integer} InfoType The information class to be set for this LSP protocol entry.
-     * @param {Pointer<Byte>} Info A pointer to a buffer that contains the information class data to set for the LSP protocol entry.
+     * @param {Pointer} Info A pointer to a buffer that contains the information class data to set for the LSP protocol entry.
      * @param {Pointer} InfoSize The size, in bytes, of the buffer pointed to by the <i>Info</i> parameter.
      * @param {Integer} Flags The flags used to modify the behavior of the **WSCSetProviderInfo32** function call.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code if the function fails.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, **WSCSetProviderInfo32** returns **ERROR_SUCCESS** (zero). Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_CALL_NOT_IMPLEMENTED</b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The call is not implemented. This error is returned if **ProviderInfoAudit** is specified in the <i>InfoType</i> parameter.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments is not in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments are invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonrecoverable error occurred. This error is returned under several conditions including the following: the user lacks the administrative privileges required to write to the Winsock registry, or a failure occurred when opening a Winsock catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  Insufficient memory was available. This error is returned when there is insufficient memory to allocate a new catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wscsetproviderinfo32
      * @since windows6.0.6000
      */
     static WSCSetProviderInfo32(lpProviderId, InfoType, Info, InfoSize, Flags, lpErrno) {
-        DllCall("WS2_32.dll\WSCSetProviderInfo32", "ptr", lpProviderId, "int", InfoType, "ptr", Info, "ptr", InfoSize, "uint", Flags, "ptr", lpErrno)
+        result := DllCall("WS2_32.dll\WSCSetProviderInfo32", "ptr", lpProviderId, "int", InfoType, "ptr", Info, "ptr", InfoSize, "uint", Flags, "int*", lpErrno)
+        return result
     }
 
     /**
@@ -6005,16 +6322,90 @@ class WinSock {
      * If an LSP does not have a category set, it is considered to be in the All Other category. This LSP category will not be loaded in services or system processes (for example, lsass, winlogon, and many svchost processes).
      * @param {Pointer<Guid>} lpProviderId A pointer to a globally unique identifier (GUID)  for the provider.
      * @param {Integer} InfoType The information class that is requested for this LSP protocol entry.
-     * @param {Pointer<Byte>} Info A pointer to a buffer to receive the information class data for the requested LSP protocol entry. If this parameter is **NULL**, then **WSCGetProviderInfo32** returns failure and the size required for this buffer is returned in the <i>InfoSize</i> parameter.
+     * @param {Pointer} Info A pointer to a buffer to receive the information class data for the requested LSP protocol entry. If this parameter is **NULL**, then **WSCGetProviderInfo32** returns failure and the size required for this buffer is returned in the <i>InfoSize</i> parameter.
      * @param {Pointer<UIntPtr>} InfoSize The size, in bytes, of the buffer pointed to by the <i>Info</i> parameter. If the Info parameter is **NULL**, then  **WSCGetProviderInfo32** returns failure and the <i>InfoSize</i> parameter will receive the size of the required buffer.
      * @param {Integer} Flags The flags used to modify the behavior of the **WSCGetProviderInfo32** function call.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code if the function fails.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, **WSCGetProviderInfo32** returns **ERROR_SUCCESS** (zero). Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_CALL_NOT_IMPLEMENTED</b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The call is not implemented. This error is returned if **ProviderInfoAudit** is specified in the <i>InfoType</i> parameter.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments is not in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments are invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVALIDPROVIDER</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The protocol entry could not be found for the specified <i>lpProviderId</i>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonrecoverable error occurred. This error is returned under several conditions including the following: the user lacks the administrative privileges required to access the Winsock registry, or a failure occurred when opening a Winsock catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  Insufficient memory was available. This error is returned when there is insufficient memory to allocate a new catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wscgetproviderinfo32
      * @since windows6.0.6000
      */
     static WSCGetProviderInfo32(lpProviderId, InfoType, Info, InfoSize, Flags, lpErrno) {
-        DllCall("WS2_32.dll\WSCGetProviderInfo32", "ptr", lpProviderId, "int", InfoType, "ptr", Info, "ptr", InfoSize, "uint", Flags, "ptr", lpErrno)
+        result := DllCall("WS2_32.dll\WSCGetProviderInfo32", "ptr", lpProviderId, "int", InfoType, "ptr", Info, "ptr*", InfoSize, "uint", Flags, "int*", lpErrno)
+        return result
     }
 
     /**
@@ -6027,15 +6418,61 @@ class WinSock {
      * The **WSCEnumNameSpaceProviders32** function is a Unicode only function and returns <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infoexw">WSANAMESPACE_INFOEXW</a> structures.
      * @param {Pointer<UInt32>} lpdwBufferLength On input, the number of bytes contained in the buffer pointed to by <i>lpnspBuffer</i>. On output (if the function fails, and the error is 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a>), the minimum number of bytes to allocate for the <i>lpnspBuffer</i> buffer to allow it to retrieve all the requested information. The buffer passed to **WSCEnumNameSpaceProviders32** must be sufficient to hold all of the namespace information.
-     * @param {Pointer<WSANAMESPACE_INFOW>} lpnspBuffer A buffer that is filled with 
+     * @param {Pointer} lpnspBuffer A buffer that is filled with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infow">WSANAMESPACE_INFOW</a> structures. The returned structures are located consecutively at the head of the buffer. Variable sized information referenced by pointers in the structures point to locations within the buffer located between the end of the fixed sized structures and the end of the buffer. The number of structures filled in is the return value of 
      * **WSCEnumNameSpaceProviders32**.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The 
+     * **WSCEnumNameSpaceProviders32** function returns the number of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infow">WSANAMESPACE_INFOW</a> structures copied into <i>lpnspBuffer</i>. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpnspBuffer</i> parameter was a **NULL** pointer or the buffer length, <i>lpdwBufferLength</i>, was too small to receive all the relevant 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infow">WSANAMESPACE_INFOW</a> structures and associated information. When this error is returned, the buffer length required is returned in the <i>lpdwBufferLength</i> parameter. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The WS2_32.DLL has not been initialized. The application must first call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> before calling any Windows Sockets functions.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wscenumnamespaceproviders32
      * @since windows6.0.6000
      */
     static WSCEnumNameSpaceProviders32(lpdwBufferLength, lpnspBuffer) {
-        DllCall("WS2_32.dll\WSCEnumNameSpaceProviders32", "ptr", lpdwBufferLength, "ptr", lpnspBuffer)
+        result := DllCall("WS2_32.dll\WSCEnumNameSpaceProviders32", "uint*", lpdwBufferLength, "ptr", lpnspBuffer)
+        return result
     }
 
     /**
@@ -6051,15 +6488,61 @@ class WinSock {
      *                      passed in the <i>lpProviderInfo</i> parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wscinstallnamespaceex32">WSCInstallNameSpaceEx32</a> function can be queried using **WSCEnumNameSpaceProvidersEx32** function.
      * @param {Pointer<UInt32>} lpdwBufferLength On input, the number of bytes contained in the buffer pointed to by <i>lpnspBuffer</i>. On output (if the function fails, and the error is 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a>), the minimum number of bytes to allocate for the <i>lpnspBuffer</i> buffer to allow it to retrieve all the requested information. The buffer passed to **WSCEnumNameSpaceProvidersEx32** must be sufficient to hold all of the namespace information.
-     * @param {Pointer<WSANAMESPACE_INFOEXW>} lpnspBuffer A buffer that is filled with 
+     * @param {Pointer} lpnspBuffer A buffer that is filled with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infoexw">WSANAMESPACE_INFOEXW</a> structures. The returned structures are located consecutively at the head of the buffer. Variable sized information referenced by pointers in the structures point to locations within the buffer located between the end of the fixed sized structures and the end of the buffer. The number of structures filled in is the return value of 
      * **WSCEnumNameSpaceProvidersEx32**.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The 
+     * **WSCEnumNameSpaceProvidersEx32** function returns the number of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infoexw">WSANAMESPACE_INFOEXW</a> structures copied into <i>lpnspBuffer</i>. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The buffer length was too small to receive all the relevant 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infoexw">WSANAMESPACE_INFOEXW</a> structures and associated information or the <i>lpnspBuffer</i> parameter was a **NULL** pointer. When this error is returned, the buffer length required is returned in the <i>lpdwBufferLength</i> parameter.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The WS2_32.DLL has not been initialized. The application must first call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> before calling any Windows Sockets functions.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wscenumnamespaceprovidersex32
      * @since windows6.0.6000
      */
     static WSCEnumNameSpaceProvidersEx32(lpdwBufferLength, lpnspBuffer) {
-        DllCall("WS2_32.dll\WSCEnumNameSpaceProvidersEx32", "ptr", lpdwBufferLength, "ptr", lpnspBuffer)
+        result := DllCall("WS2_32.dll\WSCEnumNameSpaceProvidersEx32", "uint*", lpdwBufferLength, "ptr", lpnspBuffer)
+        return result
     }
 
     /**
@@ -6072,12 +6555,76 @@ class WinSock {
      * 
      * The **WSCInstallNameSpace32** function can only be called by a user logged on as a member of the Administrators group. If **WSCInstallNameSpace32** is called by a user that is not a member of the Administrators group, the function call will fail. 
      *  For computers running Windows Vista or Windows Server 2008, this function can also fail because of user account control (UAC). If an application  that contains this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will fail unless the application has been marked in the manifest file with a **requestedExecutionLevel** set to **requireAdministrator**. If the application on Windows Vista or Windows Server 2008 lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (**RunAs administrator**) for this function to succeed.
-     * @param {Pointer<PWSTR>} lpszIdentifier A pointer to a string that identifies the provider associated with the globally unique identifier (GUID) passed in the <i>lpProviderId</i> parameter.
-     * @param {Pointer<PWSTR>} lpszPathName A pointer to a string that contains the path to the provider's DLL image. The string observes the usual rules for path resolution: this path can contain embedded environment strings (such as %SystemRoot%). Such environment strings are expanded whenever the WS2_32.DLL must subsequently load the provider DLL on behalf of an application. After any embedded environment strings are expanded, the Ws2_32.dll passes the resulting string into the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function to load the provider into memory. For more information, see **LoadLibrary**.
+     * @param {Pointer<Char>} lpszIdentifier A pointer to a string that identifies the provider associated with the globally unique identifier (GUID) passed in the <i>lpProviderId</i> parameter.
+     * @param {Pointer<Char>} lpszPathName A pointer to a string that contains the path to the provider's DLL image. The string observes the usual rules for path resolution: this path can contain embedded environment strings (such as %SystemRoot%). Such environment strings are expanded whenever the WS2_32.DLL must subsequently load the provider DLL on behalf of an application. After any embedded environment strings are expanded, the Ws2_32.dll passes the resulting string into the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function to load the provider into memory. For more information, see **LoadLibrary**.
      * @param {Integer} dwNameSpace A descriptor that specifies the namespace supported by this provider.
      * @param {Integer} dwVersion A descriptor that specifies the version number of the provider.
      * @param {Pointer<Guid>} lpProviderId A unique identifier for this provider. This GUID should be generated by Uuidgen.exe.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, the 
+     * **WSCInstallNameSpace32** function returns NO_ERROR (zero). Otherwise, it returns SOCKET_ERROR if the function fails, and you must retrieve the appropriate error code using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> function.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEACCES</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The calling routine does not have sufficient privileges to install a namespace.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments are invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonrecoverable error occurred. This error is returned under several conditions including the following: the provider is already installed, the user lacks the administrative privileges required to write to the  Winsock registry, or a failure occurred when creating or installing a catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSASYSCALLFAILURE</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  A system call that should never fail has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  Insufficient memory was available. This error is returned when there is insufficient memory to allocate a new catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wscinstallnamespace32
      * @since windows6.0.6000
      */
@@ -6085,7 +6632,8 @@ class WinSock {
         lpszIdentifier := lpszIdentifier is String? StrPtr(lpszIdentifier) : lpszIdentifier
         lpszPathName := lpszPathName is String? StrPtr(lpszPathName) : lpszPathName
 
-        DllCall("WS2_32.dll\WSCInstallNameSpace32", "ptr", lpszIdentifier, "ptr", lpszPathName, "uint", dwNameSpace, "uint", dwVersion, "ptr", lpProviderId)
+        result := DllCall("WS2_32.dll\WSCInstallNameSpace32", "ptr", lpszIdentifier, "ptr", lpszPathName, "uint", dwNameSpace, "uint", dwVersion, "ptr", lpProviderId)
+        return result
     }
 
     /**
@@ -6103,13 +6651,77 @@ class WinSock {
      * 
      * The **WSCInstallNameSpaceEx32**function can only be called by a user logged on as a member of the Administrators group. If **WSCInstallNameSpaceEx32** is called by a user that is not a member of the Administrators group, the function call will fail. 
      *  For computers running on Windows Vista or Windows Server 2008, this function can also fail because of user account control (UAC). If an application  that contains this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will fail unless the application has been marked in the manifest file with a **requestedExecutionLevel** set to **requireAdministrator**. If the application on Windows Vista or Windows Server 2008 lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for this function to succeed.
-     * @param {Pointer<PWSTR>} lpszIdentifier A pointer to a string that identifies the provider associated with the globally unique identifier (GUID) passed in the <i>lpProviderId</i> parameter.
-     * @param {Pointer<PWSTR>} lpszPathName A pointer to a Unicode string that contains the load path to the provider DLL. This string observes the usual rules for path resolution and can contain embedded environment strings (such as <i>%SystemRoot%</i>). Such environment strings are expanded when the Ws2_32.dll must subsequently load the provider DLL on behalf of an application. After any embedded environment strings are expanded, the Ws2_32.dll passes the resulting string to the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function which loads the provider into memory. For more information, see **LoadLibrary**.
+     * @param {Pointer<Char>} lpszIdentifier A pointer to a string that identifies the provider associated with the globally unique identifier (GUID) passed in the <i>lpProviderId</i> parameter.
+     * @param {Pointer<Char>} lpszPathName A pointer to a Unicode string that contains the load path to the provider DLL. This string observes the usual rules for path resolution and can contain embedded environment strings (such as <i>%SystemRoot%</i>). Such environment strings are expanded when the Ws2_32.dll must subsequently load the provider DLL on behalf of an application. After any embedded environment strings are expanded, the Ws2_32.dll passes the resulting string to the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function which loads the provider into memory. For more information, see **LoadLibrary**.
      * @param {Integer} dwNameSpace The namespace supported by this provider.
      * @param {Integer} dwVersion The version number of the provider.
      * @param {Pointer<Guid>} lpProviderId A pointer to a GUID  for the provider. This GUID should be generated by Uuidgen.exe.
      * @param {Pointer<BLOB>} lpProviderSpecific A provider-specific data blob associated with namespace entry.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, the 
+     * **WSCInstallNameSpaceEx32** function returns **NO_ERROR** (zero). Otherwise, it returns **SOCKET_ERROR** if the function fails, and you must retrieve the appropriate error code using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> function.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEACCES</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The calling routine does not have sufficient privileges to install a namespace.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments are invalid. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonrecoverable error occurred. This error is returned under several conditions including the following: the provider is already installed, the user lacks the administrative privileges required to write to the  Winsock registry, or a failure occurred when creating or installing a catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSASYSCALLFAILURE</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  A system call that should never fail has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  Insufficient memory was available. This error is returned when there is insufficient memory to allocate a new catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wscinstallnamespaceex32
      * @since windows6.0.6000
      */
@@ -6117,7 +6729,8 @@ class WinSock {
         lpszIdentifier := lpszIdentifier is String? StrPtr(lpszIdentifier) : lpszIdentifier
         lpszPathName := lpszPathName is String? StrPtr(lpszPathName) : lpszPathName
 
-        DllCall("WS2_32.dll\WSCInstallNameSpaceEx32", "ptr", lpszIdentifier, "ptr", lpszPathName, "uint", dwNameSpace, "uint", dwVersion, "ptr", lpProviderId, "ptr", lpProviderSpecific)
+        result := DllCall("WS2_32.dll\WSCInstallNameSpaceEx32", "ptr", lpszIdentifier, "ptr", lpszPathName, "uint", dwNameSpace, "uint", dwVersion, "ptr", lpProviderId, "ptr", lpProviderSpecific)
+        return result
     }
 
     /**
@@ -6136,12 +6749,66 @@ class WinSock {
      * 
      * The caller of this function must remove any additional files or service provider–specific configuration information that is required to completely uninstall the service provider.
      * @param {Pointer<Guid>} lpProviderId A pointer to a globally unique identifier (GUID)  for the name-space provider to be uninstalled.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * **WSCUnInstallNameSpace32** returns **NO_ERROR** (zero). Otherwise, it returns **SOCKET_ERROR** if the function fails, and you must retrieve the appropriate error code using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> function.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpProviderId</i> parameter points to memory that is not in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified namespace–provider identifier is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSASYSCALLFAILURE</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  A system call that should never fail has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  Insufficient memory was available. This error is returned when there is insufficient memory to allocate a new catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wscuninstallnamespace32
      * @since windows6.0.6000
      */
     static WSCUnInstallNameSpace32(lpProviderId) {
-        DllCall("WS2_32.dll\WSCUnInstallNameSpace32", "ptr", lpProviderId)
+        result := DllCall("WS2_32.dll\WSCUnInstallNameSpace32", "ptr", lpProviderId)
+        return result
     }
 
     /**
@@ -6160,12 +6827,66 @@ class WinSock {
      * For computers running on Windows Vista or Windows Server 2008, this function can also fail because of user account control (UAC). If an application  that contains this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will fail unless the application has been marked in the manifest file with a **requestedExecutionLevel** set to **requireAdministrator**. If the application on Windows Vista or Windows Server 2008 lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for this function to succeed.
      * @param {Pointer<Guid>} lpProviderId A pointer to a globally unique identifier (GUID)  for the namespace provider.
      * @param {Integer} fEnable A Boolean value that, if **TRUE**, the namespace provider is set to the active state. If **FALSE**, the namespace provider is disabled and will not be available for query operations or service registration.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, the 
+     * **WSCEnableNSProvider32** function returns **NO_ERROR** (zero). Otherwise, it returns **SOCKET_ERROR** if the function fails, and you must retrieve the appropriate error code using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> function.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpProviderId</i> parameter points to memory that is not in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified namespace provider identifier is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSASYSCALLFAILURE</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  A system call that should never fail has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  Insufficient memory was available. This error is returned when there is insufficient memory to allocate a new catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wscenablensprovider32
      * @since windows6.0.6000
      */
     static WSCEnableNSProvider32(lpProviderId, fEnable) {
-        DllCall("WS2_32.dll\WSCEnableNSProvider32", "ptr", lpProviderId, "int", fEnable)
+        result := DllCall("WS2_32.dll\WSCEnableNSProvider32", "ptr", lpProviderId, "int", fEnable)
+        return result
     }
 
     /**
@@ -6212,15 +6933,15 @@ class WinSock {
      * 
      * If <i>lpszProviderDllPath32</i> is **NULL**, then <i>lpszProviderDllPath</i> is the path for both 32 and 64 bit providers.  When a 32-bit process on a 64-bit computer is running (for example, when a Winsock application loads the 32-bit version of an LSP), it attempts to load the 32-bit provider specified in <i>lpszProviderDllPath</i>.  If <i>lpszProviderDllPath32</i> is **NULL**, then the <i>lpszProviderDllPath</i> parameter must be set to <i>%windir%\system32\&lt;dllname&gt;</i>.  If this is not the case, the call fails with <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a>.  If the path in <i>lpszProviderDllPath</i> is <i>%windir%\system32\&lt;dllname&gt;</i> when <i>lpszProviderDllPath32</i> is **NULL**, the call will be redirected (using the file system redirector) to the directory returned by **GetSystemWow64Directory** where the 32-bit LSP must reside. For Windows XP 64-bit edition, Windows Server 2003 and Windows Vista, this directory is <i>%windir%\syswow64</i>.
      * @param {Pointer<Guid>} lpProviderId A pointer to a globally unique identifier (GUID) for the provider.
-     * @param {Pointer<PWSTR>} lpszProviderDllPath A pointer to a Unicode string that contains the load path to the provider 64-bit DLL. This string observes the usual rules for path resolution and can contain embedded environment strings (such as <i>%SystemRoot%</i>). Such environment strings are expanded when the <i>Ws2_32.dll</i> must subsequently load the provider DLL on behalf of an application. After any embedded environment strings are expanded, the <i>Ws2_32.dll</i> passes the resulting string to the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function which loads the provider into memory. For more information, see **LoadLibrary**.
+     * @param {Pointer<Char>} lpszProviderDllPath A pointer to a Unicode string that contains the load path to the provider 64-bit DLL. This string observes the usual rules for path resolution and can contain embedded environment strings (such as <i>%SystemRoot%</i>). Such environment strings are expanded when the <i>Ws2_32.dll</i> must subsequently load the provider DLL on behalf of an application. After any embedded environment strings are expanded, the <i>Ws2_32.dll</i> passes the resulting string to the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function which loads the provider into memory. For more information, see **LoadLibrary**.
      * 
      * <div class="alert">**Note**  If <i>lpszProviderDllPath32</i> is set to **NULL** then <i>lpszProviderDllPath</i> must be set to <i>%windir%\system32\&lt;dllname&gt;</i>.  If not, the call fails and returns the <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a> error code.</div>
      * <div> </div>
-     * @param {Pointer<PWSTR>} lpszProviderDllPath32 A pointer to a Unicode string that contains the fully qualified path to the provider 32-bit DLL. This string observes the usual rules for path resolution and can contain embedded environment strings (such as <i>%SystemRoot%</i>). Such environment strings are expanded when the <i>Ws2_32.dll</i> subsequently loads the provider DLL on behalf of an application. After any embedded environment strings are expanded, the <i>Ws2_32.dll</i> passes the resulting string into the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function to load the provider into memory. For more information, see **LoadLibrary**.
+     * @param {Pointer<Char>} lpszProviderDllPath32 A pointer to a Unicode string that contains the fully qualified path to the provider 32-bit DLL. This string observes the usual rules for path resolution and can contain embedded environment strings (such as <i>%SystemRoot%</i>). Such environment strings are expanded when the <i>Ws2_32.dll</i> subsequently loads the provider DLL on behalf of an application. After any embedded environment strings are expanded, the <i>Ws2_32.dll</i> passes the resulting string into the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function to load the provider into memory. For more information, see **LoadLibrary**.
      * 
      * <div class="alert">**Note**  If this parameter is set to **NULL**, the 64-bit provider must exist in the <i>%windir%\system32</i> folder and the 32-bit provider must reside in the <i>%windir%\syswow64</i> folder.</div>
      * <div> </div>
-     * @param {Pointer<PWSTR>} lpszLspName A pointer to a Unicode string that contains the name of the layered service provider (LSP).
+     * @param {Pointer<Char>} lpszLspName A pointer to a Unicode string that contains the name of the layered service provider (LSP).
      * @param {Integer} dwServiceFlags The service flags for the type of layered protocol catalog entry to be created. A layered protocol entry is  a <a href="https://docs.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAProtocol_Info</a> structure with the **ChainLen** member set to 0. The actual catalog entry for the LSP will reference the ID of this layered protocol entry in its **ProtocolChain** member.
      * 
      * <table>
@@ -6244,7 +6965,91 @@ class WinSock {
      * @param {Integer} dwNumberOfEntries The number of entries in the <i>lpProtocolInfoList</i> array.
      * @param {Pointer<UInt32>} lpdwCatalogEntryId A pointer to the newly installed layered protocol entry for the transport provider in the Winsock 2 system configuration database. This was the ID used to build the protocol chain entries installed in the catalog for the LSP.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code generated by the call if the function fails.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If **WSCInstallProviderAndChains64_32** succeeds, it returns zero. Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments is not in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments are invalid. This error is returned for the following conditions: the <i>lpProviderId</i> parameter is **NULL**, the <i>lpszProviderDllPath</i> parameter is invalid or the path length is too large (**MAX_PATH** was exceeded), the <i>lpszLspName</i> parameter is invalid or the name length is too large (**WSAPROTOCOL_LEN** is exceeded), the <i>lpProtocolInfoList</i> is set to a non-**NULL** and the <i>dwNumberOfEntries</i> parameter is zero, a duplicate provider  ID or the layered service provider name already exist in the catalog, or a match cannot be found for the specified protocol, address family, and socket type.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>WSAEINVALIDPROCTABLE</b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The provider is missing required functionality. A non-IFS provider must implement all of the Winsock 2 extension functions (<a href="https://docs.microsoft.com/windows/desktop/api/mswsock/nf-mswsock-acceptex">AcceptEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/mswsock/nc-mswsock-lpfn_connectex">ConnectEx</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms737757(v=vs.85)">DisconnectEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/mswsock/nf-mswsock-transmitfile">TransmitFile</a>, <a href="https://docs.microsoft.com/windows/desktop/api/mswsock/nc-mswsock-lpfn_transmitpackets">TransmitPackets</a>, and <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_wsarecvmsg">LPFN_WSARECVMSG (WSARecvMsg)</a>).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A provider installation is already in progress.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOBUFS</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  Memory cannot be allocated for buffers.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonrecoverable error occurred. This error is returned under several conditions including the following: the provider is already installed, the <i>lpProtocolInfoList</i> parameter was **NULL** and there was no base provider found, the maximum protocol chain length (**MAX_PROTOCOL_CHAIN**) was reached, the user lacks the administrative privileges required to write to the  Winsock registry, or a failure occurred when creating or installing a catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSASYSCALLFAILURE</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  A system call that should never fail has failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wscinstallproviderandchains64_32
      * @since windows6.0.6000
      */
@@ -6253,7 +7058,8 @@ class WinSock {
         lpszProviderDllPath32 := lpszProviderDllPath32 is String? StrPtr(lpszProviderDllPath32) : lpszProviderDllPath32
         lpszLspName := lpszLspName is String? StrPtr(lpszLspName) : lpszLspName
 
-        DllCall("WS2_32.dll\WSCInstallProviderAndChains64_32", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpszProviderDllPath32, "ptr", lpszLspName, "uint", dwServiceFlags, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "ptr", lpdwCatalogEntryId, "ptr", lpErrno)
+        result := DllCall("WS2_32.dll\WSCInstallProviderAndChains64_32", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpszProviderDllPath32, "ptr", lpszLspName, "uint", dwServiceFlags, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "uint*", lpdwCatalogEntryId, "int*", lpErrno)
+        return result
     }
 
     /**
@@ -6288,12 +7094,64 @@ class WinSock {
      * @param {Pointer<UInt32>} lpwdCatalogEntryId A pointer to an array of <b>CatalogEntryId</b> elements found in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAPROTOCOL_INFO</a> structure. The order of the <b>CatalogEntryId</b> elements is the new priority ordering for the protocols.
      * @param {Integer} dwNumberOfEntries The number of elements in the <i>lpwdCatalogEntryId</i> array.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The function returns <b>ERROR_SUCCESS</b> (zero) if the routine is successful. Otherwise, it returns a specific error code.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments are invalid, no action was taken.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonrecoverable error occurred. This error is returned under several conditions including the following: the user lacks the administrative privileges required to write to the  Winsock registry, or a failure occurred when opening or writing a catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  Insufficient memory was available. This error is returned when there is insufficient memory to allocate a new catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>(other)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The routine may return any registry error code.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/sporder/nf-sporder-wscwriteproviderorder32
      * @since windows6.0.6000
      */
     static WSCWriteProviderOrder32(lpwdCatalogEntryId, dwNumberOfEntries) {
-        DllCall("WS2_32.dll\WSCWriteProviderOrder32", "ptr", lpwdCatalogEntryId, "uint", dwNumberOfEntries)
+        result := DllCall("WS2_32.dll\WSCWriteProviderOrder32", "uint*", lpwdCatalogEntryId, "uint", dwNumberOfEntries)
+        return result
     }
 
     /**
@@ -6328,12 +7186,97 @@ class WinSock {
      * @param {Pointer<Guid>} lpProviderId An array of <b>NSProviderId</b> elements as found in the <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infow">WSANAMESPACE_INFO</a> structure.  The order of the <b>NSProviderId</b> elements is the new
      *       priority ordering for the namespace providers.
      * @param {Integer} dwNumberOfEntries The number of elements in the <b>NSProviderId</b> array.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The function returns <b>ERROR_SUCCESS</b> (zero) if the routine is successful. Otherwise, it returns a specific error code.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>NSProviderId</b> array is not fully contained within process address space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Input parameters were invalid, no action was taken.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonrecoverable error occurred. This error is returned under several conditions including the following: the Winsock registry could not be opened, the user lacks the administrative privileges required to write to the  Winsock registry, or another application is currently writing to the namespace provider catalog.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSASYSCALLFAILURE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A system call that should never fail has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2"> WSATRY_AGAIN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function is called by another thread or process.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory was available to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>(other)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function may return any registry error code.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/sporder/nf-sporder-wscwritenamespaceorder32
      * @since windows6.0.6000
      */
     static WSCWriteNameSpaceOrder32(lpProviderId, dwNumberOfEntries) {
-        DllCall("WS2_32.dll\WSCWriteNameSpaceOrder32", "ptr", lpProviderId, "uint", dwNumberOfEntries)
+        result := DllCall("WS2_32.dll\WSCWriteNameSpaceOrder32", "ptr", lpProviderId, "uint", dwNumberOfEntries)
+        return result
     }
 
     /**
@@ -6344,12 +7287,13 @@ class WinSock {
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {Pointer} fd 
      * @param {Pointer<FD_SET>} param1 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/winsock/nf-winsock-__wsafdisset
      * @since windows8.1
      */
     static __WSAFDIsSet(fd, param1) {
-        DllCall("WS2_32.dll\__WSAFDIsSet", "ptr", fd, "ptr", param1)
+        result := DllCall("WS2_32.dll\__WSAFDIsSet", "ptr", fd, "ptr", param1)
+        return result
     }
 
     /**
@@ -6380,7 +7324,7 @@ class WinSock {
      * @param {Pointer} s A descriptor that identifies a socket that has been placed in a listening state with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-listen">listen</a> function. The connection is actually made with the socket that is returned by 
      * <b>accept</b>.
-     * @param {Pointer<SOCKADDR>} addr An optional pointer to a buffer that receives the address of the connecting entity, as known to the communications layer. The exact format of the <i>addr</i> parameter is determined by the address family that was established when the socket from the 
+     * @param {Pointer} addr An optional pointer to a buffer that receives the address of the connecting entity, as known to the communications layer. The exact format of the <i>addr</i> parameter is determined by the address family that was established when the socket from the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure was created.
      * @param {Pointer<Int32>} addrlen An optional pointer to an integer that contains the length of structure pointed to by the <i>addr</i> parameter.
      * @returns {Pointer} If no error occurs, 
@@ -6540,7 +7484,7 @@ class WinSock {
     static accept(s, addr, addrlen) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\accept", "ptr", s, "ptr", addr, "ptr", addrlen, "ptr")
+        result := DllCall("WS2_32.dll\accept", "ptr", s, "ptr", addr, "int*", addrlen, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6609,19 +7553,152 @@ class WinSock {
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {Pointer} s A descriptor identifying an unbound socket.
-     * @param {Pointer<SOCKADDR>} name 
+     * @param {Pointer} name 
      * @param {Integer} namelen The length, in bytes, of the value pointed to by *addr*.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>bind</b> returns zero. Otherwise, it returns SOCKET_ERROR, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <div class="alert"><b>Note</b>  A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.</div>
+     * <div> </div>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEACCES</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An attempt was made to access a socket in a way forbidden by its access permissions.
+     * 
+     * This error is returned if nn attempt to bind a datagram socket to the broadcast address failed because 
+     * the <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-setsockopt">setsockopt</a> option SO_BROADCAST is not enabled.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEADDRINUSE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Only one usage of each socket address (protocol/network address/port) is normally permitted.
+     * 
+     * This error is returned if a process on the computer is already bound to the same fully qualified address and the socket has not been marked to allow address reuse with SO_REUSEADDR. For example, the IP address and port specified in the <i>name</i> parameter are already bound to another socket being used by another application. For more information, see the SO_REUSEADDR socket option in the <a href="https://docs.microsoft.com/windows/desktop/WinSock/sol-socket-socket-options">SOL_SOCKET Socket Options</a> reference,  <a href="https://docs.microsoft.com/windows/desktop/WinSock/using-so-reuseaddr-and-so-exclusiveaddruse">Using SO_REUSEADDR and SO_EXCLUSIVEADDRUSE</a>, and <a href="https://docs.microsoft.com/windows/desktop/WinSock/so-exclusiveaddruse">SO_EXCLUSIVEADDRUSE</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEADDRNOTAVAIL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The requested address is not valid in its context.
+     * 
+     * This error is returned if the specified address pointed to by the <i>name</i> parameter is not a valid local IP address on this computer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The system detected an invalid pointer address in attempting to use a pointer argument in a call.
+     * 
+     * This error is returned if the <i>name</i> parameter is NULL, the <i>name</i> or <i>namelen</i> parameter is not a valid part of the user address space, the <i>namelen</i> parameter is too small, the <i>name</i> parameter contains an incorrect address format for the associated address family, or the first two bytes of the memory block specified by <i>name</i> do not match the address family associated with the socket descriptor <i>s</i>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An invalid argument was supplied.
+     * 
+     * This error is returned of the socket <i>s</i> is already bound to an address.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOBUFS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Typically, <b>WSAENOBUFS</b> is an indication that there aren't enough ephemeral ports to allocate for the bind.
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An operation was attempted on something that is not a socket.
+     * 
+     * This error is returned if the descriptor in the <i>s</i> parameter is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock/nf-winsock-bind
      * @since windows8.1
      */
     static bind(s, name, namelen) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\bind", "ptr", s, "ptr", name, "int", namelen)
+        result := DllCall("WS2_32.dll\bind", "ptr", s, "ptr", name, "int", namelen)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -6794,17 +7871,96 @@ class WinSock {
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {Pointer} s A descriptor identifying the socket to close.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>closesocket</b> returns zero. Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINTR</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The (blocking) Windows Socket 1.1 call was canceled through 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsacancelblockingcall">WSACancelBlockingCall</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEWOULDBLOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is marked as nonblocking, but the 
+     *  <b>l_onoff</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winsock/ns-winsock-linger">linger</a> structure is set to nonzero and the <b>l_linger</b> member of the <b>linger</b> structure is set to a nonzero timeout value.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock/nf-winsock-closesocket
      * @since windows8.1
      */
     static closesocket(s) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\closesocket", "ptr", s)
+        result := DllCall("WS2_32.dll\closesocket", "ptr", s)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -6876,20 +8032,286 @@ class WinSock {
      * 
      * ```cpp
      * @param {Pointer} s A descriptor identifying an unconnected socket.
-     * @param {Pointer<SOCKADDR>} name A pointer to the 
+     * @param {Pointer} name A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure to which the connection should be established.
      * @param {Integer} namelen The length, in bytes, of the <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure pointed to by the <i>name</i> parameter.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>connect</b> returns zero. Otherwise, it returns SOCKET_ERROR, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * On a blocking socket, the return value indicates success or failure of the connection attempt.
+     * 
+     * 
+     * With a nonblocking socket, the connection attempt cannot be completed immediately. In this case, 
+     * <b>connect</b> will return SOCKET_ERROR, and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> will return 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEWOULDBLOCK</a>. In this case, there are three possible scenarios:
+     * 
+     * <ul>
+     * <li>Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-select">select</a> function to determine the completion of the connection request by checking to see if the socket is writable.</li>
+     * <li>If the application is using 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsaasyncselect">WSAAsyncSelect</a> to indicate interest in connection events, then the application will receive an FD_CONNECT notification indicating that the 
+     * <b>connect</b> operation is complete (successfully or not).</li>
+     * <li>If the application is using 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaeventselect">WSAEventSelect</a> to indicate interest in connection events, then the associated event object will be signaled indicating that the 
+     * <b>connect</b> operation is complete (successfully or not).</li>
+     * </ul>
+     * 
+     * 
+     * Until the connection attempt completes on a nonblocking socket, all subsequent calls to 
+     * <b>connect</b> on the same socket will fail with the error code 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEALREADY</a>, and 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEISCONN</a> when the connection completes successfully. Due to ambiguities in version 1.1 of the Windows Sockets specification, error codes returned from 
+     * <b>connect</b> while a connection is already pending may vary among implementations. As a result, it is not recommended that applications use multiple calls to connect to detect connection completion. If they do, they must be prepared to handle 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEWOULDBLOCK</a> error values the same way that they handle 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEALREADY</a>, to assure robust operation.
+     * 
+     * If the error code returned indicates the connection attempt failed (that is, 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECONNREFUSED</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETUNREACH</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAETIMEDOUT</a>) the application can call 
+     * <b>connect</b> again for the same socket.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEADDRINUSE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket's local address is already in use and the socket was not marked to allow address reuse with SO_REUSEADDR. This error usually occurs when executing 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-bind">bind</a>, but could be delayed until the <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-connect">connect</a> function if the 
+     * <b>bind</b> was to a wildcard address (<b>INADDR_ANY</b> or <b>in6addr_any</b>) for the local IP address. A specific address needs to be implicitly bound by the <b>connect</b>  function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINTR</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The blocking Windows Socket 1.1 call was canceled through 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsacancelblockingcall">WSACancelBlockingCall</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEALREADY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonblocking 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-connect">connect</a> call is in progress on the specified socket.
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  In order to preserve backward compatibility, this error is reported as 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a> to Windows Sockets 1.1 applications that link to either Winsock.dll or Wsock32.dll.</div>
+     * <div> </div>
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEADDRNOTAVAIL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The remote address is not a valid address (such as <b>INADDR_ANY</b> or <b>in6addr_any</b>) .
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEAFNOSUPPORT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Addresses in the specified family cannot be used with this socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECONNREFUSED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The attempt to connect was forcefully rejected.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure pointed to by the <i>name</i> contains incorrect address format for the associated address family  or the <i>namelen</i> parameter is too small. This error is also returned if the <b>sockaddr</b> structure pointed to by the <i>name</i> parameter with a length  specified in the <i>namelen</i> parameter is not in a valid part of the user address space. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The parameter <i>s</i> is a listening socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEISCONN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is already connected (connection-oriented sockets only).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETUNREACH</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network cannot be reached from this host at this time.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEHOSTUNREACH</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A socket operation was attempted to an unreachable host.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOBUFS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <div class="alert"><b>Note</b>  No buffer space is available. The socket cannot be connected.</div>
+     * <div> </div>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor specified in the <i>s</i> parameter is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAETIMEDOUT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An attempt to connect timed out without establishing a connection.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEWOULDBLOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is marked as nonblocking and the connection cannot be completed immediately.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEACCES</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An attempt to connect a datagram socket to broadcast address failed because 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-setsockopt">setsockopt</a> option SO_BROADCAST is not enabled.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-connect
      * @since windows6.0.6000
      */
     static connect(s, name, namelen) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\connect", "ptr", s, "ptr", name, "int", namelen)
+        result := DllCall("WS2_32.dll\connect", "ptr", s, "ptr", name, "int", namelen)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -6914,17 +8336,83 @@ class WinSock {
      * @param {Pointer} s A descriptor identifying a socket.
      * @param {Integer} cmd A command to perform on the socket <i>s</i>.
      * @param {Pointer<UInt32>} argp A pointer to a parameter for <i>cmd</i>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} Upon successful completion, the 
+     * <b>ioctlsocket</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor <i>s</i> is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>argp</i> parameter is not a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock/nf-winsock-ioctlsocket
      * @since windows8.1
      */
     static ioctlsocket(s, cmd, argp) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\ioctlsocket", "ptr", s, "int", cmd, "ptr", argp)
+        result := DllCall("WS2_32.dll\ioctlsocket", "ptr", s, "int", cmd, "uint*", argp)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -6945,20 +8433,97 @@ class WinSock {
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {Pointer} s A descriptor identifying a connected socket.
-     * @param {Pointer<SOCKADDR>} name The 
+     * @param {Pointer} name The 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">SOCKADDR</a> structure that receives the address of the peer.
      * @param {Pointer<Int32>} namelen A pointer to the size, in bytes, of the <i>name</i> parameter.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>getpeername</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>name</i> or the <i>namelen</i> parameter is not in a valid part of the user address space, or the <i>namelen</i> parameter is too small.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTCONN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is not connected.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock/nf-winsock-getpeername
      * @since windows8.1
      */
     static getpeername(s, name, namelen) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\getpeername", "ptr", s, "ptr", name, "ptr", namelen)
+        result := DllCall("WS2_32.dll\getpeername", "ptr", s, "ptr", name, "int*", namelen)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -6981,20 +8546,99 @@ class WinSock {
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {Pointer} s Descriptor identifying a socket.
-     * @param {Pointer<SOCKADDR>} name Pointer to a 
+     * @param {Pointer} name Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">SOCKADDR</a> structure that receives the address (name) of the socket.
      * @param {Pointer<Int32>} namelen Size of the <i>name</i> buffer, in bytes.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>getsockname</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this API.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>name</i> or the <i>namelen</i> parameter is not a valid part of the user address space, or the <i>namelen</i> parameter is too small.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket has not been bound to an address with 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-bind">bind</a>, or ADDR_ANY is specified in 
+     * <b>bind</b> but connection has not yet occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock/nf-winsock-getsockname
      * @since windows8.1
      */
     static getsockname(s, name, namelen) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\getsockname", "ptr", s, "ptr", name, "ptr", namelen)
+        result := DllCall("WS2_32.dll\getsockname", "ptr", s, "ptr", name, "int*", namelen)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -7441,21 +9085,107 @@ class WinSock {
      * @param {Pointer} s A descriptor identifying a socket.
      * @param {Integer} level The level at which the option is defined. Example:  <a href="https://docs.microsoft.com/windows/desktop/WinSock/sol-socket-socket-options">SOL_SOCKET</a>.
      * @param {Integer} optname The socket option for which the value is to be retrieved. Example: <a href="https://docs.microsoft.com/windows/desktop/WinSock/socket-options-and-ioctls-2">SO_ACCEPTCONN</a>. The <i>optname</i> value must be a socket option defined within the specified <i>level</i>, or behavior is undefined.
-     * @param {Pointer<PSTR>} optval A pointer to the buffer in which the value for the requested option is to be returned.
+     * @param {Pointer} optval A pointer to the buffer in which the value for the requested option is to be returned.
      * @param {Pointer<Int32>} optlen A pointer to the size, in bytes, of the <i>optval</i> buffer.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>getsockopt</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <div class="alert"><b>Note</b>  The network subsystem has failed.</div>
+     * <div> </div>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the <i>optval</i> or the <i>optlen</i> parameters is not a valid part of the user address space, or the <i>optlen</i> parameter is too small.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>level</i> parameter is unknown or invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOPROTOOPT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The option is unknown or unsupported by the indicated protocol family.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock/nf-winsock-getsockopt
      * @since windows8.1
      */
     static getsockopt(s, level, optname, optval, optlen) {
-        optval := optval is String? StrPtr(optval) : optval
-
         A_LastError := 0
 
-        DllCall("WS2_32.dll\getsockopt", "ptr", s, "int", level, "int", optname, "ptr", optval, "ptr", optlen)
+        result := DllCall("WS2_32.dll\getsockopt", "ptr", s, "int", level, "int", optname, "ptr", optval, "int*", optlen)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -7572,7 +9302,7 @@ class WinSock {
      * <b>Windows Phone 8:</b> This function is supported for Windows Phone Store apps on Windows Phone 8 and later.
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
-     * @param {Pointer<PSTR>} cp 
+     * @param {Pointer<Byte>} cp 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsipv6ok/nf-wsipv6ok-inet_addr
      * @deprecated
@@ -7606,7 +9336,7 @@ class WinSock {
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {Pointer} in_R 
-     * @returns {Pointer<PSTR>} 
+     * @returns {Pointer<Byte>} 
      * @see https://learn.microsoft.com/windows/win32/api/wsipv6ok/nf-wsipv6ok-inet_ntoa
      * @deprecated
      * @since windows8.1
@@ -7614,7 +9344,7 @@ class WinSock {
     static inet_ntoa(in_R) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\inet_ntoa", "ptr", in_R, "ptr")
+        result := DllCall("WS2_32.dll\inet_ntoa", "ptr", in_R, "char*")
         if(A_LastError)
             throw OSError()
 
@@ -7660,17 +9390,142 @@ class WinSock {
      * @param {Integer} backlog The maximum length of the queue of pending connections. If set to <b>SOMAXCONN</b>, the underlying service provider responsible for socket <i>s</i> will set the backlog to a maximum reasonable value. If set to <b>SOMAXCONN_HINT(N)</b> (where N is a number), the backlog value will be N, adjusted to be within the range (200, 65535). Note that <b>SOMAXCONN_HINT</b> can be used to set the backlog to a larger value than possible with SOMAXCONN.
      * 
      * <b>SOMAXCONN_HINT</b> is only supported by the Microsoft TCP/IP service provider. There is no standard provision to obtain the actual backlog value.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>listen</b> returns zero. Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEADDRINUSE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket's local address is already in use and the socket was not marked to allow address reuse with SO_REUSEADDR. This error usually occurs during execution of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-bind">bind</a> function, but could be delayed until this function if the 
+     * <b>bind</b> was to a partially wildcard address (involving ADDR_ANY) and if a specific address needs to be committed at the time of this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket has not been bound with 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-bind">bind</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEISCONN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is already connected.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEMFILE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No more socket descriptors are available.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOBUFS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No buffer space is available.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEOPNOTSUPP</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The referenced socket is not of a type that supports the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-listen">listen</a> operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-listen
      * @since windows8.1
      */
     static listen(s, backlog) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\listen", "ptr", s, "int", backlog)
+        result := DllCall("WS2_32.dll\listen", "ptr", s, "int", backlog)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -7812,22 +9667,212 @@ class WinSock {
      * 
      * ```cpp
      * @param {Pointer} s The descriptor that identifies a connected socket.
-     * @param {Pointer<PSTR>} buf A pointer to the buffer to receive the incoming data.
+     * @param {Pointer} buf A pointer to the buffer to receive the incoming data.
      * @param {Integer} len The length, in bytes, of the buffer pointed to by the <i>buf</i> parameter.
      * @param {Integer} flags A set of flags that influences the behavior of this function. See remarks below. See the Remarks section for details on the possible value for this parameter.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>recv</b> returns the number of bytes received and the buffer pointed to by the <i>buf</i> parameter will contain this data received. If the connection has been gracefully closed, the return value is zero.
+     * 
+     *  Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>buf</i> parameter is not completely contained in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTCONN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is not connected.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINTR</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The (blocking) call was canceled through 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsacancelblockingcall">WSACancelBlockingCall</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETRESET</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * For a connection-oriented socket, this error indicates that the connection has been broken due to <i>keep-alive</i> activity that detected a failure while the operation was in progress. For a datagram socket, this error indicates that the time to live has expired.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEOPNOTSUPP</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * MSG_OOB was specified, but the socket is not stream-style such as type SOCK_STREAM, OOB data is not supported in the communication domain associated with this socket, or the socket is unidirectional and supports only send operations.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAESHUTDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket has been shut down; it is not possible to receive on a socket after 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-shutdown">shutdown</a> has been invoked with <b>how</b> set to SD_RECEIVE or SD_BOTH.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEWOULDBLOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is marked as nonblocking and the receive operation would block.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEMSGSIZE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The message was too large to fit into the specified buffer and was truncated.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket has not been bound with 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-bind">bind</a>, or an unknown flag was specified, or MSG_OOB was specified for a socket with SO_OOBINLINE enabled or (for byte stream sockets only) <i>len</i> was zero or negative.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECONNABORTED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The virtual circuit was terminated due to a time-out or other failure. The application should close the socket as it is no longer usable.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAETIMEDOUT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The connection has been dropped because of a network failure or because the peer system failed to respond.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECONNRESET</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The virtual circuit was reset by the remote side executing a hard or abortive close. The application should close the socket as it is no longer usable. On a UDP-datagram socket, this error would indicate that a previous send operation resulted in an ICMP "Port Unreachable" message.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock/nf-winsock-recv
      * @since windows8.1
      */
     static recv(s, buf, len, flags) {
-        buf := buf is String? StrPtr(buf) : buf
-
         A_LastError := 0
 
-        DllCall("WS2_32.dll\recv", "ptr", s, "ptr", buf, "int", len, "int", flags)
+        result := DllCall("WS2_32.dll\recv", "ptr", s, "ptr", buf, "int", len, "int", flags)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -7891,25 +9936,204 @@ class WinSock {
      * 
      * ```cpp
      * @param {Pointer} s A descriptor identifying a bound socket.
-     * @param {Pointer<PSTR>} buf A buffer for the incoming data.
+     * @param {Pointer} buf A buffer for the incoming data.
      * @param {Integer} len The length, in bytes, of the buffer pointed to by the <i>buf</i> parameter.
      * @param {Integer} flags A set of options that modify the behavior of the function call beyond the options specified for the associated socket. See the Remarks below for more details.
-     * @param {Pointer<SOCKADDR>} from An optional pointer to a buffer in a 
+     * @param {Pointer} from An optional pointer to a buffer in a 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure that will hold the source address upon return.
      * @param {Pointer<Int32>} fromlen An optional pointer to the size, in bytes, of the buffer pointed to by the <i>from</i> parameter.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>recvfrom</b> returns the number of bytes received. If the connection has been gracefully closed, the return value is zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The buffer pointed to by the <i>buf</i> or <i>from</i> parameters are not in the  user address space, or the <i>fromlen</i> parameter is too small to accommodate the source address of the peer address.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINTR</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The (blocking) call was canceled through 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsacancelblockingcall">WSACancelBlockingCall</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket has not been bound with 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-bind">bind</a>, or an unknown flag was specified, or MSG_OOB was specified for a socket with SO_OOBINLINE enabled, or (for byte stream-style sockets only) <i>len</i> was zero or negative.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEISCONN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is connected. This function is not permitted with a connected socket, whether the socket is connection oriented or connectionless.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETRESET</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * For a datagram socket, this error indicates that the time to live has expired.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor in the <i>s</i> parameter is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEOPNOTSUPP</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * MSG_OOB was specified, but the socket is not stream-style such as type SOCK_STREAM, OOB data is not supported in the communication domain associated with this socket, or the socket is unidirectional and supports only send operations.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAESHUTDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket has been shut down; it is not possible to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-recvfrom">recvfrom</a> on a socket after 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-shutdown">shutdown</a> has been invoked with <i>how</i> set to SD_RECEIVE or SD_BOTH.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEWOULDBLOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is marked as nonblocking and the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-recvfrom">recvfrom</a> operation would block.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEMSGSIZE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The message was too large to fit into the buffer pointed to by the <i>buf</i> parameter and was truncated.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAETIMEDOUT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The connection has been dropped, because of a network failure or because the system on the other end went down without notice.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECONNRESET</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The virtual circuit was reset by the remote side executing a hard or abortive close. The application should close the socket;  it is no longer usable. On a UDP-datagram socket this error indicates  a previous send operation resulted in an ICMP <i>Port Unreachable</i> message.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock/nf-winsock-recvfrom
      * @since windows8.1
      */
     static recvfrom(s, buf, len, flags, from, fromlen) {
-        buf := buf is String? StrPtr(buf) : buf
-
         A_LastError := 0
 
-        DllCall("WS2_32.dll\recvfrom", "ptr", s, "ptr", buf, "int", len, "int", flags, "ptr", from, "ptr", fromlen)
+        result := DllCall("WS2_32.dll\recvfrom", "ptr", s, "ptr", buf, "int", len, "int", flags, "ptr", from, "int*", fromlen)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -8016,17 +10240,107 @@ class WinSock {
      * @param {Pointer<TIMEVAL>} timeout The maximum time for 
      * <b>select</b> to wait, provided in the form of a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/ns-winsock-timeval">TIMEVAL</a> structure. Set the <i>timeout</i> parameter to <b>null</b> for blocking operations.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The 
+     * <b>select</b> function returns the total number of socket handles that are ready and contained in the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-fd_set">fd_set</a> structures, zero if the time limit expired, or SOCKET_ERROR if an error occurred. If the return value is SOCKET_ERROR, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> can be used to retrieve a specific error code.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The Windows Sockets implementation was unable to allocate needed resources for its internal operations, or the <i>readfds</i>, <i>writefds</i>, <i>exceptfds</i>, or <i>timeval</i> parameters are not part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>time-out</i> value is not valid, or all three descriptor parameters were <b>null</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINTR</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Socket 1.1 call was canceled through 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsacancelblockingcall">WSACancelBlockingCall</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the descriptor sets contains an entry that is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-select
      * @since windows8.1
      */
     static select(nfds, readfds, writefds, exceptfds, timeout) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\select", "int", nfds, "ptr", readfds, "ptr", writefds, "ptr", exceptfds, "ptr", timeout)
+        result := DllCall("WS2_32.dll\select", "int", nfds, "ptr", readfds, "ptr", writefds, "ptr", exceptfds, "ptr", timeout)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -8063,22 +10377,244 @@ class WinSock {
      * 
      * ```cpp
      * @param {Pointer} s A descriptor identifying a connected socket.
-     * @param {Pointer<PSTR>} buf A pointer to a buffer containing the data to be transmitted.
+     * @param {Pointer} buf A pointer to a buffer containing the data to be transmitted.
      * @param {Integer} len The length, in bytes, of the data in buffer pointed to by the <i>buf</i> parameter.
      * @param {Integer} flags 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>send</b> returns the total number of bytes sent, which can be less than the number requested to be sent in the <i>len</i> parameter. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEACCES</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The requested address is a broadcast address, but the appropriate flag was not set. Call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-setsockopt">setsockopt</a> with the SO_BROADCAST socket option to enable use of the broadcast address.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINTR</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call was canceled through 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsacancelblockingcall">WSACancelBlockingCall</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>buf</i> parameter is not completely contained in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETRESET</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The connection has been broken due to the keep-alive activity detecting a failure while the operation was in progress.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOBUFS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No buffer space is available.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTCONN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is not connected.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEOPNOTSUPP</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * MSG_OOB was specified, but the socket is not stream-style such as type SOCK_STREAM, OOB data is not supported in the communication domain associated with this socket, or the socket is unidirectional and supports only receive operations.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAESHUTDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket has been shut down; it is not possible to send on a socket after 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-shutdown">shutdown</a> has been invoked with <i>how</i> set to SD_SEND or SD_BOTH.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEWOULDBLOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is marked as nonblocking and the requested operation would block.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEMSGSIZE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is message oriented, and the message is larger than the maximum supported by the underlying transport.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEHOSTUNREACH</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The remote host cannot be reached from this host at this time.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket has not been bound with 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-bind">bind</a>, or an unknown flag was specified, or MSG_OOB was specified for a socket with SO_OOBINLINE enabled.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECONNABORTED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The virtual circuit was terminated due to a time-out or other failure. The application should close the socket as it is no longer usable.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECONNRESET</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The virtual circuit was reset by the remote side executing a hard or abortive close. For UDP sockets, the remote host was unable to deliver a previously sent UDP datagram and responded with a "Port Unreachable" ICMP packet. The application should close the socket as it is no longer usable.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAETIMEDOUT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The connection has been dropped, because of a network failure or because the system on the other end went down without notice.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-send
      * @since windows8.1
      */
     static send(s, buf, len, flags) {
-        buf := buf is String? StrPtr(buf) : buf
-
         A_LastError := 0
 
-        DllCall("WS2_32.dll\send", "ptr", s, "ptr", buf, "int", len, "int", flags)
+        result := DllCall("WS2_32.dll\send", "ptr", s, "ptr", buf, "int", len, "int", flags)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -8120,25 +10656,301 @@ class WinSock {
      * 
      * ```cpp
      * @param {Pointer} s A descriptor identifying a (possibly connected) socket.
-     * @param {Pointer<PSTR>} buf A pointer to a buffer containing the data to be transmitted.
+     * @param {Pointer} buf A pointer to a buffer containing the data to be transmitted.
      * @param {Integer} len The length, in bytes, of the data pointed to by the <i>buf</i> parameter.
      * @param {Integer} flags A set of flags that specify the way in which the call is made.
-     * @param {Pointer<SOCKADDR>} to An optional pointer to a 
+     * @param {Pointer} to An optional pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure that contains the address of the target socket.
      * @param {Integer} tolen The size, in bytes, of the address pointed to by the <i>to</i> parameter.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>sendto</b> returns the total number of bytes sent, which can be less than the number indicated by <i>len</i>. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEACCES</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The requested address is a broadcast address, but the appropriate flag was not set. Call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-setsockopt">setsockopt</a> with the SO_BROADCAST parameter to allow the use of the broadcast address.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unknown flag was specified, or MSG_OOB was specified for a socket with SO_OOBINLINE enabled.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINTR</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call was canceled through 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsacancelblockingcall">WSACancelBlockingCall</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>buf</i> or <i>to</i> parameters are not part of the user address space, or the <i>tolen</i> parameter is too small.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETRESET</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The connection has been broken due to keep-alive activity detecting a failure while the operation was in progress.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOBUFS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No buffer space is available.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTCONN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is not connected (connection-oriented sockets only).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEOPNOTSUPP</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * MSG_OOB was specified, but the socket is not stream-style such as type SOCK_STREAM, OOB data is not supported in the communication domain associated with this socket, or the socket is unidirectional and supports only receive operations.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAESHUTDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket has been shut down; it is not possible to sendto on a socket after 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-shutdown">shutdown</a> has been invoked with <i>how</i> set to SD_SEND or SD_BOTH.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEWOULDBLOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is marked as nonblocking and the requested operation would block.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEMSGSIZE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is message oriented, and the message is larger than the maximum supported by the underlying transport.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEHOSTUNREACH</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The remote host cannot be reached from this host at this time.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECONNABORTED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The virtual circuit was terminated due to a time-out or other failure. The application should close the socket as it is no longer usable.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECONNRESET</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The virtual circuit was reset by the remote side executing a hard or abortive close. For UDP sockets, the remote host was unable to deliver a previously sent UDP datagram and responded with a "Port Unreachable" ICMP packet. The application should close the socket as it is no longer usable.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEADDRNOTAVAIL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The remote address is not a valid address, for example, ADDR_ANY.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEAFNOSUPPORT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Addresses in the specified family cannot be used with this socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEDESTADDRREQ</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A destination address is required.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETUNREACH</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network cannot be reached from this host at this time.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEHOSTUNREACH</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A socket operation was attempted to an unreachable host.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAETIMEDOUT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The connection has been dropped, because of a network failure or because the system on the other end went down without notice.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock/nf-winsock-sendto
      * @since windows8.1
      */
     static sendto(s, buf, len, flags, to, tolen) {
-        buf := buf is String? StrPtr(buf) : buf
-
         A_LastError := 0
 
-        DllCall("WS2_32.dll\sendto", "ptr", s, "ptr", buf, "int", len, "int", flags, "ptr", to, "int", tolen)
+        result := DllCall("WS2_32.dll\sendto", "ptr", s, "ptr", buf, "int", len, "int", flags, "ptr", to, "int", tolen)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -8371,21 +11183,129 @@ class WinSock {
      * @param {Pointer} s A descriptor that identifies a socket.
      * @param {Integer} level The level at which the option is defined (for example, SOL_SOCKET).
      * @param {Integer} optname The socket option for which the value is to be set (for example, SO_BROADCAST). The <i>optname</i> parameter must be a socket option defined within the specified <i>level</i>, or behavior is undefined.
-     * @param {Pointer<PSTR>} optval A pointer to the buffer in which the value for the requested option is specified.
+     * @param {Pointer} optval A pointer to the buffer in which the value for the requested option is specified.
      * @param {Integer} optlen The size, in bytes, of the buffer pointed to by the <i>optval</i> parameter.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>setsockopt</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The buffer pointed to by the <i>optval</i> parameter is not in a valid part of the process address space or the  <i>optlen</i> parameter is too small.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>level</i> parameter is not valid, or the information in the buffer pointed to by the <i>optval</i> parameter is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETRESET</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The connection has timed out when <a href="https://docs.microsoft.com/windows/desktop/WinSock/so-keepalive">SO_KEEPALIVE</a> is set.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOPROTOOPT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The option is unknown or unsupported for the specified provider or socket (see SO_GROUP_PRIORITY limitations).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTCONN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The connection has been reset when <a href="https://docs.microsoft.com/windows/desktop/WinSock/so-keepalive">SO_KEEPALIVE</a> is set.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock/nf-winsock-setsockopt
      * @since windows8.1
      */
     static setsockopt(s, level, optname, optval, optlen) {
-        optval := optval is String? StrPtr(optval) : optval
-
         A_LastError := 0
 
-        DllCall("WS2_32.dll\setsockopt", "ptr", s, "int", level, "int", optname, "ptr", optval, "int", optlen)
+        result := DllCall("WS2_32.dll\setsockopt", "ptr", s, "int", level, "int", optname, "ptr", optval, "int", optlen)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -8510,17 +11430,120 @@ class WinSock {
      * </td>
      * </tr>
      * </table>
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>shutdown</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECONNABORTED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The virtual circuit was terminated due to a time-out or other failure. The application should close the socket as it is no longer usable.
+     * 
+     *  This error applies only to a connection-oriented socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECONNRESET</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The virtual circuit was reset by the remote side executing a hard or abortive close. The application should close the socket as it is no longer usable. 
+     * 
+     * This error applies only to a connection-oriented socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>how</i> parameter is not valid, or is not consistent with the socket type. For example, SD_SEND is used with a UNI_RECV socket type.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTCONN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is not connected.  This error applies only to a connection-oriented socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <div class="alert"><b>Note</b>  The descriptor is not a socket.</div>
+     * <div> </div>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock/nf-winsock-shutdown
      * @since windows8.1
      */
     static shutdown(s, how) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\shutdown", "ptr", s, "int", how)
+        result := DllCall("WS2_32.dll\shutdown", "ptr", s, "int", how)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -9082,7 +12105,7 @@ class WinSock {
      * 
      * 
      * ```cpp
-     * @param {Pointer<PSTR>} addr 
+     * @param {Pointer} addr 
      * @param {Integer} len 
      * @param {Integer} type 
      * @returns {Pointer<HOSTENT>} 
@@ -9091,8 +12114,6 @@ class WinSock {
      * @since windows8.1
      */
     static gethostbyaddr(addr, len, type) {
-        addr := addr is String? StrPtr(addr) : addr
-
         A_LastError := 0
 
         result := DllCall("WS2_32.dll\gethostbyaddr", "ptr", addr, "int", len, "int", type, "ptr")
@@ -9138,7 +12159,7 @@ class WinSock {
      * 
      * 
      * ```cpp
-     * @param {Pointer<PSTR>} name 
+     * @param {Pointer<Byte>} name 
      * @returns {Pointer<HOSTENT>} 
      * @see https://learn.microsoft.com/windows/win32/api/wsipv6ok/nf-wsipv6ok-gethostbyname
      * @deprecated
@@ -9187,21 +12208,74 @@ class WinSock {
      * <b>Windows Phone 8:</b> This function is supported for Windows Phone Store apps on Windows Phone 8 and later.
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
-     * @param {Pointer<PSTR>} name A pointer to a buffer that receives the local host name.
+     * @param {Pointer} name A pointer to a buffer that receives the local host name.
      * @param {Integer} namelen The length, in bytes, of the buffer pointed to by the <i>name</i> parameter.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>gethostname</b> returns zero. Otherwise, it returns SOCKET_ERROR and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>name</i> parameter is a <b>NULL</b> pointer or is not a valid part of the user address space. This error is also returned if the buffer size specified by <i>namelen</i> parameter is too small to hold the complete host name.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock/nf-winsock-gethostname
      * @since windows8.1
      */
     static gethostname(name, namelen) {
-        name := name is String? StrPtr(name) : name
-
         A_LastError := 0
 
-        DllCall("WS2_32.dll\gethostname", "ptr", name, "int", namelen)
+        result := DllCall("WS2_32.dll\gethostname", "ptr", name, "int", namelen)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -9234,9 +12308,52 @@ class WinSock {
      * <b>Windows Phone 8:</b> This function is supported for Windows Phone Store apps on Windows Phone 8 and later.
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
-     * @param {Pointer<PWSTR>} name A pointer to a buffer that receives the local host name as a <b>null</b>-terminated Unicode string.
+     * @param {Pointer<Char>} name A pointer to a buffer that receives the local host name as a <b>null</b>-terminated Unicode string.
      * @param {Integer} namelen The length, in wide characters, of the buffer pointed to by the <i>name</i> parameter.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>GetHostNameW</b> returns zero. Otherwise, it returns <b>SOCKET_ERROR</b> and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>name</i> parameter is a <b>NULL</b> pointer or is not a valid part of the user address space. This error is also returned if the buffer size specified by <i>namelen</i> parameter is too small to hold the complete host name.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-gethostnamew
      * @since windows8.1
      */
@@ -9245,10 +12362,11 @@ class WinSock {
 
         A_LastError := 0
 
-        DllCall("WS2_32.dll\GetHostNameW", "ptr", name, "int", namelen)
+        result := DllCall("WS2_32.dll\GetHostNameW", "ptr", name, "int", namelen)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -9266,7 +12384,7 @@ class WinSock {
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {Integer} port Port for a service, in network byte order.
-     * @param {Pointer<PSTR>} proto Optional pointer to a protocol name. If this is null, 
+     * @param {Pointer<Byte>} proto Optional pointer to a protocol name. If this is null, 
      * <b>getservbyport</b> returns the first service entry for which the <i>port</i> matches the <b>s_port</b> of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/ns-winsock-servent">servent</a> structure. Otherwise, 
      * <b>getservbyport</b> matches both the <i>port</i> and the <i>proto</i> parameters.
@@ -9410,8 +12528,8 @@ class WinSock {
      * <b>Windows Phone 8:</b> This function is supported for Windows Phone Store apps on Windows Phone 8 and later.
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
-     * @param {Pointer<PSTR>} name A pointer to a <b>null</b>-terminated service name.
-     * @param {Pointer<PSTR>} proto A pointer to a <b>null</b>-terminated protocol name. If this pointer is <b>NULL</b>, 
+     * @param {Pointer<Byte>} name A pointer to a <b>null</b>-terminated service name.
+     * @param {Pointer<Byte>} proto A pointer to a <b>null</b>-terminated protocol name. If this pointer is <b>NULL</b>, 
      * the <b>getservbyname</b> function returns the first service entry where <i>name</i> matches the <b>s_name</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/ns-winsock-servent">servent</a> structure or the <b>s_aliases</b> member of the 
      * <b>servent</b> structure. Otherwise, 
@@ -9673,7 +12791,7 @@ class WinSock {
      * <b>Windows Phone 8:</b> This function is supported for Windows Phone Store apps on Windows Phone 8 and later.
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
-     * @param {Pointer<PSTR>} name Pointer to a null-terminated protocol name.
+     * @param {Pointer<Byte>} name Pointer to a null-terminated protocol name.
      * @returns {Pointer<PROTOENT>} If no error occurs, 
      * <b>getprotobyname</b> returns a pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/ns-winsock-protoent">protoent</a>. Otherwise, it returns a null pointer and a specific error number can be retrieved by calling 
@@ -9981,17 +13099,84 @@ class WinSock {
      * @param {Integer} wVersionRequested 
      * @param {Pointer<WSADATA>} lpWSAData A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/ns-winsock-wsadata">WSADATA</a> data structure that is to receive details of the Windows Sockets implementation.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If successful, the 
+     * <b>WSAStartup</b> function returns zero. Otherwise, it returns one of the error codes listed below. 
+     * 
+     * The <b>WSAStartup</b> function directly returns the extended error code in the return value for this function. A call to the <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> function is not needed and should  not be used.
+     * 					
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSASYSNOTREADY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The underlying network subsystem is not ready for network communication.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAVERNOTSUPPORTED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The version of Windows Sockets support requested is not provided by this particular Windows Sockets implementation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 operation is in progress.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEPROCLIM</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A limit on the number of tasks supported by the Windows Sockets implementation has been reached.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpWSAData</i> parameter is not a valid pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock/nf-winsock-wsastartup
      * @since windows8.1
      */
     static WSAStartup(wVersionRequested, lpWSAData) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAStartup", "ushort", wVersionRequested, "ptr", lpWSAData)
+        result := DllCall("WS2_32.dll\WSAStartup", "ushort", wVersionRequested, "ptr", lpWSAData)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -10031,17 +13216,63 @@ class WinSock {
      * <b>Windows Phone 8:</b> This function is supported for Windows Phone Store apps on Windows Phone 8 and later.
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * In a multithreaded environment, 
+     * <b>WSACleanup</b> terminates Windows Sockets operations for all threads.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock/nf-winsock-wsacleanup
      * @since windows8.1
      */
     static WSACleanup() {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSACleanup")
+        result := DllCall("WS2_32.dll\WSACleanup")
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -10062,17 +13293,37 @@ class WinSock {
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {Integer} iError Integer that specifies the error code to be returned by a subsequent 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> call.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} This function generates no return values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock/nf-winsock-wsasetlasterror
      * @since windows8.1
      */
     static WSASetLastError(iError) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSASetLastError", "int", iError)
+        result := DllCall("WS2_32.dll\WSASetLastError", "int", iError)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -10137,17 +13388,18 @@ class WinSock {
 
     /**
      * This function has been removed in compliance with the Windows Sockets 2 specification, revision 2.2.0. (WSAUnhookBlockingHook)
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsaunhookblockinghook
      * @deprecated
      */
     static WSAUnhookBlockingHook() {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAUnhookBlockingHook")
+        result := DllCall("WS2_32.dll\WSAUnhookBlockingHook")
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -10169,17 +13421,18 @@ class WinSock {
 
     /**
      * The WSACancelBlockingCall function has been removed in compliance with the Windows Sockets 2 specification, revision 2.2.0.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsacancelblockingcall
      * @deprecated
      */
     static WSACancelBlockingCall() {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSACancelBlockingCall")
+        result := DllCall("WS2_32.dll\WSACancelBlockingCall")
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -10206,19 +13459,19 @@ class WinSock {
      * 
      * 
      * ```cpp
-     * @param {Pointer<HWND>} hWnd Handle of the window that should receive a message when the asynchronous request completes.
+     * @param {Pointer<Void>} hWnd Handle of the window that should receive a message when the asynchronous request completes.
      * @param {Integer} wMsg Message to be received when the asynchronous request completes.
-     * @param {Pointer<PSTR>} name Pointer to a <b>null</b>-terminated service name.
-     * @param {Pointer<PSTR>} proto Pointer to a protocol name. This can be <b>NULL</b>, in which case 
+     * @param {Pointer<Byte>} name Pointer to a <b>null</b>-terminated service name.
+     * @param {Pointer<Byte>} proto Pointer to a protocol name. This can be <b>NULL</b>, in which case 
      * <b>WSAAsyncGetServByName</b> will search for the first service entry for which <i>s_name</i> or one of the <i>s_aliases</i> matches the given <i>name</i>. Otherwise, 
      * <b>WSAAsyncGetServByName</b> matches both <i>name</i> and <i>proto</i>.
-     * @param {Pointer<PSTR>} buf Pointer to the data area to receive the 
+     * @param {Pointer} buf Pointer to the data area to receive the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/ns-winsock-servent">servent</a> data. The data area must be larger than the size of a 
      * <b>servent</b> structure because the data area is used by Windows Sockets to contain a 
      * <b>servent</b> structure and all of the data that is referenced by members of the 
      * <b>servent</b> structure. A buffer of MAXGETHOSTSTRUCT bytes is recommended.
      * @param {Integer} buflen Size of data area for the <i>buf</i> parameter, in bytes.
-     * @returns {Pointer<HANDLE>} The return value specifies whether or not the asynchronous operation was successfully initiated. It does not imply success or failure of the operation itself.
+     * @returns {Pointer<Void>} The return value specifies whether or not the asynchronous operation was successfully initiated. It does not imply success or failure of the operation itself.
      * 
      * If no error occurs, 
      * <b>WSAAsyncGetServByName</b> returns a nonzero value of type <b>HANDLE</b> that is the asynchronous task handle for the request (not to be confused with a Windows HTASK). This value can be used in two ways. It can be used to cancel the operation using 
@@ -10346,11 +13599,10 @@ class WinSock {
     static WSAAsyncGetServByName(hWnd, wMsg, name, proto, buf, buflen) {
         name := name is String? StrPtr(name) : name
         proto := proto is String? StrPtr(proto) : proto
-        buf := buf is String? StrPtr(buf) : buf
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAAsyncGetServByName", "ptr", hWnd, "uint", wMsg, "ptr", name, "ptr", proto, "ptr", buf, "int", buflen, "ptr")
+        result := DllCall("WS2_32.dll\WSAAsyncGetServByName", "ptr", hWnd, "uint", wMsg, "ptr", name, "ptr", proto, "ptr", buf, "int", buflen)
         if(A_LastError)
             throw OSError()
 
@@ -10383,19 +13635,19 @@ class WinSock {
      * 
      * 
      * ```cpp
-     * @param {Pointer<HWND>} hWnd Handle of the window that should receive a message when the asynchronous request completes.
+     * @param {Pointer<Void>} hWnd Handle of the window that should receive a message when the asynchronous request completes.
      * @param {Integer} wMsg Message to be received when the asynchronous request completes.
      * @param {Integer} port Port for the service, in network byte order.
-     * @param {Pointer<PSTR>} proto Pointer to a protocol name. This can be <b>NULL</b>, in which case 
+     * @param {Pointer<Byte>} proto Pointer to a protocol name. This can be <b>NULL</b>, in which case 
      * <b>WSAAsyncGetServByPort</b> will search for the first service entry for which <i>s_port</i> match the given <i>port</i>. Otherwise, 
      * <b>WSAAsyncGetServByPort</b> matches both <i>port</i> and <i>proto</i>.
-     * @param {Pointer<PSTR>} buf Pointer to the data area to receive the 
+     * @param {Pointer} buf Pointer to the data area to receive the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/ns-winsock-servent">servent</a> data. The data area must be larger than the size of a 
      * <b>servent</b> structure because the data area is used by Windows Sockets to contain a 
      * <b>servent</b> structure and all of the data that is referenced by members of the 
      * <b>servent</b> structure. A buffer of MAXGETHOSTSTRUCT bytes is recommended.
      * @param {Integer} buflen Size of data area for the <i>buf</i> parameter, in bytes.
-     * @returns {Pointer<HANDLE>} The return value specifies whether or not the asynchronous operation was successfully initiated. It does not imply success or failure of the operation itself.
+     * @returns {Pointer<Void>} The return value specifies whether or not the asynchronous operation was successfully initiated. It does not imply success or failure of the operation itself.
      * 
      * If no error occurs, 
      * <b>WSAAsyncGetServByPort</b> returns a nonzero value of type <b>HANDLE</b> that is the asynchronous task handle for the request (not to be confused with a Windows HTASK). This value can be used in two ways. It can be used to cancel the operation using 
@@ -10523,11 +13775,10 @@ class WinSock {
      */
     static WSAAsyncGetServByPort(hWnd, wMsg, port, proto, buf, buflen) {
         proto := proto is String? StrPtr(proto) : proto
-        buf := buf is String? StrPtr(buf) : buf
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAAsyncGetServByPort", "ptr", hWnd, "uint", wMsg, "int", port, "ptr", proto, "ptr", buf, "int", buflen, "ptr")
+        result := DllCall("WS2_32.dll\WSAAsyncGetServByPort", "ptr", hWnd, "uint", wMsg, "int", port, "ptr", proto, "ptr", buf, "int", buflen)
         if(A_LastError)
             throw OSError()
 
@@ -10559,16 +13810,16 @@ class WinSock {
      * 
      * 
      * ```cpp
-     * @param {Pointer<HWND>} hWnd Handle of the window that will receive a message when the asynchronous request completes.
+     * @param {Pointer<Void>} hWnd Handle of the window that will receive a message when the asynchronous request completes.
      * @param {Integer} wMsg Message to be received when the asynchronous request completes.
-     * @param {Pointer<PSTR>} name Pointer to the null-terminated protocol name to be resolved.
-     * @param {Pointer<PSTR>} buf Pointer to the data area to receive the 
+     * @param {Pointer<Byte>} name Pointer to the null-terminated protocol name to be resolved.
+     * @param {Pointer} buf Pointer to the data area to receive the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/ns-winsock-protoent">protoent</a> data. The data area must be larger than the size of a 
      * <b>protoent</b> structure because the data area is used by Windows Sockets to contain a 
      * <b>protoent</b> structure and all of the data that is referenced by members of the 
      * <b>protoent</b> structure. A buffer of MAXGETHOSTSTRUCT bytes is recommended.
      * @param {Integer} buflen Size of data area for the <i>buf</i> parameter, in bytes.
-     * @returns {Pointer<HANDLE>} The return value specifies whether or not the asynchronous operation was successfully initiated. It does not imply success or failure of the operation itself.
+     * @returns {Pointer<Void>} The return value specifies whether or not the asynchronous operation was successfully initiated. It does not imply success or failure of the operation itself.
      * 
      * If no error occurs, 
      * <b>WSAAsyncGetProtoByName</b> returns a nonzero value of type HANDLE that is the asynchronous task handle for the request (not to be confused with a Windows HTASK). This value can be used in two ways. It can be used to cancel the operation using 
@@ -10696,11 +13947,10 @@ class WinSock {
      */
     static WSAAsyncGetProtoByName(hWnd, wMsg, name, buf, buflen) {
         name := name is String? StrPtr(name) : name
-        buf := buf is String? StrPtr(buf) : buf
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAAsyncGetProtoByName", "ptr", hWnd, "uint", wMsg, "ptr", name, "ptr", buf, "int", buflen, "ptr")
+        result := DllCall("WS2_32.dll\WSAAsyncGetProtoByName", "ptr", hWnd, "uint", wMsg, "ptr", name, "ptr", buf, "int", buflen)
         if(A_LastError)
             throw OSError()
 
@@ -10732,16 +13982,16 @@ class WinSock {
      * 
      * 
      * ```cpp
-     * @param {Pointer<HWND>} hWnd Handle of the window that will receive a message when the asynchronous request completes.
+     * @param {Pointer<Void>} hWnd Handle of the window that will receive a message when the asynchronous request completes.
      * @param {Integer} wMsg Message to be received when the asynchronous request completes.
      * @param {Integer} number Protocol number to be resolved, in host byte order.
-     * @param {Pointer<PSTR>} buf Pointer to the data area to receive the 
+     * @param {Pointer} buf Pointer to the data area to receive the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/ns-winsock-protoent">protoent</a> data. The data area must be larger than the size of a 
      * <b>protoent</b> structure because the data area is used by Windows Sockets to contain a 
      * <b>protoent</b> structure and all of the data that is referenced by members of the 
      * <b>protoent</b> structure. A buffer of MAXGETHOSTSTRUCT bytes is recommended.
      * @param {Integer} buflen Size of data area for the <i>buf</i> parameter, in bytes.
-     * @returns {Pointer<HANDLE>} The return value specifies whether or not the asynchronous operation was successfully initiated. It does not imply success or failure of the operation itself.
+     * @returns {Pointer<Void>} The return value specifies whether or not the asynchronous operation was successfully initiated. It does not imply success or failure of the operation itself.
      * 
      * If no error occurs, 
      * <b>WSAAsyncGetProtoByNumber</b> returns a nonzero value of type <b>HANDLE</b> that is the asynchronous task handle for the request (not to be confused with a Windows HTASK). This value can be used in two ways. It can be used to cancel the operation using 
@@ -10868,11 +14118,9 @@ class WinSock {
      * @since windows5.0
      */
     static WSAAsyncGetProtoByNumber(hWnd, wMsg, number, buf, buflen) {
-        buf := buf is String? StrPtr(buf) : buf
-
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAAsyncGetProtoByNumber", "ptr", hWnd, "uint", wMsg, "int", number, "ptr", buf, "int", buflen, "ptr")
+        result := DllCall("WS2_32.dll\WSAAsyncGetProtoByNumber", "ptr", hWnd, "uint", wMsg, "int", number, "ptr", buf, "int", buflen)
         if(A_LastError)
             throw OSError()
 
@@ -10905,23 +14153,22 @@ class WinSock {
      * 
      * 
      * ```cpp
-     * @param {Pointer<HWND>} hWnd 
+     * @param {Pointer<Void>} hWnd 
      * @param {Integer} wMsg 
-     * @param {Pointer<PSTR>} name 
-     * @param {Pointer<PSTR>} buf 
+     * @param {Pointer<Byte>} name 
+     * @param {Pointer} buf 
      * @param {Integer} buflen 
-     * @returns {Pointer<HANDLE>} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/wsipv6ok/nf-wsipv6ok-wsaasyncgethostbyname
      * @deprecated
      * @since windows5.0
      */
     static WSAAsyncGetHostByName(hWnd, wMsg, name, buf, buflen) {
         name := name is String? StrPtr(name) : name
-        buf := buf is String? StrPtr(buf) : buf
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAAsyncGetHostByName", "ptr", hWnd, "uint", wMsg, "ptr", name, "ptr", buf, "int", buflen, "ptr")
+        result := DllCall("WS2_32.dll\WSAAsyncGetHostByName", "ptr", hWnd, "uint", wMsg, "ptr", name, "ptr", buf, "int", buflen)
         if(A_LastError)
             throw OSError()
 
@@ -10953,25 +14200,22 @@ class WinSock {
      * 
      * 
      * ```cpp
-     * @param {Pointer<HWND>} hWnd 
+     * @param {Pointer<Void>} hWnd 
      * @param {Integer} wMsg 
-     * @param {Pointer<PSTR>} addr 
+     * @param {Pointer} addr 
      * @param {Integer} len 
      * @param {Integer} type 
-     * @param {Pointer<PSTR>} buf 
+     * @param {Pointer} buf 
      * @param {Integer} buflen 
-     * @returns {Pointer<HANDLE>} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/wsipv6ok/nf-wsipv6ok-wsaasyncgethostbyaddr
      * @deprecated
      * @since windows5.0
      */
     static WSAAsyncGetHostByAddr(hWnd, wMsg, addr, len, type, buf, buflen) {
-        addr := addr is String? StrPtr(addr) : addr
-        buf := buf is String? StrPtr(buf) : buf
-
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAAsyncGetHostByAddr", "ptr", hWnd, "uint", wMsg, "ptr", addr, "int", len, "int", type, "ptr", buf, "int", buflen, "ptr")
+        result := DllCall("WS2_32.dll\WSAAsyncGetHostByAddr", "ptr", hWnd, "uint", wMsg, "ptr", addr, "int", len, "int", type, "ptr", buf, "int", buflen)
         if(A_LastError)
             throw OSError()
 
@@ -10987,8 +14231,79 @@ class WinSock {
      * 
      * An attempt to cancel an existing asynchronous <b>WSAAsyncGetXByY</b> operation can fail with an error code of 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEALREADY</a> for two reasons. First, the original operation has already completed and the application has dealt with the resultant message. Second, the original operation has already completed but the resultant message is still waiting in the application window queue.
-     * @param {Pointer<HANDLE>} hAsyncTaskHandle Handle that specifies the asynchronous operation to be canceled.
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Void>} hAsyncTaskHandle Handle that specifies the asynchronous operation to be canceled.
+     * @returns {Pointer} The value returned by 
+     * <b>WSACancelAsyncRequest</b> is zero if the operation was successfully canceled. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Indicates that the specified asynchronous task handle was invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEALREADY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The asynchronous routine being canceled has already completed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * <div class="alert"><b>Note</b>  It is unclear whether the application can usefully distinguish between 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEALREADY</a>, since in both cases the error indicates that there is no asynchronous operation in progress with the indicated handle. (Trivial exception: zero is always an invalid asynchronous task handle.) The Windows Sockets specification does not prescribe how a conformant Windows Sockets provider should distinguish between the two cases. For maximum portability, a Windows Sockets application should treat the two errors as equivalent.</div>
+     * <div> </div>
      * @see https://learn.microsoft.com/windows/win32/api/winsock/nf-winsock-wsacancelasyncrequest
      * @deprecated
      * @since windows5.0
@@ -10996,10 +14311,11 @@ class WinSock {
     static WSACancelAsyncRequest(hAsyncTaskHandle) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSACancelAsyncRequest", "ptr", hAsyncTaskHandle)
+        result := DllCall("WS2_32.dll\WSACancelAsyncRequest", "ptr", hAsyncTaskHandle)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -11113,10 +14429,179 @@ class WinSock {
      * 
      * ```cpp
      * @param {Pointer} s A descriptor that identifies the socket for which event notification is required.
-     * @param {Pointer<HWND>} hWnd A handle that identifies the window that will receive a message when a network event occurs.
+     * @param {Pointer<Void>} hWnd A handle that identifies the window that will receive a message when a network event occurs.
      * @param {Integer} wMsg A message to be received when a network event occurs.
      * @param {Integer} lEvent A bitmask that specifies a combination of network events in which the application is interested.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the 
+     * <b>WSAAsyncSelect</b> function succeeds, the return value is zero, provided that the application's declaration of interest in the network event set was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the specified parameters was invalid, such as the window handle not referring to an existing window, or the specified socket is in an invalid state.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Additional error codes can be set when an application window receives a message. This error code is extracted from the <i>lParam</i> in the reply message using the <b>WSAGETSELECTERROR</b> macro. Possible error codes for each network event are listed in the following table.
+     * 
+     * Event: FD_CONNECT
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEAFNOSUPPORT</a></td>
+     * <td>Addresses in the specified family cannot be used with this socket.</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECONNREFUSED</a></td>
+     * <td>The attempt to connect was rejected.</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETUNREACH</a></td>
+     * <td>The network cannot be reached from this host at this time.</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></td>
+     * <td>The <i>namelen</i> parameter is invalid.</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></td>
+     * <td>The socket is already bound to an address.</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEISCONN</a></td>
+     * <td>The socket is already connected.</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEMFILE</a></td>
+     * <td>No more file descriptors are available.</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOBUFS</a></td>
+     * <td>No buffer space is available. The socket cannot be connected.</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTCONN</a></td>
+     * <td>The socket is not connected.</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAETIMEDOUT</a></td>
+     * <td>Attempt to connect timed out without establishing a connection.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Event: FD_CLOSE
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></td>
+     * <td>The network subsystem failed.</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECONNRESET</a></td>
+     * <td>The connection was reset by the remote side.</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECONNABORTED</a></td>
+     * <td>The connection was terminated due to a time-out or other failure.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></td>
+     * <td>The network subsystem failed.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Event: FD_ROUTING_INTERFACE_CHANGE
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETUNREACH</a></td>
+     * <td>The specified destination is no longer reachable.</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></td>
+     * <td>The network subsystem failed.</td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock/nf-winsock-wsaasyncselect
      * @deprecated
      * @since windows5.0
@@ -11124,10 +14609,11 @@ class WinSock {
     static WSAAsyncSelect(s, hWnd, wMsg, lEvent) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAAsyncSelect", "ptr", s, "ptr", hWnd, "uint", wMsg, "int", lEvent)
+        result := DllCall("WS2_32.dll\WSAAsyncSelect", "ptr", s, "ptr", hWnd, "uint", wMsg, "int", lEvent)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -11208,7 +14694,7 @@ class WinSock {
      * ```cpp
      * @param {Pointer} s A descriptor that identifies a socket that is listening for connections after a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-listen">listen</a> function.
-     * @param {Pointer<SOCKADDR>} addr An optional pointer to an <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure that receives the address of the connecting entity, as known to the communications layer. The exact format of the <i>addr</i> parameter is determined by the address family established when the socket was created.
+     * @param {Pointer} addr An optional pointer to an <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure that receives the address of the connecting entity, as known to the communications layer. The exact format of the <i>addr</i> parameter is determined by the address family established when the socket was created.
      * @param {Pointer<Int32>} addrlen An optional pointer to an integer that contains the length of the <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure pointed to by the <i>addr</i> parameter, in bytes.
      * @param {Pointer<LPCONDITIONPROC>} lpfnCondition The  address of an optional, application-specified condition function that will make an accept/reject decision based on the caller information passed in as parameters, and optionally create or join a socket group by assigning an appropriate value to the result parameter <i>g</i> of this function. If this parameter is <b>NULL</b>, then no condition function is called.
      * @param {Pointer} dwCallbackData Callback data passed back to the application-specified condition function as the value of the <i>dwCallbackData</i> parameter passed to the condition function. This parameter is only applicable if the <i>lpfnCondition</i> parameter is not <b>NULL</b>. This parameter is not interpreted by Windows Sockets.
@@ -11400,7 +14886,7 @@ class WinSock {
     static WSAAccept(s, addr, addrlen, lpfnCondition, dwCallbackData) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAAccept", "ptr", s, "ptr", addr, "ptr", addrlen, "ptr", lpfnCondition, "ptr", dwCallbackData, "ptr")
+        result := DllCall("WS2_32.dll\WSAAccept", "ptr", s, "ptr", addr, "int*", addrlen, "ptr", lpfnCondition, "ptr", dwCallbackData, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11557,24 +15043,295 @@ class WinSock {
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {Pointer} s A descriptor identifying an unconnected socket.
-     * @param {Pointer<SOCKADDR>} name A pointer to a <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure  that specifies the address to which to connect. For  IPv4, the <b>sockaddr</b> contains <b>AF_INET</b> for the address family, the destination IPv4 address, and the destination port. For  IPv6, the <b>sockaddr</b> structure contains <b>AF_INET6</b> for the address family, the destination IPv6 address, the destination port, and may contain additional flow and scope-id information.
+     * @param {Pointer} name A pointer to a <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure  that specifies the address to which to connect. For  IPv4, the <b>sockaddr</b> contains <b>AF_INET</b> for the address family, the destination IPv4 address, and the destination port. For  IPv6, the <b>sockaddr</b> structure contains <b>AF_INET6</b> for the address family, the destination IPv6 address, the destination port, and may contain additional flow and scope-id information.
      * @param {Integer} namelen The length, in bytes, of the <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure pointed to by the <i>name</i> parameter.
      * @param {Pointer<WSABUF>} lpCallerData A pointer to the user data that is to be transferred to the other socket during connection establishment. See Remarks.
      * @param {Pointer<WSABUF>} lpCalleeData A pointer to the user data that is to be transferred back from the other socket during connection establishment. See Remarks.
      * @param {Pointer<QOS>} lpSQOS A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/qos/ns-qos-flowspec">FLOWSPEC</a> structures for socket <i>s</i>, one for each direction.
      * @param {Pointer<QOS>} lpGQOS Reserved for future use with socket groups. A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/qos/ns-qos-flowspec">FLOWSPEC</a> structures for the socket group (if applicable). This parameter should be <b>NULL</b>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>WSAConnect</b> returns zero. Otherwise, it returns SOCKET_ERROR, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>. On a blocking socket, the return value indicates success or failure of the connection attempt.
+     * 
+     * With a nonblocking socket, the connection attempt cannot be completed immediately. In this case, 
+     * <b>WSAConnect</b> will return SOCKET_ERROR, and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> will return 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEWOULDBLOCK</a>; the application could therefore:
+     * 
+     * <ul>
+     * <li>Use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-select">select</a> to determine the completion of the connection request by checking if the socket is writable.</li>
+     * <li>If your application is using 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsaasyncselect">WSAAsyncSelect</a> to indicate interest in connection events, then your application will receive an FD_CONNECT notification when the connect operation is complete(successful or not).</li>
+     * <li>If your application is using 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaeventselect">WSAEventSelect</a> to indicate interest in connection events, then the associated event object will be signaled when the connect operation is complete (successful or not).</li>
+     * </ul>
+     * For a nonblocking socket, until the connection attempt completes all subsequent calls to 
+     * <b>WSAConnect</b> on the same socket will fail with the error code 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEALREADY</a>.
+     * 
+     * If the return error code indicates the connection attempt failed (that is, 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECONNREFUSED</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETUNREACH</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAETIMEDOUT</a>) the application can call 
+     * <b>WSAConnect</b> again for the same socket.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEADDRINUSE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The local address of the socket is already in use and the socket was not marked to allow address reuse with SO_REUSEADDR. This error usually occurs during the execution of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-bind">bind</a>, but could be delayed until this function if the 
+     * <b>bind</b> function operates on a partially wildcard address (involving ADDR_ANY) and if a specific address needs to be "committed" at the time of this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINTR</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The (blocking) Windows Socket 1.1 call was canceled through 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsacancelblockingcall">WSACancelBlockingCall</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEALREADY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonblocking 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-connect">connect</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaconnect">WSAConnect</a> call is in progress on the specified socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEADDRNOTAVAIL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The remote address is not a valid address (such as ADDR_ANY).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEAFNOSUPPORT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Addresses in the specified family cannot be used with this socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECONNREFUSED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The attempt to connect was rejected.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>name</i> or the <i>namelen</i> parameter is not a valid part of the user address space, the <i>namelen</i> parameter is too small, the buffer length for <i>lpCalleeData</i>, <i>lpSQOS</i>, and <i>lpGQOS</i> are too small, or the buffer length for <i>lpCallerData</i> is too large.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The parameter <i>s</i> is a listening socket, or the destination address specified is not consistent with that of the constrained group to which the socket belongs, or the <i>lpGQOS</i> parameter is not <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEISCONN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is already connected (connection-oriented sockets only).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETUNREACH</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network cannot be reached from this host at this time.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEHOSTUNREACH</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A socket operation was attempted to an unreachable host.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOBUFS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No buffer space is available. The socket cannot be connected.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEOPNOTSUPP</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/qos/ns-qos-flowspec">FLOWSPEC</a> structures specified in <i>lpSQOS</i> and <i>lpGQOS</i> cannot be satisfied.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEPROTONOSUPPORT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpCallerData</i> parameter is not supported by the service provider.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAETIMEDOUT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Attempt to connect timed out without establishing a connection.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEWOULDBLOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is marked as nonblocking and the connection cannot be completed immediately.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEACCES</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Attempt to connect datagram socket to broadcast address failed because 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-setsockopt">setsockopt</a> SO_BROADCAST is not enabled.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsaconnect
      * @since windows8.1
      */
     static WSAConnect(s, name, namelen, lpCallerData, lpCalleeData, lpSQOS, lpGQOS) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAConnect", "ptr", s, "ptr", name, "int", namelen, "ptr", lpCallerData, "ptr", lpCalleeData, "ptr", lpSQOS, "ptr", lpGQOS)
+        result := DllCall("WS2_32.dll\WSAConnect", "ptr", s, "ptr", name, "int", namelen, "ptr", lpCallerData, "ptr", lpCalleeData, "ptr", lpSQOS, "ptr", lpGQOS)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -11627,16 +15384,16 @@ class WinSock {
      * 
      * <div class="alert"><b>Note</b>  On Windows 7,  Windows Server 2008 R2, and earlier, the <b>WSAConnectByName</b> function requires an unbound and unconnected socket. This differs from other Winsock calls to establish a connection (for example, <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaconnect">WSAConnect</a>). </div>
      * <div> </div>
-     * @param {Pointer<PWSTR>} nodename A <b>NULL</b>-terminated string that contains the name of the host or the IP address of the host on which to connect for IPv4 or IPv6.
-     * @param {Pointer<PWSTR>} servicename A <b>NULL</b>-terminated string that contains the service name or destination port of the host on which to connect for IPv4 or IPv6. 
+     * @param {Pointer<Char>} nodename A <b>NULL</b>-terminated string that contains the name of the host or the IP address of the host on which to connect for IPv4 or IPv6.
+     * @param {Pointer<Char>} servicename A <b>NULL</b>-terminated string that contains the service name or destination port of the host on which to connect for IPv4 or IPv6. 
      * 
      * A service name is a string alias for a port number. For example, “http” is an alias for port 80 defined by the Internet Engineering Task Force (IETF) as the default port used by web servers for the HTTP protocol. Possible values for the <i>servicename</i> parameter when a port number is not specified are listed in the following file: 
      * 
      * <c>%WINDIR%\system32\drivers\etc\services</c>
      * @param {Pointer<UInt32>} LocalAddressLength On input, a pointer to the size, in bytes, of the <i>LocalAddress</i> buffer provided by the caller. On output, a pointer to the size, in bytes, of the <b>SOCKADDR</b> for the local address stored in the <i>LocalAddress</i> buffer filled in by the system upon successful completion of the call.
-     * @param {Pointer<SOCKADDR>} LocalAddress A pointer to the <b>SOCKADDR</b> structure that receives the local address of the connection. The size of the parameter is exactly the size returned in <i>LocalAddressLength</i>. This is the same information that would be returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getsockname">getsockname</a> function. This parameter can be <b>NULL</b>, in which case, the <i>LocalAddressLength</i> parameter is ignored.
+     * @param {Pointer} LocalAddress A pointer to the <b>SOCKADDR</b> structure that receives the local address of the connection. The size of the parameter is exactly the size returned in <i>LocalAddressLength</i>. This is the same information that would be returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getsockname">getsockname</a> function. This parameter can be <b>NULL</b>, in which case, the <i>LocalAddressLength</i> parameter is ignored.
      * @param {Pointer<UInt32>} RemoteAddressLength On input, a pointer to the size, in bytes, of the <i>RemoteAddress</i> buffer provided by the caller. On output, a pointer to the size, in bytes, of the <b>SOCKADDR</b> for the remote address stored in <i>RemoteAddress</i> buffer filled-in by the system upon successful completion of the call.
-     * @param {Pointer<SOCKADDR>} RemoteAddress A pointer to the <b>SOCKADDR</b> structure that receives the remote address of the connection. This is the same information that would be returned by the <b>getpeername</b> function. This parameter can be <b>NULL</b>, in which case, the <i>RemoteAddressLength</i> is ignored.
+     * @param {Pointer} RemoteAddress A pointer to the <b>SOCKADDR</b> structure that receives the remote address of the connection. This is the same information that would be returned by the <b>getpeername</b> function. This parameter can be <b>NULL</b>, in which case, the <i>RemoteAddressLength</i> is ignored.
      * @param {Pointer<TIMEVAL>} timeout The time, in milliseconds, to wait for a response from the remote application before aborting the call.
      * @returns {Integer} If a connection is established, <b>WSAConnectByName</b> returns <b>TRUE</b> and <i>LocalAddress</i> and <i>RemoteAddress</i> parameters are filled in if these buffers were supplied by the caller.
      * 
@@ -11714,7 +15471,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAConnectByNameW", "ptr", s, "ptr", nodename, "ptr", servicename, "ptr", LocalAddressLength, "ptr", LocalAddress, "ptr", RemoteAddressLength, "ptr", RemoteAddress, "ptr", timeout, "ptr", Reserved, "int")
+        result := DllCall("WS2_32.dll\WSAConnectByNameW", "ptr", s, "ptr", nodename, "ptr", servicename, "uint*", LocalAddressLength, "ptr", LocalAddress, "uint*", RemoteAddressLength, "ptr", RemoteAddress, "ptr", timeout, "ptr", Reserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11771,16 +15528,16 @@ class WinSock {
      * 
      * <div class="alert"><b>Note</b>  On Windows 7,  Windows Server 2008 R2, and earlier, the <b>WSAConnectByName</b> function requires an unbound and unconnected socket. This differs from other Winsock calls to establish a connection (for example, <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaconnect">WSAConnect</a>). </div>
      * <div> </div>
-     * @param {Pointer<PSTR>} nodename A <b>NULL</b>-terminated string that contains the name of the host or the IP address of the host on which to connect for IPv4 or IPv6.
-     * @param {Pointer<PSTR>} servicename A <b>NULL</b>-terminated string that contains the service name or destination port of the host on which to connect for IPv4 or IPv6. 
+     * @param {Pointer<Byte>} nodename A <b>NULL</b>-terminated string that contains the name of the host or the IP address of the host on which to connect for IPv4 or IPv6.
+     * @param {Pointer<Byte>} servicename A <b>NULL</b>-terminated string that contains the service name or destination port of the host on which to connect for IPv4 or IPv6. 
      * 
      * A service name is a string alias for a port number. For example, “http” is an alias for port 80 defined by the Internet Engineering Task Force (IETF) as the default port used by web servers for the HTTP protocol. Possible values for the <i>servicename</i> parameter when a port number is not specified are listed in the following file: 
      * 
      * <c>%WINDIR%\system32\drivers\etc\services</c>
      * @param {Pointer<UInt32>} LocalAddressLength On input, a pointer to the size, in bytes, of the <i>LocalAddress</i> buffer provided by the caller. On output, a pointer to the size, in bytes, of the <b>SOCKADDR</b> for the local address stored in the <i>LocalAddress</i> buffer filled in by the system upon successful completion of the call.
-     * @param {Pointer<SOCKADDR>} LocalAddress A pointer to the <b>SOCKADDR</b> structure that receives the local address of the connection. The size of the parameter is exactly the size returned in <i>LocalAddressLength</i>. This is the same information that would be returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getsockname">getsockname</a> function. This parameter can be <b>NULL</b>, in which case, the <i>LocalAddressLength</i> parameter is ignored.
+     * @param {Pointer} LocalAddress A pointer to the <b>SOCKADDR</b> structure that receives the local address of the connection. The size of the parameter is exactly the size returned in <i>LocalAddressLength</i>. This is the same information that would be returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getsockname">getsockname</a> function. This parameter can be <b>NULL</b>, in which case, the <i>LocalAddressLength</i> parameter is ignored.
      * @param {Pointer<UInt32>} RemoteAddressLength On input, a pointer to the size, in bytes, of the <i>RemoteAddress</i> buffer provided by the caller. On output, a pointer to the size, in bytes, of the <b>SOCKADDR</b> for the remote address stored in <i>RemoteAddress</i> buffer filled-in by the system upon successful completion of the call.
-     * @param {Pointer<SOCKADDR>} RemoteAddress A pointer to the <b>SOCKADDR</b> structure that receives the remote address of the connection. This is the same information that would be returned by the <b>getpeername</b> function. This parameter can be <b>NULL</b>, in which case, the <i>RemoteAddressLength</i> is ignored.
+     * @param {Pointer} RemoteAddress A pointer to the <b>SOCKADDR</b> structure that receives the remote address of the connection. This is the same information that would be returned by the <b>getpeername</b> function. This parameter can be <b>NULL</b>, in which case, the <i>RemoteAddressLength</i> is ignored.
      * @param {Pointer<TIMEVAL>} timeout The time, in milliseconds, to wait for a response from the remote application before aborting the call.
      * @returns {Integer} If a connection is established, <b>WSAConnectByName</b> returns <b>TRUE</b> and <i>LocalAddress</i> and <i>RemoteAddress</i> parameters are filled in if these buffers were supplied by the caller.
      * 
@@ -11859,7 +15616,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAConnectByNameA", "ptr", s, "ptr", nodename, "ptr", servicename, "ptr", LocalAddressLength, "ptr", LocalAddress, "ptr", RemoteAddressLength, "ptr", RemoteAddress, "ptr", timeout, "ptr", Reserved, "int")
+        result := DllCall("WS2_32.dll\WSAConnectByNameA", "ptr", s, "ptr", nodename, "ptr", servicename, "uint*", LocalAddressLength, "ptr", LocalAddress, "uint*", RemoteAddressLength, "ptr", RemoteAddress, "ptr", timeout, "ptr", Reserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11983,7 +15740,7 @@ class WinSock {
      *       the caller. On output, a pointer to the size, in bytes, of the <b>SOCKADDR</b> for the 
      *       local address stored in the <i>LocalAddress</i> buffer filled in by the system upon 
      *       successful completion of the call.
-     * @param {Pointer<SOCKADDR>} LocalAddress A pointer to the <b>SOCKADDR</b> structure that receives the local address of the 
+     * @param {Pointer} LocalAddress A pointer to the <b>SOCKADDR</b> structure that receives the local address of the 
      *       connection. The size of the parameter is exactly the size returned in 
      *       <i>LocalAddressLength</i>. This is the same information that would be returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getsockname">getsockname</a> function. This parameter can be 
@@ -11993,7 +15750,7 @@ class WinSock {
      *       by the caller. On output, a pointer to the size, in bytes, of the <b>SOCKADDR</b> for the 
      *       remote address stored in <i>RemoteAddress</i> buffer filled-in by the system upon successful 
      *       completion of the call.
-     * @param {Pointer<SOCKADDR>} RemoteAddress A pointer to the <b>SOCKADDR</b> structure that receives the remote address of the 
+     * @param {Pointer} RemoteAddress A pointer to the <b>SOCKADDR</b> structure that receives the remote address of the 
      *       connection. This is the same information that would be returned by the 
      *       <b>getpeername</b> function. This parameter can be <b>NULL</b>, in 
      *       which case, the <i>RemoteAddressLength</i> is ignored.
@@ -12083,7 +15840,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAConnectByList", "ptr", s, "ptr", SocketAddress, "ptr", LocalAddressLength, "ptr", LocalAddress, "ptr", RemoteAddressLength, "ptr", RemoteAddress, "ptr", timeout, "ptr", Reserved, "int")
+        result := DllCall("WS2_32.dll\WSAConnectByList", "ptr", s, "ptr", SocketAddress, "uint*", LocalAddressLength, "ptr", LocalAddress, "uint*", RemoteAddressLength, "ptr", RemoteAddress, "ptr", timeout, "ptr", Reserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -12280,7 +16037,105 @@ class WinSock {
      * @param {Integer} dwProcessId Process identifier of the target process in which the duplicated socket will be used.
      * @param {Pointer<WSAPROTOCOL_INFOA>} lpProtocolInfo Pointer to a buffer, allocated by the client, that is large enough to contain a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAPROTOCOL_INFO</a> structure. The service provider copies the protocol information structure contents to this buffer.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>WSADuplicateSocket</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Indicates that one of the specified parameters was invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEMFILE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No more socket descriptors are available.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOBUFS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No buffer space is available. The socket cannot be created.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpProtocolInfo</i> parameter is not a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsaduplicatesocketa
      * @deprecated
      * @since windows8.1
@@ -12288,10 +16143,11 @@ class WinSock {
     static WSADuplicateSocketA(s, dwProcessId, lpProtocolInfo) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSADuplicateSocketA", "ptr", s, "uint", dwProcessId, "ptr", lpProtocolInfo)
+        result := DllCall("WS2_32.dll\WSADuplicateSocketA", "ptr", s, "uint", dwProcessId, "ptr", lpProtocolInfo)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -12402,17 +16258,116 @@ class WinSock {
      * @param {Integer} dwProcessId Process identifier of the target process in which the duplicated socket will be used.
      * @param {Pointer<WSAPROTOCOL_INFOW>} lpProtocolInfo Pointer to a buffer, allocated by the client, that is large enough to contain a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAPROTOCOL_INFO</a> structure. The service provider copies the protocol information structure contents to this buffer.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>WSADuplicateSocket</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Indicates that one of the specified parameters was invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEMFILE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No more socket descriptors are available.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOBUFS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No buffer space is available. The socket cannot be created.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpProtocolInfo</i> parameter is not a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsaduplicatesocketw
      * @since windows8.1
      */
     static WSADuplicateSocketW(s, dwProcessId, lpProtocolInfo) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSADuplicateSocketW", "ptr", s, "uint", dwProcessId, "ptr", lpProtocolInfo)
+        result := DllCall("WS2_32.dll\WSADuplicateSocketW", "ptr", s, "uint", dwProcessId, "ptr", lpProtocolInfo)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -12554,17 +16509,93 @@ class WinSock {
      * @param {Pointer} hEventObject An optional handle identifying an associated event object to be reset.
      * @param {Pointer<WSANETWORKEVENTS>} lpNetworkEvents A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanetworkevents">WSANETWORKEVENTS</a> structure that is filled with a record of network events that occurred and any associated error codes.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the specified parameters was invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpNetworkEvents</i> parameter is not a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsaenumnetworkevents
      * @since windows8.1
      */
     static WSAEnumNetworkEvents(s, hEventObject, lpNetworkEvents) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAEnumNetworkEvents", "ptr", s, "ptr", hEventObject, "ptr", lpNetworkEvents)
+        result := DllCall("WS2_32.dll\WSAEnumNetworkEvents", "ptr", s, "ptr", hEventObject, "ptr", lpNetworkEvents)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -12592,12 +16623,89 @@ class WinSock {
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: The <b>WSAEnumProtocolsW</b> function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {Pointer<Int32>} lpiProtocols A <b>NULL</b>-terminated array of iProtocol values. This parameter is optional; if <i>lpiProtocols</i> is <b>NULL</b>, information on all available protocols is returned. Otherwise, information is retrieved only for those protocols listed in the array.
-     * @param {Pointer<WSAPROTOCOL_INFOA>} lpProtocolBuffer A pointer to a buffer that is filled with 
+     * @param {Pointer} lpProtocolBuffer A pointer to a buffer that is filled with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAPROTOCOL_INFO</a> structures.
      * @param {Pointer<UInt32>} lpdwBufferLength On input, number of bytes in the <i>lpProtocolBuffer</i> buffer passed to 
      * <b>WSAEnumProtocols</b>. On output, the minimum buffer size that can be passed to 
      * <b>WSAEnumProtocols</b> to retrieve all the requested information. This routine has no ability to enumerate over multiple calls; the passed-in buffer must be large enough to hold all entries in order for the routine to succeed. This reduces the complexity of the API and should not pose a problem because the number of protocols loaded on a computer is typically small.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>WSAEnumProtocols</b> returns the number of protocols to be reported. Otherwise, a value of SOCKET_ERROR is returned and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Indicates that one of the specified parameters was invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOBUFS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The buffer length was too small to receive all the relevant 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAPROTOCOL_INFO</a> structures and associated information. Pass in a buffer at least as large as the value returned in <i>lpdwBufferLength</i>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the <i>lpiProtocols</i>, <i>lpProtocolBuffer</i>, or <i>lpdwBufferLength</i> parameters are not a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsaenumprotocolsa
      * @deprecated
      * @since windows8.1
@@ -12605,10 +16713,11 @@ class WinSock {
     static WSAEnumProtocolsA(lpiProtocols, lpProtocolBuffer, lpdwBufferLength) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAEnumProtocolsA", "ptr", lpiProtocols, "ptr", lpProtocolBuffer, "ptr", lpdwBufferLength)
+        result := DllCall("WS2_32.dll\WSAEnumProtocolsA", "int*", lpiProtocols, "ptr", lpProtocolBuffer, "uint*", lpdwBufferLength)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -12636,22 +16745,100 @@ class WinSock {
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: The <b>WSAEnumProtocolsW</b> function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {Pointer<Int32>} lpiProtocols A <b>NULL</b>-terminated array of iProtocol values. This parameter is optional; if <i>lpiProtocols</i> is <b>NULL</b>, information on all available protocols is returned. Otherwise, information is retrieved only for those protocols listed in the array.
-     * @param {Pointer<WSAPROTOCOL_INFOW>} lpProtocolBuffer A pointer to a buffer that is filled with 
+     * @param {Pointer} lpProtocolBuffer A pointer to a buffer that is filled with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAPROTOCOL_INFO</a> structures.
      * @param {Pointer<UInt32>} lpdwBufferLength On input, number of bytes in the <i>lpProtocolBuffer</i> buffer passed to 
      * <b>WSAEnumProtocols</b>. On output, the minimum buffer size that can be passed to 
      * <b>WSAEnumProtocols</b> to retrieve all the requested information. This routine has no ability to enumerate over multiple calls; the passed-in buffer must be large enough to hold all entries in order for the routine to succeed. This reduces the complexity of the API and should not pose a problem because the number of protocols loaded on a computer is typically small.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>WSAEnumProtocols</b> returns the number of protocols to be reported. Otherwise, a value of SOCKET_ERROR is returned and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Indicates that one of the specified parameters was invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOBUFS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The buffer length was too small to receive all the relevant 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAPROTOCOL_INFO</a> structures and associated information. Pass in a buffer at least as large as the value returned in <i>lpdwBufferLength</i>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the <i>lpiProtocols</i>, <i>lpProtocolBuffer</i>, or <i>lpdwBufferLength</i> parameters are not a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsaenumprotocolsw
      * @since windows8.1
      */
     static WSAEnumProtocolsW(lpiProtocols, lpProtocolBuffer, lpdwBufferLength) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAEnumProtocolsW", "ptr", lpiProtocols, "ptr", lpProtocolBuffer, "ptr", lpdwBufferLength)
+        result := DllCall("WS2_32.dll\WSAEnumProtocolsW", "int*", lpiProtocols, "ptr", lpProtocolBuffer, "uint*", lpdwBufferLength)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -12828,17 +17015,259 @@ class WinSock {
      * @param {Pointer} s A descriptor identifying the socket.
      * @param {Pointer} hEventObject A handle identifying the event object to be associated with the specified set of FD_XXX network events.
      * @param {Integer} lNetworkEvents A bitmask that specifies the combination of FD_XXX network events in which the application has interest.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The return value is zero if the application's specification of the network events and the associated event object was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * As in the case of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-select">select</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsaasyncselect">WSAAsyncSelect</a> functions, 
+     * <b>WSAEventSelect</b> will frequently be used to determine when a data transfer operation (<a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-send">send</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-recv">recv</a>) can be issued with the expectation of immediate success. Nevertheless, a robust application must be prepared for the possibility that the event object is set and it issues a Windows Sockets call that returns 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEWOULDBLOCK</a> immediately. For example, the following sequence of operations is possible:
+     * 
+     * <ul>
+     * <li>Data arrives on socket <i>s</i>; Windows Sockets sets the 
+     * <b>WSAEventSelect</b> event object.</li>
+     * <li>The application does some other processing.</li>
+     * <li>While processing, the application issues an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-ioctlsocket">ioctlsocket</a>(<i>s</i>, FIONREAD...) and notices that there is data ready to be read.</li>
+     * <li>The application issues a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-recv">recv</a>(<i>s</i>,...) to read the data.</li>
+     * <li>The application eventually waits on the event object specified in 
+     * <b>WSAEventSelect</b>, which returns immediately indicating that data is ready to read.</li>
+     * <li>The application issues 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-recv">recv</a>(<i>s</i>,...), which fails with the error 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEWOULDBLOCK</a>.</li>
+     * </ul>
+     * Having successfully recorded the occurrence of the network event (by setting the corresponding bit in the internal network event record) and signaled the associated event object, no further actions are taken for that network event until the application makes the function call that implicitly reenables the setting of that network event and signaling of the associated event object.
+     * 
+     * <table>
+     * <tr>
+     * <th>Network event</th>
+     * <th>Re-enabling function</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>FD_READ</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-recv">recv</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-recvfrom">recvfrom</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsarecv">WSARecv</a>, <a href="https://docs.microsoft.com/windows/desktop/api/mswsock/nf-mswsock-wsarecvex">WSARecvEx</a>, or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsarecvfrom">WSARecvFrom</a> function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>FD_WRITE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-send">send</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-sendto">sendto</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsasend">WSASend</a>, or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsasendto">WSASendTo</a> function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>FD_OOB</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The 
+     * 								<a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-recv">recv</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-recvfrom">recvfrom</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsarecv">WSARecv</a>, <a href="https://docs.microsoft.com/windows/desktop/api/mswsock/nf-mswsock-wsarecvex">WSARecvEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsarecvfrom">WSARecvFrom</a> function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>FD_ACCEPT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The 
+     * 								<a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-accept">accept</a>, <a href="https://docs.microsoft.com/windows/desktop/api/mswsock/nf-mswsock-acceptex">AcceptEx</a>, or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaaccept">WSAAccept</a> function unless the error code returned is WSATRY_AGAIN indicating that the condition function returned CF_DEFER.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>FD_CONNECT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * None.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>FD_CLOSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * None.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>FD_QOS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The 
+     * 								<a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaioctl">WSAIoctl</a> function with command <b>SIO_GET_QOS</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>FD_GROUP_QOS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Reserved.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>FD_ROUTING_
+     * INTERFACE_CHANGE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The 
+     * 								<a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaioctl">WSAIoctl</a> function with command <b>SIO_ROUTING_INTERFACE_CHANGE</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>FD_ADDRESS_
+     * LIST_CHANGE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The 
+     * 								<a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaioctl">WSAIoctl</a> function with command <b>SIO_ADDRESS_LIST_CHANGE</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Any call to the reenabling routine, even one that fails, results in reenabling of recording and signaling for the relevant network event and event object.
+     * 
+     * For FD_READ, FD_OOB, and FD_ACCEPT network events, network event recording and event object signaling are level-triggered. This means that if the reenabling routine is called and the relevant network condition is still valid after the call, the network event is recorded and the associated event object is set. This allows an application to be event-driven and not be concerned with the amount of data that arrives at any one time. Consider the following sequence:
+     * 
+     * <ol>
+     * <li>The transport provider receives 100 bytes of data on socket <i>s</i> and causes WS2_32.DLL to record the FD_READ network event and set the associated event object.</li>
+     * <li>The application issues <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-recv">recv</a>(<i>s</i>, <i>buffptr</i>, 50, 0) to read 50 bytes.</li>
+     * <li>The transport provider causes WS2_32.DLL to record the FD_READ network event and sets the associated event object again since there is still data to be read.</li>
+     * </ol>
+     * With these semantics, an application need not read all available data in response to an FD_READ network event—a single 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-recv">recv</a> in response to each FD_READ network event is appropriate.
+     * 
+     * The FD_QOS event is considered edge triggered. A message will be posted exactly once when a quality of service change occurs. Further messages will not be forthcoming until either the provider detects a further change in quality of service or the application renegotiates the quality of service for the socket.
+     * 
+     * The FD_ROUTING_INTERFACE_CHANGE and FD_ADDRESS_LIST_CHANGE events are considered edge triggered as well. A message will be posted exactly once when a change occurs after the application has requested the notification by issuing 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaioctl">WSAIoctl</a> with <b>SIO_ROUTING_INTERFACE_CHANGE</b> or <b>SIO_ADDRESS_LIST_CHANGE</b> correspondingly. Other messages will not be forthcoming until the application reissues the IOCTL and another change is detected since the IOCTL has been issued.
+     * 
+     * If a network event has already happened when the application calls 
+     * <b>WSAEventSelect</b> or when the reenabling function is called, then a network event is recorded and the associated event object is set as appropriate. For example, consider the following sequence:
+     * 
+     * <ol>
+     * <li>An application calls 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-listen">listen</a>.</li>
+     * <li>A connect request is received but not yet accepted.</li>
+     * <li>The application calls 
+     * <b>WSAEventSelect</b> specifying that it is interested in the FD_ACCEPT network event for the socket. Due to the persistence of network events, Windows Sockets records the FD_ACCEPT network event and sets the associated event object immediately.</li>
+     * </ol>
+     * The FD_WRITE network event is handled slightly differently. An FD_WRITE network event is recorded when a socket is first connected with a call to the  
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-connect">connect</a>, <a href="https://docs.microsoft.com/windows/desktop/api/mswsock/nc-mswsock-lpfn_connectex">ConnectEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaconnect">WSAConnect</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaconnectbylist">WSAConnectByList</a>, or  <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaconnectbynamea">WSAConnectByName</a> function or when a socket is accepted with 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-accept">accept</a>, <a href="https://docs.microsoft.com/windows/desktop/api/mswsock/nf-mswsock-acceptex">AcceptEx</a>,
+     * 							or <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaaccept">WSAAccept</a> function and then after a send fails with <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEWOULDBLOCK</a> and buffer space becomes available. Therefore, an application can assume that sends are possible starting from the first FD_WRITE network event setting and lasting until a send returns 
+     * WSAEWOULDBLOCK. After such a failure the application will find out that sends are again possible when an FD_WRITE network event is recorded and the associated event object is set.
+     * 
+     * The FD_OOB network event is used only when a socket is configured to receive OOB data separately. If the socket is configured to receive OOB data inline, the OOB (expedited) data is treated as normal data and the application should register an interest in, and will get FD_READ network event, not FD_OOB network event. An application can set or inspect the way in which OOB data is to be handled by using 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-setsockopt">setsockopt</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getsockopt">getsockopt</a> for the SO_OOBINLINE option.
+     * 
+     * The error code in an FD_CLOSE network event indicates whether the socket close was graceful or abortive. If the error code is zero, then the close was graceful; if the error code is 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECONNRESET</a>, then the socket's virtual circuit was reset. This only applies to connection-oriented sockets such as SOCK_STREAM.
+     * 
+     * The FD_CLOSE network event is recorded when a close indication is received for the virtual circuit corresponding to the socket. In TCP terms, this means that the FD_CLOSE is recorded when the connection goes into the TIME WAIT or CLOSE WAIT states. This results from the remote end performing a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-shutdown">shutdown</a> on the send side or a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-closesocket">closesocket</a>. FD_CLOSE being posted after all data is read from a socket. An application should check for remaining data upon receipt of FD_CLOSE to avoid any possibility of losing data. For more information, see the section on <a href="https://docs.microsoft.com/windows/desktop/WinSock/graceful-shutdown-linger-options-and-socket-closure-2">Graceful Shutdown, Linger Options, and Socket Closure</a> and the <b>shutdown</b> function.
+     * 
+     * Note that Windows Sockets will record only an FD_CLOSE network event to indicate closure of a virtual circuit. It will not record an FD_READ network event to indicate this condition.
+     * 
+     * The FD_QOS or FD_GROUP_QOS network event is recorded when any parameter in the flow specification associated with socket <i>s</i>. Applications should use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaioctl">WSAIoctl</a> with command <b>SIO_GET_QOS</b> to get the current quality of service for socket <i>s</i>.
+     * 
+     * The FD_ROUTING_INTERFACE_CHANGE network event is recorded when the local interface that should be used to reach the destination specified in 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaioctl">WSAIoctl</a> with <b>SIO_ROUTING_INTERFACE_CHANGE</b> changes after such IOCTL has been issued.
+     * 
+     * The FD_ADDRESS_LIST_CHANGE network event is recorded when the list of addresses of protocol family for the socket to which the application can bind changes after 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaioctl">WSAIoctl</a> with <b>SIO_ADDRESS_LIST_CHANGE</b> has been issued.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></td>
+     * <td>A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></td>
+     * <td>The network subsystem has failed.</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></td>
+     * <td>One of the specified parameters was invalid, or the specified socket is in an invalid state.</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></td>
+     * <td>A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.</td>
+     * </tr>
+     * <tr>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></td>
+     * <td>The descriptor is not a socket.</td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsaeventselect
      * @since windows8.1
      */
     static WSAEventSelect(s, hEventObject, lNetworkEvents) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAEventSelect", "ptr", s, "ptr", hEventObject, "int", lNetworkEvents)
+        result := DllCall("WS2_32.dll\WSAEventSelect", "ptr", s, "ptr", hEventObject, "int", lNetworkEvents)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -12979,7 +17408,7 @@ class WinSock {
     static WSAGetOverlappedResult(s, lpOverlapped, lpcbTransfer, fWait, lpdwFlags) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAGetOverlappedResult", "ptr", s, "ptr", lpOverlapped, "ptr", lpcbTransfer, "int", fWait, "ptr", lpdwFlags, "int")
+        result := DllCall("WS2_32.dll\WSAGetOverlappedResult", "ptr", s, "ptr", lpOverlapped, "uint*", lpcbTransfer, "int", fWait, "uint*", lpdwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -13090,17 +17519,72 @@ class WinSock {
      * @param {Pointer} s A descriptor identifying a socket.
      * @param {Integer} hostlong A 32-bit number in host byte order.
      * @param {Pointer<UInt32>} lpnetlong A pointer to a 32-bit number to receive the number in network byte order.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>WSAHtonl</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpnetlong</i> parameter is <b>NULL</b> or the address pointed to is not completely contained in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsahtonl
      * @since windows8.1
      */
     static WSAHtonl(s, hostlong, lpnetlong) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAHtonl", "ptr", s, "uint", hostlong, "ptr", lpnetlong)
+        result := DllCall("WS2_32.dll\WSAHtonl", "ptr", s, "uint", hostlong, "uint*", lpnetlong)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -13122,17 +17606,72 @@ class WinSock {
      * @param {Pointer} s A descriptor identifying a socket.
      * @param {Integer} hostshort A 16-bit number in host byte order.
      * @param {Pointer<UInt16>} lpnetshort A pointer to a 16-bit buffer to receive the number in network byte order.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>WSAHtons</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpnetshort</i> parameter is <b>NULL</b> or the address pointed to is not completely contained in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsahtons
      * @since windows8.1
      */
     static WSAHtons(s, hostshort, lpnetshort) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAHtons", "ptr", s, "ushort", hostshort, "ptr", lpnetshort)
+        result := DllCall("WS2_32.dll\WSAHtons", "ptr", s, "ushort", hostshort, "ushort*", lpnetshort)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -13177,9 +17716,9 @@ class WinSock {
      * ```cpp
      * @param {Pointer} s A descriptor identifying a socket.
      * @param {Integer} dwIoControlCode The control code of operation to perform.
-     * @param {Pointer<Void>} lpvInBuffer A pointer to the input buffer.
+     * @param {Pointer} lpvInBuffer A pointer to the input buffer.
      * @param {Integer} cbInBuffer The size, in bytes, of the input buffer.
-     * @param {Pointer<Void>} lpvOutBuffer A pointer to the output buffer.
+     * @param {Pointer} lpvOutBuffer A pointer to the output buffer.
      * @param {Integer} cbOutBuffer The size, in bytes, of the output buffer.
      * @param {Pointer<UInt32>} lpcbBytesReturned A pointer to actual number of bytes of output.
      * @param {Pointer<OVERLAPPED>} lpOverlapped A pointer to a 
@@ -13188,17 +17727,127 @@ class WinSock {
      * 
      * <div class="alert"><b>Note</b>  A pointer to the completion routine called when the operation has been completed (ignored for non-overlapped sockets). See Remarks.</div>
      * <div> </div>
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} Upon successful completion, the 
+     * <b>WSAIoctl</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_IO_PENDING</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An overlapped operation was successfully initiated and completion will be indicated at a later time.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpvInBuffer</i>, <i>lpvOutBuffer</i>, <i>lpcbBytesReturned</i>, <i>lpOverlapped</i>, or <i>lpCompletionRoutine</i> parameter is not totally contained in a valid part of the user address space, or the <i>cbInBuffer</i> or <i>cbOutBuffer</i> parameter is too small.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>dwIoControlCode</i> parameter is not a valid command, or a specified input parameter is not acceptable, or the command is not applicable to the type of socket specified.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function is invoked when a callback is in progress.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor <i>s</i> is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEOPNOTSUPP</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified IOCTL command cannot be realized. (For example, the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/qos/ns-qos-flowspec">FLOWSPEC</a> structures specified in <b>SIO_SET_QOS</b> or <b>SIO_SET_GROUP_QOS</b> cannot be satisfied.)
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEWOULDBLOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is marked as non-blocking and the requested operation would block.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOPROTOOPT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket option is not supported on the specified protocol. For example, an attempt to use the <b>SIO_GET_BROADCAST_ADDRESS</b> IOCTL was made on an IPv6 socket or an attempt to use the TCP <b>SIO_KEEPALIVE_VALS</b> IOCTL was made on a datagram socket.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsaioctl
      * @since windows8.1
      */
     static WSAIoctl(s, dwIoControlCode, lpvInBuffer, cbInBuffer, lpvOutBuffer, cbOutBuffer, lpcbBytesReturned, lpOverlapped, lpCompletionRoutine) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAIoctl", "ptr", s, "uint", dwIoControlCode, "ptr", lpvInBuffer, "uint", cbInBuffer, "ptr", lpvOutBuffer, "uint", cbOutBuffer, "ptr", lpcbBytesReturned, "ptr", lpOverlapped, "ptr", lpCompletionRoutine)
+        result := DllCall("WS2_32.dll\WSAIoctl", "ptr", s, "uint", dwIoControlCode, "ptr", lpvInBuffer, "uint", cbInBuffer, "ptr", lpvOutBuffer, "uint", cbOutBuffer, "uint*", lpcbBytesReturned, "ptr", lpOverlapped, "ptr", lpCompletionRoutine)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -13267,7 +17916,7 @@ class WinSock {
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {Pointer} s Descriptor identifying a multipoint socket.
-     * @param {Pointer<SOCKADDR>} name Name of the peer to which the socket is to be joined.
+     * @param {Pointer} name Name of the peer to which the socket is to be joined.
      * @param {Integer} namelen Length of <i>name</i>, in bytes.
      * @param {Pointer<WSABUF>} lpCallerData Pointer to the user data that is to be transferred to the peer during multipoint session establishment.
      * @param {Pointer<WSABUF>} lpCalleeData Pointer to the user data that is to be transferred back from the peer during multipoint session establishment.
@@ -13542,17 +18191,72 @@ class WinSock {
      * @param {Pointer} s A descriptor identifying a socket.
      * @param {Integer} netlong A 32-bit number in network byte order.
      * @param {Pointer<UInt32>} lphostlong A pointer to a 32-bit number to receive the number in host byte order.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>WSANtohl</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lphostlong</i> parameter is <b>NULL</b> or the address pointed to is not completely contained in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsantohl
      * @since windows8.1
      */
     static WSANtohl(s, netlong, lphostlong) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSANtohl", "ptr", s, "uint", netlong, "ptr", lphostlong)
+        result := DllCall("WS2_32.dll\WSANtohl", "ptr", s, "uint", netlong, "uint*", lphostlong)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -13574,17 +18278,74 @@ class WinSock {
      * @param {Pointer} s A descriptor identifying a socket.
      * @param {Integer} netshort A 16-bit number in network byte order.
      * @param {Pointer<UInt16>} lphostshort A pointer to a 16-bit number to receive the number in host byte order.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>WSANtohs</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lphostshort</i> parameter is <b>NULL</b> or the address pointed to is not completely contained in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsantohs
      * @since windows8.1
      */
     static WSANtohs(s, netshort, lphostshort) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSANtohs", "ptr", s, "ushort", netshort, "ptr", lphostshort)
+        result := DllCall("WS2_32.dll\WSANtohs", "ptr", s, "ushort", netshort, "ushort*", lphostshort)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -13827,17 +18588,244 @@ class WinSock {
      * @param {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>} lpCompletionRoutine Type: \_In_opt\_ [**LPWSAOVERLAPPED_COMPLETION_ROUTINE**](./nc-winsock2-lpwsaoverlapped_completion_routine.md)
      * 
      * A pointer to the completion routine called when the receive operation has been completed (ignored for nonoverlapped sockets).
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs and the receive operation has completed immediately, 
+     * <b>WSARecv</b> returns zero. In this case, the completion routine will have already been scheduled to be called once the calling thread is in the alertable state. Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>. The error code 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_IO_PENDING</a> indicates that the overlapped operation has been successfully initiated and that completion will be indicated at a later time. Any other error code indicates that the overlapped operation was not successfully initiated and no completion indication will occur.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECONNABORTED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The virtual circuit was terminated due to a time-out or other failure.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECONNRESET</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * For a stream socket, the virtual circuit was reset by the remote side. The application should close the socket as it is no longer usable. For a UDP datagram socket, this error would indicate that a previous send operation resulted in an ICMP "Port Unreachable" message.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEDISCON</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Socket <i>s</i> is message oriented and the virtual circuit was gracefully closed by the remote side.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpBuffers</i> parameter is not completely contained in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINTR</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The (blocking) call was canceled by the <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsacancelblockingcall">WSACancelBlockingCall</a> function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket has not been bound (for example, with 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-bind">bind</a>).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEMSGSIZE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The message was too large to fit into the specified buffer and (for unreliable protocols only) any trailing portion of the message that did not fit into the buffer has been discarded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETRESET</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * For a connection-oriented socket, this error indicates that the connection has been broken due to <i>keep-alive</i> activity that detected a failure while the operation was in progress. For a datagram socket, this error indicates that the time to live has expired.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTCONN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is not connected.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEOPNOTSUPP</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <b>MSG_OOB</b> was specified, but the socket is not stream-style such as type SOCK_STREAM, OOB data is not supported in the communication domain associated with this socket, or the socket is unidirectional and supports only send operations.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAESHUTDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket has been shut down; it is not possible to call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsarecv">WSARecv</a> on a socket after 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-shutdown">shutdown</a> has been invoked with <i>how</i> set to <b>SD_RECEIVE</b> or <b>SD_BOTH</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAETIMEDOUT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The connection has been dropped because of a network failure or because the peer system failed to respond.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEWOULDBLOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <b>Windows NT:  </b>Overlapped sockets: there are too many outstanding overlapped I/O requests. Nonoverlapped sockets: The socket is marked as nonblocking and the receive operation cannot be completed immediately.
+     * 
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_IO_PENDING</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An overlapped operation was successfully initiated and completion will be indicated at a later time.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_OPERATION_ABORTED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The overlapped operation has been canceled due to the closure of the socket.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsarecv
      * @since windows8.1
      */
     static WSARecv(s, lpBuffers, dwBufferCount, lpNumberOfBytesRecvd, lpFlags, lpOverlapped, lpCompletionRoutine) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSARecv", "ptr", s, "ptr", lpBuffers, "uint", dwBufferCount, "ptr", lpNumberOfBytesRecvd, "ptr", lpFlags, "ptr", lpOverlapped, "ptr", lpCompletionRoutine)
+        result := DllCall("WS2_32.dll\WSARecv", "ptr", s, "ptr", lpBuffers, "uint", dwBufferCount, "uint*", lpNumberOfBytesRecvd, "uint*", lpFlags, "ptr", lpOverlapped, "ptr", lpCompletionRoutine)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -13876,7 +18864,94 @@ class WinSock {
      * <div> </div>
      * @param {Pointer} s A descriptor identifying a socket.
      * @param {Pointer<WSABUF>} lpInboundDisconnectData A pointer to the incoming disconnect data.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>WSARecvDisconnect</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The buffer referenced by the parameter <i>lpInboundDisconnectData</i> is too small.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOPROTOOPT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The disconnect data is not supported by the indicated protocol family. Note that implementations of TCP/IP that do not support disconnect data are not required to return the WSAENOPROTOOPT error code. See the remarks section for information about the Microsoft implementation of TCP/IP.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTCONN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is not connected (connection-oriented sockets only).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsarecvdisconnect
      * @deprecated
      * @since windows5.0
@@ -13884,10 +18959,11 @@ class WinSock {
     static WSARecvDisconnect(s, lpInboundDisconnectData) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSARecvDisconnect", "ptr", s, "ptr", lpInboundDisconnectData)
+        result := DllCall("WS2_32.dll\WSARecvDisconnect", "ptr", s, "ptr", lpInboundDisconnectData)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -14040,7 +19116,7 @@ class WinSock {
      * Use <b>NULL</b> for this parameter if the <i>lpOverlapped</i> parameter is not <b>NULL</b> to avoid potentially erroneous results. This parameter can be <b>NULL</b> only if the <i>lpOverlapped</i> parameter is not <b>NULL</b>.
      * @param {Pointer<UInt32>} lpFlags A pointer to flags used to modify the behavior of the 
      * <b>WSARecvFrom</b> function call. See remarks below.
-     * @param {Pointer<SOCKADDR>} lpFrom An optional pointer to a buffer that will hold the source address upon the completion of the overlapped operation.
+     * @param {Pointer} lpFrom An optional pointer to a buffer that will hold the source address upon the completion of the overlapped operation.
      * @param {Pointer<Int32>} lpFromlen A pointer to the size, in bytes, of the "from" buffer required only if <i>lpFrom</i> is specified.
      * @param {Pointer<OVERLAPPED>} lpOverlapped A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaoverlapped">WSAOVERLAPPED</a> structure (ignored for nonoverlapped sockets).
@@ -14048,17 +19124,175 @@ class WinSock {
      * 
      * A pointer to the completion routine called when the 
      * <b>WSARecvFrom</b> operation has been completed (ignored for nonoverlapped sockets).
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs and the receive operation has completed immediately, 
+     * <b>WSARecvFrom</b> returns zero. In this case, the completion routine will have already been scheduled to be called once the calling thread is in the alertable state. Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>. The error code <b>WSA_IO_PENDING</b> indicates that the overlapped operation has been successfully initiated and that completion will be indicated at a later time. Any other error code indicates that the overlapped operation was not successfully initiated and no completion indication will occur.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECONNRESET</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The virtual circuit was reset by the remote side executing a hard or abortive close. The application should close the socket as it is no longer usable. For a UPD datagram socket, this error would indicate that a previous send operation resulted in an ICMP "Port Unreachable" message.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpBuffers</i>, <i>lpFlags</i>, <i>lpFrom</i>, <i>lpNumberOfBytesRecvd</i>, <i>lpFromlen</i>, <i>lpOverlapped</i>, or <i>lpCompletionRoutine</i> parameter is not totally contained in a valid part of the user address space: the <i>lpFrom</i> buffer was too small to accommodate the peer address.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINTR</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Socket 1.1 call was canceled through 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsacancelblockingcall">WSACancelBlockingCall</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket has not been bound (with 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-bind">bind</a>, for example).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEMSGSIZE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The message was too large for the specified buffer and (for unreliable protocols only) any trailing portion of the message that did not fit into the buffer has been discarded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETRESET</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * For a datagram socket, this error indicates that the time to live has expired.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTCONN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is not connected (connection-oriented sockets only).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEWOULDBLOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <b>Windows NT:  </b>
+     * 
+     * Overlapped sockets: There are too many outstanding overlapped I/O requests. Nonoverlapped sockets: The socket is marked as nonblocking and the receive operation cannot be completed immediately.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_IO_PENDING</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An overlapped operation was successfully initiated and completion will be indicated later.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_OPERATION_ABORTED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The overlapped operation has been canceled due to the closure of the socket.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsarecvfrom
      * @since windows8.1
      */
     static WSARecvFrom(s, lpBuffers, dwBufferCount, lpNumberOfBytesRecvd, lpFlags, lpFrom, lpFromlen, lpOverlapped, lpCompletionRoutine) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSARecvFrom", "ptr", s, "ptr", lpBuffers, "uint", dwBufferCount, "ptr", lpNumberOfBytesRecvd, "ptr", lpFlags, "ptr", lpFrom, "ptr", lpFromlen, "ptr", lpOverlapped, "ptr", lpCompletionRoutine)
+        result := DllCall("WS2_32.dll\WSARecvFrom", "ptr", s, "ptr", lpBuffers, "uint", dwBufferCount, "uint*", lpNumberOfBytesRecvd, "uint*", lpFlags, "ptr", lpFrom, "int*", lpFromlen, "ptr", lpOverlapped, "ptr", lpCompletionRoutine)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -14282,17 +19516,234 @@ class WinSock {
      * @param {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>} lpCompletionRoutine Type: \_In_opt\_ [**LPWSAOVERLAPPED_COMPLETION_ROUTINE**](./nc-winsock2-lpwsaoverlapped_completion_routine.md)
      * 
      * A pointer to the completion routine called when the send operation has been completed. This parameter is ignored for nonoverlapped sockets.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs and the send operation has completed immediately, 
+     * <b>WSASend</b> returns zero. In this case, the completion routine will have already been scheduled to be called once the calling thread is in the alertable state. Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>. The error code 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_IO_PENDING</a> indicates that the overlapped operation has been successfully initiated and that completion will be indicated at a later time. Any other error code indicates that the overlapped operation was not successfully initiated and no completion indication will occur.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECONNABORTED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The virtual circuit was terminated due to a time-out or other failure.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECONNRESET</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * For a stream socket, the virtual circuit was reset by the remote side. The application should close the socket as it is no longer usable. For a UDP datagram socket, this error would indicate that a previous send operation resulted in an ICMP "Port Unreachable" message.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpBuffers</i>, <i>lpNumberOfBytesSent</i>, <i>lpOverlapped</i>, <i>lpCompletionRoutine</i> parameter is not totally contained in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINTR</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Socket 1.1 call was canceled through 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsacancelblockingcall">WSACancelBlockingCall</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket has not been bound with 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-bind">bind</a> or the socket is not created with the overlapped flag.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEMSGSIZE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is message oriented, and the message is larger than the maximum supported by the underlying transport.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETRESET</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * For a stream socket, the connection has been broken due to keep-alive activity detecting a failure while the operation was in progress. For a datagram socket, this error indicates that the time to live has expired.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOBUFS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The Windows Sockets provider reports a buffer deadlock.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTCONN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is not connected.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEOPNOTSUPP</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <b>MSG_OOB</b> was specified, but the socket is not stream-style such as type <b>SOCK_STREAM</b>, OOB data is not supported in the communication domain associated with this socket, <b>MSG_PARTIAL</b> is not supported, or the socket is unidirectional and supports only receive operations.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAESHUTDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket has been shut down; it is not possible to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsasend">WSASend</a> on a socket after 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-shutdown">shutdown</a> has been invoked with how set to <b>SD_SEND</b> or <b>SD_BOTH</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEWOULDBLOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <b>Windows NT:  </b>
+     * 
+     * Overlapped sockets: There are too many outstanding overlapped I/O requests. Nonoverlapped sockets: The socket is marked as nonblocking and the send operation cannot be completed immediately.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_IO_PENDING</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An overlapped operation was successfully initiated and completion will be indicated at a later time.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_OPERATION_ABORTED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The overlapped operation has been canceled due to the closure of the socket, the execution of the "SIO_FLUSH" command in 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaioctl">WSAIoctl</a>, or the thread that initiated the overlapped request exited before the operation completed. For more information, see the Remarks section.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsasend
      * @since windows8.1
      */
     static WSASend(s, lpBuffers, dwBufferCount, lpNumberOfBytesSent, dwFlags, lpOverlapped, lpCompletionRoutine) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSASend", "ptr", s, "ptr", lpBuffers, "uint", dwBufferCount, "ptr", lpNumberOfBytesSent, "uint", dwFlags, "ptr", lpOverlapped, "ptr", lpCompletionRoutine)
+        result := DllCall("WS2_32.dll\WSASend", "ptr", s, "ptr", lpBuffers, "uint", dwBufferCount, "uint*", lpNumberOfBytesSent, "uint", dwFlags, "ptr", lpOverlapped, "ptr", lpCompletionRoutine)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -14421,17 +19872,255 @@ class WinSock {
      * @param {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>} lpCompletionRoutine Type: \_In_opt\_ [**LPWSAOVERLAPPED_COMPLETION_ROUTINE**](./nc-winsock2-lpwsaoverlapped_completion_routine.md)
      * 
      * A pointer to the completion routine called when the send operation completes. Ignored for non-overlapped sockets.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} Returns zero when successful and immediate completion occurs. When zero is returned, the specified completion routine is called when the calling thread is in the alertable state.
+     * 
+     * A return value of <b>SOCKET_ERROR</b>, and subsequent call to <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> that returns WSA_IO_PENDING, indicates the overlapped operation has successfully initiated; completion is then indicated through other means, such as through events or completion ports.
+     * 
+     * Upon failure, returns <b>SOCKET_ERROR</b> and a subsequent call to <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> returns a value other than <b>WSA_IO_PENDING</b>. The following table lists error codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEACCES</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The requested address is a broadcast address, but the appropriate flag was not set.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECONNRESET</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * For a UDP datagram socket, this error would indicate that a previous send operation resulted in an ICMP "Port Unreachable" message. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpMsg</i>, <i>lpNumberOfBytesSent</i>, <i>lpOverlapped</i>, or <i>lpCompletionRoutine</i> parameter is not totally contained in a valid part of the user address space. This error is also returned if a <b>name</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-wsamsg">WSAMSG</a> structure pointed to by the <i>lpMsg</i> parameter was a <b>NULL</b> pointer and the <b>namelen</b> member of the <b>WSAMSG</b> structure was not set to  zero.  This error is also returned if a <b>Control.buf</b> member of the <b>WSAMSG</b> structure pointed to by the <i>lpMsg</i> parameter was a <b>NULL</b> pointer and the <b>Control.len</b> member of the <b>WSAMSG</b> structure was not set to  zero.  
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINTR</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Socket 1.1 call was canceled through 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsacancelblockingcall">WSACancelBlockingCall</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket has not been bound with 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-bind">bind</a>, or the socket was not created with the overlapped flag.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEMSGSIZE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is message oriented, and the message is larger than the maximum supported by the underlying transport.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETRESET</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * For a datagram socket, this error indicates that the time to live has expired.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETUNREACH</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network is unreachable.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOBUFS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The Windows Sockets provider reports a buffer deadlock.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTCONN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is not connected.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEOPNOTSUPP</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket operation is not supported. This error is returned if the <b>dwFlags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-wsamsg">WSAMSG</a> structure pointed to by the <i>lpMsg</i> parameter includes any control flags invalid for <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsasendmsg">WSASendMsg</a>. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAESHUTDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket has been shut down; it is not possible to 
+     * call the <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsasendmsg">WSASendMsg</a> function on a socket after 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-shutdown">shutdown</a> has been invoked with <i>how</i> set to SD_SEND or SD_BOTH.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAETIMEDOUT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket timed out. This error is returned if the socket had a wait timeout specified using the <b>SO_SNDTIMEO</b> socket option and the timeout was exceeded. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEWOULDBLOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Overlapped sockets: There are too many outstanding overlapped I/O requests. Nonoverlapped sockets: The socket is marked as nonblocking and the send operation cannot be completed immediately.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_IO_PENDING</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An overlapped operation was successfully initiated and completion will be indicated at a later time.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_OPERATION_ABORTED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The overlapped operation has been canceled  due to the closure of the socket or due to the execution of the <b>SIO_FLUSH</b> command in 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaioctl">WSAIoctl</a>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsasendmsg
      * @since windows8.1
      */
     static WSASendMsg(Handle, lpMsg, dwFlags, lpNumberOfBytesSent, lpOverlapped, lpCompletionRoutine) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSASendMsg", "ptr", Handle, "ptr", lpMsg, "uint", dwFlags, "ptr", lpNumberOfBytesSent, "ptr", lpOverlapped, "ptr", lpCompletionRoutine)
+        result := DllCall("WS2_32.dll\WSASendMsg", "ptr", Handle, "ptr", lpMsg, "uint", dwFlags, "uint*", lpNumberOfBytesSent, "ptr", lpOverlapped, "ptr", lpCompletionRoutine)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -14466,7 +20155,94 @@ class WinSock {
      * <div> </div>
      * @param {Pointer} s Descriptor identifying a socket.
      * @param {Pointer<WSABUF>} lpOutboundDisconnectData A pointer to the outgoing disconnect data.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>WSASendDisconnect</b> returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOPROTOOPT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The parameter <i>lpOutboundDisconnectData</i> is not <b>NULL</b>, and the disconnect data is not supported by the service provider.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTCONN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is not connected (connection-oriented sockets only).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpOutboundDisconnectData</i> parameter is not completely contained in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsasenddisconnect
      * @deprecated
      * @since windows5.0
@@ -14474,10 +20250,11 @@ class WinSock {
     static WSASendDisconnect(s, lpOutboundDisconnectData) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSASendDisconnect", "ptr", s, "ptr", lpOutboundDisconnectData)
+        result := DllCall("WS2_32.dll\WSASendDisconnect", "ptr", s, "ptr", lpOutboundDisconnectData)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -14624,7 +20401,7 @@ class WinSock {
      * Use <b>NULL</b> for this parameter if the <i>lpOverlapped</i> parameter is not <b>NULL</b> to avoid potentially erroneous results. This parameter can be <b>NULL</b> only  if the <i>lpOverlapped</i> parameter is not <b>NULL</b>.
      * @param {Integer} dwFlags The flags  used to modify the behavior of the 
      * <b>WSASendTo</b> function call.
-     * @param {Pointer<SOCKADDR>} lpTo An optional pointer to the address of the target socket in the 
+     * @param {Pointer} lpTo An optional pointer to the address of the target socket in the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">SOCKADDR</a> structure.
      * @param {Integer} iTolen The size, in bytes, of the address in the <i>lpTo</i> parameter.
      * @param {Pointer<OVERLAPPED>} lpOverlapped A pointer to a 
@@ -14632,17 +20409,277 @@ class WinSock {
      * @param {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>} lpCompletionRoutine Type: \_In_opt\_ [**LPWSAOVERLAPPED_COMPLETION_ROUTINE**](./nc-winsock2-lpwsaoverlapped_completion_routine.md)
      * 
      * A pointer to the completion routine called when the send operation has been completed (ignored for nonoverlapped sockets).
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs and the send operation has completed immediately, 
+     * <b>WSASendTo</b> returns zero. In this case, the completion routine will have already been scheduled to be called once the calling thread is in the alertable state. Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>. The error code <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_IO_PENDING</a> indicates that the overlapped operation has been successfully initiated and that completion will be indicated at a later time. Any other error code indicates that the overlapped operation was not successfully initiated and no completion indication will occur.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEACCES</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The requested address is a broadcast address, but the appropriate flag was not set.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEADDRNOTAVAIL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The remote address is not a valid address (such as ADDR_ANY).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEAFNOSUPPORT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Addresses in the specified family cannot be used with this socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECONNRESET</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * For a UDP datagram socket, this error would indicate that a previous send operation resulted in an ICMP "Port Unreachable" message.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEDESTADDRREQ</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A destination address is required.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpBuffers</i>, <i>lpTo</i>, <i>lpOverlapped</i>, <i>lpNumberOfBytesSent</i>, or <i>lpCompletionRoutine</i> parameters are not part of the user address space, or the <i>lpTo</i> parameter is too small.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEHOSTUNREACH</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A socket operation was attempted to an unreachable host.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINTR</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Socket 1.1 call was canceled through 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsacancelblockingcall">WSACancelBlockingCall</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket has not been bound with 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-bind">bind</a>, or the socket is not created with the overlapped flag.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEMSGSIZE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is message oriented, and the message is larger than the maximum supported by the underlying transport.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETRESET</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * For a datagram socket, this error indicates that the time to live has expired.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETUNREACH</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network cannot be reached from this host at this time.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOBUFS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The Windows Sockets provider reports a buffer deadlock.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTCONN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is not connected (connection-oriented sockets only).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAESHUTDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket has been shut down; it is not possible to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsasendto">WSASendTo</a> on a socket after 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-shutdown">shutdown</a> has been invoked with <i>how</i> set to SD_SEND or SD_BOTH.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEWOULDBLOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <b>Windows NT:  </b>
+     * 
+     * Overlapped sockets: there are too many outstanding overlapped I/O requests. Nonoverlapped sockets: The socket is marked as nonblocking and the send operation cannot be completed immediately.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_IO_PENDING</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An overlapped operation was successfully initiated and completion will be indicated at a later time.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_OPERATION_ABORTED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The overlapped operation has been canceled due to the closure of the socket, or the execution of the SIO_FLUSH command in 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaioctl">WSAIoctl</a>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsasendto
      * @since windows8.1
      */
     static WSASendTo(s, lpBuffers, dwBufferCount, lpNumberOfBytesSent, dwFlags, lpTo, iTolen, lpOverlapped, lpCompletionRoutine) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSASendTo", "ptr", s, "ptr", lpBuffers, "uint", dwBufferCount, "ptr", lpNumberOfBytesSent, "uint", dwFlags, "ptr", lpTo, "int", iTolen, "ptr", lpOverlapped, "ptr", lpCompletionRoutine)
+        result := DllCall("WS2_32.dll\WSASendTo", "ptr", s, "ptr", lpBuffers, "uint", dwBufferCount, "uint*", lpNumberOfBytesSent, "uint", dwFlags, "ptr", lpTo, "int", iTolen, "ptr", lpOverlapped, "ptr", lpCompletionRoutine)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -16287,7 +22324,7 @@ class WinSock {
      * 
      * ```cpp
      * @param {Integer} cEvents The number of event object handles in the array pointed to by <i>lphEvents</i>. The maximum number of event object handles is <b>WSA_MAXIMUM_WAIT_EVENTS</b>. One or more events must be specified.
-     * @param {Pointer<HANDLE>} lphEvents A pointer to an array of event object handles. The array can contain handles of objects of different types. It may not contain multiple copies of the same handle if the <i>fWaitAll</i> parameter is set to <b>TRUE</b>. 
+     * @param {Pointer<Void>} lphEvents A pointer to an array of event object handles. The array can contain handles of objects of different types. It may not contain multiple copies of the same handle if the <i>fWaitAll</i> parameter is set to <b>TRUE</b>. 
      * If one of these handles is closed while the wait is still pending, the behavior of <b>WSAWaitForMultipleEvents</b> is undefined.
      * 
      * The handles must have the <b>SYNCHRONIZE</b> access right.  For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">Standard Access Rights</a>.
@@ -16412,15 +22449,69 @@ class WinSock {
      * 
      * > [!NOTE]
      * > The winsock2.h header defines WSAAddressToString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<SOCKADDR>} lpsaAddress A pointer to the 
+     * @param {Pointer} lpsaAddress A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure to translate into a string.
      * @param {Integer} dwAddressLength The length, in bytes, of the address in the <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure pointed to by the <i>lpsaAddress</i> parameter. The <i>dwAddressLength</i> parameter may vary in size with different protocols.
      * @param {Pointer<WSAPROTOCOL_INFOA>} lpProtocolInfo A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAPROTOCOL_INFO</a> structure for a particular provider. If this is parameter is <b>NULL</b>, the call is routed to the provider of the first protocol supporting the address family indicated in the <i>lpsaAddress</i> parameter.
-     * @param {Pointer<PSTR>} lpszAddressString A pointer to the buffer that receives the human-readable address string.
+     * @param {Pointer<Byte>} lpszAddressString A pointer to the buffer that receives the human-readable address string.
      * @param {Pointer<UInt32>} lpdwAddressStringLength On input, this parameter specifies the length of the buffer pointed to by the <i>lpszAddressString</i> parameter. The length is represented in bytes for ANSI strings, and in WCHARs for Unicode strings. On output, this parameter returns the length of the string including the <b>NULL</b> terminator actually copied into the buffer pointed to by the <i>lpszAddressString</i> parameter. If the specified buffer is not large enough, the function fails with a specific error of 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a> and this parameter is updated with the required size.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>WSAAddressToString</b> returns a value of zero. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified <i>lpcsAddress</i>, <i>lpProtocolInfo</i>, and <i>lpszAddressString</i> parameters point to memory that is not all in the address space of the process, or the buffer pointed to by the <i>lpszAddressString</i> parameter is too small. Pass in a larger buffer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An invalid parameter was passed. This error is returned if the <i>lpsaAddress</i>, <i>dwAddressLength</i>, or <i>lpdwAddressStringLength</i> parameter are <b>NULL</b>. This error is also returned if the specified address is not a valid socket address, or no transport provider supports the indicated address family.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOBUFS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No buffer space is available.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The Winsock 2 DLL has not been initialized. The application must first call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> before calling any Windows Sockets functions.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsaaddresstostringa
      * @deprecated
      * @since windows8.1
@@ -16430,10 +22521,11 @@ class WinSock {
 
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAAddressToStringA", "ptr", lpsaAddress, "uint", dwAddressLength, "ptr", lpProtocolInfo, "ptr", lpszAddressString, "ptr", lpdwAddressStringLength)
+        result := DllCall("WS2_32.dll\WSAAddressToStringA", "ptr", lpsaAddress, "uint", dwAddressLength, "ptr", lpProtocolInfo, "ptr", lpszAddressString, "uint*", lpdwAddressStringLength)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -16462,15 +22554,69 @@ class WinSock {
      * 
      * > [!NOTE]
      * > The winsock2.h header defines WSAAddressToString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<SOCKADDR>} lpsaAddress A pointer to the 
+     * @param {Pointer} lpsaAddress A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure to translate into a string.
      * @param {Integer} dwAddressLength The length, in bytes, of the address in the <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure pointed to by the <i>lpsaAddress</i> parameter. The <i>dwAddressLength</i> parameter may vary in size with different protocols.
      * @param {Pointer<WSAPROTOCOL_INFOW>} lpProtocolInfo A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAPROTOCOL_INFO</a> structure for a particular provider. If this is parameter is <b>NULL</b>, the call is routed to the provider of the first protocol supporting the address family indicated in the <i>lpsaAddress</i> parameter.
-     * @param {Pointer<PWSTR>} lpszAddressString A pointer to the buffer that receives the human-readable address string.
+     * @param {Pointer<Char>} lpszAddressString A pointer to the buffer that receives the human-readable address string.
      * @param {Pointer<UInt32>} lpdwAddressStringLength On input, this parameter specifies the length of the buffer pointed to by the <i>lpszAddressString</i> parameter. The length is represented in bytes for ANSI strings, and in WCHARs for Unicode strings. On output, this parameter returns the length of the string including the <b>NULL</b> terminator actually copied into the buffer pointed to by the <i>lpszAddressString</i> parameter. If the specified buffer is not large enough, the function fails with a specific error of 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a> and this parameter is updated with the required size.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>WSAAddressToString</b> returns a value of zero. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified <i>lpcsAddress</i>, <i>lpProtocolInfo</i>, and <i>lpszAddressString</i> parameters point to memory that is not all in the address space of the process, or the buffer pointed to by the <i>lpszAddressString</i> parameter is too small. Pass in a larger buffer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An invalid parameter was passed. This error is returned if the <i>lpsaAddress</i>, <i>dwAddressLength</i>, or <i>lpdwAddressStringLength</i> parameter are <b>NULL</b>. This error is also returned if the specified address is not a valid socket address, or no transport provider supports the indicated address family.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOBUFS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No buffer space is available.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The Winsock 2 DLL has not been initialized. The application must first call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> before calling any Windows Sockets functions.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsaaddresstostringw
      * @since windows8.1
      */
@@ -16479,10 +22625,11 @@ class WinSock {
 
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAAddressToStringW", "ptr", lpsaAddress, "uint", dwAddressLength, "ptr", lpProtocolInfo, "ptr", lpszAddressString, "ptr", lpdwAddressStringLength)
+        result := DllCall("WS2_32.dll\WSAAddressToStringW", "ptr", lpsaAddress, "uint", dwAddressLength, "ptr", lpProtocolInfo, "ptr", lpszAddressString, "uint*", lpdwAddressStringLength)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -16510,14 +22657,69 @@ class WinSock {
      * 
      * > [!NOTE]
      * > The winsock2.h header defines WSAStringToAddress as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} AddressString A pointer to the zero-terminated string that contains the network address in standard text form to convert.
+     * @param {Pointer<Byte>} AddressString A pointer to the zero-terminated string that contains the network address in standard text form to convert.
      * @param {Integer} AddressFamily The address family of the network address pointed to by the <i>AddressString</i> parameter.
      * @param {Pointer<WSAPROTOCOL_INFOA>} lpProtocolInfo The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAPROTOCOL_INFO</a> structure associated with the provider to be used. If this is <b>NULL</b>, the call is routed to the provider of the first protocol supporting the indicated <i>AddressFamily</i>.
-     * @param {Pointer<SOCKADDR>} lpAddress A pointer to a buffer that is filled with a  <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure for the address string if the function succeeds.
+     * @param {Pointer} lpAddress A pointer to a buffer that is filled with a  <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure for the address string if the function succeeds.
      * @param {Pointer<Int32>} lpAddressLength A pointer to the length, in bytes, of the buffer pointed to by the <i>lpAddress</i> parameter. If the function call is successful, this parameter returns a pointer to the size of the <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure returned in the <i>lpAddress</i> parameter. If the specified buffer is not large enough, the function fails with a specific error of 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a> and this parameter is updated with the required size in bytes.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The return value for 
+     * <b>WSAStringToAddress</b> is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The buffer pointed to by the <i>lpAddress</i> parameter is too small. Pass in a larger buffer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The functions was unable to translate the string into a 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a>. See the following Remarks section for more information.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The WS2_32.DLL has not been initialized. The application must first call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> before calling any Windows Socket functions.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsastringtoaddressa
      * @deprecated
      * @since windows8.1
@@ -16527,10 +22729,11 @@ class WinSock {
 
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAStringToAddressA", "ptr", AddressString, "int", AddressFamily, "ptr", lpProtocolInfo, "ptr", lpAddress, "ptr", lpAddressLength)
+        result := DllCall("WS2_32.dll\WSAStringToAddressA", "ptr", AddressString, "int", AddressFamily, "ptr", lpProtocolInfo, "ptr", lpAddress, "int*", lpAddressLength)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -16558,14 +22761,69 @@ class WinSock {
      * 
      * > [!NOTE]
      * > The winsock2.h header defines WSAStringToAddress as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} AddressString A pointer to the zero-terminated string that contains the network address in standard text form to convert.
+     * @param {Pointer<Char>} AddressString A pointer to the zero-terminated string that contains the network address in standard text form to convert.
      * @param {Integer} AddressFamily The address family of the network address pointed to by the <i>AddressString</i> parameter.
      * @param {Pointer<WSAPROTOCOL_INFOW>} lpProtocolInfo The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAPROTOCOL_INFO</a> structure associated with the provider to be used. If this is <b>NULL</b>, the call is routed to the provider of the first protocol supporting the indicated <i>AddressFamily</i>.
-     * @param {Pointer<SOCKADDR>} lpAddress A pointer to a buffer that is filled with a  <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure for the address string if the function succeeds.
+     * @param {Pointer} lpAddress A pointer to a buffer that is filled with a  <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure for the address string if the function succeeds.
      * @param {Pointer<Int32>} lpAddressLength A pointer to the length, in bytes, of the buffer pointed to by the <i>lpAddress</i> parameter. If the function call is successful, this parameter returns a pointer to the size of the <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure returned in the <i>lpAddress</i> parameter. If the specified buffer is not large enough, the function fails with a specific error of 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a> and this parameter is updated with the required size in bytes.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The return value for 
+     * <b>WSAStringToAddress</b> is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The buffer pointed to by the <i>lpAddress</i> parameter is too small. Pass in a larger buffer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The functions was unable to translate the string into a 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a>. See the following Remarks section for more information.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The WS2_32.DLL has not been initialized. The application must first call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> before calling any Windows Socket functions.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsastringtoaddressw
      * @since windows8.1
      */
@@ -16574,10 +22832,11 @@ class WinSock {
 
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAStringToAddressW", "ptr", AddressString, "int", AddressFamily, "ptr", lpProtocolInfo, "ptr", lpAddress, "ptr", lpAddressLength)
+        result := DllCall("WS2_32.dll\WSAStringToAddressW", "ptr", AddressString, "int", AddressFamily, "ptr", lpProtocolInfo, "ptr", lpAddress, "int*", lpAddressLength)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -16899,9 +23158,75 @@ class WinSock {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<HANDLE>} lphLookup A  handle to be used when calling 
+     * @param {Pointer<Void>} lphLookup A  handle to be used when calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsalookupservicenexta">WSALookupServiceNext</a> in order to start retrieving the results set.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more parameters were missing or invalid for this provider.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_DATA</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The name was found in the database but no data matching the given restrictions was located.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The WS2_32.DLL has not been initialized. The application must first call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> before calling any Windows Sockets functions.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSASERVICE_NOT_FOUND</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No such service is known. The service cannot be found in the specified name space.
+     * 
+     * This error is returned for a bluetooth service discovery request if no remote bluetooth devices were found.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsalookupservicebegina
      * @deprecated
      * @since windows8.1
@@ -16909,10 +23234,11 @@ class WinSock {
     static WSALookupServiceBeginA(lpqsRestrictions, dwControlFlags, lphLookup) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSALookupServiceBeginA", "ptr", lpqsRestrictions, "uint", dwControlFlags, "ptr", lphLookup)
+        result := DllCall("WS2_32.dll\WSALookupServiceBeginA", "ptr", lpqsRestrictions, "uint", dwControlFlags, "ptr", lphLookup)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -17234,19 +23560,86 @@ class WinSock {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<HANDLE>} lphLookup A  handle to be used when calling 
+     * @param {Pointer<Void>} lphLookup A  handle to be used when calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsalookupservicenexta">WSALookupServiceNext</a> in order to start retrieving the results set.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more parameters were missing or invalid for this provider.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_DATA</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The name was found in the database but no data matching the given restrictions was located.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The WS2_32.DLL has not been initialized. The application must first call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> before calling any Windows Sockets functions.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSASERVICE_NOT_FOUND</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No such service is known. The service cannot be found in the specified name space.
+     * 
+     * This error is returned for a bluetooth service discovery request if no remote bluetooth devices were found.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsalookupservicebeginw
      * @since windows8.1
      */
     static WSALookupServiceBeginW(lpqsRestrictions, dwControlFlags, lphLookup) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSALookupServiceBeginW", "ptr", lpqsRestrictions, "uint", dwControlFlags, "ptr", lphLookup)
+        result := DllCall("WS2_32.dll\WSALookupServiceBeginW", "ptr", lpqsRestrictions, "uint", dwControlFlags, "ptr", lphLookup)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -17361,7 +23754,7 @@ class WinSock {
      * 
      * > [!NOTE]
      * > The winsock2.h header defines WSALookupServiceNext as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} hLookup A handle returned from the previous call to 
+     * @param {Pointer<Void>} hLookup A handle returned from the previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsalookupservicebegina">WSALookupServiceBegin</a>.
      * @param {Integer} dwControlFlags A set of flags that controls the operation. The values passed in the <i>dwControlFlags</i> parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsalookupservicebegina">WSALookupServiceBegin</a> function determine the possible criteria. Any values passed in the <i>dwControlFlags</i> parameter to the <b>WSALookupServiceNext</b> function further restrict the criteria for the service lookup. 
      * 
@@ -17556,9 +23949,108 @@ class WinSock {
      * </table>
      * @param {Pointer<UInt32>} lpdwBufferLength On input, the number of bytes contained in the buffer pointed to by <i>lpqsResults</i>. On output, if the function fails and the error is 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a>, then it contains the minimum number of bytes to pass for the <i>lpqsResults</i> to retrieve the record.
-     * @param {Pointer<WSAQUERYSETA>} lpqsResults A pointer to a block of memory, which will contain one result set in a 
+     * @param {Pointer} lpqsResults A pointer to a block of memory, which will contain one result set in a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaquerysetw">WSAQUERYSET</a> structure on return.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_E_CANCELLED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsalookupserviceend">WSALookupServiceEnd</a> was made while this call was still processing. The call has been canceled. The data in the <i>lpqsResults</i> buffer is undefined. In Windows Sockets version 2, conflicting error codes are defined for <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECANCELLED</a> (10103) and <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_E_CANCELLED</a> (10111). The error code WSAECANCELLED will be removed in a future version and only WSA_E_CANCELLED will remain. For Windows Sockets version 2, however, applications should check for both WSAECANCELLED and WSA_E_CANCELLED for the widest possible compatibility with namespace providers that use either one.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_E_NO_MORE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is no more data available. In Windows Sockets version 2, conflicting error codes are defined for <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOMORE</a> (10102) and <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_E_NO_MORE</a> (10110). The error code WSAENOMORE will be removed in a future version and only WSA_E_NO_MORE will remain. For Windows Sockets version 2, however, applications should check for both WSAENOMORE and WSA_E_NO_MORE for the widest possible compatibility with name-space providers that use either one.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpqsResults</i> buffer was too small to contain a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaquerysetw">WSAQUERYSET</a> set.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more required parameters were invalid or missing.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_INVALID_HANDLE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified Lookup handle is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The WS2_32.DLL has not been initialized. The application must first call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> before calling any Windows Sockets functions.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_DATA</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The name was found in the database, but no data matching the given restrictions was located.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsalookupservicenexta
      * @deprecated
      * @since windows8.1
@@ -17566,10 +24058,11 @@ class WinSock {
     static WSALookupServiceNextA(hLookup, dwControlFlags, lpdwBufferLength, lpqsResults) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSALookupServiceNextA", "ptr", hLookup, "uint", dwControlFlags, "ptr", lpdwBufferLength, "ptr", lpqsResults)
+        result := DllCall("WS2_32.dll\WSALookupServiceNextA", "ptr", hLookup, "uint", dwControlFlags, "uint*", lpdwBufferLength, "ptr", lpqsResults)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -17684,7 +24177,7 @@ class WinSock {
      * 
      * > [!NOTE]
      * > The winsock2.h header defines WSALookupServiceNext as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} hLookup A handle returned from the previous call to 
+     * @param {Pointer<Void>} hLookup A handle returned from the previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsalookupservicebegina">WSALookupServiceBegin</a>.
      * @param {Integer} dwControlFlags A set of flags that controls the operation. The values passed in the <i>dwControlFlags</i> parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsalookupservicebegina">WSALookupServiceBegin</a> function determine the possible criteria. Any values passed in the <i>dwControlFlags</i> parameter to the <b>WSALookupServiceNext</b> function further restrict the criteria for the service lookup. 
      * 
@@ -17879,19 +24372,119 @@ class WinSock {
      * </table>
      * @param {Pointer<UInt32>} lpdwBufferLength On input, the number of bytes contained in the buffer pointed to by <i>lpqsResults</i>. On output, if the function fails and the error is 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a>, then it contains the minimum number of bytes to pass for the <i>lpqsResults</i> to retrieve the record.
-     * @param {Pointer<WSAQUERYSETW>} lpqsResults A pointer to a block of memory, which will contain one result set in a 
+     * @param {Pointer} lpqsResults A pointer to a block of memory, which will contain one result set in a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaquerysetw">WSAQUERYSET</a> structure on return.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_E_CANCELLED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsalookupserviceend">WSALookupServiceEnd</a> was made while this call was still processing. The call has been canceled. The data in the <i>lpqsResults</i> buffer is undefined. In Windows Sockets version 2, conflicting error codes are defined for <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECANCELLED</a> (10103) and <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_E_CANCELLED</a> (10111). The error code WSAECANCELLED will be removed in a future version and only WSA_E_CANCELLED will remain. For Windows Sockets version 2, however, applications should check for both WSAECANCELLED and WSA_E_CANCELLED for the widest possible compatibility with namespace providers that use either one.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_E_NO_MORE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is no more data available. In Windows Sockets version 2, conflicting error codes are defined for <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOMORE</a> (10102) and <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_E_NO_MORE</a> (10110). The error code WSAENOMORE will be removed in a future version and only WSA_E_NO_MORE will remain. For Windows Sockets version 2, however, applications should check for both WSAENOMORE and WSA_E_NO_MORE for the widest possible compatibility with name-space providers that use either one.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpqsResults</i> buffer was too small to contain a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaquerysetw">WSAQUERYSET</a> set.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more required parameters were invalid or missing.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_INVALID_HANDLE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified Lookup handle is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The WS2_32.DLL has not been initialized. The application must first call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> before calling any Windows Sockets functions.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_DATA</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The name was found in the database, but no data matching the given restrictions was located.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsalookupservicenextw
      * @since windows8.1
      */
     static WSALookupServiceNextW(hLookup, dwControlFlags, lpdwBufferLength, lpqsResults) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSALookupServiceNextW", "ptr", hLookup, "uint", dwControlFlags, "ptr", lpdwBufferLength, "ptr", lpqsResults)
+        result := DllCall("WS2_32.dll\WSALookupServiceNextW", "ptr", hLookup, "uint", dwControlFlags, "uint*", lpdwBufferLength, "ptr", lpqsResults)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -17958,7 +24551,7 @@ class WinSock {
      * <b>Windows Phone 8:</b> This function is supported for Windows Phone Store apps on Windows Phone 8 and later.
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
-     * @param {Pointer<HANDLE>} hLookup The lookup handle returned from a previous call to the 
+     * @param {Pointer<Void>} hLookup The lookup handle returned from a previous call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsalookupservicebegina">WSALookupServiceBegin</a> function.
      * @param {Integer} dwControlCode The control code of the operation to perform.
      * 
@@ -17985,23 +24578,112 @@ class WinSock {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} lpvInBuffer A pointer to the input buffer.
+     * @param {Pointer} lpvInBuffer A pointer to the input buffer.
      * @param {Integer} cbInBuffer The size, in bytes, of the input buffer.
-     * @param {Pointer<Void>} lpvOutBuffer A pointer to the output buffer.
+     * @param {Pointer} lpvOutBuffer A pointer to the output buffer.
      * @param {Integer} cbOutBuffer The size, in bytes, of the output buffer.
      * @param {Pointer<UInt32>} lpcbBytesReturned A pointer to the number of bytes returned.
      * @param {Pointer<WSACOMPLETION>} lpCompletion A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsacompletion">WSACOMPLETION</a> structure, used for asynchronous processing. Set <i>lpCompletion</i> to <b>NULL</b> to force blocking (synchronous) execution.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} Success returns NO_ERROR. Failure returns SOCKET_ERROR, and a specific error code can be retrieved by calling the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> function. The following table describes the error codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_INVALID_HANDLE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hLookup</i> parameter was not a valid query handle returned by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsalookupservicebegina">WSALookupServiceBegin</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_IO_PENDING</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An overlapped operation was successfully initiated and completion will be indicated at a later time.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpvInBuffer</i>, <i>cbInBuffer</i>, <i>lpvOutBuffer</i>, <i>cbOutBuffer</i>, or <i>lpCompletion</i> argument is not totally contained in a valid part of the user address space. Alternatively, the <i>cbInBuffer</i> or <i>cbOutBuffer</i> argument is too small, and the argument is modified to reflect the required allocation size.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A supplied parameter is not acceptable, or the operation inappropriately returns results from multiple namespaces when it does not make sense for the specified operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEOPNOTSUPP</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation is not supported. This error is returned if the namespace provider does not implement this function. This error can also be returned if the specified <i>dwControlCode</i> is an unrecognized command.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEWOULDBLOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is not using overlapped I/O (asynchronous processing), yet the <i>lpCompletion</i> parameter is non-<b>NULL</b>.
+     * 
+     * This error is used as a special notification for the SIO_NSP_NOTIFY_CHANGE IOCTL when the <i>lpCompletion</i> parameter is <b>NULL</b> (a poll) to indicate that a query set remains valid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsanspioctl
      * @since windows8.1
      */
     static WSANSPIoctl(hLookup, dwControlCode, lpvInBuffer, cbInBuffer, lpvOutBuffer, cbOutBuffer, lpcbBytesReturned, lpCompletion) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSANSPIoctl", "ptr", hLookup, "uint", dwControlCode, "ptr", lpvInBuffer, "uint", cbInBuffer, "ptr", lpvOutBuffer, "uint", cbOutBuffer, "ptr", lpcbBytesReturned, "ptr", lpCompletion)
+        result := DllCall("WS2_32.dll\WSANSPIoctl", "ptr", hLookup, "uint", dwControlCode, "ptr", lpvInBuffer, "uint", cbInBuffer, "ptr", lpvOutBuffer, "uint", cbOutBuffer, "uint*", lpcbBytesReturned, "ptr", lpCompletion)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -18010,19 +24692,62 @@ class WinSock {
      * <b>Windows Phone 8:</b> This function is supported for Windows Phone Store apps on Windows Phone 8 and later.
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
-     * @param {Pointer<HANDLE>} hLookup Handle previously obtained by calling 
+     * @param {Pointer<Void>} hLookup Handle previously obtained by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsalookupservicebegina">WSALookupServiceBegin</a>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_INVALID_HANDLE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The handle is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The WS2_32.DLL has not been initialized. The application must first call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> before calling any Windows Sockets functions.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsalookupserviceend
      * @since windows8.1
      */
     static WSALookupServiceEnd(hLookup) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSALookupServiceEnd", "ptr", hLookup)
+        result := DllCall("WS2_32.dll\WSALookupServiceEnd", "ptr", hLookup)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -18037,7 +24762,105 @@ class WinSock {
      * 
      * See the section 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/name-resolution-data-structures-2">Service Class Data Structures</a> for a description of pertinent data structures.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_INVALID_PARAMETER</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The namespace provider cannot supply the requested class information.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEACCES</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The calling function does not have sufficient privileges to install the service.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEALREADY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Service class information has already been registered for this service class identifier. To modify service class information, first use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaremoveserviceclass">WSARemoveServiceClass</a>, and then reinstall with updated class information data.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The service class information was not valid or improperly structured. This error is returned if the <i>lpServiceClassInfo</i> parameter is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEOPNOTSUPP</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation is not supported. This error is returned if the namespace provider does not implement this function. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_DATA</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The requested name is valid, but no data of the requested type was found.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The WS2_32.DLL has not been initialized. The application must first call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> before calling any Windows Sockets functions.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsainstallserviceclassa
      * @deprecated
      * @since windows5.0
@@ -18045,10 +24868,11 @@ class WinSock {
     static WSAInstallServiceClassA(lpServiceClassInfo) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAInstallServiceClassA", "ptr", lpServiceClassInfo)
+        result := DllCall("WS2_32.dll\WSAInstallServiceClassA", "ptr", lpServiceClassInfo)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -18063,33 +24887,212 @@ class WinSock {
      * 
      * See the section 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/name-resolution-data-structures-2">Service Class Data Structures</a> for a description of pertinent data structures.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_INVALID_PARAMETER</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The namespace provider cannot supply the requested class information.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEACCES</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The calling function does not have sufficient privileges to install the service.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEALREADY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Service class information has already been registered for this service class identifier. To modify service class information, first use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaremoveserviceclass">WSARemoveServiceClass</a>, and then reinstall with updated class information data.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The service class information was not valid or improperly structured. This error is returned if the <i>lpServiceClassInfo</i> parameter is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEOPNOTSUPP</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation is not supported. This error is returned if the namespace provider does not implement this function. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_DATA</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The requested name is valid, but no data of the requested type was found.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The WS2_32.DLL has not been initialized. The application must first call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> before calling any Windows Sockets functions.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsainstallserviceclassw
      * @since windows5.0
      */
     static WSAInstallServiceClassW(lpServiceClassInfo) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAInstallServiceClassW", "ptr", lpServiceClassInfo)
+        result := DllCall("WS2_32.dll\WSAInstallServiceClassW", "ptr", lpServiceClassInfo)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
      * The WSARemoveServiceClass function permanently removes the service class schema from the registry.
      * @param {Pointer<Guid>} lpServiceClassId Pointer to the GUID for the service class you want to remove.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The return value is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSATYPE_NOT_FOUND</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified class was not found.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEACCES</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The calling routine does not have sufficient privileges to remove the Service.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAETOOMANYREFS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There are service instances that still reference the class. Removal of this class is not possible at this time.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The WS2_32.DLL has not been initialized. The application must first call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> before calling any Windows Sockets functions.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified GUID was not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * <div> </div>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsaremoveserviceclass
      * @since windows5.0
      */
     static WSARemoveServiceClass(lpServiceClassId) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSARemoveServiceClass", "ptr", lpServiceClassId)
+        result := DllCall("WS2_32.dll\WSARemoveServiceClass", "ptr", lpServiceClassId)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -18111,8 +25114,106 @@ class WinSock {
      * 
      * On output, if the function fails and the error is 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a>, this parameter specifies the minimum size, in bytes, of the buffer pointed to <i>lpServiceClassInfo</i> needed to retrieve the record.
-     * @param {Pointer<WSASERVICECLASSINFOA>} lpServiceClassInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaserviceclassinfow">WSASERVICECLASSINFO</a> structure that contains the service class information from the indicated namespace provider for the specified service class.
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer} lpServiceClassInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaserviceclassinfow">WSASERVICECLASSINFO</a> structure that contains the service class information from the indicated namespace provider for the specified service class.
+     * @returns {Pointer} The return value is zero if the 
+     * <b>WSAGetServiceClassInfo</b> was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEACCES</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The calling routine does not have sufficient privileges to access the information.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The buffer pointed to by the <i>lpServiceClassInfo</i> parameter is too small to contain a WSASERVICECLASSINFOW. The application needs to pass in a larger buffer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified service class identifier or namespace provider identifier is not valid. This error is returned if the <i>lpProviderId</i>, <i>lpServiceClassId</i>, <i>lpdwBufSize</i>, or <i>lpServiceClassInfo</i> parameters are <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEOPNOTSUPP</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation is not supported for the type of object referenced. This error is returned by some namespace providers that do not support getting service class information.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_DATA</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The requested name is valid, but no data of the requested type was found.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The WS2_32.DLL has not been initialized. The application must first call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> before calling any Windows Sockets functions.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSATYPE_NOT_FOUND</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified class was not found.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsagetserviceclassinfoa
      * @deprecated
      * @since windows5.0
@@ -18120,10 +25221,11 @@ class WinSock {
     static WSAGetServiceClassInfoA(lpProviderId, lpServiceClassId, lpdwBufSize, lpServiceClassInfo) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAGetServiceClassInfoA", "ptr", lpProviderId, "ptr", lpServiceClassId, "ptr", lpdwBufSize, "ptr", lpServiceClassInfo)
+        result := DllCall("WS2_32.dll\WSAGetServiceClassInfoA", "ptr", lpProviderId, "ptr", lpServiceClassId, "uint*", lpdwBufSize, "ptr", lpServiceClassInfo)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -18145,18 +25247,117 @@ class WinSock {
      * 
      * On output, if the function fails and the error is 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a>, this parameter specifies the minimum size, in bytes, of the buffer pointed to <i>lpServiceClassInfo</i> needed to retrieve the record.
-     * @param {Pointer<WSASERVICECLASSINFOW>} lpServiceClassInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaserviceclassinfow">WSASERVICECLASSINFO</a> structure that contains the service class information from the indicated namespace provider for the specified service class.
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer} lpServiceClassInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaserviceclassinfow">WSASERVICECLASSINFO</a> structure that contains the service class information from the indicated namespace provider for the specified service class.
+     * @returns {Pointer} The return value is zero if the 
+     * <b>WSAGetServiceClassInfo</b> was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEACCES</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The calling routine does not have sufficient privileges to access the information.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The buffer pointed to by the <i>lpServiceClassInfo</i> parameter is too small to contain a WSASERVICECLASSINFOW. The application needs to pass in a larger buffer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified service class identifier or namespace provider identifier is not valid. This error is returned if the <i>lpProviderId</i>, <i>lpServiceClassId</i>, <i>lpdwBufSize</i>, or <i>lpServiceClassInfo</i> parameters are <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEOPNOTSUPP</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation is not supported for the type of object referenced. This error is returned by some namespace providers that do not support getting service class information.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_DATA</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The requested name is valid, but no data of the requested type was found.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The WS2_32.DLL has not been initialized. The application must first call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> before calling any Windows Sockets functions.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSATYPE_NOT_FOUND</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified class was not found.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsagetserviceclassinfow
      * @since windows5.0
      */
     static WSAGetServiceClassInfoW(lpProviderId, lpServiceClassId, lpdwBufSize, lpServiceClassInfo) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAGetServiceClassInfoW", "ptr", lpProviderId, "ptr", lpServiceClassId, "ptr", lpdwBufSize, "ptr", lpServiceClassInfo)
+        result := DllCall("WS2_32.dll\WSAGetServiceClassInfoW", "ptr", lpProviderId, "ptr", lpServiceClassId, "uint*", lpdwBufSize, "ptr", lpServiceClassInfo)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -18177,10 +25378,55 @@ class WinSock {
      * ```cpp
      * @param {Pointer<UInt32>} lpdwBufferLength On input, the number of bytes contained in the buffer pointed to by <i>lpnspBuffer</i>. On output (if the function fails, and the error is 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a>), the minimum number of bytes to pass for the <i>lpnspBuffer</i> to retrieve all the requested information. The buffer passed to <b>WSAEnumNameSpaceProviders</b> must be sufficient to hold all of the namespace information.
-     * @param {Pointer<WSANAMESPACE_INFOA>} lpnspBuffer A buffer that is filled with 
+     * @param {Pointer} lpnspBuffer A buffer that is filled with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infow">WSANAMESPACE_INFO</a> structures. The returned structures are located consecutively at the head of the buffer. Variable sized information referenced by pointers in the structures point to locations within the buffer located between the end of the fixed sized structures and the end of the buffer. The number of structures filled in is the return value of 
      * <b>WSAEnumNameSpaceProviders</b>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The 
+     * <b>WSAEnumNameSpaceProviders</b> function returns the number of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infow">WSANAMESPACE_INFO</a> structures copied into <i>lpnspBuffer</i>. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpnspBuffer</i> parameter was a <b>NULL</b> pointer or the buffer length, <i>lpdwBufferLength</i>, was too small to receive all the relevant 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infow">WSANAMESPACE_INFO</a> structures and associated information. When this error is returned, the buffer length required is returned in the <i>lpdwBufferLength</i> parameter. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The WS2_32.DLL has not been initialized. The application must first call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> before calling any Windows Sockets functions.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsaenumnamespaceprovidersa
      * @deprecated
      * @since windows8.1
@@ -18188,10 +25434,11 @@ class WinSock {
     static WSAEnumNameSpaceProvidersA(lpdwBufferLength, lpnspBuffer) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAEnumNameSpaceProvidersA", "ptr", lpdwBufferLength, "ptr", lpnspBuffer)
+        result := DllCall("WS2_32.dll\WSAEnumNameSpaceProvidersA", "uint*", lpdwBufferLength, "ptr", lpnspBuffer)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -18212,20 +25459,66 @@ class WinSock {
      * ```cpp
      * @param {Pointer<UInt32>} lpdwBufferLength On input, the number of bytes contained in the buffer pointed to by <i>lpnspBuffer</i>. On output (if the function fails, and the error is 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a>), the minimum number of bytes to pass for the <i>lpnspBuffer</i> to retrieve all the requested information. The buffer passed to <b>WSAEnumNameSpaceProviders</b> must be sufficient to hold all of the namespace information.
-     * @param {Pointer<WSANAMESPACE_INFOW>} lpnspBuffer A buffer that is filled with 
+     * @param {Pointer} lpnspBuffer A buffer that is filled with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infow">WSANAMESPACE_INFO</a> structures. The returned structures are located consecutively at the head of the buffer. Variable sized information referenced by pointers in the structures point to locations within the buffer located between the end of the fixed sized structures and the end of the buffer. The number of structures filled in is the return value of 
      * <b>WSAEnumNameSpaceProviders</b>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The 
+     * <b>WSAEnumNameSpaceProviders</b> function returns the number of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infow">WSANAMESPACE_INFO</a> structures copied into <i>lpnspBuffer</i>. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpnspBuffer</i> parameter was a <b>NULL</b> pointer or the buffer length, <i>lpdwBufferLength</i>, was too small to receive all the relevant 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infow">WSANAMESPACE_INFO</a> structures and associated information. When this error is returned, the buffer length required is returned in the <i>lpdwBufferLength</i> parameter. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The WS2_32.DLL has not been initialized. The application must first call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> before calling any Windows Sockets functions.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsaenumnamespaceprovidersw
      * @since windows8.1
      */
     static WSAEnumNameSpaceProvidersW(lpdwBufferLength, lpnspBuffer) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAEnumNameSpaceProvidersW", "ptr", lpdwBufferLength, "ptr", lpnspBuffer)
+        result := DllCall("WS2_32.dll\WSAEnumNameSpaceProvidersW", "uint*", lpdwBufferLength, "ptr", lpnspBuffer)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -18250,10 +25543,55 @@ class WinSock {
      * > The winsock2.h header defines WSAEnumNameSpaceProvidersEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<UInt32>} lpdwBufferLength On input, the number of bytes contained in the buffer pointed to by <i>lpnspBuffer</i>. On output (if the function fails, and the error is 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a>), the minimum number of bytes to allocate for the <i>lpnspBuffer</i> buffer to allow it to retrieve all the requested information. The buffer passed to <b>WSAEnumNameSpaceProvidersEx</b> must be sufficient to hold all of the namespace information.
-     * @param {Pointer<WSANAMESPACE_INFOEXA>} lpnspBuffer A buffer that is filled with 
+     * @param {Pointer} lpnspBuffer A buffer that is filled with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infoexw">WSANAMESPACE_INFOEX</a> structures. The returned structures are located consecutively at the head of the buffer. Variable sized information referenced by pointers in the structures point to locations within the buffer located between the end of the fixed sized structures and the end of the buffer. The number of structures filled in is the return value of 
      * <b>WSAEnumNameSpaceProvidersEx</b>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The 
+     * <b>WSAEnumNameSpaceProvidersEx</b> function returns the number of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infoexw">WSANAMESPACE_INFOEX</a> structures copied into <i>lpnspBuffer</i>. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpnspBuffer</i> parameter was a <b>NULL</b> pointer or the buffer length, <i>lpdwBufferLength</i>, was too small to receive all the relevant 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infoexw">WSANAMESPACE_INFOEX</a> structures and associated information. When this error is returned, the buffer length required is returned in the <i>lpdwBufferLength</i> parameter.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The WS2_32.DLL has not been initialized. The application must first call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> before calling any Windows Sockets functions.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsaenumnamespaceprovidersexa
      * @deprecated
      * @since windows8.1
@@ -18261,10 +25599,11 @@ class WinSock {
     static WSAEnumNameSpaceProvidersExA(lpdwBufferLength, lpnspBuffer) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAEnumNameSpaceProvidersExA", "ptr", lpdwBufferLength, "ptr", lpnspBuffer)
+        result := DllCall("WS2_32.dll\WSAEnumNameSpaceProvidersExA", "uint*", lpdwBufferLength, "ptr", lpnspBuffer)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -18289,20 +25628,66 @@ class WinSock {
      * > The winsock2.h header defines WSAEnumNameSpaceProvidersEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<UInt32>} lpdwBufferLength On input, the number of bytes contained in the buffer pointed to by <i>lpnspBuffer</i>. On output (if the function fails, and the error is 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a>), the minimum number of bytes to allocate for the <i>lpnspBuffer</i> buffer to allow it to retrieve all the requested information. The buffer passed to <b>WSAEnumNameSpaceProvidersEx</b> must be sufficient to hold all of the namespace information.
-     * @param {Pointer<WSANAMESPACE_INFOEXW>} lpnspBuffer A buffer that is filled with 
+     * @param {Pointer} lpnspBuffer A buffer that is filled with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infoexw">WSANAMESPACE_INFOEX</a> structures. The returned structures are located consecutively at the head of the buffer. Variable sized information referenced by pointers in the structures point to locations within the buffer located between the end of the fixed sized structures and the end of the buffer. The number of structures filled in is the return value of 
      * <b>WSAEnumNameSpaceProvidersEx</b>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The 
+     * <b>WSAEnumNameSpaceProvidersEx</b> function returns the number of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infoexw">WSANAMESPACE_INFOEX</a> structures copied into <i>lpnspBuffer</i>. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpnspBuffer</i> parameter was a <b>NULL</b> pointer or the buffer length, <i>lpdwBufferLength</i>, was too small to receive all the relevant 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infoexw">WSANAMESPACE_INFOEX</a> structures and associated information. When this error is returned, the buffer length required is returned in the <i>lpdwBufferLength</i> parameter.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The WS2_32.DLL has not been initialized. The application must first call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> before calling any Windows Sockets functions.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsaenumnamespaceprovidersexw
      * @since windows8.1
      */
     static WSAEnumNameSpaceProvidersExW(lpdwBufferLength, lpnspBuffer) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAEnumNameSpaceProvidersExW", "ptr", lpdwBufferLength, "ptr", lpnspBuffer)
+        result := DllCall("WS2_32.dll\WSAEnumNameSpaceProvidersExW", "uint*", lpdwBufferLength, "ptr", lpnspBuffer)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -18311,22 +25696,119 @@ class WinSock {
      * > [!NOTE]
      * > The winsock2.h header defines WSAGetServiceClassNameByClassId as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Guid>} lpServiceClassId A pointer to the GUID for the service class.
-     * @param {Pointer<PSTR>} lpszServiceClassName A pointer to the service name.
+     * @param {Pointer} lpszServiceClassName A pointer to the service name.
      * @param {Pointer<UInt32>} lpdwBufferLength On input, the length of the buffer returned by <i>lpszServiceClassName</i>, in characters. On output, the length of the service name copied into <i>lpszServiceClassName</i>, in characters.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The 
+     * <b>WSAGetServiceClassNameByClassId</b> function returns a value of zero if successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_INVALID_PARAMETER</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpServiceClassId</i> parameter specified is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEACCES</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The calling routine does not have sufficient privileges to access the information.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified buffer pointed to by <i>lpszServiceClassName</i> is too small. Pass in a larger buffer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOBUFS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No buffer space available.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEOPNOTSUPP</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation is not supported for the type of object referenced. This error is returned by some namespace providers that do not support getting service class information.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_DATA</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpServiceClassId</i> is valid, but no data of the requested type was found.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The WS2_32.DLL has not been initialized. The application must first call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> before calling any Windows Sockets functions.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsagetserviceclassnamebyclassida
      * @deprecated
      * @since windows5.0
      */
     static WSAGetServiceClassNameByClassIdA(lpServiceClassId, lpszServiceClassName, lpdwBufferLength) {
-        lpszServiceClassName := lpszServiceClassName is String? StrPtr(lpszServiceClassName) : lpszServiceClassName
-
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAGetServiceClassNameByClassIdA", "ptr", lpServiceClassId, "ptr", lpszServiceClassName, "ptr", lpdwBufferLength)
+        result := DllCall("WS2_32.dll\WSAGetServiceClassNameByClassIdA", "ptr", lpServiceClassId, "ptr", lpszServiceClassName, "uint*", lpdwBufferLength)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -18335,21 +25817,118 @@ class WinSock {
      * > [!NOTE]
      * > The winsock2.h header defines WSAGetServiceClassNameByClassId as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Guid>} lpServiceClassId A pointer to the GUID for the service class.
-     * @param {Pointer<PWSTR>} lpszServiceClassName A pointer to the service name.
+     * @param {Pointer} lpszServiceClassName A pointer to the service name.
      * @param {Pointer<UInt32>} lpdwBufferLength On input, the length of the buffer returned by <i>lpszServiceClassName</i>, in characters. On output, the length of the service name copied into <i>lpszServiceClassName</i>, in characters.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The 
+     * <b>WSAGetServiceClassNameByClassId</b> function returns a value of zero if successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_INVALID_PARAMETER</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpServiceClassId</i> parameter specified is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEACCES</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The calling routine does not have sufficient privileges to access the information.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified buffer pointed to by <i>lpszServiceClassName</i> is too small. Pass in a larger buffer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOBUFS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No buffer space available.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEOPNOTSUPP</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation is not supported for the type of object referenced. This error is returned by some namespace providers that do not support getting service class information.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_DATA</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpServiceClassId</i> is valid, but no data of the requested type was found.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The WS2_32.DLL has not been initialized. The application must first call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> before calling any Windows Sockets functions.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsagetserviceclassnamebyclassidw
      * @since windows5.0
      */
     static WSAGetServiceClassNameByClassIdW(lpServiceClassId, lpszServiceClassName, lpdwBufferLength) {
-        lpszServiceClassName := lpszServiceClassName is String? StrPtr(lpszServiceClassName) : lpszServiceClassName
-
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAGetServiceClassNameByClassIdW", "ptr", lpServiceClassId, "ptr", lpszServiceClassName, "ptr", lpdwBufferLength)
+        result := DllCall("WS2_32.dll\WSAGetServiceClassNameByClassIdW", "ptr", lpServiceClassId, "ptr", lpszServiceClassName, "uint*", lpdwBufferLength)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -18584,7 +26163,61 @@ class WinSock {
      * </td>
      * </tr>
      * </table>
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The return value for 
+     * <b>WSASetService</b> is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEACCES</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The calling routine does not have sufficient privileges to install the Service.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more required parameters were invalid or missing.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>Ws2_32.dll</i> has not been initialized. The application must first call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> before calling any Windows Sockets functions.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsasetservicea
      * @deprecated
      * @since windows8.1
@@ -18592,10 +26225,11 @@ class WinSock {
     static WSASetServiceA(lpqsRegInfo, essoperation, dwControlFlags) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSASetServiceA", "ptr", lpqsRegInfo, "int", essoperation, "uint", dwControlFlags)
+        result := DllCall("WS2_32.dll\WSASetServiceA", "ptr", lpqsRegInfo, "int", essoperation, "uint", dwControlFlags)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -18830,17 +26464,72 @@ class WinSock {
      * </td>
      * </tr>
      * </table>
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The return value for 
+     * <b>WSASetService</b> is zero if the operation was successful. Otherwise, the value SOCKET_ERROR is returned, and a specific error number can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEACCES</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The calling routine does not have sufficient privileges to install the Service.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more required parameters were invalid or missing.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>Ws2_32.dll</i> has not been initialized. The application must first call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> before calling any Windows Sockets functions.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsasetservicew
      * @since windows8.1
      */
     static WSASetServiceW(lpqsRegInfo, essoperation, dwControlFlags) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSASetServiceW", "ptr", lpqsRegInfo, "int", essoperation, "uint", dwControlFlags)
+        result := DllCall("WS2_32.dll\WSASetServiceW", "ptr", lpqsRegInfo, "int", essoperation, "uint", dwControlFlags)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -18866,23 +26555,90 @@ class WinSock {
      * <b>WSAProviderConfigChange</b> notifies application of provider configuration change (through blocking or overlapped I/O), the whole sequence of actions should be repeated.</li>
      * </ul>
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This   function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
-     * @param {Pointer<HANDLE>} lpNotificationHandle Pointer to notification handle. If the notification handle is set to <b>NULL</b> (the handle value not the pointer itself), this function returns a notification handle in the location pointed to by <i>lpNotificationHandle</i>.
+     * @param {Pointer<Void>} lpNotificationHandle Pointer to notification handle. If the notification handle is set to <b>NULL</b> (the handle value not the pointer itself), this function returns a notification handle in the location pointed to by <i>lpNotificationHandle</i>.
      * @param {Pointer<OVERLAPPED>} lpOverlapped Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaoverlapped">WSAOVERLAPPED</a> structure.
      * @param {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>} lpCompletionRoutine Type: \_In_opt\_ [**LPWSAOVERLAPPED_COMPLETION_ROUTINE**](./nc-winsock2-lpwsaoverlapped_completion_routine.md)
      * 
      * Pointer to the completion routine called when the provider change notification is received.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs the 
+     * <b>WSAProviderConfigChange</b> returns 0. Otherwise, a value of SOCKET_ERROR is returned and a specific error code may be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>. The error code 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_IO_PENDING</a> indicates that the overlapped operation has been successfully initiated and that completion (and thus change event) will be indicated at a later time.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not enough free memory available to complete the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_INVALID_HANDLE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Value pointed by <i>lpNotificationHandle</i> parameter is not a valid notification handle.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEOPNOTSUPP</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Current operating system environment does not support provider installation or removal without restart.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsaproviderconfigchange
      * @since windows8.1
      */
     static WSAProviderConfigChange(lpNotificationHandle, lpOverlapped, lpCompletionRoutine) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAProviderConfigChange", "ptr", lpNotificationHandle, "ptr", lpOverlapped, "ptr", lpCompletionRoutine)
+        result := DllCall("WS2_32.dll\WSAProviderConfigChange", "ptr", lpNotificationHandle, "ptr", lpOverlapped, "ptr", lpCompletionRoutine)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -19014,24 +26770,98 @@ class WinSock {
      * <td>Wait indefinitely.</td>
      * </tr>
      * </table>
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} Returns one of the following values.
+     * 			<table>
+     * <tr>
+     * <th>Return value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>Zero</td>
+     * <td>No sockets were in the queried state before the timer expired.</td>
+     * </tr>
+     * <tr>
+     * <td>Greater than zero</td>
+     * <td>The number of elements in <i>fdarray</i> for which an <b>revents</b> member of the <b>POLLFD</b> structure is nonzero.</td>
+     * </tr>
+     * <tr>
+     * <td>SOCKET_ERROR</td>
+     * <td>An error occurred. Call the <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> function to retrieve the extended error code.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Extended Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An exception occurred while reading user input parameters.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An invalid parameter was passed. This error is returned if the <a href="https://docs.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsapollfd">WSAPOLLFD</a> structures  pointed to by the <i>fdarray</i> parameter when requesting socket
+     *                        status. This error is also returned if none of the sockets specified in the <b>fd</b> member of any of the <b>WSAPOLLFD</b> structures  pointed to by the <i>fdarray</i> parameter were valid. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOBUFS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function was unable to allocate sufficient memory.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-wsapoll
      * @since windows8.1
      */
     static WSAPoll(fdArray, fds, timeout) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAPoll", "ptr", fdArray, "uint", fds, "int", timeout)
+        result := DllCall("WS2_32.dll\WSAPoll", "ptr", fdArray, "uint", fds, "int", timeout)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
      * Associates a set of sockets with a completion port, and retrieves any notifications that are already pending on that port. Once associated, the completion port receives the socket state notifications that were specified.
      * @remarks
      * See [SocketNotificationRetrieveEvents](/windows/win32/api/winsock2/nf-winsock2-socketnotificationretrieveevents) for the events that are possible when a notification is received.
-     * @param {Pointer<HANDLE>} completionPort Type: \_In\_ **[HANDLE](/windows/win32/winprog/windows-data-types)**
+     * @param {Pointer<Void>} completionPort Type: \_In\_ **[HANDLE](/windows/win32/winprog/windows-data-types)**
      * 
      * A handle to an I/O completion port created using the [CreateIoCompletionPort](/windows/win32/fileio/createiocompletionport) function. The port will be used in the *CompletionPort* parameter of the [PostQueuedCompletionStatus](/windows/win32/fileio/postqueuedcompletionstatus) function when messages are sent on behalf of the socket.
      * @param {Integer} registrationCount Type: \_In\_ **[UINT32](/windows/win32/winprog/windows-data-types)**
@@ -19064,7 +26894,7 @@ class WinSock {
      * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-processsocketnotifications
      */
     static ProcessSocketNotifications(completionPort, registrationCount, registrationInfos, timeoutMs, completionCount, completionPortEntries, receivedEntryCount) {
-        result := DllCall("WS2_32.dll\ProcessSocketNotifications", "ptr", completionPort, "uint", registrationCount, "ptr", registrationInfos, "uint", timeoutMs, "uint", completionCount, "ptr", completionPortEntries, "ptr", receivedEntryCount, "uint")
+        result := DllCall("WS2_32.dll\ProcessSocketNotifications", "ptr", completionPort, "uint", registrationCount, "ptr", registrationInfos, "uint", timeoutMs, "uint", completionCount, "ptr", completionPortEntries, "uint*", receivedEntryCount, "uint")
         return result
     }
 
@@ -19094,8 +26924,8 @@ class WinSock {
      * > [!NOTE]
      * > The ip2string.h header defines RtlIpv4AddressToString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<IN_ADDR>} Addr The IPv4 address in network byte order.
-     * @param {Pointer<PSTR>} S A pointer to a buffer in which to store the <b>NULL</b>-terminated string representation of the IPv4 address. This buffer should be large enough to hold at least 16 characters.
-     * @returns {Pointer<PSTR>} A pointer to the NULL character inserted at the end of the string representation of the IPv4 address.
+     * @param {Pointer<Byte>} S A pointer to a buffer in which to store the <b>NULL</b>-terminated string representation of the IPv4 address. This buffer should be large enough to hold at least 16 characters.
+     * @returns {Pointer<Byte>} A pointer to the NULL character inserted at the end of the string representation of the IPv4 address.
      * This can be used by the caller to easily append more information to the string.
      * @see https://learn.microsoft.com/windows/win32/api/ip2string/nf-ip2string-rtlipv4addresstostringa
      * @since windows6.0.6000
@@ -19103,7 +26933,7 @@ class WinSock {
     static RtlIpv4AddressToStringA(Addr, S) {
         S := S is String? StrPtr(S) : S
 
-        result := DllCall("ntdll.dll\RtlIpv4AddressToStringA", "ptr", Addr, "ptr", S, "ptr")
+        result := DllCall("ntdll.dll\RtlIpv4AddressToStringA", "ptr", Addr, "ptr", S, "char*")
         return result
     }
 
@@ -19125,7 +26955,7 @@ class WinSock {
      * An import library containing the <b>RtlIpv4AddressToStringEx</b> function is not included in the Microsoft Windows Software Development Kit (SDK) released for Windows Vista. The <b>RtlIpv4AddressToStringEx</b> function is included in the <i>Ntdll.lib</i> import library included in the Windows Driver Kit (WDK). An application could also use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to retrieve the function pointer from the <i>Ntdll.dll</i> and call this function.
      * @param {Pointer<IN_ADDR>} Address The IPv4 address in network byte order.
      * @param {Integer} Port The port number in network byte order format. This parameter is optional.
-     * @param {Pointer<PSTR>} AddressString A pointer to the buffer to receive the <b>NULL</b>-terminated string representation of the IPv4 address and port. This buffer should be large enough to hold at least INET_ADDRSTRLEN characters. The INET_ADDRSTRLEN value is defined in the <i>Ws2ipdef.h</i> header file.
+     * @param {Pointer<Byte>} AddressString A pointer to the buffer to receive the <b>NULL</b>-terminated string representation of the IPv4 address and port. This buffer should be large enough to hold at least INET_ADDRSTRLEN characters. The INET_ADDRSTRLEN value is defined in the <i>Ws2ipdef.h</i> header file.
      * @param {Pointer<UInt32>} AddressStringLength On input, the number of characters that fit in the buffer pointed to by the <i>AddressString</i> parameter, including the NULL terminator.
      * 
      * On output, this parameter contains the number of characters actually written to the buffer pointed to by the <i>AddressString</i> parameter.
@@ -19165,7 +26995,7 @@ class WinSock {
     static RtlIpv4AddressToStringExA(Address, Port, AddressString, AddressStringLength) {
         AddressString := AddressString is String? StrPtr(AddressString) : AddressString
 
-        result := DllCall("ntdll.dll\RtlIpv4AddressToStringExA", "ptr", Address, "ushort", Port, "ptr", AddressString, "ptr", AddressStringLength, "int")
+        result := DllCall("ntdll.dll\RtlIpv4AddressToStringExA", "ptr", Address, "ushort", Port, "ptr", AddressString, "uint*", AddressStringLength, "int")
         return result
     }
 
@@ -19195,8 +27025,8 @@ class WinSock {
      * > [!NOTE]
      * > The ip2string.h header defines RtlIpv4AddressToString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<IN_ADDR>} Addr The IPv4 address in network byte order.
-     * @param {Pointer<PWSTR>} S A pointer to a buffer in which to store the <b>NULL</b>-terminated string representation of the IPv4 address. This buffer should be large enough to hold at least 16 characters.
-     * @returns {Pointer<PWSTR>} A pointer to the NULL character inserted at the end of the string representation of the IPv4 address.
+     * @param {Pointer<Char>} S A pointer to a buffer in which to store the <b>NULL</b>-terminated string representation of the IPv4 address. This buffer should be large enough to hold at least 16 characters.
+     * @returns {Pointer<Char>} A pointer to the NULL character inserted at the end of the string representation of the IPv4 address.
      * This can be used by the caller to easily append more information to the string.
      * @see https://learn.microsoft.com/windows/win32/api/ip2string/nf-ip2string-rtlipv4addresstostringw
      * @since windows6.0.6000
@@ -19204,7 +27034,7 @@ class WinSock {
     static RtlIpv4AddressToStringW(Addr, S) {
         S := S is String? StrPtr(S) : S
 
-        result := DllCall("ntdll.dll\RtlIpv4AddressToStringW", "ptr", Addr, "ptr", S, "ptr")
+        result := DllCall("ntdll.dll\RtlIpv4AddressToStringW", "ptr", Addr, "ptr", S, "char*")
         return result
     }
 
@@ -19230,7 +27060,7 @@ class WinSock {
      * An import library containing the <b>RtlIpv4AddressToStringEx</b> function is not included in the Microsoft Windows Software Development Kit (SDK) released for Windows Vista. The <b>RtlIpv4AddressToStringEx</b> function is included in the <i>Ntdll.lib</i> import library included in the Windows Driver Kit (WDK). An application could also use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to retrieve the function pointer from the <i>Ntdll.dll</i> and call this function.
      * @param {Pointer<IN_ADDR>} Address The IPv4 address in network byte order.
      * @param {Integer} Port The port number in network byte order format. This parameter is optional.
-     * @param {Pointer<PWSTR>} AddressString A pointer to the buffer to receive the <b>NULL</b>-terminated string representation of the IPv4 address and port. This buffer should be large enough to hold at least INET_ADDRSTRLEN characters. The INET_ADDRSTRLEN value is defined in the <i>Ws2ipdef.h</i> header file.
+     * @param {Pointer<Char>} AddressString A pointer to the buffer to receive the <b>NULL</b>-terminated string representation of the IPv4 address and port. This buffer should be large enough to hold at least INET_ADDRSTRLEN characters. The INET_ADDRSTRLEN value is defined in the <i>Ws2ipdef.h</i> header file.
      * @param {Pointer<UInt32>} AddressStringLength On input, the number of characters that fit in the buffer pointed to by the <i>AddressString</i> parameter, including the NULL terminator.
      *         On output, this parameter contains the number of characters actually written
      *         to the buffer pointed to by the <i>AddressString</i> parameter.
@@ -19273,7 +27103,7 @@ class WinSock {
     static RtlIpv4AddressToStringExW(Address, Port, AddressString, AddressStringLength) {
         AddressString := AddressString is String? StrPtr(AddressString) : AddressString
 
-        result := DllCall("ntdll.dll\RtlIpv4AddressToStringExW", "ptr", Address, "ushort", Port, "ptr", AddressString, "ptr", AddressStringLength, "int")
+        result := DllCall("ntdll.dll\RtlIpv4AddressToStringExW", "ptr", Address, "ushort", Port, "ptr", AddressString, "uint*", AddressStringLength, "int")
         return result
     }
 
@@ -19322,11 +27152,11 @@ class WinSock {
      * 
      * > [!NOTE]
      * > The ip2string.h header defines RtlIpv4StringToAddress as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} S A pointer to a buffer containing the <b>NULL</b>-terminated string representation of the IPv4 address.
+     * @param {Pointer<Byte>} S A pointer to a buffer containing the <b>NULL</b>-terminated string representation of the IPv4 address.
      * @param {Integer} Strict A value that indicates whether the string must be an IPv4 address represented in strict four-part dotted-decimal notation.  If this parameter is <b>TRUE</b>, the string must be dotted-decimal with four parts.
      *              If this parameter is <b>FALSE</b>, any of four possible forms are allowed, with decimal,
      *              octal, or hexadecimal notation. See the Remarks section for details.
-     * @param {Pointer<PSTR>} Terminator A parameter that receives a pointer to the character that terminated
+     * @param {Pointer<Byte>} Terminator A parameter that receives a pointer to the character that terminated
      *         the converted string. This can be used by the caller to extract more information from the string.
      * @param {Pointer<IN_ADDR>} Addr A pointer where the binary representation of the IPv4 address is to be stored.
      * @returns {Integer} If the function succeeds, the return value is <b>STATUS_SUCCESS</b>.
@@ -19369,7 +27199,6 @@ class WinSock {
      */
     static RtlIpv4StringToAddressA(S, Strict, Terminator, Addr) {
         S := S is String? StrPtr(S) : S
-        Terminator := Terminator is String? StrPtr(Terminator) : Terminator
 
         result := DllCall("ntdll.dll\RtlIpv4StringToAddressA", "ptr", S, "char", Strict, "ptr", Terminator, "ptr", Addr, "int")
         return result
@@ -19397,7 +27226,7 @@ class WinSock {
      * The <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-in_addr">IN_ADDR</a> structure is defined in the <i>Inaddr.h</i> header file.
      * 
      * An import library containing the <b>RtlIpv4StringToAddressEx</b> function is not included in the Microsoft Windows Software Development Kit (SDK) released for Windows Vista. The <b>RtlIpv4StringToAddressEx</b> function is included in the <i>Ntdll.lib</i> import library included in the Windows Driver Kit (WDK). An application could also use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to retrieve the function pointer from the <i>Ntdll.dll</i> and call this function.
-     * @param {Pointer<PSTR>} AddressString A pointer to a buffer containing the <b>NULL</b>-terminated string representation of the IPv4 address followed by an optional colon and string representation of a port number.
+     * @param {Pointer<Byte>} AddressString A pointer to a buffer containing the <b>NULL</b>-terminated string representation of the IPv4 address followed by an optional colon and string representation of a port number.
      * @param {Integer} Strict A value that indicates whether the string must be an IPv4 address represented in strict four-part dotted-decimal notation.  If this parameter is <b>TRUE</b>, the string must be dotted-decimal with four parts. If this parameter is <b>FALSE</b>, any of four forms are allowed for the string representation of the Ipv4 address, with decimal, octal, or hexadecimal notation. See the Remarks section for details.
      * @param {Pointer<IN_ADDR>} Address A pointer where the binary representation of the IPv4 address is to be stored. The IPv4 address is stored in network byte order.
      * @param {Pointer<UInt16>} Port A pointer where the binary representation of the port number is to be stored. The port number is returned in network byte order. If no port was specified in the string pointed to by the <i>AddressString</i> parameter, then the <i>Port</i> parameter is set to zero.
@@ -19426,7 +27255,7 @@ class WinSock {
     static RtlIpv4StringToAddressExA(AddressString, Strict, Address, Port) {
         AddressString := AddressString is String? StrPtr(AddressString) : AddressString
 
-        result := DllCall("ntdll.dll\RtlIpv4StringToAddressExA", "ptr", AddressString, "char", Strict, "ptr", Address, "ptr", Port, "int")
+        result := DllCall("ntdll.dll\RtlIpv4StringToAddressExA", "ptr", AddressString, "char", Strict, "ptr", Address, "ushort*", Port, "int")
         return result
     }
 
@@ -19475,11 +27304,11 @@ class WinSock {
      * 
      * > [!NOTE]
      * > The ip2string.h header defines RtlIpv4StringToAddress as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} S A pointer to a buffer containing the <b>NULL</b>-terminated string representation of the IPv4 address.
+     * @param {Pointer<Char>} S A pointer to a buffer containing the <b>NULL</b>-terminated string representation of the IPv4 address.
      * @param {Integer} Strict A value that indicates whether the string must be an IPv4 address represented in strict four-part dotted-decimal notation.  If this parameter is <b>TRUE</b>, the string must be dotted-decimal with four parts.
      *              If this parameter is <b>FALSE</b>, any of four possible forms are allowed, with decimal,
      *              octal, or hexadecimal notation. See the Remarks section for details.
-     * @param {Pointer<PWSTR>} Terminator A parameter that receives a pointer to the character that terminated
+     * @param {Pointer<Char>} Terminator A parameter that receives a pointer to the character that terminated
      *         the converted string. This can be used by the caller to extract more information from the string.
      * @param {Pointer<IN_ADDR>} Addr A pointer where the binary representation of the IPv4 address is to be stored.
      * @returns {Integer} If the function succeeds, the return value is <b>STATUS_SUCCESS</b>.
@@ -19522,7 +27351,6 @@ class WinSock {
      */
     static RtlIpv4StringToAddressW(S, Strict, Terminator, Addr) {
         S := S is String? StrPtr(S) : S
-        Terminator := Terminator is String? StrPtr(Terminator) : Terminator
 
         result := DllCall("ntdll.dll\RtlIpv4StringToAddressW", "ptr", S, "char", Strict, "ptr", Terminator, "ptr", Addr, "int")
         return result
@@ -19566,7 +27394,7 @@ class WinSock {
      * The <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-in_addr">IN_ADDR</a> structure is defined in the <i>Inaddr.h</i> header file.
      * 
      * An import library containing the <b>RtlIpv4StringToAddressEx</b> function is not included in the Microsoft Windows Software Development Kit (SDK) released for Windows Vista. The <b>RtlIpv4StringToAddressEx</b> function is included in the <i>Ntdll.lib</i> import library included in the Windows Driver Kit (WDK). An application could also use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to retrieve the function pointer from the <i>Ntdll.dll</i> and call this function.
-     * @param {Pointer<PWSTR>} AddressString A pointer to a buffer containing the <b>NULL</b>-terminated string representation of the IPv4 address followed by an optional colon and string representation of a port number.
+     * @param {Pointer<Char>} AddressString A pointer to a buffer containing the <b>NULL</b>-terminated string representation of the IPv4 address followed by an optional colon and string representation of a port number.
      * @param {Integer} Strict A value that indicates whether the string must be an IPv4 address represented in strict four-part dotted-decimal notation.  If this parameter is <b>TRUE</b>, the string must be dotted-decimal with four parts. If this parameter is <b>FALSE</b>, any of four forms are allowed for the string representation of the Ipv4 address, with decimal,
      *              octal, or hexadecimal notation. See the Remarks section for details.
      * @param {Pointer<IN_ADDR>} Address A pointer where the binary representation of the IPv4 address is to be stored. The IPv4 address is stored in network byte order.
@@ -19612,7 +27440,7 @@ class WinSock {
     static RtlIpv4StringToAddressExW(AddressString, Strict, Address, Port) {
         AddressString := AddressString is String? StrPtr(AddressString) : AddressString
 
-        result := DllCall("ntdll.dll\RtlIpv4StringToAddressExW", "ptr", AddressString, "char", Strict, "ptr", Address, "ptr", Port, "int")
+        result := DllCall("ntdll.dll\RtlIpv4StringToAddressExW", "ptr", AddressString, "char", Strict, "ptr", Address, "ushort*", Port, "int")
         return result
     }
 
@@ -19648,8 +27476,8 @@ class WinSock {
      * > [!NOTE]
      * > The ip2string.h header defines RtlIpv6AddressToString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<IN6_ADDR>} Addr The IPv6 address in network byte order.
-     * @param {Pointer<PSTR>} S A pointer to a buffer in which to store the <b>NULL</b>-terminated string representation of the IPv6 address. This buffer should be large enough to hold at least 46 characters.
-     * @returns {Pointer<PSTR>} A pointer to the NULL character inserted at the end of the string representation of the IPv6 address.
+     * @param {Pointer<Byte>} S A pointer to a buffer in which to store the <b>NULL</b>-terminated string representation of the IPv6 address. This buffer should be large enough to hold at least 46 characters.
+     * @returns {Pointer<Byte>} A pointer to the NULL character inserted at the end of the string representation of the IPv6 address.
      * This can be used by the caller to easily append more information to the string.
      * @see https://learn.microsoft.com/windows/win32/api/ip2string/nf-ip2string-rtlipv6addresstostringa
      * @since windows6.0.6000
@@ -19657,7 +27485,7 @@ class WinSock {
     static RtlIpv6AddressToStringA(Addr, S) {
         S := S is String? StrPtr(S) : S
 
-        result := DllCall("ntdll.dll\RtlIpv6AddressToStringA", "ptr", Addr, "ptr", S, "ptr")
+        result := DllCall("ntdll.dll\RtlIpv6AddressToStringA", "ptr", Addr, "ptr", S, "char*")
         return result
     }
 
@@ -19684,7 +27512,7 @@ class WinSock {
      * @param {Pointer<IN6_ADDR>} Address The IPv6 address in network byte order.
      * @param {Integer} ScopeId The scope ID of the IPv6 address in network byte order. This parameter is optional.
      * @param {Integer} Port The port number in network byte order format. This parameter is optional.
-     * @param {Pointer<PSTR>} AddressString A pointer to the buffer to receive the <b>NULL</b>-terminated string representation of the IP address, scope ID, and port. This buffer should be large enough to hold at least INET6_ADDRSTRLEN characters. The INET6_ADDRSTRLEN value is defined in the <i>Ws2ipdef.h</i> header file.
+     * @param {Pointer<Byte>} AddressString A pointer to the buffer to receive the <b>NULL</b>-terminated string representation of the IP address, scope ID, and port. This buffer should be large enough to hold at least INET6_ADDRSTRLEN characters. The INET6_ADDRSTRLEN value is defined in the <i>Ws2ipdef.h</i> header file.
      * @param {Pointer<UInt32>} AddressStringLength On input, the number of characters that fit in the buffer pointed to by the <i>AddressString</i> parameter, including the NULL terminator.
      * 
      * On output, this parameter contains the number of characters actually written to the buffer pointed to by the <i>AddressString</i> parameter.
@@ -19723,7 +27551,7 @@ class WinSock {
     static RtlIpv6AddressToStringExA(Address, ScopeId, Port, AddressString, AddressStringLength) {
         AddressString := AddressString is String? StrPtr(AddressString) : AddressString
 
-        result := DllCall("ntdll.dll\RtlIpv6AddressToStringExA", "ptr", Address, "uint", ScopeId, "ushort", Port, "ptr", AddressString, "ptr", AddressStringLength, "int")
+        result := DllCall("ntdll.dll\RtlIpv6AddressToStringExA", "ptr", Address, "uint", ScopeId, "ushort", Port, "ptr", AddressString, "uint*", AddressStringLength, "int")
         return result
     }
 
@@ -19759,8 +27587,8 @@ class WinSock {
      * > [!NOTE]
      * > The ip2string.h header defines RtlIpv6AddressToString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<IN6_ADDR>} Addr The IPv6 address in network byte order.
-     * @param {Pointer<PWSTR>} S A pointer to a buffer in which to store the <b>NULL</b>-terminated string representation of the IPv6 address. This buffer should be large enough to hold at least 46 characters.
-     * @returns {Pointer<PWSTR>} A pointer to the NULL character inserted at the end of the string representation of the IPv6 address.
+     * @param {Pointer<Char>} S A pointer to a buffer in which to store the <b>NULL</b>-terminated string representation of the IPv6 address. This buffer should be large enough to hold at least 46 characters.
+     * @returns {Pointer<Char>} A pointer to the NULL character inserted at the end of the string representation of the IPv6 address.
      * This can be used by the caller to easily append more information to the string.
      * @see https://learn.microsoft.com/windows/win32/api/ip2string/nf-ip2string-rtlipv6addresstostringw
      * @since windows6.0.6000
@@ -19768,7 +27596,7 @@ class WinSock {
     static RtlIpv6AddressToStringW(Addr, S) {
         S := S is String? StrPtr(S) : S
 
-        result := DllCall("ntdll.dll\RtlIpv6AddressToStringW", "ptr", Addr, "ptr", S, "ptr")
+        result := DllCall("ntdll.dll\RtlIpv6AddressToStringW", "ptr", Addr, "ptr", S, "char*")
         return result
     }
 
@@ -19803,7 +27631,7 @@ class WinSock {
      * @param {Pointer<IN6_ADDR>} Address The IPv6 address in network byte order.
      * @param {Integer} ScopeId The scope ID of the IPv6 address in network byte order. This parameter is optional.
      * @param {Integer} Port The port number in network byte order format. This parameter is optional.
-     * @param {Pointer<PWSTR>} AddressString A pointer to the buffer to receive the <b>NULL</b>-terminated string representation of the IP address, scope ID, and port. This buffer should be large enough to hold at least INET6_ADDRSTRLEN characters. The INET6_ADDRSTRLEN value is defined in the <i>Ws2ipdef.h</i> header file.
+     * @param {Pointer<Char>} AddressString A pointer to the buffer to receive the <b>NULL</b>-terminated string representation of the IP address, scope ID, and port. This buffer should be large enough to hold at least INET6_ADDRSTRLEN characters. The INET6_ADDRSTRLEN value is defined in the <i>Ws2ipdef.h</i> header file.
      * @param {Pointer<UInt32>} AddressStringLength On input, the number of characters that fit in the buffer pointed to by the <i>AddressString</i> parameter, including the NULL terminator.
      *         On output, this parameter contains the number of characters actually written
      *         to the buffer pointed to by the <i>AddressString</i> parameter.
@@ -19846,7 +27674,7 @@ class WinSock {
     static RtlIpv6AddressToStringExW(Address, ScopeId, Port, AddressString, AddressStringLength) {
         AddressString := AddressString is String? StrPtr(AddressString) : AddressString
 
-        result := DllCall("ntdll.dll\RtlIpv6AddressToStringExW", "ptr", Address, "uint", ScopeId, "ushort", Port, "ptr", AddressString, "ptr", AddressStringLength, "int")
+        result := DllCall("ntdll.dll\RtlIpv6AddressToStringExW", "ptr", Address, "uint", ScopeId, "ushort", Port, "ptr", AddressString, "uint*", AddressStringLength, "int")
         return result
     }
 
@@ -19888,8 +27716,8 @@ class WinSock {
      * 
      * > [!NOTE]
      * > The ip2string.h header defines RtlIpv6StringToAddress as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} S A pointer to a buffer containing the <b>NULL</b>-terminated string representation of the IPv6 address.
-     * @param {Pointer<PSTR>} Terminator A parameter that receives a pointer to the character that terminated
+     * @param {Pointer<Byte>} S A pointer to a buffer containing the <b>NULL</b>-terminated string representation of the IPv6 address.
+     * @param {Pointer<Byte>} Terminator A parameter that receives a pointer to the character that terminated
      *         the converted string. This can be used by the caller to extract more information from the string.
      * @param {Pointer<IN6_ADDR>} Addr A pointer where the binary representation of the IPv6 address is to be stored.
      * @returns {Integer} If the function succeeds, the return value is <b>STATUS_SUCCESS</b>.
@@ -19932,7 +27760,6 @@ class WinSock {
      */
     static RtlIpv6StringToAddressA(S, Terminator, Addr) {
         S := S is String? StrPtr(S) : S
-        Terminator := Terminator is String? StrPtr(Terminator) : Terminator
 
         result := DllCall("ntdll.dll\RtlIpv6StringToAddressA", "ptr", S, "ptr", Terminator, "ptr", Addr, "int")
         return result
@@ -19954,7 +27781,7 @@ class WinSock {
      * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms738560(v=vs.85)">IN6_ADDR</a> structure is defined in the In6addr.h header file.
      * 
      * An import library containing the <b>RtlIpv6StringToAddressEx</b> function is not included in the Microsoft Windows Software Development Kit (SDK) released for Windows Vista. The <b>RtlIpv6StringToAddressEx</b> function is included in the <i>Ntdll.lib</i> import library included in the Windows Driver Kit (WDK). An application could also use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to retrieve the function pointer from the <i>Ntdll.dll</i> and call this function.
-     * @param {Pointer<PSTR>} AddressString A pointer to a buffer containing the <b>NULL</b>-terminated string representation of the IPv6 address, scope ID, and port number.
+     * @param {Pointer<Byte>} AddressString A pointer to a buffer containing the <b>NULL</b>-terminated string representation of the IPv6 address, scope ID, and port number.
      * @param {Pointer<IN6_ADDR>} Address A pointer where the binary representation of the IPv6 address is to be stored.
      * @param {Pointer<UInt32>} ScopeId A pointer to where scope ID of the IPv6 address is stored. If <i>AddressString</i> parameter does not contain the string representation of a scope ID, then zero is returned in this parameter.
      * @param {Pointer<UInt16>} Port A pointer where the port number is stored. The port number is in network byte order format. If <i>AddressString</i> parameter does not contain the string representation of a port number, then zero is returned in this parameter.
@@ -19995,7 +27822,7 @@ class WinSock {
     static RtlIpv6StringToAddressExA(AddressString, Address, ScopeId, Port) {
         AddressString := AddressString is String? StrPtr(AddressString) : AddressString
 
-        result := DllCall("ntdll.dll\RtlIpv6StringToAddressExA", "ptr", AddressString, "ptr", Address, "ptr", ScopeId, "ptr", Port, "int")
+        result := DllCall("ntdll.dll\RtlIpv6StringToAddressExA", "ptr", AddressString, "ptr", Address, "uint*", ScopeId, "ushort*", Port, "int")
         return result
     }
 
@@ -20037,8 +27864,8 @@ class WinSock {
      * 
      * > [!NOTE]
      * > The ip2string.h header defines RtlIpv6StringToAddress as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} S A pointer to a buffer containing the <b>NULL</b>-terminated string representation of the IPv6 address.
-     * @param {Pointer<PWSTR>} Terminator A parameter that receives a pointer to the character that terminated
+     * @param {Pointer<Char>} S A pointer to a buffer containing the <b>NULL</b>-terminated string representation of the IPv6 address.
+     * @param {Pointer<Char>} Terminator A parameter that receives a pointer to the character that terminated
      *         the converted string. This can be used by the caller to extract more information from the string.
      * @param {Pointer<IN6_ADDR>} Addr A pointer where the binary representation of the IPv6 address is to be stored.
      * @returns {Integer} If the function succeeds, the return value is <b>STATUS_SUCCESS</b>.
@@ -20081,7 +27908,6 @@ class WinSock {
      */
     static RtlIpv6StringToAddressW(S, Terminator, Addr) {
         S := S is String? StrPtr(S) : S
-        Terminator := Terminator is String? StrPtr(Terminator) : Terminator
 
         result := DllCall("ntdll.dll\RtlIpv6StringToAddressW", "ptr", S, "ptr", Terminator, "ptr", Addr, "int")
         return result
@@ -20112,7 +27938,7 @@ class WinSock {
      * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms738560(v=vs.85)">IN6_ADDR</a> structure is defined in the In6addr.h header file.
      * 
      * An import library containing the <b>RtlIpv6StringToAddressEx</b> function is not included in the Microsoft Windows Software Development Kit (SDK) released for Windows Vista. The <b>RtlIpv6StringToAddressEx</b> function is included in the <i>Ntdll.lib</i> import library included in the Windows Driver Kit (WDK). An application could also use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to retrieve the function pointer from the <i>Ntdll.dll</i> and call this function.
-     * @param {Pointer<PWSTR>} AddressString A pointer to a buffer containing the <b>NULL</b>-terminated string representation of the IPv6 address, scope ID, and port number.
+     * @param {Pointer<Char>} AddressString A pointer to a buffer containing the <b>NULL</b>-terminated string representation of the IPv6 address, scope ID, and port number.
      * @param {Pointer<IN6_ADDR>} Address A pointer where the binary representation of the IPv6 address is to be stored.
      * @param {Pointer<UInt32>} ScopeId A pointer to where scope ID of the IPv6 address is stored. If <i>AddressString</i> parameter does not contain the string representation of a scope ID, then zero is returned in this parameter.
      * @param {Pointer<UInt16>} Port A pointer where the port number is stored. The port number is in network byte order format. If <i>AddressString</i> parameter does not contain the string representation of a port number, then zero is returned in this parameter.
@@ -20157,7 +27983,7 @@ class WinSock {
     static RtlIpv6StringToAddressExW(AddressString, Address, ScopeId, Port) {
         AddressString := AddressString is String? StrPtr(AddressString) : AddressString
 
-        result := DllCall("ntdll.dll\RtlIpv6StringToAddressExW", "ptr", AddressString, "ptr", Address, "ptr", ScopeId, "ptr", Port, "int")
+        result := DllCall("ntdll.dll\RtlIpv6StringToAddressExW", "ptr", AddressString, "ptr", Address, "uint*", ScopeId, "ushort*", Port, "int")
         return result
     }
 
@@ -20190,8 +28016,8 @@ class WinSock {
      * > The ip2string.h header defines RtlEthernetAddressToString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<DL_EUI48>} Addr The Ethernet address in binary format. The Ethernet address is in network order (bytes ordered from
      *     left to right).
-     * @param {Pointer<PSTR>} S A pointer to a buffer in which to store the <b>NULL</b>-terminated string representation of the Ethernet address. This buffer should be large enough to hold at least 18 characters.
-     * @returns {Pointer<PSTR>} A pointer to the NULL character inserted at the end of the string representation of the Ethernet MAC address.
+     * @param {Pointer<Byte>} S A pointer to a buffer in which to store the <b>NULL</b>-terminated string representation of the Ethernet address. This buffer should be large enough to hold at least 18 characters.
+     * @returns {Pointer<Byte>} A pointer to the NULL character inserted at the end of the string representation of the Ethernet MAC address.
      * This can be used by the caller to easily append more information to the string.
      * @see https://learn.microsoft.com/windows/win32/api/ip2string/nf-ip2string-rtlethernetaddresstostringa
      * @since windows6.1
@@ -20199,7 +28025,7 @@ class WinSock {
     static RtlEthernetAddressToStringA(Addr, S) {
         S := S is String? StrPtr(S) : S
 
-        result := DllCall("ntdll.dll\RtlEthernetAddressToStringA", "ptr", Addr, "ptr", S, "ptr")
+        result := DllCall("ntdll.dll\RtlEthernetAddressToStringA", "ptr", Addr, "ptr", S, "char*")
         return result
     }
 
@@ -20232,8 +28058,8 @@ class WinSock {
      * > The ip2string.h header defines RtlEthernetAddressToString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<DL_EUI48>} Addr The Ethernet address in binary format. The Ethernet address is in network order (bytes ordered from
      *     left to right).
-     * @param {Pointer<PWSTR>} S A pointer to a buffer in which to store the <b>NULL</b>-terminated string representation of the Ethernet address. This buffer should be large enough to hold at least 18 characters.
-     * @returns {Pointer<PWSTR>} A pointer to the NULL character inserted at the end of the string representation of the Ethernet MAC address.
+     * @param {Pointer<Char>} S A pointer to a buffer in which to store the <b>NULL</b>-terminated string representation of the Ethernet address. This buffer should be large enough to hold at least 18 characters.
+     * @returns {Pointer<Char>} A pointer to the NULL character inserted at the end of the string representation of the Ethernet MAC address.
      * This can be used by the caller to easily append more information to the string.
      * @see https://learn.microsoft.com/windows/win32/api/ip2string/nf-ip2string-rtlethernetaddresstostringw
      * @since windows6.1
@@ -20241,7 +28067,7 @@ class WinSock {
     static RtlEthernetAddressToStringW(Addr, S) {
         S := S is String? StrPtr(S) : S
 
-        result := DllCall("ntdll.dll\RtlEthernetAddressToStringW", "ptr", Addr, "ptr", S, "ptr")
+        result := DllCall("ntdll.dll\RtlEthernetAddressToStringW", "ptr", Addr, "ptr", S, "char*")
         return result
     }
 
@@ -20280,8 +28106,8 @@ class WinSock {
      * 
      * > [!NOTE]
      * > The ip2string.h header defines RtlEthernetStringToAddress as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} S A pointer to a buffer containing the <b>NULL</b>-terminated string representation of the Ethernet MAC  address.
-     * @param {Pointer<PSTR>} Terminator A parameter that receives a pointer to the character that terminated
+     * @param {Pointer<Byte>} S A pointer to a buffer containing the <b>NULL</b>-terminated string representation of the Ethernet MAC  address.
+     * @param {Pointer<Byte>} Terminator A parameter that receives a pointer to the character that terminated
      *         the converted string. This can be used by the caller to extract more information from the string.
      * @param {Pointer<DL_EUI48>} Addr A pointer where the binary representation of the Ethernet MAC address is to be stored.
      * @returns {Integer} If the function succeeds, the return value is <b>STATUS_SUCCESS</b>.
@@ -20324,7 +28150,6 @@ class WinSock {
      */
     static RtlEthernetStringToAddressA(S, Terminator, Addr) {
         S := S is String? StrPtr(S) : S
-        Terminator := Terminator is String? StrPtr(Terminator) : Terminator
 
         result := DllCall("ntdll.dll\RtlEthernetStringToAddressA", "ptr", S, "ptr", Terminator, "ptr", Addr, "int")
         return result
@@ -20365,8 +28190,8 @@ class WinSock {
      * 
      * > [!NOTE]
      * > The ip2string.h header defines RtlEthernetStringToAddress as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} S A pointer to a buffer containing the <b>NULL</b>-terminated string representation of the Ethernet MAC  address.
-     * @param {Pointer<PWSTR>} Terminator A parameter that receives a pointer to the character that terminated
+     * @param {Pointer<Char>} S A pointer to a buffer containing the <b>NULL</b>-terminated string representation of the Ethernet MAC  address.
+     * @param {Pointer<Char>} Terminator A parameter that receives a pointer to the character that terminated
      *         the converted string. This can be used by the caller to extract more information from the string.
      * @param {Pointer<DL_EUI48>} Addr A pointer where the binary representation of the Ethernet MAC address is to be stored.
      * @returns {Integer} If the function succeeds, the return value is <b>STATUS_SUCCESS</b>.
@@ -20409,7 +28234,6 @@ class WinSock {
      */
     static RtlEthernetStringToAddressW(S, Terminator, Addr) {
         S := S is String? StrPtr(S) : S
-        Terminator := Terminator is String? StrPtr(Terminator) : Terminator
 
         result := DllCall("ntdll.dll\RtlEthernetStringToAddressW", "ptr", S, "ptr", Terminator, "ptr", Addr, "int")
         return result
@@ -20458,23 +28282,206 @@ class WinSock {
      * <div class="alert"><b>Note</b>   All I/O initiated by a given thread is canceled when that thread exits. For overlapped sockets, pending asynchronous operations can fail if the thread is closed before the  operations complete. See the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-exitthread">ExitThread</a> function for more information.</div>
      * <div> </div>
      * @param {Pointer} s A descriptor that identifies a connected socket.
-     * @param {Pointer<PSTR>} buf A pointer to the buffer to receive the incoming data.
+     * @param {Pointer} buf A pointer to the buffer to receive the incoming data.
      * @param {Integer} len The length, in bytes, of the buffer pointed to by the <i>buf</i> parameter.
      * @param {Pointer<Int32>} flags An indicator specifying whether the message is fully or partially received for datagram sockets.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <b>WSARecvEx</b> returns the number of bytes received. If the connection has been closed, it returns zero. Additionally, if a partial message was received, the MSG_PARTIAL bit is set in the <i>flags</i> parameter. If a complete message was received, MSG_PARTIAL is not set in <i>flags</i>
+     * 
+     * Otherwise, a value of SOCKET_ERROR is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <div class="alert"><b>Important</b>  For a stream oriented-transport protocol, MSG_PARTIAL is never set on return from 
+     * <b>WSARecvEx</b>. This function behaves identically to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-recv">recv</a> function for stream-transport protocols.</div>
+     * <div> </div>
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECONNABORTED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The virtual circuit was terminated due to a time-out or other failure. The application should close the socket as it is no longer usable.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECONNRESET</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The virtual circuit was reset by the remote side executing a hard or abortive close. The application should close the socket as it is no longer usable. On a UPD-datagram socket this error would indicate that a previous send operation resulted in an ICMP "Port Unreachable" message.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>buf</i> parameter is not completely contained in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINPROGRESS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A blocking Windows Sockets 1.1 call is in progress, or the service provider is still processing a callback function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINTR</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The (blocking) call was canceled by the <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsacancelblockingcall">WSACancelBlockingCall</a> call.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket has not been bound with 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-bind">bind</a>, or an unknown flag was specified, or MSG_OOB was specified for a socket with SO_OOBINLINE enabled or (for byte stream sockets only) <i>len</i> was zero or negative.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The network subsystem has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENETRESET</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * For a connection-oriented socket, this error indicates that the connection has been broken due to <i>keep-alive</i> activity that detected a failure while the operation was in progress. For a datagram socket, this error indicates that the time to live has expired.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTCONN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is not connected.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor is not a socket.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEOPNOTSUPP</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * MSG_OOB was specified, but the socket is not stream-style such as type SOCK_STREAM, OOB data is not supported in the communication domain associated with this socket, or the socket is unidirectional and supports only send operations.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAESHUTDOWN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket has been shut down; it is not possible to use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mswsock/nf-mswsock-wsarecvex">WSARecvEx</a> on a socket after 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-shutdown">shutdown</a> has been invoked with <i>how</i> set to SD_RECEIVE or SD_BOTH.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAETIMEDOUT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The connection has been dropped because of a network failure or because the peer system failed to respond.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEWOULDBLOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is marked as nonblocking and the receive operation would block.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/mswsock/nf-mswsock-wsarecvex
      * @deprecated
      * @since windows5.0
      */
     static WSARecvEx(s, buf, len, flags) {
-        buf := buf is String? StrPtr(buf) : buf
-
         A_LastError := 0
 
-        DllCall("MSWSOCK.dll\WSARecvEx", "ptr", s, "ptr", buf, "int", len, "ptr", flags)
+        result := DllCall("MSWSOCK.dll\WSARecvEx", "ptr", s, "ptr", buf, "int", len, "int*", flags)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -20532,7 +28539,7 @@ class WinSock {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-closesocket">closesocket</a> function when the file transfer has completed, rather than relying on these flags.
      * @param {Pointer} hSocket A handle to a connected socket. The 
      * <b>TransmitFile</b> function will transmit the file data over this socket. The socket specified by the <i>hSocket</i> parameter must be a connection-oriented socket of type <b>SOCK_STREAM</b>, <b>SOCK_SEQPACKET</b>, or <b>SOCK_RDM</b>.
-     * @param {Pointer<HANDLE>} hFile A handle to the open file that the 
+     * @param {Pointer<Void>} hFile A handle to the open file that the 
      * <b>TransmitFile</b> function transmits. Since the operating system reads the file data sequentially, you can improve caching performance by opening the handle with FILE_FLAG_SEQUENTIAL_SCAN. 
      * 
      * The <i>hFile</i> parameter is optional. If the <i>hFile</i> parameter is <b>NULL</b>, only data in the header and/or the tail buffer is transmitted. Any additional action, such as socket disconnect or reuse, is performed as specified by the <i>dwFlags</i> parameter.
@@ -20993,7 +29000,7 @@ class WinSock {
      * @since windows8.1
      */
     static AcceptEx(sListenSocket, sAcceptSocket, lpOutputBuffer, dwReceiveDataLength, dwLocalAddressLength, dwRemoteAddressLength, lpdwBytesReceived, lpOverlapped) {
-        result := DllCall("MSWSOCK.dll\AcceptEx", "ptr", sListenSocket, "ptr", sAcceptSocket, "ptr", lpOutputBuffer, "uint", dwReceiveDataLength, "uint", dwLocalAddressLength, "uint", dwRemoteAddressLength, "ptr", lpdwBytesReceived, "ptr", lpOverlapped, "int")
+        result := DllCall("MSWSOCK.dll\AcceptEx", "ptr", sListenSocket, "ptr", sAcceptSocket, "ptr", lpOutputBuffer, "uint", dwReceiveDataLength, "uint", dwLocalAddressLength, "uint", dwRemoteAddressLength, "uint*", lpdwBytesReceived, "ptr", lpOverlapped, "int")
         return result
     }
 
@@ -21031,12 +29038,13 @@ class WinSock {
      * @param {Pointer<SOCKADDR>} RemoteSockaddr A pointer to the <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure that receives the remote address of the connection (the same information that would be returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getpeername">getpeername</a> function). This parameter must be specified.
      * @param {Pointer<Int32>} RemoteSockaddrLength The size, in bytes, of the local address. This parameter must be specified.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswsock/nf-mswsock-getacceptexsockaddrs
      * @since windows8.1
      */
     static GetAcceptExSockaddrs(lpOutputBuffer, dwReceiveDataLength, dwLocalAddressLength, dwRemoteAddressLength, LocalSockaddr, LocalSockaddrLength, RemoteSockaddr, RemoteSockaddrLength) {
-        DllCall("MSWSOCK.dll\GetAcceptExSockaddrs", "ptr", lpOutputBuffer, "uint", dwReceiveDataLength, "uint", dwLocalAddressLength, "uint", dwRemoteAddressLength, "ptr", LocalSockaddr, "ptr", LocalSockaddrLength, "ptr", RemoteSockaddr, "ptr", RemoteSockaddrLength)
+        result := DllCall("MSWSOCK.dll\GetAcceptExSockaddrs", "ptr", lpOutputBuffer, "uint", dwReceiveDataLength, "uint", dwLocalAddressLength, "uint", dwRemoteAddressLength, "ptr", LocalSockaddr, "int*", LocalSockaddrLength, "ptr", RemoteSockaddr, "int*", RemoteSockaddrLength)
+        return result
     }
 
     /**
@@ -21056,18 +29064,61 @@ class WinSock {
      * The order in which the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infow">WSAPROTOCOL_INFOW</a> structures appear in the buffer coincides with the order in which the protocol entries were registered by the service provider with the WS2_32.dll, or with any subsequent reordering that may have occurred through the Windows Sockets applet supplied for establishing default transport providers.
      * @param {Pointer<Int32>} lpiProtocols A **NULL**-terminated array of <i>iProtocol</i> values. This parameter is optional; if <i>lpiProtocols</i> is NULL, information on all available protocols is returned. Otherwise, information is retrieved only for those protocols listed in the array.
-     * @param {Pointer<WSAPROTOCOL_INFOW>} lpProtocolBuffer A pointer to a buffer that is filled with 
+     * @param {Pointer} lpProtocolBuffer A pointer to a buffer that is filled with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infow">WSAPROTOCOL_INFOW</a> structures.
      * @param {Pointer<UInt32>} lpdwBufferLength On input, size of the <i>lpProtocolBuffer</i> buffer passed to 
      * **WSCEnumProtocols**, in bytes. On output, the minimum buffer size, in bytes, that can be passed to 
      * **WSCEnumProtocols** to retrieve all the requested information.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * **WSCEnumProtocols** returns the number of protocols to be reported on. Otherwise, a value of SOCKET_ERROR is returned and a specific error code is available in <i>lpErrno</i>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of more of the arguments is not in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Indicates that one of the specified parameters was invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOBUFS</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Buffer length was too small to receive all the relevant 
+     * <a href="https://docs.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAProtocol_Info</a> structures and associated information. Pass in a buffer at least as large as the value returned in <i>lpdwBufferLength</i>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wscenumprotocols
      * @since windows5.0
      */
     static WSCEnumProtocols(lpiProtocols, lpProtocolBuffer, lpdwBufferLength, lpErrno) {
-        DllCall("WS2_32.dll\WSCEnumProtocols", "ptr", lpiProtocols, "ptr", lpProtocolBuffer, "ptr", lpdwBufferLength, "ptr", lpErrno)
+        result := DllCall("WS2_32.dll\WSCEnumProtocols", "int*", lpiProtocols, "ptr", lpProtocolBuffer, "uint*", lpdwBufferLength, "int*", lpErrno)
+        return result
     }
 
     /**
@@ -21089,12 +29140,67 @@ class WinSock {
      * @param {Pointer<Guid>} lpProviderId A pointer to a globally unique identifier (GUID)  for the provider. This value is stored within each 
      * <a href="https://docs.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAProtocol_Info</a> structure.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code if the function fails.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * **WSCDeinstallProvider** returns zero. Otherwise, it returns **SOCKET_ERROR**, and a specific error code is available in <i>lpErrno</i>.
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpProviderId</i> parameter does not specify a valid provider.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpErrno</i> parameter is not in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonrecoverable error occurred. This error is returned under several conditions including the following: the user lacks the administrative privileges required to write to the  Windows Sockets registry, or a failure occurred when opening a catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  Insufficient memory was available. This error is returned when there is insufficient memory to allocate a new catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wscdeinstallprovider
      * @since windows5.0
      */
     static WSCDeinstallProvider(lpProviderId, lpErrno) {
-        DllCall("WS2_32.dll\WSCDeinstallProvider", "ptr", lpProviderId, "ptr", lpErrno)
+        result := DllCall("WS2_32.dll\WSCDeinstallProvider", "ptr", lpProviderId, "int*", lpErrno)
+        return result
     }
 
     /**
@@ -21118,19 +29224,93 @@ class WinSock {
      * 
      * Any file installation or service provider-specific configuration must be performed by the caller.
      * @param {Pointer<Guid>} lpProviderId A pointer to a globally unique identifier (GUID)  for the provider.
-     * @param {Pointer<PWSTR>} lpszProviderDllPath A pointer to a Unicode string that contains the load path to the provider DLL. This string observes the usual rules for path resolution and can contain embedded environment strings (such as <i>%SystemRoot%</i>). Such environment strings are expanded when the Ws2_32.dll must subsequently load the provider DLL on behalf of an application. After any embedded environment strings are expanded, the Ws2_32.dll passes the resulting string to the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function which loads the provider into memory. For more information, see **LoadLibrary**.
+     * @param {Pointer<Char>} lpszProviderDllPath A pointer to a Unicode string that contains the load path to the provider DLL. This string observes the usual rules for path resolution and can contain embedded environment strings (such as <i>%SystemRoot%</i>). Such environment strings are expanded when the Ws2_32.dll must subsequently load the provider DLL on behalf of an application. After any embedded environment strings are expanded, the Ws2_32.dll passes the resulting string to the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function which loads the provider into memory. For more information, see **LoadLibrary**.
      * @param {Pointer<WSAPROTOCOL_INFOW>} lpProtocolInfoList A pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAProtocol_Info</a> structures. Each structure defines a protocol, address family, and socket type supported by the provider.
      * @param {Integer} dwNumberOfEntries The number of entries in the <i>lpProtocolInfoList</i> array.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code if the function fails.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If **WSCInstallProvider** succeeds, it returns zero. Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments is not in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments are invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOBUFS</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  Memory cannot be allocated for buffers.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonrecoverable error occurred. This error is returned under several conditions including the following: the provider is already installed, the user lacks the administrative privileges required to write to the  Winsock registry, or a failure occurred when creating or installing a catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSASYSCALLFAILURE</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  A system call that should never fail has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  Insufficient memory was available. This error is returned when there is insufficient memory to allocate a new catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wscinstallprovider
      * @since windows5.0
      */
     static WSCInstallProvider(lpProviderId, lpszProviderDllPath, lpProtocolInfoList, dwNumberOfEntries, lpErrno) {
         lpszProviderDllPath := lpszProviderDllPath is String? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
 
-        DllCall("WS2_32.dll\WSCInstallProvider", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "ptr", lpErrno)
+        result := DllCall("WS2_32.dll\WSCInstallProvider", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "int*", lpErrno)
+        return result
     }
 
     /**
@@ -21140,17 +29320,48 @@ class WinSock {
      * **WSCGetProviderPath** function retrieves the DLL path for the specified provider. The DLL path can contain embedded environment strings, such as %SystemRoot%, and thus should be expanded prior to being used with the Windows <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function. For more information, see **LoadLibrary**.
      * @param {Pointer<Guid>} lpProviderId A pointer to a globally unique identifier (GUID)  for the provider. This value is obtained by using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wscenumprotocols">WSCEnumProtocols</a>.
-     * @param {Pointer<PWSTR>} lpszProviderDllPath A pointer to a buffer into which the provider DLL's path string is returned. The path is a null-terminated string and any embedded environment strings, such as %SystemRoot%, have not been expanded.
+     * @param {Pointer<Char>} lpszProviderDllPath A pointer to a buffer into which the provider DLL's path string is returned. The path is a null-terminated string and any embedded environment strings, such as %SystemRoot%, have not been expanded.
      * @param {Pointer<Int32>} lpProviderDllPathLen The size, in characters, of the buffer pointed to by the <i>lpszProviderDllPath</i> parameter.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code if the function fails.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * **WSCGetProviderPath** returns zero. Otherwise, it returns SOCKET_ERROR. The specific error code is available in <i>lpErrno</i>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpProviderId</i> parameter does not specify a valid provider.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszProviderDllPath</i> or <i>lpErrno</i> parameter is not in a valid part of the user address space, or <i>lpProviderDllPathLen</i> is too small.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wscgetproviderpath
      * @since windows5.0
      */
     static WSCGetProviderPath(lpProviderId, lpszProviderDllPath, lpProviderDllPathLen, lpErrno) {
         lpszProviderDllPath := lpszProviderDllPath is String? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
 
-        DllCall("WS2_32.dll\WSCGetProviderPath", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProviderDllPathLen, "ptr", lpErrno)
+        result := DllCall("WS2_32.dll\WSCGetProviderPath", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "int*", lpProviderDllPathLen, "int*", lpErrno)
+        return result
     }
 
     /**
@@ -21171,19 +29382,72 @@ class WinSock {
      * 
      * Any file installation or service provider-specific configuration must be performed by the caller.
      * @param {Pointer<Guid>} lpProviderId A pointer to a globally unique identifier (GUID)  for the provider.
-     * @param {Pointer<PWSTR>} lpszProviderDllPath A pointer to a Unicode string that contains the load path to the provider 64-bit DLL. This string observes the usual rules for path resolution and can contain embedded environment strings (such as <i>%SystemRoot%</i>). Such environment strings are expanded when the Ws2_32.dll must subsequently load the provider DLL on behalf of an application. After any embedded environment strings are expanded, the Ws2_32.dll passes the resulting string to the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function which loads the provider into memory. For more information, see **LoadLibrary**.
+     * @param {Pointer<Char>} lpszProviderDllPath A pointer to a Unicode string that contains the load path to the provider 64-bit DLL. This string observes the usual rules for path resolution and can contain embedded environment strings (such as <i>%SystemRoot%</i>). Such environment strings are expanded when the Ws2_32.dll must subsequently load the provider DLL on behalf of an application. After any embedded environment strings are expanded, the Ws2_32.dll passes the resulting string to the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function which loads the provider into memory. For more information, see **LoadLibrary**.
      * @param {Pointer<WSAPROTOCOL_INFOW>} lpProtocolInfoList A pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAProtocol_Info</a> structures. Each structure specifies or modifies a protocol, address family, and socket type supported by the provider.
      * @param {Integer} dwNumberOfEntries The number of entries in the <i>lpProtocolInfoList</i> array.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code if the function fails.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * **WSCUpdateProvider** returns zero. Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments are not in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments are invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonrecoverable error occurred. This error is returned under several conditions including the following: the user lacks the administrative privileges required to write to the  Winsock registry, or a failure occurred when opening or writing a catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  Insufficient memory was available. This error is returned when there is insufficient memory to allocate a new catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wscupdateprovider
      * @since windows5.1.2600
      */
     static WSCUpdateProvider(lpProviderId, lpszProviderDllPath, lpProtocolInfoList, dwNumberOfEntries, lpErrno) {
         lpszProviderDllPath := lpszProviderDllPath is String? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
 
-        DllCall("WS2_32.dll\WSCUpdateProvider", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "ptr", lpErrno)
+        result := DllCall("WS2_32.dll\WSCUpdateProvider", "ptr", lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpProtocolInfoList, "uint", dwNumberOfEntries, "int*", lpErrno)
+        return result
     }
 
     /**
@@ -21273,16 +29537,79 @@ class WinSock {
      * <div> </div>
      * @param {Pointer<Guid>} lpProviderId A pointer to a globally unique identifier (GUID)  for the provider.
      * @param {Integer} InfoType The information class to be set for this LSP protocol entry.
-     * @param {Pointer<Byte>} Info A pointer to a buffer that contains the information class data to set for the LSP protocol entry.
+     * @param {Pointer} Info A pointer to a buffer that contains the information class data to set for the LSP protocol entry.
      * @param {Pointer} InfoSize The size, in bytes, of the buffer pointed to by the <i>Info</i> parameter.
      * @param {Integer} Flags The flags used to modify the behavior of the **WSCSetProviderInfo** function call.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code if the function fails.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, **WSCSetProviderInfo** returns **ERROR_SUCCESS** (zero). Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_CALL_NOT_IMPLEMENTED</b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The call is not implemented. This error is returned if **ProviderInfoAudit** is specified in the <i>InfoType</i> parameter.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments is not in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments are invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonrecoverable error occurred. This error is returned under several conditions including the following: the user lacks the administrative privileges required to write to the Winsock registry, or a failure occurred when opening a Winsock catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  Insufficient memory was available. This error is returned when there is insufficient memory to allocate a new catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wscsetproviderinfo
      * @since windows6.0.6000
      */
     static WSCSetProviderInfo(lpProviderId, InfoType, Info, InfoSize, Flags, lpErrno) {
-        DllCall("WS2_32.dll\WSCSetProviderInfo", "ptr", lpProviderId, "int", InfoType, "ptr", Info, "ptr", InfoSize, "uint", Flags, "ptr", lpErrno)
+        result := DllCall("WS2_32.dll\WSCSetProviderInfo", "ptr", lpProviderId, "int", InfoType, "ptr", Info, "ptr", InfoSize, "uint", Flags, "int*", lpErrno)
+        return result
     }
 
     /**
@@ -21359,16 +29686,90 @@ class WinSock {
      * If an LSP does not have a category set, it is considered to be in the All Other category. This LSP category will not be loaded in services or system processes (for example, lsass, winlogon, and many svchost processes).
      * @param {Pointer<Guid>} lpProviderId A pointer to a globally unique identifier (GUID)  for the provider.
      * @param {Integer} InfoType The information class that is requested for this LSP protocol entry.
-     * @param {Pointer<Byte>} Info A pointer to a buffer to receive the information class data for the requested LSP protocol entry. If this parameter is **NULL**, then **WSCGetProviderInfo** returns failure and the size required for this buffer is returned in the <i>InfoSize</i> parameter.
+     * @param {Pointer} Info A pointer to a buffer to receive the information class data for the requested LSP protocol entry. If this parameter is **NULL**, then **WSCGetProviderInfo** returns failure and the size required for this buffer is returned in the <i>InfoSize</i> parameter.
      * @param {Pointer<UIntPtr>} InfoSize The size, in bytes, of the buffer pointed to by the <i>Info </i> parameter. If the Info parameter is **NULL**, then  **WSCGetProviderInfo** returns failure and the <i>InfoSize</i> parameter will receive the size of the required buffer.
      * @param {Integer} Flags The flags used to modify the behavior of the **WSCGetProviderInfo** function call.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code if the function fails.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, **WSCGetProviderInfo** returns **ERROR_SUCCESS** (zero). Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_CALL_NOT_IMPLEMENTED</b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The call is not implemented. This error is returned if **ProviderInfoAudit** is specified in the <i>InfoType</i> parameter.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments is not in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments are invalid. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVALIDPROVIDER</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The protocol entry could not be found for the specified <i>lpProviderId</i>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonrecoverable error occurred. This error is returned under several conditions including the following: the user lacks the administrative privileges required to access the Winsock registry, or a failure occurred when opening a Winsock catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  Insufficient memory was available. This error is returned when there is insufficient memory to allocate a new catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wscgetproviderinfo
      * @since windows6.0.6000
      */
     static WSCGetProviderInfo(lpProviderId, InfoType, Info, InfoSize, Flags, lpErrno) {
-        DllCall("WS2_32.dll\WSCGetProviderInfo", "ptr", lpProviderId, "int", InfoType, "ptr", Info, "ptr", InfoSize, "uint", Flags, "ptr", lpErrno)
+        result := DllCall("WS2_32.dll\WSCGetProviderInfo", "ptr", lpProviderId, "int", InfoType, "ptr", Info, "ptr*", InfoSize, "uint", Flags, "int*", lpErrno)
+        return result
     }
 
     /**
@@ -21455,14 +29856,54 @@ class WinSock {
      *  This function can also fail because of user account control (UAC). If an application  that contains this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will fail unless the application has been marked in the manifest file with a **requestedExecutionLevel** set to **requireAdministrator**. If the application on Windows Vista or Windows Server 2008 lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for this function to succeed.
      * 
      * Any file installation or service provider-specific configuration must be performed by the caller.
-     * @param {Pointer<PWSTR>} Path A pointer to a Unicode string that contains the load path to the executable image for the application. This string observes the usual rules for path resolution and can contain embedded environment strings (such as <i>%SystemRoot%</i>).
+     * @param {Pointer<Char>} Path A pointer to a Unicode string that contains the load path to the executable image for the application. This string observes the usual rules for path resolution and can contain embedded environment strings (such as <i>%SystemRoot%</i>).
      * @param {Integer} PathLength The length, in characters, of the <i>Path</i> parameter. This length does not include the terminating **NULL**.
-     * @param {Pointer<PWSTR>} Extra A pointer to a Unicode string which represents the command line arguments used when starting the application specified in the <i>Path</i> parameter. The <i>Extra</i> parameter is used to distinguish between multiple, distinct instances of an application when launched with a consistent command line.  This is to support different application categorizations for different instances of Svchost.exe or Rundll32.exe. If only the <i>Path</i> parameter is required and no command line arguments are needed to further distinguish between instances of an application, then the <i>Extra</i> parameter should be set to **NULL**.
+     * @param {Pointer<Char>} Extra A pointer to a Unicode string which represents the command line arguments used when starting the application specified in the <i>Path</i> parameter. The <i>Extra</i> parameter is used to distinguish between multiple, distinct instances of an application when launched with a consistent command line.  This is to support different application categorizations for different instances of Svchost.exe or Rundll32.exe. If only the <i>Path</i> parameter is required and no command line arguments are needed to further distinguish between instances of an application, then the <i>Extra</i> parameter should be set to **NULL**.
      * @param {Integer} ExtraLength The length, in characters, of the <i>Extra</i> parameter. This length does not include the terminating **NULL**.
      * @param {Integer} PermittedLspCategories A DWORD value of the LSP categories which are permitted for all instances of this application. The application is identified by the combination of the values of the <i>Path</i> and <i>Extra</i> parameters.
      * @param {Pointer<UInt32>} pPrevPermLspCat A pointer to receive the previous set of permitted LSP categories which were permitted for all instances of this application. This parameter is optional can  be **NULL**.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code if the function fails.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, **WSCSetApplicationCategory** returns **ERROR_SUCCESS** (zero). Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments is not in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments are invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonrecoverable error occurred. This error is returned under several conditions including the following: the user lacks the administrative privileges required to access the Winsock registry, or a failure occurred when opening a Winsock catalog entry or an application ID entry.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wscsetapplicationcategory
      * @since windows6.0.6000
      */
@@ -21470,7 +29911,8 @@ class WinSock {
         Path := Path is String? StrPtr(Path) : Path
         Extra := Extra is String? StrPtr(Extra) : Extra
 
-        DllCall("WS2_32.dll\WSCSetApplicationCategory", "ptr", Path, "uint", PathLength, "ptr", Extra, "uint", ExtraLength, "uint", PermittedLspCategories, "ptr", pPrevPermLspCat, "ptr", lpErrno)
+        result := DllCall("WS2_32.dll\WSCSetApplicationCategory", "ptr", Path, "uint", PathLength, "ptr", Extra, "uint", ExtraLength, "uint", PermittedLspCategories, "uint*", pPrevPermLspCat, "int*", lpErrno)
+        return result
     }
 
     /**
@@ -21550,13 +29992,67 @@ class WinSock {
      * An LSP may belong to more than one category.  For example, a firewall/security LSP could belong to both the inspector (**LSP_INSPECTOR**) and firewall (**LSP_FIREWALL**) categories.
      * 
      * If an LSP does not have a category set, it is considered to be in the All Other category. This LSP category will not be loaded in services or system processes (for example, lsass, winlogon, and many svchost processes).
-     * @param {Pointer<PWSTR>} Path A pointer to a Unicode string that contains the load path to the executable image for the application. This string observes the usual rules for path resolution and can contain embedded environment strings (such as <i>%SystemRoot%</i>).
+     * @param {Pointer<Char>} Path A pointer to a Unicode string that contains the load path to the executable image for the application. This string observes the usual rules for path resolution and can contain embedded environment strings (such as <i>%SystemRoot%</i>).
      * @param {Integer} PathLength The length, in characters, of the <i>Path</i> parameter. This length does not include the terminating **NULL**.
-     * @param {Pointer<PWSTR>} Extra A pointer to a Unicode string which represents the command line arguments used when starting the application specified in the <i>Path</i> parameter. The <i>Extra</i> parameter is used to distinguish between multiple, distinct instances of an application when launched with a consistent command line.  This is to support different application categorizations for different instances of Svchost.exe or Rundll32.exe. If only the <i>Path</i> parameter is required and no command line arguments are needed to further distinguish between instances of an application, then the <i>Extra</i> parameter should be set to **NULL**.
+     * @param {Pointer<Char>} Extra A pointer to a Unicode string which represents the command line arguments used when starting the application specified in the <i>Path</i> parameter. The <i>Extra</i> parameter is used to distinguish between multiple, distinct instances of an application when launched with a consistent command line.  This is to support different application categorizations for different instances of Svchost.exe or Rundll32.exe. If only the <i>Path</i> parameter is required and no command line arguments are needed to further distinguish between instances of an application, then the <i>Extra</i> parameter should be set to **NULL**.
      * @param {Integer} ExtraLength The length, in characters, of the <i>Extra</i> parameter. This length does not include the terminating **NULL**.
      * @param {Pointer<UInt32>} pPermittedLspCategories A pointer to a DWORD value of permitted LSP categories which are permitted for all instances of this application. The application is identified by the combination of the values of the <i>Path</i> and <i>Extra</i> parameters.
      * @param {Pointer<Int32>} lpErrno A pointer to the error code if the function fails.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, **WSCGetApplicationCategory** returns **ERROR_SUCCESS** (zero). Otherwise, it returns **SOCKET_ERROR**, and a specific error code is returned in the <i>lpErrno</i> parameter.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments is not in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments are invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSASERVICE_NOT_FOUND</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The service could not be found based on the <i>Path</i> and <i>Extra</i> parameters. 
+     * 
+     * The error can also be returned if the application you are querying does not exist in the registry. In this case, the error indicates that the application is not currently categorized.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonrecoverable error occurred. This error is returned under several conditions including the following: the user lacks the administrative privileges required to access the Winsock registry, or a failure occurred when opening a Winsock catalog entry or an application ID entry.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wscgetapplicationcategory
      * @since windows6.0.6000
      */
@@ -21564,7 +30060,8 @@ class WinSock {
         Path := Path is String? StrPtr(Path) : Path
         Extra := Extra is String? StrPtr(Extra) : Extra
 
-        DllCall("WS2_32.dll\WSCGetApplicationCategory", "ptr", Path, "uint", PathLength, "ptr", Extra, "uint", ExtraLength, "ptr", pPermittedLspCategories, "ptr", lpErrno)
+        result := DllCall("WS2_32.dll\WSCGetApplicationCategory", "ptr", Path, "uint", PathLength, "ptr", Extra, "uint", ExtraLength, "uint*", pPermittedLspCategories, "int*", lpErrno)
+        return result
     }
 
     /**
@@ -21617,12 +30114,37 @@ class WinSock {
      * @param {Integer} dwError The completion status of the overlapped I/O operation whose completion is to be notified.
      * @param {Integer} cbTransferred The number of bytes transferred to or from client buffers (the direction of the transfer depends on the send or receive nature of the overlapped I/O operation whose completion is to be notified).
      * @param {Pointer<Int32>} lpErrno A pointer to the error code resulting from execution of this function.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * **WPUCompleteOverlappedRequest** returns zero and notifies completion of the overlapped I/O operation according to the mechanism selected by the client (signals an event found in the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaoverlapped">WSAOVERLAPPED</a> structure referenced by <i>lpOverlapped</i> and/or queues a completion status report to the completion port associated with the socket if a completion port is associated). Otherwise, 
+     * **WPUCompleteOverlappedRequest** returns SOCKET_ERROR, and a specific error code is available in <i>lpErrno</i>.
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket passed in the <i>s</i> parameter is not a socket created by 
+     * <a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wpucreatesockethandle">WPUCreateSocketHandle</a>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wpucompleteoverlappedrequest
      * @since windows5.0
      */
     static WPUCompleteOverlappedRequest(s, lpOverlapped, dwError, cbTransferred, lpErrno) {
-        DllCall("WS2_32.dll\WPUCompleteOverlappedRequest", "ptr", s, "ptr", lpOverlapped, "uint", dwError, "uint", cbTransferred, "ptr", lpErrno)
+        result := DllCall("WS2_32.dll\WPUCompleteOverlappedRequest", "ptr", s, "ptr", lpOverlapped, "uint", dwError, "uint", cbTransferred, "int*", lpErrno)
+        return result
     }
 
     /**
@@ -21633,12 +30155,76 @@ class WinSock {
      * 
      * The **WSCInstallNameSpace** function can only be called by a user logged on as a member of the Administrators group. If **WSCInstallNameSpace** is called by a user that is not a member of the Administrators group, the function call will fail. 
      *  For computers running on Windows Vista or Windows Server 2008, this function can also fail because of user account control (UAC). If an application  that contains this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will fail unless the application has been marked in the manifest file with a **requestedExecutionLevel** set to **requireAdministrator**. If the application on Windows Vista or Windows Server 2008 lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for this function to succeed.
-     * @param {Pointer<PWSTR>} lpszIdentifier A pointer to a string that identifies the provider associated with the globally unique identifier (GUID) passed in the <i>lpProviderId</i> parameter.
-     * @param {Pointer<PWSTR>} lpszPathName A pointer to a Unicode string that contains the load path to the provider DLL. This string observes the usual rules for path resolution and can contain embedded environment strings (such as <i>%SystemRoot%</i>). Such environment strings are expanded when the Ws2_32.dll must subsequently load the provider DLL on behalf of an application. After any embedded environment strings are expanded, the Ws2_32.dll passes the resulting string to the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function which loads the provider into memory. For more information, see **LoadLibrary**.
+     * @param {Pointer<Char>} lpszIdentifier A pointer to a string that identifies the provider associated with the globally unique identifier (GUID) passed in the <i>lpProviderId</i> parameter.
+     * @param {Pointer<Char>} lpszPathName A pointer to a Unicode string that contains the load path to the provider DLL. This string observes the usual rules for path resolution and can contain embedded environment strings (such as <i>%SystemRoot%</i>). Such environment strings are expanded when the Ws2_32.dll must subsequently load the provider DLL on behalf of an application. After any embedded environment strings are expanded, the Ws2_32.dll passes the resulting string to the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function which loads the provider into memory. For more information, see **LoadLibrary**.
      * @param {Integer} dwNameSpace The namespace supported by this provider.
      * @param {Integer} dwVersion The version number of the provider.
      * @param {Pointer<Guid>} lpProviderId A pointer to a GUID  for the provider. This GUID should be generated by Uuidgen.exe.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, the 
+     * **WSCInstallNameSpace** function returns **NO_ERROR** (zero). Otherwise, it returns **SOCKET_ERROR** if the function fails, and you must retrieve the appropriate error code using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> function.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEACCES</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The calling routine does not have sufficient privileges to install a namespace.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments are invalid. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonrecoverable error occurred. This error is returned under several conditions including the following: the provider is already installed, the user lacks the administrative privileges required to write to the  Winsock registry, or a failure occurred when creating or installing a catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSASYSCALLFAILURE</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  A system call that should never fail has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  Insufficient memory was available. This error is returned when there is insufficient memory to allocate a new catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wscinstallnamespace
      * @since windows5.0
      */
@@ -21646,7 +30232,8 @@ class WinSock {
         lpszIdentifier := lpszIdentifier is String? StrPtr(lpszIdentifier) : lpszIdentifier
         lpszPathName := lpszPathName is String? StrPtr(lpszPathName) : lpszPathName
 
-        DllCall("WS2_32.dll\WSCInstallNameSpace", "ptr", lpszIdentifier, "ptr", lpszPathName, "uint", dwNameSpace, "uint", dwVersion, "ptr", lpProviderId)
+        result := DllCall("WS2_32.dll\WSCInstallNameSpace", "ptr", lpszIdentifier, "ptr", lpszPathName, "uint", dwNameSpace, "uint", dwVersion, "ptr", lpProviderId)
+        return result
     }
 
     /**
@@ -21666,12 +30253,66 @@ class WinSock {
      * 
      * The caller of this function must remove any additional files or service provider–specific configuration information that is required to completely uninstall the service provider.
      * @param {Pointer<Guid>} lpProviderId A pointer to a globally unique identifier (GUID)  for the name-space provider to be uninstalled.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * **WSCUnInstallNameSpace** returns **NO_ERROR** (zero). Otherwise, it returns **SOCKET_ERROR** if the function fails, and you must retrieve the appropriate error code using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> function.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpProviderId</i> parameter points to memory that is not in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified namespace–provider identifier is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSASYSCALLFAILURE</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  A system call that should never fail has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  Insufficient memory was available. This error is returned when there is insufficient memory to allocate a new catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wscuninstallnamespace
      * @since windows5.0
      */
     static WSCUnInstallNameSpace(lpProviderId) {
-        DllCall("WS2_32.dll\WSCUnInstallNameSpace", "ptr", lpProviderId)
+        result := DllCall("WS2_32.dll\WSCUnInstallNameSpace", "ptr", lpProviderId)
+        return result
     }
 
     /**
@@ -21687,13 +30328,77 @@ class WinSock {
      * 
      * The **WSCInstallNameSpaceEx** function can only be called by a user logged on as a member of the Administrators group. If **WSCInstallNameSpaceEx** is called by a user that is not a member of the Administrators group, the function call will fail. 
      *  For computers running on Windows Vista or Windows Server 2008, this function can also fail because of user account control (UAC). If an application  that contains this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will fail unless the application has been marked in the manifest file with a **requestedExecutionLevel** set to **requireAdministrator**. If the application on Windows Vista or Windows Server 2008 lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for this function to succeed.
-     * @param {Pointer<PWSTR>} lpszIdentifier A pointer to a string that identifies the provider associated with the globally unique identifier (GUID) passed in the <i>lpProviderId</i> parameter.
-     * @param {Pointer<PWSTR>} lpszPathName A pointer to a Unicode string that contains the load path to the provider DLL. This string observes the usual rules for path resolution and can contain embedded environment strings (such as <i>%SystemRoot%</i>). Such environment strings are expanded when the Ws2_32.dll must subsequently load the provider DLL on behalf of an application. After any embedded environment strings are expanded, the Ws2_32.dll passes the resulting string to the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function which loads the provider into memory. For more information, see **LoadLibrary**.
+     * @param {Pointer<Char>} lpszIdentifier A pointer to a string that identifies the provider associated with the globally unique identifier (GUID) passed in the <i>lpProviderId</i> parameter.
+     * @param {Pointer<Char>} lpszPathName A pointer to a Unicode string that contains the load path to the provider DLL. This string observes the usual rules for path resolution and can contain embedded environment strings (such as <i>%SystemRoot%</i>). Such environment strings are expanded when the Ws2_32.dll must subsequently load the provider DLL on behalf of an application. After any embedded environment strings are expanded, the Ws2_32.dll passes the resulting string to the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function which loads the provider into memory. For more information, see **LoadLibrary**.
      * @param {Integer} dwNameSpace The namespace supported by this provider.
      * @param {Integer} dwVersion The version number of the provider.
      * @param {Pointer<Guid>} lpProviderId A pointer to a GUID  for the provider. This GUID should be generated by Uuidgen.exe.
      * @param {Pointer<BLOB>} lpProviderSpecific A provider-specific data blob associated with namespace entry.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, the 
+     * **WSCInstallNameSpaceEx** function returns **NO_ERROR** (zero). Otherwise, it returns **SOCKET_ERROR** if the function fails, and you must retrieve the appropriate error code using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> function.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEACCES</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The calling routine does not have sufficient privileges to install a namespace.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments are invalid. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonrecoverable error occurred. This error is returned under several conditions including the following: the provider is already installed, the user lacks the administrative privileges required to write to the  Winsock registry, or a failure occurred when creating or installing a catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSASYSCALLFAILURE</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  A system call that should never fail has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  Insufficient memory was available. This error is returned when there is insufficient memory to allocate a new catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wscinstallnamespaceex
      * @since windows6.0.6000
      */
@@ -21701,7 +30406,8 @@ class WinSock {
         lpszIdentifier := lpszIdentifier is String? StrPtr(lpszIdentifier) : lpszIdentifier
         lpszPathName := lpszPathName is String? StrPtr(lpszPathName) : lpszPathName
 
-        DllCall("WS2_32.dll\WSCInstallNameSpaceEx", "ptr", lpszIdentifier, "ptr", lpszPathName, "uint", dwNameSpace, "uint", dwVersion, "ptr", lpProviderId, "ptr", lpProviderSpecific)
+        result := DllCall("WS2_32.dll\WSCInstallNameSpaceEx", "ptr", lpszIdentifier, "ptr", lpszPathName, "uint", dwNameSpace, "uint", dwVersion, "ptr", lpProviderId, "ptr", lpProviderSpecific)
+        return result
     }
 
     /**
@@ -21719,12 +30425,68 @@ class WinSock {
      * For computers running Windows Vista or Windows Server 2008, this function can also fail because of user account control (UAC). If an application  that contains this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will fail unless the application has been marked in the manifest file with a **requestedExecutionLevel** set to **requireAdministrator**. If the application on Windows Vista or Windows Server 2008 lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for this function to succeed.
      * @param {Pointer<Guid>} lpProviderId A pointer to a globally unique identifier (GUID)  for the namespace provider.
      * @param {Integer} fEnable A Boolean value that, if **TRUE**, the provider is set to the active state. If **FALSE**, the provider is disabled and will not be available for query operations or service registration.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, the 
+     * **WSCEnableNSProvider** function returns **NO_ERROR** (zero). Otherwise, it returns **SOCKET_ERROR** if the function fails, and you must retrieve the appropriate error code using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> function.
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpProviderId</i> parameter points to memory that is not in a valid part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified namespace provider identifier is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSASYSCALLFAILURE</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  A system call that should never fail has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  Insufficient memory was available. This error is returned when there is insufficient memory to allocate a new catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wscenablensprovider
      * @since windows5.0
      */
     static WSCEnableNSProvider(lpProviderId, fEnable) {
-        DllCall("WS2_32.dll\WSCEnableNSProvider", "ptr", lpProviderId, "int", fEnable)
+        result := DllCall("WS2_32.dll\WSCEnableNSProvider", "ptr", lpProviderId, "int", fEnable)
+        return result
     }
 
     /**
@@ -21756,17 +30518,87 @@ class WinSock {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wsaunadvertiseprovider">WSAUnadvertiseProvider</a> function makes a specific namespace provider no longer available for clients.
      * @param {Pointer<Guid>} puuidProviderId A pointer to the provider ID of the namespace provider to be advertised.
      * @param {Pointer<NSPV2_ROUTINE>} pNSPv2Routine A pointer to a **NSPV2_ROUTINE** structure with the namespace service provider version-2 entry points supported by the provider.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wsaprovidercompleteasynccall">WSAProviderCompleteAsyncCall</a> returns zero.
+     * 
+     * If the function fails, the return value is SOCKET_ERROR. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>, which returns one of the following extended error values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An internal error occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A parameter was not valid. This error is returned if the <i>puuidProviderId</i> or <i>pNSPv2Routine</i> parameters were **NULL**. 
+     * 
+     * This error is also returned if the **NSPv2LookupServiceBegin**, **NSPv2LookupServiceNextEx**, or **NSPv2LookupServiceEnd** members of the **NSPV2_ROUTINE** structure pointed to by the <i>pNSPv2Routine</i> parameter are **NULL**. A namespace version-2 provider must at least support name resolution which this minimum set of functions.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVALIDPROVIDER</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The namespace provider could not be found for the specified <i>puuidProviderId</i> parameter.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>Ws2_32.dll</i> has not been initialized. The application must first call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> before calling any Windows Sockets functions.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wsaadvertiseprovider
      * @since windows6.0.6000
      */
     static WSAAdvertiseProvider(puuidProviderId, pNSPv2Routine) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAAdvertiseProvider", "ptr", puuidProviderId, "ptr", pNSPv2Routine)
+        result := DllCall("WS2_32.dll\WSAAdvertiseProvider", "ptr", puuidProviderId, "ptr", pNSPv2Routine)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -21779,17 +30611,37 @@ class WinSock {
      * 
      * In general, NSPv2 providers are implemented in processes other than the calling applications. NSPv2 providers are not activated as result of client activity. Each provider hosting application decides when to make a specific provider available or unavailable by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wsaadvertiseprovider">WSAAdvertiseProvider</a> and **WSAUnadvertiseProvider** functions. The client activity only results in attempts to contact the provider, when available (when the namespace provider is advertised).
      * @param {Pointer<Guid>} puuidProviderId A pointer to the provider ID of the namespace provider.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * **WSAUnadvertiseProvider** returns zero. Otherwise, it returns **SOCKET_ERROR**, and a specific error code is available by calling <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A parameter was not valid. This error is returned if the <i>puuidProviderId</i> parameter was **NULL**. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wsaunadvertiseprovider
      * @since windows6.0.6000
      */
     static WSAUnadvertiseProvider(puuidProviderId) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAUnadvertiseProvider", "ptr", puuidProviderId)
+        result := DllCall("WS2_32.dll\WSAUnadvertiseProvider", "ptr", puuidProviderId)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -21801,19 +30653,76 @@ class WinSock {
      * On Windows Vista and Windows Server 2008, the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wsaunadvertiseprovider">WSAUnadvertiseProvider</a> function can only be used for operations on NS_EMAIL namespace providers. Asynchronous calls to NSPv2 providers are not supported on Windows Vista and Windows Server 2008. So the **WSAProviderCompleteAsyncCall** is not currently applicable. This function is planned for use in later versions of Windows when asynchronous calls to namespace providers are supported. 
      * 
      * In general, NSPv2 providers are implemented in processes other than the calling applications. NSPv2 providers are not activated as result of client activity. Each provider hosting application decides when to make a specific provider available or unavailable by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wsaadvertiseprovider">WSAAdvertiseProvider</a> and <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wsaunadvertiseprovider">WSAUnadvertiseProvider</a> functions. The client activity only results in attempts to contact the provider, when available (when the namespace provider is advertised).
-     * @param {Pointer<HANDLE>} hAsyncCall The handle passed to the asynchronous call being completed. This handle is passed by the client to the namespace version-2 provider in the asynchronous function call.
+     * @param {Pointer<Void>} hAsyncCall The handle passed to the asynchronous call being completed. This handle is passed by the client to the namespace version-2 provider in the asynchronous function call.
      * @param {Integer} iRetCode The return code for the asynchronous call to the namespace version-2 provider.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * **WSAProviderCompleteAsyncCall** returns zero.
+     * 
+     * If the function fails, the return value is SOCKET_ERROR. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>, which returns one of the following extended error values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An internal error occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A parameter was not valid. This error is returned if the <i>hAsyncCall</i> parameter was **NULL**. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dl>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>Ws2_32.dll</i> has not been initialized. The application must first call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> before calling any Windows Sockets functions.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wsaprovidercompleteasynccall
      * @since windows6.0.6000
      */
     static WSAProviderCompleteAsyncCall(hAsyncCall, iRetCode) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\WSAProviderCompleteAsyncCall", "ptr", hAsyncCall, "int", iRetCode)
+        result := DllCall("WS2_32.dll\WSAProviderCompleteAsyncCall", "ptr", hAsyncCall, "int", iRetCode)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -21900,7 +30809,7 @@ class WinSock {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} lpProtocolBuffer A pointer to a buffer that the function fills with an array of 
+     * @param {Pointer} lpProtocolBuffer A pointer to a buffer that the function fills with an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-protocol_infoa">PROTOCOL_INFO</a> data structures.
      * @param {Pointer<UInt32>} lpdwBufferLength A pointer to a variable that, on input, specifies the size, in bytes, of the buffer pointed to by <i>lpProtocolBuffer</i>. 
      * 
@@ -21908,17 +30817,41 @@ class WinSock {
      * 
      * 
      * On output, the function sets this variable to the minimum buffer size needed to retrieve all of the requested information. For the function to succeed, the buffer must be at least this size.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is the number of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-protocol_infoa">PROTOCOL_INFO</a> data structures written to the buffer pointed to by <i>lpProtocolBuffer</i>.
+     * 
+     * If the function fails, the return value is SOCKET_ERROR(–1). To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which returns the following extended error code.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INSUFFICIENT_BUFFER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The buffer pointed to by <i>lpProtocolBuffer</i> was too small to receive all of the relevant 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-protocol_infoa">PROTOCOL_INFO</a> structures. Call the function with a buffer at least as large as the value returned in *<i>lpdwBufferLength</i>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/nspapi/nf-nspapi-enumprotocolsa
      * @since windows5.0
      */
     static EnumProtocolsA(lpiProtocols, lpProtocolBuffer, lpdwBufferLength) {
         A_LastError := 0
 
-        DllCall("MSWSOCK.dll\EnumProtocolsA", "ptr", lpiProtocols, "ptr", lpProtocolBuffer, "ptr", lpdwBufferLength)
+        result := DllCall("MSWSOCK.dll\EnumProtocolsA", "int*", lpiProtocols, "ptr", lpProtocolBuffer, "uint*", lpdwBufferLength)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -22005,7 +30938,7 @@ class WinSock {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} lpProtocolBuffer A pointer to a buffer that the function fills with an array of 
+     * @param {Pointer} lpProtocolBuffer A pointer to a buffer that the function fills with an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-protocol_infoa">PROTOCOL_INFO</a> data structures.
      * @param {Pointer<UInt32>} lpdwBufferLength A pointer to a variable that, on input, specifies the size, in bytes, of the buffer pointed to by <i>lpProtocolBuffer</i>. 
      * 
@@ -22013,17 +30946,41 @@ class WinSock {
      * 
      * 
      * On output, the function sets this variable to the minimum buffer size needed to retrieve all of the requested information. For the function to succeed, the buffer must be at least this size.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is the number of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-protocol_infoa">PROTOCOL_INFO</a> data structures written to the buffer pointed to by <i>lpProtocolBuffer</i>.
+     * 
+     * If the function fails, the return value is SOCKET_ERROR(–1). To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which returns the following extended error code.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INSUFFICIENT_BUFFER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The buffer pointed to by <i>lpProtocolBuffer</i> was too small to receive all of the relevant 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-protocol_infoa">PROTOCOL_INFO</a> structures. Call the function with a buffer at least as large as the value returned in *<i>lpdwBufferLength</i>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/nspapi/nf-nspapi-enumprotocolsw
      * @since windows5.0
      */
     static EnumProtocolsW(lpiProtocols, lpProtocolBuffer, lpdwBufferLength) {
         A_LastError := 0
 
-        DllCall("MSWSOCK.dll\EnumProtocolsW", "ptr", lpiProtocols, "ptr", lpProtocolBuffer, "ptr", lpdwBufferLength)
+        result := DllCall("MSWSOCK.dll\EnumProtocolsW", "int*", lpiProtocols, "ptr", lpProtocolBuffer, "uint*", lpdwBufferLength)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -22133,7 +31090,7 @@ class WinSock {
      * @param {Pointer<Guid>} lpServiceType A pointer to a globally unique identifier (GUID) that specifies the type of the network service. The Svcguid.h header file includes definitions of several GUID service types, and macros for working with them.
      * 
      * The Svcguid.h header file is not automatically included by the Winsock2.h header file.
-     * @param {Pointer<PSTR>} lpServiceName A pointer to a zero-terminated string that uniquely represents the service name. For example, "MY SNA SERVER".
+     * @param {Pointer<Byte>} lpServiceName A pointer to a zero-terminated string that uniquely represents the service name. For example, "MY SNA SERVER".
      * 
      * Setting <i>lpServiceName</i> to <b>NULL</b> is the equivalent of setting <i>dwResolution</i> to RES_SERVICE. The function operates in its second mode, obtaining the local address to which a service of the specified type should bind. The function stores the local address within the <b>LocalAddr</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-csaddr_info">CSADDR_INFO</a> structures stored into *<i>lpCsaddrBuffer</i>.
@@ -22189,13 +31146,13 @@ class WinSock {
      * </tr>
      * </table>
      * @param {Pointer<SERVICE_ASYNC_INFO>} lpServiceAsyncInfo Reserved for future use; must be set to <b>NULL</b>.
-     * @param {Pointer<Void>} lpCsaddrBuffer A pointer to a buffer to receive one or more 
+     * @param {Pointer} lpCsaddrBuffer A pointer to a buffer to receive one or more 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-csaddr_info">CSADDR_INFO</a> data structures. The number of structures written to the buffer depends on the amount of information found in the resolution attempt. You should assume that multiple structures will be written, although in many cases there will only be one.
      * @param {Pointer<UInt32>} lpdwBufferLength A pointer to a variable that, upon input, specifies the size, in bytes, of the buffer pointed to by <i>lpCsaddrBuffer</i>.
      * 
      * Upon output, this variable contains the total number of bytes required to store the array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-csaddr_info">CSADDR_INFO</a> structures. If this value is less than or equal to the input value of *<i>lpdwBufferLength</i>, and the function is successful, this is the number of bytes actually stored in the buffer. If this value is greater than the input value of *<i>lpdwBufferLength</i>, the buffer was too small, and the output value of *<i>lpdwBufferLength</i> is the minimal required buffer size.
-     * @param {Pointer<PSTR>} lpAliasBuffer A pointer to a buffer to receive alias information for the network service.
+     * @param {Pointer<Byte>} lpAliasBuffer A pointer to a buffer to receive alias information for the network service.
      * 
      * If a namespace supports aliases, the function stores an array of zero-terminated name strings into the buffer pointed to by <i>lpAliasBuffer</i>. There is a double zero-terminator at the end of the list. The first name in the array is the service's primary name. Names that follow are aliases. An example of a namespace that supports aliases is DNS.
      * 
@@ -22207,7 +31164,30 @@ class WinSock {
      * Upon output, this variable contains the total number of elements (characters) required to store the array of name strings. If this value is less than or equal to the input value of *<i>lpdwAliasBufferLength</i>, and the function is successful, this is the number of elements actually stored in the buffer. If this value is greater than the input value of *<i>lpdwAliasBufferLength</i>, the buffer was too small, and the output value of *<i>lpdwAliasBufferLength</i> is the minimal required buffer size.
      * 
      * If <i>lpAliasBuffer</i> is <b>NULL</b>, <i>lpdwAliasBufferLength</i> is meaningless and can also be <b>NULL</b>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is the number of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-csaddr_info">CSADDR_INFO</a> data structures written to the buffer pointed to by <i>lpCsaddrBuffer</i>.
+     * 
+     * If the function fails, the return value is SOCKET_ERROR( –1). To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which returns the following extended error value.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INSUFFICIENT_BUFFER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The buffer pointed to by <i>lpCsaddrBuffer</i> was too small to receive all of the relevant 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-csaddr_info">CSADDR_INFO</a> structures. Call the function with a buffer at least as large as the value returned in *<i>lpdwBufferLength</i>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/nspapi/nf-nspapi-getaddressbynamea
      * @since windows5.0
      */
@@ -22217,10 +31197,11 @@ class WinSock {
 
         A_LastError := 0
 
-        DllCall("MSWSOCK.dll\GetAddressByNameA", "uint", dwNameSpace, "ptr", lpServiceType, "ptr", lpServiceName, "ptr", lpiProtocols, "uint", dwResolution, "ptr", lpServiceAsyncInfo, "ptr", lpCsaddrBuffer, "ptr", lpdwBufferLength, "ptr", lpAliasBuffer, "ptr", lpdwAliasBufferLength)
+        result := DllCall("MSWSOCK.dll\GetAddressByNameA", "uint", dwNameSpace, "ptr", lpServiceType, "ptr", lpServiceName, "int*", lpiProtocols, "uint", dwResolution, "ptr", lpServiceAsyncInfo, "ptr", lpCsaddrBuffer, "uint*", lpdwBufferLength, "ptr", lpAliasBuffer, "uint*", lpdwAliasBufferLength)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -22330,7 +31311,7 @@ class WinSock {
      * @param {Pointer<Guid>} lpServiceType A pointer to a globally unique identifier (GUID) that specifies the type of the network service. The Svcguid.h header file includes definitions of several GUID service types, and macros for working with them.
      * 
      * The Svcguid.h header file is not automatically included by the Winsock2.h header file.
-     * @param {Pointer<PWSTR>} lpServiceName A pointer to a zero-terminated string that uniquely represents the service name. For example, "MY SNA SERVER".
+     * @param {Pointer<Char>} lpServiceName A pointer to a zero-terminated string that uniquely represents the service name. For example, "MY SNA SERVER".
      * 
      * Setting <i>lpServiceName</i> to <b>NULL</b> is the equivalent of setting <i>dwResolution</i> to RES_SERVICE. The function operates in its second mode, obtaining the local address to which a service of the specified type should bind. The function stores the local address within the <b>LocalAddr</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-csaddr_info">CSADDR_INFO</a> structures stored into *<i>lpCsaddrBuffer</i>.
@@ -22386,13 +31367,13 @@ class WinSock {
      * </tr>
      * </table>
      * @param {Pointer<SERVICE_ASYNC_INFO>} lpServiceAsyncInfo Reserved for future use; must be set to <b>NULL</b>.
-     * @param {Pointer<Void>} lpCsaddrBuffer A pointer to a buffer to receive one or more 
+     * @param {Pointer} lpCsaddrBuffer A pointer to a buffer to receive one or more 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-csaddr_info">CSADDR_INFO</a> data structures. The number of structures written to the buffer depends on the amount of information found in the resolution attempt. You should assume that multiple structures will be written, although in many cases there will only be one.
      * @param {Pointer<UInt32>} lpdwBufferLength A pointer to a variable that, upon input, specifies the size, in bytes, of the buffer pointed to by <i>lpCsaddrBuffer</i>.
      * 
      * Upon output, this variable contains the total number of bytes required to store the array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-csaddr_info">CSADDR_INFO</a> structures. If this value is less than or equal to the input value of *<i>lpdwBufferLength</i>, and the function is successful, this is the number of bytes actually stored in the buffer. If this value is greater than the input value of *<i>lpdwBufferLength</i>, the buffer was too small, and the output value of *<i>lpdwBufferLength</i> is the minimal required buffer size.
-     * @param {Pointer<PWSTR>} lpAliasBuffer A pointer to a buffer to receive alias information for the network service.
+     * @param {Pointer<Char>} lpAliasBuffer A pointer to a buffer to receive alias information for the network service.
      * 
      * If a namespace supports aliases, the function stores an array of zero-terminated name strings into the buffer pointed to by <i>lpAliasBuffer</i>. There is a double zero-terminator at the end of the list. The first name in the array is the service's primary name. Names that follow are aliases. An example of a namespace that supports aliases is DNS.
      * 
@@ -22404,7 +31385,30 @@ class WinSock {
      * Upon output, this variable contains the total number of elements (characters) required to store the array of name strings. If this value is less than or equal to the input value of *<i>lpdwAliasBufferLength</i>, and the function is successful, this is the number of elements actually stored in the buffer. If this value is greater than the input value of *<i>lpdwAliasBufferLength</i>, the buffer was too small, and the output value of *<i>lpdwAliasBufferLength</i> is the minimal required buffer size.
      * 
      * If <i>lpAliasBuffer</i> is <b>NULL</b>, <i>lpdwAliasBufferLength</i> is meaningless and can also be <b>NULL</b>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is the number of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-csaddr_info">CSADDR_INFO</a> data structures written to the buffer pointed to by <i>lpCsaddrBuffer</i>.
+     * 
+     * If the function fails, the return value is SOCKET_ERROR( –1). To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which returns the following extended error value.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INSUFFICIENT_BUFFER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The buffer pointed to by <i>lpCsaddrBuffer</i> was too small to receive all of the relevant 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-csaddr_info">CSADDR_INFO</a> structures. Call the function with a buffer at least as large as the value returned in *<i>lpdwBufferLength</i>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/nspapi/nf-nspapi-getaddressbynamew
      * @since windows5.0
      */
@@ -22414,10 +31418,11 @@ class WinSock {
 
         A_LastError := 0
 
-        DllCall("MSWSOCK.dll\GetAddressByNameW", "uint", dwNameSpace, "ptr", lpServiceType, "ptr", lpServiceName, "ptr", lpiProtocols, "uint", dwResolution, "ptr", lpServiceAsyncInfo, "ptr", lpCsaddrBuffer, "ptr", lpdwBufferLength, "ptr", lpAliasBuffer, "ptr", lpdwAliasBufferLength)
+        result := DllCall("MSWSOCK.dll\GetAddressByNameW", "uint", dwNameSpace, "ptr", lpServiceType, "ptr", lpServiceName, "int*", lpiProtocols, "uint", dwResolution, "ptr", lpServiceAsyncInfo, "ptr", lpCsaddrBuffer, "uint*", lpdwBufferLength, "ptr", lpAliasBuffer, "uint*", lpdwAliasBufferLength)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -22425,11 +31430,32 @@ class WinSock {
      * @remarks
      * > [!NOTE]
      * > The nspapi.h header defines GetTypeByName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpServiceName A pointer to a zero-terminated string that uniquely represents the name of the service. For example, "MY SNA SERVER."
+     * @param {Pointer<Byte>} lpServiceName A pointer to a zero-terminated string that uniquely represents the name of the service. For example, "MY SNA SERVER."
      * @param {Pointer<Guid>} lpServiceType A pointer to a variable to receive a globally unique identifier (<b>GUID</b>) that specifies the type of the network service. The <i>Svcguid.h</i> header file includes definitions of several <b>GUID</b> service types and macros for working with them.
      * 
      * The <i>Svcguid.h</i> header file is not automatically included by the <i>Winsock2.h</i> header file.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is zero.
+     * 
+     * If the function fails, the return value is SOCKET_ERROR( – 1). To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which returns the following extended error value.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_SERVICE_DOES_NOT_EXIST</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified service type is unknown.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/nspapi/nf-nspapi-gettypebynamea
      * @since windows5.0
      */
@@ -22438,10 +31464,11 @@ class WinSock {
 
         A_LastError := 0
 
-        DllCall("MSWSOCK.dll\GetTypeByNameA", "ptr", lpServiceName, "ptr", lpServiceType)
+        result := DllCall("MSWSOCK.dll\GetTypeByNameA", "ptr", lpServiceName, "ptr", lpServiceType)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -22449,11 +31476,32 @@ class WinSock {
      * @remarks
      * > [!NOTE]
      * > The nspapi.h header defines GetTypeByName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpServiceName A pointer to a zero-terminated string that uniquely represents the name of the service. For example, "MY SNA SERVER."
+     * @param {Pointer<Char>} lpServiceName A pointer to a zero-terminated string that uniquely represents the name of the service. For example, "MY SNA SERVER."
      * @param {Pointer<Guid>} lpServiceType A pointer to a variable to receive a globally unique identifier (<b>GUID</b>) that specifies the type of the network service. The <i>Svcguid.h</i> header file includes definitions of several <b>GUID</b> service types and macros for working with them.
      * 
      * The <i>Svcguid.h</i> header file is not automatically included by the <i>Winsock2.h</i> header file.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is zero.
+     * 
+     * If the function fails, the return value is SOCKET_ERROR( – 1). To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which returns the following extended error value.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_SERVICE_DOES_NOT_EXIST</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified service type is unknown.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/nspapi/nf-nspapi-gettypebynamew
      * @since windows5.0
      */
@@ -22462,10 +31510,11 @@ class WinSock {
 
         A_LastError := 0
 
-        DllCall("MSWSOCK.dll\GetTypeByNameW", "ptr", lpServiceName, "ptr", lpServiceType)
+        result := DllCall("MSWSOCK.dll\GetTypeByNameW", "ptr", lpServiceName, "ptr", lpServiceType)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -22476,21 +31525,23 @@ class WinSock {
      * @param {Pointer<Guid>} lpServiceType A pointer to a globally unique identifier (GUID) that specifies the type of the network service. The <i>Svcguid.h</i> header file includes definitions of several GUID service types, and macros for working with them.
      * 
      * The <i>Svcguid.h</i> header file is not automatically included by the <i>Winsock2.h</i> header file.
-     * @param {Pointer<PSTR>} lpServiceName A pointer to a buffer to receive a zero-terminated string that uniquely represents the name of the network service.
+     * @param {Pointer} lpServiceName A pointer to a buffer to receive a zero-terminated string that uniquely represents the name of the network service.
      * @param {Integer} dwNameLength A pointer to a variable that, on input, specifies the size, in bytes, of the buffer pointed to by <i>lpServiceName</i>. On output, the variable contains the actual size of the service name string, in bytes.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is not SOCKET_ERROR (–1).
+     * 
+     * If the function fails, the return value is SOCKET_ERROR (–1). To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/nspapi/nf-nspapi-getnamebytypea
      * @since windows5.0
      */
     static GetNameByTypeA(lpServiceType, lpServiceName, dwNameLength) {
-        lpServiceName := lpServiceName is String? StrPtr(lpServiceName) : lpServiceName
-
         A_LastError := 0
 
-        DllCall("MSWSOCK.dll\GetNameByTypeA", "ptr", lpServiceType, "ptr", lpServiceName, "uint", dwNameLength)
+        result := DllCall("MSWSOCK.dll\GetNameByTypeA", "ptr", lpServiceType, "ptr", lpServiceName, "uint", dwNameLength)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -22501,21 +31552,23 @@ class WinSock {
      * @param {Pointer<Guid>} lpServiceType A pointer to a globally unique identifier (GUID) that specifies the type of the network service. The <i>Svcguid.h</i> header file includes definitions of several GUID service types, and macros for working with them.
      * 
      * The <i>Svcguid.h</i> header file is not automatically included by the <i>Winsock2.h</i> header file.
-     * @param {Pointer<PWSTR>} lpServiceName A pointer to a buffer to receive a zero-terminated string that uniquely represents the name of the network service.
+     * @param {Pointer} lpServiceName A pointer to a buffer to receive a zero-terminated string that uniquely represents the name of the network service.
      * @param {Integer} dwNameLength A pointer to a variable that, on input, specifies the size, in bytes, of the buffer pointed to by <i>lpServiceName</i>. On output, the variable contains the actual size of the service name string, in bytes.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is not SOCKET_ERROR (–1).
+     * 
+     * If the function fails, the return value is SOCKET_ERROR (–1). To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/nspapi/nf-nspapi-getnamebytypew
      * @since windows5.0
      */
     static GetNameByTypeW(lpServiceType, lpServiceName, dwNameLength) {
-        lpServiceName := lpServiceName is String? StrPtr(lpServiceName) : lpServiceName
-
         A_LastError := 0
 
-        DllCall("MSWSOCK.dll\GetNameByTypeW", "ptr", lpServiceType, "ptr", lpServiceName, "uint", dwNameLength)
+        result := DllCall("MSWSOCK.dll\GetNameByTypeW", "ptr", lpServiceType, "ptr", lpServiceName, "uint", dwNameLength)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -22673,17 +31726,38 @@ class WinSock {
      * </td>
      * </tr>
      * </table>
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function fails, the return value is SOCKET_ERROR. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> can return the following extended error value.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_ALREADY_
+     * REGISTERED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function tried to register a service that was already registered.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/nspapi/nf-nspapi-setservicea
      * @since windows5.0
      */
     static SetServiceA(dwNameSpace, dwOperation, dwFlags, lpServiceInfo, lpServiceAsyncInfo, lpdwStatusFlags) {
         A_LastError := 0
 
-        DllCall("MSWSOCK.dll\SetServiceA", "uint", dwNameSpace, "uint", dwOperation, "uint", dwFlags, "ptr", lpServiceInfo, "ptr", lpServiceAsyncInfo, "ptr", lpdwStatusFlags)
+        result := DllCall("MSWSOCK.dll\SetServiceA", "uint", dwNameSpace, "uint", dwOperation, "uint", dwFlags, "ptr", lpServiceInfo, "ptr", lpServiceAsyncInfo, "uint*", lpdwStatusFlags)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -22841,17 +31915,38 @@ class WinSock {
      * </td>
      * </tr>
      * </table>
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function fails, the return value is SOCKET_ERROR. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> can return the following extended error value.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_ALREADY_
+     * REGISTERED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function tried to register a service that was already registered.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/nspapi/nf-nspapi-setservicew
      * @since windows5.0
      */
     static SetServiceW(dwNameSpace, dwOperation, dwFlags, lpServiceInfo, lpServiceAsyncInfo, lpdwStatusFlags) {
         A_LastError := 0
 
-        DllCall("MSWSOCK.dll\SetServiceW", "uint", dwNameSpace, "uint", dwOperation, "uint", dwFlags, "ptr", lpServiceInfo, "ptr", lpServiceAsyncInfo, "ptr", lpdwStatusFlags)
+        result := DllCall("MSWSOCK.dll\SetServiceW", "uint", dwNameSpace, "uint", dwOperation, "uint", dwFlags, "ptr", lpServiceInfo, "ptr", lpServiceAsyncInfo, "uint*", lpdwStatusFlags)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -22936,7 +32031,7 @@ class WinSock {
      * @param {Pointer<Guid>} lpGuid A pointer to a globally unique identifier (GUID) that specifies the type of the network service. The <i>Svcguid.h</i> header file includes GUID service types from many well-known services within the DNS and SAP namespaces.
      * 
      * The <i>Svcguid.h</i> header file is not automatically included by the <i>Winsock2.h</i> header file.
-     * @param {Pointer<PSTR>} lpServiceName A pointer to a zero-terminated string that uniquely represents the service name. For example, "MY SNA SERVER."
+     * @param {Pointer<Byte>} lpServiceName A pointer to a zero-terminated string that uniquely represents the service name. For example, "MY SNA SERVER."
      * @param {Integer} dwProperties A set of bit flags that specify the service information that the function retrieves. Each of these bit flag constants, other than PROP_ALL, corresponds to a particular member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-service_infoa">SERVICE_INFO</a> data structure. If the flag is set, the function puts information into the corresponding member of the data structures stored in *<i>lpBuffer</i>. The following bit flags are defined.
      * 
@@ -23036,7 +32131,7 @@ class WinSock {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} lpBuffer A pointer to a buffer to receive an array of 
+     * @param {Pointer} lpBuffer A pointer to a buffer to receive an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-ns_service_infoa">NS_SERVICE_INFO</a> structures and associated service information. Each 
      * <b>NS_SERVICE_INFO</b> structure contains service information in the context of a particular namespace. Note that if <i>dwNameSpace</i> is NS_DEFAULT, the function stores more than one structure into the buffer; otherwise, just one structure is stored.
      * 
@@ -23051,7 +32146,40 @@ class WinSock {
      * <b>NS_SERVICE_INFO</b> structures and the end of the buffer.
      * @param {Pointer<UInt32>} lpdwBufferSize A pointer to a variable that, on input, contains the size, in bytes, of the buffer pointed to by <i>lpBuffer</i>. On output, this variable contains the number of bytes required to store the requested information. If this output value is greater than the input value, the function has failed due to insufficient buffer size.
      * @param {Pointer<SERVICE_ASYNC_INFO>} lpServiceAsyncInfo Reserved for future use. Must be set to <b>NULL</b>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is the number of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-ns_service_infoa">NS_SERVICE_INFO</a> structures stored in *<i>lpBuffer</i>. Zero indicates that no structures were stored.
+     * 
+     * If the function fails, the return value is SOCKET_ERROR ( – 1). To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which returns one of the following extended error values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INSUFFICIENT_BUFFER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The buffer pointed to by <i>lpBuffer</i> is too small to receive all of the requested information. Call the function with a buffer at least as large as the value returned in *<i>lpdwBufferSize</i>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_SERVICE_NOT_FOUND</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified service was not found, or the specified namespace is not in use. The function return value is zero in this case.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/nspapi/nf-nspapi-getservicea
      * @since windows5.0
      */
@@ -23060,10 +32188,11 @@ class WinSock {
 
         A_LastError := 0
 
-        DllCall("MSWSOCK.dll\GetServiceA", "uint", dwNameSpace, "ptr", lpGuid, "ptr", lpServiceName, "uint", dwProperties, "ptr", lpBuffer, "ptr", lpdwBufferSize, "ptr", lpServiceAsyncInfo)
+        result := DllCall("MSWSOCK.dll\GetServiceA", "uint", dwNameSpace, "ptr", lpGuid, "ptr", lpServiceName, "uint", dwProperties, "ptr", lpBuffer, "uint*", lpdwBufferSize, "ptr", lpServiceAsyncInfo)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -23148,7 +32277,7 @@ class WinSock {
      * @param {Pointer<Guid>} lpGuid A pointer to a globally unique identifier (GUID) that specifies the type of the network service. The <i>Svcguid.h</i> header file includes GUID service types from many well-known services within the DNS and SAP namespaces.
      * 
      * The <i>Svcguid.h</i> header file is not automatically included by the <i>Winsock2.h</i> header file.
-     * @param {Pointer<PWSTR>} lpServiceName A pointer to a zero-terminated string that uniquely represents the service name. For example, "MY SNA SERVER."
+     * @param {Pointer<Char>} lpServiceName A pointer to a zero-terminated string that uniquely represents the service name. For example, "MY SNA SERVER."
      * @param {Integer} dwProperties A set of bit flags that specify the service information that the function retrieves. Each of these bit flag constants, other than PROP_ALL, corresponds to a particular member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-service_infoa">SERVICE_INFO</a> data structure. If the flag is set, the function puts information into the corresponding member of the data structures stored in *<i>lpBuffer</i>. The following bit flags are defined.
      * 
@@ -23248,7 +32377,7 @@ class WinSock {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} lpBuffer A pointer to a buffer to receive an array of 
+     * @param {Pointer} lpBuffer A pointer to a buffer to receive an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-ns_service_infoa">NS_SERVICE_INFO</a> structures and associated service information. Each 
      * <b>NS_SERVICE_INFO</b> structure contains service information in the context of a particular namespace. Note that if <i>dwNameSpace</i> is NS_DEFAULT, the function stores more than one structure into the buffer; otherwise, just one structure is stored.
      * 
@@ -23263,7 +32392,40 @@ class WinSock {
      * <b>NS_SERVICE_INFO</b> structures and the end of the buffer.
      * @param {Pointer<UInt32>} lpdwBufferSize A pointer to a variable that, on input, contains the size, in bytes, of the buffer pointed to by <i>lpBuffer</i>. On output, this variable contains the number of bytes required to store the requested information. If this output value is greater than the input value, the function has failed due to insufficient buffer size.
      * @param {Pointer<SERVICE_ASYNC_INFO>} lpServiceAsyncInfo Reserved for future use. Must be set to <b>NULL</b>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is the number of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-ns_service_infoa">NS_SERVICE_INFO</a> structures stored in *<i>lpBuffer</i>. Zero indicates that no structures were stored.
+     * 
+     * If the function fails, the return value is SOCKET_ERROR ( – 1). To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which returns one of the following extended error values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INSUFFICIENT_BUFFER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The buffer pointed to by <i>lpBuffer</i> is too small to receive all of the requested information. Call the function with a buffer at least as large as the value returned in *<i>lpdwBufferSize</i>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_SERVICE_NOT_FOUND</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified service was not found, or the specified namespace is not in use. The function return value is zero in this case.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/nspapi/nf-nspapi-getservicew
      * @since windows5.0
      */
@@ -23272,10 +32434,11 @@ class WinSock {
 
         A_LastError := 0
 
-        DllCall("MSWSOCK.dll\GetServiceW", "uint", dwNameSpace, "ptr", lpGuid, "ptr", lpServiceName, "uint", dwProperties, "ptr", lpBuffer, "ptr", lpdwBufferSize, "ptr", lpServiceAsyncInfo)
+        result := DllCall("MSWSOCK.dll\GetServiceW", "uint", dwNameSpace, "ptr", lpGuid, "ptr", lpServiceName, "uint", dwProperties, "ptr", lpBuffer, "uint*", lpdwBufferSize, "ptr", lpServiceAsyncInfo)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -23360,8 +32523,8 @@ class WinSock {
      * 
      * 
      * ```cpp
-     * @param {Pointer<PSTR>} pNodeName A pointer to a <b>NULL</b>-terminated ANSI string that contains a host (node) name or a numeric host address string. For the Internet protocol, the numeric host address string is a dotted-decimal IPv4 address or an IPv6 hex address.
-     * @param {Pointer<PSTR>} pServiceName A pointer to a <b>NULL</b>-terminated ANSI string that contains either a service name or port number represented as a string.
+     * @param {Pointer<Byte>} pNodeName A pointer to a <b>NULL</b>-terminated ANSI string that contains a host (node) name or a numeric host address string. For the Internet protocol, the numeric host address string is a dotted-decimal IPv4 address or an IPv6 hex address.
+     * @param {Pointer<Byte>} pServiceName A pointer to a <b>NULL</b>-terminated ANSI string that contains either a service name or port number represented as a string.
      * 
      * A service name is a string alias for a port number. For example, “http” is an alias for port 80 defined by the Internet Engineering Task Force (IETF) as the default port used by web servers for the HTTP protocol. Possible values for the <i>pServiceName</i> parameter when a port number is not specified are listed in the following file: 
      * 
@@ -23374,7 +32537,188 @@ class WinSock {
      * See the Remarks for more details.
      * @param {Pointer<ADDRINFOA>} ppResult A pointer to a linked list of one or more 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoa">addrinfo</a> structures that contains response information about the host.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} Success returns zero. Failure returns a nonzero Windows Sockets error code, as found in the 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">Windows Sockets Error Codes</a>.
+     * 
+     * Most nonzero error codes returned by the 
+     * <b>getaddrinfo</b> function map to the set of errors outlined by Internet Engineering Task Force (IETF) recommendations. The following table lists these error codes and their WSA equivalents. It is recommended that the WSA error codes be used, as they offer familiar and comprehensive error information for Winsock programmers.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error value</th>
+     * <th>WSA equivalent</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>EAI_AGAIN</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSATRY_AGAIN</a></td>
+     * <td>A temporary failure in name resolution occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_BADFLAGS</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></td>
+     * <td>An invalid value was provided for the <b>ai_flags</b> member of the <i>pHints</i> parameter.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_FAIL</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></td>
+     * <td>A nonrecoverable failure in name resolution occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_FAMILY</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEAFNOSUPPORT</a></td>
+     * <td>The <b>ai_family</b> member of the <i>pHints</i> parameter is not supported.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_MEMORY</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></td>
+     * <td>A memory allocation failure occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_NONAME</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAHOST_NOT_FOUND</a></td>
+     * <td>The name does not resolve for the supplied parameters or the <i>pNodeName</i> and <i>pServiceName</i> parameters were not provided.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_SERVICE</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSATYPE_NOT_FOUND</a></td>
+     * <td>The <i>pServiceName</i> parameter is not supported for the specified <b>ai_socktype</b> member of the <i>pHints</i> parameter.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_SOCKTYPE</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAESOCKTNOSUPPORT</a></td>
+     * <td>The <b>ai_socktype</b> member of the <i>pHints</i> parameter is not supported.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-gai_strerrora">gai_strerror</a> function to print error messages based on the EAI codes returned by the 
+     * <b>getaddrinfo</b> function. The 
+     * <b>gai_strerror</b> function is provided for compliance with IETF recommendations, but it is not thread safe. Therefore, use of traditional Windows Sockets functions such as 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> is recommended.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEAFNOSUPPORT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An address incompatible with the requested protocol was used. This error is returned if the <b>ai_family</b> member of the 
+     * 			<a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoa">addrinfo</a> structure pointed to by the <i>pHints</i> parameter is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An invalid argument was supplied.  This error is returned if an invalid value was provided for the <b>ai_flags</b> member of the 
+     * 			<a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoa">addrinfo</a> structure pointed to by the <i>pHints</i> parameter.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAESOCKTNOSUPPORT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The support for the specified socket type does not exist in this address family. This error is returned if the <b>ai_socktype</b> member of the 
+     * 			<a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoa">addrinfo</a> structure pointed to by the <i>pHints</i> parameter is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAHOST_NOT_FOUND</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No such host is known. This error is returned if the name does not resolve for the supplied parameters or the <i>pNodeName</i> and <i>pServiceName</i> parameters were not provided.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_DATA</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The requested name is valid, but no data of the requested type was found.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonrecoverable error occurred during a database lookup. This error is returned if nonrecoverable error in name resolution occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSATRY_AGAIN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This is usually a temporary error during hostname resolution and means that the local server did not receive a response from an authoritative server. This error is returned when a temporary failure in name resolution occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSATYPE_NOT_FOUND</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified class was not found. The <i>pServiceName</i> parameter is not supported for the specified <b>ai_socktype</b> member of the 
+     * 			<a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoa">addrinfo</a> structure pointed to by the <i>pHints</i> parameter.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-getaddrinfo
      * @since windows8.1
      */
@@ -23384,10 +32728,11 @@ class WinSock {
 
         A_LastError := 0
 
-        DllCall("WS2_32.dll\getaddrinfo", "ptr", pNodeName, "ptr", pServiceName, "ptr", pHints, "ptr", ppResult)
+        result := DllCall("WS2_32.dll\getaddrinfo", "ptr", pNodeName, "ptr", pServiceName, "ptr", pHints, "ptr", ppResult)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -23465,8 +32810,8 @@ class WinSock {
      * 
      * 
      * ```cpp
-     * @param {Pointer<PWSTR>} pNodeName A pointer to a <b>NULL</b>-terminated Unicode string that contains a host (node) name or a numeric host address string. For the Internet protocol, the numeric host address string is a dotted-decimal IPv4 address or an IPv6 hex address.
-     * @param {Pointer<PWSTR>} pServiceName A pointer to a <b>NULL</b>-terminated Unicode string that contains either a service name or port number represented as a string. 
+     * @param {Pointer<Char>} pNodeName A pointer to a <b>NULL</b>-terminated Unicode string that contains a host (node) name or a numeric host address string. For the Internet protocol, the numeric host address string is a dotted-decimal IPv4 address or an IPv6 hex address.
+     * @param {Pointer<Char>} pServiceName A pointer to a <b>NULL</b>-terminated Unicode string that contains either a service name or port number represented as a string. 
      * 
      * A service name is a string alias for a port number. For example, “http” is an alias for port 80 defined by the Internet Engineering Task Force (IETF) as the default port used by web servers for the HTTP protocol. Possible values for the <i>pServiceName</i> parameter when a port number is not specified are listed in the following file: 
      * 
@@ -23479,7 +32824,187 @@ class WinSock {
      * See the Remarks for more details.
      * @param {Pointer<ADDRINFOW>} ppResult A pointer to a linked list of one or more 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfow">addrinfoW</a> structures that contains response information about the host.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} Success returns zero. Failure returns a nonzero Windows Sockets error code, as found in the 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">Windows Sockets Error Codes</a>.
+     * 
+     * Most nonzero error codes returned by the <b>GetAddrInfoW</b> function map to the set of errors outlined by Internet Engineering Task Force (IETF) recommendations. The following table lists these error codes and their WSA equivalents. It is recommended that the WSA error codes be used, as they offer familiar and comprehensive error information for Winsock programmers.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error value</th>
+     * <th>WSA equivalent</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>EAI_AGAIN</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSATRY_AGAIN</a></td>
+     * <td>A temporary failure in name resolution occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_BADFLAGS</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></td>
+     * <td>An invalid value was provided for the <b>ai_flags</b> member of the <i>pHints</i> parameter.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_FAIL</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></td>
+     * <td>A nonrecoverable failure in name resolution occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_FAMILY</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEAFNOSUPPORT</a></td>
+     * <td>The <b>ai_family</b> member  of the <i>pHints</i> parameter is not supported.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_MEMORY</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></td>
+     * <td>A memory allocation failure occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_NONAME</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAHOST_NOT_FOUND</a></td>
+     * <td>The name does not resolve for the supplied parameters or the <i>pNodeName</i> and <i>pServiceName</i> parameters were not provided.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_SERVICE</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSATYPE_NOT_FOUND</a></td>
+     * <td>The <i>pServiceName</i> parameter is not supported for the specified <b>ai_socktype</b> member of the <i>pHints</i> parameter.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_SOCKTYPE</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAESOCKTNOSUPPORT</a></td>
+     * <td>The <b>ai_socktype</b> member  of the <i>pHints</i> parameter is not supported.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-gai_strerrora">gai_strerror</a> function to print error messages based on the EAI_* codes returned by the 
+     * <b>GetAddrInfoW</b> function. The 
+     * <b>gai_strerror</b> function is provided for compliance with IETF recommendations, but it is not thread safe. Therefore, use of a traditional Windows Sockets function, such as 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>, is recommended.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEAFNOSUPPORT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An address incompatible with the requested protocol was used. This error is returned if the <b>ai_family</b> member of the 
+     * 			<a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfow">addrinfoW</a> structure pointed to by the <i>hints</i> parameter is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An invalid argument was supplied.  This error is returned if an invalid value was provided for the <b>ai_flags</b> member of the 
+     * 			<a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfow">addrinfoW</a> structure pointed to by the <i>hints</i> parameter.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAESOCKTNOSUPPORT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The support for the specified socket type does not exist in this address family. This error is returned if the <b>ai_socktype</b> member of the 
+     * 			<a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfow">addrinfoW</a> structure pointed to by the <i>hints</i> parameter is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAHOST_NOT_FOUND</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No such host is known. This error is returned if the name does not resolve for the supplied parameters or the <i>pNodename</i> and <i>pServicename</i> parameters were not provided.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_DATA</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The requested name is valid, but no data of the requested type was found.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonrecoverable error occurred during a database lookup. This error is returned if nonrecoverable error in name resolution occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSATRY_AGAIN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This is usually a temporary error during hostname resolution and means that the local server did not receive a response from an authoritative server. This error is returned when a temporary failure in name resolution occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSATYPE_NOT_FOUND</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified class was not found. The <i>pServiceName</i> parameter is not supported for the specified <b>ai_socktype</b> member of the 
+     * 			<a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfow">addrinfoW</a> structure pointed to by the <i>hints</i> parameter.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-getaddrinfow
      * @since windows8.1
      */
@@ -23487,7 +33012,8 @@ class WinSock {
         pNodeName := pNodeName is String? StrPtr(pNodeName) : pNodeName
         pServiceName := pServiceName is String? StrPtr(pServiceName) : pServiceName
 
-        DllCall("WS2_32.dll\GetAddrInfoW", "ptr", pNodeName, "ptr", pServiceName, "ptr", pHints, "ptr", ppResult)
+        result := DllCall("WS2_32.dll\GetAddrInfoW", "ptr", pNodeName, "ptr", pServiceName, "ptr", pHints, "ptr", ppResult)
+        return result
     }
 
     /**
@@ -23572,8 +33098,8 @@ class WinSock {
      * 
      * 
      * ```cpp
-     * @param {Pointer<PSTR>} pName A pointer to a <b>NULL</b>-terminated string containing a host (node) name or a numeric host address string. For the Internet protocol, the numeric host address string is a dotted-decimal IPv4 address or an IPv6 hex address.
-     * @param {Pointer<PSTR>} pServiceName A pointer to an optional <b>NULL</b>-terminated string that contains either a service name or port number represented as a string.
+     * @param {Pointer<Byte>} pName A pointer to a <b>NULL</b>-terminated string containing a host (node) name or a numeric host address string. For the Internet protocol, the numeric host address string is a dotted-decimal IPv4 address or an IPv6 hex address.
+     * @param {Pointer<Byte>} pServiceName A pointer to an optional <b>NULL</b>-terminated string that contains either a service name or port number represented as a string.
      * 
      * A service name is a string alias for a port number. For example, “http” is an alias for port 80 defined by the Internet Engineering Task Force (IETF) as the default port used by web servers for the HTTP protocol. Possible values for the <i>pServiceName</i> parameter when a port number is not specified are listed in the following file: 
      * 
@@ -23756,7 +33282,7 @@ class WinSock {
      * On Windows 8 and Windows Server 2012 whenever the <b>UNICODE</b> or <b>_UNICODE</b> macro is not defined,  this parameter is currently reserved and must be set to <b>NULL</b>. 
      * 
      * On Windows 7 and Windows Server 2008 R2 or earlier, this parameter is currently reserved and must be set to <b>NULL</b> since asynchronous operations are not supported.
-     * @param {Pointer<HANDLE>} lpNameHandle An optional pointer used only for asynchronous operations.  
+     * @param {Pointer<Void>} lpNameHandle An optional pointer used only for asynchronous operations.  
      * 
      * This parameter is only supported when the <b>UNICODE</b> or <b>_UNICODE</b> macro has been defined in the sources before calling the <b>GetAddrInfoEx</b> function.
      * 
@@ -23765,7 +33291,199 @@ class WinSock {
      * On Windows 8 and Windows Server 2012 whenever the <b>UNICODE</b> or <b>_UNICODE</b> macro is not defined,  this parameter is currently reserved and must be set to <b>NULL</b>. 
      * 
      * On Windows 7 and Windows Server 2008 R2 or earlier, this parameter is currently reserved and must be set to <b>NULL</b> since asynchronous operations are not supported.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} On success,  <b>GetAddrInfoEx</b> returns <b>NO_ERROR</b> (0). Failure returns a nonzero Windows Sockets error code, as found in the 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">Windows Sockets Error Codes</a>.
+     * 
+     * Most nonzero error codes returned by the 
+     * <b>GetAddrInfoEx</b> function map to the set of errors outlined by Internet Engineering Task Force (IETF) recommendations. The following table shows these error codes and their WSA equivalents. It is recommended that the WSA error codes be used, as they offer familiar and comprehensive error information for Winsock programmers.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error value</th>
+     * <th>WSA equivalent</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>EAI_AGAIN</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSATRY_AGAIN</a></td>
+     * <td>A temporary failure in name resolution occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_BADFLAGS</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></td>
+     * <td>An invalid parameter was provided. This error is returned if any of the reserved parameters are not <b>NULL</b>. This error is also returned if an invalid value was provided for the <b>ai_flags</b> member of the <i>pHints</i> parameter.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_FAIL</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></td>
+     * <td>A nonrecoverable failure in name resolution occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_FAMILY</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEAFNOSUPPORT</a></td>
+     * <td>The <b>ai_family</b> member  of the <i>pHints</i> parameter is not supported.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_MEMORY</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></td>
+     * <td>A memory allocation failure occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_NONAME</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAHOST_NOT_FOUND</a></td>
+     * <td>The name does not resolve for the supplied parameters or the <i>pName</i> and <i>pServiceName</i> parameters were not provided.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_SERVICE</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSATYPE_NOT_FOUND</a></td>
+     * <td>The <i>pServiceName</i> parameter is not supported for the specified <b>ai_socktype</b> member of the <i>pHints</i> parameter.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_SOCKTYPE</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAESOCKTNOSUPPORT</a></td>
+     * <td>The <b>ai_socktype</b> member of the <i>pHints</i> parameter is not supported.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-gai_strerrora">gai_strerror</a> function to print error messages based on the EAI codes returned by the 
+     * <b>GetAddrInfoEx</b> function. The 
+     * <b>gai_strerror</b> function is provided for compliance with IETF recommendations, but it is not thread safe. Therefore, use of traditional Windows Sockets functions such as 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> is recommended.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEAFNOSUPPORT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An address incompatible with the requested protocol was used. This error is returned if the <b>ai_family</b> member of the 
+     * 			<a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoexw">addrinfoex</a> structure pointed to by the <i>pHints</i> parameter is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An invalid argument was supplied.  This error is returned if an invalid value was provided for the <b>ai_flags</b> member of the 
+     * 			<a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoexw">addrinfoex</a> structure pointed to by the <i>pHints</i> parameter.  This error is also returned when the <i>dwNameSpace</i> parameter is NS_PNRPNAME or NS_PNRPCLOUD and the peer-to-peer name service is not operating.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAESOCKTNOSUPPORT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The support for the specified socket type does not exist in this address family. This error is returned if the <b>ai_socktype</b> member of the 
+     * 			<a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoexw">addrinfoex</a> structure pointed to by the <i>pHints</i> parameter is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAHOST_NOT_FOUND</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No such host is known. This error is returned if the name does not resolve for the supplied parameters or the <i>pName</i> and <i>pServiceName</i> parameters were not provided.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_DATA</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The requested name is valid, but no data of the requested type was found.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonrecoverable error occurred during a database lookup. This error is returned if nonrecoverable error in name resolution occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSASERVICE_NOT_FOUND</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No such service is known. The service cannot be found in the specified name space. This error is returned if the <i>pName</i> or <i>pServiceName</i> parameter is not found for the namespace specified in the <i>dwNameSpace</i> parameter or the namespace specified in the <i>dwNameSpace</i> parameter is not installed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSATRY_AGAIN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This is usually a temporary error during hostname resolution and means that the local server did not receive a response from an authoritative server. This error is returned when a temporary failure in name resolution occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSATYPE_NOT_FOUND</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified class was not found. The <i>pServiceName</i> parameter is not supported for the specified <b>ai_socktype</b> member of the 
+     * 			<a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoexw">addrinfoex</a> structure pointed to by the <i>pHints</i> parameter.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-getaddrinfoexa
      * @deprecated
      * @since windows6.0.6000
@@ -23774,7 +33492,8 @@ class WinSock {
         pName := pName is String? StrPtr(pName) : pName
         pServiceName := pServiceName is String? StrPtr(pServiceName) : pServiceName
 
-        DllCall("WS2_32.dll\GetAddrInfoExA", "ptr", pName, "ptr", pServiceName, "uint", dwNameSpace, "ptr", lpNspId, "ptr", hints, "ptr", ppResult, "ptr", timeout, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "ptr", lpNameHandle)
+        result := DllCall("WS2_32.dll\GetAddrInfoExA", "ptr", pName, "ptr", pServiceName, "uint", dwNameSpace, "ptr", lpNspId, "ptr", hints, "ptr", ppResult, "ptr", timeout, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "ptr", lpNameHandle)
+        return result
     }
 
     /**
@@ -23860,8 +33579,8 @@ class WinSock {
      * 
      * 
      * ```cpp
-     * @param {Pointer<PWSTR>} pName A pointer to a <b>NULL</b>-terminated string containing a host (node) name or a numeric host address string. For the Internet protocol, the numeric host address string is a dotted-decimal IPv4 address or an IPv6 hex address.
-     * @param {Pointer<PWSTR>} pServiceName A pointer to an optional <b>NULL</b>-terminated string that contains either a service name or port number represented as a string.
+     * @param {Pointer<Char>} pName A pointer to a <b>NULL</b>-terminated string containing a host (node) name or a numeric host address string. For the Internet protocol, the numeric host address string is a dotted-decimal IPv4 address or an IPv6 hex address.
+     * @param {Pointer<Char>} pServiceName A pointer to an optional <b>NULL</b>-terminated string that contains either a service name or port number represented as a string.
      * 
      * A service name is a string alias for a port number. For example, “http” is an alias for port 80 defined by the Internet Engineering Task Force (IETF) as the default port used by web servers for the HTTP protocol. Possible values for the <i>pServiceName</i> parameter when a port number is not specified are listed in the following file: 
      * 
@@ -24046,8 +33765,200 @@ class WinSock {
      * On Windows 8 and Windows Server 2012 whenever the <b>UNICODE</b> or <b>_UNICODE</b> macro is not defined,  this parameter is currently reserved and must be set to <b>NULL</b>. 
      * 
      * On Windows 7 and Windows Server 2008 R2 or earlier, this parameter is currently reserved and must be set to <b>NULL</b> since asynchronous operations are not supported.
-     * @param {Pointer<HANDLE>} lpHandle TBD
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Void>} lpHandle TBD
+     * @returns {Pointer} On success,  <b>GetAddrInfoEx</b> returns <b>NO_ERROR</b> (0). Failure returns a nonzero Windows Sockets error code, as found in the 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">Windows Sockets Error Codes</a>.
+     * 
+     * Most nonzero error codes returned by the 
+     * <b>GetAddrInfoEx</b> function map to the set of errors outlined by Internet Engineering Task Force (IETF) recommendations. The following table shows these error codes and their WSA equivalents. It is recommended that the WSA error codes be used, as they offer familiar and comprehensive error information for Winsock programmers.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error value</th>
+     * <th>WSA equivalent</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>EAI_AGAIN</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSATRY_AGAIN</a></td>
+     * <td>A temporary failure in name resolution occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_BADFLAGS</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></td>
+     * <td>An invalid parameter was provided. This error is returned if any of the reserved parameters are not <b>NULL</b>. This error is also returned if an invalid value was provided for the <b>ai_flags</b> member of the <i>pHints</i> parameter.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_FAIL</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></td>
+     * <td>A nonrecoverable failure in name resolution occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_FAMILY</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEAFNOSUPPORT</a></td>
+     * <td>The <b>ai_family</b> member  of the <i>pHints</i> parameter is not supported.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_MEMORY</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></td>
+     * <td>A memory allocation failure occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_NONAME</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAHOST_NOT_FOUND</a></td>
+     * <td>The name does not resolve for the supplied parameters or the <i>pName</i> and <i>pServiceName</i> parameters were not provided.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_SERVICE</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSATYPE_NOT_FOUND</a></td>
+     * <td>The <i>pServiceName</i> parameter is not supported for the specified <b>ai_socktype</b> member of the <i>pHints</i> parameter.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_SOCKTYPE</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAESOCKTNOSUPPORT</a></td>
+     * <td>The <b>ai_socktype</b> member of the <i>pHints</i> parameter is not supported.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-gai_strerrora">gai_strerror</a> function to print error messages based on the EAI codes returned by the 
+     * <b>GetAddrInfoEx</b> function. The 
+     * <b>gai_strerror</b> function is provided for compliance with IETF recommendations, but it is not thread safe. Therefore, use of traditional Windows Sockets functions such as 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> is recommended.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEAFNOSUPPORT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An address incompatible with the requested protocol was used. This error is returned if the <b>ai_family</b> member of the 
+     * 			<a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoexw">addrinfoex</a> structure pointed to by the <i>pHints</i> parameter is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An invalid argument was supplied.  This error is returned if an invalid value was provided for the <b>ai_flags</b> member of the 
+     * 			<a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoexw">addrinfoex</a> structure pointed to by the <i>pHints</i> parameter.  This error is also returned when the <i>dwNameSpace</i> parameter is NS_PNRPNAME or NS_PNRPCLOUD and the peer-to-peer name service is not operating.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAESOCKTNOSUPPORT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The support for the specified socket type does not exist in this address family. This error is returned if the <b>ai_socktype</b> member of the 
+     * 			<a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoexw">addrinfoex</a> structure pointed to by the <i>pHints</i> parameter is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAHOST_NOT_FOUND</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No such host is known. This error is returned if the name does not resolve for the supplied parameters or the <i>pName</i> and <i>pServiceName</i> parameters were not provided.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_DATA</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The requested name is valid, but no data of the requested type was found.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonrecoverable error occurred during a database lookup. This error is returned if nonrecoverable error in name resolution occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSASERVICE_NOT_FOUND</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No such service is known. The service cannot be found in the specified name space. This error is returned if the <i>pName</i> or <i>pServiceName</i> parameter is not found for the namespace specified in the <i>dwNameSpace</i> parameter or the namespace specified in the <i>dwNameSpace</i> parameter is not installed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSATRY_AGAIN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This is usually a temporary error during hostname resolution and means that the local server did not receive a response from an authoritative server. This error is returned when a temporary failure in name resolution occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSATYPE_NOT_FOUND</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified class was not found. The <i>pServiceName</i> parameter is not supported for the specified <b>ai_socktype</b> member of the 
+     * 			<a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoexw">addrinfoex</a> structure pointed to by the <i>pHints</i> parameter.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-getaddrinfoexw
      * @since windows6.0.6000
      */
@@ -24055,7 +33966,8 @@ class WinSock {
         pName := pName is String? StrPtr(pName) : pName
         pServiceName := pServiceName is String? StrPtr(pServiceName) : pServiceName
 
-        DllCall("WS2_32.dll\GetAddrInfoExW", "ptr", pName, "ptr", pServiceName, "uint", dwNameSpace, "ptr", lpNspId, "ptr", hints, "ptr", ppResult, "ptr", timeout, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "ptr", lpHandle)
+        result := DllCall("WS2_32.dll\GetAddrInfoExW", "ptr", pName, "ptr", pServiceName, "uint", dwNameSpace, "ptr", lpNspId, "ptr", hints, "ptr", ppResult, "ptr", timeout, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "ptr", lpHandle)
+        return result
     }
 
     /**
@@ -24072,13 +33984,15 @@ class WinSock {
      *     last outstanding name service provider request has completed, the resources will be released. 
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
-     * @param {Pointer<HANDLE>} lpHandle The handle of the asynchronous operation to cancel. This is the handle returned in the <i>lpNameHandle</i> parameter by the <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfoexa">GetAddrInfoEx</a> function.
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Void>} lpHandle The handle of the asynchronous operation to cancel. This is the handle returned in the <i>lpNameHandle</i> parameter by the <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfoexa">GetAddrInfoEx</a> function.
+     * @returns {Pointer} On success,  <b>GetAddrInfoExCancel</b> returns <b>NO_ERROR</b> (0). Failure returns a nonzero Windows Sockets error code, as found in the 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">Windows Sockets Error Codes</a>.
      * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-getaddrinfoexcancel
      * @since windows8.1
      */
     static GetAddrInfoExCancel(lpHandle) {
-        DllCall("WS2_32.dll\GetAddrInfoExCancel", "ptr", lpHandle)
+        result := DllCall("WS2_32.dll\GetAddrInfoExCancel", "ptr", lpHandle)
+        return result
     }
 
     /**
@@ -24092,12 +34006,14 @@ class WinSock {
      * 
      * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @param {Pointer<OVERLAPPED>} lpOverlapped A pointer to an <b>OVERLAPPED</b> structure for the asynchronous operation.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} On success,  the <b>GetAddrInfoExOverlappedResult</b> function returns <b>NO_ERROR</b> (0). When the
+     *     underlying operation hasn't yet completed, the <b>GetAddrInfoExOverlappedResult</b> function  returns <b>WSAEINPROGRESS</b>. On failure, the <b>GetAddrInfoExOverlappedResult</b> function  returns <b>WSAEINVAL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-getaddrinfoexoverlappedresult
      * @since windows8.1
      */
     static GetAddrInfoExOverlappedResult(lpOverlapped) {
-        DllCall("WS2_32.dll\GetAddrInfoExOverlappedResult", "ptr", lpOverlapped)
+        result := DllCall("WS2_32.dll\GetAddrInfoExOverlappedResult", "ptr", lpOverlapped)
+        return result
     }
 
     /**
@@ -24124,8 +34040,8 @@ class WinSock {
      * 
      * > [!NOTE]
      * > The ws2tcpip.h header defines SetAddrInfoEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} pName A pointer to a <b>NULL</b>-terminated string containing a name under which addresses are to be registered or deregistered. The interpretation of this parameter specific to the namespace provider.
-     * @param {Pointer<PSTR>} pServiceName A pointer to an optional <b>NULL</b>-terminated string that contains the service name  associated with the name being registered. The interpretation of this parameter is specific to the namespace provider.
+     * @param {Pointer<Byte>} pName A pointer to a <b>NULL</b>-terminated string containing a name under which addresses are to be registered or deregistered. The interpretation of this parameter specific to the namespace provider.
+     * @param {Pointer<Byte>} pServiceName A pointer to an optional <b>NULL</b>-terminated string that contains the service name  associated with the name being registered. The interpretation of this parameter is specific to the namespace provider.
      * @param {Pointer<SOCKET_ADDRESS>} pAddresses A pointer to an optional list of addresses to register with the namespace provider.
      * @param {Integer} dwAddressCount The number of addresses passed in <i>pAddresses</i> parameter.
      * If this parameter is zero, the <i>pName</i> parameter is deregistered from the namespace provider.
@@ -24218,8 +34134,83 @@ class WinSock {
      * @param {Pointer<TIMEVAL>} timeout An optional parameter indicating the time, in milliseconds, to wait for a response from the namespace provider before aborting the call. This parameter is currently reserved and must be set to <b>NULL</b> since a <i>timeout</i> option is not supported.
      * @param {Pointer<OVERLAPPED>} lpOverlapped An optional pointer to an overlapped structure used for asynchronous operation. This parameter is currently reserved and must be set to <b>NULL</b> since asynchronous operations are not supported.
      * @param {Pointer<LPLOOKUPSERVICE_COMPLETION_ROUTINE>} lpCompletionRoutine An optional pointer to a function to be invoked upon successful completion for asynchronous operations. This parameter is currently reserved and must be set to <b>NULL</b> since asynchronous operations are not supported.
-     * @param {Pointer<HANDLE>} lpNameHandle An optional pointer used only for asynchronous operations.  This parameter is currently reserved and must be set to <b>NULL</b> since asynchronous operations are not supported.
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Void>} lpNameHandle An optional pointer used only for asynchronous operations.  This parameter is currently reserved and must be set to <b>NULL</b> since asynchronous operations are not supported.
+     * @returns {Pointer} On success,  <b>SetAddrInfoEx</b> returns NO_ERROR (0). Failure returns a nonzero Windows Sockets error code, as found in the 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">Windows Sockets Error Codes</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSATRY_AGAIN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A temporary failure in name resolution occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An invalid parameter was provided. This error is returned if any of the reserved parameters are not <b>NULL</b>. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOBUFS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient buffer space is available.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonrecoverable failure in name resolution occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A memory allocation failure occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-setaddrinfoexa
      * @deprecated
      * @since windows8.1
@@ -24228,7 +34219,8 @@ class WinSock {
         pName := pName is String? StrPtr(pName) : pName
         pServiceName := pServiceName is String? StrPtr(pServiceName) : pServiceName
 
-        DllCall("WS2_32.dll\SetAddrInfoExA", "ptr", pName, "ptr", pServiceName, "ptr", pAddresses, "uint", dwAddressCount, "ptr", lpBlob, "uint", dwFlags, "uint", dwNameSpace, "ptr", lpNspId, "ptr", timeout, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "ptr", lpNameHandle)
+        result := DllCall("WS2_32.dll\SetAddrInfoExA", "ptr", pName, "ptr", pServiceName, "ptr", pAddresses, "uint", dwAddressCount, "ptr", lpBlob, "uint", dwFlags, "uint", dwNameSpace, "ptr", lpNspId, "ptr", timeout, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "ptr", lpNameHandle)
+        return result
     }
 
     /**
@@ -24255,8 +34247,8 @@ class WinSock {
      * 
      * > [!NOTE]
      * > The ws2tcpip.h header defines SetAddrInfoEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} pName A pointer to a <b>NULL</b>-terminated string containing a name under which addresses are to be registered or deregistered. The interpretation of this parameter specific to the namespace provider.
-     * @param {Pointer<PWSTR>} pServiceName A pointer to an optional <b>NULL</b>-terminated string that contains the service name  associated with the name being registered. The interpretation of this parameter is specific to the namespace provider.
+     * @param {Pointer<Char>} pName A pointer to a <b>NULL</b>-terminated string containing a name under which addresses are to be registered or deregistered. The interpretation of this parameter specific to the namespace provider.
+     * @param {Pointer<Char>} pServiceName A pointer to an optional <b>NULL</b>-terminated string that contains the service name  associated with the name being registered. The interpretation of this parameter is specific to the namespace provider.
      * @param {Pointer<SOCKET_ADDRESS>} pAddresses A pointer to an optional list of addresses to register with the namespace provider.
      * @param {Integer} dwAddressCount The number of addresses passed in <i>pAddresses</i> parameter.
      * If this parameter is zero, the <i>pName</i> parameter is deregistered from the namespace provider.
@@ -24349,8 +34341,83 @@ class WinSock {
      * @param {Pointer<TIMEVAL>} timeout An optional parameter indicating the time, in milliseconds, to wait for a response from the namespace provider before aborting the call. This parameter is currently reserved and must be set to <b>NULL</b> since a <i>timeout</i> option is not supported.
      * @param {Pointer<OVERLAPPED>} lpOverlapped An optional pointer to an overlapped structure used for asynchronous operation. This parameter is currently reserved and must be set to <b>NULL</b> since asynchronous operations are not supported.
      * @param {Pointer<LPLOOKUPSERVICE_COMPLETION_ROUTINE>} lpCompletionRoutine An optional pointer to a function to be invoked upon successful completion for asynchronous operations. This parameter is currently reserved and must be set to <b>NULL</b> since asynchronous operations are not supported.
-     * @param {Pointer<HANDLE>} lpNameHandle An optional pointer used only for asynchronous operations.  This parameter is currently reserved and must be set to <b>NULL</b> since asynchronous operations are not supported.
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Void>} lpNameHandle An optional pointer used only for asynchronous operations.  This parameter is currently reserved and must be set to <b>NULL</b> since asynchronous operations are not supported.
+     * @returns {Pointer} On success,  <b>SetAddrInfoEx</b> returns NO_ERROR (0). Failure returns a nonzero Windows Sockets error code, as found in the 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">Windows Sockets Error Codes</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANOTINITIALISED</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> call must occur before using this function.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSATRY_AGAIN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A temporary failure in name resolution occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An invalid parameter was provided. This error is returned if any of the reserved parameters are not <b>NULL</b>. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOBUFS</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient buffer space is available.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonrecoverable failure in name resolution occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A memory allocation failure occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-setaddrinfoexw
      * @since windows8.1
      */
@@ -24358,7 +34425,8 @@ class WinSock {
         pName := pName is String? StrPtr(pName) : pName
         pServiceName := pServiceName is String? StrPtr(pServiceName) : pServiceName
 
-        DllCall("WS2_32.dll\SetAddrInfoExW", "ptr", pName, "ptr", pServiceName, "ptr", pAddresses, "uint", dwAddressCount, "ptr", lpBlob, "uint", dwFlags, "uint", dwNameSpace, "ptr", lpNspId, "ptr", timeout, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "ptr", lpNameHandle)
+        result := DllCall("WS2_32.dll\SetAddrInfoExW", "ptr", pName, "ptr", pServiceName, "ptr", pAddresses, "uint", dwAddressCount, "ptr", lpBlob, "uint", dwFlags, "uint", dwNameSpace, "ptr", lpNspId, "ptr", timeout, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "ptr", lpNameHandle)
+        return result
     }
 
     /**
@@ -24385,17 +34453,18 @@ class WinSock {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoa">addrinfo</a> structure or linked list of 
      * <b>addrinfo</b> structures to be freed. All dynamic storage pointed to within the 
      * <b>addrinfo</b> structure or structures is also freed.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} This function does not return a value.
      * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-freeaddrinfo
      * @since windows8.1
      */
     static freeaddrinfo(pAddrInfo) {
         A_LastError := 0
 
-        DllCall("WS2_32.dll\freeaddrinfo", "ptr", pAddrInfo)
+        result := DllCall("WS2_32.dll\freeaddrinfo", "ptr", pAddrInfo)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -24421,12 +34490,13 @@ class WinSock {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfow">addrinfoW</a> structure or linked list of 
      * <b>addrinfoW</b> structures to be freed. All dynamic storage pointed to within the 
      * <b>addrinfoW</b> structure or structures is also freed.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} This function does not return a value.
      * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-freeaddrinfow
      * @since windows8.1
      */
     static FreeAddrInfoW(pAddrInfo) {
-        DllCall("WS2_32.dll\FreeAddrInfoW", "ptr", pAddrInfo)
+        result := DllCall("WS2_32.dll\FreeAddrInfoW", "ptr", pAddrInfo)
+        return result
     }
 
     /**
@@ -24445,13 +34515,14 @@ class WinSock {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoexw">addrinfoex</a> structure or linked list of 
      * <b>addrinfoex</b> structures to be freed. All dynamic storage pointed to within the 
      * <b>addrinfoex</b> structure or structures is also freed.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} This function does not return a value.
      * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-freeaddrinfoex
      * @deprecated
      * @since windows8.1
      */
     static FreeAddrInfoEx(pAddrInfoEx) {
-        DllCall("WS2_32.dll\FreeAddrInfoEx", "ptr", pAddrInfoEx)
+        result := DllCall("WS2_32.dll\FreeAddrInfoEx", "ptr", pAddrInfoEx)
+        return result
     }
 
     /**
@@ -24477,12 +34548,13 @@ class WinSock {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoexw">addrinfoex</a> structure or linked list of 
      * <b>addrinfoex</b> structures to be freed. All dynamic storage pointed to within the 
      * <b>addrinfoex</b> structure or structures is also freed.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} This function does not return a value.
      * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-freeaddrinfoexw
      * @since windows8.1
      */
     static FreeAddrInfoExW(pAddrInfoEx) {
-        DllCall("WS2_32.dll\FreeAddrInfoExW", "ptr", pAddrInfoEx)
+        result := DllCall("WS2_32.dll\FreeAddrInfoExW", "ptr", pAddrInfoEx)
+        return result
     }
 
     /**
@@ -24502,16 +34574,85 @@ class WinSock {
      * 
      * 
      * ```cpp
-     * @param {Pointer<SOCKADDR>} pSockaddr A pointer to a socket address structure that contains the address and port number of the socket. For IPv4, the <i>sa</i> parameter points to a 
+     * @param {Pointer} pSockaddr A pointer to a socket address structure that contains the address and port number of the socket. For IPv4, the <i>sa</i> parameter points to a 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr_in</a> structure. For IPv6, the <i>sa</i> parameter points to a <b>sockaddr_in6</b> structure.
      * @param {Integer} SockaddrLength The length, in bytes, of the structure pointed to by the <i>sa</i> parameter.
-     * @param {Pointer<PSTR>} pNodeBuffer A pointer to  an ANSI string used to hold the host name. On success, the host name is returned as a Fully Qualified Domain Name (FQDN) by default. If the <i>host</i> parameter is <b>NULL</b>, this indicates the caller does not want to receive a host name string.
+     * @param {Pointer<Byte>} pNodeBuffer A pointer to  an ANSI string used to hold the host name. On success, the host name is returned as a Fully Qualified Domain Name (FQDN) by default. If the <i>host</i> parameter is <b>NULL</b>, this indicates the caller does not want to receive a host name string.
      * @param {Integer} NodeBufferSize The length, in bytes, of the buffer pointed to by the <i>host</i> parameter. The caller must provide a buffer large enough to hold the host name, including the terminating <b>NULL</b> character.
-     * @param {Pointer<PSTR>} pServiceBuffer A pointer to  an ANSI string to hold the service name. On success, an ANSI string that represents the service name associated with the port number is returned. If the <i>serv</i> parameter is <b>NULL</b>, this indicates the caller does not want to receive a service name string.
+     * @param {Pointer<Byte>} pServiceBuffer A pointer to  an ANSI string to hold the service name. On success, an ANSI string that represents the service name associated with the port number is returned. If the <i>serv</i> parameter is <b>NULL</b>, this indicates the caller does not want to receive a service name string.
      * @param {Integer} ServiceBufferSize The length, in bytes, of the buffer pointed to by the <i>serv</i> parameter. The caller must provide a buffer large enough to hold the service name, including the terminating <b>NULL</b> character.
      * @param {Integer} Flags A value used to customize processing of the 
      * <b>getnameinfo</b> function. See the Remarks section.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} On success,  <b>getnameinfo</b> returns zero. Any nonzero return value indicates failure and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * Nonzero error codes returned by the 
+     * <b>getnameinfo</b> function also map to the set of errors outlined by Internet Engineering Task Force (IETF) recommendations. The following table lists these error codes and their WSA equivalents. It is recommended that the WSA error codes be used, as they offer familiar and comprehensive error information for Winsock programmers.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error value</th>
+     * <th>WSA equivalent</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>EAI_AGAIN</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSATRY_AGAIN</a></td>
+     * <td>A temporary failure in name resolution occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_BADFLAGS</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></td>
+     * <td>One or more invalid parameters was passed to the <b>getnameinfo</b> function. This error is returned if a host name was requested but the <i>hostlen</i> parameter was zero or if a service name was requested, but the <i>servlen</i> parameter was zero. </td>
+     * </tr>
+     * <tr>
+     * <td>EAI_FAIL</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></td>
+     * <td>A nonrecoverable failure in name resolution occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_FAMILY</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEAFNOSUPPORT</a></td>
+     * <td>The <b>sa_family</b> member of socket address structure pointed to by the <i>sa</i> parameter is not supported. </td>
+     * </tr>
+     * <tr>
+     * <td>EAI_MEMORY</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></td>
+     * <td>A memory allocation failure occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_NONAME</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAHOST_NOT_FOUND</a></td>
+     * <td>A service name was requested, but no port number was found in the structure pointed to by the <i>sa</i> parameter or no service name matching the port number was found. NI_NAMEREQD is set and the host name cannot be located, or both the <i>host</i> and <i>serv</i> parameters were <b>NULL</b>. </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-gai_strerrora">gai_strerror</a> function to print error messages based on the EAI codes returned by the 
+     * <b>getnameinfo</b> function. The 
+     * <b>gai_strerror</b> function is provided for compliance with IETF recommendations, but it is not thread safe. Therefore, use of traditional Windows Sockets functions such as 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> is recommended.
+     * 
+     * In addition, the following error codes can be returned.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This error is returned if the <i>sa</i> parameter is <b>NULL</b> or the  <i>salen</i> parameter is less than the length required for the size of <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr_in</a> structure for IPv4 or the  <b>sockaddr_in6</b> structure for IPv6.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-getnameinfo
      * @since windows8.1
      */
@@ -24521,10 +34662,11 @@ class WinSock {
 
         A_LastError := 0
 
-        DllCall("WS2_32.dll\getnameinfo", "ptr", pSockaddr, "int", SockaddrLength, "ptr", pNodeBuffer, "uint", NodeBufferSize, "ptr", pServiceBuffer, "uint", ServiceBufferSize, "int", Flags)
+        result := DllCall("WS2_32.dll\getnameinfo", "ptr", pSockaddr, "int", SockaddrLength, "ptr", pNodeBuffer, "uint", NodeBufferSize, "ptr", pServiceBuffer, "uint", ServiceBufferSize, "int", Flags)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -24542,16 +34684,85 @@ class WinSock {
      * 
      * 
      * ```cpp
-     * @param {Pointer<SOCKADDR>} pSockaddr A pointer to a socket address structure containing the IP address and port number of the socket. For IPv4, the <i>pSockaddr</i> parameter points to a 
+     * @param {Pointer} pSockaddr A pointer to a socket address structure containing the IP address and port number of the socket. For IPv4, the <i>pSockaddr</i> parameter points to a 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr_in</a> structure. For IPv6, the <i>pSockaddr</i> parameter points to a <b>sockaddr_in6</b> structure.
      * @param {Integer} SockaddrLength The length, in bytes, of the structure pointed to by the <i>pSockaddr</i> parameter.
-     * @param {Pointer<PWSTR>} pNodeBuffer A pointer to  a Unicode string to hold the host name. On success, a pointer to the Unicode host name is returned as a Fully Qualified Domain Name (FQDN) by default. If the <i>pNodeBuffer</i> parameter is <b>NULL</b>, this indicates the caller does not want to receive a host name string.
+     * @param {Pointer<Char>} pNodeBuffer A pointer to  a Unicode string to hold the host name. On success, a pointer to the Unicode host name is returned as a Fully Qualified Domain Name (FQDN) by default. If the <i>pNodeBuffer</i> parameter is <b>NULL</b>, this indicates the caller does not want to receive a host name string.
      * @param {Integer} NodeBufferSize The number of <b>WCHAR</b> characters in the buffer pointed to by the <i>pNodeBuffer</i> parameter. The caller must provide a buffer large enough to hold the Unicode host name, including the terminating <b>NULL</b> character.
-     * @param {Pointer<PWSTR>} pServiceBuffer A pointer to  a Unicode string to hold the service name. On success, a pointer is returned to a Unicode string representing the service name associated with the port number. If the <i>pServiceBuffer</i> parameter is <b>NULL</b>, this indicates the caller does not want to receive a service name string.
+     * @param {Pointer<Char>} pServiceBuffer A pointer to  a Unicode string to hold the service name. On success, a pointer is returned to a Unicode string representing the service name associated with the port number. If the <i>pServiceBuffer</i> parameter is <b>NULL</b>, this indicates the caller does not want to receive a service name string.
      * @param {Integer} ServiceBufferSize The number of <b>WCHAR</b> characters in the buffer pointed to by the <i>pServiceBuffer</i> parameter. The caller must provide a buffer large enough to hold the Unicode service name, including the terminating <b>NULL</b> character.
      * @param {Integer} Flags A value used to customize processing of the 
      * <b>GetNameInfoW</b> function. See the Remarks section.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} On success,  <b>GetNameInfoW</b> returns zero. Any nonzero return value indicates failure and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * Nonzero error codes returned by the 
+     * <b>GetNameInfoW</b> function also map to the set of errors outlined by Internet Engineering Task Force (IETF) recommendations. The following table shows these error codes and their WSA equivalents. It is recommended that the WSA error codes be used, as they offer familiar and comprehensive error information for Winsock programmers.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error value</th>
+     * <th>WSA equivalent</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>EAI_AGAIN</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSATRY_AGAIN</a></td>
+     * <td>A temporary failure in name resolution occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_BADFLAGS</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></td>
+     * <td>One or more invalid parameters was passed to the <b>GetNameInfoW</b> function. This error is returned if a host name was requested but the <i>NodeBufferSize</i> parameter was zero or if a service name was requested but the <i>ServiceBufferSize</i> parameter was zero. </td>
+     * </tr>
+     * <tr>
+     * <td>EAI_FAIL</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></td>
+     * <td>A nonrecoverable failure in name resolution occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_FAMILY</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEAFNOSUPPORT</a></td>
+     * <td>The <b>sa_family</b> member of socket address structure pointed to by the <i>pSockaddr</i> parameter is not supported. </td>
+     * </tr>
+     * <tr>
+     * <td>EAI_MEMORY</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></td>
+     * <td>A memory allocation failure occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>EAI_NONAME</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAHOST_NOT_FOUND</a></td>
+     * <td>A service name was requested, but no port number was found in the structure pointed to by the <i>pSockaddr</i> parameter or no service name matching the port number was found. NI_NAMEREQD is set and the host's name cannot be located, or both the <i>pNodeBuffer</i> and <i>pServiceBuffer</i> parameters were <b>NULL</b>. </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * You can use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-gai_strerrora">gai_strerror</a> function to print error messages based on the EAI codes returned by the 
+     * <b>GetNameInfoW</b> function. The 
+     * <b>gai_strerror</b> function is provided for compliance with IETF recommendations, but it is not thread safe. Therefore, use of traditional Windows Sockets functions such as 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> is recommended.
+     * 
+     * In addition, the following error codes can be returned.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This error is returned if the <i>pSockaddr</i> parameter is <b>NULL</b> or the  <i>SockaddrLength</i> parameter is less than the length needed for the size of <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr_in</a> structure for IPv4 or the  <b>sockaddr_in6</b> structure for IPv6.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-getnameinfow
      * @since windows8.1
      */
@@ -24559,7 +34770,8 @@ class WinSock {
         pNodeBuffer := pNodeBuffer is String? StrPtr(pNodeBuffer) : pNodeBuffer
         pServiceBuffer := pServiceBuffer is String? StrPtr(pServiceBuffer) : pServiceBuffer
 
-        DllCall("WS2_32.dll\GetNameInfoW", "ptr", pSockaddr, "int", SockaddrLength, "ptr", pNodeBuffer, "uint", NodeBufferSize, "ptr", pServiceBuffer, "uint", ServiceBufferSize, "int", Flags)
+        result := DllCall("WS2_32.dll\GetNameInfoW", "ptr", pSockaddr, "int", SockaddrLength, "ptr", pNodeBuffer, "uint", NodeBufferSize, "ptr", pServiceBuffer, "uint", ServiceBufferSize, "int", Flags)
+        return result
     }
 
     /**
@@ -24626,7 +34838,7 @@ class WinSock {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PSTR>} pszAddrString A pointer to the <b>NULL</b>-terminated string that contains the text representation of the IP address to convert to numeric binary form.
+     * @param {Pointer<Byte>} pszAddrString A pointer to the <b>NULL</b>-terminated string that contains the text representation of the IP address to convert to numeric binary form.
      * 
      * When the <i>Family</i> parameter is <b>AF_INET</b>, then the <i>pszAddrString</i> parameter must point to a text representation of an IPv4 address in standard dotted-decimal notation.
      * 
@@ -24636,7 +34848,42 @@ class WinSock {
      * When the <i>Family</i> parameter is <b>AF_INET</b>, this buffer should be large enough to hold an <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-in_addr">IN_ADDR</a> structure.
      * 
      * When the <i>Family</i> parameter is <b>AF_INET6</b>,  this buffer should be large enough to hold an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms738560(v=vs.85)">IN6_ADDR</a> structure.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * the <b>InetPton</b> function returns a value of 1 and the buffer pointed to by the <i>pAddrBuf</i> parameter contains the binary numeric IP address in network byte order.
+     * 
+     * The <b>InetPton</b> function returns a value of 0 if the <i>pAddrBuf</i> parameter points to a string that is not a valid IPv4 dotted-decimal string or a valid IPv6 address string. Otherwise, a value of -1 is returned, and a specific error code can be retrieved by calling the  
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> for extended error information.
+     * 
+     * If the function has an error, the extended error code returned by <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> can be one of the following values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEAFNOSUPPORT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The address family specified in the <i>Family</i> parameter is not supported. This error is returned if the <i>Family</i> parameter specified was not <b>AF_INET</b> or <b>AF_INET6</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pszAddrString</i> or <i>pAddrBuf</i> parameters are <b>NULL</b> or are not part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-inet_pton
      * @since windows8.1
      */
@@ -24645,10 +34892,11 @@ class WinSock {
 
         A_LastError := 0
 
-        DllCall("WS2_32.dll\inet_pton", "int", Family, "ptr", pszAddrString, "ptr", pAddrBuf)
+        result := DllCall("WS2_32.dll\inet_pton", "int", Family, "ptr", pszAddrString, "ptr", pAddrBuf)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -24715,7 +34963,7 @@ class WinSock {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PWSTR>} pszAddrString A pointer to the <b>NULL</b>-terminated string that contains the text representation of the IP address to convert to numeric binary form.
+     * @param {Pointer<Char>} pszAddrString A pointer to the <b>NULL</b>-terminated string that contains the text representation of the IP address to convert to numeric binary form.
      * 
      * When the <i>Family</i> parameter is <b>AF_INET</b>, then the <i>pszAddrString</i> parameter must point to a text representation of an IPv4 address in standard dotted-decimal notation.
      * 
@@ -24725,14 +34973,50 @@ class WinSock {
      * When the <i>Family</i> parameter is <b>AF_INET</b>, this buffer should be large enough to hold an <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-in_addr">IN_ADDR</a> structure.
      * 
      * When the <i>Family</i> parameter is <b>AF_INET6</b>,  this buffer should be large enough to hold an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms738560(v=vs.85)">IN6_ADDR</a> structure.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If no error occurs, 
+     * the <b>InetPton</b> function returns a value of 1 and the buffer pointed to by the <i>pAddrBuf</i> parameter contains the binary numeric IP address in network byte order.
+     * 
+     * The <b>InetPton</b> function returns a value of 0 if the <i>pAddrBuf</i> parameter points to a string that is not a valid IPv4 dotted-decimal string or a valid IPv6 address string. Otherwise, a value of -1 is returned, and a specific error code can be retrieved by calling the  
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> for extended error information.
+     * 
+     * If the function has an error, the extended error code returned by <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> can be one of the following values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEAFNOSUPPORT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The address family specified in the <i>Family</i> parameter is not supported. This error is returned if the <i>Family</i> parameter specified was not <b>AF_INET</b> or <b>AF_INET6</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pszAddrString</i> or <i>pAddrBuf</i> parameters are <b>NULL</b> or are not part of the user address space.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-inetptonw
      * @since windows8.1
      */
     static InetPtonW(Family, pszAddrString, pAddrBuf) {
         pszAddrString := pszAddrString is String? StrPtr(pszAddrString) : pszAddrString
 
-        DllCall("WS2_32.dll\InetPtonW", "int", Family, "ptr", pszAddrString, "ptr", pAddrBuf)
+        result := DllCall("WS2_32.dll\InetPtonW", "int", Family, "ptr", pszAddrString, "ptr", pAddrBuf)
+        return result
     }
 
     /**
@@ -24806,13 +35090,13 @@ class WinSock {
      * When the <i>Family</i> parameter is <b>AF_INET</b>, then the <i>pAddr</i> parameter must point to an <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-in_addr">IN_ADDR</a> structure with the IPv4 address to convert.
      * 
      * When the <i>Family</i> parameter is <b>AF_INET6</b>, then the <i>pAddr</i> parameter must point to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms738560(v=vs.85)">IN6_ADDR</a> structure with the IPv6 address to convert.
-     * @param {Pointer<PSTR>} pStringBuf A pointer to a buffer in which to store the <b>NULL</b>-terminated string representation of the IP address.
+     * @param {Pointer<Byte>} pStringBuf A pointer to a buffer in which to store the <b>NULL</b>-terminated string representation of the IP address.
      * 
      * For an IPv4 address, this buffer should be large enough to hold at least 16 characters.
      * 
      * For an IPv6 address, this buffer should be large enough to hold at least 46 characters.
      * @param {Pointer} StringBufSize On input, the length, in characters, of the buffer pointed to by the <i>pStringBuf</i> parameter.
-     * @returns {Pointer<PSTR>} If no error occurs, 
+     * @returns {Pointer<Byte>} If no error occurs, 
      * <b>InetNtop</b> function returns a pointer to a buffer containing the string representation of IP address in standard format.
      * 
      * Otherwise, a value of <b>NULL</b> is returned, and a specific error code can be retrieved by calling the  
@@ -24856,7 +35140,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\inet_ntop", "int", Family, "ptr", pAddr, "ptr", pStringBuf, "ptr", StringBufSize, "ptr")
+        result := DllCall("WS2_32.dll\inet_ntop", "int", Family, "ptr", pAddr, "ptr", pStringBuf, "ptr", StringBufSize, "char*")
         if(A_LastError)
             throw OSError()
 
@@ -24934,13 +35218,13 @@ class WinSock {
      * When the <i>Family</i> parameter is <b>AF_INET</b>, then the <i>pAddr</i> parameter must point to an <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-in_addr">IN_ADDR</a> structure with the IPv4 address to convert.
      * 
      * When the <i>Family</i> parameter is <b>AF_INET6</b>, then the <i>pAddr</i> parameter must point to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms738560(v=vs.85)">IN6_ADDR</a> structure with the IPv6 address to convert.
-     * @param {Pointer<PWSTR>} pStringBuf A pointer to a buffer in which to store the <b>NULL</b>-terminated string representation of the IP address.
+     * @param {Pointer<Char>} pStringBuf A pointer to a buffer in which to store the <b>NULL</b>-terminated string representation of the IP address.
      * 
      * For an IPv4 address, this buffer should be large enough to hold at least 16 characters.
      * 
      * For an IPv6 address, this buffer should be large enough to hold at least 46 characters.
      * @param {Pointer} StringBufSize On input, the length, in characters, of the buffer pointed to by the <i>pStringBuf</i> parameter.
-     * @returns {Pointer<PWSTR>} If no error occurs, 
+     * @returns {Pointer<Char>} If no error occurs, 
      * <b>InetNtop</b> function returns a pointer to a buffer containing the string representation of IP address in standard format.
      * 
      * Otherwise, a value of <b>NULL</b> is returned, and a specific error code can be retrieved by calling the  
@@ -24982,7 +35266,7 @@ class WinSock {
     static InetNtopW(Family, pAddr, pStringBuf, StringBufSize) {
         pStringBuf := pStringBuf is String? StrPtr(pStringBuf) : pStringBuf
 
-        result := DllCall("WS2_32.dll\InetNtopW", "int", Family, "ptr", pAddr, "ptr", pStringBuf, "ptr", StringBufSize, "ptr")
+        result := DllCall("WS2_32.dll\InetNtopW", "int", Family, "ptr", pAddr, "ptr", pStringBuf, "ptr", StringBufSize, "char*")
         return result
     }
 
@@ -25096,21 +35380,87 @@ class WinSock {
      * 
      * ```
      * @param {Pointer} Socket A descriptor that identifies a socket on which security settings are being applied.
-     * @param {Pointer<SOCKET_SECURITY_SETTINGS>} SecuritySettings A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ns-mstcpip-socket_security_settings">SOCKET_SECURITY_SETTINGS</a> structure that specifies the security settings to be applied to the socket's traffic. If this parameter is <b>NULL</b>, default settings will be applied to the socket.
+     * @param {Pointer} SecuritySettings A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ns-mstcpip-socket_security_settings">SOCKET_SECURITY_SETTINGS</a> structure that specifies the security settings to be applied to the socket's traffic. If this parameter is <b>NULL</b>, default settings will be applied to the socket.
      * @param {Integer} SecuritySettingsLen The size, in bytes, of the <i>SecuritySettings</i> parameter.
      * @param {Pointer<OVERLAPPED>} Overlapped A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaoverlapped">WSAOVERLAPPED</a> structure.  This parameter is ignored for non-overlapped sockets.
      * @param {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>} CompletionRoutine A pointer to the completion routine called when the operation has been completed.  This parameter is ignored for non-overlapped sockets.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is zero.  Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>.
+     * 
+     * Some possible error codes are listed below.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEAFNOSUPPORT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified address family is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An invalid parameter was passed. This error is returned if the socket passed in the <i>Socket</i> parameter was not created with an address family of the <b>AF_INET</b> or <b>AF_INET6</b> and a socket type of <b>SOCK_DGRAM</b> or <b>SOCK_STREAM</b>.  This error is also returned if the <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ns-mstcpip-socket_security_settings">SOCKET_SECURITY_SETTINGS</a> structure pointed to by the <i>SecuritySettings</i> parameter has an incorrect value.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEISCONN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is connected. This function is not permitted with a connected socket, whether the socket is connection oriented or connectionless.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEMSGSIZE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A buffer passed was too small. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor passed in the <i>Socket</i> parameter is not a valid socket.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-wsasetsocketsecurity
      * @since windows6.0.6000
      */
     static WSASetSocketSecurity(Socket, SecuritySettings, SecuritySettingsLen, Overlapped, CompletionRoutine) {
         A_LastError := 0
 
-        DllCall("fwpuclnt.dll\WSASetSocketSecurity", "ptr", Socket, "ptr", SecuritySettings, "uint", SecuritySettingsLen, "ptr", Overlapped, "ptr", CompletionRoutine)
+        result := DllCall("fwpuclnt.dll\WSASetSocketSecurity", "ptr", Socket, "ptr", SecuritySettings, "uint", SecuritySettingsLen, "ptr", Overlapped, "ptr", CompletionRoutine)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -25135,7 +35485,7 @@ class WinSock {
      * <li>The socket type must be either SOCK_STREAM or SOCK_DGRAM.</li>
      * </ul>
      * @param {Pointer} Socket A descriptor identifying a socket for which security information is being queried.
-     * @param {Pointer<SOCKET_SECURITY_QUERY_TEMPLATE>} SecurityQueryTemplate A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ns-mstcpip-socket_security_query_template">SOCKET_SECURITY_QUERY_TEMPLATE</a> structure that specifies the type of query information to return. 
+     * @param {Pointer} SecurityQueryTemplate A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ns-mstcpip-socket_security_query_template">SOCKET_SECURITY_QUERY_TEMPLATE</a> structure that specifies the type of query information to return. 
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ns-mstcpip-socket_security_query_template">SOCKET_SECURITY_QUERY_TEMPLATE</a> structure pointed to by this parameter may contain zeroes for all members to request default security information. On successful return, only the <b>Flags</b> member in the <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ns-mstcpip-socket_security_query_info">SOCKET_SECURITY_QUERY_INFO</a> will be set in the returned  <i>SecurityQueryInfo</i> parameter. 
      * 
@@ -25147,21 +35497,98 @@ class WinSock {
      * @param {Integer} SecurityQueryTemplateLen The size, in bytes, of the <i>SecurityQueryTemplate</i> parameter. 
      * 
      * This parameter may be a zero if the <i>Socket</i> parameter was created with a protocol of <b>IPPROTO_TCP</b>. Otherwise, this parameter must be the size of a <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ns-mstcpip-socket_security_query_template">SOCKET_SECURITY_QUERY_TEMPLATE</a> structure.
-     * @param {Pointer<SOCKET_SECURITY_QUERY_INFO>} SecurityQueryInfo A pointer to a buffer that will receive a <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ns-mstcpip-socket_security_query_info">SOCKET_SECURITY_QUERY_INFO</a> structure containing the information queried.  This value can be set to <b>NULL</b> to query the size of the output buffer.
+     * @param {Pointer} SecurityQueryInfo A pointer to a buffer that will receive a <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ns-mstcpip-socket_security_query_info">SOCKET_SECURITY_QUERY_INFO</a> structure containing the information queried.  This value can be set to <b>NULL</b> to query the size of the output buffer.
      * @param {Pointer<UInt32>} SecurityQueryInfoLen On input, a pointer to the size, in bytes, of the <i>SecurityQueryInfo</i> parameter.   If the buffer is too small to receive the queried information, the call will return SOCKET_ERROR, and the number of bytes needed to return the queried information will be set in the value pointed to by this parameter.  On a successful call, the number of bytes copied is returned.
      * @param {Pointer<OVERLAPPED>} Overlapped A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaoverlapped">WSAOVERLAPPED</a> structure.  This parameter is ignored for non-overlapped sockets.
      * @param {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>} CompletionRoutine A pointer to the completion routine called when the operation has been completed.  This parameter is ignored for non-overlapped sockets.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is zero.  Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>. 
+     * 
+     * Some possible error codes are listed below.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEAFNOSUPPORT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified address family is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAECONNRESET</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * For a stream socket, the virtual circuit was reset by the remote side. The application should close the socket as it is no longer usable. For a UDP datagram socket, this error would indicate that a previous send operation resulted in an ICMP "Port Unreachable" message.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The system detected an invalid pointer address in attempting to use a parameter. This error is returned if the <i>SecurityQueryInfoLen</i> parameter was a <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An invalid parameter was passed. This error is returned if the socket passed in the <i>Socket</i> parameter was not created with an address family of the <b>AF_INET</b> or <b>AF_INET6</b> and a socket type of <b>SOCK_DGRAM</b> or <b>SOCK_STREAM</b>.  
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEMSGSIZE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A buffer passed was too small. This error is returned for a <i>Socket</i> parameter when the protocol was not <b>IPPROTO_TCP</b> if the  <i>SecurityQueryInfo</i> parameter is a <b>NULL</b> pointer or the  <i>SecurityQueryTemplateLen</i> parameter is less than the size of a <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ns-mstcpip-socket_security_query_template">SOCKET_SECURITY_QUERY_TEMPLATE</a> structure.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor passed in the <i>Socket</i> parameter is not a valid socket.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-wsaquerysocketsecurity
      * @since windows6.0.6000
      */
     static WSAQuerySocketSecurity(Socket, SecurityQueryTemplate, SecurityQueryTemplateLen, SecurityQueryInfo, SecurityQueryInfoLen, Overlapped, CompletionRoutine) {
         A_LastError := 0
 
-        DllCall("fwpuclnt.dll\WSAQuerySocketSecurity", "ptr", Socket, "ptr", SecurityQueryTemplate, "uint", SecurityQueryTemplateLen, "ptr", SecurityQueryInfo, "ptr", SecurityQueryInfoLen, "ptr", Overlapped, "ptr", CompletionRoutine)
+        result := DllCall("fwpuclnt.dll\WSAQuerySocketSecurity", "ptr", Socket, "ptr", SecurityQueryTemplate, "uint", SecurityQueryTemplateLen, "ptr", SecurityQueryInfo, "uint*", SecurityQueryInfoLen, "ptr", Overlapped, "ptr", CompletionRoutine)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -25178,21 +35605,98 @@ class WinSock {
      * <li>The socket type must be either SOCK_STREAM or SOCK_DGRAM.</li>
      * </ul>
      * @param {Pointer} Socket A descriptor identifying a socket on which the peer target name is being assigned.
-     * @param {Pointer<SOCKET_PEER_TARGET_NAME>} PeerTargetName A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ns-mstcpip-socket_peer_target_name">SOCKET_PEER_TARGET_NAME</a> structure that defines the peer target name.
+     * @param {Pointer} PeerTargetName A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ns-mstcpip-socket_peer_target_name">SOCKET_PEER_TARGET_NAME</a> structure that defines the peer target name.
      * @param {Integer} PeerTargetNameLen The size, in bytes, of the <i>PeerTargetName</i> parameter.
      * @param {Pointer<OVERLAPPED>} Overlapped A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaoverlapped">WSAOVERLAPPED</a> structure.  This parameter is ignored for non-overlapped sockets.
      * @param {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>} CompletionRoutine A pointer to the completion routine called when the operation has been completed.  This parameter is ignored for non-overlapped sockets.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is zero.  Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>. 
+     * 
+     * Some possible error codes are listed below.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEAFNOSUPPORT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified address family is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The system detected an invalid address pointer in attempting to use a pointer argument of a call. This error is returned if the <i>PeerTargetName</i> parameter was a <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An invalid parameter was passed. This error is returned if the socket passed in the <i>Socket</i> parameter was not created with an address family of the <b>AF_INET</b> or <b>AF_INET6</b> and a socket type of <b>SOCK_DGRAM</b> or <b>SOCK_STREAM</b>.  This error is also returned for a connectionless socket if the IP address and port are zero in the <b>PeerAddress</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ns-mstcpip-socket_peer_target_name">SOCKET_PEER_TARGET_NAME</a> structure pointed to by the <i>PeerTargetName</i> parameter.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEISCONN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The socket is connected. This function is not permitted with a connected socket, whether the socket is connection oriented or connectionless.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEMSGSIZE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A buffer passed was too small. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor passed in the <i>Socket</i> parameter is not a valid socket.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-wsasetsocketpeertargetname
      * @since windows6.0.6000
      */
     static WSASetSocketPeerTargetName(Socket, PeerTargetName, PeerTargetNameLen, Overlapped, CompletionRoutine) {
         A_LastError := 0
 
-        DllCall("fwpuclnt.dll\WSASetSocketPeerTargetName", "ptr", Socket, "ptr", PeerTargetName, "uint", PeerTargetNameLen, "ptr", Overlapped, "ptr", CompletionRoutine)
+        result := DllCall("fwpuclnt.dll\WSASetSocketPeerTargetName", "ptr", Socket, "ptr", PeerTargetName, "uint", PeerTargetNameLen, "ptr", Overlapped, "ptr", CompletionRoutine)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -25207,21 +35711,87 @@ class WinSock {
      * <li>The socket type must be either SOCK_STREAM or SOCK_DGRAM.</li>
      * </ul>
      * @param {Pointer} Socket A descriptor identifying a socket on which the peer target name is being deleted.
-     * @param {Pointer<SOCKADDR>} PeerAddr The IP address of the peer for which the target name is being deleted.
+     * @param {Pointer} PeerAddr The IP address of the peer for which the target name is being deleted.
      * @param {Integer} PeerAddrLen The size, in bytes, of the <i>PeerAddr</i> parameter.
      * @param {Pointer<OVERLAPPED>} Overlapped A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaoverlapped">WSAOVERLAPPED</a> structure.  This parameter is ignored for non-overlapped sockets.
      * @param {Pointer<LPWSAOVERLAPPED_COMPLETION_ROUTINE>} CompletionRoutine A pointer to the completion routine called when the operation has been completed.  This parameter is ignored for non-overlapped sockets.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is 0.  Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>. 
+     * 
+     * Some possible error codes are listed below.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEAFNOSUPPORT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified address family is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The system detected an invalid address pointer in attempting to use a pointer argument of a call. This error is returned if the <i>PeerAddr</i> parameter was a <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An invalid parameter was passed. This error is returned if the socket passed in the <i>Socket</i> parameter was not created with an address family of the <b>AF_INET</b> or <b>AF_INET6</b> and a socket type of <b>SOCK_DGRAM</b> or <b>SOCK_STREAM</b>.  
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEMSGSIZE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A buffer passed was too small. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor passed in the <i>Socket</i> parameter is not a valid socket.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-wsadeletesocketpeertargetname
      * @since windows6.0.6000
      */
     static WSADeleteSocketPeerTargetName(Socket, PeerAddr, PeerAddrLen, Overlapped, CompletionRoutine) {
         A_LastError := 0
 
-        DllCall("fwpuclnt.dll\WSADeleteSocketPeerTargetName", "ptr", Socket, "ptr", PeerAddr, "uint", PeerAddrLen, "ptr", Overlapped, "ptr", CompletionRoutine)
+        result := DllCall("fwpuclnt.dll\WSADeleteSocketPeerTargetName", "ptr", Socket, "ptr", PeerAddr, "uint", PeerAddrLen, "ptr", Overlapped, "ptr", CompletionRoutine)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -25243,19 +35813,74 @@ class WinSock {
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-wsarevertimpersonation">WSARevertImpersonation</a> function must be called to end the impersonation.
      * @param {Pointer} Socket Identifies the application socket.
-     * @param {Pointer<SOCKADDR>} PeerAddr The IP address of the peer to be impersonated.  For connection-oriented sockets, the connected socket uniquely identifies a peer.  In this case, this parameter is ignored.
+     * @param {Pointer} PeerAddr The IP address of the peer to be impersonated.  For connection-oriented sockets, the connected socket uniquely identifies a peer.  In this case, this parameter is ignored.
      * @param {Integer} PeerAddrLen The size, in bytes, of the <i>PeerAddress</i> parameter.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is 0.  Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>. 
+     * 
+     * Some possible error codes are listed below.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The system detected an invalid address pointer in attempting to use a pointer argument of a call. This error is returned if the <i>PeerAddr</i> parameter was a <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEAFNOSUPPORT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified address family is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEMSGSIZE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A buffer passed was too small. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAENOTSOCK</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The descriptor passed in the <i>Socket</i> parameter is not a valid socket.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-wsaimpersonatesocketpeer
      * @since windows6.0.6000
      */
     static WSAImpersonateSocketPeer(Socket, PeerAddr, PeerAddrLen) {
         A_LastError := 0
 
-        DllCall("fwpuclnt.dll\WSAImpersonateSocketPeer", "ptr", Socket, "ptr", PeerAddr, "uint", PeerAddrLen)
+        result := DllCall("fwpuclnt.dll\WSAImpersonateSocketPeer", "ptr", Socket, "ptr", PeerAddr, "uint", PeerAddrLen)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -25266,17 +35891,39 @@ class WinSock {
      *     impersonating a socket peer, no action is taken.
      * 
      * The <b>WSARevertImpersonation</b> function should be called after calling <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-wsaimpersonatesocketpeer">WSAImpersonateSocketPeer</a> and all access checks are finished.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is zero.  Otherwise, a value of <b>SOCKET_ERROR</b> is returned, and a specific error code can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a>. 
+     * 
+     * Some possible error codes are listed below.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSASYSCALLFAILURE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  A system call that should never fail has failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-wsarevertimpersonation
      * @since windows6.0.6000
      */
     static WSARevertImpersonation() {
         A_LastError := 0
 
-        DllCall("fwpuclnt.dll\WSARevertImpersonation")
+        result := DllCall("fwpuclnt.dll\WSARevertImpersonation")
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -25335,12 +35982,64 @@ class WinSock {
      * @param {Pointer<UInt32>} lpwdCatalogEntryId A pointer to an array of <b>CatalogEntryId</b> elements found in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAPROTOCOL_INFO</a> structure. The order of the <b>CatalogEntryId</b> elements is the new priority ordering for the protocols.
      * @param {Integer} dwNumberOfEntries The number of elements in the <i>lpwdCatalogEntryId</i> array.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The function returns <b>ERROR_SUCCESS</b> (zero) if the routine is successful. Otherwise, it returns a specific error code.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments are invalid, no action was taken.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonrecoverable error occurred. This error is returned under several conditions including the following: the user lacks the administrative privileges required to write to the  Winsock registry, or a failure occurred when opening or writing a catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  Insufficient memory was available. This error is returned when there is insufficient memory to allocate a new catalog entry.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>(other)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The routine may return any registry error code.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/sporder/nf-sporder-wscwriteproviderorder
      * @since windows5.0
      */
     static WSCWriteProviderOrder(lpwdCatalogEntryId, dwNumberOfEntries) {
-        DllCall("WS2_32.dll\WSCWriteProviderOrder", "ptr", lpwdCatalogEntryId, "uint", dwNumberOfEntries)
+        result := DllCall("WS2_32.dll\WSCWriteProviderOrder", "uint*", lpwdCatalogEntryId, "uint", dwNumberOfEntries)
+        return result
     }
 
     /**
@@ -25375,12 +36074,98 @@ class WinSock {
      * @param {Pointer<Guid>} lpProviderId An array of <b>NSProviderId</b> elements as found in the <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsanamespace_infow">WSANAMESPACE_INFO</a> structure.  The order of the <b>NSProviderId</b> elements is the new
      *       priority ordering for the namespace providers.
      * @param {Integer} dwNumberOfEntries The number of elements in the <b>NSProviderId</b> array.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The function returns <b>ERROR_SUCCESS</b> (zero) if the routine is successful. Otherwise, it returns a specific error code.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEFAULT</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>NSProviderId</b> array is not fully contained within process address space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEINVAL</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments are input parameters were invalid, no action was taken.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSANO_RECOVERY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A nonrecoverable error occurred. This error is returned under several conditions including the following: the user lacks the administrative privileges required to write to the  Winsock registry or another application is currently writing to the namespace provider catalog.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSASYSCALLFAILURE</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A system call that should never fail has failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2"> WSATRY_AGAIN</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function is called by another thread or process.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSA_NOT_ENOUGH_MEMORY</a></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory was available to perform the operation. 
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>(other)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function may return any registry error code.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/sporder/nf-sporder-wscwritenamespaceorder
      * @since windows5.0
      */
     static WSCWriteNameSpaceOrder(lpProviderId, dwNumberOfEntries) {
-        DllCall("WS2_32.dll\WSCWriteNameSpaceOrder", "ptr", lpProviderId, "uint", dwNumberOfEntries)
+        result := DllCall("WS2_32.dll\WSCWriteNameSpaceOrder", "ptr", lpProviderId, "uint", dwNumberOfEntries)
+        return result
     }
 
 ;@endregion Methods

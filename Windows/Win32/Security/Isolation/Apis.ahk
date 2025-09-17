@@ -19,10 +19,10 @@ class Isolation {
      * Retrieves the named object path for the app container.
      * @remarks
      * For assistive technology tools that work across Windows Store apps and desktop applications and have features that get loaded in the context of Windows Store apps, at times it may be necessary for the in-context feature to synchronize with the tool. Typically such synchronization is accomplished by establishing a named object in the user's session. Windows Store apps pose a challenge for this mechanism because, by default, named objects in the user's or global session are not accessible to Windows Store apps. We recommend that you update assistive technology tools to use <a href="https://docs.microsoft.com/windows/desktop/AppUIStart/user-interface-technologies-for-windows-applications">UI Automation APIs</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/magapi/entry-magapi-sdk">Magnification APIs</a> to avoid such pitfalls. In the interim, it may be necessary to continue using named objects.
-     * @param {Pointer<HANDLE>} Token A handle pertaining to the token. If <b>NULL</b> is passed in and no <i>AppContainerSid</i> parameter is passed in, the caller's current process token is used, or the thread token if impersonating.
-     * @param {Pointer<PSID>} AppContainerSid The SID of the app container.
+     * @param {Pointer<Void>} Token A handle pertaining to the token. If <b>NULL</b> is passed in and no <i>AppContainerSid</i> parameter is passed in, the caller's current process token is used, or the thread token if impersonating.
+     * @param {Pointer<Void>} AppContainerSid The SID of the app container.
      * @param {Integer} ObjectPathLength The length of the buffer.
-     * @param {Pointer<PWSTR>} ObjectPath Buffer that is filled with the named object path.
+     * @param {Pointer<Char>} ObjectPath Buffer that is filled with the named object path.
      * @param {Pointer<UInt32>} ReturnLength Returns the length required to accommodate the length of the named object path.
      * @returns {Integer} If the function succeeds, the function returns a value of <b>TRUE</b>. 
      * 
@@ -35,7 +35,7 @@ class Isolation {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetAppContainerNamedObjectPath", "ptr", Token, "ptr", AppContainerSid, "uint", ObjectPathLength, "ptr", ObjectPath, "ptr", ReturnLength, "int")
+        result := DllCall("KERNEL32.dll\GetAppContainerNamedObjectPath", "ptr", Token, "ptr", AppContainerSid, "uint", ObjectPathLength, "ptr", ObjectPath, "uint*", ReturnLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -49,7 +49,7 @@ class Isolation {
      * @returns {Integer} 
      */
     static IsProcessInWDAGContainer(Reserved, isProcessInWDAGContainer) {
-        result := DllCall("api-ms-win-security-isolatedcontainer-l1-1-1.dll\IsProcessInWDAGContainer", "ptr", Reserved, "ptr", isProcessInWDAGContainer, "int")
+        result := DllCall("api-ms-win-security-isolatedcontainer-l1-1-1.dll\IsProcessInWDAGContainer", "ptr", Reserved, "int*", isProcessInWDAGContainer, "int")
         return result
     }
 
@@ -59,7 +59,7 @@ class Isolation {
      * @returns {Integer} 
      */
     static IsProcessInIsolatedContainer(isProcessInIsolatedContainer) {
-        result := DllCall("api-ms-win-security-isolatedcontainer-l1-1-0.dll\IsProcessInIsolatedContainer", "ptr", isProcessInIsolatedContainer, "int")
+        result := DllCall("api-ms-win-security-isolatedcontainer-l1-1-0.dll\IsProcessInIsolatedContainer", "int*", isProcessInIsolatedContainer, "int")
         return result
     }
 
@@ -74,7 +74,7 @@ class Isolation {
      * @see https://learn.microsoft.com/windows/win32/api/isolatedwindowsenvironmentutils/nf-isolatedwindowsenvironmentutils-isprocessinisolatedwindowsenvironment
      */
     static IsProcessInIsolatedWindowsEnvironment(isProcessInIsolatedWindowsEnvironment) {
-        result := DllCall("IsolatedWindowsEnvironmentUtils.dll\IsProcessInIsolatedWindowsEnvironment", "ptr", isProcessInIsolatedWindowsEnvironment, "int")
+        result := DllCall("IsolatedWindowsEnvironmentUtils.dll\IsProcessInIsolatedWindowsEnvironment", "int*", isProcessInIsolatedWindowsEnvironment, "int")
         return result
     }
 
@@ -96,7 +96,7 @@ class Isolation {
      * @see https://learn.microsoft.com/windows/win32/api/isolatedwindowsenvironmentutils/nf-isolatedwindowsenvironmentutils-iscrossisolatedenvironmentclipboardcontent
      */
     static IsCrossIsolatedEnvironmentClipboardContent(isCrossIsolatedEnvironmentClipboardContent) {
-        result := DllCall("IsolatedWindowsEnvironmentUtils.dll\IsCrossIsolatedEnvironmentClipboardContent", "ptr", isCrossIsolatedEnvironmentClipboardContent, "int")
+        result := DllCall("IsolatedWindowsEnvironmentUtils.dll\IsCrossIsolatedEnvironmentClipboardContent", "int*", isCrossIsolatedEnvironmentClipboardContent, "int")
         return result
     }
 
@@ -106,12 +106,12 @@ class Isolation {
      * A profile contains folders and registry storage that are per-user and per-app. The folders have ACLs that prevent them from being accessed by other users and apps. These folders can be accessed by calling <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetknownfolderpath">SHGetKnownFolderPath</a>.
      * 
      * The function creates a profile for the current user. To create a profile on behalf of another user, you must impersonate that user. To create profiles for multiple users of the same app, you must call <b>CreateAppContainerProfile</b> for each user.
-     * @param {Pointer<PWSTR>} pszAppContainerName The name of the app container. To ensure uniqueness, it is recommended that this string contains the app name as well as the publisher. This string can be up to 64 characters in length.  Further, it must fit into the pattern described by the regular expression "[-_. A-Za-z0-9]+".
-     * @param {Pointer<PWSTR>} pszDisplayName The display name. This string can be up to 512 characters in length.
-     * @param {Pointer<PWSTR>} pszDescription A description for the app container. This string can be up to 2048 characters in length.
+     * @param {Pointer<Char>} pszAppContainerName The name of the app container. To ensure uniqueness, it is recommended that this string contains the app name as well as the publisher. This string can be up to 64 characters in length.  Further, it must fit into the pattern described by the regular expression "[-_. A-Za-z0-9]+".
+     * @param {Pointer<Char>} pszDisplayName The display name. This string can be up to 512 characters in length.
+     * @param {Pointer<Char>} pszDescription A description for the app container. This string can be up to 2048 characters in length.
      * @param {Pointer<SID_AND_ATTRIBUTES>} pCapabilities The SIDs that define the requested capabilities.
      * @param {Integer} dwCapabilityCount The number of SIDs in <i>pCapabilities</i>.
-     * @param {Pointer<PSID>} ppSidAppContainerSid The SID for the profile. This buffer must be freed using the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-freesid">FreeSid</a> function.
+     * @param {Pointer<Void>} ppSidAppContainerSid The SID for the profile. This buffer must be freed using the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-freesid">FreeSid</a> function.
      * @returns {Integer} If this function succeeds, it returns a standard HRESULT code, including the following:
      * 
      * <table>
@@ -184,7 +184,7 @@ class Isolation {
      * This function deletes the profile for the current user. To delete the profile for another user, you must impersonate that user.
      * 
      * If the function fails, the status of the profile is undetermined, and you should call <b>DeleteAppContainerProfile</b> again to complete the operation.
-     * @param {Pointer<PWSTR>} pszAppContainerName The name given to the profile in the call to the <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-createappcontainerprofile">CreateAppContainerProfile</a> function. This string is at most 64 characters in length, and  fits into the pattern described by the regular expression "[-_. A-Za-z0-9]+".
+     * @param {Pointer<Char>} pszAppContainerName The name given to the profile in the call to the <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-createappcontainerprofile">CreateAppContainerProfile</a> function. This string is at most 64 characters in length, and  fits into the pattern described by the regular expression "[-_. A-Za-z0-9]+".
      * @returns {Integer} If this function succeeds, it returns a standard HRESULT code, including the following:
      * 
      * <table>
@@ -243,7 +243,7 @@ class Isolation {
      * @param {Integer} desiredAccess Type: <b><a href="https://docs.microsoft.com/windows/desktop/shell/messages">REGSAM</a></b>
      * 
      * The desired registry access.
-     * @param {Pointer<HKEY>} phAppContainerKey Type: <b>PHKEY</b>
+     * @param {Pointer<Void>} phAppContainerKey Type: <b>PHKEY</b>
      * 
      * A pointer to an HKEY that, when this function returns successfully, receives the registry storage location for the current profile.
      * @returns {Integer} Type: <b>HRESULT</b>
@@ -292,8 +292,8 @@ class Isolation {
      * The path retrieved through this function is the same path that you would get by calling the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetknownfolderpath">SHGetKnownFolderPath</a> function with <b>FOLDERID_LocalAppData</b>.
      * 
      * If a thread token is set, this function uses the app container for the current user. If no thread token is set, this function uses the app container associated with the process identity.
-     * @param {Pointer<PWSTR>} pszAppContainerSid A pointer to the SID of the app container.
-     * @param {Pointer<PWSTR>} ppszPath The address of a pointer to a string that, when this function returns successfully, receives the path of the local folder. It is the responsibility of the caller to free this string when it is no longer needed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
+     * @param {Pointer<Char>} pszAppContainerSid A pointer to the SID of the app container.
+     * @param {Pointer<Char>} ppszPath The address of a pointer to a string that, when this function returns successfully, receives the path of the local folder. It is the responsibility of the caller to free this string when it is no longer needed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
      * @returns {Integer} This function returns an <b>HRESULT</b> code, including but not limited to the following:
      * 
      * <table>
@@ -329,7 +329,6 @@ class Isolation {
      */
     static GetAppContainerFolderPath(pszAppContainerSid, ppszPath) {
         pszAppContainerSid := pszAppContainerSid is String? StrPtr(pszAppContainerSid) : pszAppContainerSid
-        ppszPath := ppszPath is String? StrPtr(ppszPath) : ppszPath
 
         result := DllCall("USERENV.dll\GetAppContainerFolderPath", "ptr", pszAppContainerSid, "ptr", ppszPath, "int")
         return result
@@ -337,9 +336,9 @@ class Isolation {
 
     /**
      * DeriveRestrictedAppContainerSidFromAppContainerSidAndRestrictedName is reserved for future use.
-     * @param {Pointer<PSID>} psidAppContainerSid Reserved.
-     * @param {Pointer<PWSTR>} pszRestrictedAppContainerName Reserved.
-     * @param {Pointer<PSID>} ppsidRestrictedAppContainerSid Reserved.
+     * @param {Pointer<Void>} psidAppContainerSid Reserved.
+     * @param {Pointer<Char>} pszRestrictedAppContainerName Reserved.
+     * @param {Pointer<Void>} ppsidRestrictedAppContainerSid Reserved.
      * @returns {Integer} Reserved.
      * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-deriverestrictedappcontainersidfromappcontainersidandrestrictedname
      * @since windows10.0.10240
@@ -353,8 +352,8 @@ class Isolation {
 
     /**
      * Gets the SID of the specified profile.
-     * @param {Pointer<PWSTR>} pszAppContainerName The name of the profile.
-     * @param {Pointer<PSID>} ppsidAppContainerSid The SID for the profile. This buffer must be freed using the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-freesid">FreeSid</a> function.
+     * @param {Pointer<Char>} pszAppContainerName The name of the profile.
+     * @param {Pointer<Void>} ppsidAppContainerSid The SID for the profile. This buffer must be freed using the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-freesid">FreeSid</a> function.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>

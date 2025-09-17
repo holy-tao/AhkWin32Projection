@@ -36,7 +36,7 @@ class SPSHORTCUTPAIR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszDisplay {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class SPSHORTCUTPAIR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszSpoken {
         get => NumGet(this, 24, "ptr")

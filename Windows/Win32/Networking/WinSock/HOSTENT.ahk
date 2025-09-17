@@ -24,7 +24,7 @@ class HOSTENT extends Win32Struct
 
     /**
      * The official name of the host (PC). If using the DNS or similar resolution system, it is the Fully Qualified Domain Name (FQDN) that caused the server to return a reply. If using a local hosts file, it is the first entry after the IPv4 address.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     h_name {
         get => NumGet(this, 0, "ptr")

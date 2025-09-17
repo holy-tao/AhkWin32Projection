@@ -12,7 +12,7 @@ class DBPARAMBINDINFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszDataSourceType {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class DBPARAMBINDINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszName {
         get => NumGet(this, 8, "ptr")

@@ -39,7 +39,7 @@ class RAWINPUTHEADER extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * A handle to the device generating the raw input data.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hDevice {
         get => NumGet(this, 8, "ptr")

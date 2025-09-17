@@ -137,7 +137,7 @@ class TOUCHINPUT extends Win32Struct
 
     /**
      * A device handle for the source input device.  Each device is given a unique provider at run time by the touch input provider. See **Examples** section below.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hSource {
         get => NumGet(this, 8, "ptr")

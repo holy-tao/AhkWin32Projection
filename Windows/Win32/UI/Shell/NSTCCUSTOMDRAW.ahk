@@ -50,7 +50,7 @@ class NSTCCUSTOMDRAW extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * A pointer to a null-terminated Unicode string that contains the item text, if the structure specifies item attributes.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszText {
         get => NumGet(this, 16, "ptr")

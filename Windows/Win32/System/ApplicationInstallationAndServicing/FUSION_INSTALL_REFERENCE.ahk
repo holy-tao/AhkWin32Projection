@@ -42,7 +42,7 @@ class FUSION_INSTALL_REFERENCE extends Win32Struct
 
     /**
      * A pointer to a string value that identifies the application that references assembly. The meaning of this identifier depends on the <b>guidScheme</b> parameter.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     szIdentifier {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +51,7 @@ class FUSION_INSTALL_REFERENCE extends Win32Struct
 
     /**
      * A string that is used only by the application that reference the assembly.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     szNonCannonicalData {
         get => NumGet(this, 24, "ptr")

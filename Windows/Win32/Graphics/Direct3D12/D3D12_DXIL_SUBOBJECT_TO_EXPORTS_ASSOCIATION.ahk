@@ -15,7 +15,7 @@ class D3D12_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     SubobjectToAssociate {
         get => NumGet(this, 0, "ptr")
@@ -33,7 +33,7 @@ class D3D12_DXIL_SUBOBJECT_TO_EXPORTS_ASSOCIATION extends Win32Struct
 
     /**
      * The array of exports with which the subobject is associated.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pExports {
         get => NumGet(this, 16, "ptr")

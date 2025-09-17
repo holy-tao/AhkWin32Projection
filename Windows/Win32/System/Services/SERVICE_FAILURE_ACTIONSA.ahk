@@ -47,7 +47,7 @@ class SERVICE_FAILURE_ACTIONSA extends Win32Struct
      * The string with identifier <i>strID</i> is loaded from <i>dllname</i>; the <i>path</i> is optional. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regloadmuistringa">RegLoadMUIString</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>Localized strings are not supported until Windows Vista.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpRebootMsg {
         get => NumGet(this, 8, "ptr")
@@ -62,7 +62,7 @@ class SERVICE_FAILURE_ACTIONSA extends Win32Struct
      * 
      * 
      * If this value is <b>NULL</b>, the command is unchanged. If the value is an empty string (""), the command is deleted and no program is run when the service fails.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpCommand {
         get => NumGet(this, 16, "ptr")

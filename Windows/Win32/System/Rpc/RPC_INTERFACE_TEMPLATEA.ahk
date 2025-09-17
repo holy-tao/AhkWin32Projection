@@ -133,7 +133,7 @@ class RPC_INTERFACE_TEMPLATEA extends Win32Struct
      * Pointer to the character-string comment applied to each cross-product element added to the local endpoint-map database. The string can be up to 64 characters long, including the null terminating character. Specify a null value or a null-terminated string ("\0") if there is no annotation string.
      * 
      * The annotation string is used by applications for information only. RPC does not use this string to determine which server instance a client communicates with or for enumerating elements in the endpoint-map database.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     Annotation {
         get => NumGet(this, 64, "ptr")

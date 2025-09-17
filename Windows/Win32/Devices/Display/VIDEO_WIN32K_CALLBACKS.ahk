@@ -36,7 +36,7 @@ class VIDEO_WIN32K_CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     pPhysDeviceObject {
         get => NumGet(this, 24, "ptr")

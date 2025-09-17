@@ -18,7 +18,7 @@ class INPUTCONTEXT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hWnd {
         get => NumGet(this, 0, "ptr")
@@ -116,7 +116,7 @@ class INPUTCONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HIMCC>}
+     * @type {Pointer<Void>}
      */
     hCompStr {
         get => NumGet(this, 168, "ptr")
@@ -124,7 +124,7 @@ class INPUTCONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HIMCC>}
+     * @type {Pointer<Void>}
      */
     hCandInfo {
         get => NumGet(this, 176, "ptr")
@@ -132,7 +132,7 @@ class INPUTCONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HIMCC>}
+     * @type {Pointer<Void>}
      */
     hGuideLine {
         get => NumGet(this, 184, "ptr")
@@ -140,7 +140,7 @@ class INPUTCONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HIMCC>}
+     * @type {Pointer<Void>}
      */
     hPrivate {
         get => NumGet(this, 192, "ptr")
@@ -156,7 +156,7 @@ class INPUTCONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HIMCC>}
+     * @type {Pointer<Void>}
      */
     hMsgBuf {
         get => NumGet(this, 208, "ptr")

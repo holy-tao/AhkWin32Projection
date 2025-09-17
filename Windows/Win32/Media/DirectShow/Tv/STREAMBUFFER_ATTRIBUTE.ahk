@@ -15,7 +15,7 @@ class STREAMBUFFER_ATTRIBUTE extends Win32Struct
 
     /**
      * Pointer to a null-terminated wide-character string that contains the name of the attribute.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszName {
         get => NumGet(this, 0, "ptr")

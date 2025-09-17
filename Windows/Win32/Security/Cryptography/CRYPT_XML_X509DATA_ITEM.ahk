@@ -48,7 +48,7 @@ class CRYPT_XML_X509DATA_ITEM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     wszSubjectName {
         get => NumGet(this, 8, "ptr")

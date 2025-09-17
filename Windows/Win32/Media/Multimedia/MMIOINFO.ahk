@@ -44,7 +44,7 @@ class MMIOINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HTASK>}
+     * @type {Pointer<Void>}
      */
     htask {
         get => NumGet(this, 24, "ptr")
@@ -135,7 +135,7 @@ class MMIOINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HMMIO>}
+     * @type {Pointer<Void>}
      */
     hmmio {
         get => NumGet(this, 104, "ptr")

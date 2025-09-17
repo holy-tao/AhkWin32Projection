@@ -161,7 +161,7 @@ class FWP_CONDITION_VALUE0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     unicodeString {
         get => NumGet(this, 4, "ptr")

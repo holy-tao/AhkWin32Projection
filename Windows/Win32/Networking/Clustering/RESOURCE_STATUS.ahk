@@ -66,7 +66,7 @@ class RESOURCE_STATUS extends Win32Struct
 
     /**
      * Handle to an event that indicates when the resource has failed.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     EventHandle {
         get => NumGet(this, 16, "ptr")

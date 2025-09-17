@@ -32,7 +32,7 @@ class PICTDESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HBITMAP>}
+     * @type {Pointer<Void>}
      */
     hbitmap {
         get => NumGet(this, 8, "ptr")
@@ -40,7 +40,7 @@ class PICTDESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HPALETTE>}
+     * @type {Pointer<Void>}
      */
     hpal {
         get => NumGet(this, 16, "ptr")
@@ -48,7 +48,7 @@ class PICTDESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HMETAFILE>}
+     * @type {Pointer<Void>}
      */
     hmeta {
         get => NumGet(this, 8, "ptr")
@@ -72,7 +72,7 @@ class PICTDESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HICON>}
+     * @type {Pointer<Void>}
      */
     icon {
         get => NumGet(this, 8, "ptr")
@@ -80,7 +80,7 @@ class PICTDESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HENHMETAFILE>}
+     * @type {Pointer<Void>}
      */
     emf {
         get => NumGet(this, 8, "ptr")

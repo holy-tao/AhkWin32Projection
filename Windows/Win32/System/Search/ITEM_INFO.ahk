@@ -28,7 +28,7 @@ class ITEM_INFO extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a null-terminated Unicode string containing an email address that is notified in case of error.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pcwszFromEMail {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +39,7 @@ class ITEM_INFO extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a null-terminated Unicode string containing the application name.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pcwszApplicationName {
         get => NumGet(this, 16, "ptr")
@@ -50,7 +50,7 @@ class ITEM_INFO extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a null-terminated Unicode string containing the workspace name from which the crawl to this content source was initiated.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pcwszCatalogName {
         get => NumGet(this, 24, "ptr")
@@ -61,7 +61,7 @@ class ITEM_INFO extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * Not used by protocol handlers.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pcwszContentClass {
         get => NumGet(this, 32, "ptr")

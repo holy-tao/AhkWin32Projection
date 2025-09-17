@@ -88,7 +88,7 @@ class EventNotificationService {
      * 
      * > [!NOTE]
      * > The sensapi.h header defines IsDestinationReachable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszDestination A pointer to a <b>null</b>-terminated string that specifies a destination. The destination can be an IP address, UNC name, or URL.
+     * @param {Pointer<Byte>} lpszDestination A pointer to a <b>null</b>-terminated string that specifies a destination. The destination can be an IP address, UNC name, or URL.
      * @param {Pointer<QOCINFO>} lpQOCInfo A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sensapi/ns-sensapi-qocinfo">QOCINFO</a> structure that receives the Quality of Connection (QOC) information. You can supply a <b>NULL</b> pointer if you do not want to receive the QOC information.
      * @returns {Integer} <table>
@@ -164,7 +164,7 @@ class EventNotificationService {
      * 
      * > [!NOTE]
      * > The sensapi.h header defines IsDestinationReachable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszDestination A pointer to a <b>null</b>-terminated string that specifies a destination. The destination can be an IP address, UNC name, or URL.
+     * @param {Pointer<Char>} lpszDestination A pointer to a <b>null</b>-terminated string that specifies a destination. The destination can be an IP address, UNC name, or URL.
      * @param {Pointer<QOCINFO>} lpQOCInfo A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sensapi/ns-sensapi-qocinfo">QOCINFO</a> structure that receives the Quality of Connection (QOC) information. You can supply a <b>NULL</b> pointer if you do not want to receive the QOC information.
      * @returns {Integer} <table>
@@ -274,7 +274,7 @@ class EventNotificationService {
     static IsNetworkAlive(lpdwFlags) {
         A_LastError := 0
 
-        result := DllCall("SensApi.dll\IsNetworkAlive", "ptr", lpdwFlags, "int")
+        result := DllCall("SensApi.dll\IsNetworkAlive", "uint*", lpdwFlags, "int")
         if(A_LastError)
             throw OSError()
 

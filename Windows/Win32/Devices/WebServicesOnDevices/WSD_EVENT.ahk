@@ -34,7 +34,7 @@ class WSD_EVENT extends Win32Struct
 
     /**
      * Pointer to the protocol string when dispatch by tags is required.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     DispatchTag {
         get => NumGet(this, 8, "ptr")

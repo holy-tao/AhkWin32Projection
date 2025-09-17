@@ -92,7 +92,7 @@ class Environment {
 ;@region Methods
     /**
      * The SetEnvironmentStringsW (Unicode) function (processenv.h) sets the environment strings of the calling process for the current process.
-     * @param {Pointer<PWSTR>} NewEnvironment The environment variable string using the following format:
+     * @param {Pointer<Char>} NewEnvironment The environment variable string using the following format:
      * 
      * <i>Var1</i>
      * <i>Value1</i>
@@ -129,12 +129,12 @@ class Environment {
      * 
      * > [!NOTE]
      * > The processenv.h header defines GetCommandLine as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @returns {Pointer<PSTR>} The return value is a pointer to the command-line string for the current process.
+     * @returns {Pointer<Byte>} The return value is a pointer to the command-line string for the current process.
      * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-getcommandlinea
      * @since windows5.1.2600
      */
     static GetCommandLineA() {
-        result := DllCall("KERNEL32.dll\GetCommandLineA", "ptr")
+        result := DllCall("KERNEL32.dll\GetCommandLineA", "char*")
         return result
     }
 
@@ -155,12 +155,12 @@ class Environment {
      * 
      * > [!NOTE]
      * > The processenv.h header defines GetCommandLine as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @returns {Pointer<PWSTR>} The return value is a pointer to the command-line string for the current process.
+     * @returns {Pointer<Char>} The return value is a pointer to the command-line string for the current process.
      * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-getcommandlinew
      * @since windows5.1.2600
      */
     static GetCommandLineW() {
-        result := DllCall("KERNEL32.dll\GetCommandLineW", "ptr")
+        result := DllCall("KERNEL32.dll\GetCommandLineW", "char*")
         return result
     }
 
@@ -189,14 +189,14 @@ class Environment {
      * <a href="https://docs.microsoft.com/windows/desktop/api/processenv/nf-processenv-freeenvironmentstringsa">FreeEnvironmentStrings</a> function.
      * 
      * Note that the ANSI version of this function, <b>GetEnvironmentStringsA</b>, returns OEM characters.
-     * @returns {Pointer<PSTR>} If the function succeeds, the return value is a pointer to the environment block of the current process.
+     * @returns {Pointer<Byte>} If the function succeeds, the return value is a pointer to the environment block of the current process.
      * 
      * If the function fails, the return value is NULL.
      * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-getenvironmentstrings
      * @since windows5.1.2600
      */
     static GetEnvironmentStrings() {
-        result := DllCall("KERNEL32.dll\GetEnvironmentStrings", "ptr")
+        result := DllCall("KERNEL32.dll\GetEnvironmentStrings", "char*")
         return result
     }
 
@@ -223,14 +223,14 @@ class Environment {
      * <a href="https://docs.microsoft.com/windows/desktop/api/processenv/nf-processenv-freeenvironmentstringsa">FreeEnvironmentStrings</a> function.
      * 
      * Note that the ANSI version of this function, <b>GetEnvironmentStringsA</b>, returns OEM characters.
-     * @returns {Pointer<PWSTR>} If the function succeeds, the return value is a pointer to the environment block of the current process.
+     * @returns {Pointer<Char>} If the function succeeds, the return value is a pointer to the environment block of the current process.
      * 
      * If the function fails, the return value is NULL.
      * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-getenvironmentstringsw
      * @since windows5.1.2600
      */
     static GetEnvironmentStringsW() {
-        result := DllCall("KERNEL32.dll\GetEnvironmentStringsW", "ptr")
+        result := DllCall("KERNEL32.dll\GetEnvironmentStringsW", "char*")
         return result
     }
 
@@ -238,7 +238,7 @@ class Environment {
      * Frees a block of environment strings. (ANSI)
      * @remarks
      * If you used the ANSI version of <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nf-rrascfg-ieapproviderconfig-initialize">GetEnvironmentStrings</a>, be sure to use the ANSI version of <b>FreeEnvironmentStrings</b>. Similarly, if you used the Unicode version of <b>GetEnvironmentStrings</b>, be sure to use the Unicode version of <b>FreeEnvironmentStrings</b>.
-     * @param {Pointer<PSTR>} penv A pointer to a block of environment strings. The pointer to the block must be obtained by calling the 
+     * @param {Pointer<Byte>} penv A pointer to a block of environment strings. The pointer to the block must be obtained by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nf-rrascfg-ieapproviderconfig-initialize">GetEnvironmentStrings</a> function.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
@@ -263,7 +263,7 @@ class Environment {
      * Frees a block of environment strings. (Unicode)
      * @remarks
      * If you used the ANSI version of <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nf-rrascfg-ieapproviderconfig-initialize">GetEnvironmentStrings</a>, be sure to use the ANSI version of <b>FreeEnvironmentStrings</b>. Similarly, if you used the Unicode version of <b>GetEnvironmentStrings</b>, be sure to use the Unicode version of <b>FreeEnvironmentStrings</b>.
-     * @param {Pointer<PWSTR>} penv A pointer to a block of environment strings. The pointer to the block must be obtained by calling the 
+     * @param {Pointer<Char>} penv A pointer to a block of environment strings. The pointer to the block must be obtained by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nf-rrascfg-ieapproviderconfig-initialize">GetEnvironmentStrings</a> function.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
@@ -288,8 +288,8 @@ class Environment {
      * Retrieves the contents of the specified variable from the environment block of the calling process. (GetEnvironmentVariableA)
      * @remarks
      * This function can retrieve either a system environment variable or a user environment variable.
-     * @param {Pointer<PSTR>} lpName The name of the environment variable.
-     * @param {Pointer<PSTR>} lpBuffer A pointer to a buffer that receives the contents of the specified environment variable as a null-terminated string. An environment variable has a maximum size limit of 32,767 characters, including the null-terminating character.
+     * @param {Pointer<Byte>} lpName The name of the environment variable.
+     * @param {Pointer<Byte>} lpBuffer A pointer to a buffer that receives the contents of the specified environment variable as a null-terminated string. An environment variable has a maximum size limit of 32,767 characters, including the null-terminating character.
      * @param {Integer} nSize The size of the buffer pointed to by the *lpBuffer* parameter, including the null-terminating character, in characters.
      * @returns {Integer} If the function succeeds, the return value is the number of characters stored in the buffer pointed to by *lpBuffer*, not including the terminating null character.
      * 
@@ -317,8 +317,8 @@ class Environment {
      * The GetEnvironmentVariableW (Unicode) function (processenv.h) retrieves the contents of the specified variable from the environment block of the calling process.
      * @remarks
      * This function can retrieve either a system environment variable or a user environment variable.
-     * @param {Pointer<PWSTR>} lpName The name of the environment variable.
-     * @param {Pointer<PWSTR>} lpBuffer A pointer to a buffer that receives the contents of the specified environment variable as a null-terminated string.
+     * @param {Pointer<Char>} lpName The name of the environment variable.
+     * @param {Pointer<Char>} lpBuffer A pointer to a buffer that receives the contents of the specified environment variable as a null-terminated string.
      * 
      * The maximum size of a user-defined environment variable is 32,767 characters. There is no technical limitation on the size of the environment block. However, there are practical limits depending on the mechanism used to access the block. For example, a batch file cannot set a variable that is longer than the maximum command line length. For more information, see [Environment Variables](/windows/desktop/ProcThread/environment-variables).
      * @param {Integer} nSize The size of the buffer pointed to by the <i>lpBuffer</i> parameter, including the null-terminating character, in characters.
@@ -348,8 +348,8 @@ class Environment {
      * Sets the contents of the specified environment variable for the current process. (SetEnvironmentVariableA)
      * @remarks
      * This function has no effect on the system environment variables or the environment variables of other processes.
-     * @param {Pointer<PSTR>} lpName The name of the environment variable. The operating system creates the environment variable if it does not exist and <i>lpValue</i> is not NULL.
-     * @param {Pointer<PSTR>} lpValue The contents of the environment variable. The maximum size of a user-defined environment variable is 32,767 characters. For more information, see 
+     * @param {Pointer<Byte>} lpName The name of the environment variable. The operating system creates the environment variable if it does not exist and <i>lpValue</i> is not NULL.
+     * @param {Pointer<Byte>} lpValue The contents of the environment variable. The maximum size of a user-defined environment variable is 32,767 characters. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/environment-variables">Environment Variables</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>The total size of the environment block for a process may not exceed 32,767 characters.
@@ -379,8 +379,8 @@ class Environment {
      * The SetEnvironmentVariableW (Unicode) function (processenv.h) sets the contents of the specified environment variable for the current process.
      * @remarks
      * This function has no effect on the system environment variables or the environment variables of other processes.
-     * @param {Pointer<PWSTR>} lpName The name of the environment variable. The operating system creates the environment variable if it does not exist and <i>lpValue</i> is not NULL.
-     * @param {Pointer<PWSTR>} lpValue The contents of the environment variable. 
+     * @param {Pointer<Char>} lpName The name of the environment variable. The operating system creates the environment variable if it does not exist and <i>lpValue</i> is not NULL.
+     * @param {Pointer<Char>} lpValue The contents of the environment variable. 
      * 
      * The maximum size of a user-defined environment variable is 32,767 characters. There is no technical limitation on the size of the environment block. However, there are practical limits depending on the mechanism used to access the block. For example, a batch file cannot set a variable that is longer than the maximum command line length. For more information, see [Environment Variables](/windows/desktop/ProcThread/environment-variables).
      * 
@@ -415,7 +415,7 @@ class Environment {
      * To replace folder names in a fully qualified path with their associated environment-variable strings, use the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-pathunexpandenvstringsa">PathUnExpandEnvStrings</a> function.
      * 
      * To retrieve the list of environment variables for a process, use the <a href="https://docs.microsoft.com/windows/win32/api/processenv/nf-processenv-getenvironmentstrings">GetEnvironmentStrings</a> function.
-     * @param {Pointer<PSTR>} lpSrc A buffer that contains one or more environment-variable strings in the form: %<i>variableName</i>%. For each such reference, the %<i>variableName</i>% portion is replaced with the current value of that environment variable. 
+     * @param {Pointer<Byte>} lpSrc A buffer that contains one or more environment-variable strings in the form: %<i>variableName</i>%. For each such reference, the %<i>variableName</i>% portion is replaced with the current value of that environment variable. 
      * 
      * 
      * 
@@ -423,7 +423,7 @@ class Environment {
      * Case is ignored when looking up the environment-variable name. If the name is not found, the %<i>variableName</i>% portion is left unexpanded.
      * 
      * Note that this function does not support all the features that Cmd.exe supports. For example, it does not support %<i>variableName</i>:<i>str1</i>=<i>str2</i>% or %<i>variableName</i>:~<i>offset</i>,<i>length</i>%.
-     * @param {Pointer<PSTR>} lpDst A pointer to a buffer that receives the result of expanding the environment variable strings in the <i>lpSrc</i> buffer. Note that this buffer cannot be the same as the <i>lpSrc</i> buffer.
+     * @param {Pointer<Byte>} lpDst A pointer to a buffer that receives the result of expanding the environment variable strings in the <i>lpSrc</i> buffer. Note that this buffer cannot be the same as the <i>lpSrc</i> buffer.
      * @param {Integer} nSize The maximum number of characters that can be stored in the buffer pointed to by the <i>lpDst</i> parameter. When using ANSI strings, the buffer size should be the string length, plus terminating null character, plus one. When using Unicode strings, the buffer size should be the string length plus the terminating null character.
      * @returns {Integer} If the function succeeds, the return value is the number of <b>TCHARs</b> stored in the destination buffer, including the terminating null character. If the destination buffer is too small to hold the expanded string, the return value is the required buffer size, in characters.
      * 
@@ -453,7 +453,7 @@ class Environment {
      * To replace folder names in a fully qualified path with their associated environment-variable strings, use the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-pathunexpandenvstringsa">PathUnExpandEnvStrings</a> function.
      * 
      * To retrieve the list of environment variables for a process, use the <a href="https://docs.microsoft.com/windows/win32/api/processenv/nf-processenv-getenvironmentstrings">GetEnvironmentStrings</a> function.
-     * @param {Pointer<PWSTR>} lpSrc A buffer that contains one or more environment-variable strings in the form: %<i>variableName</i>%. For each such reference, the %<i>variableName</i>% portion is replaced with the current value of that environment variable. 
+     * @param {Pointer<Char>} lpSrc A buffer that contains one or more environment-variable strings in the form: %<i>variableName</i>%. For each such reference, the %<i>variableName</i>% portion is replaced with the current value of that environment variable. 
      * 
      * 
      * 
@@ -461,7 +461,7 @@ class Environment {
      * Case is ignored when looking up the environment-variable name. If the name is not found, the %<i>variableName</i>% portion is left unexpanded.
      * 
      * Note that this function does not support all the features that Cmd.exe supports. For example, it does not support %<i>variableName</i>:<i>str1</i>=<i>str2</i>% or %<i>variableName</i>:~<i>offset</i>,<i>length</i>%.
-     * @param {Pointer<PWSTR>} lpDst A pointer to a buffer that receives the result of expanding the environment variable strings in the <i>lpSrc</i> buffer. Note that this buffer cannot be the same as the <i>lpSrc</i> buffer.
+     * @param {Pointer<Char>} lpDst A pointer to a buffer that receives the result of expanding the environment variable strings in the <i>lpSrc</i> buffer. Note that this buffer cannot be the same as the <i>lpSrc</i> buffer.
      * @param {Integer} nSize The maximum number of characters that can be stored in the buffer pointed to by the <i>lpDst</i> parameter. When using ANSI strings, the buffer size should be the string length, plus terminating null character, plus one. When using Unicode strings, the buffer size should be the string length plus the terminating null character.
      * @returns {Integer} If the function succeeds, the return value is the number of <b>TCHARs</b> stored in the destination buffer, including the terminating null character. If the destination buffer is too small to hold the expanded string, the return value is the required buffer size, in characters.
      * 
@@ -562,7 +562,7 @@ class Environment {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PSTR>} lpPathName The path to the new current directory. This parameter may specify a relative path or a full path. In either case, the full path of the specified directory is calculated and stored as the current directory. 
+     * @param {Pointer<Byte>} lpPathName The path to the new current directory. This parameter may specify a relative path or a full path. In either case, the full path of the specified directory is calculated and stored as the current directory. 
      * 
      * 
      * For more information, see <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">File Names, Paths, and Namespaces</a>.
@@ -665,7 +665,7 @@ class Environment {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PWSTR>} lpPathName The path to the new current directory. This parameter may specify a relative path or a full path. In either case, the full path of the specified directory is calculated and stored as the current directory. 
+     * @param {Pointer<Char>} lpPathName The path to the new current directory. This parameter may specify a relative path or a full path. In either case, the full path of the specified directory is calculated and stored as the current directory. 
      * 
      * 
      * For more information, see <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">File Names, Paths, and Namespaces</a>.
@@ -765,7 +765,7 @@ class Environment {
      * </table>
      * @param {Integer} nBufferLength The length of the buffer for the current directory string, in <b>TCHARs</b>. The 
      *       buffer length must include room for a terminating null character.
-     * @param {Pointer<PSTR>} lpBuffer A pointer to the buffer that receives the current directory string. This null-terminated string specifies the 
+     * @param {Pointer<Byte>} lpBuffer A pointer to the buffer that receives the current directory string. This null-terminated string specifies the 
      *        absolute path to the current directory.
      * 
      * To determine the required buffer size, set this parameter to <b>NULL</b> and the 
@@ -863,7 +863,7 @@ class Environment {
      * </table>
      * @param {Integer} nBufferLength The length of the buffer for the current directory string, in <b>TCHARs</b>. The 
      *       buffer length must include room for a terminating null character.
-     * @param {Pointer<PWSTR>} lpBuffer A pointer to the buffer that receives the current directory string. This null-terminated string specifies the 
+     * @param {Pointer<Char>} lpBuffer A pointer to the buffer that receives the current directory string. This null-terminated string specifies the 
      *        absolute path to the current directory.
      * 
      * To determine the required buffer size, set this parameter to <b>NULL</b> and the 
@@ -904,7 +904,7 @@ class Environment {
      * 
      * > [!NOTE]
      * > The processenv.h header defines NeedCurrentDirectoryForExePath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} ExeName The name of the executable file.
+     * @param {Pointer<Byte>} ExeName The name of the executable file.
      * @returns {Integer} If the current directory should be part of the search path, the return value is TRUE. Otherwise, the return value is FALSE.
      * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-needcurrentdirectoryforexepatha
      * @since windows6.0.6000
@@ -935,7 +935,7 @@ class Environment {
      * 
      * > [!NOTE]
      * > The processenv.h header defines NeedCurrentDirectoryForExePath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} ExeName The name of the executable file.
+     * @param {Pointer<Char>} ExeName The name of the executable file.
      * @returns {Integer} If the current directory should be part of the search path, the return value is TRUE. Otherwise, the return value is FALSE.
      * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-needcurrentdirectoryforexepathw
      * @since windows6.0.6000
@@ -961,7 +961,7 @@ class Environment {
      * @param {Pointer<Void>} lpEnvironment Type: <b>LPVOID*</b>
      * 
      * When this function returns, receives a pointer to the new environment block. The environment block is an array of null-terminated Unicode strings. The list ends with two nulls (\0\0).
-     * @param {Pointer<HANDLE>} hToken Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} hToken Type: <b>HANDLE</b>
      * 
      * Token for the user, returned from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a> function. If this is a primary token, the token must have <b>TOKEN_QUERY</b> and <b>TOKEN_DUPLICATE</b> access. If the token is an impersonation token, it must have <b>TOKEN_QUERY</b> access. For more information, see 
@@ -1036,17 +1036,17 @@ class Environment {
      * 
      * > [!NOTE]
      * > The userenv.h header defines ExpandEnvironmentStringsForUser as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} hToken Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} hToken Type: <b>HANDLE</b>
      * 
      * Token for the user, returned from the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a>, <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createrestrictedtoken">CreateRestrictedToken</a>, <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-duplicatetoken">DuplicateToken</a>, <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openprocesstoken">OpenProcessToken</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openthreadtoken">OpenThreadToken</a> function. The token must have TOKEN_IMPERSONATE and TOKEN_QUERY access. In addition, as of Windows 7 the token must also have TOKEN_DUPLICATE access. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-for-access-token-objects">Access Rights for Access-Token Objects</a>.
      * 
      * 
      * 
      * If <i>hToken</i> is <b>NULL</b>, the environment block contains system variables only.
-     * @param {Pointer<PSTR>} lpSrc Type: <b>LPCTSTR</b>
+     * @param {Pointer<Byte>} lpSrc Type: <b>LPCTSTR</b>
      * 
      * Pointer to the null-terminated source string to be expanded.
-     * @param {Pointer<PSTR>} lpDest Type: <b>LPTSTR</b>
+     * @param {Pointer<Byte>} lpDest Type: <b>LPTSTR</b>
      * 
      * Pointer to a buffer that receives the expanded strings.
      * @param {Integer} dwSize Type: <b>DWORD</b>
@@ -1096,17 +1096,17 @@ class Environment {
      * 
      * > [!NOTE]
      * > The userenv.h header defines ExpandEnvironmentStringsForUser as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} hToken Type: <b>HANDLE</b>
+     * @param {Pointer<Void>} hToken Type: <b>HANDLE</b>
      * 
      * Token for the user, returned from the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a>, <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createrestrictedtoken">CreateRestrictedToken</a>, <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-duplicatetoken">DuplicateToken</a>, <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openprocesstoken">OpenProcessToken</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openthreadtoken">OpenThreadToken</a> function. The token must have TOKEN_IMPERSONATE and TOKEN_QUERY access. In addition, as of Windows 7 the token must also have TOKEN_DUPLICATE access. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-for-access-token-objects">Access Rights for Access-Token Objects</a>.
      * 
      * 
      * 
      * If <i>hToken</i> is <b>NULL</b>, the environment block contains system variables only.
-     * @param {Pointer<PWSTR>} lpSrc Type: <b>LPCTSTR</b>
+     * @param {Pointer<Char>} lpSrc Type: <b>LPCTSTR</b>
      * 
      * Pointer to the null-terminated source string to be expanded.
-     * @param {Pointer<PWSTR>} lpDest Type: <b>LPTSTR</b>
+     * @param {Pointer<Char>} lpDest Type: <b>LPTSTR</b>
      * 
      * Pointer to a buffer that receives the expanded strings.
      * @param {Integer} dwSize Type: <b>DWORD</b>
@@ -1229,7 +1229,7 @@ class Environment {
      * 
      * 
      * For information about the Intel Software Guard Extensions (SGX) architecture extension, see <a href="https://software.intel.com/sgx">Intel Software Guard Extensions</a>.
-     * @param {Pointer<HANDLE>} hProcess A handle to the process for which you want to create an enclave.
+     * @param {Pointer<Void>} hProcess A handle to the process for which you want to create an enclave.
      * @param {Pointer<Void>} lpAddress The preferred base address of the enclave. Specify **NULL** to have the operating system assign the base address.
      * @param {Pointer} dwSize The size of the enclave that you want to create, including the size of the code that you will load into the enclave, in bytes.
      * 
@@ -1284,24 +1284,58 @@ class Environment {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} lpEnclaveInformation A pointer to the architecture-specific information to use to create the enclave.
+     * @param {Pointer} lpEnclaveInformation A pointer to the architecture-specific information to use to create the enclave.
      * 
      * For the **ENCLAVE_TYPE_SGX** and **ENCLAVE_TYPE_SGX2** enclave types, you must specify a pointer to an [ENCLAVE_CREATE_INFO_SGX](/windows/win32/api/winnt/ns-winnt-enclave_create_info_sgx) structure.
      * 
      * For the **ENCLAVE_TYPE_VBS** enclave type, you must specify a pointer to an [ENCLAVE_CREATE_INFO_VBS](/windows/win32/api/winnt/ns-winnt-enclave_create_info_vbs) structure.
      * @param {Integer} dwInfoLength The length of the structure that the _lpEnclaveInformation_ parameter points to, in bytes. For the **ENCLAVE_TYPE_SGX** and **ENCLAVE_TYPE_SGX2** enclave types, this value must be 4096.  For the **ENCLAVE_TYPE_VBS** enclave type, this value must be `sizeof(ENCLAVE_CREATE_INFO_VBS)`, which is 36 bytes.
      * @param {Pointer<UInt32>} lpEnclaveError An optional pointer to  a variable that receives an enclave error code that is architecture-specific. For the **ENCLAVE_TYPE_SGX**, **ENCLAVE_TYPE_SGX2** and **ENCLAVE_TYPE_VBS**  enclave types, the _lpEnclaveError_ parameter is not used.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} If the function succeeds, the return value is the base address of the created enclave.
+     * 
+     * If the function fails, the return value is **NULL**. To get extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
+     * 
+     * For a list of common error codes, see [System Error Codes](/windows/win32/Debug/system-error-codes). The following error codes also apply for this function.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><b>ERROR_NOT_SUPPORTED</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unsupported enclave type was specified.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><b>ERROR_BAD_LENGTH</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The value of the <i>dwInfoLength</i> parameter did not match the value expected based on the value specified for the <i>lpEnclaveInformation</i> parameter.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/enclaveapi/nf-enclaveapi-createenclave
      * @since windows10.0.10240
      */
     static CreateEnclave(hProcess, lpAddress, dwSize, dwInitialCommitment, flEnclaveType, lpEnclaveInformation, dwInfoLength, lpEnclaveError) {
         A_LastError := 0
 
-        DllCall("KERNEL32.dll\CreateEnclave", "ptr", hProcess, "ptr", lpAddress, "ptr", dwSize, "ptr", dwInitialCommitment, "uint", flEnclaveType, "ptr", lpEnclaveInformation, "uint", dwInfoLength, "ptr", lpEnclaveError)
+        result := DllCall("KERNEL32.dll\CreateEnclave", "ptr", hProcess, "ptr", lpAddress, "ptr", dwSize, "ptr", dwInitialCommitment, "uint", flEnclaveType, "ptr", lpEnclaveInformation, "uint", dwInfoLength, "uint*", lpEnclaveError)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -1310,9 +1344,9 @@ class Environment {
      * To initialize the enclave after you load data into the enclave, call [InitializeEnclave](/windows/win32/api/enclaveapi/nf-enclaveapi-initializeenclave).
      * 
      * **LoadEnclaveData** is only supported enclaves that have the **ENCLAVE_TYPE_SGX** and **ENCLAVE_TYPE_SGX2** enclave types.
-     * @param {Pointer<HANDLE>} hProcess A handle to the process for which the enclave was created.
+     * @param {Pointer<Void>} hProcess A handle to the process for which the enclave was created.
      * @param {Pointer<Void>} lpAddress The address in the enclave where you want to load the data.
-     * @param {Pointer<Void>} lpBuffer A pointer to the data the you want to load into the enclave.
+     * @param {Pointer} lpBuffer A pointer to the data the you want to load into the enclave.
      * @param {Pointer} nSize The size of the data that you want to load into the enclave, in bytes. This value must be a whole-number multiple of the page size.
      * @param {Integer} flProtect The memory protection to use for the pages that you want to add to the enclave. For a list of memory protection values, see [memory protection constants](/windows/win32/Memory/memory-protection-constants). This value must not include the following constants:
      * 
@@ -1338,7 +1372,7 @@ class Environment {
      * <td>The page contents that you supply are excluded from measurement with the EEXTEND instruction of the Intel Software Guard Extensions programming model.</td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} lpPageInformation A pointer to information that describes the pages that you want to add to the enclave. The _lpPageInformation_ parameter is not used.
+     * @param {Pointer} lpPageInformation A pointer to information that describes the pages that you want to add to the enclave. The _lpPageInformation_ parameter is not used.
      * @param {Integer} dwInfoLength The length of the structure that the _lpPageInformation_ parameter points to, in bytes. This value must be 0.
      * @param {Pointer<UIntPtr>} lpNumberOfBytesWritten A pointer to a variable that receives the number of bytes that **LoadEnclaveData** copied into the enclave.
      * @param {Pointer<UInt32>} lpEnclaveError An optional pointer to  a variable that receives an enclave error code that is architecture-specific. The _lpEnclaveError_ parameter is not used.
@@ -1369,7 +1403,7 @@ class Environment {
     static LoadEnclaveData(hProcess, lpAddress, lpBuffer, nSize, flProtect, lpPageInformation, dwInfoLength, lpNumberOfBytesWritten, lpEnclaveError) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\LoadEnclaveData", "ptr", hProcess, "ptr", lpAddress, "ptr", lpBuffer, "ptr", nSize, "uint", flProtect, "ptr", lpPageInformation, "uint", dwInfoLength, "ptr", lpNumberOfBytesWritten, "ptr", lpEnclaveError, "int")
+        result := DllCall("KERNEL32.dll\LoadEnclaveData", "ptr", hProcess, "ptr", lpAddress, "ptr", lpBuffer, "ptr", nSize, "uint", flProtect, "ptr", lpPageInformation, "uint", dwInfoLength, "ptr*", lpNumberOfBytesWritten, "uint*", lpEnclaveError, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1388,9 +1422,9 @@ class Environment {
      * - The base address of the enclave for the _lpAddress_ parameter.
      * - 0 for the _dwSize_ parameter.
      * - **MEM_RELEASE** for the _dwFreeType_ parameter.
-     * @param {Pointer<HANDLE>} hProcess A handle to the process for which the enclave was created.
+     * @param {Pointer<Void>} hProcess A handle to the process for which the enclave was created.
      * @param {Pointer<Void>} lpAddress Any address within the enclave.
-     * @param {Pointer<Void>} lpEnclaveInformation A pointer to architecture-specific information to use to initialize the enclave.
+     * @param {Pointer} lpEnclaveInformation A pointer to architecture-specific information to use to initialize the enclave.
      * 
      * For the **ENCLAVE_TYPE_SGX** and **ENCLAVE_TYPE_SGX2** enclave types, specify a pointer to an [ENCLAVE_INIT_INFO_SGX](/windows/win32/api/winnt/ns-winnt-enclave_init_info_sgx) structure.
      * 
@@ -1452,7 +1486,7 @@ class Environment {
     static InitializeEnclave(hProcess, lpAddress, lpEnclaveInformation, dwInfoLength, lpEnclaveError) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitializeEnclave", "ptr", hProcess, "ptr", lpAddress, "ptr", lpEnclaveInformation, "uint", dwInfoLength, "ptr", lpEnclaveError, "int")
+        result := DllCall("KERNEL32.dll\InitializeEnclave", "ptr", hProcess, "ptr", lpAddress, "ptr", lpEnclaveInformation, "uint", dwInfoLength, "uint*", lpEnclaveError, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1464,7 +1498,7 @@ class Environment {
      * @remarks
      * <b>LoadEnclaveImage</b> is only supported enclaves that have  the <b>ENCLAVE_TYPE_VBS</b> enclave type.
      * @param {Pointer<Void>} lpEnclaveAddress The base address of the image into which to load the image.
-     * @param {Pointer<PSTR>} lpImageName A NULL-terminated string that contains the name of the image to load.
+     * @param {Pointer<Byte>} lpImageName A NULL-terminated string that contains the name of the image to load.
      * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise <b>FALSE</b>.  
      * 
      * To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1482,7 +1516,7 @@ class Environment {
      * @remarks
      * <b>LoadEnclaveImage</b> is only supported enclaves that have  the <b>ENCLAVE_TYPE_VBS</b> enclave type.
      * @param {Pointer<Void>} lpEnclaveAddress The base address of the image into which to load the image.
-     * @param {Pointer<PWSTR>} lpImageName A NULL-terminated string that contains the name of the image to load.
+     * @param {Pointer<Char>} lpImageName A NULL-terminated string that contains the name of the image to load.
      * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise <b>FALSE</b>.  To get extended error information, 
      *        call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/enclaveapi/nf-enclaveapi-loadenclaveimagew
@@ -1620,7 +1654,7 @@ class Environment {
      * </ul>
      * The enclave attestation report provide proof that specific code is running with an enclave.  If a validating entity  also obtains proof that the host system is running with VBS turned on, that entity can use that proof in conjunction with the enclave attestation report to verify that a specific enclave, populated with specific code, has been loaded.
      * @param {Pointer<Byte>} EnclaveData A pointer to a 64-byte buffer of data that the enclave wants to insert into its signed report.  For example, this buffer could include a 256-bit nonce that the relying party supplied, followed by a SHA-256 hash of additional data that the enclave wants to convey, such as a public key that corresponds to a private key that the enclave owns.  If this parameter is NULL, the corresponding field of the report is  filled with zeroes.
-     * @param {Pointer<Void>} Report A pointer to a buffer where the report should be placed.  This report may be stored either within the address range of the enclave or within the address space of the host process.  Specify NULL to indicate that only the size of the buffer required for the output should be calculated, and not the report itself.
+     * @param {Pointer} Report A pointer to a buffer where the report should be placed.  This report may be stored either within the address range of the enclave or within the address space of the host process.  Specify NULL to indicate that only the size of the buffer required for the output should be calculated, and not the report itself.
      * @param {Integer} BufferSize The size of the buffer to which the <i>Report</i> parameter points.  If <i>Report</i> is NULL, <i>BufferSize</i> must be zero.  If <i>Report</i> is not NULL, and if the size of the report is larger than this value, an error is returned.
      * @param {Pointer<UInt32>} OutputSize A pointer to a variable that receives the size of the report.
      * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -1628,7 +1662,7 @@ class Environment {
      * @since windows10.0.16299
      */
     static EnclaveGetAttestationReport(EnclaveData, Report, BufferSize, OutputSize) {
-        result := DllCall("vertdll.dll\EnclaveGetAttestationReport", "ptr", EnclaveData, "ptr", Report, "uint", BufferSize, "ptr", OutputSize, "int")
+        result := DllCall("vertdll.dll\EnclaveGetAttestationReport", "char*", EnclaveData, "ptr", Report, "uint", BufferSize, "uint*", OutputSize, "int")
         return result
     }
 
@@ -1639,7 +1673,7 @@ class Environment {
      * 
      * <b>EnclaveVerifyAttestationReport</b> must be called from within an enclave, and is only supported within enclaves that have the  <b>ENCLAVE_TYPE_VBS</b> enclave type.
      * @param {Integer} EnclaveType The type of the enclave for which the report was generated. Must be <b>ENCLAVE_TYPE_VBS</b>.
-     * @param {Pointer<Void>} Report A pointer to a buffer that stores the report.  This report may be stored either within the address range of the enclave or within the address space of the host process.
+     * @param {Pointer} Report A pointer to a buffer that stores the report.  This report may be stored either within the address range of the enclave or within the address space of the host process.
      * @param {Integer} ReportSize The size of the report, in bytes.
      * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/winenclaveapi/nf-winenclaveapi-enclaveverifyattestationreport
@@ -1654,7 +1688,7 @@ class Environment {
      * Generates an encrypted binary large object (blob) from unencypted data.
      * @remarks
      * <b>EnclaveSealData</b> must be called from within an enclave, and is only supported within enclaves that have the  <b>ENCLAVE_TYPE_VBS</b> enclave type.
-     * @param {Pointer<Void>} DataToEncrypt A pointer to the data that you want to seal. This data can be stored either within the address range of the enclave or within the address range of the host process.
+     * @param {Pointer} DataToEncrypt A pointer to the data that you want to seal. This data can be stored either within the address range of the enclave or within the address range of the host process.
      * @param {Integer} DataToEncryptSize The size of the data that you want to seal, in bytes.
      * @param {Integer} IdentityPolicy A value that specifies how another enclave must be related to the enclave that calls <b>EnclaveSealData</b> for the enclave to unseal the data.
      * @param {Integer} RuntimePolicy A value that indicates whether an enclave that runs with debugging turned on is permitted to unseal the data the this call to <b>EnclaveSealData</b> seals.
@@ -1689,7 +1723,7 @@ class Environment {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} ProtectedBlob A pointer to a buffer where the sealed data should be placed.  This data may be stored either within the address range of the enclave or within the address space of the host process.  If this parameter is NULL, only the size of the protected blob is calculated.
+     * @param {Pointer} ProtectedBlob A pointer to a buffer where the sealed data should be placed.  This data may be stored either within the address range of the enclave or within the address space of the host process.  If this parameter is NULL, only the size of the protected blob is calculated.
      * @param {Integer} BufferSize A pointer to a variable that holds the size of the buffer to which the <i>ProtectedBlob</i> parameter points.  If <i>ProtectedBlob</i> is NULL, this value must be zero.  If <i>ProtectedBlob</i> is not NULL, and if the size of the encrypted data is larger than this value, an error occurs.
      * @param {Pointer<UInt32>} ProtectedBlobSize A pointer to a variable that receives the actual size of the encrypted blob.
      * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -1697,7 +1731,7 @@ class Environment {
      * @since windows10.0.16299
      */
     static EnclaveSealData(DataToEncrypt, DataToEncryptSize, IdentityPolicy, RuntimePolicy, ProtectedBlob, BufferSize, ProtectedBlobSize) {
-        result := DllCall("vertdll.dll\EnclaveSealData", "ptr", DataToEncrypt, "uint", DataToEncryptSize, "int", IdentityPolicy, "uint", RuntimePolicy, "ptr", ProtectedBlob, "uint", BufferSize, "ptr", ProtectedBlobSize, "int")
+        result := DllCall("vertdll.dll\EnclaveSealData", "ptr", DataToEncrypt, "uint", DataToEncryptSize, "int", IdentityPolicy, "uint", RuntimePolicy, "ptr", ProtectedBlob, "uint", BufferSize, "uint*", ProtectedBlobSize, "int")
         return result
     }
 
@@ -1707,9 +1741,9 @@ class Environment {
      * The enclave that calls <b>EnclaveUnsealData</b> must meet the criteria that correspond to the value of the <a href="https://docs.microsoft.com/windows/desktop/api/ntenclv/ne-ntenclv-enclave_sealing_identity_policy">ENCLAVE_SEALING_IDENTITY_POLICY</a> that was specified by the enclave that sealed the data by calling <a href="https://docs.microsoft.com/windows/desktop/api/winenclaveapi/nf-winenclaveapi-enclavesealdata">EnclaveSealData</a>.
      * 
      * <b>EnclaveUnsealData</b> must be called from within an enclave, and is only supported within enclaves that have the  <b>ENCLAVE_TYPE_VBS</b> enclave type.
-     * @param {Pointer<Void>} ProtectedBlob A pointer to the sealed data to unseal.  This data may be stored either within the address range of the enclave or within the address space of the host process
+     * @param {Pointer} ProtectedBlob A pointer to the sealed data to unseal.  This data may be stored either within the address range of the enclave or within the address space of the host process
      * @param {Integer} ProtectedBlobSize The size of the sealed data to unseal, in bytes.
-     * @param {Pointer<Void>} DecryptedData A pointer to a buffer where the unencrypted data should be placed.  This data may be stored either within the address range of the enclave or within the address space of the host process.  If this  parameter is NULL, only the size of the decrypted data is calculated.
+     * @param {Pointer} DecryptedData A pointer to a buffer where the unencrypted data should be placed.  This data may be stored either within the address range of the enclave or within the address space of the host process.  If this  parameter is NULL, only the size of the decrypted data is calculated.
      * @param {Integer} BufferSize The size of the buffer to which the <i>DecryptedData</i> parameter points, in bytes. If <i>DecryptedData</i> is NULL, <i>BufferSize</i> must be zero.  If <i>DecryptedData</i> is not NULL, and if the size of the decrypted data is larger than this value, an error is returned.
      * @param {Pointer<UInt32>} DecryptedDataSize A pointer to a variable that receives the actual size of the decrypted data, in bytes.
      * @param {Pointer<ENCLAVE_IDENTITY>} SealingIdentity An optional pointer to a buffer that should be filled with the identity of the enclave that sealed the data.  If this pointer is NULL, the  identity of the sealing enclave is  not returned.
@@ -1737,7 +1771,7 @@ class Environment {
      * @since windows10.0.16299
      */
     static EnclaveUnsealData(ProtectedBlob, ProtectedBlobSize, DecryptedData, BufferSize, DecryptedDataSize, SealingIdentity, UnsealingFlags) {
-        result := DllCall("vertdll.dll\EnclaveUnsealData", "ptr", ProtectedBlob, "uint", ProtectedBlobSize, "ptr", DecryptedData, "uint", BufferSize, "ptr", DecryptedDataSize, "ptr", SealingIdentity, "ptr", UnsealingFlags, "int")
+        result := DllCall("vertdll.dll\EnclaveUnsealData", "ptr", ProtectedBlob, "uint", ProtectedBlobSize, "ptr", DecryptedData, "uint", BufferSize, "uint*", DecryptedDataSize, "ptr", SealingIdentity, "uint*", UnsealingFlags, "int")
         return result
     }
 
@@ -1746,7 +1780,7 @@ class Environment {
      * @remarks
      * <b>EnclaveGetEnclaveInformation</b> must be called from within an enclave, and is only supported within enclaves that have the  <b>ENCLAVE_TYPE_VBS</b> enclave type.
      * @param {Integer} InformationSize The size of the <a href="https://docs.microsoft.com/windows/desktop/api/ntenclv/ns-ntenclv-enclave_information">ENCLAVE_INFORMATION</a> structure that the <i>EnclaveInformation</i> parameter points to, in bytes.
-     * @param {Pointer<ENCLAVE_INFORMATION>} EnclaveInformation Information about the currently executing enclave.
+     * @param {Pointer} EnclaveInformation Information about the currently executing enclave.
      * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/winenclaveapi/nf-winenclaveapi-enclavegetenclaveinformation
      * @since windows10.0.16299

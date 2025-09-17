@@ -24,7 +24,7 @@ class FDINOTIFICATION extends Win32Struct
 
     /**
      * A null-terminated string.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     psz1 {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class FDINOTIFICATION extends Win32Struct
 
     /**
      * A null-terminated string.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     psz2 {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class FDINOTIFICATION extends Win32Struct
 
     /**
      * A null-terminated string.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     psz3 {
         get => NumGet(this, 24, "ptr")

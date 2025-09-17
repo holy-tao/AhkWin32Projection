@@ -32,7 +32,7 @@ class PARSEDURLA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * [out] A pointer to the beginning of the protocol part of the URL.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszProtocol {
         get => NumGet(this, 8, "ptr")
@@ -54,7 +54,7 @@ class PARSEDURLA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * [out] A pointer to the section of the URL that follows the protocol and colon (':'). For file URLs, the function also skips the leading "//" characters.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszSuffix {
         get => NumGet(this, 24, "ptr")

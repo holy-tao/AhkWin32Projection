@@ -28,7 +28,7 @@ class SERVICE_ASYNC_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hAsyncTaskHandle {
         get => NumGet(this, 16, "ptr")

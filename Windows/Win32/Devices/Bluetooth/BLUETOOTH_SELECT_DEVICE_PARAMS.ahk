@@ -47,7 +47,7 @@ class BLUETOOTH_SELECT_DEVICE_PARAMS extends Win32Struct
 
     /**
      * Sets the information text when not <b>NULL</b>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszInfo {
         get => NumGet(this, 16, "ptr")
@@ -56,7 +56,7 @@ class BLUETOOTH_SELECT_DEVICE_PARAMS extends Win32Struct
 
     /**
      * Handle to the parent window. Set to <b>NULL</b> for no parent.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndParent {
         get => NumGet(this, 24, "ptr")

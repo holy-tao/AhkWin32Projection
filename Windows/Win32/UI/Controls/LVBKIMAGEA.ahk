@@ -126,7 +126,7 @@ class LVBKIMAGEA extends Win32Struct
      * The handle of the background bitmap. This member is valid only if the 
      * 					<b>LVBKIF_SOURCE_HBITMAP</b> flag is set in 
      * 					<b>ulFlags</b>.
-     * @type {Pointer<HBITMAP>}
+     * @type {Pointer<Void>}
      */
     hbm {
         get => NumGet(this, 8, "ptr")
@@ -139,7 +139,7 @@ class LVBKIMAGEA extends Win32Struct
      * Address of a NULL-terminated string that contains the URL of the background image. This member is valid only if the 
      * 					<b>LVBKIF_SOURCE_URL</b> flag is set in 
      * 					<b>ulFlags</b>. This member must be initialized to point to the buffer that contains or receives the text before sending the message.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszImage {
         get => NumGet(this, 16, "ptr")

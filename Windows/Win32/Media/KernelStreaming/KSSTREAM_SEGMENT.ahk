@@ -36,7 +36,7 @@ class KSSTREAM_SEGMENT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     CompletionEvent {
         get => NumGet(this, 24, "ptr")

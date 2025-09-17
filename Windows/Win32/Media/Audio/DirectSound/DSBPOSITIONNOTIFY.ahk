@@ -20,7 +20,7 @@ class DSBPOSITIONNOTIFY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hEventNotify {
         get => NumGet(this, 8, "ptr")

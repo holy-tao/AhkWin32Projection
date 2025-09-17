@@ -24,7 +24,7 @@ class VDS_ISCSI_TARGET_PROP extends Win32Struct
 
     /**
      * A null-terminated, human-readable string that is the iSCSI name of the target.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszIscsiName {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +34,7 @@ class VDS_ISCSI_TARGET_PROP extends Win32Struct
     /**
      * A null-terminated, human-readable string that is the friendly name of the target. This corresponds to the 
      *      iSCSI alias.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszFriendlyName {
         get => NumGet(this, 16, "ptr")

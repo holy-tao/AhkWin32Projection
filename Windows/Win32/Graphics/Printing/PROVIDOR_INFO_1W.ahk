@@ -16,7 +16,7 @@ class PROVIDOR_INFO_1W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that is the name of the print provider.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pName {
         get => NumGet(this, 0, "ptr")
@@ -25,7 +25,7 @@ class PROVIDOR_INFO_1W extends Win32Struct
 
     /**
      * Pointer to a null-terminated environment string specifying the environment the provider dynamic-link library (DLL) is designed to run in.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pEnvironment {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +34,7 @@ class PROVIDOR_INFO_1W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that is the name of the provider .dll.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pDLLName {
         get => NumGet(this, 16, "ptr")

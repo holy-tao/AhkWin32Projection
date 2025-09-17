@@ -37,7 +37,7 @@ class EXCEPINFO extends Win32Struct
 
     /**
      * The name of the exception source. Typically, this is an application name. This field should be filled in by the implementer of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a>.
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     bstrSource {
         get => NumGet(this, 8, "ptr")
@@ -46,7 +46,7 @@ class EXCEPINFO extends Win32Struct
 
     /**
      * The exception description to display. If no description is available, use null.
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     bstrDescription {
         get => NumGet(this, 16, "ptr")
@@ -55,7 +55,7 @@ class EXCEPINFO extends Win32Struct
 
     /**
      * The fully qualified help file path. If no Help is available, use null.
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     bstrHelpFile {
         get => NumGet(this, 24, "ptr")

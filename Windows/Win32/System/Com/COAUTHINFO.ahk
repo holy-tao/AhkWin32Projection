@@ -48,7 +48,7 @@ class COAUTHINFO extends Win32Struct
 
     /**
      * The server principal name to use with the authentication service. If you are using RPC_C_AUTHN_WINNT, the principal name must be <b>NULL</b>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszServerPrincName {
         get => NumGet(this, 8, "ptr")

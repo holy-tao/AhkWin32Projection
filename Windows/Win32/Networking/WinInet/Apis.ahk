@@ -4639,7 +4639,7 @@ class WinInet {
      * @param {Pointer<SYSTEMTIME>} pst Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that contains the date and time to format.
      * @param {Integer} dwRFC RFC format used. Currently, the only valid format is INTERNET_RFC1123_FORMAT.
-     * @param {Pointer<PSTR>} lpszTime Pointer to a string buffer that receives the formatted date and time. The buffer should be of size INTERNET_RFC1123_BUFSIZE.
+     * @param {Pointer} lpszTime Pointer to a string buffer that receives the formatted date and time. The buffer should be of size INTERNET_RFC1123_BUFSIZE.
      * @param {Integer} cbTime Size of the 
      * <i>lpszTime</i> buffer, in bytes.
      * @returns {Integer} Returns TRUE if the function succeeds, or FALSE otherwise. To get extended error information, call 
@@ -4648,8 +4648,6 @@ class WinInet {
      * @since windows5.0
      */
     static InternetTimeFromSystemTimeA(pst, dwRFC, lpszTime, cbTime) {
-        lpszTime := lpszTime is String? StrPtr(lpszTime) : lpszTime
-
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetTimeFromSystemTimeA", "ptr", pst, "uint", dwRFC, "ptr", lpszTime, "uint", cbTime, "int")
@@ -4673,7 +4671,7 @@ class WinInet {
      * @param {Pointer<SYSTEMTIME>} pst Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that contains the date and time to format.
      * @param {Integer} dwRFC RFC format used. Currently, the only valid format is INTERNET_RFC1123_FORMAT.
-     * @param {Pointer<PWSTR>} lpszTime Pointer to a string buffer that receives the formatted date and time. The buffer should be of size INTERNET_RFC1123_BUFSIZE.
+     * @param {Pointer} lpszTime Pointer to a string buffer that receives the formatted date and time. The buffer should be of size INTERNET_RFC1123_BUFSIZE.
      * @param {Integer} cbTime Size of the 
      * <i>lpszTime</i> buffer, in bytes.
      * @returns {Integer} Returns TRUE if the function succeeds, or FALSE otherwise. To get extended error information, call 
@@ -4682,8 +4680,6 @@ class WinInet {
      * @since windows5.0
      */
     static InternetTimeFromSystemTimeW(pst, dwRFC, lpszTime, cbTime) {
-        lpszTime := lpszTime is String? StrPtr(lpszTime) : lpszTime
-
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetTimeFromSystemTimeW", "ptr", pst, "uint", dwRFC, "ptr", lpszTime, "uint", cbTime, "int")
@@ -4701,7 +4697,7 @@ class WinInet {
      * @param {Pointer<SYSTEMTIME>} pst Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that contains the date and time to format.
      * @param {Integer} dwRFC RFC format used. Currently, the only valid format is INTERNET_RFC1123_FORMAT.
-     * @param {Pointer<PSTR>} lpszTime Pointer to a string buffer that receives the formatted date and time. The buffer should be of size INTERNET_RFC1123_BUFSIZE.
+     * @param {Pointer} lpszTime Pointer to a string buffer that receives the formatted date and time. The buffer should be of size INTERNET_RFC1123_BUFSIZE.
      * @param {Integer} cbTime Size of the 
      * <i>lpszTime</i> buffer, in bytes.
      * @returns {Integer} Returns TRUE if the function succeeds, or FALSE otherwise. To get extended error information, call 
@@ -4710,8 +4706,6 @@ class WinInet {
      * @since windows5.0
      */
     static InternetTimeFromSystemTime(pst, dwRFC, lpszTime, cbTime) {
-        lpszTime := lpszTime is String? StrPtr(lpszTime) : lpszTime
-
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetTimeFromSystemTime", "ptr", pst, "uint", dwRFC, "ptr", lpszTime, "uint", cbTime, "int")
@@ -4732,7 +4726,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetTimeToSystemTime as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszTime Pointer to a null-terminated string that specifies the date/time to  be converted.
+     * @param {Pointer<Byte>} lpszTime Pointer to a null-terminated string that specifies the date/time to  be converted.
      * @param {Pointer<SYSTEMTIME>} pst Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the converted time.
      * @returns {Integer} Returns <b>TRUE</b> if the string was converted, or <b>FALSE</b> otherwise. To get extended error information, call 
@@ -4765,7 +4759,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetTimeToSystemTime as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszTime Pointer to a null-terminated string that specifies the date/time to  be converted.
+     * @param {Pointer<Char>} lpszTime Pointer to a null-terminated string that specifies the date/time to  be converted.
      * @param {Pointer<SYSTEMTIME>} pst Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the converted time.
      * @returns {Integer} Returns <b>TRUE</b> if the string was converted, or <b>FALSE</b> otherwise. To get extended error information, call 
@@ -4792,7 +4786,7 @@ class WinInet {
      * @remarks
      * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
      * <div> </div>
-     * @param {Pointer<PSTR>} lpszTime Pointer to a null-terminated string that specifies the date/time to  be converted.
+     * @param {Pointer<Byte>} lpszTime Pointer to a null-terminated string that specifies the date/time to  be converted.
      * @param {Pointer<SYSTEMTIME>} pst Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the converted time.
      * @returns {Integer} Returns <b>TRUE</b> if the string was converted, or <b>FALSE</b> otherwise. To get extended error information, call 
@@ -4843,7 +4837,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetCrackUrl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszUrl Pointer to a string that contains the canonical URL to be cracked.
+     * @param {Pointer<Byte>} lpszUrl Pointer to a string that contains the canonical URL to be cracked.
      * @param {Integer} dwUrlLength Size of the 
      * <i>lpszUrl</i> string, in <b>TCHARs</b>, or zero if 
      * <i>lpszUrl</i> is an ASCIIZ string.
@@ -4896,7 +4890,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetCrackUrl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszUrl Pointer to a string that contains the canonical URL to be cracked.
+     * @param {Pointer<Char>} lpszUrl Pointer to a string that contains the canonical URL to be cracked.
      * @param {Integer} dwUrlLength Size of the 
      * <i>lpszUrl</i> string, in <b>TCHARs</b>, or zero if 
      * <i>lpszUrl</i> is an ASCIIZ string.
@@ -4936,7 +4930,7 @@ class WinInet {
      * @param {Pointer<URL_COMPONENTSA>} lpUrlComponents Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-url_componentsa">URL_COMPONENTS</a> structure that contains the components from which to create the URL.
      * @param {Integer} dwFlags 
-     * @param {Pointer<PSTR>} lpszUrl Pointer to a buffer that receives the URL.
+     * @param {Pointer<Byte>} lpszUrl Pointer to a buffer that receives the URL.
      * @param {Pointer<UInt32>} lpdwUrlLength Pointer to a variable that specifies the size of the 
      * URL <i>lpszUrl</i> buffer, in <b>TCHARs</b>. When the function returns, this parameter receives the size of the URL string, excluding the NULL terminator. If 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, this parameter receives the number of bytes required to hold the created URL.
@@ -4950,7 +4944,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\InternetCreateUrlA", "ptr", lpUrlComponents, "uint", dwFlags, "ptr", lpszUrl, "ptr", lpdwUrlLength, "int")
+        result := DllCall("WININET.dll\InternetCreateUrlA", "ptr", lpUrlComponents, "uint", dwFlags, "ptr", lpszUrl, "uint*", lpdwUrlLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4973,7 +4967,7 @@ class WinInet {
      * @param {Pointer<URL_COMPONENTSW>} lpUrlComponents Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-url_componentsa">URL_COMPONENTS</a> structure that contains the components from which to create the URL.
      * @param {Integer} dwFlags 
-     * @param {Pointer<PWSTR>} lpszUrl Pointer to a buffer that receives the URL.
+     * @param {Pointer<Char>} lpszUrl Pointer to a buffer that receives the URL.
      * @param {Pointer<UInt32>} lpdwUrlLength Pointer to a variable that specifies the size of the 
      * URL <i>lpszUrl</i> buffer, in <b>TCHARs</b>. When the function returns, this parameter receives the size of the URL string, excluding the NULL terminator. If 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, this parameter receives the number of bytes required to hold the created URL.
@@ -4987,7 +4981,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\InternetCreateUrlW", "ptr", lpUrlComponents, "uint", dwFlags, "ptr", lpszUrl, "ptr", lpdwUrlLength, "int")
+        result := DllCall("WININET.dll\InternetCreateUrlW", "ptr", lpUrlComponents, "uint", dwFlags, "ptr", lpszUrl, "uint*", lpdwUrlLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5019,8 +5013,8 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetCanonicalizeUrl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszUrl A pointer to the string that contains the URL to canonicalize.
-     * @param {Pointer<PSTR>} lpszBuffer A pointer to the buffer that receives the resulting canonicalized URL.
+     * @param {Pointer<Byte>} lpszUrl A pointer to the string that contains the URL to canonicalize.
+     * @param {Pointer<Byte>} lpszBuffer A pointer to the buffer that receives the resulting canonicalized URL.
      * @param {Pointer<UInt32>} lpdwBufferLength A pointer to a variable that contains the size, in characters,  of the 
      * <i>lpszBuffer</i> buffer. If the function succeeds, this parameter receives the number of characters actually copied to the 
      * <i>lpszBuffer</i> buffer, which does not include the terminating null character. If the function fails, this parameter receives the required size of the 
@@ -5089,7 +5083,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\InternetCanonicalizeUrlA", "ptr", lpszUrl, "ptr", lpszBuffer, "ptr", lpdwBufferLength, "uint", dwFlags, "int")
+        result := DllCall("WININET.dll\InternetCanonicalizeUrlA", "ptr", lpszUrl, "ptr", lpszBuffer, "uint*", lpdwBufferLength, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5121,8 +5115,8 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetCanonicalizeUrl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszUrl A pointer to the string that contains the URL to canonicalize.
-     * @param {Pointer<PWSTR>} lpszBuffer A pointer to the buffer that receives the resulting canonicalized URL.
+     * @param {Pointer<Char>} lpszUrl A pointer to the string that contains the URL to canonicalize.
+     * @param {Pointer<Char>} lpszBuffer A pointer to the buffer that receives the resulting canonicalized URL.
      * @param {Pointer<UInt32>} lpdwBufferLength A pointer to a variable that contains the size, in characters,  of the 
      * <i>lpszBuffer</i> buffer. If the function succeeds, this parameter receives the number of characters actually copied to the 
      * <i>lpszBuffer</i> buffer, which does not include the terminating null character. If the function fails, this parameter receives the required size of the 
@@ -5191,7 +5185,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\InternetCanonicalizeUrlW", "ptr", lpszUrl, "ptr", lpszBuffer, "ptr", lpdwBufferLength, "uint", dwFlags, "int")
+        result := DllCall("WININET.dll\InternetCanonicalizeUrlW", "ptr", lpszUrl, "ptr", lpszBuffer, "uint*", lpdwBufferLength, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5209,9 +5203,9 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetCombineUrl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszBaseUrl Pointer to a null-terminated string  that contains the base URL.
-     * @param {Pointer<PSTR>} lpszRelativeUrl Pointer to a null-terminated string  that contains the relative URL.
-     * @param {Pointer<PSTR>} lpszBuffer Pointer to a buffer that receives the combined URL.
+     * @param {Pointer<Byte>} lpszBaseUrl Pointer to a null-terminated string  that contains the base URL.
+     * @param {Pointer<Byte>} lpszRelativeUrl Pointer to a null-terminated string  that contains the relative URL.
+     * @param {Pointer<Byte>} lpszBuffer Pointer to a buffer that receives the combined URL.
      * @param {Pointer<UInt32>} lpdwBufferLength Pointer to a variable that contains the size of the 
      * <i>lpszBuffer</i> buffer, in characters. If the function succeeds, this parameter receives the size of the combined URL, in characters, not including the null-terminating character. If the function fails, this parameter receives the size of the required buffer, in characters (including the null-terminating character).
      * @param {Integer} dwFlags 
@@ -5279,7 +5273,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\InternetCombineUrlA", "ptr", lpszBaseUrl, "ptr", lpszRelativeUrl, "ptr", lpszBuffer, "ptr", lpdwBufferLength, "uint", dwFlags, "int")
+        result := DllCall("WININET.dll\InternetCombineUrlA", "ptr", lpszBaseUrl, "ptr", lpszRelativeUrl, "ptr", lpszBuffer, "uint*", lpdwBufferLength, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5297,9 +5291,9 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetCombineUrl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszBaseUrl Pointer to a null-terminated string  that contains the base URL.
-     * @param {Pointer<PWSTR>} lpszRelativeUrl Pointer to a null-terminated string  that contains the relative URL.
-     * @param {Pointer<PWSTR>} lpszBuffer Pointer to a buffer that receives the combined URL.
+     * @param {Pointer<Char>} lpszBaseUrl Pointer to a null-terminated string  that contains the base URL.
+     * @param {Pointer<Char>} lpszRelativeUrl Pointer to a null-terminated string  that contains the relative URL.
+     * @param {Pointer<Char>} lpszBuffer Pointer to a buffer that receives the combined URL.
      * @param {Pointer<UInt32>} lpdwBufferLength Pointer to a variable that contains the size of the 
      * <i>lpszBuffer</i> buffer, in characters. If the function succeeds, this parameter receives the size of the combined URL, in characters, not including the null-terminating character. If the function fails, this parameter receives the size of the required buffer, in characters (including the null-terminating character).
      * @param {Integer} dwFlags 
@@ -5367,7 +5361,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\InternetCombineUrlW", "ptr", lpszBaseUrl, "ptr", lpszRelativeUrl, "ptr", lpszBuffer, "ptr", lpdwBufferLength, "uint", dwFlags, "int")
+        result := DllCall("WININET.dll\InternetCombineUrlW", "ptr", lpszBaseUrl, "ptr", lpszRelativeUrl, "ptr", lpszBuffer, "uint*", lpdwBufferLength, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5399,9 +5393,9 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetOpen as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszAgent Pointer to a <b>null</b>-terminated string  that specifies the name of the application or entity calling the WinINet functions. This name is used as the user agent in the HTTP protocol.
+     * @param {Pointer<Byte>} lpszAgent Pointer to a <b>null</b>-terminated string  that specifies the name of the application or entity calling the WinINet functions. This name is used as the user agent in the HTTP protocol.
      * @param {Integer} dwAccessType 
-     * @param {Pointer<PSTR>} lpszProxy Pointer to a <b>null</b>-terminated string  that specifies the name of the proxy server(s) to use when proxy access is specified by setting 
+     * @param {Pointer<Byte>} lpszProxy Pointer to a <b>null</b>-terminated string  that specifies the name of the proxy server(s) to use when proxy access is specified by setting 
      * <i>dwAccessType</i> to 
      * <b>INTERNET_OPEN_TYPE_PROXY</b>. Do not use an empty string, because 
      * <b>InternetOpen</b> will use it as the proxy name. The WinINet functions recognize only CERN type proxies (HTTP only) and the TIS FTP gateway (FTP only). If Microsoft Internet Explorer is installed, these functions also support SOCKS proxies. FTP requests can be made through a CERN type proxy either by changing them to an HTTP request or by using 
@@ -5410,7 +5404,7 @@ class WinInet {
      * <b>INTERNET_OPEN_TYPE_PROXY</b>, this parameter is ignored and should be <b>NULL</b>. For more information about listing proxy servers, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/enabling-internet-functionality">Listing Proxy Servers</a> section of 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/enabling-internet-functionality">Enabling Internet Functionality</a>.
-     * @param {Pointer<PSTR>} lpszProxyBypass Pointer to a <b>null</b>-terminated string  that specifies an optional list of host names or IP addresses, or both, that should not be routed through the proxy when 
+     * @param {Pointer<Byte>} lpszProxyBypass Pointer to a <b>null</b>-terminated string  that specifies an optional list of host names or IP addresses, or both, that should not be routed through the proxy when 
      * <i>dwAccessType</i> is set to 
      * <b>INTERNET_OPEN_TYPE_PROXY</b>. The list can contain wildcards. Do not use an empty string, because 
      * <b>InternetOpen</b> will use it as the proxy bypass list. If this parameter specifies the "&lt;local&gt;" macro, the function bypasses the proxy for any host name that does not contain a period. 
@@ -5423,7 +5417,9 @@ class WinInet {
      * <i>dwAccessType</i> is not set to 
      * <b>INTERNET_OPEN_TYPE_PROXY</b>, this parameter is ignored and should be <b>NULL</b>.
      * @param {Integer} dwFlags 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} Returns a valid handle that the application passes to subsequent WinINet functions. If 
+     * <b>InternetOpen</b> fails, it returns <b>NULL</b>. To retrieve a specific error message, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetopena
      * @since windows5.0
      */
@@ -5434,10 +5430,11 @@ class WinInet {
 
         A_LastError := 0
 
-        DllCall("WININET.dll\InternetOpenA", "ptr", lpszAgent, "uint", dwAccessType, "ptr", lpszProxy, "ptr", lpszProxyBypass, "uint", dwFlags)
+        result := DllCall("WININET.dll\InternetOpenA", "ptr", lpszAgent, "uint", dwAccessType, "ptr", lpszProxy, "ptr", lpszProxyBypass, "uint", dwFlags)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -5465,9 +5462,9 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetOpen as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszAgent Pointer to a <b>null</b>-terminated string  that specifies the name of the application or entity calling the WinINet functions. This name is used as the user agent in the HTTP protocol.
+     * @param {Pointer<Char>} lpszAgent Pointer to a <b>null</b>-terminated string  that specifies the name of the application or entity calling the WinINet functions. This name is used as the user agent in the HTTP protocol.
      * @param {Integer} dwAccessType 
-     * @param {Pointer<PWSTR>} lpszProxy Pointer to a <b>null</b>-terminated string  that specifies the name of the proxy server(s) to use when proxy access is specified by setting 
+     * @param {Pointer<Char>} lpszProxy Pointer to a <b>null</b>-terminated string  that specifies the name of the proxy server(s) to use when proxy access is specified by setting 
      * <i>dwAccessType</i> to 
      * <b>INTERNET_OPEN_TYPE_PROXY</b>. Do not use an empty string, because 
      * <b>InternetOpen</b> will use it as the proxy name. The WinINet functions recognize only CERN type proxies (HTTP only) and the TIS FTP gateway (FTP only). If Microsoft Internet Explorer is installed, these functions also support SOCKS proxies. FTP requests can be made through a CERN type proxy either by changing them to an HTTP request or by using 
@@ -5476,7 +5473,7 @@ class WinInet {
      * <b>INTERNET_OPEN_TYPE_PROXY</b>, this parameter is ignored and should be <b>NULL</b>. For more information about listing proxy servers, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/enabling-internet-functionality">Listing Proxy Servers</a> section of 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/enabling-internet-functionality">Enabling Internet Functionality</a>.
-     * @param {Pointer<PWSTR>} lpszProxyBypass Pointer to a <b>null</b>-terminated string  that specifies an optional list of host names or IP addresses, or both, that should not be routed through the proxy when 
+     * @param {Pointer<Char>} lpszProxyBypass Pointer to a <b>null</b>-terminated string  that specifies an optional list of host names or IP addresses, or both, that should not be routed through the proxy when 
      * <i>dwAccessType</i> is set to 
      * <b>INTERNET_OPEN_TYPE_PROXY</b>. The list can contain wildcards. Do not use an empty string, because 
      * <b>InternetOpen</b> will use it as the proxy bypass list. If this parameter specifies the "&lt;local&gt;" macro, the function bypasses the proxy for any host name that does not contain a period. 
@@ -5489,7 +5486,9 @@ class WinInet {
      * <i>dwAccessType</i> is not set to 
      * <b>INTERNET_OPEN_TYPE_PROXY</b>, this parameter is ignored and should be <b>NULL</b>.
      * @param {Integer} dwFlags 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} Returns a valid handle that the application passes to subsequent WinINet functions. If 
+     * <b>InternetOpen</b> fails, it returns <b>NULL</b>. To retrieve a specific error message, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetopenw
      * @since windows5.0
      */
@@ -5500,10 +5499,11 @@ class WinInet {
 
         A_LastError := 0
 
-        DllCall("WININET.dll\InternetOpenW", "ptr", lpszAgent, "uint", dwAccessType, "ptr", lpszProxy, "ptr", lpszProxyBypass, "uint", dwFlags)
+        result := DllCall("WININET.dll\InternetOpenW", "ptr", lpszAgent, "uint", dwAccessType, "ptr", lpszProxy, "ptr", lpszProxyBypass, "uint", dwFlags)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -5628,10 +5628,10 @@ class WinInet {
      * > The wininet.h header defines InternetConnect as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hInternet Handle returned by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopena">InternetOpen</a>.
-     * @param {Pointer<PSTR>} lpszServerName Pointer to a <b>null</b>-terminated string that specifies the host name of an Internet server. Alternately, the string can contain the IP number of the site, in ASCII dotted-decimal format (for example, 11.0.1.45).
+     * @param {Pointer<Byte>} lpszServerName Pointer to a <b>null</b>-terminated string that specifies the host name of an Internet server. Alternately, the string can contain the IP number of the site, in ASCII dotted-decimal format (for example, 11.0.1.45).
      * @param {Integer} nServerPort Transmission Control Protocol/Internet Protocol (TCP/IP) port on the server. These flags set only the port that is used. The service is set by the value of
-     * @param {Pointer<PSTR>} lpszUserName Pointer to a <b>null</b>-terminated string that specifies the name of the user to log on. If this parameter is <b>NULL</b>, the function uses an appropriate default. For the FTP protocol, the default is "anonymous".
-     * @param {Pointer<PSTR>} lpszPassword Pointer to a <b>null</b>-terminated string that contains the password to use to log on. If both 
+     * @param {Pointer<Byte>} lpszUserName Pointer to a <b>null</b>-terminated string that specifies the name of the user to log on. If this parameter is <b>NULL</b>, the function uses an appropriate default. For the FTP protocol, the default is "anonymous".
+     * @param {Pointer<Byte>} lpszPassword Pointer to a <b>null</b>-terminated string that contains the password to use to log on. If both 
      * <i>lpszPassword</i> and 
      * <i>lpszUsername</i> are <b>NULL</b>, the function uses the default "anonymous" password. In the case of FTP, the default password is the user's email name. If 
      * <i>lpszPassword</i> is <b>NULL</b>, but 
@@ -5641,7 +5641,9 @@ class WinInet {
      * <i>dwService</i> is INTERNET_SERVICE_FTP, 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/api-flags">INTERNET_FLAG_PASSIVE</a> causes the application to use passive FTP semantics.
      * @param {Pointer} dwContext Pointer to a variable that contains an application-defined value that is used to identify the application context for the returned handle in callbacks.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} Returns a valid handle to the session if the connection is successful, or <b>NULL</b> otherwise. To retrieve extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. An application can also use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why access to the service was denied.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetconnecta
      * @since windows5.0
      */
@@ -5652,10 +5654,11 @@ class WinInet {
 
         A_LastError := 0
 
-        DllCall("WININET.dll\InternetConnectA", "ptr", hInternet, "ptr", lpszServerName, "ushort", nServerPort, "ptr", lpszUserName, "ptr", lpszPassword, "uint", dwService, "uint", dwFlags, "ptr", dwContext)
+        result := DllCall("WININET.dll\InternetConnectA", "ptr", hInternet, "ptr", lpszServerName, "ushort", nServerPort, "ptr", lpszUserName, "ptr", lpszPassword, "uint", dwService, "uint", dwFlags, "ptr", dwContext)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -5743,10 +5746,10 @@ class WinInet {
      * > The wininet.h header defines InternetConnect as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hInternet Handle returned by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopena">InternetOpen</a>.
-     * @param {Pointer<PWSTR>} lpszServerName Pointer to a <b>null</b>-terminated string that specifies the host name of an Internet server. Alternately, the string can contain the IP number of the site, in ASCII dotted-decimal format (for example, 11.0.1.45).
+     * @param {Pointer<Char>} lpszServerName Pointer to a <b>null</b>-terminated string that specifies the host name of an Internet server. Alternately, the string can contain the IP number of the site, in ASCII dotted-decimal format (for example, 11.0.1.45).
      * @param {Integer} nServerPort Transmission Control Protocol/Internet Protocol (TCP/IP) port on the server. These flags set only the port that is used. The service is set by the value of
-     * @param {Pointer<PWSTR>} lpszUserName Pointer to a <b>null</b>-terminated string that specifies the name of the user to log on. If this parameter is <b>NULL</b>, the function uses an appropriate default. For the FTP protocol, the default is "anonymous".
-     * @param {Pointer<PWSTR>} lpszPassword Pointer to a <b>null</b>-terminated string that contains the password to use to log on. If both 
+     * @param {Pointer<Char>} lpszUserName Pointer to a <b>null</b>-terminated string that specifies the name of the user to log on. If this parameter is <b>NULL</b>, the function uses an appropriate default. For the FTP protocol, the default is "anonymous".
+     * @param {Pointer<Char>} lpszPassword Pointer to a <b>null</b>-terminated string that contains the password to use to log on. If both 
      * <i>lpszPassword</i> and 
      * <i>lpszUsername</i> are <b>NULL</b>, the function uses the default "anonymous" password. In the case of FTP, the default password is the user's email name. If 
      * <i>lpszPassword</i> is <b>NULL</b>, but 
@@ -5756,7 +5759,9 @@ class WinInet {
      * <i>dwService</i> is INTERNET_SERVICE_FTP, 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/api-flags">INTERNET_FLAG_PASSIVE</a> causes the application to use passive FTP semantics.
      * @param {Pointer} dwContext Pointer to a variable that contains an application-defined value that is used to identify the application context for the returned handle in callbacks.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} Returns a valid handle to the session if the connection is successful, or <b>NULL</b> otherwise. To retrieve extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. An application can also use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why access to the service was denied.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetconnectw
      * @since windows5.0
      */
@@ -5767,10 +5772,11 @@ class WinInet {
 
         A_LastError := 0
 
-        DllCall("WININET.dll\InternetConnectW", "ptr", hInternet, "ptr", lpszServerName, "ushort", nServerPort, "ptr", lpszUserName, "ptr", lpszPassword, "uint", dwService, "uint", dwFlags, "ptr", dwContext)
+        result := DllCall("WININET.dll\InternetConnectW", "ptr", hInternet, "ptr", lpszServerName, "ushort", nServerPort, "ptr", lpszUserName, "ptr", lpszPassword, "uint", dwService, "uint", dwFlags, "ptr", dwContext)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -5807,8 +5813,8 @@ class WinInet {
      * > The wininet.h header defines InternetOpenUrl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hInternet The handle to the current Internet session. The handle must have been returned by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopena">InternetOpen</a>.
-     * @param {Pointer<PSTR>} lpszUrl A pointer to a <b>null</b>-terminated string variable that specifies the URL to begin reading. Only URLs beginning with ftp:, http:, or https: are supported.
-     * @param {Pointer<PSTR>} lpszHeaders A pointer to a <b>null</b>-terminated string  that specifies the headers to be sent to the HTTP server. For more information, see the description of the 
+     * @param {Pointer<Byte>} lpszUrl A pointer to a <b>null</b>-terminated string variable that specifies the URL to begin reading. Only URLs beginning with ftp:, http:, or https: are supported.
+     * @param {Pointer<Byte>} lpszHeaders A pointer to a <b>null</b>-terminated string  that specifies the headers to be sent to the HTTP server. For more information, see the description of the 
      * <i>lpszHeaders</i> parameter in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpsendrequesta">HttpSendRequest</a> function.
      * @param {Integer} dwHeadersLength The size of the additional headers, in <b>TCHARs</b>. If this parameter is -1L and 
@@ -5816,7 +5822,9 @@ class WinInet {
      * <i>lpszHeaders</i> is assumed to be zero-terminated (ASCIIZ) and the length is calculated.
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext A pointer to a variable that specifies the application-defined value that is passed, along with the returned handle, to any callback functions.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} Returns a valid handle to the URL if the connection is successfully established, or <b>NULL</b> if the connection fails. To retrieve a specific error message, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. To determine why access to the service was denied, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetopenurla
      * @since windows5.0
      */
@@ -5826,10 +5834,11 @@ class WinInet {
 
         A_LastError := 0
 
-        DllCall("WININET.dll\InternetOpenUrlA", "ptr", hInternet, "ptr", lpszUrl, "ptr", lpszHeaders, "uint", dwHeadersLength, "uint", dwFlags, "ptr", dwContext)
+        result := DllCall("WININET.dll\InternetOpenUrlA", "ptr", hInternet, "ptr", lpszUrl, "ptr", lpszHeaders, "uint", dwHeadersLength, "uint", dwFlags, "ptr", dwContext)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -5866,8 +5875,8 @@ class WinInet {
      * > The wininet.h header defines InternetOpenUrl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hInternet The handle to the current Internet session. The handle must have been returned by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopena">InternetOpen</a>.
-     * @param {Pointer<PWSTR>} lpszUrl A pointer to a <b>null</b>-terminated string variable that specifies the URL to begin reading. Only URLs beginning with ftp:, http:, or https: are supported.
-     * @param {Pointer<PWSTR>} lpszHeaders A pointer to a <b>null</b>-terminated string  that specifies the headers to be sent to the HTTP server. For more information, see the description of the 
+     * @param {Pointer<Char>} lpszUrl A pointer to a <b>null</b>-terminated string variable that specifies the URL to begin reading. Only URLs beginning with ftp:, http:, or https: are supported.
+     * @param {Pointer<Char>} lpszHeaders A pointer to a <b>null</b>-terminated string  that specifies the headers to be sent to the HTTP server. For more information, see the description of the 
      * <i>lpszHeaders</i> parameter in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpsendrequesta">HttpSendRequest</a> function.
      * @param {Integer} dwHeadersLength The size of the additional headers, in <b>TCHARs</b>. If this parameter is -1L and 
@@ -5875,7 +5884,9 @@ class WinInet {
      * <i>lpszHeaders</i> is assumed to be zero-terminated (ASCIIZ) and the length is calculated.
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext A pointer to a variable that specifies the application-defined value that is passed, along with the returned handle, to any callback functions.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} Returns a valid handle to the URL if the connection is successfully established, or <b>NULL</b> if the connection fails. To retrieve a specific error message, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. To determine why access to the service was denied, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetopenurlw
      * @since windows5.0
      */
@@ -5885,10 +5896,11 @@ class WinInet {
 
         A_LastError := 0
 
-        DllCall("WININET.dll\InternetOpenUrlW", "ptr", hInternet, "ptr", lpszUrl, "ptr", lpszHeaders, "uint", dwHeadersLength, "uint", dwFlags, "ptr", dwContext)
+        result := DllCall("WININET.dll\InternetOpenUrlW", "ptr", hInternet, "ptr", lpszUrl, "ptr", lpszHeaders, "uint", dwHeadersLength, "uint", dwFlags, "ptr", dwContext)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -5927,7 +5939,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-ftpopenfilea">FtpOpenFile</a>, 
      * or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpopenrequesta">HttpOpenRequest</a>.
-     * @param {Pointer<Void>} lpBuffer Pointer to a buffer that receives the data.
+     * @param {Pointer} lpBuffer Pointer to a buffer that receives the data.
      * @param {Integer} dwNumberOfBytesToRead Number of bytes to be read.
      * @param {Pointer<UInt32>} lpdwNumberOfBytesRead Pointer to a variable that receives the number of bytes read. 
      * <b>InternetReadFile</b> sets this value to zero before doing any work or error checking.
@@ -5940,7 +5952,7 @@ class WinInet {
     static InternetReadFile(hFile, lpBuffer, dwNumberOfBytesToRead, lpdwNumberOfBytesRead) {
         A_LastError := 0
 
-        result := DllCall("WININET.dll\InternetReadFile", "ptr", hFile, "ptr", lpBuffer, "uint", dwNumberOfBytesToRead, "ptr", lpdwNumberOfBytesRead, "int")
+        result := DllCall("WININET.dll\InternetReadFile", "ptr", hFile, "ptr", lpBuffer, "uint", dwNumberOfBytesToRead, "uint*", lpdwNumberOfBytesRead, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6069,7 +6081,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\InternetSetFilePointer", "ptr", hFile, "int", lDistanceToMove, "ptr", lpDistanceToMoveHigh, "uint", dwMoveMethod, "ptr", dwContext, "uint")
+        result := DllCall("WININET.dll\InternetSetFilePointer", "ptr", hFile, "int", lDistanceToMove, "int*", lpDistanceToMoveHigh, "uint", dwMoveMethod, "ptr", dwContext, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -6090,7 +6102,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-ftpopenfilea">FtpOpenFile</a> or an 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-a-hinternet-handles">HINTERNET</a> handle sent by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpsendrequestexa">HttpSendRequestEx</a>.
-     * @param {Pointer<Void>} lpBuffer Pointer to a buffer that contains the data to be written to the file.
+     * @param {Pointer} lpBuffer Pointer to a buffer that contains the data to be written to the file.
      * @param {Integer} dwNumberOfBytesToWrite Number of bytes to be written to the file.
      * @param {Pointer<UInt32>} lpdwNumberOfBytesWritten Pointer to a variable that receives the number of bytes written to the file. 
      * <b>InternetWriteFile</b> sets this value to zero before doing any work or error checking.
@@ -6103,7 +6115,7 @@ class WinInet {
     static InternetWriteFile(hFile, lpBuffer, dwNumberOfBytesToWrite, lpdwNumberOfBytesWritten) {
         A_LastError := 0
 
-        result := DllCall("WININET.dll\InternetWriteFile", "ptr", hFile, "ptr", lpBuffer, "uint", dwNumberOfBytesToWrite, "ptr", lpdwNumberOfBytesWritten, "int")
+        result := DllCall("WININET.dll\InternetWriteFile", "ptr", hFile, "ptr", lpBuffer, "uint", dwNumberOfBytesToWrite, "uint*", lpdwNumberOfBytesWritten, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6145,7 +6157,7 @@ class WinInet {
     static InternetQueryDataAvailable(hFile, lpdwNumberOfBytesAvailable, dwFlags, dwContext) {
         A_LastError := 0
 
-        result := DllCall("WININET.dll\InternetQueryDataAvailable", "ptr", hFile, "ptr", lpdwNumberOfBytesAvailable, "uint", dwFlags, "ptr", dwContext, "int")
+        result := DllCall("WININET.dll\InternetQueryDataAvailable", "ptr", hFile, "uint*", lpdwNumberOfBytesAvailable, "uint", dwFlags, "ptr", dwContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6248,7 +6260,7 @@ class WinInet {
      * @param {Pointer<Void>} hInternet Handle on which to query information.
      * @param {Integer} dwOption Internet option to be queried. This can be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/option-flags">Option Flags</a> values.
-     * @param {Pointer<Void>} lpBuffer Pointer to a buffer that receives the option setting. Strings returned by 
+     * @param {Pointer} lpBuffer Pointer to a buffer that receives the option setting. Strings returned by 
      * <b>InternetQueryOption</b> are globally allocated, so the calling application must  free them when it  is finished using them.
      * @param {Pointer<UInt32>} lpdwBufferLength Pointer to a variable that contains the size of 
      * <i>lpBuffer</i>, in bytes.  When 
@@ -6264,7 +6276,7 @@ class WinInet {
     static InternetQueryOptionA(hInternet, dwOption, lpBuffer, lpdwBufferLength) {
         A_LastError := 0
 
-        result := DllCall("WININET.dll\InternetQueryOptionA", "ptr", hInternet, "uint", dwOption, "ptr", lpBuffer, "ptr", lpdwBufferLength, "int")
+        result := DllCall("WININET.dll\InternetQueryOptionA", "ptr", hInternet, "uint", dwOption, "ptr", lpBuffer, "uint*", lpdwBufferLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6293,7 +6305,7 @@ class WinInet {
      * @param {Pointer<Void>} hInternet Handle on which to query information.
      * @param {Integer} dwOption Internet option to be queried. This can be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/option-flags">Option Flags</a> values.
-     * @param {Pointer<Void>} lpBuffer Pointer to a buffer that receives the option setting. Strings returned by 
+     * @param {Pointer} lpBuffer Pointer to a buffer that receives the option setting. Strings returned by 
      * <b>InternetQueryOption</b> are globally allocated, so the calling application must  free them when it  is finished using them.
      * @param {Pointer<UInt32>} lpdwBufferLength Pointer to a variable that contains the size of 
      * <i>lpBuffer</i>, in bytes.  When 
@@ -6309,7 +6321,7 @@ class WinInet {
     static InternetQueryOptionW(hInternet, dwOption, lpBuffer, lpdwBufferLength) {
         A_LastError := 0
 
-        result := DllCall("WININET.dll\InternetQueryOptionW", "ptr", hInternet, "uint", dwOption, "ptr", lpBuffer, "ptr", lpdwBufferLength, "int")
+        result := DllCall("WININET.dll\InternetQueryOptionW", "ptr", hInternet, "uint", dwOption, "ptr", lpBuffer, "uint*", lpdwBufferLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6471,7 +6483,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-gopheropenfilea">GopherOpenFile</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpopenrequesta">HttpOpenRequest</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopenurla">InternetOpenUrl</a> function.
-     * @param {Pointer<HANDLE>} lphLockRequestInfo Pointer to a handle that receives the lock request handle.
+     * @param {Pointer<Void>} lphLockRequestInfo Pointer to a handle that receives the lock request handle.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetlockrequestfile
@@ -6492,7 +6504,7 @@ class WinInet {
      * @remarks
      * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
      * <div> </div>
-     * @param {Pointer<HANDLE>} hLockRequestInfo Handle to a lock request that was returned by 
+     * @param {Pointer<Void>} hLockRequestInfo Handle to a lock request that was returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetlockrequestfile">InternetLockRequestFile</a>.
      * @returns {Integer} Returns TRUE if successful, or FALSE otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6534,7 +6546,7 @@ class WinInet {
      * > [!NOTE]
      * > The wininet.h header defines InternetGetLastResponseInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<UInt32>} lpdwError Pointer to a variable that receives an error message pertaining to the operation that failed.
-     * @param {Pointer<PSTR>} lpszBuffer Pointer to a buffer that receives the error text.
+     * @param {Pointer<Byte>} lpszBuffer Pointer to a buffer that receives the error text.
      * @param {Pointer<UInt32>} lpdwBufferLength Pointer to a variable that contains the size of the 
      * <i>lpszBuffer</i> buffer, in <b>TCHARs</b>. When the function returns, this parameter contains the size of the string written to the buffer, not including the terminating zero.
      * @returns {Integer} Returns <b>TRUE</b> if error text was successfully written to the buffer, or <b>FALSE</b> otherwise. To get extended error information, call 
@@ -6549,7 +6561,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\InternetGetLastResponseInfoA", "ptr", lpdwError, "ptr", lpszBuffer, "ptr", lpdwBufferLength, "int")
+        result := DllCall("WININET.dll\InternetGetLastResponseInfoA", "uint*", lpdwError, "ptr", lpszBuffer, "uint*", lpdwBufferLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6581,7 +6593,7 @@ class WinInet {
      * > [!NOTE]
      * > The wininet.h header defines InternetGetLastResponseInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<UInt32>} lpdwError Pointer to a variable that receives an error message pertaining to the operation that failed.
-     * @param {Pointer<PWSTR>} lpszBuffer Pointer to a buffer that receives the error text.
+     * @param {Pointer<Char>} lpszBuffer Pointer to a buffer that receives the error text.
      * @param {Pointer<UInt32>} lpdwBufferLength Pointer to a variable that contains the size of the 
      * <i>lpszBuffer</i> buffer, in <b>TCHARs</b>. When the function returns, this parameter contains the size of the string written to the buffer, not including the terminating zero.
      * @returns {Integer} Returns <b>TRUE</b> if error text was successfully written to the buffer, or <b>FALSE</b> otherwise. To get extended error information, call 
@@ -6596,7 +6608,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\InternetGetLastResponseInfoW", "ptr", lpdwError, "ptr", lpszBuffer, "ptr", lpdwBufferLength, "int")
+        result := DllCall("WININET.dll\InternetGetLastResponseInfoW", "uint*", lpdwError, "ptr", lpszBuffer, "uint*", lpdwBufferLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6760,14 +6772,16 @@ class WinInet {
      * > The wininet.h header defines FtpFindFirstFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session returned from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
-     * @param {Pointer<PSTR>} lpszSearchFile Pointer to a <b>null</b>-terminated string that specifies a valid directory path or file name for the FTP server's file system. The string can contain wildcards, but no blank spaces are allowed. If the value of 
+     * @param {Pointer<Byte>} lpszSearchFile Pointer to a <b>null</b>-terminated string that specifies a valid directory path or file name for the FTP server's file system. The string can contain wildcards, but no blank spaces are allowed. If the value of 
      * <i>lpszSearchFile</i> is <b>NULL</b> or if it is an empty string, the function  finds the first file in the current directory on the server.
      * @param {Pointer<WIN32_FIND_DATAA>} lpFindFileData Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-win32_find_dataa">WIN32_FIND_DATA</a> structure that receives information about the found file or directory.
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext Pointer to a variable that specifies the application-defined value that associates this search with any application data. This parameter is used only if the application has already called 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> to set up a status callback function.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} Returns a valid handle for the request if the directory enumeration was started successfully, or returns <b>NULL</b> otherwise. To get a specific error message, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If <b>GetLastError</b> returns ERROR_INTERNET_EXTENDED_ERROR, as in the case where the function finds no matching files, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> function to retrieve the extended error text, as documented in <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-c-handling-errors">Handling Errors</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpfindfirstfilea
      * @since windows5.0
      */
@@ -6776,10 +6790,11 @@ class WinInet {
 
         A_LastError := 0
 
-        DllCall("WININET.dll\FtpFindFirstFileA", "ptr", hConnect, "ptr", lpszSearchFile, "ptr", lpFindFileData, "uint", dwFlags, "ptr", dwContext)
+        result := DllCall("WININET.dll\FtpFindFirstFileA", "ptr", hConnect, "ptr", lpszSearchFile, "ptr", lpFindFileData, "uint", dwFlags, "ptr", dwContext)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -6827,14 +6842,16 @@ class WinInet {
      * > The wininet.h header defines FtpFindFirstFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session returned from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
-     * @param {Pointer<PWSTR>} lpszSearchFile Pointer to a <b>null</b>-terminated string that specifies a valid directory path or file name for the FTP server's file system. The string can contain wildcards, but no blank spaces are allowed. If the value of 
+     * @param {Pointer<Char>} lpszSearchFile Pointer to a <b>null</b>-terminated string that specifies a valid directory path or file name for the FTP server's file system. The string can contain wildcards, but no blank spaces are allowed. If the value of 
      * <i>lpszSearchFile</i> is <b>NULL</b> or if it is an empty string, the function  finds the first file in the current directory on the server.
      * @param {Pointer<WIN32_FIND_DATAW>} lpFindFileData Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-win32_find_dataa">WIN32_FIND_DATA</a> structure that receives information about the found file or directory.
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext Pointer to a variable that specifies the application-defined value that associates this search with any application data. This parameter is used only if the application has already called 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> to set up a status callback function.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} Returns a valid handle for the request if the directory enumeration was started successfully, or returns <b>NULL</b> otherwise. To get a specific error message, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If <b>GetLastError</b> returns ERROR_INTERNET_EXTENDED_ERROR, as in the case where the function finds no matching files, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> function to retrieve the extended error text, as documented in <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-c-handling-errors">Handling Errors</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpfindfirstfilew
      * @since windows5.0
      */
@@ -6843,10 +6860,11 @@ class WinInet {
 
         A_LastError := 0
 
-        DllCall("WININET.dll\FtpFindFirstFileW", "ptr", hConnect, "ptr", lpszSearchFile, "ptr", lpFindFileData, "uint", dwFlags, "ptr", dwContext)
+        result := DllCall("WININET.dll\FtpFindFirstFileW", "ptr", hConnect, "ptr", lpszSearchFile, "ptr", lpFindFileData, "uint", dwFlags, "ptr", dwContext)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -6874,8 +6892,8 @@ class WinInet {
      * > [!NOTE]
      * > The wininet.h header defines FtpGetFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
-     * @param {Pointer<PSTR>} lpszRemoteFile Pointer to a null-terminated string that contains the name of the file to be retrieved.
-     * @param {Pointer<PSTR>} lpszNewFile Pointer to a null-terminated string that contains the name of the file to be created on the local system.
+     * @param {Pointer<Byte>} lpszRemoteFile Pointer to a null-terminated string that contains the name of the file to be retrieved.
+     * @param {Pointer<Byte>} lpszNewFile Pointer to a null-terminated string that contains the name of the file to be created on the local system.
      * @param {Integer} fFailIfExists Indicates whether the function should proceed if a local file of the specified name already exists. If 
      * <i>fFailIfExists</i> is <b>TRUE</b> and the local file exists, 
      * <b>FtpGetFile</b> fails.
@@ -7044,8 +7062,8 @@ class WinInet {
      * > [!NOTE]
      * > The wininet.h header defines FtpGetFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
-     * @param {Pointer<PWSTR>} lpszRemoteFile Pointer to a null-terminated string that contains the name of the file to be retrieved.
-     * @param {Pointer<PWSTR>} lpszNewFile Pointer to a null-terminated string that contains the name of the file to be created on the local system.
+     * @param {Pointer<Char>} lpszRemoteFile Pointer to a null-terminated string that contains the name of the file to be retrieved.
+     * @param {Pointer<Char>} lpszNewFile Pointer to a null-terminated string that contains the name of the file to be created on the local system.
      * @param {Integer} fFailIfExists Indicates whether the function should proceed if a local file of the specified name already exists. If 
      * <i>fFailIfExists</i> is <b>TRUE</b> and the local file exists, 
      * <b>FtpGetFile</b> fails.
@@ -7214,8 +7232,8 @@ class WinInet {
      * > [!NOTE]
      * > The wininet.h header defines FtpPutFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
-     * @param {Pointer<PSTR>} lpszLocalFile Pointer to a null-terminated string that contains the name of the file to be sent from the local system.
-     * @param {Pointer<PSTR>} lpszNewRemoteFile Pointer to a null-terminated string that contains the name of the file to be created on the remote system.
+     * @param {Pointer<Byte>} lpszLocalFile Pointer to a null-terminated string that contains the name of the file to be sent from the local system.
+     * @param {Pointer<Byte>} lpszNewRemoteFile Pointer to a null-terminated string that contains the name of the file to be created on the remote system.
      * @param {Integer} dwFlags Conditions under which the transfers occur. The application should select one transfer type and any of the flags that control how the caching of the file will be controlled.
      * @param {Pointer} dwContext Pointer to a variable that contains the application-defined value that associates this search with any application data. This parameter is used only if the application has already called 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> to set up a status callback.
@@ -7262,8 +7280,8 @@ class WinInet {
      * > [!NOTE]
      * > The wininet.h header defines FtpPutFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
-     * @param {Pointer<PWSTR>} lpszLocalFile Pointer to a null-terminated string that contains the name of the file to be sent from the local system.
-     * @param {Pointer<PWSTR>} lpszNewRemoteFile Pointer to a null-terminated string that contains the name of the file to be created on the remote system.
+     * @param {Pointer<Char>} lpszLocalFile Pointer to a null-terminated string that contains the name of the file to be sent from the local system.
+     * @param {Pointer<Char>} lpszNewRemoteFile Pointer to a null-terminated string that contains the name of the file to be created on the remote system.
      * @param {Integer} dwFlags Conditions under which the transfers occur. The application should select one transfer type and any of the flags that control how the caching of the file will be controlled.
      * @param {Pointer} dwContext Pointer to a variable that contains the application-defined value that associates this search with any application data. This parameter is used only if the application has already called 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> to set up a status callback.
@@ -7288,8 +7306,8 @@ class WinInet {
     /**
      * 
      * @param {Pointer<Void>} hFtpSession 
-     * @param {Pointer<PSTR>} lpszRemoteFile 
-     * @param {Pointer<PWSTR>} lpszNewFile 
+     * @param {Pointer<Byte>} lpszRemoteFile 
+     * @param {Pointer<Char>} lpszNewFile 
      * @param {Integer} fFailIfExists 
      * @param {Integer} dwFlagsAndAttributes 
      * @param {Integer} dwFlags 
@@ -7307,8 +7325,8 @@ class WinInet {
     /**
      * 
      * @param {Pointer<Void>} hFtpSession 
-     * @param {Pointer<PWSTR>} lpszLocalFile 
-     * @param {Pointer<PSTR>} lpszNewRemoteFile 
+     * @param {Pointer<Char>} lpszLocalFile 
+     * @param {Pointer<Byte>} lpszNewRemoteFile 
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext 
      * @returns {Integer} 
@@ -7339,7 +7357,7 @@ class WinInet {
      * > The wininet.h header defines FtpDeleteFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle returned by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a> using <b>INTERNET_SERVICE_FTP</b>.
-     * @param {Pointer<PSTR>} lpszFileName Pointer to a null-terminated string that contains the name of the file to be deleted.
+     * @param {Pointer<Byte>} lpszFileName Pointer to a null-terminated string that contains the name of the file to be deleted.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpdeletefilea
@@ -7375,7 +7393,7 @@ class WinInet {
      * > The wininet.h header defines FtpDeleteFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle returned by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a> using <b>INTERNET_SERVICE_FTP</b>.
-     * @param {Pointer<PWSTR>} lpszFileName Pointer to a null-terminated string that contains the name of the file to be deleted.
+     * @param {Pointer<Char>} lpszFileName Pointer to a null-terminated string that contains the name of the file to be deleted.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpdeletefilew
@@ -7411,8 +7429,8 @@ class WinInet {
      * > [!NOTE]
      * > The wininet.h header defines FtpRenameFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
-     * @param {Pointer<PSTR>} lpszExisting Pointer to a null-terminated string that contains the name of the file to be renamed.
-     * @param {Pointer<PSTR>} lpszNew Pointer to a null-terminated string that contains the new name for the remote file.
+     * @param {Pointer<Byte>} lpszExisting Pointer to a null-terminated string that contains the name of the file to be renamed.
+     * @param {Pointer<Byte>} lpszNew Pointer to a null-terminated string that contains the new name for the remote file.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftprenamefilea
@@ -7449,8 +7467,8 @@ class WinInet {
      * > [!NOTE]
      * > The wininet.h header defines FtpRenameFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
-     * @param {Pointer<PWSTR>} lpszExisting Pointer to a null-terminated string that contains the name of the file to be renamed.
-     * @param {Pointer<PWSTR>} lpszNew Pointer to a null-terminated string that contains the new name for the remote file.
+     * @param {Pointer<Char>} lpszExisting Pointer to a null-terminated string that contains the name of the file to be renamed.
+     * @param {Pointer<Char>} lpszNew Pointer to a null-terminated string that contains the new name for the remote file.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftprenamefilew
@@ -7496,12 +7514,13 @@ class WinInet {
      * > [!NOTE]
      * > The wininet.h header defines FtpOpenFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
-     * @param {Pointer<PSTR>} lpszFileName Pointer to a null-terminated string that contains the name of the file to be accessed.
+     * @param {Pointer<Byte>} lpszFileName Pointer to a null-terminated string that contains the name of the file to be accessed.
      * @param {Integer} dwAccess File  access. This parameter can be <b>GENERIC_READ</b> or <b>GENERIC_WRITE</b>, but not both.
      * @param {Integer} dwFlags Conditions under which the transfers occur. The application should select one transfer type and any of the flags that indicate how the caching of the file will be controlled.
      * @param {Pointer} dwContext Pointer to a variable that contains the application-defined value that associates this search with any application data. This is only used if the application has already called 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> to set up a status callback function.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} Returns a handle if successful, or <b>NULL</b> otherwise. To retrieve a specific error message, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpopenfilea
      * @since windows5.0
      */
@@ -7510,10 +7529,11 @@ class WinInet {
 
         A_LastError := 0
 
-        DllCall("WININET.dll\FtpOpenFileA", "ptr", hConnect, "ptr", lpszFileName, "uint", dwAccess, "uint", dwFlags, "ptr", dwContext)
+        result := DllCall("WININET.dll\FtpOpenFileA", "ptr", hConnect, "ptr", lpszFileName, "uint", dwAccess, "uint", dwFlags, "ptr", dwContext)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -7543,12 +7563,13 @@ class WinInet {
      * > [!NOTE]
      * > The wininet.h header defines FtpOpenFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
-     * @param {Pointer<PWSTR>} lpszFileName Pointer to a null-terminated string that contains the name of the file to be accessed.
+     * @param {Pointer<Char>} lpszFileName Pointer to a null-terminated string that contains the name of the file to be accessed.
      * @param {Integer} dwAccess File  access. This parameter can be <b>GENERIC_READ</b> or <b>GENERIC_WRITE</b>, but not both.
      * @param {Integer} dwFlags Conditions under which the transfers occur. The application should select one transfer type and any of the flags that indicate how the caching of the file will be controlled.
      * @param {Pointer} dwContext Pointer to a variable that contains the application-defined value that associates this search with any application data. This is only used if the application has already called 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> to set up a status callback function.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} Returns a handle if successful, or <b>NULL</b> otherwise. To retrieve a specific error message, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpopenfilew
      * @since windows5.0
      */
@@ -7557,10 +7578,11 @@ class WinInet {
 
         A_LastError := 0
 
-        DllCall("WININET.dll\FtpOpenFileW", "ptr", hConnect, "ptr", lpszFileName, "uint", dwAccess, "uint", dwFlags, "ptr", dwContext)
+        result := DllCall("WININET.dll\FtpOpenFileW", "ptr", hConnect, "ptr", lpszFileName, "uint", dwAccess, "uint", dwFlags, "ptr", dwContext)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -7584,7 +7606,7 @@ class WinInet {
      * > The wininet.h header defines FtpCreateDirectory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle returned by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a> using <b>INTERNET_SERVICE_FTP</b>.
-     * @param {Pointer<PSTR>} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to be created. This can be either a fully qualified path or a name relative to the current directory.
+     * @param {Pointer<Byte>} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to be created. This can be either a fully qualified path or a name relative to the current directory.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to create a directory, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
@@ -7624,7 +7646,7 @@ class WinInet {
      * > The wininet.h header defines FtpCreateDirectory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle returned by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a> using <b>INTERNET_SERVICE_FTP</b>.
-     * @param {Pointer<PWSTR>} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to be created. This can be either a fully qualified path or a name relative to the current directory.
+     * @param {Pointer<Char>} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to be created. This can be either a fully qualified path or a name relative to the current directory.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to create a directory, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
@@ -7663,7 +7685,7 @@ class WinInet {
      * > [!NOTE]
      * > The wininet.h header defines FtpRemoveDirectory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
-     * @param {Pointer<PSTR>} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to be removed. This can be either a fully qualified path or a name relative to the current directory.
+     * @param {Pointer<Byte>} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to be removed. This can be either a fully qualified path or a name relative to the current directory.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to remove a directory, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
@@ -7702,7 +7724,7 @@ class WinInet {
      * > [!NOTE]
      * > The wininet.h header defines FtpRemoveDirectory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
-     * @param {Pointer<PWSTR>} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to be removed. This can be either a fully qualified path or a name relative to the current directory.
+     * @param {Pointer<Char>} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to be removed. This can be either a fully qualified path or a name relative to the current directory.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to remove a directory, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
@@ -7741,7 +7763,7 @@ class WinInet {
      * > [!NOTE]
      * > The wininet.h header defines FtpSetCurrentDirectory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
-     * @param {Pointer<PSTR>} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to become the current working directory. This can be either a fully qualified path or a name relative to the current directory.
+     * @param {Pointer<Byte>} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to become the current working directory. This can be either a fully qualified path or a name relative to the current directory.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to change a directory, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
@@ -7780,7 +7802,7 @@ class WinInet {
      * > [!NOTE]
      * > The wininet.h header defines FtpSetCurrentDirectory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
-     * @param {Pointer<PWSTR>} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to become the current working directory. This can be either a fully qualified path or a name relative to the current directory.
+     * @param {Pointer<Char>} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to become the current working directory. This can be either a fully qualified path or a name relative to the current directory.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to change a directory, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
@@ -7817,7 +7839,7 @@ class WinInet {
      * > [!NOTE]
      * > The wininet.h header defines FtpGetCurrentDirectory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
-     * @param {Pointer<PSTR>} lpszCurrentDirectory Pointer to a null-terminated string that receives the absolute path of the current directory.
+     * @param {Pointer<Byte>} lpszCurrentDirectory Pointer to a null-terminated string that receives the absolute path of the current directory.
      * @param {Pointer<UInt32>} lpdwCurrentDirectory Pointer to a variable that specifies the length of the buffer, in <b>TCHARs</b>. The buffer length must include room for a terminating null character. Using a length of <b>MAX_PATH</b> is sufficient for all paths. When the function returns, the variable receives the number of characters copied into the buffer.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -7829,7 +7851,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\FtpGetCurrentDirectoryA", "ptr", hConnect, "ptr", lpszCurrentDirectory, "ptr", lpdwCurrentDirectory, "int")
+        result := DllCall("WININET.dll\FtpGetCurrentDirectoryA", "ptr", hConnect, "ptr", lpszCurrentDirectory, "uint*", lpdwCurrentDirectory, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7854,7 +7876,7 @@ class WinInet {
      * > [!NOTE]
      * > The wininet.h header defines FtpGetCurrentDirectory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
-     * @param {Pointer<PWSTR>} lpszCurrentDirectory Pointer to a null-terminated string that receives the absolute path of the current directory.
+     * @param {Pointer<Char>} lpszCurrentDirectory Pointer to a null-terminated string that receives the absolute path of the current directory.
      * @param {Pointer<UInt32>} lpdwCurrentDirectory Pointer to a variable that specifies the length of the buffer, in <b>TCHARs</b>. The buffer length must include room for a terminating null character. Using a length of <b>MAX_PATH</b> is sufficient for all paths. When the function returns, the variable receives the number of characters copied into the buffer.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -7866,7 +7888,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\FtpGetCurrentDirectoryW", "ptr", hConnect, "ptr", lpszCurrentDirectory, "ptr", lpdwCurrentDirectory, "int")
+        result := DllCall("WININET.dll\FtpGetCurrentDirectoryW", "ptr", hConnect, "ptr", lpszCurrentDirectory, "uint*", lpdwCurrentDirectory, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7894,7 +7916,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
      * @param {Integer} fExpectResponse A Boolean value that indicates whether the application expects a data connection to be established by the FTP server. This must be set to <b>TRUE</b> if a data connection is expected, or <b>FALSE</b> otherwise.
      * @param {Integer} dwFlags 
-     * @param {Pointer<PSTR>} lpszCommand A pointer to a string that contains the command to send to the FTP server.
+     * @param {Pointer<Byte>} lpszCommand A pointer to a string that contains the command to send to the FTP server.
      * @param {Pointer} dwContext A pointer to a variable that contains an application-defined value used to identify the application context in callback operations.
      * @param {Pointer<Void>} phFtpCommand A pointer to a handle that is created if a valid data socket is opened. The 
      * <i>fExpectResponse</i> parameter must be set to <b>TRUE</b> for 
@@ -7937,7 +7959,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
      * @param {Integer} fExpectResponse A Boolean value that indicates whether the application expects a data connection to be established by the FTP server. This must be set to <b>TRUE</b> if a data connection is expected, or <b>FALSE</b> otherwise.
      * @param {Integer} dwFlags 
-     * @param {Pointer<PWSTR>} lpszCommand A pointer to a string that contains the command to send to the FTP server.
+     * @param {Pointer<Char>} lpszCommand A pointer to a string that contains the command to send to the FTP server.
      * @param {Pointer} dwContext A pointer to a variable that contains an application-defined value used to identify the application context in callback operations.
      * @param {Pointer<Void>} phFtpCommand A pointer to a handle that is created if a valid data socket is opened. The 
      * <i>fExpectResponse</i> parameter must be set to <b>TRUE</b> for 
@@ -7972,7 +7994,7 @@ class WinInet {
      * @since windows5.0
      */
     static FtpGetFileSize(hFile, lpdwFileSizeHigh) {
-        result := DllCall("WININET.dll\FtpGetFileSize", "ptr", hFile, "ptr", lpdwFileSizeHigh, "uint")
+        result := DllCall("WININET.dll\FtpGetFileSize", "ptr", hFile, "uint*", lpdwFileSizeHigh, "uint")
         return result
     }
 
@@ -7994,17 +8016,17 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines GopherCreateLocator as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszHost Pointer to a <b>null</b>-terminated string that contains the name of the host, or a dotted-decimal IP address (such as 198.105.232.1).
+     * @param {Pointer<Byte>} lpszHost Pointer to a <b>null</b>-terminated string that contains the name of the host, or a dotted-decimal IP address (such as 198.105.232.1).
      * @param {Integer} nServerPort Port number on which the Gopher server at 
      * <i>lpszHost</i> lives, in host byte order. If 
      * <i>nServerPort</i> is <b>INTERNET_INVALID_PORT_NUMBER</b>, the default Gopher port is used.
-     * @param {Pointer<PSTR>} lpszDisplayString Pointer to a <b>null</b>-terminated string that contains the Gopher document or directory to be displayed. If this parameter is <b>NULL</b>, the function returns the default directory for the Gopher server.
-     * @param {Pointer<PSTR>} lpszSelectorString Pointer to the selector string to send to the Gopher server in order to retrieve information. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Byte>} lpszDisplayString Pointer to a <b>null</b>-terminated string that contains the Gopher document or directory to be displayed. If this parameter is <b>NULL</b>, the function returns the default directory for the Gopher server.
+     * @param {Pointer<Byte>} lpszSelectorString Pointer to the selector string to send to the Gopher server in order to retrieve information. This parameter can be <b>NULL</b>.
      * @param {Integer} dwGopherType Determines whether 
      * <i>lpszSelectorString</i> refers to a directory or document, and whether the request is Gopher+ or Gopher. The default value, GOPHER_TYPE_DIRECTORY, is used if the value of 
      * <i>dwGopherType</i> is zero. This can be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/gopher-type-values">gopher type values</a>.
-     * @param {Pointer<PSTR>} lpszLocator Pointer to a buffer  that receives the locator string. If 
+     * @param {Pointer<Byte>} lpszLocator Pointer to a buffer  that receives the locator string. If 
      * <i>lpszLocator</i> is <b>NULL</b>, 
      * <i>lpdwBufferLength</i> receives the necessary buffer length, but the function performs no other processing.
      * @param {Pointer<UInt32>} lpdwBufferLength Pointer to a variable that contains the length of the 
@@ -8025,7 +8047,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\GopherCreateLocatorA", "ptr", lpszHost, "ushort", nServerPort, "ptr", lpszDisplayString, "ptr", lpszSelectorString, "uint", dwGopherType, "ptr", lpszLocator, "ptr", lpdwBufferLength, "int")
+        result := DllCall("WININET.dll\GopherCreateLocatorA", "ptr", lpszHost, "ushort", nServerPort, "ptr", lpszDisplayString, "ptr", lpszSelectorString, "uint", dwGopherType, "ptr", lpszLocator, "uint*", lpdwBufferLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8050,17 +8072,17 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines GopherCreateLocator as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszHost Pointer to a <b>null</b>-terminated string that contains the name of the host, or a dotted-decimal IP address (such as 198.105.232.1).
+     * @param {Pointer<Char>} lpszHost Pointer to a <b>null</b>-terminated string that contains the name of the host, or a dotted-decimal IP address (such as 198.105.232.1).
      * @param {Integer} nServerPort Port number on which the Gopher server at 
      * <i>lpszHost</i> lives, in host byte order. If 
      * <i>nServerPort</i> is <b>INTERNET_INVALID_PORT_NUMBER</b>, the default Gopher port is used.
-     * @param {Pointer<PWSTR>} lpszDisplayString Pointer to a <b>null</b>-terminated string that contains the Gopher document or directory to be displayed. If this parameter is <b>NULL</b>, the function returns the default directory for the Gopher server.
-     * @param {Pointer<PWSTR>} lpszSelectorString Pointer to the selector string to send to the Gopher server in order to retrieve information. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Char>} lpszDisplayString Pointer to a <b>null</b>-terminated string that contains the Gopher document or directory to be displayed. If this parameter is <b>NULL</b>, the function returns the default directory for the Gopher server.
+     * @param {Pointer<Char>} lpszSelectorString Pointer to the selector string to send to the Gopher server in order to retrieve information. This parameter can be <b>NULL</b>.
      * @param {Integer} dwGopherType Determines whether 
      * <i>lpszSelectorString</i> refers to a directory or document, and whether the request is Gopher+ or Gopher. The default value, GOPHER_TYPE_DIRECTORY, is used if the value of 
      * <i>dwGopherType</i> is zero. This can be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/gopher-type-values">gopher type values</a>.
-     * @param {Pointer<PWSTR>} lpszLocator Pointer to a buffer  that receives the locator string. If 
+     * @param {Pointer<Char>} lpszLocator Pointer to a buffer  that receives the locator string. If 
      * <i>lpszLocator</i> is <b>NULL</b>, 
      * <i>lpdwBufferLength</i> receives the necessary buffer length, but the function performs no other processing.
      * @param {Pointer<UInt32>} lpdwBufferLength Pointer to a variable that contains the length of the 
@@ -8081,7 +8103,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\GopherCreateLocatorW", "ptr", lpszHost, "ushort", nServerPort, "ptr", lpszDisplayString, "ptr", lpszSelectorString, "uint", dwGopherType, "ptr", lpszLocator, "ptr", lpdwBufferLength, "int")
+        result := DllCall("WININET.dll\GopherCreateLocatorW", "ptr", lpszHost, "ushort", nServerPort, "ptr", lpszDisplayString, "ptr", lpszSelectorString, "uint", dwGopherType, "ptr", lpszLocator, "uint*", lpdwBufferLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8103,7 +8125,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines GopherGetLocatorType as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszLocator Pointer to a null-terminated string that specifies the Gopher locator to be parsed.
+     * @param {Pointer<Byte>} lpszLocator Pointer to a null-terminated string that specifies the Gopher locator to be parsed.
      * @param {Pointer<UInt32>} lpdwGopherType Pointer to a variable that receives the type of the locator. The type is a bitmask that consists of a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/gopher-type-values">gopher type values</a>.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
@@ -8116,7 +8138,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\GopherGetLocatorTypeA", "ptr", lpszLocator, "ptr", lpdwGopherType, "int")
+        result := DllCall("WININET.dll\GopherGetLocatorTypeA", "ptr", lpszLocator, "uint*", lpdwGopherType, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8138,7 +8160,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines GopherGetLocatorType as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszLocator Pointer to a null-terminated string that specifies the Gopher locator to be parsed.
+     * @param {Pointer<Char>} lpszLocator Pointer to a null-terminated string that specifies the Gopher locator to be parsed.
      * @param {Pointer<UInt32>} lpdwGopherType Pointer to a variable that receives the type of the locator. The type is a bitmask that consists of a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/gopher-type-values">gopher type values</a>.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
@@ -8151,7 +8173,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\GopherGetLocatorTypeW", "ptr", lpszLocator, "ptr", lpdwGopherType, "int")
+        result := DllCall("WININET.dll\GopherGetLocatorTypeW", "ptr", lpszLocator, "uint*", lpdwGopherType, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8184,7 +8206,7 @@ class WinInet {
      * > The wininet.h header defines GopherFindFirstFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to a Gopher session returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
-     * @param {Pointer<PSTR>} lpszLocator Pointer to a <b>null</b>-terminated string that contains the name of the item to locate. This can be one of the following: 
+     * @param {Pointer<Byte>} lpszLocator Pointer to a <b>null</b>-terminated string that contains the name of the item to locate. This can be one of the following: 
      * 					
      * 
      * <ul>
@@ -8194,12 +8216,14 @@ class WinInet {
      * <li>Locator created by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-gophercreatelocatora">GopherCreateLocator</a> function.</li>
      * </ul>
-     * @param {Pointer<PSTR>} lpszSearchString Pointer to a buffer that contains the strings to search, if this request is to an index server. Otherwise, this parameter should be <b>NULL</b>.
+     * @param {Pointer<Byte>} lpszSearchString Pointer to a buffer that contains the strings to search, if this request is to an index server. Otherwise, this parameter should be <b>NULL</b>.
      * @param {Pointer<GOPHER_FIND_DATAA>} lpFindData Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-gopher_find_dataa">GOPHER_FIND_DATA</a> structure that receives the information retrieved by this function.
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext Pointer to a variable that contains the application-defined value that associates this search with any application data.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} Returns a valid search handle if successful, or <b>NULL</b> otherwise. To retrieve extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-gopherfindfirstfilea
      * @since windows5.0
      */
@@ -8209,10 +8233,11 @@ class WinInet {
 
         A_LastError := 0
 
-        DllCall("WININET.dll\GopherFindFirstFileA", "ptr", hConnect, "ptr", lpszLocator, "ptr", lpszSearchString, "ptr", lpFindData, "uint", dwFlags, "ptr", dwContext)
+        result := DllCall("WININET.dll\GopherFindFirstFileA", "ptr", hConnect, "ptr", lpszLocator, "ptr", lpszSearchString, "ptr", lpFindData, "uint", dwFlags, "ptr", dwContext)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -8241,7 +8266,7 @@ class WinInet {
      * > The wininet.h header defines GopherFindFirstFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to a Gopher session returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
-     * @param {Pointer<PWSTR>} lpszLocator Pointer to a <b>null</b>-terminated string that contains the name of the item to locate. This can be one of the following: 
+     * @param {Pointer<Char>} lpszLocator Pointer to a <b>null</b>-terminated string that contains the name of the item to locate. This can be one of the following: 
      * 					
      * 
      * <ul>
@@ -8251,12 +8276,14 @@ class WinInet {
      * <li>Locator created by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-gophercreatelocatora">GopherCreateLocator</a> function.</li>
      * </ul>
-     * @param {Pointer<PWSTR>} lpszSearchString Pointer to a buffer that contains the strings to search, if this request is to an index server. Otherwise, this parameter should be <b>NULL</b>.
+     * @param {Pointer<Char>} lpszSearchString Pointer to a buffer that contains the strings to search, if this request is to an index server. Otherwise, this parameter should be <b>NULL</b>.
      * @param {Pointer<GOPHER_FIND_DATAW>} lpFindData Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-gopher_find_dataa">GOPHER_FIND_DATA</a> structure that receives the information retrieved by this function.
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext Pointer to a variable that contains the application-defined value that associates this search with any application data.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} Returns a valid search handle if successful, or <b>NULL</b> otherwise. To retrieve extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-gopherfindfirstfilew
      * @since windows5.0
      */
@@ -8266,10 +8293,11 @@ class WinInet {
 
         A_LastError := 0
 
-        DllCall("WININET.dll\GopherFindFirstFileW", "ptr", hConnect, "ptr", lpszLocator, "ptr", lpszSearchString, "ptr", lpFindData, "uint", dwFlags, "ptr", dwContext)
+        result := DllCall("WININET.dll\GopherFindFirstFileW", "ptr", hConnect, "ptr", lpszLocator, "ptr", lpszSearchString, "ptr", lpFindData, "uint", dwFlags, "ptr", dwContext)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -8296,14 +8324,16 @@ class WinInet {
      * > The wininet.h header defines GopherOpenFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to a Gopher session returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
-     * @param {Pointer<PSTR>} lpszLocator Pointer to a <b>null</b>-terminated string that specifies the file to be opened. Generally, this locator is returned from a call to 
+     * @param {Pointer<Byte>} lpszLocator Pointer to a <b>null</b>-terminated string that specifies the file to be opened. Generally, this locator is returned from a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-gopherfindfirstfilea">GopherFindFirstFile</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetfindnextfilea">InternetFindNextFile</a>. Because the Gopher protocol has no concept of a current directory, the locator is always fully qualified.
-     * @param {Pointer<PSTR>} lpszView Pointer to a <b>null</b>-terminated string that describes the view to open if several views of the file exist on the server. If 
+     * @param {Pointer<Byte>} lpszView Pointer to a <b>null</b>-terminated string that describes the view to open if several views of the file exist on the server. If 
      * <i>lpszView</i> is <b>NULL</b>, the function uses the default file view.
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext Pointer to a variable that contains an application-defined value that associates this operation with any application data.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} Returns a handle if successful, or <b>NULL</b> if the file cannot be opened. To retrieve extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-gopheropenfilea
      * @since windows5.0
      */
@@ -8313,10 +8343,11 @@ class WinInet {
 
         A_LastError := 0
 
-        DllCall("WININET.dll\GopherOpenFileA", "ptr", hConnect, "ptr", lpszLocator, "ptr", lpszView, "uint", dwFlags, "ptr", dwContext)
+        result := DllCall("WININET.dll\GopherOpenFileA", "ptr", hConnect, "ptr", lpszLocator, "ptr", lpszView, "uint", dwFlags, "ptr", dwContext)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -8343,14 +8374,16 @@ class WinInet {
      * > The wininet.h header defines GopherOpenFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to a Gopher session returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
-     * @param {Pointer<PWSTR>} lpszLocator Pointer to a <b>null</b>-terminated string that specifies the file to be opened. Generally, this locator is returned from a call to 
+     * @param {Pointer<Char>} lpszLocator Pointer to a <b>null</b>-terminated string that specifies the file to be opened. Generally, this locator is returned from a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-gopherfindfirstfilea">GopherFindFirstFile</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetfindnextfilea">InternetFindNextFile</a>. Because the Gopher protocol has no concept of a current directory, the locator is always fully qualified.
-     * @param {Pointer<PWSTR>} lpszView Pointer to a <b>null</b>-terminated string that describes the view to open if several views of the file exist on the server. If 
+     * @param {Pointer<Char>} lpszView Pointer to a <b>null</b>-terminated string that describes the view to open if several views of the file exist on the server. If 
      * <i>lpszView</i> is <b>NULL</b>, the function uses the default file view.
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext Pointer to a variable that contains an application-defined value that associates this operation with any application data.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} Returns a handle if successful, or <b>NULL</b> if the file cannot be opened. To retrieve extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-gopheropenfilew
      * @since windows5.0
      */
@@ -8360,10 +8393,11 @@ class WinInet {
 
         A_LastError := 0
 
-        DllCall("WININET.dll\GopherOpenFileW", "ptr", hConnect, "ptr", lpszLocator, "ptr", lpszView, "uint", dwFlags, "ptr", dwContext)
+        result := DllCall("WININET.dll\GopherOpenFileW", "ptr", hConnect, "ptr", lpszLocator, "ptr", lpszView, "uint", dwFlags, "ptr", dwContext)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -8388,8 +8422,8 @@ class WinInet {
      * > The wininet.h header defines GopherGetAttribute as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to a Gopher session returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
-     * @param {Pointer<PSTR>} lpszLocator Pointer to a <b>null</b>-terminated string that identifies the item at the Gopher server on which to return attribute information.
-     * @param {Pointer<PSTR>} lpszAttributeName Pointer to a space-delimited string specifying the names of attributes to return. If 
+     * @param {Pointer<Byte>} lpszLocator Pointer to a <b>null</b>-terminated string that identifies the item at the Gopher server on which to return attribute information.
+     * @param {Pointer<Byte>} lpszAttributeName Pointer to a space-delimited string specifying the names of attributes to return. If 
      * <i>lpszAttributeName</i> is <b>NULL</b>, 
      * <b>GopherGetAttribute</b> returns information about all attributes.
      * @param {Pointer<Byte>} lpBuffer Pointer to an application-defined buffer from which attribute information is retrieved.
@@ -8418,7 +8452,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\GopherGetAttributeA", "ptr", hConnect, "ptr", lpszLocator, "ptr", lpszAttributeName, "ptr", lpBuffer, "uint", dwBufferLength, "ptr", lpdwCharactersReturned, "ptr", lpfnEnumerator, "ptr", dwContext, "int")
+        result := DllCall("WININET.dll\GopherGetAttributeA", "ptr", hConnect, "ptr", lpszLocator, "ptr", lpszAttributeName, "char*", lpBuffer, "uint", dwBufferLength, "uint*", lpdwCharactersReturned, "ptr", lpfnEnumerator, "ptr", dwContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8447,8 +8481,8 @@ class WinInet {
      * > The wininet.h header defines GopherGetAttribute as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect Handle to a Gopher session returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
-     * @param {Pointer<PWSTR>} lpszLocator Pointer to a <b>null</b>-terminated string that identifies the item at the Gopher server on which to return attribute information.
-     * @param {Pointer<PWSTR>} lpszAttributeName Pointer to a space-delimited string specifying the names of attributes to return. If 
+     * @param {Pointer<Char>} lpszLocator Pointer to a <b>null</b>-terminated string that identifies the item at the Gopher server on which to return attribute information.
+     * @param {Pointer<Char>} lpszAttributeName Pointer to a space-delimited string specifying the names of attributes to return. If 
      * <i>lpszAttributeName</i> is <b>NULL</b>, 
      * <b>GopherGetAttribute</b> returns information about all attributes.
      * @param {Pointer<Byte>} lpBuffer Pointer to an application-defined buffer from which attribute information is retrieved.
@@ -8477,7 +8511,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\GopherGetAttributeW", "ptr", hConnect, "ptr", lpszLocator, "ptr", lpszAttributeName, "ptr", lpBuffer, "uint", dwBufferLength, "ptr", lpdwCharactersReturned, "ptr", lpfnEnumerator, "ptr", dwContext, "int")
+        result := DllCall("WININET.dll\GopherGetAttributeW", "ptr", hConnect, "ptr", lpszLocator, "ptr", lpszAttributeName, "char*", lpBuffer, "uint", dwBufferLength, "uint*", lpdwCharactersReturned, "ptr", lpfnEnumerator, "ptr", dwContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8513,9 +8547,9 @@ class WinInet {
      * > The wininet.h header defines HttpOpenRequest as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect A  handle to an HTTP session returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
-     * @param {Pointer<PSTR>} lpszVerb A pointer to a <b>null</b>-terminated string that contains the HTTP verb to use in the request. If this parameter is <b>NULL</b>, the function uses GET as the HTTP verb.
-     * @param {Pointer<PSTR>} lpszObjectName A pointer to a <b>null</b>-terminated string that contains the name of the target object of the specified HTTP verb. This is generally a file name, an executable module, or a search specifier.
-     * @param {Pointer<PSTR>} lpszVersion A pointer to a <b>null</b>-terminated string that contains the HTTP version to use in the request. Settings in Internet Explorer will override the value specified in this parameter. 
+     * @param {Pointer<Byte>} lpszVerb A pointer to a <b>null</b>-terminated string that contains the HTTP verb to use in the request. If this parameter is <b>NULL</b>, the function uses GET as the HTTP verb.
+     * @param {Pointer<Byte>} lpszObjectName A pointer to a <b>null</b>-terminated string that contains the name of the target object of the specified HTTP verb. This is generally a file name, an executable module, or a search specifier.
+     * @param {Pointer<Byte>} lpszVersion A pointer to a <b>null</b>-terminated string that contains the HTTP version to use in the request. Settings in Internet Explorer will override the value specified in this parameter. 
      * 
      * If this parameter is <b>NULL</b>, the function uses an HTTP version of 1.1 or 1.0, depending on the value of the Internet Explorer settings. 
      * 
@@ -8545,8 +8579,8 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PSTR>} lpszReferrer A pointer to a <b>null</b>-terminated string that specifies the URL of the document from which the URL in the request (<i>lpszObjectName</i>) was obtained. If this parameter is <b>NULL</b>, no referrer is specified.
-     * @param {Pointer<PSTR>} lplpszAcceptTypes A pointer to a <b>null</b>-terminated array of strings that indicates media types accepted by the client. Here is an example.
+     * @param {Pointer<Byte>} lpszReferrer A pointer to a <b>null</b>-terminated string that specifies the URL of the document from which the URL in the request (<i>lpszObjectName</i>) was obtained. If this parameter is <b>NULL</b>, no referrer is specified.
+     * @param {Pointer<Byte>} lplpszAcceptTypes A pointer to a <b>null</b>-terminated array of strings that indicates media types accepted by the client. Here is an example.
      * 
      * <c>PCTSTR rgpszAcceptTypes[] = {_T("text//"), NULL};</c>
      * 
@@ -8555,7 +8589,8 @@ class WinInet {
      * If this parameter is <b>NULL</b>, no types are accepted by the client. Servers generally interpret a lack of accept types to indicate that the client accepts only documents of type "text//" (that is, only text documents—no pictures or other binary files).<!--  For more information and  a list of valid media types, see <a href="http://ftp.isi.edu/in-notes/iana/assignments/media-types/">ftp://ftp.isi.edu/in-notes/iana/assignments/media-types/media-types</a>. -->
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext A pointer to a variable that contains the application-defined value that associates this operation with any application data.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} Returns an HTTP request handle if successful, or <b>NULL</b> otherwise. To retrieve extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-httpopenrequesta
      * @since windows5.0
      */
@@ -8564,14 +8599,14 @@ class WinInet {
         lpszObjectName := lpszObjectName is String? StrPtr(lpszObjectName) : lpszObjectName
         lpszVersion := lpszVersion is String? StrPtr(lpszVersion) : lpszVersion
         lpszReferrer := lpszReferrer is String? StrPtr(lpszReferrer) : lpszReferrer
-        lplpszAcceptTypes := lplpszAcceptTypes is String? StrPtr(lplpszAcceptTypes) : lplpszAcceptTypes
 
         A_LastError := 0
 
-        DllCall("WININET.dll\HttpOpenRequestA", "ptr", hConnect, "ptr", lpszVerb, "ptr", lpszObjectName, "ptr", lpszVersion, "ptr", lpszReferrer, "ptr", lplpszAcceptTypes, "uint", dwFlags, "ptr", dwContext)
+        result := DllCall("WININET.dll\HttpOpenRequestA", "ptr", hConnect, "ptr", lpszVerb, "ptr", lpszObjectName, "ptr", lpszVersion, "ptr", lpszReferrer, "ptr", lplpszAcceptTypes, "uint", dwFlags, "ptr", dwContext)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -8604,9 +8639,9 @@ class WinInet {
      * > The wininet.h header defines HttpOpenRequest as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hConnect A handle to an HTTP session returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
-     * @param {Pointer<PWSTR>} lpszVerb A pointer to a <b>null</b>-terminated string that contains the HTTP verb to use in the request. If this parameter is <b>NULL</b>, the function uses GET as the HTTP verb.
-     * @param {Pointer<PWSTR>} lpszObjectName A pointer to a <b>null</b>-terminated string that contains the name of the target object of the specified HTTP verb. This is generally a file name, an executable module, or a search specifier.
-     * @param {Pointer<PWSTR>} lpszVersion A pointer to a <b>null</b>-terminated string that contains the HTTP version to use in the request. Settings in Internet Explorer will override the value specified in this parameter. 
+     * @param {Pointer<Char>} lpszVerb A pointer to a <b>null</b>-terminated string that contains the HTTP verb to use in the request. If this parameter is <b>NULL</b>, the function uses GET as the HTTP verb.
+     * @param {Pointer<Char>} lpszObjectName A pointer to a <b>null</b>-terminated string that contains the name of the target object of the specified HTTP verb. This is generally a file name, an executable module, or a search specifier.
+     * @param {Pointer<Char>} lpszVersion A pointer to a <b>null</b>-terminated string that contains the HTTP version to use in the request. Settings in Internet Explorer will override the value specified in this parameter. 
      * 
      * If this parameter is <b>NULL</b>, the function uses an HTTP version of 1.1 or 1.0, depending on the value of the Internet Explorer settings. 
      * 
@@ -8636,8 +8671,8 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PWSTR>} lpszReferrer A pointer to a <b>null</b>-terminated string that specifies the URL of the document from which the URL in the request (<i>lpszObjectName</i>) was obtained. If this parameter is <b>NULL</b>, no referrer is specified.
-     * @param {Pointer<PWSTR>} lplpszAcceptTypes A pointer to a <b>null</b>-terminated array of strings that indicates media types accepted by the client. Here is an example.
+     * @param {Pointer<Char>} lpszReferrer A pointer to a <b>null</b>-terminated string that specifies the URL of the document from which the URL in the request (<i>lpszObjectName</i>) was obtained. If this parameter is <b>NULL</b>, no referrer is specified.
+     * @param {Pointer<Char>} lplpszAcceptTypes A pointer to a <b>null</b>-terminated array of strings that indicates media types accepted by the client. Here is an example.
      * 
      * <c>PCTSTR rgpszAcceptTypes[] = {_T("text//"), NULL};</c>
      * 
@@ -8646,7 +8681,8 @@ class WinInet {
      * If this parameter is <b>NULL</b>, no types are accepted by the client. Servers generally interpret a lack of accept types to indicate that the client accepts only documents of type "text//" (that is, only text documents—no pictures or other binary files). <!--For more information and  a list of valid media types, see  ftp://ftp.isi.edu/in-notes/iana/assignments/media-types/media-types. -->
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext A pointer to a variable that contains the application-defined value that associates this operation with any application data.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} Returns an HTTP request handle if successful, or <b>NULL</b> otherwise. To retrieve extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-httpopenrequestw
      * @since windows5.0
      */
@@ -8655,14 +8691,14 @@ class WinInet {
         lpszObjectName := lpszObjectName is String? StrPtr(lpszObjectName) : lpszObjectName
         lpszVersion := lpszVersion is String? StrPtr(lpszVersion) : lpszVersion
         lpszReferrer := lpszReferrer is String? StrPtr(lpszReferrer) : lpszReferrer
-        lplpszAcceptTypes := lplpszAcceptTypes is String? StrPtr(lplpszAcceptTypes) : lplpszAcceptTypes
 
         A_LastError := 0
 
-        DllCall("WININET.dll\HttpOpenRequestW", "ptr", hConnect, "ptr", lpszVerb, "ptr", lpszObjectName, "ptr", lpszVersion, "ptr", lpszReferrer, "ptr", lplpszAcceptTypes, "uint", dwFlags, "ptr", dwContext)
+        result := DllCall("WININET.dll\HttpOpenRequestW", "ptr", hConnect, "ptr", lpszVerb, "ptr", lpszObjectName, "ptr", lpszVersion, "ptr", lpszReferrer, "ptr", lplpszAcceptTypes, "uint", dwFlags, "ptr", dwContext)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -8690,7 +8726,7 @@ class WinInet {
      * > The wininet.h header defines HttpAddRequestHeaders as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hRequest A handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpopenrequesta">HttpOpenRequest</a> function.
-     * @param {Pointer<PSTR>} lpszHeaders A pointer to a string variable containing the headers to append to the request. Each header must be terminated by a CR/LF (carriage return/line feed) pair.
+     * @param {Pointer<Byte>} lpszHeaders A pointer to a string variable containing the headers to append to the request. Each header must be terminated by a CR/LF (carriage return/line feed) pair.
      * @param {Integer} dwHeadersLength The size of 
      * <i>lpszHeaders</i>, in <b>TCHARs</b>. If this parameter is -1L, the function assumes that 
      * <i>lpszHeaders</i> is zero-terminated (ASCIIZ), and the length is computed.
@@ -8737,7 +8773,7 @@ class WinInet {
      * > The wininet.h header defines HttpAddRequestHeaders as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hRequest A handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpopenrequesta">HttpOpenRequest</a> function.
-     * @param {Pointer<PWSTR>} lpszHeaders A pointer to a string variable containing the headers to append to the request. Each header must be terminated by a CR/LF (carriage return/line feed) pair.
+     * @param {Pointer<Char>} lpszHeaders A pointer to a string variable containing the headers to append to the request. Each header must be terminated by a CR/LF (carriage return/line feed) pair.
      * @param {Integer} dwHeadersLength The size of 
      * <i>lpszHeaders</i>, in <b>TCHARs</b>. If this parameter is -1L, the function assumes that 
      * <i>lpszHeaders</i> is zero-terminated (ASCIIZ), and the length is computed.
@@ -8797,11 +8833,11 @@ class WinInet {
      * > The wininet.h header defines HttpSendRequest as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hRequest A handle returned by 
      * a call to the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpopenrequesta">HttpOpenRequest</a> function.
-     * @param {Pointer<PSTR>} lpszHeaders A pointer to a <b>null</b>-terminated string  that contains the additional headers to be appended to the request. This parameter can be <b>NULL</b> if there are no additional headers to be appended.
+     * @param {Pointer<Byte>} lpszHeaders A pointer to a <b>null</b>-terminated string  that contains the additional headers to be appended to the request. This parameter can be <b>NULL</b> if there are no additional headers to be appended.
      * @param {Integer} dwHeadersLength The size of the additional headers, in <b>TCHARs</b>. If this parameter is -1L and 
      * <i>lpszHeaders</i> is not <b>NULL</b>, the function assumes that 
      * <i>lpszHeaders</i> is zero-terminated (ASCIIZ), and the length is calculated. See Remarks for specifics.
-     * @param {Pointer<Void>} lpOptional A pointer to a buffer containing any optional data to be sent immediately after the request headers. This parameter is generally used for POST and PUT operations. The optional data can be the resource or information being posted to the server. This parameter can be <b>NULL</b> if there is no optional data to send.
+     * @param {Pointer} lpOptional A pointer to a buffer containing any optional data to be sent immediately after the request headers. This parameter is generally used for POST and PUT operations. The optional data can be the resource or information being posted to the server. This parameter can be <b>NULL</b> if there is no optional data to send.
      * @param {Integer} dwOptionalLength The size of the optional data, in bytes. This parameter can be zero if there is no optional data to send.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -8858,11 +8894,11 @@ class WinInet {
      * > The wininet.h header defines HttpSendRequest as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} hRequest A handle returned by 
      * a call to the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpopenrequesta">HttpOpenRequest</a> function.
-     * @param {Pointer<PWSTR>} lpszHeaders A pointer to a <b>null</b>-terminated string  that contains the additional headers to be appended to the request. This parameter can be <b>NULL</b> if there are no additional headers to be appended.
+     * @param {Pointer<Char>} lpszHeaders A pointer to a <b>null</b>-terminated string  that contains the additional headers to be appended to the request. This parameter can be <b>NULL</b> if there are no additional headers to be appended.
      * @param {Integer} dwHeadersLength The size of the additional headers, in <b>TCHARs</b>. If this parameter is -1L and 
      * <i>lpszHeaders</i> is not <b>NULL</b>, the function assumes that 
      * <i>lpszHeaders</i> is zero-terminated (ASCIIZ), and the length is calculated. See Remarks for specifics.
-     * @param {Pointer<Void>} lpOptional A pointer to a buffer containing any optional data to be sent immediately after the request headers. This parameter is generally used for POST and PUT operations. The optional data can be the resource or information being posted to the server. This parameter can be <b>NULL</b> if there is no optional data to send.
+     * @param {Pointer} lpOptional A pointer to a buffer containing any optional data to be sent immediately after the request headers. This parameter is generally used for POST and PUT operations. The optional data can be the resource or information being posted to the server. This parameter can be <b>NULL</b> if there is no optional data to send.
      * @param {Integer} dwOptionalLength The size of the optional data, in bytes. This parameter can be zero if there is no optional data to send.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -9089,7 +9125,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopenurla">InternetOpenUrl</a> function.
      * @param {Integer} dwInfoLevel A combination of an attribute to be retrieved and flags that modify the request. For a list of possible attribute and modifier values, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/query-info-flags">Query Info Flags</a>.
-     * @param {Pointer<Void>} lpBuffer A pointer to a buffer to receive the requested information. This parameter must not be <b>NULL</b>.
+     * @param {Pointer} lpBuffer A pointer to a buffer to receive the requested information. This parameter must not be <b>NULL</b>.
      * @param {Pointer<UInt32>} lpdwBufferLength A pointer to a variable that contains, on entry, the size in bytes of the buffer pointed to by <i>lpvBuffer</i>. 
      * 
      * When the function returns successfully, this variable contains the number of bytes of information written to the buffer. In the case of a string, the byte count does not include the string's terminating <b>null</b> character.
@@ -9105,7 +9141,7 @@ class WinInet {
     static HttpQueryInfoA(hRequest, dwInfoLevel, lpBuffer, lpdwBufferLength, lpdwIndex) {
         A_LastError := 0
 
-        result := DllCall("WININET.dll\HttpQueryInfoA", "ptr", hRequest, "uint", dwInfoLevel, "ptr", lpBuffer, "ptr", lpdwBufferLength, "ptr", lpdwIndex, "int")
+        result := DllCall("WININET.dll\HttpQueryInfoA", "ptr", hRequest, "uint", dwInfoLevel, "ptr", lpBuffer, "uint*", lpdwBufferLength, "uint*", lpdwIndex, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9150,7 +9186,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopenurla">InternetOpenUrl</a> function.
      * @param {Integer} dwInfoLevel A combination of an attribute to be retrieved and flags that modify the request. For a list of possible attribute and modifier values, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/query-info-flags">Query Info Flags</a>.
-     * @param {Pointer<Void>} lpBuffer A pointer to a buffer to receive the requested information. This parameter must not be <b>NULL</b>.
+     * @param {Pointer} lpBuffer A pointer to a buffer to receive the requested information. This parameter must not be <b>NULL</b>.
      * @param {Pointer<UInt32>} lpdwBufferLength A pointer to a variable that contains, on entry, the size in bytes of the buffer pointed to by <i>lpvBuffer</i>. 
      * 
      * When the function returns successfully, this variable contains the number of bytes of information written to the buffer. In the case of a string, the byte count does not include the string's terminating <b>null</b> character.
@@ -9166,7 +9202,7 @@ class WinInet {
     static HttpQueryInfoW(hRequest, dwInfoLevel, lpBuffer, lpdwBufferLength, lpdwIndex) {
         A_LastError := 0
 
-        result := DllCall("WININET.dll\HttpQueryInfoW", "ptr", hRequest, "uint", dwInfoLevel, "ptr", lpBuffer, "ptr", lpdwBufferLength, "ptr", lpdwIndex, "int")
+        result := DllCall("WININET.dll\HttpQueryInfoW", "ptr", hRequest, "uint", dwInfoLevel, "ptr", lpBuffer, "uint*", lpdwBufferLength, "uint*", lpdwIndex, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9200,9 +9236,9 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetSetCookie as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszUrl Pointer to a <b>null</b>-terminated string that specifies the URL for which the cookie should be set.
-     * @param {Pointer<PSTR>} lpszCookieName Pointer to a <b>null</b>-terminated string that specifies the name to be associated with the cookie data. If this parameter is <b>NULL</b>, no name is associated with the cookie.
-     * @param {Pointer<PSTR>} lpszCookieData Pointer to the actual data to be associated with the URL.
+     * @param {Pointer<Byte>} lpszUrl Pointer to a <b>null</b>-terminated string that specifies the URL for which the cookie should be set.
+     * @param {Pointer<Byte>} lpszCookieName Pointer to a <b>null</b>-terminated string that specifies the name to be associated with the cookie data. If this parameter is <b>NULL</b>, no name is associated with the cookie.
+     * @param {Pointer<Byte>} lpszCookieData Pointer to the actual data to be associated with the URL.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetcookiea
@@ -9249,9 +9285,9 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetSetCookie as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszUrl Pointer to a <b>null</b>-terminated string that specifies the URL for which the cookie should be set.
-     * @param {Pointer<PWSTR>} lpszCookieName Pointer to a <b>null</b>-terminated string that specifies the name to be associated with the cookie data. If this parameter is <b>NULL</b>, no name is associated with the cookie.
-     * @param {Pointer<PWSTR>} lpszCookieData Pointer to the actual data to be associated with the URL.
+     * @param {Pointer<Char>} lpszUrl Pointer to a <b>null</b>-terminated string that specifies the URL for which the cookie should be set.
+     * @param {Pointer<Char>} lpszCookieName Pointer to a <b>null</b>-terminated string that specifies the name to be associated with the cookie data. If this parameter is <b>NULL</b>, no name is associated with the cookie.
+     * @param {Pointer<Char>} lpszCookieData Pointer to the actual data to be associated with the URL.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetcookiew
@@ -9292,9 +9328,9 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetGetCookie as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszUrl A pointer to a <b>null</b>-terminated string that specifies the URL for which cookies are to be retrieved.
-     * @param {Pointer<PSTR>} lpszCookieName Not implemented.
-     * @param {Pointer<PSTR>} lpszCookieData A pointer to a buffer that receives the cookie data. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Byte>} lpszUrl A pointer to a <b>null</b>-terminated string that specifies the URL for which cookies are to be retrieved.
+     * @param {Pointer<Byte>} lpszCookieName Not implemented.
+     * @param {Pointer<Byte>} lpszCookieData A pointer to a buffer that receives the cookie data. This parameter can be <b>NULL</b>.
      * @param {Pointer<UInt32>} lpdwSize A pointer to a variable that specifies the size of the 
      * <i>lpszCookieData</i> parameter buffer, in TCHARs. If the function succeeds, the buffer receives the amount of data copied to the 
      * <i>lpszCookieData</i> buffer. If 
@@ -9361,7 +9397,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\InternetGetCookieA", "ptr", lpszUrl, "ptr", lpszCookieName, "ptr", lpszCookieData, "ptr", lpdwSize, "int")
+        result := DllCall("WININET.dll\InternetGetCookieA", "ptr", lpszUrl, "ptr", lpszCookieName, "ptr", lpszCookieData, "uint*", lpdwSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9389,9 +9425,9 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetGetCookie as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszUrl A pointer to a <b>null</b>-terminated string that specifies the URL for which cookies are to be retrieved.
-     * @param {Pointer<PWSTR>} lpszCookieName Not implemented.
-     * @param {Pointer<PWSTR>} lpszCookieData A pointer to a buffer that receives the cookie data. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Char>} lpszUrl A pointer to a <b>null</b>-terminated string that specifies the URL for which cookies are to be retrieved.
+     * @param {Pointer<Char>} lpszCookieName Not implemented.
+     * @param {Pointer<Char>} lpszCookieData A pointer to a buffer that receives the cookie data. This parameter can be <b>NULL</b>.
      * @param {Pointer<UInt32>} lpdwSize A pointer to a variable that specifies the size of the 
      * <i>lpszCookieData</i> parameter buffer, in TCHARs. If the function succeeds, the buffer receives the amount of data copied to the 
      * <i>lpszCookieData</i> buffer. If 
@@ -9458,7 +9494,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\InternetGetCookieW", "ptr", lpszUrl, "ptr", lpszCookieName, "ptr", lpszCookieData, "ptr", lpdwSize, "int")
+        result := DllCall("WININET.dll\InternetGetCookieW", "ptr", lpszUrl, "ptr", lpszCookieName, "ptr", lpszCookieData, "uint*", lpdwSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9476,12 +9512,12 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetSetCookieEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszUrl Pointer to a <b>null</b>-terminated string that contains the URL for which the cookie should be set. 
+     * @param {Pointer<Byte>} lpszUrl Pointer to a <b>null</b>-terminated string that contains the URL for which the cookie should be set. 
      * 
      * If this pointer is <b>NULL</b>, <b>InternetSetCookieEx</b> fails with an <b>ERROR_INVALID_PARAMETER</b> error.
-     * @param {Pointer<PSTR>} lpszCookieName Pointer to a <b>null</b>-terminated string that  contains the name to associate with this cookie.
+     * @param {Pointer<Byte>} lpszCookieName Pointer to a <b>null</b>-terminated string that  contains the name to associate with this cookie.
      *       If this pointer is <b>NULL</b>, then no name is associated with the cookie.
-     * @param {Pointer<PSTR>} lpszCookieData Pointer to a <b>null</b>-terminated string that contains the data to be associated with the new cookie.
+     * @param {Pointer<Byte>} lpszCookieData Pointer to a <b>null</b>-terminated string that contains the data to be associated with the new cookie.
      * 
      * If this pointer is <b>NULL</b>, <b>InternetSetCookieEx</b> fails with an <b>ERROR_INVALID_PARAMETER</b> error.
      * @param {Integer} dwFlags Flags that control how the function retrieves cookie data:
@@ -9571,12 +9607,12 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetSetCookieEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszUrl Pointer to a <b>null</b>-terminated string that contains the URL for which the cookie should be set. 
+     * @param {Pointer<Char>} lpszUrl Pointer to a <b>null</b>-terminated string that contains the URL for which the cookie should be set. 
      * 
      * If this pointer is <b>NULL</b>, <b>InternetSetCookieEx</b> fails with an <b>ERROR_INVALID_PARAMETER</b> error.
-     * @param {Pointer<PWSTR>} lpszCookieName Pointer to a <b>null</b>-terminated string that  contains the name to associate with this cookie.
+     * @param {Pointer<Char>} lpszCookieName Pointer to a <b>null</b>-terminated string that  contains the name to associate with this cookie.
      *       If this pointer is <b>NULL</b>, then no name is associated with the cookie.
-     * @param {Pointer<PWSTR>} lpszCookieData Pointer to a <b>null</b>-terminated string that contains the data to be associated with the new cookie.
+     * @param {Pointer<Char>} lpszCookieData Pointer to a <b>null</b>-terminated string that contains the data to be associated with the new cookie.
      * 
      * If this pointer is <b>NULL</b>, <b>InternetSetCookieEx</b> fails with an <b>ERROR_INVALID_PARAMETER</b> error.
      * @param {Integer} dwFlags Flags that control how the function retrieves cookie data:
@@ -9666,9 +9702,9 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetGetCookieEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszUrl A pointer to a <b>null</b>-terminated string that contains the URL with which the cookie to retrieve is associated. This parameter cannot be <b>NULL</b> or <b>InternetGetCookieEx</b> fails and returns an  <b>ERROR_INVALID_PARAMETER</b> error.
-     * @param {Pointer<PSTR>} lpszCookieName A pointer to a <b>null</b>-terminated string that contains the name of the cookie to retrieve. This name is case-sensitive.
-     * @param {Pointer<PSTR>} lpszCookieData A pointer to a buffer to receive the cookie data.
+     * @param {Pointer<Byte>} lpszUrl A pointer to a <b>null</b>-terminated string that contains the URL with which the cookie to retrieve is associated. This parameter cannot be <b>NULL</b> or <b>InternetGetCookieEx</b> fails and returns an  <b>ERROR_INVALID_PARAMETER</b> error.
+     * @param {Pointer<Byte>} lpszCookieName A pointer to a <b>null</b>-terminated string that contains the name of the cookie to retrieve. This name is case-sensitive.
+     * @param {Pointer<Byte>} lpszCookieData A pointer to a buffer to receive the cookie data.
      * @param {Pointer<UInt32>} lpdwSize A pointer to a DWORD variable. 
      * 
      * On entry, the variable must contain the size, in TCHARs, of the buffer pointed to by the <i>pchCookieData</i> parameter.
@@ -9739,7 +9775,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\InternetGetCookieExA", "ptr", lpszUrl, "ptr", lpszCookieName, "ptr", lpszCookieData, "ptr", lpdwSize, "uint", dwFlags, "ptr", lpReserved, "int")
+        result := DllCall("WININET.dll\InternetGetCookieExA", "ptr", lpszUrl, "ptr", lpszCookieName, "ptr", lpszCookieData, "uint*", lpdwSize, "uint", dwFlags, "ptr", lpReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9757,9 +9793,9 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetGetCookieEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszUrl A pointer to a <b>null</b>-terminated string that contains the URL with which the cookie to retrieve is associated. This parameter cannot be <b>NULL</b> or <b>InternetGetCookieEx</b> fails and returns an  <b>ERROR_INVALID_PARAMETER</b> error.
-     * @param {Pointer<PWSTR>} lpszCookieName A pointer to a <b>null</b>-terminated string that contains the name of the cookie to retrieve. This name is case-sensitive.
-     * @param {Pointer<PWSTR>} lpszCookieData A pointer to a buffer to receive the cookie data.
+     * @param {Pointer<Char>} lpszUrl A pointer to a <b>null</b>-terminated string that contains the URL with which the cookie to retrieve is associated. This parameter cannot be <b>NULL</b> or <b>InternetGetCookieEx</b> fails and returns an  <b>ERROR_INVALID_PARAMETER</b> error.
+     * @param {Pointer<Char>} lpszCookieName A pointer to a <b>null</b>-terminated string that contains the name of the cookie to retrieve. This name is case-sensitive.
+     * @param {Pointer<Char>} lpszCookieData A pointer to a buffer to receive the cookie data.
      * @param {Pointer<UInt32>} lpdwSize A pointer to a DWORD variable. 
      * 
      * On entry, the variable must contain the size, in TCHARs, of the buffer pointed to by the <i>pchCookieData</i> parameter.
@@ -9830,7 +9866,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\InternetGetCookieExW", "ptr", lpszUrl, "ptr", lpszCookieName, "ptr", lpszCookieData, "ptr", lpdwSize, "uint", dwFlags, "ptr", lpReserved, "int")
+        result := DllCall("WININET.dll\InternetGetCookieExW", "ptr", lpszUrl, "ptr", lpszCookieName, "ptr", lpszCookieData, "uint*", lpdwSize, "uint", dwFlags, "ptr", lpReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9844,11 +9880,12 @@ class WinInet {
      * > WinINet does not support server implementations. In addition, it should not be used from a service. For server implementations or services use [Microsoft Windows HTTP Services (WinHTTP)](/windows/desktop/winhttp/winhttp-start-page).
      * @param {Pointer<INTERNET_COOKIE2>} pCookies Pointer to an array of [**INTERNET\_COOKIE2**](ns-wininet-internet_cookie2.md) structures.
      * @param {Integer} dwCookieCount The number of structures in the array.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetfreecookies
      */
     static InternetFreeCookies(pCookies, dwCookieCount) {
-        DllCall("WININET.dll\InternetFreeCookies", "ptr", pCookies, "uint", dwCookieCount)
+        result := DllCall("WININET.dll\InternetFreeCookies", "ptr", pCookies, "uint", dwCookieCount)
+        return result
     }
 
     /**
@@ -9856,8 +9893,8 @@ class WinInet {
      * @remarks
      * > [!NOTE]
      * > WinINet does not support server implementations. In addition, it should not be used from a service. For server implementations or services use [Microsoft Windows HTTP Services (WinHTTP)](/windows/desktop/winhttp/winhttp-start-page).
-     * @param {Pointer<PWSTR>} pcwszUrl The URL for which to retrieve cookies.
-     * @param {Pointer<PWSTR>} pcwszCookieName The name of the cookie to retrieve. May be NULL.
+     * @param {Pointer<Char>} pcwszUrl The URL for which to retrieve cookies.
+     * @param {Pointer<Char>} pcwszCookieName The name of the cookie to retrieve. May be NULL.
      * @param {Integer} dwFlags Flags of the cookie to retrieve. The following flags are available.
      * 
      * | Value | Meaning |
@@ -9875,7 +9912,7 @@ class WinInet {
         pcwszUrl := pcwszUrl is String? StrPtr(pcwszUrl) : pcwszUrl
         pcwszCookieName := pcwszCookieName is String? StrPtr(pcwszCookieName) : pcwszCookieName
 
-        result := DllCall("WININET.dll\InternetGetCookieEx2", "ptr", pcwszUrl, "ptr", pcwszCookieName, "uint", dwFlags, "ptr", ppCookies, "ptr", pdwCookieCount, "uint")
+        result := DllCall("WININET.dll\InternetGetCookieEx2", "ptr", pcwszUrl, "ptr", pcwszCookieName, "uint", dwFlags, "ptr", ppCookies, "uint*", pdwCookieCount, "uint")
         return result
     }
 
@@ -9884,9 +9921,9 @@ class WinInet {
      * @remarks
      * > [!NOTE]
      * > WinINet does not support server implementations. In addition, it should not be used from a service. For server implementations or services use [Microsoft Windows HTTP Services (WinHTTP)](/windows/desktop/winhttp/winhttp-start-page).
-     * @param {Pointer<PWSTR>} pcwszUrl The URL for which to set the cookie.
+     * @param {Pointer<Char>} pcwszUrl The URL for which to set the cookie.
      * @param {Pointer<INTERNET_COOKIE2>} pCookie Pointer to an [INTERNET\_COOKIE2](ns-wininet-internet_cookie2.md) structure containing the cookie data.
-     * @param {Pointer<PWSTR>} pcwszP3PPolicy String containing the Platform-for-Privacy-Protection (P3P) policy for the cookie. May be NULL.
+     * @param {Pointer<Char>} pcwszP3PPolicy String containing the Platform-for-Privacy-Protection (P3P) policy for the cookie. May be NULL.
      * @param {Integer} dwFlags Flags for the cookie to be set. The following flags are available.
      * 
      * | Value | Meaning |
@@ -9904,7 +9941,7 @@ class WinInet {
         pcwszUrl := pcwszUrl is String? StrPtr(pcwszUrl) : pcwszUrl
         pcwszP3PPolicy := pcwszP3PPolicy is String? StrPtr(pcwszP3PPolicy) : pcwszP3PPolicy
 
-        result := DllCall("WININET.dll\InternetSetCookieEx2", "ptr", pcwszUrl, "ptr", pCookie, "ptr", pcwszP3PPolicy, "uint", dwFlags, "ptr", pdwCookieState, "uint")
+        result := DllCall("WININET.dll\InternetSetCookieEx2", "ptr", pcwszUrl, "ptr", pCookie, "ptr", pcwszP3PPolicy, "uint", dwFlags, "uint*", pdwCookieState, "uint")
         return result
     }
 
@@ -9940,7 +9977,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetCheckConnection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszUrl Pointer to a <b>null</b>-terminated string that specifies the URL to use to check the connection. This value can be <b>NULL</b>.
+     * @param {Pointer<Byte>} lpszUrl Pointer to a <b>null</b>-terminated string that specifies the URL to use to check the connection. This value can be <b>NULL</b>.
      * @param {Integer} dwFlags Options. FLAG_ICC_FORCE_CONNECTION is the only flag that is currently available. If this flag is set, it forces a connection. A sockets connection is attempted in the following order:
      * 
      * <ul>
@@ -9981,7 +10018,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetCheckConnection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszUrl Pointer to a <b>null</b>-terminated string that specifies the URL to use to check the connection. This value can be <b>NULL</b>.
+     * @param {Pointer<Char>} lpszUrl Pointer to a <b>null</b>-terminated string that specifies the URL to use to check the connection. This value can be <b>NULL</b>.
      * @param {Integer} dwFlags Options. FLAG_ICC_FORCE_CONNECTION is the only flag that is currently available. If this flag is set, it forces a connection. A sockets connection is attempted in the following order:
      * 
      * <ul>
@@ -10052,7 +10089,7 @@ class WinInet {
      * 
      * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
      * <div> </div>
-     * @param {Pointer<HWND>} hWnd Handle to the parent window for any needed dialog box. If no dialog box is needed and <b>FLAGS_ERROR_UI_FLAGS_NO_UI</b> is passed to <i>dwFlags</i>, then this parameter can be <b>NULL</b>.
+     * @param {Pointer<Void>} hWnd Handle to the parent window for any needed dialog box. If no dialog box is needed and <b>FLAGS_ERROR_UI_FLAGS_NO_UI</b> is passed to <i>dwFlags</i>, then this parameter can be <b>NULL</b>.
      * @param {Pointer<Void>} hRequest Handle to the Internet connection used in the call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpsendrequesta">HttpSendRequest</a>.
      * @param {Integer} dwError 
@@ -10135,9 +10172,9 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetConfirmZoneCrossing as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HWND>} hWnd Handle to the parent window for any required dialog box.
-     * @param {Pointer<PSTR>} szUrlPrev Pointer to a null-terminated string that specifies the URL that was viewed before the current request was made.
-     * @param {Pointer<PSTR>} szUrlNew Pointer to a null-terminated string that specifies the new URL that the user has requested to view.
+     * @param {Pointer<Void>} hWnd Handle to the parent window for any required dialog box.
+     * @param {Pointer<Byte>} szUrlPrev Pointer to a null-terminated string that specifies the URL that was viewed before the current request was made.
+     * @param {Pointer<Byte>} szUrlNew Pointer to a null-terminated string that specifies the new URL that the user has requested to view.
      * @param {Integer} bPost Not implemented.
      * @returns {Integer} Returns one of the following values.
      * 
@@ -10206,9 +10243,9 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetConfirmZoneCrossing as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HWND>} hWnd Handle to the parent window for any required dialog box.
-     * @param {Pointer<PWSTR>} szUrlPrev Pointer to a null-terminated string that specifies the URL that was viewed before the current request was made.
-     * @param {Pointer<PWSTR>} szUrlNew Pointer to a null-terminated string that specifies the new URL that the user has requested to view.
+     * @param {Pointer<Void>} hWnd Handle to the parent window for any required dialog box.
+     * @param {Pointer<Char>} szUrlPrev Pointer to a null-terminated string that specifies the URL that was viewed before the current request was made.
+     * @param {Pointer<Char>} szUrlNew Pointer to a null-terminated string that specifies the new URL that the user has requested to view.
      * @param {Integer} bPost Not implemented.
      * @returns {Integer} Returns one of the following values.
      * 
@@ -10271,9 +10308,9 @@ class WinInet {
      * 
      * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
      * <div> </div>
-     * @param {Pointer<HWND>} hWnd Handle to the parent window for any required dialog box.
-     * @param {Pointer<PSTR>} szUrlPrev Pointer to a null-terminated string that specifies the URL that was viewed before the current request was made.
-     * @param {Pointer<PSTR>} szUrlNew Pointer to a null-terminated string that specifies the new URL that the user has requested to view.
+     * @param {Pointer<Void>} hWnd Handle to the parent window for any required dialog box.
+     * @param {Pointer<Byte>} szUrlPrev Pointer to a null-terminated string that specifies the URL that was viewed before the current request was made.
+     * @param {Pointer<Byte>} szUrlNew Pointer to a null-terminated string that specifies the new URL that the user has requested to view.
      * @param {Integer} bPost Not implemented.
      * @returns {Integer} Returns one of the following values.
      * 
@@ -10359,10 +10396,10 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines CreateUrlCacheEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszUrlName Pointer to a string value that contains the name of the URL. The string must contain a value; an empty string will cause <b>CreateUrlCacheEntry</b> to fail. In addition, the string must not contain any escape characters.
+     * @param {Pointer<Byte>} lpszUrlName Pointer to a string value that contains the name of the URL. The string must contain a value; an empty string will cause <b>CreateUrlCacheEntry</b> to fail. In addition, the string must not contain any escape characters.
      * @param {Integer} dwExpectedFileSize Expected size of the file needed to store the data that corresponds to the source entity, in <b>TCHARs</b>. If the expected size is unknown, set this value to zero.
-     * @param {Pointer<PSTR>} lpszFileExtension Pointer to a string value that contains an extension name of the file in the local storage.
-     * @param {Pointer<PSTR>} lpszFileName Pointer to a buffer that receives the file name. The buffer should be large enough  to store the path of the created file (at least MAX_PATH  characters in length).
+     * @param {Pointer<Byte>} lpszFileExtension Pointer to a string value that contains an extension name of the file in the local storage.
+     * @param {Pointer<Byte>} lpszFileName Pointer to a buffer that receives the file name. The buffer should be large enough  to store the path of the created file (at least MAX_PATH  characters in length).
      * @param {Integer} dwReserved This parameter is reserved and must be 0.
      * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
      * 
@@ -10418,10 +10455,10 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines CreateUrlCacheEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszUrlName Pointer to a string value that contains the name of the URL. The string must contain a value; an empty string will cause <b>CreateUrlCacheEntry</b> to fail. In addition, the string must not contain any escape characters.
+     * @param {Pointer<Char>} lpszUrlName Pointer to a string value that contains the name of the URL. The string must contain a value; an empty string will cause <b>CreateUrlCacheEntry</b> to fail. In addition, the string must not contain any escape characters.
      * @param {Integer} dwExpectedFileSize Expected size of the file needed to store the data that corresponds to the source entity, in <b>TCHARs</b>. If the expected size is unknown, set this value to zero.
-     * @param {Pointer<PWSTR>} lpszFileExtension Pointer to a string value that contains an extension name of the file in the local storage.
-     * @param {Pointer<PWSTR>} lpszFileName Pointer to a buffer that receives the file name. The buffer should be large enough  to store the path of the created file (at least MAX_PATH  characters in length).
+     * @param {Pointer<Char>} lpszFileExtension Pointer to a string value that contains an extension name of the file in the local storage.
+     * @param {Pointer<Char>} lpszFileName Pointer to a buffer that receives the file name. The buffer should be large enough  to store the path of the created file (at least MAX_PATH  characters in length).
      * @param {Integer} dwReserved This parameter is reserved and must be 0.
      * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
      * 
@@ -10471,8 +10508,8 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines CommitUrlCacheEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszUrlName Pointer to a string variable that contains the source name of the cache entry. The name string must be unique and should not contain any escape characters.
-     * @param {Pointer<PSTR>} lpszLocalFileName Pointer to a string variable that contains the name of the local file that is being cached. This should be the same name as that returned by 
+     * @param {Pointer<Byte>} lpszUrlName Pointer to a string variable that contains the source name of the cache entry. The name string must be unique and should not contain any escape characters.
+     * @param {Pointer<Byte>} lpszLocalFileName Pointer to a string variable that contains the name of the local file that is being cached. This should be the same name as that returned by 
      * <b>CreateUrlCacheEntryA</b>.
      * @param {Pointer} ExpireTime <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the expire date and time (in Greenwich mean time) of the file that is being cached. If the expire date and time is unknown, set this parameter to zero.
      * @param {Pointer} LastModifiedTime <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the last modified date and time (in Greenwich mean time) of the URL that is being cached. If the last modified date and time is unknown, set this parameter to zero.
@@ -10580,7 +10617,7 @@ class WinInet {
      * <i>lpHeaderInfo</i> is not <b>NULL</b>, this value is assumed to indicate the size of the buffer that  stores the header information. An application can maintain headers as part of the data and provide 
      * <i>cchHeaderInfo</i> together with a <b>NULL</b> value for 
      * <i>lpHeaderInfo</i>.
-     * @param {Pointer<PSTR>} lpszOriginalUrl Pointer to a string  that contains the original URL, if redirection has occurred.
+     * @param {Pointer<Byte>} lpszOriginalUrl Pointer to a string  that contains the original URL, if redirection has occurred.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
      * 
@@ -10620,11 +10657,12 @@ class WinInet {
 
         lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
         lpszLocalFileName := lpszLocalFileName is String? StrPtr(lpszLocalFileName) : lpszLocalFileName
+        lpszFileExtension := lpszFileExtension is String? StrPtr(lpszFileExtension) : lpszFileExtension
         lpszOriginalUrl := lpszOriginalUrl is String? StrPtr(lpszOriginalUrl) : lpszOriginalUrl
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\CommitUrlCacheEntryA", "ptr", lpszUrlName, "ptr", lpszLocalFileName, "ptr", ExpireTime, "ptr", LastModifiedTime, "uint", CacheEntryType, "ptr", lpHeaderInfo, "uint", cchHeaderInfo, "ptr", lpszFileExtension, "ptr", lpszOriginalUrl, "int")
+        result := DllCall("WININET.dll\CommitUrlCacheEntryA", "ptr", lpszUrlName, "ptr", lpszLocalFileName, "ptr", ExpireTime, "ptr", LastModifiedTime, "uint", CacheEntryType, "char*", lpHeaderInfo, "uint", cchHeaderInfo, "ptr", lpszFileExtension, "ptr", lpszOriginalUrl, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10657,8 +10695,8 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines CommitUrlCacheEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszUrlName Pointer to a string variable that contains the source name of the cache entry. The name string must be unique and should not contain any escape characters.
-     * @param {Pointer<PWSTR>} lpszLocalFileName Pointer to a string variable that contains the name of the local file that is being cached. This should be the same name as that returned by 
+     * @param {Pointer<Char>} lpszUrlName Pointer to a string variable that contains the source name of the cache entry. The name string must be unique and should not contain any escape characters.
+     * @param {Pointer<Char>} lpszLocalFileName Pointer to a string variable that contains the name of the local file that is being cached. This should be the same name as that returned by 
      * <b>CreateUrlCacheEntryW</b>.
      * @param {Pointer} ExpireTime <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the expire date and time (in Greenwich mean time) of the file that is being cached. If the expire date and time is unknown, set this parameter to zero.
      * @param {Pointer} LastModifiedTime <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the last modified date and time (in Greenwich mean time) of the URL that is being cached. If the last modified date and time is unknown, set this parameter to zero.
@@ -10760,14 +10798,14 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PWSTR>} lpszHeaderInfo Pointer to the buffer that contains the header information. If this parameter is not <b>NULL</b>, the header information is treated as extended attributes of the URL that are returned in the 
+     * @param {Pointer<Char>} lpszHeaderInfo Pointer to the buffer that contains the header information. If this parameter is not <b>NULL</b>, the header information is treated as extended attributes of the URL that are returned in the 
      * <b>lpHeaderInfo</b> 
      * member of the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure.
      * @param {Integer} cchHeaderInfo Size of the header information, in <b>TCHARs</b>. If 
      * <i>lpHeaderInfo</i> is not <b>NULL</b>, this value is assumed to indicate the size of the buffer that  stores the header information. An application can maintain headers as part of the data and provide 
      * <i>cchHeaderInfo</i> together with a <b>NULL</b> value for 
      * <i>lpHeaderInfo</i>.
-     * @param {Pointer<PWSTR>} lpszOriginalUrl Pointer to a string  that contains the original URL, if redirection has occurred.
+     * @param {Pointer<Char>} lpszOriginalUrl Pointer to a string  that contains the original URL, if redirection has occurred.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
      * 
@@ -10808,6 +10846,7 @@ class WinInet {
         lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
         lpszLocalFileName := lpszLocalFileName is String? StrPtr(lpszLocalFileName) : lpszLocalFileName
         lpszHeaderInfo := lpszHeaderInfo is String? StrPtr(lpszHeaderInfo) : lpszHeaderInfo
+        lpszFileExtension := lpszFileExtension is String? StrPtr(lpszFileExtension) : lpszFileExtension
         lpszOriginalUrl := lpszOriginalUrl is String? StrPtr(lpszOriginalUrl) : lpszOriginalUrl
 
         A_LastError := 0
@@ -10837,8 +10876,8 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines RetrieveUrlCacheEntryFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszUrlName Pointer to a string that contains the URL of the resource associated with the cache entry. This must be a unique name. The name string should not contain any escape characters.
-     * @param {Pointer<INTERNET_CACHE_ENTRY_INFOA>} lpCacheEntryInfo Pointer to a cache entry information buffer. If the buffer is not sufficient, this function returns ERROR_INSUFFICIENT_BUFFER and sets 
+     * @param {Pointer<Byte>} lpszUrlName Pointer to a string that contains the URL of the resource associated with the cache entry. This must be a unique name. The name string should not contain any escape characters.
+     * @param {Pointer} lpCacheEntryInfo Pointer to a cache entry information buffer. If the buffer is not sufficient, this function returns ERROR_INSUFFICIENT_BUFFER and sets 
      * <i>lpdwCacheEntryInfoBufferSize</i> to the number of bytes required.
      * @param {Pointer<UInt32>} lpcbCacheEntryInfo Pointer to an unsigned long integer variable that specifies the size of the 
      * <i>lpCacheEntryInfo</i> buffer, in bytes. When the function returns, the variable contains the size, in bytes, of the actual buffer used or the number of bytes required to retrieve the cache entry file. The caller should check the return value in this parameter. If the return size is less than or equal to the size passed in, all the relevant data has been returned.
@@ -10886,7 +10925,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\RetrieveUrlCacheEntryFileA", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, "ptr", lpcbCacheEntryInfo, "uint", dwReserved, "int")
+        result := DllCall("WININET.dll\RetrieveUrlCacheEntryFileA", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, "uint*", lpcbCacheEntryInfo, "uint", dwReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10911,8 +10950,8 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines RetrieveUrlCacheEntryFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszUrlName Pointer to a string that contains the URL of the resource associated with the cache entry. This must be a unique name. The name string should not contain any escape characters.
-     * @param {Pointer<INTERNET_CACHE_ENTRY_INFOW>} lpCacheEntryInfo Pointer to a cache entry information buffer. If the buffer is not sufficient, this function returns ERROR_INSUFFICIENT_BUFFER and sets 
+     * @param {Pointer<Char>} lpszUrlName Pointer to a string that contains the URL of the resource associated with the cache entry. This must be a unique name. The name string should not contain any escape characters.
+     * @param {Pointer} lpCacheEntryInfo Pointer to a cache entry information buffer. If the buffer is not sufficient, this function returns ERROR_INSUFFICIENT_BUFFER and sets 
      * <i>lpdwCacheEntryInfoBufferSize</i> to the number of bytes required.
      * @param {Pointer<UInt32>} lpcbCacheEntryInfo Pointer to an unsigned long integer variable that specifies the size of the 
      * <i>lpCacheEntryInfo</i> buffer, in bytes. When the function returns, the variable contains the size, in bytes, of the actual buffer used or the number of bytes required to retrieve the cache entry file. The caller should check the return value in this parameter. If the return size is less than or equal to the size passed in, all the relevant data has been returned.
@@ -10960,7 +10999,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\RetrieveUrlCacheEntryFileW", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, "ptr", lpcbCacheEntryInfo, "uint", dwReserved, "int")
+        result := DllCall("WININET.dll\RetrieveUrlCacheEntryFileW", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, "uint*", lpcbCacheEntryInfo, "uint", dwReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10984,7 +11023,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines UnlockUrlCacheEntryFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszUrlName Pointer to a <b>null</b>-terminated string that specifies the source name of the cache entry that is being unlocked. The name string should not contain any escape characters.
+     * @param {Pointer<Byte>} lpszUrlName Pointer to a <b>null</b>-terminated string that specifies the source name of the cache entry that is being unlocked. The name string should not contain any escape characters.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. ERROR_FILE_NOT_FOUND indicates that the cache entry specified by the source name is not found in the cache storage.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-unlockurlcacheentryfilea
@@ -11021,7 +11060,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines UnlockUrlCacheEntryFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszUrlName Pointer to a <b>null</b>-terminated string that specifies the source name of the cache entry that is being unlocked. The name string should not contain any escape characters.
+     * @param {Pointer<Char>} lpszUrlName Pointer to a <b>null</b>-terminated string that specifies the source name of the cache entry that is being unlocked. The name string should not contain any escape characters.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. ERROR_FILE_NOT_FOUND indicates that the cache entry specified by the source name is not found in the cache storage.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-unlockurlcacheentryfilew
@@ -11052,7 +11091,7 @@ class WinInet {
      * 
      * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
      * <div> </div>
-     * @param {Pointer<PSTR>} lpszUrlName Pointer to a <b>null</b>-terminated string that specifies the source name of the cache entry that is being unlocked. The name string should not contain any escape characters.
+     * @param {Pointer<Byte>} lpszUrlName Pointer to a <b>null</b>-terminated string that specifies the source name of the cache entry that is being unlocked. The name string should not contain any escape characters.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. ERROR_FILE_NOT_FOUND indicates that the cache entry specified by the source name is not found in the cache storage.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-unlockurlcacheentryfile
@@ -11089,13 +11128,13 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines RetrieveUrlCacheEntryStream as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszUrlName Pointer to a null-terminated string that contains the source name of the cache entry. This must be a unique name. The name string should not contain any escape characters.
-     * @param {Pointer<INTERNET_CACHE_ENTRY_INFOA>} lpCacheEntryInfo Pointer to an 
+     * @param {Pointer<Byte>} lpszUrlName Pointer to a null-terminated string that contains the source name of the cache entry. This must be a unique name. The name string should not contain any escape characters.
+     * @param {Pointer} lpCacheEntryInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure that receives information about the cache entry.
      * @param {Pointer<UInt32>} lpcbCacheEntryInfo Pointer to a variable that specifies the size, in bytes, of the 
      * <i>lpCacheEntryInfo</i> buffer. When the function returns, the variable receives the number of bytes copied to the buffer or the required size, in bytes, of the buffer. Note that this buffer size must accommodate both the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure and the associated strings that are stored immediately following it.
      * @param {Integer} fRandomRead Whether the stream is open for random access. Set the flag to <b>TRUE</b> to open the stream for random access.
-     * @returns {Pointer<HANDLE>} If the function succeeds, the function returns a valid handle for use in the 
+     * @returns {Pointer<Void>} If the function succeeds, the function returns a valid handle for use in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-readurlcacheentrystream">ReadUrlCacheEntryStream</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-unlockurlcacheentrystream">UnlockUrlCacheEntryStream</a> functions.
      * 
@@ -11145,7 +11184,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\RetrieveUrlCacheEntryStreamA", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, "ptr", lpcbCacheEntryInfo, "int", fRandomRead, "uint", dwReserved, "ptr")
+        result := DllCall("WININET.dll\RetrieveUrlCacheEntryStreamA", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, "uint*", lpcbCacheEntryInfo, "int", fRandomRead, "uint", dwReserved)
         if(A_LastError)
             throw OSError()
 
@@ -11169,13 +11208,13 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines RetrieveUrlCacheEntryStream as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszUrlName Pointer to a null-terminated string that contains the source name of the cache entry. This must be a unique name. The name string should not contain any escape characters.
-     * @param {Pointer<INTERNET_CACHE_ENTRY_INFOW>} lpCacheEntryInfo Pointer to an 
+     * @param {Pointer<Char>} lpszUrlName Pointer to a null-terminated string that contains the source name of the cache entry. This must be a unique name. The name string should not contain any escape characters.
+     * @param {Pointer} lpCacheEntryInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure that receives information about the cache entry.
      * @param {Pointer<UInt32>} lpcbCacheEntryInfo Pointer to a variable that specifies the size, in bytes, of the 
      * <i>lpCacheEntryInfo</i> buffer. When the function returns, the variable receives the number of bytes copied to the buffer or the required size, in bytes, of the buffer. Note that this buffer size must accommodate both the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure and the associated strings that are stored immediately following it.
      * @param {Integer} fRandomRead Whether the stream is open for random access. Set the flag to <b>TRUE</b> to open the stream for random access.
-     * @returns {Pointer<HANDLE>} If the function succeeds, the function returns a valid handle for use in the 
+     * @returns {Pointer<Void>} If the function succeeds, the function returns a valid handle for use in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-readurlcacheentrystream">ReadUrlCacheEntryStream</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-unlockurlcacheentrystream">UnlockUrlCacheEntryStream</a> functions.
      * 
@@ -11225,7 +11264,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\RetrieveUrlCacheEntryStreamW", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, "ptr", lpcbCacheEntryInfo, "int", fRandomRead, "uint", dwReserved, "ptr")
+        result := DllCall("WININET.dll\RetrieveUrlCacheEntryStreamW", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, "uint*", lpcbCacheEntryInfo, "int", fRandomRead, "uint", dwReserved)
         if(A_LastError)
             throw OSError()
 
@@ -11243,10 +11282,10 @@ class WinInet {
      * 
      * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
      * <div> </div>
-     * @param {Pointer<HANDLE>} hUrlCacheStream Handle that was returned by the 
+     * @param {Pointer<Void>} hUrlCacheStream Handle that was returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-retrieveurlcacheentrystreama">RetrieveUrlCacheEntryStream</a> function.
      * @param {Integer} dwLocation Offset to be read from.
-     * @param {Pointer<Void>} lpBuffer Pointer to a buffer that receives the data.
+     * @param {Pointer} lpBuffer Pointer to a buffer that receives the data.
      * @param {Pointer<UInt32>} lpdwLen Pointer to a  variable that specifies the size of the 
      * <i>lpBuffer</i> buffer, in bytes. When the function returns, the variable contains the number of bytes copied to the buffer, or the required size of the buffer, in bytes.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
@@ -11259,7 +11298,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\ReadUrlCacheEntryStream", "ptr", hUrlCacheStream, "uint", dwLocation, "ptr", lpBuffer, "ptr", lpdwLen, "uint", Reserved, "int")
+        result := DllCall("WININET.dll\ReadUrlCacheEntryStream", "ptr", hUrlCacheStream, "uint", dwLocation, "ptr", lpBuffer, "uint*", lpdwLen, "uint", Reserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11268,14 +11307,14 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hUrlCacheStream 
+     * @param {Pointer<Void>} hUrlCacheStream 
      * @param {Integer} qwLocation 
-     * @param {Pointer<Void>} lpBuffer 
+     * @param {Pointer} lpBuffer 
      * @param {Pointer<UInt32>} lpdwLen 
      * @returns {Integer} 
      */
     static ReadUrlCacheEntryStreamEx(hUrlCacheStream, qwLocation, lpBuffer, lpdwLen) {
-        result := DllCall("WININET.dll\ReadUrlCacheEntryStreamEx", "ptr", hUrlCacheStream, "uint", qwLocation, "ptr", lpBuffer, "ptr", lpdwLen, "int")
+        result := DllCall("WININET.dll\ReadUrlCacheEntryStreamEx", "ptr", hUrlCacheStream, "uint", qwLocation, "ptr", lpBuffer, "uint*", lpdwLen, "int")
         return result
     }
 
@@ -11284,7 +11323,7 @@ class WinInet {
      * @remarks
      * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
      * <div> </div>
-     * @param {Pointer<HANDLE>} hUrlCacheStream Handle that was returned by the 
+     * @param {Pointer<Void>} hUrlCacheStream Handle that was returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-retrieveurlcacheentrystreama">RetrieveUrlCacheEntryStream</a> function.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -11318,8 +11357,8 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines GetUrlCacheEntryInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszUrlName A pointer to a null-terminated string that contains the name of the cache entry. The name string should not contain any escape characters.
-     * @param {Pointer<INTERNET_CACHE_ENTRY_INFOA>} lpCacheEntryInfo A pointer to an 
+     * @param {Pointer<Byte>} lpszUrlName A pointer to a null-terminated string that contains the name of the cache entry. The name string should not contain any escape characters.
+     * @param {Pointer} lpCacheEntryInfo A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure that receives information about the cache entry. A buffer should be allocated for this parameter. 
      * 
      * Since the required size of the buffer is not known in advance,  it is best to allocate a buffer adequate to handle the size of most <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> entries. There is no cache entry size limit, so applications that need to enumerate the cache must be prepared to allocate variable-sized buffers.
@@ -11367,7 +11406,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\GetUrlCacheEntryInfoA", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, "ptr", lpcbCacheEntryInfo, "int")
+        result := DllCall("WININET.dll\GetUrlCacheEntryInfoA", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, "uint*", lpcbCacheEntryInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11389,8 +11428,8 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines GetUrlCacheEntryInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszUrlName A pointer to a null-terminated string that contains the name of the cache entry. The name string should not contain any escape characters.
-     * @param {Pointer<INTERNET_CACHE_ENTRY_INFOW>} lpCacheEntryInfo A pointer to an 
+     * @param {Pointer<Char>} lpszUrlName A pointer to a null-terminated string that contains the name of the cache entry. The name string should not contain any escape characters.
+     * @param {Pointer} lpCacheEntryInfo A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure that receives information about the cache entry. A buffer should be allocated for this parameter. 
      * 
      * Since the required size of the buffer is not known in advance,  it is best to allocate a buffer adequate to handle the size of most <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> entries. There is no cache entry size limit, so applications that need to enumerate the cache must be prepared to allocate variable-sized buffers.
@@ -11438,7 +11477,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\GetUrlCacheEntryInfoW", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, "ptr", lpcbCacheEntryInfo, "int")
+        result := DllCall("WININET.dll\GetUrlCacheEntryInfoW", "ptr", lpszUrlName, "ptr", lpCacheEntryInfo, "uint*", lpcbCacheEntryInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11458,7 +11497,7 @@ class WinInet {
      * @param {Integer} dwFlags This parameter is reserved and must be 0.
      * @param {Integer} dwFilter 
      * @param {Pointer<Int64>} lpGroupId Pointer to the ID of the first cache group that matches the search criteria.
-     * @returns {Pointer<HANDLE>} Returns a valid handle to the first item in the enumeration if successful, or <b>NULL</b> otherwise. To get specific error information, call 
+     * @returns {Pointer<Void>} Returns a valid handle to the first item in the enumeration if successful, or <b>NULL</b> otherwise. To get specific error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function finds no matching files, 
      * <b>GetLastError</b> returns ERROR_NO_MORE_FILES.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-findfirsturlcachegroup
@@ -11469,7 +11508,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\FindFirstUrlCacheGroup", "uint", dwFlags, "uint", dwFilter, "ptr", lpSearchCondition, "uint", dwSearchCondition, "ptr", lpGroupId, "ptr", lpReserved, "ptr")
+        result := DllCall("WININET.dll\FindFirstUrlCacheGroup", "uint", dwFlags, "uint", dwFilter, "ptr", lpSearchCondition, "uint", dwSearchCondition, "int64*", lpGroupId, "ptr", lpReserved)
         if(A_LastError)
             throw OSError()
 
@@ -11485,7 +11524,7 @@ class WinInet {
      * 
      * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
      * <div> </div>
-     * @param {Pointer<HANDLE>} hFind The cache group enumeration handle, which is returned by 
+     * @param {Pointer<Void>} hFind The cache group enumeration handle, which is returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findfirsturlcachegroup">FindFirstUrlCacheGroup</a>.
      * @param {Pointer<Int64>} lpGroupId Pointer to a variable that receives the cache group identifier.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
@@ -11498,7 +11537,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\FindNextUrlCacheGroup", "ptr", hFind, "ptr", lpGroupId, "ptr", lpReserved, "int")
+        result := DllCall("WININET.dll\FindNextUrlCacheGroup", "ptr", hFind, "int64*", lpGroupId, "ptr", lpReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11518,7 +11557,7 @@ class WinInet {
      * > The wininet.h header defines GetUrlCacheGroupAttribute as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} gid Identifier of the cache group.
      * @param {Integer} dwAttributes 
-     * @param {Pointer<INTERNET_CACHE_GROUP_INFOA>} lpGroupInfo Pointer to an 
+     * @param {Pointer} lpGroupInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_group_infoa">INTERNET_CACHE_GROUP_INFO</a> structure that receives the requested information.
      * @param {Pointer<UInt32>} lpcbGroupInfo Pointer to a variable that contains the size of the 
      * <i>lpGroupInfo</i> buffer. When the function returns, the variable contains the number of bytes copied to the buffer, or the required size of the buffer, in bytes.
@@ -11532,7 +11571,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\GetUrlCacheGroupAttributeA", "int64", gid, "uint", dwFlags, "uint", dwAttributes, "ptr", lpGroupInfo, "ptr", lpcbGroupInfo, "ptr", lpReserved, "int")
+        result := DllCall("WININET.dll\GetUrlCacheGroupAttributeA", "int64", gid, "uint", dwFlags, "uint", dwAttributes, "ptr", lpGroupInfo, "uint*", lpcbGroupInfo, "ptr", lpReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11552,7 +11591,7 @@ class WinInet {
      * > The wininet.h header defines GetUrlCacheGroupAttribute as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} gid Identifier of the cache group.
      * @param {Integer} dwAttributes 
-     * @param {Pointer<INTERNET_CACHE_GROUP_INFOW>} lpGroupInfo Pointer to an 
+     * @param {Pointer} lpGroupInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_group_infoa">INTERNET_CACHE_GROUP_INFO</a> structure that receives the requested information.
      * @param {Pointer<UInt32>} lpcbGroupInfo Pointer to a variable that contains the size of the 
      * <i>lpGroupInfo</i> buffer. When the function returns, the variable contains the number of bytes copied to the buffer, or the required size of the buffer, in bytes.
@@ -11566,7 +11605,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\GetUrlCacheGroupAttributeW", "int64", gid, "uint", dwFlags, "uint", dwAttributes, "ptr", lpGroupInfo, "ptr", lpcbGroupInfo, "ptr", lpReserved, "int")
+        result := DllCall("WININET.dll\GetUrlCacheGroupAttributeW", "int64", gid, "uint", dwFlags, "uint", dwAttributes, "ptr", lpGroupInfo, "uint*", lpcbGroupInfo, "ptr", lpReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11652,8 +11691,8 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines GetUrlCacheEntryInfoEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszUrl A pointer to a <b>null</b>-terminated string that contains the name of the cache entry. The name string should not contain any escape characters.
-     * @param {Pointer<INTERNET_CACHE_ENTRY_INFOA>} lpCacheEntryInfo A pointer to an 
+     * @param {Pointer<Byte>} lpszUrl A pointer to a <b>null</b>-terminated string that contains the name of the cache entry. The name string should not contain any escape characters.
+     * @param {Pointer} lpCacheEntryInfo A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure that receives information about the cache entry. A buffer should be allocated for this parameter. 
      * 
      * Since the required size of the buffer is not known in advance,  it is best to allocate a buffer adequate to handle the size of most <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> entries. There is no cache entry size limit, so applications that need to enumerate the cache must be prepared to allocate variable-sized buffers.
@@ -11700,10 +11739,11 @@ class WinInet {
         static lpszRedirectUrl := 0, lpcbRedirectUrl := 0, lpReserved := 0 ;Reserved parameters must always be NULL
 
         lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+        lpszRedirectUrl := lpszRedirectUrl is String? StrPtr(lpszRedirectUrl) : lpszRedirectUrl
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\GetUrlCacheEntryInfoExA", "ptr", lpszUrl, "ptr", lpCacheEntryInfo, "ptr", lpcbCacheEntryInfo, "ptr", lpszRedirectUrl, "ptr", lpcbRedirectUrl, "ptr", lpReserved, "uint", dwFlags, "int")
+        result := DllCall("WININET.dll\GetUrlCacheEntryInfoExA", "ptr", lpszUrl, "ptr", lpCacheEntryInfo, "uint*", lpcbCacheEntryInfo, "ptr", lpszRedirectUrl, "uint*", lpcbRedirectUrl, "ptr", lpReserved, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11725,8 +11765,8 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines GetUrlCacheEntryInfoEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszUrl A pointer to a <b>null</b>-terminated string that contains the name of the cache entry. The name string should not contain any escape characters.
-     * @param {Pointer<INTERNET_CACHE_ENTRY_INFOW>} lpCacheEntryInfo A pointer to an 
+     * @param {Pointer<Char>} lpszUrl A pointer to a <b>null</b>-terminated string that contains the name of the cache entry. The name string should not contain any escape characters.
+     * @param {Pointer} lpCacheEntryInfo A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure that receives information about the cache entry. A buffer should be allocated for this parameter. 
      * 
      * Since the required size of the buffer is not known in advance,  it is best to allocate a buffer adequate to handle the size of most <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> entries. There is no cache entry size limit, so applications that need to enumerate the cache must be prepared to allocate variable-sized buffers.
@@ -11773,10 +11813,11 @@ class WinInet {
         static lpszRedirectUrl := 0, lpcbRedirectUrl := 0, lpReserved := 0 ;Reserved parameters must always be NULL
 
         lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+        lpszRedirectUrl := lpszRedirectUrl is String? StrPtr(lpszRedirectUrl) : lpszRedirectUrl
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\GetUrlCacheEntryInfoExW", "ptr", lpszUrl, "ptr", lpCacheEntryInfo, "ptr", lpcbCacheEntryInfo, "ptr", lpszRedirectUrl, "ptr", lpcbRedirectUrl, "ptr", lpReserved, "uint", dwFlags, "int")
+        result := DllCall("WININET.dll\GetUrlCacheEntryInfoExW", "ptr", lpszUrl, "ptr", lpCacheEntryInfo, "uint*", lpcbCacheEntryInfo, "ptr", lpszRedirectUrl, "uint*", lpcbRedirectUrl, "ptr", lpReserved, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11794,7 +11835,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines SetUrlCacheEntryInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszUrlName Pointer to a null-terminated string that specifies the name of the cache entry. The name string should not contain any escape characters.
+     * @param {Pointer<Byte>} lpszUrlName Pointer to a null-terminated string that specifies the name of the cache entry. The name string should not contain any escape characters.
      * @param {Pointer<INTERNET_CACHE_ENTRY_INFOA>} lpCacheEntryInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure containing the values to be assigned to the cache entry designated by 
      * <i>lpszUrlName</i>.
@@ -11856,7 +11897,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines SetUrlCacheEntryInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszUrlName Pointer to a null-terminated string that specifies the name of the cache entry. The name string should not contain any escape characters.
+     * @param {Pointer<Char>} lpszUrlName Pointer to a null-terminated string that specifies the name of the cache entry. The name string should not contain any escape characters.
      * @param {Pointer<INTERNET_CACHE_ENTRY_INFOW>} lpCacheEntryInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure containing the values to be assigned to the cache entry designated by 
      * <i>lpszUrlName</i>.
@@ -11973,7 +12014,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines SetUrlCacheEntryGroup as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszUrlName Pointer to a <b>null</b>-terminated string value that specifies the URL of the cached resource.
+     * @param {Pointer<Byte>} lpszUrlName Pointer to a <b>null</b>-terminated string value that specifies the URL of the cached resource.
      * @param {Integer} dwFlags 
      * @param {Integer} GroupId Identifier of the cache group that the entry will be added to or removed from.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
@@ -11985,7 +12026,7 @@ class WinInet {
 
         lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
 
-        result := DllCall("WININET.dll\SetUrlCacheEntryGroupA", "ptr", lpszUrlName, "uint", dwFlags, "int64", GroupId, "ptr", pbGroupAttributes, "uint", cbGroupAttributes, "ptr", lpReserved, "int")
+        result := DllCall("WININET.dll\SetUrlCacheEntryGroupA", "ptr", lpszUrlName, "uint", dwFlags, "int64", GroupId, "char*", pbGroupAttributes, "uint", cbGroupAttributes, "ptr", lpReserved, "int")
         return result
     }
 
@@ -12004,7 +12045,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines SetUrlCacheEntryGroup as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszUrlName Pointer to a <b>null</b>-terminated string value that specifies the URL of the cached resource.
+     * @param {Pointer<Char>} lpszUrlName Pointer to a <b>null</b>-terminated string value that specifies the URL of the cached resource.
      * @param {Integer} dwFlags 
      * @param {Integer} GroupId Identifier of the cache group that the entry will be added to or removed from.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
@@ -12016,7 +12057,7 @@ class WinInet {
 
         lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
 
-        result := DllCall("WININET.dll\SetUrlCacheEntryGroupW", "ptr", lpszUrlName, "uint", dwFlags, "int64", GroupId, "ptr", pbGroupAttributes, "uint", cbGroupAttributes, "ptr", lpReserved, "int")
+        result := DllCall("WININET.dll\SetUrlCacheEntryGroupW", "ptr", lpszUrlName, "uint", dwFlags, "int64", GroupId, "char*", pbGroupAttributes, "uint", cbGroupAttributes, "ptr", lpReserved, "int")
         return result
     }
 
@@ -12029,7 +12070,7 @@ class WinInet {
      * 
      * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
      * <div> </div>
-     * @param {Pointer<PSTR>} lpszUrlName Pointer to a <b>null</b>-terminated string value that specifies the URL of the cached resource.
+     * @param {Pointer<Byte>} lpszUrlName Pointer to a <b>null</b>-terminated string value that specifies the URL of the cached resource.
      * @param {Integer} dwFlags 
      * @param {Integer} GroupId Identifier of the cache group that the entry will be added to or removed from.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
@@ -12041,7 +12082,7 @@ class WinInet {
 
         lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
 
-        result := DllCall("WININET.dll\SetUrlCacheEntryGroup", "ptr", lpszUrlName, "uint", dwFlags, "int64", GroupId, "ptr", pbGroupAttributes, "uint", cbGroupAttributes, "ptr", lpReserved, "int")
+        result := DllCall("WININET.dll\SetUrlCacheEntryGroup", "ptr", lpszUrlName, "uint", dwFlags, "int64", GroupId, "char*", pbGroupAttributes, "uint", cbGroupAttributes, "ptr", lpReserved, "int")
         return result
     }
 
@@ -12061,7 +12102,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines FindFirstUrlCacheEntryEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszUrlSearchPattern A pointer to a string that contains the source name pattern to search for. This parameter can only be set to "cookie:", "visited:", or NULL. Set this parameter to "cookie:" to enumerate the cookies or "visited:" to enumerate the URL History entries in the cache. If this parameter is NULL, <b>FindFirstUrlCacheEntryEx</b> returns all content entries in the cache.
+     * @param {Pointer<Byte>} lpszUrlSearchPattern A pointer to a string that contains the source name pattern to search for. This parameter can only be set to "cookie:", "visited:", or NULL. Set this parameter to "cookie:" to enumerate the cookies or "visited:" to enumerate the URL History entries in the cache. If this parameter is NULL, <b>FindFirstUrlCacheEntryEx</b> returns all content entries in the cache.
      * @param {Integer} dwFlags Controls the enumeration. No flags are currently implemented; this parameter must be set to zero.
      * @param {Integer} dwFilter A bitmask indicating the type of cache entry and its properties. The cache entry types include: history entries (URLHISTORY_CACHE_ENTRY),  cookie entries  (COOKIE_CACHE_ENTRY), and normal cached content (NORMAL_CACHE_ENTRY).
      * 
@@ -12162,11 +12203,11 @@ class WinInet {
      * </tr>
      * </table>
      * @param {Integer} GroupId ID of the cache group to be enumerated. Set this parameter to zero to enumerate all entries that are not grouped.
-     * @param {Pointer<INTERNET_CACHE_ENTRY_INFOA>} lpFirstCacheEntryInfo Pointer to a 
+     * @param {Pointer} lpFirstCacheEntryInfo Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure to receive the cache entry information.
      * @param {Pointer<UInt32>} lpcbCacheEntryInfo Pointer to variable that indicates the size of 
      * the structure referenced by the <i>lpFirstCacheEntryInfo</i> parameter, in bytes.
-     * @returns {Pointer<HANDLE>} Returns a valid handle if successful, or NULL otherwise. To get specific error information, call 
+     * @returns {Pointer<Void>} Returns a valid handle if successful, or NULL otherwise. To get specific error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function finds no matching files, 
      * <b>GetLastError</b> returns ERROR_NO_MORE_FILES.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-findfirsturlcacheentryexa
@@ -12179,7 +12220,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\FindFirstUrlCacheEntryExA", "ptr", lpszUrlSearchPattern, "uint", dwFlags, "uint", dwFilter, "int64", GroupId, "ptr", lpFirstCacheEntryInfo, "ptr", lpcbCacheEntryInfo, "ptr", lpGroupAttributes, "ptr", lpcbGroupAttributes, "ptr", lpReserved, "ptr")
+        result := DllCall("WININET.dll\FindFirstUrlCacheEntryExA", "ptr", lpszUrlSearchPattern, "uint", dwFlags, "uint", dwFilter, "int64", GroupId, "ptr", lpFirstCacheEntryInfo, "uint*", lpcbCacheEntryInfo, "ptr", lpGroupAttributes, "uint*", lpcbGroupAttributes, "ptr", lpReserved)
         if(A_LastError)
             throw OSError()
 
@@ -12202,7 +12243,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines FindFirstUrlCacheEntryEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszUrlSearchPattern A pointer to a string that contains the source name pattern to search for. This parameter can only be set to "cookie:", "visited:", or NULL. Set this parameter to "cookie:" to enumerate the cookies or "visited:" to enumerate the URL History entries in the cache. If this parameter is NULL, <b>FindFirstUrlCacheEntryEx</b> returns all content entries in the cache.
+     * @param {Pointer<Char>} lpszUrlSearchPattern A pointer to a string that contains the source name pattern to search for. This parameter can only be set to "cookie:", "visited:", or NULL. Set this parameter to "cookie:" to enumerate the cookies or "visited:" to enumerate the URL History entries in the cache. If this parameter is NULL, <b>FindFirstUrlCacheEntryEx</b> returns all content entries in the cache.
      * @param {Integer} dwFlags Controls the enumeration. No flags are currently implemented; this parameter must be set to zero.
      * @param {Integer} dwFilter A bitmask indicating the type of cache entry and its properties. The cache entry types include: history entries (URLHISTORY_CACHE_ENTRY),  cookie entries  (COOKIE_CACHE_ENTRY), and normal cached content (NORMAL_CACHE_ENTRY).
      * 
@@ -12303,11 +12344,11 @@ class WinInet {
      * </tr>
      * </table>
      * @param {Integer} GroupId ID of the cache group to be enumerated. Set this parameter to zero to enumerate all entries that are not grouped.
-     * @param {Pointer<INTERNET_CACHE_ENTRY_INFOW>} lpFirstCacheEntryInfo Pointer to a 
+     * @param {Pointer} lpFirstCacheEntryInfo Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure to receive the cache entry information.
      * @param {Pointer<UInt32>} lpcbCacheEntryInfo Pointer to variable that indicates the size of 
      * the structure referenced by the <i>lpFirstCacheEntryInfo</i> parameter, in bytes.
-     * @returns {Pointer<HANDLE>} Returns a valid handle if successful, or NULL otherwise. To get specific error information, call 
+     * @returns {Pointer<Void>} Returns a valid handle if successful, or NULL otherwise. To get specific error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function finds no matching files, 
      * <b>GetLastError</b> returns ERROR_NO_MORE_FILES.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-findfirsturlcacheentryexw
@@ -12320,7 +12361,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\FindFirstUrlCacheEntryExW", "ptr", lpszUrlSearchPattern, "uint", dwFlags, "uint", dwFilter, "int64", GroupId, "ptr", lpFirstCacheEntryInfo, "ptr", lpcbCacheEntryInfo, "ptr", lpGroupAttributes, "ptr", lpcbGroupAttributes, "ptr", lpReserved, "ptr")
+        result := DllCall("WININET.dll\FindFirstUrlCacheEntryExW", "ptr", lpszUrlSearchPattern, "uint", dwFlags, "uint", dwFilter, "int64", GroupId, "ptr", lpFirstCacheEntryInfo, "uint*", lpcbCacheEntryInfo, "ptr", lpGroupAttributes, "uint*", lpcbGroupAttributes, "ptr", lpReserved)
         if(A_LastError)
             throw OSError()
 
@@ -12342,9 +12383,9 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines FindNextUrlCacheEntryEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} hEnumHandle Handle returned by 
+     * @param {Pointer<Void>} hEnumHandle Handle returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findfirsturlcacheentryexa">FindFirstUrlCacheEntryEx</a>, which started a cache enumeration.
-     * @param {Pointer<INTERNET_CACHE_ENTRY_INFOA>} lpNextCacheEntryInfo Pointer to the  
+     * @param {Pointer} lpNextCacheEntryInfo Pointer to the  
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure that receives the cache entry information.
      * @param {Pointer<UInt32>} lpcbCacheEntryInfo Pointer to a variable that indicates the size of the buffer, in bytes.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
@@ -12357,7 +12398,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\FindNextUrlCacheEntryExA", "ptr", hEnumHandle, "ptr", lpNextCacheEntryInfo, "ptr", lpcbCacheEntryInfo, "ptr", lpGroupAttributes, "ptr", lpcbGroupAttributes, "ptr", lpReserved, "int")
+        result := DllCall("WININET.dll\FindNextUrlCacheEntryExA", "ptr", hEnumHandle, "ptr", lpNextCacheEntryInfo, "uint*", lpcbCacheEntryInfo, "ptr", lpGroupAttributes, "uint*", lpcbGroupAttributes, "ptr", lpReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -12379,9 +12420,9 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines FindNextUrlCacheEntryEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} hEnumHandle Handle returned by 
+     * @param {Pointer<Void>} hEnumHandle Handle returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findfirsturlcacheentryexa">FindFirstUrlCacheEntryEx</a>, which started a cache enumeration.
-     * @param {Pointer<INTERNET_CACHE_ENTRY_INFOW>} lpNextCacheEntryInfo Pointer to the  
+     * @param {Pointer} lpNextCacheEntryInfo Pointer to the  
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure that receives the cache entry information.
      * @param {Pointer<UInt32>} lpcbCacheEntryInfo Pointer to a variable that indicates the size of the buffer, in bytes.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
@@ -12394,7 +12435,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\FindNextUrlCacheEntryExW", "ptr", hEnumHandle, "ptr", lpNextCacheEntryInfo, "ptr", lpcbCacheEntryInfo, "ptr", lpGroupAttributes, "ptr", lpcbGroupAttributes, "ptr", lpReserved, "int")
+        result := DllCall("WININET.dll\FindNextUrlCacheEntryExW", "ptr", hEnumHandle, "ptr", lpNextCacheEntryInfo, "uint*", lpcbCacheEntryInfo, "ptr", lpGroupAttributes, "uint*", lpcbGroupAttributes, "ptr", lpReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -12422,12 +12463,12 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines FindFirstUrlCacheEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszUrlSearchPattern A pointer to a string that contains the source name pattern to search for. This parameter can only be set to "cookie:", "visited:", or <b>NULL</b>. Set this parameter to "cookie:" to enumerate the cookies or "visited:" to enumerate the URL History entries in the cache. If this parameter is <b>NULL</b>, <b>FindFirstUrlCacheEntry</b> returns all content entries in the cache.
-     * @param {Pointer<INTERNET_CACHE_ENTRY_INFOA>} lpFirstCacheEntryInfo Pointer to an 
+     * @param {Pointer<Byte>} lpszUrlSearchPattern A pointer to a string that contains the source name pattern to search for. This parameter can only be set to "cookie:", "visited:", or <b>NULL</b>. Set this parameter to "cookie:" to enumerate the cookies or "visited:" to enumerate the URL History entries in the cache. If this parameter is <b>NULL</b>, <b>FindFirstUrlCacheEntry</b> returns all content entries in the cache.
+     * @param {Pointer} lpFirstCacheEntryInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure.
      * @param {Pointer<UInt32>} lpcbCacheEntryInfo Pointer to a variable that specifies the size of the 
      * <i>lpFirstCacheEntryInfo</i> buffer, in bytes. When the function returns, the variable contains the number of bytes copied to the buffer, or the required size needed to retrieve the cache entry, in bytes.
-     * @returns {Pointer<HANDLE>} Returns a handle that the application can use in the 
+     * @returns {Pointer<Void>} Returns a handle that the application can use in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findnexturlcacheentrya">FindNextUrlCacheEntry</a> function to retrieve subsequent entries in the cache. If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
@@ -12443,7 +12484,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\FindFirstUrlCacheEntryA", "ptr", lpszUrlSearchPattern, "ptr", lpFirstCacheEntryInfo, "ptr", lpcbCacheEntryInfo, "ptr")
+        result := DllCall("WININET.dll\FindFirstUrlCacheEntryA", "ptr", lpszUrlSearchPattern, "ptr", lpFirstCacheEntryInfo, "uint*", lpcbCacheEntryInfo)
         if(A_LastError)
             throw OSError()
 
@@ -12471,12 +12512,12 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines FindFirstUrlCacheEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszUrlSearchPattern A pointer to a string that contains the source name pattern to search for. This parameter can only be set to "cookie:", "visited:", or <b>NULL</b>. Set this parameter to "cookie:" to enumerate the cookies or "visited:" to enumerate the URL History entries in the cache. If this parameter is <b>NULL</b>, <b>FindFirstUrlCacheEntry</b> returns all content entries in the cache.
-     * @param {Pointer<INTERNET_CACHE_ENTRY_INFOW>} lpFirstCacheEntryInfo Pointer to an 
+     * @param {Pointer<Char>} lpszUrlSearchPattern A pointer to a string that contains the source name pattern to search for. This parameter can only be set to "cookie:", "visited:", or <b>NULL</b>. Set this parameter to "cookie:" to enumerate the cookies or "visited:" to enumerate the URL History entries in the cache. If this parameter is <b>NULL</b>, <b>FindFirstUrlCacheEntry</b> returns all content entries in the cache.
+     * @param {Pointer} lpFirstCacheEntryInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure.
      * @param {Pointer<UInt32>} lpcbCacheEntryInfo Pointer to a variable that specifies the size of the 
      * <i>lpFirstCacheEntryInfo</i> buffer, in bytes. When the function returns, the variable contains the number of bytes copied to the buffer, or the required size needed to retrieve the cache entry, in bytes.
-     * @returns {Pointer<HANDLE>} Returns a handle that the application can use in the 
+     * @returns {Pointer<Void>} Returns a handle that the application can use in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findnexturlcacheentrya">FindNextUrlCacheEntry</a> function to retrieve subsequent entries in the cache. If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
@@ -12492,7 +12533,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\FindFirstUrlCacheEntryW", "ptr", lpszUrlSearchPattern, "ptr", lpFirstCacheEntryInfo, "ptr", lpcbCacheEntryInfo, "ptr")
+        result := DllCall("WININET.dll\FindFirstUrlCacheEntryW", "ptr", lpszUrlSearchPattern, "ptr", lpFirstCacheEntryInfo, "uint*", lpcbCacheEntryInfo)
         if(A_LastError)
             throw OSError()
 
@@ -12514,9 +12555,9 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines FindNextUrlCacheEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} hEnumHandle Handle to the enumeration obtained from a previous call to 
+     * @param {Pointer<Void>} hEnumHandle Handle to the enumeration obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findfirsturlcacheentrya">FindFirstUrlCacheEntry</a>.
-     * @param {Pointer<INTERNET_CACHE_ENTRY_INFOA>} lpNextCacheEntryInfo Pointer to an 
+     * @param {Pointer} lpNextCacheEntryInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure that receives information about the cache entry.
      * @param {Pointer<UInt32>} lpcbCacheEntryInfo Pointer to a variable that specifies the size of the 
      * <i>lpNextCacheEntryInfo</i> buffer, in bytes. When the function returns, the variable contains the number of bytes copied to the buffer, or the size of the buffer required to retrieve the cache entry, in bytes.
@@ -12560,7 +12601,7 @@ class WinInet {
     static FindNextUrlCacheEntryA(hEnumHandle, lpNextCacheEntryInfo, lpcbCacheEntryInfo) {
         A_LastError := 0
 
-        result := DllCall("WININET.dll\FindNextUrlCacheEntryA", "ptr", hEnumHandle, "ptr", lpNextCacheEntryInfo, "ptr", lpcbCacheEntryInfo, "int")
+        result := DllCall("WININET.dll\FindNextUrlCacheEntryA", "ptr", hEnumHandle, "ptr", lpNextCacheEntryInfo, "uint*", lpcbCacheEntryInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -12582,9 +12623,9 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines FindNextUrlCacheEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} hEnumHandle Handle to the enumeration obtained from a previous call to 
+     * @param {Pointer<Void>} hEnumHandle Handle to the enumeration obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findfirsturlcacheentrya">FindFirstUrlCacheEntry</a>.
-     * @param {Pointer<INTERNET_CACHE_ENTRY_INFOW>} lpNextCacheEntryInfo Pointer to an 
+     * @param {Pointer} lpNextCacheEntryInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure that receives information about the cache entry.
      * @param {Pointer<UInt32>} lpcbCacheEntryInfo Pointer to a variable that specifies the size of the 
      * <i>lpNextCacheEntryInfo</i> buffer, in bytes. When the function returns, the variable contains the number of bytes copied to the buffer, or the size of the buffer required to retrieve the cache entry, in bytes.
@@ -12628,7 +12669,7 @@ class WinInet {
     static FindNextUrlCacheEntryW(hEnumHandle, lpNextCacheEntryInfo, lpcbCacheEntryInfo) {
         A_LastError := 0
 
-        result := DllCall("WININET.dll\FindNextUrlCacheEntryW", "ptr", hEnumHandle, "ptr", lpNextCacheEntryInfo, "ptr", lpcbCacheEntryInfo, "int")
+        result := DllCall("WININET.dll\FindNextUrlCacheEntryW", "ptr", hEnumHandle, "ptr", lpNextCacheEntryInfo, "uint*", lpcbCacheEntryInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -12640,7 +12681,7 @@ class WinInet {
      * @remarks
      * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
      * <div> </div>
-     * @param {Pointer<HANDLE>} hEnumHandle Handle returned by a previous call to the 
+     * @param {Pointer<Void>} hEnumHandle Handle returned by a previous call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findfirsturlcacheentrya">FindFirstUrlCacheEntry</a> function.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -12668,7 +12709,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines DeleteUrlCacheEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszUrlName Pointer to a string that contains the name of the source that corresponds to the cache entry.
+     * @param {Pointer<Byte>} lpszUrlName Pointer to a string that contains the name of the source that corresponds to the cache entry.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
      * 
@@ -12726,7 +12767,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines DeleteUrlCacheEntry as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszUrlName Pointer to a string that contains the name of the source that corresponds to the cache entry.
+     * @param {Pointer<Char>} lpszUrlName Pointer to a string that contains the name of the source that corresponds to the cache entry.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
      * 
@@ -12778,7 +12819,7 @@ class WinInet {
      * @remarks
      * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
      * <div> </div>
-     * @param {Pointer<PSTR>} lpszUrlName Pointer to a string that contains the name of the source that corresponds to the cache entry.
+     * @param {Pointer<Byte>} lpszUrlName Pointer to a string that contains the name of the source that corresponds to the cache entry.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
      * 
@@ -12842,8 +12883,8 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetDial as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HWND>} hwndParent Handle to the parent window.
-     * @param {Pointer<PSTR>} lpszConnectoid Pointer to a <b>null</b>-terminated string that specifies the name of the dial-up connection to be used. If this parameter contains the empty string (""), the user chooses the connection. If this parameter is <b>NULL</b>, the function connects to the autodial connection.
+     * @param {Pointer<Void>} hwndParent Handle to the parent window.
+     * @param {Pointer<Byte>} lpszConnectoid Pointer to a <b>null</b>-terminated string that specifies the name of the dial-up connection to be used. If this parameter contains the empty string (""), the user chooses the connection. If this parameter is <b>NULL</b>, the function connects to the autodial connection.
      * @param {Integer} dwFlags 
      * @param {Pointer<UIntPtr>} lpdwConnection Pointer to a variable that specifies the connection number. This number is a unique identifier for the connection that can be used in other functions, such as <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internethangup">InternetHangUp</a>.
      * @returns {Integer} Returns ERROR_SUCCESS if successful, or an error value otherwise. The error code can be one of the following values.
@@ -12895,7 +12936,7 @@ class WinInet {
 
         lpszConnectoid := lpszConnectoid is String? StrPtr(lpszConnectoid) : lpszConnectoid
 
-        result := DllCall("WININET.dll\InternetDialA", "ptr", hwndParent, "ptr", lpszConnectoid, "uint", dwFlags, "ptr", lpdwConnection, "uint", dwReserved, "uint")
+        result := DllCall("WININET.dll\InternetDialA", "ptr", hwndParent, "ptr", lpszConnectoid, "uint", dwFlags, "ptr*", lpdwConnection, "uint", dwReserved, "uint")
         return result
     }
 
@@ -12916,8 +12957,8 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetDial as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HWND>} hwndParent Handle to the parent window.
-     * @param {Pointer<PWSTR>} lpszConnectoid Pointer to a <b>null</b>-terminated string that specifies the name of the dial-up connection to be used. If this parameter contains the empty string (""), the user chooses the connection. If this parameter is <b>NULL</b>, the function connects to the autodial connection.
+     * @param {Pointer<Void>} hwndParent Handle to the parent window.
+     * @param {Pointer<Char>} lpszConnectoid Pointer to a <b>null</b>-terminated string that specifies the name of the dial-up connection to be used. If this parameter contains the empty string (""), the user chooses the connection. If this parameter is <b>NULL</b>, the function connects to the autodial connection.
      * @param {Integer} dwFlags 
      * @param {Pointer<UIntPtr>} lpdwConnection Pointer to a variable that specifies the connection number. This number is a unique identifier for the connection that can be used in other functions, such as <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internethangup">InternetHangUp</a>.
      * @returns {Integer} Returns ERROR_SUCCESS if successful, or an error value otherwise. The error code can be one of the following values.
@@ -12969,7 +13010,7 @@ class WinInet {
 
         lpszConnectoid := lpszConnectoid is String? StrPtr(lpszConnectoid) : lpszConnectoid
 
-        result := DllCall("WININET.dll\InternetDialW", "ptr", hwndParent, "ptr", lpszConnectoid, "uint", dwFlags, "ptr", lpdwConnection, "uint", dwReserved, "uint")
+        result := DllCall("WININET.dll\InternetDialW", "ptr", hwndParent, "ptr", lpszConnectoid, "uint", dwFlags, "ptr*", lpdwConnection, "uint", dwReserved, "uint")
         return result
     }
 
@@ -12984,8 +13025,8 @@ class WinInet {
      * 
      * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
      * <div> </div>
-     * @param {Pointer<HWND>} hwndParent Handle to the parent window.
-     * @param {Pointer<PSTR>} lpszConnectoid Pointer to a <b>null</b>-terminated string that specifies the name of the dial-up connection to be used. If this parameter contains the empty string (""), the user chooses the connection. If this parameter is <b>NULL</b>, the function connects to the autodial connection.
+     * @param {Pointer<Void>} hwndParent Handle to the parent window.
+     * @param {Pointer<Byte>} lpszConnectoid Pointer to a <b>null</b>-terminated string that specifies the name of the dial-up connection to be used. If this parameter contains the empty string (""), the user chooses the connection. If this parameter is <b>NULL</b>, the function connects to the autodial connection.
      * @param {Integer} dwFlags 
      * @param {Pointer<UInt32>} lpdwConnection Pointer to a variable that specifies the connection number. This number is a unique identifier for the connection that can be used in other functions, such as <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internethangup">InternetHangUp</a>.
      * @param {Integer} dwReserved This parameter is reserved and must be <b>NULL</b>.
@@ -13036,7 +13077,7 @@ class WinInet {
     static InternetDial(hwndParent, lpszConnectoid, dwFlags, lpdwConnection, dwReserved) {
         lpszConnectoid := lpszConnectoid is String? StrPtr(lpszConnectoid) : lpszConnectoid
 
-        result := DllCall("WININET.dll\InternetDial", "ptr", hwndParent, "ptr", lpszConnectoid, "uint", dwFlags, "ptr", lpdwConnection, "uint", dwReserved, "uint")
+        result := DllCall("WININET.dll\InternetDial", "ptr", hwndParent, "ptr", lpszConnectoid, "uint", dwFlags, "uint*", lpdwConnection, "uint", dwReserved, "uint")
         return result
     }
 
@@ -13068,8 +13109,8 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetGoOnline as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszURL Pointer to a null-terminated string that specifies the URL of the website for the connection.
-     * @param {Pointer<HWND>} hwndParent Handle to the parent window.
+     * @param {Pointer<Byte>} lpszURL Pointer to a null-terminated string that specifies the URL of the website for the connection.
+     * @param {Pointer<Void>} hwndParent Handle to the parent window.
      * @param {Integer} dwFlags This parameter can be zero or the following flag.
      * 
      * <table>
@@ -13140,8 +13181,8 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetGoOnline as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszURL Pointer to a null-terminated string that specifies the URL of the website for the connection.
-     * @param {Pointer<HWND>} hwndParent Handle to the parent window.
+     * @param {Pointer<Char>} lpszURL Pointer to a null-terminated string that specifies the URL of the website for the connection.
+     * @param {Pointer<Void>} hwndParent Handle to the parent window.
      * @param {Integer} dwFlags This parameter can be zero or the following flag.
      * 
      * <table>
@@ -13206,8 +13247,8 @@ class WinInet {
      * @remarks
      * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
      * <div> </div>
-     * @param {Pointer<PSTR>} lpszURL Pointer to a null-terminated string that specifies the URL of the website for the connection.
-     * @param {Pointer<HWND>} hwndParent Handle to the parent window.
+     * @param {Pointer<Byte>} lpszURL Pointer to a null-terminated string that specifies the URL of the website for the connection.
+     * @param {Pointer<Void>} hwndParent Handle to the parent window.
      * @param {Integer} dwFlags This parameter can be zero or the following flag.
      * 
      * <table>
@@ -13281,7 +13322,7 @@ class WinInet {
      * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
      * <div> </div>
      * @param {Integer} dwFlags 
-     * @param {Pointer<HWND>} hwndParent Handle to the parent window.
+     * @param {Pointer<Void>} hwndParent Handle to the parent window.
      * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * 
@@ -13350,7 +13391,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\InternetGetConnectedState", "ptr", lpdwFlags, "uint", dwReserved, "int")
+        result := DllCall("WININET.dll\InternetGetConnectedState", "uint*", lpdwFlags, "uint", dwReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -13375,7 +13416,7 @@ class WinInet {
      * > [!NOTE]
      * > The wininet.h header defines InternetGetConnectedStateEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<UInt32>} lpdwFlags 
-     * @param {Pointer<PSTR>} lpszConnectionName Pointer to a string value that receives the connection name.
+     * @param {Pointer<Byte>} lpszConnectionName Pointer to a string value that receives the connection name.
      * @param {Integer} cchNameLen TBD
      * @returns {Integer} Returns <b>TRUE</b> if there is an Internet connection, or <b>FALSE</b> if there is no Internet connection, or if all possible Internet connections are not currently active. For more information, see the Remarks section.
      * 
@@ -13390,7 +13431,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\InternetGetConnectedStateExA", "ptr", lpdwFlags, "ptr", lpszConnectionName, "uint", cchNameLen, "uint", dwReserved, "int")
+        result := DllCall("WININET.dll\InternetGetConnectedStateExA", "uint*", lpdwFlags, "ptr", lpszConnectionName, "uint", cchNameLen, "uint", dwReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -13415,7 +13456,7 @@ class WinInet {
      * > [!NOTE]
      * > The wininet.h header defines InternetGetConnectedStateEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<UInt32>} lpdwFlags 
-     * @param {Pointer<PWSTR>} lpszConnectionName Pointer to a string value that receives the connection name.
+     * @param {Pointer<Char>} lpszConnectionName Pointer to a string value that receives the connection name.
      * @param {Integer} cchNameLen TBD
      * @returns {Integer} Returns <b>TRUE</b> if there is an Internet connection, or <b>FALSE</b> if there is no Internet connection, or if all possible Internet connections are not currently active. For more information, see the Remarks section.
      * 
@@ -13430,7 +13471,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\InternetGetConnectedStateExW", "ptr", lpdwFlags, "ptr", lpszConnectionName, "uint", cchNameLen, "uint", dwReserved, "int")
+        result := DllCall("WININET.dll\InternetGetConnectedStateExW", "uint*", lpdwFlags, "ptr", lpszConnectionName, "uint", cchNameLen, "uint", dwReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -13477,7 +13518,7 @@ class WinInet {
      * @remarks
      * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
      * <div> </div>
-     * @param {Pointer<PSTR>} pszAutoProxyUrl Pointer to a buffer to receive the URL from which a WPAD autoproxy script can be downloaded.
+     * @param {Pointer<Byte>} pszAutoProxyUrl Pointer to a buffer to receive the URL from which a WPAD autoproxy script can be downloaded.
      * @param {Integer} cchAutoProxyUrl Size of 
      * the buffer pointed to by <i>lpszAutoProxyUrl</i>, in bytes.
      * @param {Integer} dwDetectFlags 
@@ -13509,9 +13550,9 @@ class WinInet {
      * 
      * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
      * <div> </div>
-     * @param {Pointer<PWSTR>} pszChallengeInfo Pointer to the wide-character challenge string to use for the MD5 hash.
-     * @param {Pointer<PWSTR>} pwszRealm Pointer to a string that names a realm for which to obtain the password. This parameter is ignored unless <i>pwszTarget</i> is <b>NULL</b>. If both <i>pwszTarget</i> and <i>pwszRealm</i> are <b>NULL</b>, the default realm is used.
-     * @param {Pointer<PWSTR>} pwszTarget Pointer to a string that names an account for which to obtain the password. If <i>pwszTarget</i> is <b>NULL</b>, the realm indicated by <i>pwszRealm</i> is used.
+     * @param {Pointer<Char>} pszChallengeInfo Pointer to the wide-character challenge string to use for the MD5 hash.
+     * @param {Pointer<Char>} pwszRealm Pointer to a string that names a realm for which to obtain the password. This parameter is ignored unless <i>pwszTarget</i> is <b>NULL</b>. If both <i>pwszTarget</i> and <i>pwszRealm</i> are <b>NULL</b>, the default realm is used.
+     * @param {Pointer<Char>} pwszTarget Pointer to a string that names an account for which to obtain the password. If <i>pwszTarget</i> is <b>NULL</b>, the realm indicated by <i>pwszRealm</i> is used.
      * @param {Pointer<Byte>} pbHexHash Pointer to an output buffer into which the MD5 hash is returned in hex string format. This buffer must be at least 33 bytes long.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-createmd5ssohash
@@ -13522,7 +13563,7 @@ class WinInet {
         pwszRealm := pwszRealm is String? StrPtr(pwszRealm) : pwszRealm
         pwszTarget := pwszTarget is String? StrPtr(pwszTarget) : pwszTarget
 
-        result := DllCall("WININET.dll\CreateMD5SSOHash", "ptr", pszChallengeInfo, "ptr", pwszRealm, "ptr", pwszTarget, "ptr", pbHexHash, "int")
+        result := DllCall("WININET.dll\CreateMD5SSOHash", "ptr", pszChallengeInfo, "ptr", pwszRealm, "ptr", pwszTarget, "char*", pbHexHash, "int")
         return result
     }
 
@@ -13538,7 +13579,7 @@ class WinInet {
      * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
      * <div> </div>
      * @param {Pointer<UInt32>} lpdwFlags 
-     * @param {Pointer<PSTR>} lpszConnectionName Pointer to a string value that receives the connection name.
+     * @param {Pointer<Byte>} lpszConnectionName Pointer to a string value that receives the connection name.
      * @param {Integer} dwNameLen Size of the 
      * <i>lpszConnectionName</i> string, in <b>TCHARs</b>.
      * @param {Integer} dwReserved This parameter is reserved and must be <b>NULL</b>.
@@ -13553,7 +13594,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\InternetGetConnectedStateEx", "ptr", lpdwFlags, "ptr", lpszConnectionName, "uint", dwNameLen, "uint", dwReserved, "int")
+        result := DllCall("WININET.dll\InternetGetConnectedStateEx", "uint*", lpdwFlags, "ptr", lpszConnectionName, "uint", dwNameLen, "uint", dwReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -13570,7 +13611,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetSetDialState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszConnectoid Unused.
+     * @param {Pointer<Byte>} lpszConnectoid Unused.
      * @param {Integer} dwState Unused.
      * @returns {Integer} This function does not return a value.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetdialstatea
@@ -13594,7 +13635,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetSetDialState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszConnectoid Unused.
+     * @param {Pointer<Char>} lpszConnectoid Unused.
      * @param {Integer} dwState Unused.
      * @returns {Integer} This function does not return a value.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetdialstatew
@@ -13613,7 +13654,7 @@ class WinInet {
      * @remarks
      * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
      * <div> </div>
-     * @param {Pointer<PSTR>} lpszConnectoid Unused.
+     * @param {Pointer<Byte>} lpszConnectoid Unused.
      * @param {Integer} dwState Unused.
      * @param {Integer} dwReserved Unused.
      * @returns {Integer} This function does not return a value.
@@ -13641,7 +13682,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetSetPerSiteCookieDecision as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} pchHostName An <b>LPCTSTR</b> that points to a string containing a domain.
+     * @param {Pointer<Byte>} pchHostName An <b>LPCTSTR</b> that points to a string containing a domain.
      * @param {Integer} dwDecision A value of type <b>DWORD</b> that contains one of the <a href="https://docs.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration values.
      * @returns {Integer} Returns <b>TRUE</b> if the decision is set and <b>FALSE</b> otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetpersitecookiedecisiona
@@ -13669,7 +13710,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetSetPerSiteCookieDecision as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} pchHostName An <b>LPCTSTR</b> that points to a string containing a domain.
+     * @param {Pointer<Char>} pchHostName An <b>LPCTSTR</b> that points to a string containing a domain.
      * @param {Integer} dwDecision A value of type <b>DWORD</b> that contains one of the <a href="https://docs.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration values.
      * @returns {Integer} Returns <b>TRUE</b> if the decision is set and <b>FALSE</b> otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetpersitecookiedecisionw
@@ -13701,7 +13742,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetGetPerSiteCookieDecision as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} pchHostName An <b>LPCTSTR</b> that points to a string containing a domain.
+     * @param {Pointer<Byte>} pchHostName An <b>LPCTSTR</b> that points to a string containing a domain.
      * @param {Pointer<UInt32>} pResult A pointer to an <b>unsigned long</b> that contains one of the <a href="https://docs.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration values.
      * @returns {Integer} Returns <b>TRUE</b> if the decision was retrieved and <b>FALSE</b> otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetpersitecookiedecisiona
@@ -13710,7 +13751,7 @@ class WinInet {
     static InternetGetPerSiteCookieDecisionA(pchHostName, pResult) {
         pchHostName := pchHostName is String? StrPtr(pchHostName) : pchHostName
 
-        result := DllCall("WININET.dll\InternetGetPerSiteCookieDecisionA", "ptr", pchHostName, "ptr", pResult, "int")
+        result := DllCall("WININET.dll\InternetGetPerSiteCookieDecisionA", "ptr", pchHostName, "uint*", pResult, "int")
         return result
     }
 
@@ -13733,7 +13774,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetGetPerSiteCookieDecision as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} pchHostName An <b>LPCTSTR</b> that points to a string containing a domain.
+     * @param {Pointer<Char>} pchHostName An <b>LPCTSTR</b> that points to a string containing a domain.
      * @param {Pointer<UInt32>} pResult A pointer to an <b>unsigned long</b> that contains one of the <a href="https://docs.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration values.
      * @returns {Integer} Returns <b>TRUE</b> if the decision was retrieved and <b>FALSE</b> otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetpersitecookiedecisionw
@@ -13742,7 +13783,7 @@ class WinInet {
     static InternetGetPerSiteCookieDecisionW(pchHostName, pResult) {
         pchHostName := pchHostName is String? StrPtr(pchHostName) : pchHostName
 
-        result := DllCall("WININET.dll\InternetGetPerSiteCookieDecisionW", "ptr", pchHostName, "ptr", pResult, "int")
+        result := DllCall("WININET.dll\InternetGetPerSiteCookieDecisionW", "ptr", pchHostName, "uint*", pResult, "int")
         return result
     }
 
@@ -13775,7 +13816,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetEnumPerSiteCookieDecision as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} pszSiteName An <b>LPSTR</b> that receives a string specifying a website domain.
+     * @param {Pointer<Byte>} pszSiteName An <b>LPSTR</b> that receives a string specifying a website domain.
      * @param {Pointer<UInt32>} pcSiteNameSize A pointer to an unsigned long that specifies the size of the <i>pcSiteNameSize</i> parameter provided to the InternetEnumPerSiteCookieDecision function when it is called. When <b>InternetEnumPerSiteCookieDecision</b> returns, <i>pcSiteNameSize</i> receives the actual length of the domain string returned in <i>pszSiteName</i>.
      * @param {Pointer<UInt32>} pdwDecision Pointer to an unsigned long that receives the <a href="https://docs.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration value corresponding to <i>pszSiteName</i>.
      * @param {Integer} dwIndex An unsigned long that specifies the index of the website and corresponding cookie setting to retrieve.
@@ -13786,7 +13827,7 @@ class WinInet {
     static InternetEnumPerSiteCookieDecisionA(pszSiteName, pcSiteNameSize, pdwDecision, dwIndex) {
         pszSiteName := pszSiteName is String? StrPtr(pszSiteName) : pszSiteName
 
-        result := DllCall("WININET.dll\InternetEnumPerSiteCookieDecisionA", "ptr", pszSiteName, "ptr", pcSiteNameSize, "ptr", pdwDecision, "uint", dwIndex, "int")
+        result := DllCall("WININET.dll\InternetEnumPerSiteCookieDecisionA", "ptr", pszSiteName, "uint*", pcSiteNameSize, "uint*", pdwDecision, "uint", dwIndex, "int")
         return result
     }
 
@@ -13805,7 +13846,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetEnumPerSiteCookieDecision as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} pszSiteName An <b>LPSTR</b> that receives a string specifying a website domain.
+     * @param {Pointer<Char>} pszSiteName An <b>LPSTR</b> that receives a string specifying a website domain.
      * @param {Pointer<UInt32>} pcSiteNameSize A pointer to an unsigned long that specifies the size of the <i>pcSiteNameSize</i> parameter provided to the InternetEnumPerSiteCookieDecision function when it is called. When <b>InternetEnumPerSiteCookieDecision</b> returns, <i>pcSiteNameSize</i> receives the actual length of the domain string returned in <i>pszSiteName</i>.
      * @param {Pointer<UInt32>} pdwDecision Pointer to an unsigned long that receives the <a href="https://docs.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration value corresponding to <i>pszSiteName</i>.
      * @param {Integer} dwIndex An unsigned long that specifies the index of the website and corresponding cookie setting to retrieve.
@@ -13816,7 +13857,7 @@ class WinInet {
     static InternetEnumPerSiteCookieDecisionW(pszSiteName, pcSiteNameSize, pdwDecision, dwIndex) {
         pszSiteName := pszSiteName is String? StrPtr(pszSiteName) : pszSiteName
 
-        result := DllCall("WININET.dll\InternetEnumPerSiteCookieDecisionW", "ptr", pszSiteName, "ptr", pcSiteNameSize, "ptr", pdwDecision, "uint", dwIndex, "int")
+        result := DllCall("WININET.dll\InternetEnumPerSiteCookieDecisionW", "ptr", pszSiteName, "uint*", pcSiteNameSize, "uint*", pdwDecision, "uint", dwIndex, "int")
         return result
     }
 
@@ -13897,7 +13938,7 @@ class WinInet {
      * @param {Integer} dwZone Value of type <b>DWORD</b> that specifies the <a href="https://docs.microsoft.com/dotnet/api/microsoft.visualstudio.ole.interop.urlzone">URLZONE</a> for which privacy settings are being set.
      * @param {Integer} dwType Value of type <b>DWORD</b> that specifies the <a href="https://docs.microsoft.com/windows/desktop/WinInet/privacy-type">PrivacyType</a> for which privacy settings are being set.
      * @param {Integer} dwTemplate Value of type <b>DWORD</b> that specifies which of the <a href="https://docs.microsoft.com/windows/desktop/WinInet/privacy-templates">privacy templates</a> is to be used to set the privacy settings.
-     * @param {Pointer<PWSTR>} pszPreference If <i>dwTemplate</i> is set to <b>PRIVACY_TEMPLATE_CUSTOM</b>, this parameter is the string representation of the custom preferences. Otherwise, it should be set to <b>NULL</b>. A description of this string representation is included in the Remarks section.
+     * @param {Pointer<Char>} pszPreference If <i>dwTemplate</i> is set to <b>PRIVACY_TEMPLATE_CUSTOM</b>, this parameter is the string representation of the custom preferences. Otherwise, it should be set to <b>NULL</b>. A description of this string representation is included in the Remarks section.
      * @returns {Integer} Returns zero if successful. Otherwise, one of the errors defined in winerr.h is returned.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-privacysetzonepreferencew
      * @since windows5.0
@@ -13921,7 +13962,7 @@ class WinInet {
      * @param {Integer} dwZone A value of type <i>DWORD</i> that specifies the <a href="https://docs.microsoft.com/dotnet/api/microsoft.visualstudio.ole.interop.urlzone">URLZONE</a> for which privacy settings are being retrieved.
      * @param {Integer} dwType A value of type <i>DWORD</i> that specifies the <a href="https://docs.microsoft.com/windows/desktop/WinInet/privacy-type">PrivacyType</a> for which privacy settings are being retrieved.
      * @param {Pointer<UInt32>} pdwTemplate An <b>LPDWORD</b> that returns a pointer to a <b>DWORD</b> containing which of the <a href="https://docs.microsoft.com/windows/desktop/WinInet/privacy-templates">PrivacyTemplates</a> is in use for this <i>dwZone</i> and <i>dwType</i>.
-     * @param {Pointer<PWSTR>} pszBuffer An  <b>LPWSTR</b> that points to a buffer containing a <b>LPCWSTR</b> representing a string version of the <i>pdwTemplate</i> or a customized string if the <i>pdwTemplate</i> is set to <b>PRIVACY_TEMPLATE_CUSTOM</b>. See <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-privacysetzonepreferencew">PrivacySetZonePreferenceW</a> for a description of a customized privacy preferences string.
+     * @param {Pointer<Char>} pszBuffer An  <b>LPWSTR</b> that points to a buffer containing a <b>LPCWSTR</b> representing a string version of the <i>pdwTemplate</i> or a customized string if the <i>pdwTemplate</i> is set to <b>PRIVACY_TEMPLATE_CUSTOM</b>. See <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-privacysetzonepreferencew">PrivacySetZonePreferenceW</a> for a description of a customized privacy preferences string.
      * @param {Pointer<UInt32>} pdwBufferLength An <b>LPDWORD</b> that contains the buffer length in characters. If the buffer length is not sufficient, <b>PrivacyGetZonePreferenceW</b> returns with this parameter set to the number of characters required and with a return value of <b>ERROR_MORE_DATA</b>.
      * @returns {Integer} Returns zero if successful. Otherwise, one of the Error Messages defined in winerr.h is returned.
      * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-privacygetzonepreferencew
@@ -13930,27 +13971,27 @@ class WinInet {
     static PrivacyGetZonePreferenceW(dwZone, dwType, pdwTemplate, pszBuffer, pdwBufferLength) {
         pszBuffer := pszBuffer is String? StrPtr(pszBuffer) : pszBuffer
 
-        result := DllCall("WININET.dll\PrivacyGetZonePreferenceW", "uint", dwZone, "uint", dwType, "ptr", pdwTemplate, "ptr", pszBuffer, "ptr", pdwBufferLength, "uint")
+        result := DllCall("WININET.dll\PrivacyGetZonePreferenceW", "uint", dwZone, "uint", dwType, "uint*", pdwTemplate, "ptr", pszBuffer, "uint*", pdwBufferLength, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pcwszUrl 
+     * @param {Pointer<Char>} pcwszUrl 
      * @param {Pointer<Int32>} pfIsHsts 
      * @returns {Integer} 
      */
     static HttpIsHostHstsEnabled(pcwszUrl, pfIsHsts) {
         pcwszUrl := pcwszUrl is String? StrPtr(pcwszUrl) : pcwszUrl
 
-        result := DllCall("WININET.dll\HttpIsHostHstsEnabled", "ptr", pcwszUrl, "ptr", pfIsHsts, "uint")
+        result := DllCall("WININET.dll\HttpIsHostHstsEnabled", "ptr", pcwszUrl, "int*", pfIsHsts, "uint")
         return result
     }
 
     /**
      * 
      * @param {Integer} ai 
-     * @param {Pointer<PSTR>} lpstr 
+     * @param {Pointer<Byte>} lpstr 
      * @param {Pointer<UInt32>} lpdwstrLength 
      * @returns {Integer} 
      */
@@ -13959,14 +14000,14 @@ class WinInet {
 
         lpstr := lpstr is String? StrPtr(lpstr) : lpstr
 
-        result := DllCall("WININET.dll\InternetAlgIdToStringA", "uint", ai, "ptr", lpstr, "ptr", lpdwstrLength, "uint", dwReserved, "int")
+        result := DllCall("WININET.dll\InternetAlgIdToStringA", "uint", ai, "ptr", lpstr, "uint*", lpdwstrLength, "uint", dwReserved, "int")
         return result
     }
 
     /**
      * 
      * @param {Integer} ai 
-     * @param {Pointer<PWSTR>} lpstr 
+     * @param {Pointer<Char>} lpstr 
      * @param {Pointer<UInt32>} lpdwstrLength 
      * @returns {Integer} 
      */
@@ -13975,14 +14016,14 @@ class WinInet {
 
         lpstr := lpstr is String? StrPtr(lpstr) : lpstr
 
-        result := DllCall("WININET.dll\InternetAlgIdToStringW", "uint", ai, "ptr", lpstr, "ptr", lpdwstrLength, "uint", dwReserved, "int")
+        result := DllCall("WININET.dll\InternetAlgIdToStringW", "uint", ai, "ptr", lpstr, "uint*", lpdwstrLength, "uint", dwReserved, "int")
         return result
     }
 
     /**
      * 
      * @param {Integer} dwProtocol 
-     * @param {Pointer<PSTR>} lpstr 
+     * @param {Pointer<Byte>} lpstr 
      * @param {Pointer<UInt32>} lpdwstrLength 
      * @returns {Integer} 
      */
@@ -13991,14 +14032,14 @@ class WinInet {
 
         lpstr := lpstr is String? StrPtr(lpstr) : lpstr
 
-        result := DllCall("WININET.dll\InternetSecurityProtocolToStringA", "uint", dwProtocol, "ptr", lpstr, "ptr", lpdwstrLength, "uint", dwReserved, "int")
+        result := DllCall("WININET.dll\InternetSecurityProtocolToStringA", "uint", dwProtocol, "ptr", lpstr, "uint*", lpdwstrLength, "uint", dwReserved, "int")
         return result
     }
 
     /**
      * 
      * @param {Integer} dwProtocol 
-     * @param {Pointer<PWSTR>} lpstr 
+     * @param {Pointer<Char>} lpstr 
      * @param {Pointer<UInt32>} lpdwstrLength 
      * @returns {Integer} 
      */
@@ -14007,13 +14048,13 @@ class WinInet {
 
         lpstr := lpstr is String? StrPtr(lpstr) : lpstr
 
-        result := DllCall("WININET.dll\InternetSecurityProtocolToStringW", "uint", dwProtocol, "ptr", lpstr, "ptr", lpdwstrLength, "uint", dwReserved, "int")
+        result := DllCall("WININET.dll\InternetSecurityProtocolToStringW", "uint", dwProtocol, "ptr", lpstr, "uint*", lpdwstrLength, "uint", dwReserved, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PSTR>} lpszURL 
+     * @param {Pointer<Byte>} lpszURL 
      * @param {Pointer<CERT_CHAIN_CONTEXT>} ppCertChain 
      * @param {Pointer<UInt32>} pdwSecureFlags 
      * @returns {Integer} 
@@ -14021,13 +14062,13 @@ class WinInet {
     static InternetGetSecurityInfoByURLA(lpszURL, ppCertChain, pdwSecureFlags) {
         lpszURL := lpszURL is String? StrPtr(lpszURL) : lpszURL
 
-        result := DllCall("WININET.dll\InternetGetSecurityInfoByURLA", "ptr", lpszURL, "ptr", ppCertChain, "ptr", pdwSecureFlags, "int")
+        result := DllCall("WININET.dll\InternetGetSecurityInfoByURLA", "ptr", lpszURL, "ptr", ppCertChain, "uint*", pdwSecureFlags, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpszURL 
+     * @param {Pointer<Char>} lpszURL 
      * @param {Pointer<CERT_CHAIN_CONTEXT>} ppCertChain 
      * @param {Pointer<UInt32>} pdwSecureFlags 
      * @returns {Integer} 
@@ -14035,13 +14076,13 @@ class WinInet {
     static InternetGetSecurityInfoByURLW(lpszURL, ppCertChain, pdwSecureFlags) {
         lpszURL := lpszURL is String? StrPtr(lpszURL) : lpszURL
 
-        result := DllCall("WININET.dll\InternetGetSecurityInfoByURLW", "ptr", lpszURL, "ptr", ppCertChain, "ptr", pdwSecureFlags, "int")
+        result := DllCall("WININET.dll\InternetGetSecurityInfoByURLW", "ptr", lpszURL, "ptr", ppCertChain, "uint*", pdwSecureFlags, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PSTR>} lpszURL 
+     * @param {Pointer<Byte>} lpszURL 
      * @param {Pointer<CERT_CHAIN_CONTEXT>} ppCertChain 
      * @param {Pointer<UInt32>} pdwSecureFlags 
      * @returns {Integer} 
@@ -14049,13 +14090,13 @@ class WinInet {
     static InternetGetSecurityInfoByURL(lpszURL, ppCertChain, pdwSecureFlags) {
         lpszURL := lpszURL is String? StrPtr(lpszURL) : lpszURL
 
-        result := DllCall("WININET.dll\InternetGetSecurityInfoByURL", "ptr", lpszURL, "ptr", ppCertChain, "ptr", pdwSecureFlags, "int")
+        result := DllCall("WININET.dll\InternetGetSecurityInfoByURL", "ptr", lpszURL, "ptr", ppCertChain, "uint*", pdwSecureFlags, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<HWND>} hWndParent 
+     * @param {Pointer<Void>} hWndParent 
      * @param {Pointer<INTERNET_SECURITY_INFO>} pSecurityInfo 
      * @returns {Integer} 
      */
@@ -14066,8 +14107,8 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<HWND>} hWndParent 
-     * @param {Pointer<Byte>} lpCert 
+     * @param {Pointer<Void>} hWndParent 
+     * @param {Pointer} lpCert 
      * @param {Integer} cbCert 
      * @returns {Integer} 
      */
@@ -14078,7 +14119,7 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<HWND>} hWndParent 
+     * @param {Pointer<Void>} hWndParent 
      * @returns {Integer} 
      */
     static ShowClientAuthCerts(hWndParent) {
@@ -14088,23 +14129,23 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Byte>} lpCert 
+     * @param {Pointer} lpCert 
      * @param {Integer} cbCert 
-     * @param {Pointer<PSTR>} lpszListBoxEntry 
+     * @param {Pointer<Byte>} lpszListBoxEntry 
      * @param {Pointer<UInt32>} lpdwListBoxEntry 
      * @returns {Integer} 
      */
     static ParseX509EncodedCertificateForListBoxEntry(lpCert, cbCert, lpszListBoxEntry, lpdwListBoxEntry) {
         lpszListBoxEntry := lpszListBoxEntry is String? StrPtr(lpszListBoxEntry) : lpszListBoxEntry
 
-        result := DllCall("WININET.dll\ParseX509EncodedCertificateForListBoxEntry", "ptr", lpCert, "uint", cbCert, "ptr", lpszListBoxEntry, "ptr", lpdwListBoxEntry, "uint")
+        result := DllCall("WININET.dll\ParseX509EncodedCertificateForListBoxEntry", "ptr", lpCert, "uint", cbCert, "ptr", lpszListBoxEntry, "uint*", lpdwListBoxEntry, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PSTR>} lpszURL 
-     * @param {Pointer<HWND>} hwndParent 
+     * @param {Pointer<Byte>} lpszURL 
+     * @param {Pointer<Void>} hwndParent 
      * @returns {Integer} 
      */
     static InternetShowSecurityInfoByURLA(lpszURL, hwndParent) {
@@ -14116,8 +14157,8 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpszURL 
-     * @param {Pointer<HWND>} hwndParent 
+     * @param {Pointer<Char>} lpszURL 
+     * @param {Pointer<Void>} hwndParent 
      * @returns {Integer} 
      */
     static InternetShowSecurityInfoByURLW(lpszURL, hwndParent) {
@@ -14129,8 +14170,8 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<PSTR>} lpszURL 
-     * @param {Pointer<HWND>} hwndParent 
+     * @param {Pointer<Byte>} lpszURL 
+     * @param {Pointer<Void>} hwndParent 
      * @returns {Integer} 
      */
     static InternetShowSecurityInfoByURL(lpszURL, hwndParent) {
@@ -14143,7 +14184,7 @@ class WinInet {
     /**
      * 
      * @param {Integer} dwCommand 
-     * @param {Pointer<HWND>} hwnd 
+     * @param {Pointer<Void>} hwnd 
      * @returns {Integer} 
      */
     static InternetFortezzaCommand(dwCommand, hwnd) {
@@ -14161,7 +14202,7 @@ class WinInet {
     static InternetQueryFortezzaStatus(pdwStatus) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("WININET.dll\InternetQueryFortezzaStatus", "ptr", pdwStatus, "ptr", dwReserved, "int")
+        result := DllCall("WININET.dll\InternetQueryFortezzaStatus", "uint*", pdwStatus, "ptr", dwReserved, "int")
         return result
     }
 
@@ -14193,26 +14234,25 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<PSTR>} pszSymbol 
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Byte>} pszSymbol 
+     * @returns {Pointer} 
      */
     static FindP3PPolicySymbol(pszSymbol) {
         pszSymbol := pszSymbol is String? StrPtr(pszSymbol) : pszSymbol
 
-        DllCall("WININET.dll\FindP3PPolicySymbol", "ptr", pszSymbol)
+        result := DllCall("WININET.dll\FindP3PPolicySymbol", "ptr", pszSymbol)
+        return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pwszUrl 
-     * @param {Pointer<PWSTR>} ppwszUserName 
-     * @param {Pointer<PWSTR>} ppwszPassword 
+     * @param {Pointer<Char>} pwszUrl 
+     * @param {Pointer<Char>} ppwszUserName 
+     * @param {Pointer<Char>} ppwszPassword 
      * @returns {Integer} 
      */
     static HttpGetServerCredentials(pwszUrl, ppwszUserName, ppwszPassword) {
         pwszUrl := pwszUrl is String? StrPtr(pwszUrl) : pwszUrl
-        ppwszUserName := ppwszUserName is String? StrPtr(ppwszUserName) : ppwszUserName
-        ppwszPassword := ppwszPassword is String? StrPtr(ppwszPassword) : ppwszPassword
 
         result := DllCall("WININET.dll\HttpGetServerCredentials", "ptr", pwszUrl, "ptr", ppwszUserName, "ptr", ppwszPassword, "uint")
         return result
@@ -14222,7 +14262,7 @@ class WinInet {
      * 
      * @param {Pointer<Void>} hRequest 
      * @param {Pointer<HTTP_PUSH_TRANSPORT_SETTING>} pTransportSetting 
-     * @param {Pointer<HTTP_PUSH_WAIT_HANDLE>} phWait 
+     * @param {Pointer<Void>} phWait 
      * @returns {Integer} 
      */
     static HttpPushEnable(hRequest, pTransportSetting, phWait) {
@@ -14232,7 +14272,7 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<HTTP_PUSH_WAIT_HANDLE>} hWait 
+     * @param {Pointer<Void>} hWait 
      * @param {Integer} eType 
      * @param {Pointer<HTTP_PUSH_NOTIFICATION_STATUS>} pNotificationStatus 
      * @returns {Integer} 
@@ -14244,19 +14284,20 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<HTTP_PUSH_WAIT_HANDLE>} hWait 
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Void>} hWait 
+     * @returns {Pointer} 
      */
     static HttpPushClose(hWait) {
-        DllCall("WININET.dll\HttpPushClose", "ptr", hWait)
+        result := DllCall("WININET.dll\HttpPushClose", "ptr", hWait)
+        return result
     }
 
     /**
      * 
-     * @param {Pointer<PSTR>} lpszUrl 
-     * @param {Pointer<PSTR>} lpszComplianceToken 
+     * @param {Pointer<Byte>} lpszUrl 
+     * @param {Pointer<Byte>} lpszComplianceToken 
      * @param {Pointer<Int32>} lpfFound 
-     * @param {Pointer<HWND>} hWnd 
+     * @param {Pointer<Void>} hWnd 
      * @param {Pointer<Void>} lpvReserved 
      * @returns {Integer} 
      */
@@ -14264,16 +14305,16 @@ class WinInet {
         lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
         lpszComplianceToken := lpszComplianceToken is String? StrPtr(lpszComplianceToken) : lpszComplianceToken
 
-        result := DllCall("WININET.dll\HttpCheckDavComplianceA", "ptr", lpszUrl, "ptr", lpszComplianceToken, "ptr", lpfFound, "ptr", hWnd, "ptr", lpvReserved, "int")
+        result := DllCall("WININET.dll\HttpCheckDavComplianceA", "ptr", lpszUrl, "ptr", lpszComplianceToken, "int*", lpfFound, "ptr", hWnd, "ptr", lpvReserved, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpszUrl 
-     * @param {Pointer<PWSTR>} lpszComplianceToken 
+     * @param {Pointer<Char>} lpszUrl 
+     * @param {Pointer<Char>} lpszComplianceToken 
      * @param {Pointer<Int32>} lpfFound 
-     * @param {Pointer<HWND>} hWnd 
+     * @param {Pointer<Void>} hWnd 
      * @param {Pointer<Void>} lpvReserved 
      * @returns {Integer} 
      */
@@ -14281,13 +14322,13 @@ class WinInet {
         lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
         lpszComplianceToken := lpszComplianceToken is String? StrPtr(lpszComplianceToken) : lpszComplianceToken
 
-        result := DllCall("WININET.dll\HttpCheckDavComplianceW", "ptr", lpszUrl, "ptr", lpszComplianceToken, "ptr", lpfFound, "ptr", hWnd, "ptr", lpvReserved, "int")
+        result := DllCall("WININET.dll\HttpCheckDavComplianceW", "ptr", lpszUrl, "ptr", lpszComplianceToken, "int*", lpfFound, "ptr", hWnd, "ptr", lpvReserved, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PSTR>} lpszUrlName 
+     * @param {Pointer<Byte>} lpszUrlName 
      * @param {Integer} dwFlags 
      * @param {Pointer<FILETIME>} pftLastModified 
      * @returns {Integer} 
@@ -14301,7 +14342,7 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpszUrlName 
+     * @param {Pointer<Char>} lpszUrlName 
      * @param {Integer} dwFlags 
      * @param {Pointer<FILETIME>} pftLastModified 
      * @returns {Integer} 
@@ -14315,10 +14356,10 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpszUrlName 
+     * @param {Pointer<Char>} lpszUrlName 
      * @param {Integer} dwExpectedFileSize 
-     * @param {Pointer<PWSTR>} lpszFileExtension 
-     * @param {Pointer<PWSTR>} lpszFileName 
+     * @param {Pointer<Char>} lpszFileExtension 
+     * @param {Pointer<Char>} lpszFileName 
      * @param {Integer} dwReserved 
      * @param {Integer} fPreserveIncomingFileName 
      * @returns {Integer} 
@@ -14334,7 +14375,7 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pwszUrlName 
+     * @param {Pointer<Char>} pwszUrlName 
      * @param {Pointer<UInt32>} dwType 
      * @param {Pointer<FILETIME>} pftExpireTime 
      * @param {Pointer<FILETIME>} pftAccessTime 
@@ -14346,13 +14387,13 @@ class WinInet {
     static GetUrlCacheEntryBinaryBlob(pwszUrlName, dwType, pftExpireTime, pftAccessTime, pftModifiedTime, ppbBlob, pcbBlob) {
         pwszUrlName := pwszUrlName is String? StrPtr(pwszUrlName) : pwszUrlName
 
-        result := DllCall("WININET.dll\GetUrlCacheEntryBinaryBlob", "ptr", pwszUrlName, "ptr", dwType, "ptr", pftExpireTime, "ptr", pftAccessTime, "ptr", pftModifiedTime, "ptr", ppbBlob, "ptr", pcbBlob, "uint")
+        result := DllCall("WININET.dll\GetUrlCacheEntryBinaryBlob", "ptr", pwszUrlName, "uint*", dwType, "ptr", pftExpireTime, "ptr", pftAccessTime, "ptr", pftModifiedTime, "ptr", ppbBlob, "uint*", pcbBlob, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pwszUrlName 
+     * @param {Pointer<Char>} pwszUrlName 
      * @param {Integer} dwType 
      * @param {Pointer} ftExpireTime 
      * @param {Pointer} ftModifiedTime 
@@ -14363,7 +14404,7 @@ class WinInet {
     static CommitUrlCacheEntryBinaryBlob(pwszUrlName, dwType, ftExpireTime, ftModifiedTime, pbBlob, cbBlob) {
         pwszUrlName := pwszUrlName is String? StrPtr(pwszUrlName) : pwszUrlName
 
-        result := DllCall("WININET.dll\CommitUrlCacheEntryBinaryBlob", "ptr", pwszUrlName, "uint", dwType, "ptr", ftExpireTime, "ptr", ftModifiedTime, "ptr", pbBlob, "uint", cbBlob, "uint")
+        result := DllCall("WININET.dll\CommitUrlCacheEntryBinaryBlob", "ptr", pwszUrlName, "uint", dwType, "ptr", ftExpireTime, "ptr", ftModifiedTime, "char*", pbBlob, "uint", cbBlob, "uint")
         return result
     }
 
@@ -14372,9 +14413,9 @@ class WinInet {
      * @remarks
      * > [!NOTE]
      * > The winineti.h header defines CreateUrlCacheContainer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} Name The name to give to the cache.
-     * @param {Pointer<PSTR>} lpCachePrefix The cache prefix to base the cache on.
-     * @param {Pointer<PSTR>} lpszCachePath The cache prefix to create the cache in.
+     * @param {Pointer<Byte>} Name The name to give to the cache.
+     * @param {Pointer<Byte>} lpCachePrefix The cache prefix to base the cache on.
+     * @param {Pointer<Byte>} lpszCachePath The cache prefix to create the cache in.
      * @param {Integer} KBCacheLimit The size limit of the cache in whole kilobytes, or 0 for the default size.
      * @param {Integer} dwContainerType The container type to base the cache on.
      * @param {Integer} dwOptions This parameter is reserved and must be 0.
@@ -14392,7 +14433,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\CreateUrlCacheContainerA", "ptr", Name, "ptr", lpCachePrefix, "ptr", lpszCachePath, "uint", KBCacheLimit, "uint", dwContainerType, "uint", dwOptions, "ptr", pvBuffer, "ptr", cbBuffer, "int")
+        result := DllCall("WININET.dll\CreateUrlCacheContainerA", "ptr", Name, "ptr", lpCachePrefix, "ptr", lpszCachePath, "uint", KBCacheLimit, "uint", dwContainerType, "uint", dwOptions, "ptr", pvBuffer, "uint*", cbBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -14404,9 +14445,9 @@ class WinInet {
      * @remarks
      * > [!NOTE]
      * > The winineti.h header defines CreateUrlCacheContainer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} Name The name to give to the cache.
-     * @param {Pointer<PWSTR>} lpCachePrefix The cache prefix to base the cache on.
-     * @param {Pointer<PWSTR>} lpszCachePath The cache prefix to create the cache in.
+     * @param {Pointer<Char>} Name The name to give to the cache.
+     * @param {Pointer<Char>} lpCachePrefix The cache prefix to base the cache on.
+     * @param {Pointer<Char>} lpszCachePath The cache prefix to create the cache in.
      * @param {Integer} KBCacheLimit The size limit of the cache in whole kilobytes, or 0 for the default size.
      * @param {Integer} dwContainerType The container type to base the cache on.
      * @param {Integer} dwOptions This parameter is reserved and must be 0.
@@ -14424,7 +14465,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\CreateUrlCacheContainerW", "ptr", Name, "ptr", lpCachePrefix, "ptr", lpszCachePath, "uint", KBCacheLimit, "uint", dwContainerType, "uint", dwOptions, "ptr", pvBuffer, "ptr", cbBuffer, "int")
+        result := DllCall("WININET.dll\CreateUrlCacheContainerW", "ptr", Name, "ptr", lpCachePrefix, "ptr", lpszCachePath, "uint", KBCacheLimit, "uint", dwContainerType, "uint", dwOptions, "ptr", pvBuffer, "uint*", cbBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -14442,7 +14483,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The winineti.h header defines DeleteUrlCacheContainer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} Name The name of the cache container to be deleted.
+     * @param {Pointer<Byte>} Name The name of the cache container to be deleted.
      * @param {Integer} dwOptions This parameter is reserved, and must be 0.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/winineti/nf-winineti-deleteurlcachecontainera
@@ -14471,7 +14512,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The winineti.h header defines DeleteUrlCacheContainer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} Name The name of the cache container to be deleted.
+     * @param {Pointer<Char>} Name The name of the cache container to be deleted.
      * @param {Integer} dwOptions This parameter is reserved, and must be 0.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/winineti/nf-winineti-deleteurlcachecontainerw
@@ -14492,50 +14533,50 @@ class WinInet {
     /**
      * 
      * @param {Pointer<UInt32>} pdwModified 
-     * @param {Pointer<INTERNET_CACHE_CONTAINER_INFOA>} lpContainerInfo 
+     * @param {Pointer} lpContainerInfo 
      * @param {Pointer<UInt32>} lpcbContainerInfo 
      * @param {Integer} dwOptions 
-     * @returns {Pointer<HANDLE>} 
+     * @returns {Pointer<Void>} 
      */
     static FindFirstUrlCacheContainerA(pdwModified, lpContainerInfo, lpcbContainerInfo, dwOptions) {
-        result := DllCall("WININET.dll\FindFirstUrlCacheContainerA", "ptr", pdwModified, "ptr", lpContainerInfo, "ptr", lpcbContainerInfo, "uint", dwOptions, "ptr")
+        result := DllCall("WININET.dll\FindFirstUrlCacheContainerA", "uint*", pdwModified, "ptr", lpContainerInfo, "uint*", lpcbContainerInfo, "uint", dwOptions)
         return result
     }
 
     /**
      * 
      * @param {Pointer<UInt32>} pdwModified 
-     * @param {Pointer<INTERNET_CACHE_CONTAINER_INFOW>} lpContainerInfo 
+     * @param {Pointer} lpContainerInfo 
      * @param {Pointer<UInt32>} lpcbContainerInfo 
      * @param {Integer} dwOptions 
-     * @returns {Pointer<HANDLE>} 
+     * @returns {Pointer<Void>} 
      */
     static FindFirstUrlCacheContainerW(pdwModified, lpContainerInfo, lpcbContainerInfo, dwOptions) {
-        result := DllCall("WININET.dll\FindFirstUrlCacheContainerW", "ptr", pdwModified, "ptr", lpContainerInfo, "ptr", lpcbContainerInfo, "uint", dwOptions, "ptr")
+        result := DllCall("WININET.dll\FindFirstUrlCacheContainerW", "uint*", pdwModified, "ptr", lpContainerInfo, "uint*", lpcbContainerInfo, "uint", dwOptions)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hEnumHandle 
-     * @param {Pointer<INTERNET_CACHE_CONTAINER_INFOA>} lpContainerInfo 
+     * @param {Pointer<Void>} hEnumHandle 
+     * @param {Pointer} lpContainerInfo 
      * @param {Pointer<UInt32>} lpcbContainerInfo 
      * @returns {Integer} 
      */
     static FindNextUrlCacheContainerA(hEnumHandle, lpContainerInfo, lpcbContainerInfo) {
-        result := DllCall("WININET.dll\FindNextUrlCacheContainerA", "ptr", hEnumHandle, "ptr", lpContainerInfo, "ptr", lpcbContainerInfo, "int")
+        result := DllCall("WININET.dll\FindNextUrlCacheContainerA", "ptr", hEnumHandle, "ptr", lpContainerInfo, "uint*", lpcbContainerInfo, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hEnumHandle 
-     * @param {Pointer<INTERNET_CACHE_CONTAINER_INFOW>} lpContainerInfo 
+     * @param {Pointer<Void>} hEnumHandle 
+     * @param {Pointer} lpContainerInfo 
      * @param {Pointer<UInt32>} lpcbContainerInfo 
      * @returns {Integer} 
      */
     static FindNextUrlCacheContainerW(hEnumHandle, lpContainerInfo, lpcbContainerInfo) {
-        result := DllCall("WININET.dll\FindNextUrlCacheContainerW", "ptr", hEnumHandle, "ptr", lpContainerInfo, "ptr", lpcbContainerInfo, "int")
+        result := DllCall("WININET.dll\FindNextUrlCacheContainerW", "ptr", hEnumHandle, "ptr", lpContainerInfo, "uint*", lpcbContainerInfo, "int")
         return result
     }
 
@@ -14550,7 +14591,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The winineti.h header defines FreeUrlCacheSpace as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszCachePath The path for the cache.
+     * @param {Pointer<Byte>} lpszCachePath The path for the cache.
      * @param {Integer} dwSize The percentage of the cache to free (in the range 1 to 100, inclusive).
      * @param {Integer} dwFilter This parameter is reserved, and must be 0.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -14580,7 +14621,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The winineti.h header defines FreeUrlCacheSpace as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszCachePath The path for the cache.
+     * @param {Pointer<Char>} lpszCachePath The path for the cache.
      * @param {Integer} dwSize The percentage of the cache to free (in the range 1 to 100, inclusive).
      * @param {Integer} dwFilter This parameter is reserved, and must be 0.
      * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -14618,7 +14659,7 @@ class WinInet {
      * @returns {Integer} 
      */
     static UrlCacheGetGlobalCacheSize(dwFilter, pullSize, pullLimit) {
-        result := DllCall("WININET.dll\UrlCacheGetGlobalCacheSize", "uint", dwFilter, "ptr", pullSize, "ptr", pullLimit, "uint")
+        result := DllCall("WININET.dll\UrlCacheGetGlobalCacheSize", "uint", dwFilter, "uint*", pullSize, "uint*", pullLimit, "uint")
         return result
     }
 
@@ -14649,7 +14690,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\GetUrlCacheConfigInfoA", "ptr", lpCacheConfigInfo, "ptr", lpcbCacheConfigInfo, "uint", dwFieldControl, "int")
+        result := DllCall("WININET.dll\GetUrlCacheConfigInfoA", "ptr", lpCacheConfigInfo, "uint*", lpcbCacheConfigInfo, "uint", dwFieldControl, "int")
         if(A_LastError)
             throw OSError()
 
@@ -14683,7 +14724,7 @@ class WinInet {
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\GetUrlCacheConfigInfoW", "ptr", lpCacheConfigInfo, "ptr", lpcbCacheConfigInfo, "uint", dwFieldControl, "int")
+        result := DllCall("WININET.dll\GetUrlCacheConfigInfoW", "ptr", lpCacheConfigInfo, "uint*", lpcbCacheConfigInfo, "uint", dwFieldControl, "int")
         if(A_LastError)
             throw OSError()
 
@@ -14714,9 +14755,9 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<HWND>} hwnd 
-     * @param {Pointer<HINSTANCE>} hinst 
-     * @param {Pointer<PSTR>} lpszCmd 
+     * @param {Pointer<Void>} hwnd 
+     * @param {Pointer<Void>} hinst 
+     * @param {Pointer<Byte>} lpszCmd 
      * @param {Integer} nCmdShow 
      * @returns {Integer} 
      */
@@ -14729,9 +14770,9 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<HWND>} hwnd 
-     * @param {Pointer<HINSTANCE>} hinst 
-     * @param {Pointer<PSTR>} lpszCmd 
+     * @param {Pointer<Void>} hwnd 
+     * @param {Pointer<Void>} hinst 
+     * @param {Pointer<Byte>} lpszCmd 
      * @param {Integer} nCmdShow 
      * @returns {Integer} 
      */
@@ -14744,7 +14785,7 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<PSTR>} szNewPath 
+     * @param {Pointer<Byte>} szNewPath 
      * @returns {Integer} 
      */
     static UpdateUrlCacheContentPath(szNewPath) {
@@ -14756,7 +14797,7 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<HWND>} hWnd 
+     * @param {Pointer<Void>} hWnd 
      * @param {Integer} uMsg 
      * @param {Integer} gid 
      * @param {Integer} dwOpsFilter 
@@ -14775,7 +14816,7 @@ class WinInet {
      * @returns {Integer} 
      */
     static GetUrlCacheHeaderData(nIdx, lpdwData) {
-        result := DllCall("WININET.dll\GetUrlCacheHeaderData", "uint", nIdx, "ptr", lpdwData, "int")
+        result := DllCall("WININET.dll\GetUrlCacheHeaderData", "uint", nIdx, "uint*", lpdwData, "int")
         return result
     }
 
@@ -14797,7 +14838,7 @@ class WinInet {
      * @returns {Integer} 
      */
     static IncrementUrlCacheHeaderData(nIdx, lpdwData) {
-        result := DllCall("WININET.dll\IncrementUrlCacheHeaderData", "uint", nIdx, "ptr", lpdwData, "int")
+        result := DllCall("WININET.dll\IncrementUrlCacheHeaderData", "uint", nIdx, "uint*", lpdwData, "int")
         return result
     }
 
@@ -14812,7 +14853,7 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pwszUrl 
+     * @param {Pointer<Char>} pwszUrl 
      * @param {Integer} dwFlags 
      * @param {Pointer<Void>} phAppCache 
      * @returns {Integer} 
@@ -14826,11 +14867,11 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pwszMasterUrl 
-     * @param {Pointer<PWSTR>} pwszManifestUrl 
-     * @param {Pointer<Byte>} pbManifestData 
+     * @param {Pointer<Char>} pwszMasterUrl 
+     * @param {Pointer<Char>} pwszManifestUrl 
+     * @param {Pointer} pbManifestData 
      * @param {Integer} dwManifestDataSize 
-     * @param {Pointer<Byte>} pbManifestResponseHeaders 
+     * @param {Pointer} pbManifestResponseHeaders 
      * @param {Integer} dwManifestResponseHeadersSize 
      * @param {Pointer<Int32>} peState 
      * @param {Pointer<Void>} phNewAppCache 
@@ -14840,7 +14881,7 @@ class WinInet {
         pwszMasterUrl := pwszMasterUrl is String? StrPtr(pwszMasterUrl) : pwszMasterUrl
         pwszManifestUrl := pwszManifestUrl is String? StrPtr(pwszManifestUrl) : pwszManifestUrl
 
-        result := DllCall("WININET.dll\AppCacheCheckManifest", "ptr", pwszMasterUrl, "ptr", pwszManifestUrl, "ptr", pbManifestData, "uint", dwManifestDataSize, "ptr", pbManifestResponseHeaders, "uint", dwManifestResponseHeadersSize, "ptr", peState, "ptr", phNewAppCache, "uint")
+        result := DllCall("WININET.dll\AppCacheCheckManifest", "ptr", pwszMasterUrl, "ptr", pwszManifestUrl, "ptr", pbManifestData, "uint", dwManifestDataSize, "ptr", pbManifestResponseHeaders, "uint", dwManifestResponseHeadersSize, "int*", peState, "ptr", phNewAppCache, "uint")
         return result
     }
 
@@ -14858,35 +14899,35 @@ class WinInet {
     /**
      * 
      * @param {Pointer<APP_CACHE_DOWNLOAD_LIST>} pDownloadList 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static AppCacheFreeDownloadList(pDownloadList) {
-        DllCall("WININET.dll\AppCacheFreeDownloadList", "ptr", pDownloadList)
-    }
-
-    /**
-     * 
-     * @param {Pointer<Void>} hAppCache 
-     * @param {Pointer<Byte>} pbManifestData 
-     * @param {Integer} dwManifestDataSize 
-     * @param {Pointer<Int32>} peState 
-     * @returns {Integer} 
-     */
-    static AppCacheFinalize(hAppCache, pbManifestData, dwManifestDataSize, peState) {
-        result := DllCall("WININET.dll\AppCacheFinalize", "ptr", hAppCache, "ptr", pbManifestData, "uint", dwManifestDataSize, "ptr", peState, "uint")
+        result := DllCall("WININET.dll\AppCacheFreeDownloadList", "ptr", pDownloadList)
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} hAppCache 
-     * @param {Pointer<PWSTR>} pwszUrl 
-     * @param {Pointer<PWSTR>} ppwszFallbackUrl 
+     * @param {Pointer} pbManifestData 
+     * @param {Integer} dwManifestDataSize 
+     * @param {Pointer<Int32>} peState 
+     * @returns {Integer} 
+     */
+    static AppCacheFinalize(hAppCache, pbManifestData, dwManifestDataSize, peState) {
+        result := DllCall("WININET.dll\AppCacheFinalize", "ptr", hAppCache, "ptr", pbManifestData, "uint", dwManifestDataSize, "int*", peState, "uint")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Void>} hAppCache 
+     * @param {Pointer<Char>} pwszUrl 
+     * @param {Pointer<Char>} ppwszFallbackUrl 
      * @returns {Integer} 
      */
     static AppCacheGetFallbackUrl(hAppCache, pwszUrl, ppwszFallbackUrl) {
         pwszUrl := pwszUrl is String? StrPtr(pwszUrl) : pwszUrl
-        ppwszFallbackUrl := ppwszFallbackUrl is String? StrPtr(ppwszFallbackUrl) : ppwszFallbackUrl
 
         result := DllCall("WININET.dll\AppCacheGetFallbackUrl", "ptr", hAppCache, "ptr", pwszUrl, "ptr", ppwszFallbackUrl, "uint")
         return result
@@ -14895,12 +14936,10 @@ class WinInet {
     /**
      * 
      * @param {Pointer<Void>} hAppCache 
-     * @param {Pointer<PWSTR>} ppwszManifestUrl 
+     * @param {Pointer<Char>} ppwszManifestUrl 
      * @returns {Integer} 
      */
     static AppCacheGetManifestUrl(hAppCache, ppwszManifestUrl) {
-        ppwszManifestUrl := ppwszManifestUrl is String? StrPtr(ppwszManifestUrl) : ppwszManifestUrl
-
         result := DllCall("WININET.dll\AppCacheGetManifestUrl", "ptr", hAppCache, "ptr", ppwszManifestUrl, "uint")
         return result
     }
@@ -14919,19 +14958,21 @@ class WinInet {
     /**
      * 
      * @param {Pointer<Void>} hAppCache 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static AppCacheCloseHandle(hAppCache) {
-        DllCall("WININET.dll\AppCacheCloseHandle", "ptr", hAppCache)
+        result := DllCall("WININET.dll\AppCacheCloseHandle", "ptr", hAppCache)
+        return result
     }
 
     /**
      * 
      * @param {Pointer<APP_CACHE_GROUP_LIST>} pAppCacheGroupList 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static AppCacheFreeGroupList(pAppCacheGroupList) {
-        DllCall("WININET.dll\AppCacheFreeGroupList", "ptr", pAppCacheGroupList)
+        result := DllCall("WININET.dll\AppCacheFreeGroupList", "ptr", pAppCacheGroupList)
+        return result
     }
 
     /**
@@ -14957,7 +14998,7 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pwszManifestUrl 
+     * @param {Pointer<Char>} pwszManifestUrl 
      * @returns {Integer} 
      */
     static AppCacheDeleteGroup(pwszManifestUrl) {
@@ -14989,7 +15030,7 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pwszManifestUrl 
+     * @param {Pointer<Char>} pwszManifestUrl 
      * @returns {Integer} 
      */
     static AppCacheDeleteIEGroup(pwszManifestUrl) {
@@ -15012,9 +15053,9 @@ class WinInet {
     /**
      * 
      * @param {Pointer<Void>} hAppCache 
-     * @param {Pointer<PWSTR>} pwszSourceFilePath 
-     * @param {Pointer<PWSTR>} pwszUrl 
-     * @param {Pointer<Byte>} pbResponseHeaders 
+     * @param {Pointer<Char>} pwszSourceFilePath 
+     * @param {Pointer<Char>} pwszUrl 
+     * @param {Pointer} pbResponseHeaders 
      * @param {Integer} dwResponseHeadersSize 
      * @returns {Integer} 
      */
@@ -15041,10 +15082,11 @@ class WinInet {
     /**
      * 
      * @param {Pointer<Void>} hDependencyHandle 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static HttpCloseDependencyHandle(hDependencyHandle) {
-        DllCall("WININET.dll\HttpCloseDependencyHandle", "ptr", hDependencyHandle)
+        result := DllCall("WININET.dll\HttpCloseDependencyHandle", "ptr", hDependencyHandle)
+        return result
     }
 
     /**
@@ -15071,16 +15113,17 @@ class WinInet {
     /**
      * 
      * @param {Pointer<URLCACHE_ENTRY_INFO>} pCacheEntryInfo 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static UrlCacheFreeEntryInfo(pCacheEntryInfo) {
-        DllCall("WININET.dll\UrlCacheFreeEntryInfo", "ptr", pCacheEntryInfo)
+        result := DllCall("WININET.dll\UrlCacheFreeEntryInfo", "ptr", pCacheEntryInfo)
+        return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} hAppCache 
-     * @param {Pointer<PWSTR>} pcwszUrl 
+     * @param {Pointer<Char>} pcwszUrl 
      * @param {Pointer<URLCACHE_ENTRY_INFO>} pCacheEntryInfo 
      * @returns {Integer} 
      */
@@ -15094,16 +15137,17 @@ class WinInet {
     /**
      * 
      * @param {Pointer<Void>} hEntryFile 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static UrlCacheCloseEntryHandle(hEntryFile) {
-        DllCall("WININET.dll\UrlCacheCloseEntryHandle", "ptr", hEntryFile)
+        result := DllCall("WININET.dll\UrlCacheCloseEntryHandle", "ptr", hEntryFile)
+        return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} hAppCache 
-     * @param {Pointer<PWSTR>} pcwszUrl 
+     * @param {Pointer<Char>} pcwszUrl 
      * @param {Pointer<URLCACHE_ENTRY_INFO>} pCacheEntryInfo 
      * @param {Pointer<Void>} phEntryFile 
      * @returns {Integer} 
@@ -15125,14 +15169,14 @@ class WinInet {
      * @returns {Integer} 
      */
     static UrlCacheReadEntryStream(hUrlCacheStream, ullLocation, pBuffer, dwBufferLen, pdwBufferLen) {
-        result := DllCall("WININET.dll\UrlCacheReadEntryStream", "ptr", hUrlCacheStream, "uint", ullLocation, "ptr", pBuffer, "uint", dwBufferLen, "ptr", pdwBufferLen, "uint")
+        result := DllCall("WININET.dll\UrlCacheReadEntryStream", "ptr", hUrlCacheStream, "uint", ullLocation, "ptr", pBuffer, "uint", dwBufferLen, "uint*", pdwBufferLen, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} hAppCache 
-     * @param {Pointer<PWSTR>} pcwszUrl 
+     * @param {Pointer<Char>} pcwszUrl 
      * @param {Integer} fRandomRead 
      * @param {Pointer<URLCACHE_ENTRY_INFO>} pCacheEntryInfo 
      * @param {Pointer<Void>} phEntryStream 
@@ -15148,8 +15192,8 @@ class WinInet {
     /**
      * 
      * @param {Pointer<Void>} hAppCache 
-     * @param {Pointer<PWSTR>} pcwszUrl 
-     * @param {Pointer<Byte>} pbExtraData 
+     * @param {Pointer<Char>} pcwszUrl 
+     * @param {Pointer} pbExtraData 
      * @param {Integer} cbExtraData 
      * @returns {Integer} 
      */
@@ -15162,9 +15206,9 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pwszName 
-     * @param {Pointer<PWSTR>} pwszPrefix 
-     * @param {Pointer<PWSTR>} pwszDirectory 
+     * @param {Pointer<Char>} pwszName 
+     * @param {Pointer<Char>} pwszPrefix 
+     * @param {Pointer<Char>} pwszDirectory 
      * @param {Integer} ullLimit 
      * @param {Integer} dwOptions 
      * @returns {Integer} 
@@ -15180,28 +15224,24 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} rgpwszUrls 
+     * @param {Pointer<Char>} rgpwszUrls 
      * @param {Integer} cEntries 
      * @param {Pointer<Int32>} rgfExist 
      * @returns {Integer} 
      */
     static UrlCacheCheckEntriesExist(rgpwszUrls, cEntries, rgfExist) {
-        rgpwszUrls := rgpwszUrls is String? StrPtr(rgpwszUrls) : rgpwszUrls
-
-        result := DllCall("WININET.dll\UrlCacheCheckEntriesExist", "ptr", rgpwszUrls, "uint", cEntries, "ptr", rgfExist, "uint")
+        result := DllCall("WININET.dll\UrlCacheCheckEntriesExist", "ptr", rgpwszUrls, "uint", cEntries, "int*", rgfExist, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pppwszDirectories 
+     * @param {Pointer<Char>} pppwszDirectories 
      * @param {Pointer<UInt32>} pcDirectories 
      * @returns {Integer} 
      */
     static UrlCacheGetContentPaths(pppwszDirectories, pcDirectories) {
-        pppwszDirectories := pppwszDirectories is String? StrPtr(pppwszDirectories) : pppwszDirectories
-
-        result := DllCall("WININET.dll\UrlCacheGetContentPaths", "ptr", pppwszDirectories, "ptr", pcDirectories, "uint")
+        result := DllCall("WININET.dll\UrlCacheGetContentPaths", "ptr", pppwszDirectories, "uint*", pcDirectories, "uint")
         return result
     }
 
@@ -15212,7 +15252,7 @@ class WinInet {
      * @returns {Integer} 
      */
     static UrlCacheGetGlobalLimit(limitType, pullLimit) {
-        result := DllCall("WININET.dll\UrlCacheGetGlobalLimit", "int", limitType, "ptr", pullLimit, "uint")
+        result := DllCall("WININET.dll\UrlCacheGetGlobalLimit", "int", limitType, "uint*", pullLimit, "uint")
         return result
     }
 
@@ -15238,7 +15278,7 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pwszPrefix 
+     * @param {Pointer<Char>} pwszPrefix 
      * @param {Integer} dwEntryMaxAge 
      * @returns {Integer} 
      */
@@ -15251,12 +15291,12 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pwszPrefix 
+     * @param {Pointer<Char>} pwszPrefix 
      * @param {Integer} dwFlags 
      * @param {Integer} dwFilter 
      * @param {Integer} GroupId 
      * @param {Pointer<URLCACHE_ENTRY_INFO>} pCacheEntryInfo 
-     * @param {Pointer<HANDLE>} phFind 
+     * @param {Pointer<Void>} phFind 
      * @returns {Integer} 
      */
     static UrlCacheFindFirstEntry(pwszPrefix, dwFlags, dwFilter, GroupId, pCacheEntryInfo, phFind) {
@@ -15268,7 +15308,7 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hFind 
+     * @param {Pointer<Void>} hFind 
      * @param {Pointer<URLCACHE_ENTRY_INFO>} pCacheEntryInfo 
      * @returns {Integer} 
      */
@@ -15289,25 +15329,22 @@ class WinInet {
     /**
      * 
      * @param {Pointer<UInt32>} pcNetworks 
-     * @param {Pointer<PWSTR>} pppwszNetworkGuids 
-     * @param {Pointer<BSTR>} pppbstrNetworkNames 
-     * @param {Pointer<PWSTR>} pppwszGWMacs 
+     * @param {Pointer<Char>} pppwszNetworkGuids 
+     * @param {Pointer<Char>} pppbstrNetworkNames 
+     * @param {Pointer<Char>} pppwszGWMacs 
      * @param {Pointer<UInt32>} pcGatewayMacs 
      * @param {Pointer<UInt32>} pdwFlags 
      * @returns {Integer} 
      */
     static ReadGuidsForConnectedNetworks(pcNetworks, pppwszNetworkGuids, pppbstrNetworkNames, pppwszGWMacs, pcGatewayMacs, pdwFlags) {
-        pppwszNetworkGuids := pppwszNetworkGuids is String? StrPtr(pppwszNetworkGuids) : pppwszNetworkGuids
-        pppwszGWMacs := pppwszGWMacs is String? StrPtr(pppwszGWMacs) : pppwszGWMacs
-
-        result := DllCall("WININET.dll\ReadGuidsForConnectedNetworks", "ptr", pcNetworks, "ptr", pppwszNetworkGuids, "ptr", pppbstrNetworkNames, "ptr", pppwszGWMacs, "ptr", pcGatewayMacs, "ptr", pdwFlags, "int")
+        result := DllCall("WININET.dll\ReadGuidsForConnectedNetworks", "uint*", pcNetworks, "ptr", pppwszNetworkGuids, "ptr", pppbstrNetworkNames, "ptr", pppwszGWMacs, "uint*", pcGatewayMacs, "uint*", pdwFlags, "int")
         return result
     }
 
     /**
      * 
      * @param {Integer} tScheme 
-     * @param {Pointer<PSTR>} lpszHost 
+     * @param {Pointer<Byte>} lpszHost 
      * @param {Integer} cchHost 
      * @returns {Integer} 
      */
@@ -15321,16 +15358,17 @@ class WinInet {
     /**
      * 
      * @param {Pointer<WININET_PROXY_INFO_LIST>} pProxyInfoList 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static InternetFreeProxyInfoList(pProxyInfoList) {
-        DllCall("WININET.dll\InternetFreeProxyInfoList", "ptr", pProxyInfoList)
+        result := DllCall("WININET.dll\InternetFreeProxyInfoList", "ptr", pProxyInfoList)
+        return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} hInternet 
-     * @param {Pointer<PWSTR>} pcwszUrl 
+     * @param {Pointer<Char>} pcwszUrl 
      * @param {Pointer<WININET_PROXY_INFO_LIST>} pProxyInfoList 
      * @returns {Integer} 
      */
@@ -15352,7 +15390,7 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<PSTR>} pszPath 
+     * @param {Pointer<Byte>} pszPath 
      * @param {Pointer<UInt32>} pdwClusterSize 
      * @param {Pointer<UInt64>} pdlAvail 
      * @param {Pointer<UInt64>} pdlTotal 
@@ -15361,13 +15399,13 @@ class WinInet {
     static GetDiskInfoA(pszPath, pdwClusterSize, pdlAvail, pdlTotal) {
         pszPath := pszPath is String? StrPtr(pszPath) : pszPath
 
-        result := DllCall("WININET.dll\GetDiskInfoA", "ptr", pszPath, "ptr", pdwClusterSize, "ptr", pdlAvail, "ptr", pdlTotal, "int")
+        result := DllCall("WININET.dll\GetDiskInfoA", "ptr", pszPath, "uint*", pdwClusterSize, "uint*", pdlAvail, "uint*", pdlTotal, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PSTR>} pszUrlSearchPattern 
+     * @param {Pointer<Byte>} pszUrlSearchPattern 
      * @param {Integer} dwFlags 
      * @param {Integer} dwFilter 
      * @param {Integer} GroupId 
@@ -15380,7 +15418,7 @@ class WinInet {
 
         pszUrlSearchPattern := pszUrlSearchPattern is String? StrPtr(pszUrlSearchPattern) : pszUrlSearchPattern
 
-        result := DllCall("WININET.dll\PerformOperationOverUrlCacheA", "ptr", pszUrlSearchPattern, "uint", dwFlags, "uint", dwFilter, "int64", GroupId, "ptr", pReserved1, "ptr", pdwReserved2, "ptr", pReserved3, "ptr", op, "ptr", pOperatorData, "int")
+        result := DllCall("WININET.dll\PerformOperationOverUrlCacheA", "ptr", pszUrlSearchPattern, "uint", dwFlags, "uint", dwFilter, "int64", GroupId, "ptr", pReserved1, "uint*", pdwReserved2, "ptr", pReserved3, "ptr", op, "ptr", pOperatorData, "int")
         return result
     }
 
@@ -15395,8 +15433,8 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<PSTR>} lpszUrl 
-     * @param {Pointer<PSTR>} lpszCookieData 
+     * @param {Pointer<Byte>} lpszUrl 
+     * @param {Pointer<Byte>} lpszCookieData 
      * @param {Pointer<UInt32>} lpdwDataSize 
      * @returns {Integer} 
      */
@@ -15404,13 +15442,13 @@ class WinInet {
         lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
         lpszCookieData := lpszCookieData is String? StrPtr(lpszCookieData) : lpszCookieData
 
-        result := DllCall("WININET.dll\InternalInternetGetCookie", "ptr", lpszUrl, "ptr", lpszCookieData, "ptr", lpdwDataSize, "uint")
+        result := DllCall("WININET.dll\InternalInternetGetCookie", "ptr", lpszUrl, "ptr", lpszCookieData, "uint*", lpdwDataSize, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PSTR>} szFilename 
+     * @param {Pointer<Byte>} szFilename 
      * @returns {Integer} 
      */
     static ImportCookieFileA(szFilename) {
@@ -15422,7 +15460,7 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} szFilename 
+     * @param {Pointer<Char>} szFilename 
      * @returns {Integer} 
      */
     static ImportCookieFileW(szFilename) {
@@ -15434,7 +15472,7 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<PSTR>} szFilename 
+     * @param {Pointer<Byte>} szFilename 
      * @param {Integer} fAppend 
      * @returns {Integer} 
      */
@@ -15447,7 +15485,7 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} szFilename 
+     * @param {Pointer<Char>} szFilename 
      * @param {Integer} fAppend 
      * @returns {Integer} 
      */
@@ -15460,8 +15498,8 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<PSTR>} pchDomain 
-     * @param {Pointer<PSTR>} pchFullDomain 
+     * @param {Pointer<Byte>} pchDomain 
+     * @param {Pointer<Byte>} pchFullDomain 
      * @returns {Integer} 
      */
     static IsDomainLegalCookieDomainA(pchDomain, pchFullDomain) {
@@ -15474,8 +15512,8 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pchDomain 
-     * @param {Pointer<PWSTR>} pchFullDomain 
+     * @param {Pointer<Char>} pchDomain 
+     * @param {Pointer<Char>} pchFullDomain 
      * @returns {Integer} 
      */
     static IsDomainLegalCookieDomainW(pchDomain, pchFullDomain) {
@@ -15490,17 +15528,18 @@ class WinInet {
      * 
      * @param {Pointer<Void>} hRequest 
      * @param {Pointer} dwContext 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} 
      */
     static HttpWebSocketCompleteUpgrade(hRequest, dwContext) {
-        DllCall("WININET.dll\HttpWebSocketCompleteUpgrade", "ptr", hRequest, "ptr", dwContext)
+        result := DllCall("WININET.dll\HttpWebSocketCompleteUpgrade", "ptr", hRequest, "ptr", dwContext)
+        return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} hWebSocket 
      * @param {Integer} BufferType 
-     * @param {Pointer<Void>} pvBuffer 
+     * @param {Pointer} pvBuffer 
      * @param {Integer} dwBufferLength 
      * @returns {Integer} 
      */
@@ -15512,14 +15551,14 @@ class WinInet {
     /**
      * 
      * @param {Pointer<Void>} hWebSocket 
-     * @param {Pointer<Void>} pvBuffer 
+     * @param {Pointer} pvBuffer 
      * @param {Integer} dwBufferLength 
      * @param {Pointer<UInt32>} pdwBytesRead 
      * @param {Pointer<Int32>} pBufferType 
      * @returns {Integer} 
      */
     static HttpWebSocketReceive(hWebSocket, pvBuffer, dwBufferLength, pdwBytesRead, pBufferType) {
-        result := DllCall("WININET.dll\HttpWebSocketReceive", "ptr", hWebSocket, "ptr", pvBuffer, "uint", dwBufferLength, "ptr", pdwBytesRead, "ptr", pBufferType, "int")
+        result := DllCall("WININET.dll\HttpWebSocketReceive", "ptr", hWebSocket, "ptr", pvBuffer, "uint", dwBufferLength, "uint*", pdwBytesRead, "int*", pBufferType, "int")
         return result
     }
 
@@ -15527,7 +15566,7 @@ class WinInet {
      * 
      * @param {Pointer<Void>} hWebSocket 
      * @param {Integer} usStatus 
-     * @param {Pointer<Void>} pvReason 
+     * @param {Pointer} pvReason 
      * @param {Integer} dwReasonLength 
      * @returns {Integer} 
      */
@@ -15540,7 +15579,7 @@ class WinInet {
      * 
      * @param {Pointer<Void>} hWebSocket 
      * @param {Integer} usStatus 
-     * @param {Pointer<Void>} pvReason 
+     * @param {Pointer} pvReason 
      * @param {Integer} dwReasonLength 
      * @returns {Integer} 
      */
@@ -15553,32 +15592,31 @@ class WinInet {
      * 
      * @param {Pointer<Void>} hWebSocket 
      * @param {Pointer<UInt16>} pusStatus 
-     * @param {Pointer<Void>} pvReason 
+     * @param {Pointer} pvReason 
      * @param {Integer} dwReasonLength 
      * @param {Pointer<UInt32>} pdwReasonLengthConsumed 
      * @returns {Integer} 
      */
     static HttpWebSocketQueryCloseStatus(hWebSocket, pusStatus, pvReason, dwReasonLength, pdwReasonLengthConsumed) {
-        result := DllCall("WININET.dll\HttpWebSocketQueryCloseStatus", "ptr", hWebSocket, "ptr", pusStatus, "ptr", pvReason, "uint", dwReasonLength, "ptr", pdwReasonLengthConsumed, "int")
+        result := DllCall("WININET.dll\HttpWebSocketQueryCloseStatus", "ptr", hWebSocket, "ushort*", pusStatus, "ptr", pvReason, "uint", dwReasonLength, "uint*", pdwReasonLengthConsumed, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PSTR>} pcszUrl 
+     * @param {Pointer<Byte>} pcszUrl 
      * @param {Integer} cchUrl 
-     * @param {Pointer<PWSTR>} pcwszBaseUrl 
+     * @param {Pointer<Char>} pcwszBaseUrl 
      * @param {Integer} dwCodePageHost 
      * @param {Integer} dwCodePagePath 
      * @param {Integer} fEncodePathExtra 
      * @param {Integer} dwCodePageExtra 
-     * @param {Pointer<PWSTR>} ppwszConvertedUrl 
+     * @param {Pointer<Char>} ppwszConvertedUrl 
      * @returns {Integer} 
      */
     static InternetConvertUrlFromWireToWideChar(pcszUrl, cchUrl, pcwszBaseUrl, dwCodePageHost, dwCodePagePath, fEncodePathExtra, dwCodePageExtra, ppwszConvertedUrl) {
         pcszUrl := pcszUrl is String? StrPtr(pcszUrl) : pcszUrl
         pcwszBaseUrl := pcwszBaseUrl is String? StrPtr(pcwszBaseUrl) : pcwszBaseUrl
-        ppwszConvertedUrl := ppwszConvertedUrl is String? StrPtr(ppwszConvertedUrl) : ppwszConvertedUrl
 
         result := DllCall("WININET.dll\InternetConvertUrlFromWireToWideChar", "ptr", pcszUrl, "uint", cchUrl, "ptr", pcwszBaseUrl, "uint", dwCodePageHost, "uint", dwCodePagePath, "int", fEncodePathExtra, "uint", dwCodePageExtra, "ptr", ppwszConvertedUrl, "uint")
         return result

@@ -33,7 +33,7 @@ class PEER_NODE_INFO extends Win32Struct
 
     /**
      * Specifies the ID of this peer. This value is set for the application by the Peer Graphing Infrastructure. when the application creates or opens a peer graph.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwzPeerId {
         get => NumGet(this, 16, "ptr")
@@ -61,7 +61,7 @@ class PEER_NODE_INFO extends Win32Struct
 
     /**
      * Points to a string  that contains the  attributes that describe this particular node. This string is a free-form text string that is specific to the application. This parameter is optional; the default value is <b>NULL</b>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwzAttributes {
         get => NumGet(this, 40, "ptr")

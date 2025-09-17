@@ -32,7 +32,7 @@ class NMTOOLTIPSCREATED extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The window handle to the tooltip control created.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndToolTips {
         get => NumGet(this, 24, "ptr")

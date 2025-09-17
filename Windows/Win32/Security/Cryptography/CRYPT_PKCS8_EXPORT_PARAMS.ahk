@@ -60,7 +60,7 @@ class CRYPT_PKCS8_EXPORT_PARAMS extends Win32Struct
 
     /**
      * An <b>LPSTR</b>  variable that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) of the private key to be exported.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszPrivateKeyObjId {
         get => NumGet(this, 16, "ptr")

@@ -66,7 +66,7 @@ class EventCollector {
      * Continues the enumeration of the subscriptions registered on the local machine.
      * @param {Pointer} SubscriptionEnum The handle to the enumerator object that is returned from the <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/nf-evcoll-ecopensubscriptionenum">EcOpenSubscriptionEnum</a> function.
      * @param {Integer} SubscriptionNameBufferSize The size of the user-supplied buffer (in chars) to store the subscription name.
-     * @param {Pointer<PWSTR>} SubscriptionNameBuffer The user-supplied buffer to store the subscription name.
+     * @param {Pointer<Char>} SubscriptionNameBuffer The user-supplied buffer to store the subscription name.
      * @param {Pointer<UInt32>} SubscriptionNameBufferUsed The size of the user-supplied buffer that is used by the function on successful return, or the size that is necessary to store the subscription name when the function fails with <b>ERROR_INSUFFICIENT_BUFFER</b>.
      * @returns {Integer} This function returns BOOL.
      * @see https://learn.microsoft.com/windows/win32/api/evcoll/nf-evcoll-ecenumnextsubscription
@@ -75,13 +75,13 @@ class EventCollector {
     static EcEnumNextSubscription(SubscriptionEnum, SubscriptionNameBufferSize, SubscriptionNameBuffer, SubscriptionNameBufferUsed) {
         SubscriptionNameBuffer := SubscriptionNameBuffer is String? StrPtr(SubscriptionNameBuffer) : SubscriptionNameBuffer
 
-        result := DllCall("WecApi.dll\EcEnumNextSubscription", "ptr", SubscriptionEnum, "uint", SubscriptionNameBufferSize, "ptr", SubscriptionNameBuffer, "ptr", SubscriptionNameBufferUsed, "int")
+        result := DllCall("WecApi.dll\EcEnumNextSubscription", "ptr", SubscriptionEnum, "uint", SubscriptionNameBufferSize, "ptr", SubscriptionNameBuffer, "uint*", SubscriptionNameBufferUsed, "int")
         return result
     }
 
     /**
      * Opens an existing subscription or creates a new subscription.
-     * @param {Pointer<PWSTR>} SubscriptionName Specifies the name of the subscription. The value provided for this parameter should be unique within the computer's scope.
+     * @param {Pointer<Char>} SubscriptionName Specifies the name of the subscription. The value provided for this parameter should be unique within the computer's scope.
      * @param {Integer} AccessMask An access mask that specifies the desired access rights to the subscription. Use the <a href="https://docs.microsoft.com/windows/desktop/WEC/windows-event-collector-constants">EC_READ_ACCESS</a> or <a href="https://docs.microsoft.com/windows/desktop/WEC/windows-event-collector-constants">EC_WRITE_ACCESS</a> constants to specify the access rights. The function fails if the security descriptor of the subscription does not permit the requested access for the calling process.
      * @param {Integer} Flags A value specifying whether a new or existing subscription will be opened. Use the <b>EC_CREATE_NEW</b>, <b>EC_OPEN_ALWAYS</b>, or <b>EC_OPEN_EXISTING</b> constants.
      * @returns {Pointer} If the function succeeds, it returns a handle (<a href="https://docs.microsoft.com/windows/desktop/WEC/windows-event-collector-data-types">EC_HANDLE</a>) to a new subscription object. Returns <b>NULL</b> otherwise, in which case use the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to obtain the error code.
@@ -128,7 +128,7 @@ class EventCollector {
      * @since windows6.0.6000
      */
     static EcGetSubscriptionProperty(Subscription, PropertyId, Flags, PropertyValueBufferSize, PropertyValueBuffer, PropertyValueBufferUsed) {
-        result := DllCall("WecApi.dll\EcGetSubscriptionProperty", "ptr", Subscription, "int", PropertyId, "uint", Flags, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, "ptr", PropertyValueBufferUsed, "int")
+        result := DllCall("WecApi.dll\EcGetSubscriptionProperty", "ptr", Subscription, "int", PropertyId, "uint", Flags, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, "uint*", PropertyValueBufferUsed, "int")
         return result
     }
 
@@ -151,7 +151,7 @@ class EventCollector {
 
     /**
      * Deletes an existing subscription.
-     * @param {Pointer<PWSTR>} SubscriptionName The subscription to be deleted.
+     * @param {Pointer<Char>} SubscriptionName The subscription to be deleted.
      * @param {Integer} Flags Reserved, must be 0.
      * @returns {Integer} This function returns BOOL.
      * @see https://learn.microsoft.com/windows/win32/api/evcoll/nf-evcoll-ecdeletesubscription
@@ -175,7 +175,7 @@ class EventCollector {
      * @since windows6.0.6000
      */
     static EcGetObjectArraySize(ObjectArray, ObjectArraySize) {
-        result := DllCall("WecApi.dll\EcGetObjectArraySize", "ptr", ObjectArray, "ptr", ObjectArraySize, "int")
+        result := DllCall("WecApi.dll\EcGetObjectArraySize", "ptr", ObjectArray, "uint*", ObjectArraySize, "int")
         return result
     }
 
@@ -217,7 +217,7 @@ class EventCollector {
      * @since windows6.0.6000
      */
     static EcGetObjectArrayProperty(ObjectArray, PropertyId, ArrayIndex, Flags, PropertyValueBufferSize, PropertyValueBuffer, PropertyValueBufferUsed) {
-        result := DllCall("WecApi.dll\EcGetObjectArrayProperty", "ptr", ObjectArray, "int", PropertyId, "uint", ArrayIndex, "uint", Flags, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, "ptr", PropertyValueBufferUsed, "int")
+        result := DllCall("WecApi.dll\EcGetObjectArrayProperty", "ptr", ObjectArray, "int", PropertyId, "uint", ArrayIndex, "uint", Flags, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, "uint*", PropertyValueBufferUsed, "int")
         return result
     }
 
@@ -255,9 +255,9 @@ class EventCollector {
 
     /**
      * Retrieves the run time status information for an event source of a subscription or the subscription itself.
-     * @param {Pointer<PWSTR>} SubscriptionName The name of the subscription to get the run time status information from.
+     * @param {Pointer<Char>} SubscriptionName The name of the subscription to get the run time status information from.
      * @param {Integer} StatusInfoId An identifier that specifies which run time status information to get from the subscription. Specify a value from the <a href="https://docs.microsoft.com/windows/win32/api/evcoll/ne-evcoll-ec_subscription_runtime_status_info_id">EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID</a> enumeration. The <b>EcSubscriptionRunTimeStatusEventSources</b> value can be used to obtain the list of event sources associated with a subscription.
-     * @param {Pointer<PWSTR>} EventSourceName The name of the event source to get the status from. Each subscription can have multiple event sources.
+     * @param {Pointer<Char>} EventSourceName The name of the event source to get the status from. Each subscription can have multiple event sources.
      * @param {Integer} Flags Reserved. Must be <b>NULL</b>.
      * @param {Integer} StatusValueBufferSize The size of the user-supplied buffer that will hold the run time status information.
      * @param {Pointer<EC_VARIANT>} StatusValueBuffer The user-supplied buffer that will hold the run time status information. The buffer will hold the appropriate value depending on the <a href="https://docs.microsoft.com/windows/win32/api/evcoll/ne-evcoll-ec_subscription_runtime_status_info_id">EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID</a> value passed into the <i>StatusInfoId</i> parameter.
@@ -270,7 +270,7 @@ class EventCollector {
         SubscriptionName := SubscriptionName is String? StrPtr(SubscriptionName) : SubscriptionName
         EventSourceName := EventSourceName is String? StrPtr(EventSourceName) : EventSourceName
 
-        result := DllCall("WecApi.dll\EcGetSubscriptionRunTimeStatus", "ptr", SubscriptionName, "int", StatusInfoId, "ptr", EventSourceName, "uint", Flags, "uint", StatusValueBufferSize, "ptr", StatusValueBuffer, "ptr", StatusValueBufferUsed, "int")
+        result := DllCall("WecApi.dll\EcGetSubscriptionRunTimeStatus", "ptr", SubscriptionName, "int", StatusInfoId, "ptr", EventSourceName, "uint", Flags, "uint", StatusValueBufferSize, "ptr", StatusValueBuffer, "uint*", StatusValueBufferUsed, "int")
         return result
     }
 
@@ -278,8 +278,8 @@ class EventCollector {
      * Retries connecting to the event source of a subscription that is not connected.
      * @remarks
      * To retry a subscription for all the event sources of a subscription, use the <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/nf-evcoll-ecsavesubscription">EcSaveSubscription</a> function instead of calling <b>EcRetrySubscription</b> on each event source individually.
-     * @param {Pointer<PWSTR>} SubscriptionName The name of the subscription to which to connect.
-     * @param {Pointer<PWSTR>} EventSourceName The name of the event source of the subscription. This parameter is optional and can be <b>NULL</b>. This parameter must be <b>NULL</b> when the subscription is source initiated.  If this parameter is <b>NULL</b>, the entire subscription will be retried.
+     * @param {Pointer<Char>} SubscriptionName The name of the subscription to which to connect.
+     * @param {Pointer<Char>} EventSourceName The name of the event source of the subscription. This parameter is optional and can be <b>NULL</b>. This parameter must be <b>NULL</b> when the subscription is source initiated.  If this parameter is <b>NULL</b>, the entire subscription will be retried.
      * @param {Integer} Flags Reserved. Must be <b>NULL</b>.
      * @returns {Integer} This function returns BOOL.
      * @see https://learn.microsoft.com/windows/win32/api/evcoll/nf-evcoll-ecretrysubscription

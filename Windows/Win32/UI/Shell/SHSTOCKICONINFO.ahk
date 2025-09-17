@@ -28,7 +28,7 @@ class SHSTOCKICONINFO extends Win32Struct
      * Type: <b>HICON</b>
      * 
      * When <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shgetstockiconinfo">SHGetStockIconInfo</a> is called with the SHGSI_ICON flag, this member receives a handle to the icon.
-     * @type {Pointer<HICON>}
+     * @type {Pointer<Void>}
      */
     hIcon {
         get => NumGet(this, 8, "ptr")

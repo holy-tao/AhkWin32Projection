@@ -16,7 +16,7 @@ class CERT_OTHER_LOGOTYPE_INFO extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszObjId {
         get => NumGet(this, 0, "ptr")

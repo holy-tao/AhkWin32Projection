@@ -346,8 +346,8 @@ class WebServicesOnDevices {
 
     /**
      * Gets a specified name from the built-in namespace.
-     * @param {Pointer<PWSTR>} pszNamespace The namespace to match with a built-in namespace.
-     * @param {Pointer<PWSTR>} pszName The name to match with a built-in name.
+     * @param {Pointer<Char>} pszNamespace The namespace to match with a built-in namespace.
+     * @param {Pointer<Char>} pszName The name to match with a built-in name.
      * @param {Pointer<WSDXML_NAME>} ppName Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_name">WSDXML_NAME</a> structure that contains the returned built-in name.  The memory usage of <i>ppName</i> is managed elsewhere.  Consequently, the calling application should not attempt to deallocate <i>ppName</i>.
      * @returns {Integer} This function can return one of these values.
      * 
@@ -643,10 +643,10 @@ class WebServicesOnDevices {
      * This function will also retrieve the device metadata, unless the <i>pszDeviceId</i> parameter begins with the @ character. To retrieve device metadata after the device proxy has been created, call <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-begingetmetadata">IWSDDeviceProxy::BeginGetMetadata</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-endgetmetadata">IWSDDeviceProxy::EndGetMetadata</a> on the returned <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsddeviceproxy">IWSDDeviceProxy</a> object.
      * 
      * For information about troubleshooting <b>WSDCreateDeviceProxy</b> function calls, see <a href="https://docs.microsoft.com/windows/desktop/WsdApi/troubleshooting-wsdapi-applications">Troubleshooting WSDAPI Applications</a>.
-     * @param {Pointer<PWSTR>} pszDeviceId The logical or physical address of the device. A logical address is of the form <c>urn:uuid:{guid}</c>. A physical address is a URI prefixed by http or https. If this address is a URI prefixed by https, then the proxy will use the SSL/TLS protocol.
+     * @param {Pointer<Char>} pszDeviceId The logical or physical address of the device. A logical address is of the form <c>urn:uuid:{guid}</c>. A physical address is a URI prefixed by http or https. If this address is a URI prefixed by https, then the proxy will use the SSL/TLS protocol.
      * 
      * The device address may be prefixed with the @ character. When <i>pszDeviceId</i> begins with @, this function does not retrieve the device metadata when creating the device proxy.
-     * @param {Pointer<PWSTR>} pszLocalId The logical or physical address of the client, which is used to identify the proxy and to act as an event sink endpoint. A logical address is of the form <c>urn:uuid:{guid}</c>. 
+     * @param {Pointer<Char>} pszLocalId The logical or physical address of the client, which is used to identify the proxy and to act as an event sink endpoint. A logical address is of the form <c>urn:uuid:{guid}</c>. 
      * 
      * If the client uses a secure channel to receive events, then the address is a URI prefixed by https. This URI should specify port 5358, as this port is reserved for secure connections with WSDAPI. The port must be configured with an SSL server certificate before calling <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-wsdcreatedeviceproxyadvanced">WSDCreateDeviceProxyAdvanced</a>. For more information about port configuration, see <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetserviceconfiguration">HttpSetServiceConfiguration</a>.
      * @param {Pointer<IWSDXMLContext>} pContext An <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> object that defines custom message types or namespaces. 
@@ -726,13 +726,13 @@ class WebServicesOnDevices {
      * This function will also retrieve the device metadata, unless the <i>pszDeviceId</i> parameter begins with the @ character. To retrieve device metadata after the device proxy has been created, call <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-begingetmetadata">IWSDDeviceProxy::BeginGetMetadata</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-endgetmetadata">IWSDDeviceProxy::EndGetMetadata</a> on the returned <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsddeviceproxy">IWSDDeviceProxy</a> object.
      * 
      * For information about troubleshooting <b>WSDCreateDeviceProxyAdvanced</b> function calls, see <a href="https://docs.microsoft.com/windows/desktop/WsdApi/troubleshooting-wsdapi-applications">Troubleshooting WSDAPI Applications</a>.
-     * @param {Pointer<PWSTR>} pszDeviceId The logical or physical address of the device. A logical address is of the form <c>urn:uuid:{guid}</c>. A physical address is a URI prefixed by http or https. If this address is a URI prefixed by https, then the proxy will use the SSL/TLS protocol. 
+     * @param {Pointer<Char>} pszDeviceId The logical or physical address of the device. A logical address is of the form <c>urn:uuid:{guid}</c>. A physical address is a URI prefixed by http or https. If this address is a URI prefixed by https, then the proxy will use the SSL/TLS protocol. 
      * 
      * If either <i>pszDeviceId</i> or the <i>pszLocalId</i> is an URL prefixed by https, then both URLs must be identical. If this is not the case, <b>WSDCreateDeviceProxyAdvanced</b> will return E_INVALIDARG. 
      * 
      * The device address may be prefixed with the @ character. When <i>pszDeviceId</i> begins with @, this function does not retrieve the device metadata when creating the device proxy.
      * @param {Pointer<IWSDAddress>} pDeviceAddress An <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdaddress">IWSDAddress</a> interface that defines the device transport address. When <i>pDeviceAddress</i> is specified, a device proxy can be created without requiring the resolution of a logical address passed to <i>pszDeviceId</i>. This parameter may be <b>NULL</b>.
-     * @param {Pointer<PWSTR>} pszLocalId The logical or physical address of the client, which is used to identify the proxy and to act as an event sink endpoint. A logical address is of the form <c>urn:uuid:{guid}</c>. 
+     * @param {Pointer<Char>} pszLocalId The logical or physical address of the client, which is used to identify the proxy and to act as an event sink endpoint. A logical address is of the form <c>urn:uuid:{guid}</c>. 
      * 
      * If the client uses a secure channel to receive events, then the address is a URI prefixed by https. This URI should specify port 5358, as this port is reserved for secure connections with WSDAPI. The port must be configured with an SSL server certificate before calling <b>WSDCreateDeviceProxyAdvanced</b>. For more information about port configuration, see <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetserviceconfiguration">HttpSetServiceConfiguration</a>.
      * @param {Pointer<IWSDXMLContext>} pContext An <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> interface that defines custom message types or namespaces. 
@@ -810,10 +810,10 @@ class WebServicesOnDevices {
      * This function will also retrieve the device metadata, unless the <i>pszDeviceId</i> parameter begins with the @ character. To retrieve device metadata after the device proxy has been created, call <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-begingetmetadata">IWSDDeviceProxy::BeginGetMetadata</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-endgetmetadata">IWSDDeviceProxy::EndGetMetadata</a> on the returned <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsddeviceproxy">IWSDDeviceProxy</a> object.
      * 
      * For information about troubleshooting <b>WSDCreateDeviceProxy2</b> function calls, see <a href="https://docs.microsoft.com/windows/desktop/WsdApi/troubleshooting-wsdapi-applications">Troubleshooting WSDAPI Applications</a>.
-     * @param {Pointer<PWSTR>} pszDeviceId The logical or physical address of the device. A logical address is of the form <c>urn:uuid:{guid}</c>. A physical address is a URI prefixed by http or https. If this address is a URI prefixed by https, then the proxy will use the SSL/TLS protocol.
+     * @param {Pointer<Char>} pszDeviceId The logical or physical address of the device. A logical address is of the form <c>urn:uuid:{guid}</c>. A physical address is a URI prefixed by http or https. If this address is a URI prefixed by https, then the proxy will use the SSL/TLS protocol.
      * 
      * The device address may be prefixed with the @ character. When <i>pszDeviceId</i> begins with @, this function does not retrieve the device metadata when creating the device proxy.
-     * @param {Pointer<PWSTR>} pszLocalId The logical or physical address of the client, which is used to identify the proxy and to act as an event sink endpoint. A logical address is of the form <c>urn:uuid:{guid}</c>. 
+     * @param {Pointer<Char>} pszLocalId The logical or physical address of the client, which is used to identify the proxy and to act as an event sink endpoint. A logical address is of the form <c>urn:uuid:{guid}</c>. 
      * 
      * If the client uses a secure channel to receive events, then the address is a URI prefixed by https. This URI should specify port 5358, as this port is reserved for secure connections with WSDAPI. The port must be configured with an SSL server certificate before calling <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-wsdcreatedeviceproxyadvanced">WSDCreateDeviceProxyAdvanced</a>. For more information about port configuration, see <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetserviceconfiguration">HttpSetServiceConfiguration</a>.
      * @param {Pointer<IWSDXMLContext>} pContext An <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> object that defines custom message types or namespaces. 
@@ -889,7 +889,7 @@ class WebServicesOnDevices {
      * Creates a device host and returns a pointer to the IWSDDeviceHost interface. (WSDCreateDeviceHost)
      * @remarks
      * The <b>WSDCreateDeviceHost</b> function calls the <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nf-wsdhost-iwsddevicehost-init">IWSDDeviceHost::Init</a> method, which initializes an instance of an <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nn-wsdhost-iwsddevicehost">IWSDDeviceHost</a> object.
-     * @param {Pointer<PWSTR>} pszLocalId The logical or physical address of the device. A logical address is of the form <c>urn:uuid:{guid}</c>. If <i>pszLocalId</i> is a logical address, the host will announce the logical address and then convert the address to a physical address when it receives Resolve or Probe messages.
+     * @param {Pointer<Char>} pszLocalId The logical or physical address of the device. A logical address is of the form <c>urn:uuid:{guid}</c>. If <i>pszLocalId</i> is a logical address, the host will announce the logical address and then convert the address to a physical address when it receives Resolve or Probe messages.
      * 
      * 
      * If <i>pszLocalId</i> is a physical address (such as  URL prefixed by http or https), the host will use the address as the physical address and will host on that address instead of the default one.
@@ -987,7 +987,7 @@ class WebServicesOnDevices {
      * Creates a device host and returns a pointer to the IWSDDeviceHost interface. (WSDCreateDeviceHostAdvanced)
      * @remarks
      * The <b>WSDCreateDeviceHostAdvanced</b> function calls the <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nf-wsdhost-iwsddevicehost-init">IWSDDeviceHost::Init</a> method, which initializes an instance of an <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nn-wsdhost-iwsddevicehost">IWSDDeviceHost</a> object.
-     * @param {Pointer<PWSTR>} pszLocalId The logical or physical address of the device. A logical address is of the form <c>urn:uuid:{guid}</c>. If <i>pszLocalId</i> is a logical address, the host will announce the logical address and then convert the address to a physical address when it receives Resolve or Probe messages.
+     * @param {Pointer<Char>} pszLocalId The logical or physical address of the device. A logical address is of the form <c>urn:uuid:{guid}</c>. If <i>pszLocalId</i> is a logical address, the host will announce the logical address and then convert the address to a physical address when it receives Resolve or Probe messages.
      * 
      * If <i>pszLocalId</i> is a physical address (such as  URL prefixed by http or https), the host will use the address as the physical address and will host on that address instead of the default one.
      * 
@@ -1090,7 +1090,7 @@ class WebServicesOnDevices {
      * Creates a device host that can support signed messages and returns a pointer to the IWSDDeviceHost interface.
      * @remarks
      * The <b>WSDCreateDeviceHost2</b> function calls the <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nf-wsdhost-iwsddevicehost-init">IWSDDeviceHost::Init</a> method, which initializes an instance of an <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nn-wsdhost-iwsddevicehost">IWSDDeviceHost</a> object.
-     * @param {Pointer<PWSTR>} pszLocalId The logical or physical address of the device. A logical address is of the form <c>urn:uuid:{guid}</c>. If <i>pszLocalId</i> is a logical address, the host will announce the logical address and then convert the address to a physical address when it receives Resolve or Probe messages.
+     * @param {Pointer<Char>} pszLocalId The logical or physical address of the device. A logical address is of the form <c>urn:uuid:{guid}</c>. If <i>pszLocalId</i> is a logical address, the host will announce the logical address and then convert the address to a physical address when it receives Resolve or Probe messages.
      * 
      * If <i>pszLocalId</i> is a physical address (such as  URL prefixed by http or https), the host will use the address as the physical address and will host on that address instead of the default one.
      * 
@@ -1205,7 +1205,7 @@ class WebServicesOnDevices {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} pVoid Pointer to the configuration data. If <i>dwOption</i> is set to WSDAPI_OPTION_MAX_INBOUND_MESSAGE_SIZE, then <i>pVoid</i> should point to a DWORD that represents the  size of an inbound message. The size of the message is  a value between 32768 and 1048576.
+     * @param {Pointer} pVoid Pointer to the configuration data. If <i>dwOption</i> is set to WSDAPI_OPTION_MAX_INBOUND_MESSAGE_SIZE, then <i>pVoid</i> should point to a DWORD that represents the  size of an inbound message. The size of the message is  a value between 32768 and 1048576.
      * @param {Integer} cbInBuffer The size, in bytes, of the data pointed to by <i>pVoid</i>. If <i>dwOption</i> is set to WSDAPI_OPTION_MAX_INBOUND_MESSAGE_SIZE, this parameter should be set to <c>sizeof(DWORD)</c>.
      * @returns {Integer} This function can return one of these values.
      * 
@@ -1266,7 +1266,7 @@ class WebServicesOnDevices {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} pVoid Pointer to the configuration data.
+     * @param {Pointer} pVoid Pointer to the configuration data.
      * @param {Integer} cbOutBuffer The size, in bytes, of the data pointed to by <i>pVoid</i>. If <i>dwOption</i> is set to WSDAPI_OPTION_MAX_INBOUND_MESSAGE_SIZE, then this parameter should be set to <c>sizeof(DWORD)</c>.
      * @returns {Integer} This function can return one of these values.
      * 
@@ -1328,12 +1328,13 @@ class WebServicesOnDevices {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
      * @param {Pointer<Void>} pParent Pointer to the parent memory block.
      * @param {Pointer} cbSize Size of the memory block to be allocated.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} Pointer to the newly allocated memory block.
      * @see https://learn.microsoft.com/windows/win32/api/wsdutil/nf-wsdutil-wsdallocatelinkedmemory
      * @since windows6.0.6000
      */
     static WSDAllocateLinkedMemory(pParent, cbSize) {
-        DllCall("wsdapi.dll\WSDAllocateLinkedMemory", "ptr", pParent, "ptr", cbSize)
+        result := DllCall("wsdapi.dll\WSDAllocateLinkedMemory", "ptr", pParent, "ptr", cbSize)
+        return result
     }
 
     /**
@@ -1341,12 +1342,13 @@ class WebServicesOnDevices {
      * @remarks
      * All children of the memory block are automatically freed.
      * @param {Pointer<Void>} pVoid Pointer to the memory block to be freed.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory
      * @since windows6.0.6000
      */
     static WSDFreeLinkedMemory(pVoid) {
-        DllCall("wsdapi.dll\WSDFreeLinkedMemory", "ptr", pVoid)
+        result := DllCall("wsdapi.dll\WSDFreeLinkedMemory", "ptr", pVoid)
+        return result
     }
 
     /**
@@ -1356,12 +1358,13 @@ class WebServicesOnDevices {
      * block is freed. Both the parent and child memory blocks must have been previously allocated by calls to <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdallocatelinkedmemory">WSDAllocateLinkedMemory</a>.
      * @param {Pointer<Void>} pParent Pointer to the parent memory block.
      * @param {Pointer<Void>} pChild Pointer to the child memory block.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdutil/nf-wsdutil-wsdattachlinkedmemory
      * @since windows6.0.6000
      */
     static WSDAttachLinkedMemory(pParent, pChild) {
-        DllCall("wsdapi.dll\WSDAttachLinkedMemory", "ptr", pParent, "ptr", pChild)
+        result := DllCall("wsdapi.dll\WSDAttachLinkedMemory", "ptr", pParent, "ptr", pChild)
+        return result
     }
 
     /**
@@ -1369,18 +1372,19 @@ class WebServicesOnDevices {
      * @remarks
      * The child memory block must have been previously allocated by a call to <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdallocatelinkedmemory">WSDAllocateLinkedMemory</a>.
      * @param {Pointer<Void>} pVoid Pointer to the memory block to be detached.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdutil/nf-wsdutil-wsddetachlinkedmemory
      * @since windows6.0.6000
      */
     static WSDDetachLinkedMemory(pVoid) {
-        DllCall("wsdapi.dll\WSDDetachLinkedMemory", "ptr", pVoid)
+        result := DllCall("wsdapi.dll\WSDDetachLinkedMemory", "ptr", pVoid)
+        return result
     }
 
     /**
      * Creates an XML element with a specified name and value.
      * @param {Pointer<WSDXML_NAME>} pElementName Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_name">WSDXML_NAME</a> structure that contains the name of the  created element.
-     * @param {Pointer<PWSTR>} pszText The text value of the created element.
+     * @param {Pointer<Char>} pszText The text value of the created element.
      * @param {Pointer<WSDXML_ELEMENT>} ppAny Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_element">WSDXML_ELEMENT</a> that contains the created element.  <i>ppAny</i> must be freed with a call to <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
      * @returns {Integer} This function can return one of these values.
      * 
@@ -1446,10 +1450,10 @@ class WebServicesOnDevices {
 
     /**
      * Retrieves a text value from a specified child element of an XML any element.
-     * @param {Pointer<PWSTR>} pszNamespace The namespace of the element to retrieve.
-     * @param {Pointer<PWSTR>} pszName The name of the element to retrieve.
+     * @param {Pointer<Char>} pszNamespace The namespace of the element to retrieve.
+     * @param {Pointer<Char>} pszName The name of the element to retrieve.
      * @param {Pointer<WSDXML_ELEMENT>} pAny Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_element">WSDXML_ELEMENT</a> structure that contains the <b>any</b> element that is the parent of the element to retrieve.
-     * @param {Pointer<PWSTR>} ppszValue The text value of the element specified by <i>pszNamespace</i> and <i>pszName</i>.  The memory usage of <i>ppszValue</i> is managed elsewhere.  Consequently, the calling application should not attempt to deallocate <i>ppszValue</i>.
+     * @param {Pointer<Char>} ppszValue The text value of the element specified by <i>pszNamespace</i> and <i>pszName</i>.  The memory usage of <i>ppszValue</i> is managed elsewhere.  Consequently, the calling application should not attempt to deallocate <i>ppszValue</i>.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -1508,7 +1512,6 @@ class WebServicesOnDevices {
     static WSDXMLGetValueFromAny(pszNamespace, pszName, pAny, ppszValue) {
         pszNamespace := pszNamespace is String? StrPtr(pszNamespace) : pszNamespace
         pszName := pszName is String? StrPtr(pszName) : pszName
-        ppszValue := ppszValue is String? StrPtr(ppszValue) : ppszValue
 
         result := DllCall("wsdapi.dll\WSDXMLGetValueFromAny", "ptr", pszNamespace, "ptr", pszName, "ptr", pAny, "ptr", ppszValue, "int")
         return result
@@ -1651,7 +1654,7 @@ class WebServicesOnDevices {
      * <li>InvalidMessage</li>
      * <li>FilteringNotSupported</li>
      * </ul>
-     * @param {Pointer<PWSTR>} pszCode A SOAP fault code.
+     * @param {Pointer<Char>} pszCode A SOAP fault code.
      * 
      * 
      * The list of possible fault codes follows. For a description of each fault code, see the <a href="https://www.w3.org/TR/2003/REC-soap12-part1-20030624/#faultcodes">SOAP Version 1.2 specification</a>.
@@ -1661,9 +1664,9 @@ class WebServicesOnDevices {
      * <a id="VersionMismatch"></a>
      * <a id="versionmismatch"></a>
      * <a id="VERSIONMISMATCH"></a>
-     * @param {Pointer<PWSTR>} pszSubCode A fault subcode.
-     * @param {Pointer<PWSTR>} pszReason A human readable explanation of the fault.
-     * @param {Pointer<PWSTR>} pszDetail Contains application-specific error information pertaining to the fault.
+     * @param {Pointer<Char>} pszSubCode A fault subcode.
+     * @param {Pointer<Char>} pszReason A human readable explanation of the fault.
+     * @param {Pointer<Char>} pszDetail Contains application-specific error information pertaining to the fault.
      * @param {Pointer<IWSDXMLContext>} pContext An <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> interface that represents the context in which to generate the fault.
      * @param {Pointer<WSD_SOAP_FAULT>} ppFault A <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_soap_fault">WSD_SOAP_FAULT</a> structure that contains the generated fault.  When the calling application is done with this data, <i>ppFault</i> must be freed with a call to <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
      * @returns {Integer} Possible return values include, but are not limited to, the following:
@@ -1746,7 +1749,7 @@ class WebServicesOnDevices {
      * <a id="VERSIONMISMATCH"></a>
      * @param {Pointer<WSDXML_NAME>} pSubCode A fault subcode.
      * @param {Pointer<WSD_LOCALIZED_STRING_LIST>} pReasons A <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_localized_string_list">WSD_LOCALIZED_STRING_LIST</a> structure that contains a list of localized reason codes.
-     * @param {Pointer<PWSTR>} pszDetail Contains application-specific error information pertaining to the fault.
+     * @param {Pointer<Char>} pszDetail Contains application-specific error information pertaining to the fault.
      * @param {Pointer<WSD_SOAP_FAULT>} ppFault A <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_soap_fault">WSD_SOAP_FAULT</a> structure that contains the generated fault.  <i>ppFault</i> must be freed with a call to <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
      * @returns {Integer} Possible return values include, but are not limited to, the following:
      * 
@@ -1805,9 +1808,9 @@ class WebServicesOnDevices {
      * <b>WSDUriEncode</b> encodes certain characters in <i>source</i> into an escaped encoding format of %XY, where X and Y are hexadecimal digits corresponding to the single-byte representation of that character.  Wide characters that occupy multiple bytes are first rendered into UTF-8 multi-byte format, and then escaped into encoded characters.
      * 
      * <b>WSDUriEncode</b> does not encode single-byte alphanumeric characters.  It does encode percent signs (%) in <i>source</i>.
-     * @param {Pointer<PWSTR>} source Contains the URI to be encoded.
+     * @param {Pointer<Char>} source Contains the URI to be encoded.
      * @param {Integer} cchSource Specifies the length of <i>source</i> in characters.
-     * @param {Pointer<PWSTR>} destOut Pointer to a string that contains the encoded URI.  If <i>destOut</i> is not <b>NULL</b>, the calling application should free the allocated string by calling <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
+     * @param {Pointer<Char>} destOut Pointer to a string that contains the encoded URI.  If <i>destOut</i> is not <b>NULL</b>, the calling application should free the allocated string by calling <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
      * @param {Pointer<UInt32>} cchDestOut Specifies the length of <i>destOut</i> in characters.
      * @returns {Integer} This function can return one of these values.
      * 
@@ -1866,9 +1869,8 @@ class WebServicesOnDevices {
      */
     static WSDUriEncode(source, cchSource, destOut, cchDestOut) {
         source := source is String? StrPtr(source) : source
-        destOut := destOut is String? StrPtr(destOut) : destOut
 
-        result := DllCall("wsdapi.dll\WSDUriEncode", "ptr", source, "uint", cchSource, "ptr", destOut, "ptr", cchDestOut, "int")
+        result := DllCall("wsdapi.dll\WSDUriEncode", "ptr", source, "uint", cchSource, "ptr", destOut, "uint*", cchDestOut, "int")
         return result
     }
 
@@ -1876,9 +1878,9 @@ class WebServicesOnDevices {
      * Decodes a URI according to the rules in RFC2396.
      * @remarks
      * <b>WSDUriDecode</b> decodes any encoded characters in <i>source</i>.  These characters are identified by a percent sign (%) followed by two hexadecimal digits.  <b>WSDUriDecode</b> decodes single-byte components of multi-byte characters and converts them back to wide character representation in <i>destOut</i>.
-     * @param {Pointer<PWSTR>} source Contains the URI to be decoded.
+     * @param {Pointer<Char>} source Contains the URI to be decoded.
      * @param {Integer} cchSource Specifies the length of <i>source</i> in characters.
-     * @param {Pointer<PWSTR>} destOut Pointer to a string that contains the decoded URI.  If <i>destOut</i> is not <b>NULL</b>, the calling application should free the allocated string by calling <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
+     * @param {Pointer<Char>} destOut Pointer to a string that contains the decoded URI.  If <i>destOut</i> is not <b>NULL</b>, the calling application should free the allocated string by calling <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a>.
      * @param {Pointer<UInt32>} cchDestOut Specifies the length of <i>destOut</i> in characters.
      * @returns {Integer} This function can return one of these values.
      * 
@@ -1937,9 +1939,8 @@ class WebServicesOnDevices {
      */
     static WSDUriDecode(source, cchSource, destOut, cchDestOut) {
         source := source is String? StrPtr(source) : source
-        destOut := destOut is String? StrPtr(destOut) : destOut
 
-        result := DllCall("wsdapi.dll\WSDUriDecode", "ptr", source, "uint", cchSource, "ptr", destOut, "ptr", cchDestOut, "int")
+        result := DllCall("wsdapi.dll\WSDUriDecode", "ptr", source, "uint", cchSource, "ptr", destOut, "uint*", cchDestOut, "int")
         return result
     }
 

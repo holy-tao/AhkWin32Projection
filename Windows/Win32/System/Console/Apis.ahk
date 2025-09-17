@@ -343,16 +343,22 @@ class Console {
      * A code page maps 256 character codes to individual characters. Different code pages include different special characters, typically customized for a language or a group of languages. To retrieve more information about a code page, including it's name, see the [**GetCPInfoEx**](/windows/win32/api/winnls/nf-winnls-getcpinfoexa) function.
      * 
      * To set a console's input code page, use the [**SetConsoleCP**](setconsolecp.md) function. To set and query a console's output code page, use the [**SetConsoleOutputCP**](setconsoleoutputcp.md) and [**GetConsoleOutputCP**](getconsoleoutputcp.md) functions.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} This function has no parameters.
+     * 
+     * 
+     * The return value is a code that identifies the code page. For a list of identifiers, see [Code Page Identifiers](/windows/win32/intl/code-page-identifiers).
+     * 
+     * If the return value is zero, the function has failed. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
      * @see https://learn.microsoft.com/windows/console/getconsolecp
      */
     static GetConsoleCP() {
         A_LastError := 0
 
-        DllCall("KERNEL32.dll\GetConsoleCP")
+        result := DllCall("KERNEL32.dll\GetConsoleCP")
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -361,16 +367,22 @@ class Console {
      * A code page maps 256 character codes to individual characters. Different code pages include different special characters, typically customized for a language or a group of languages. To retrieve more information about a code page, including it's name, see the [**GetCPInfoEx**](/windows/win32/api/winnls/nf-winnls-getcpinfoexa) function.
      * 
      * To set a console's output code page, use the [**SetConsoleOutputCP**](setconsoleoutputcp.md) function. To set and query a console's input code page, use the [**SetConsoleCP**](setconsolecp.md) and [**GetConsoleCP**](getconsolecp.md) functions.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} This function has no parameters.
+     * 
+     * 
+     * The return value is a code that identifies the code page. For a list of identifiers, see [Code Page Identifiers](/windows/win32/intl/code-page-identifiers).
+     * 
+     * If the return value is zero, the function has failed. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
      * @see https://learn.microsoft.com/windows/console/getconsoleoutputcp
      */
     static GetConsoleOutputCP() {
         A_LastError := 0
 
-        DllCall("KERNEL32.dll\GetConsoleOutputCP")
+        result := DllCall("KERNEL32.dll\GetConsoleOutputCP")
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -379,7 +391,7 @@ class Console {
      * [!INCLUDE [console-mode-remarks](./includes/console-mode-remarks.md)]
      * 
      * To change a console's I/O modes, call [**SetConsoleMode**](setconsolemode.md) function.
-     * @param {Pointer<HANDLE>} hConsoleHandle A handle to the console input buffer or the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleHandle A handle to the console input buffer or the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Pointer<UInt32>} lpMode A pointer to a variable that receives the current mode of the specified buffer.
      * 
      * [!INCLUDE [console-mode-flags](./includes/console-mode-flags.md)]
@@ -391,7 +403,7 @@ class Console {
     static GetConsoleMode(hConsoleHandle, lpMode) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetConsoleMode", "ptr", hConsoleHandle, "ptr", lpMode, "int")
+        result := DllCall("KERNEL32.dll\GetConsoleMode", "ptr", hConsoleHandle, "uint*", lpMode, "int")
         if(A_LastError)
             throw OSError()
 
@@ -404,7 +416,7 @@ class Console {
      * [!INCLUDE [console-mode-remarks](./includes/console-mode-remarks.md)]
      * 
      * To determine the current mode of a console input buffer or a screen buffer, use the [**GetConsoleMode**](getconsolemode.md) function.
-     * @param {Pointer<HANDLE>} hConsoleHandle A handle to the console input buffer or a console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleHandle A handle to the console input buffer or a console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Integer} dwMode The input or output mode to be set.
      * 
      * [!INCLUDE [console-mode-flags](./includes/console-mode-flags.md)]
@@ -431,7 +443,7 @@ class Console {
      * A process can specify a console input buffer handle in one of the [wait functions](/windows/win32/sync/wait-functions) to determine when there is unread console input. When the input buffer is not empty, the state of a console input buffer handle is signaled.
      * 
      * To read input records from a console input buffer without affecting the number of unread records, use the [**PeekConsoleInput**](peekconsoleinput.md) function. To discard all unread records in a console's input buffer, use the [**FlushConsoleInputBuffer**](flushconsoleinputbuffer.md) function.
-     * @param {Pointer<HANDLE>} hConsoleInput A handle to the console input buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleInput A handle to the console input buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Pointer<UInt32>} lpNumberOfEvents 
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
@@ -441,7 +453,7 @@ class Console {
     static GetNumberOfConsoleInputEvents(hConsoleInput, lpNumberOfEvents) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNumberOfConsoleInputEvents", "ptr", hConsoleInput, "ptr", lpNumberOfEvents, "int")
+        result := DllCall("KERNEL32.dll\GetNumberOfConsoleInputEvents", "ptr", hConsoleInput, "uint*", lpNumberOfEvents, "int")
         if(A_LastError)
             throw OSError()
 
@@ -458,7 +470,7 @@ class Console {
      * To determine the number of unread input records in a console's input buffer, use the [**GetNumberOfConsoleInputEvents**](getnumberofconsoleinputevents.md) function. To read input records from a console input buffer without affecting the number of unread records, use the [**PeekConsoleInput**](peekconsoleinput.md) function. To discard all unread records in a console's input buffer, use the [**FlushConsoleInputBuffer**](flushconsoleinputbuffer.md) function.
      * 
      * [!INCLUDE [setting-codepage-mode-remarks](./includes/setting-codepage-mode-remarks.md)]
-     * @param {Pointer<HANDLE>} hConsoleInput A handle to the console input buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleInput A handle to the console input buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Pointer<INPUT_RECORD>} lpBuffer A pointer to an array of [**INPUT\_RECORD**](input-record-str.md) structures that receives the input buffer data.
      * @param {Integer} nLength The size of the array pointed to by the *lpBuffer* parameter, in array elements.
      * @param {Pointer<UInt32>} lpNumberOfEventsRead A pointer to a variable that receives the number of input records read.
@@ -470,7 +482,7 @@ class Console {
     static ReadConsoleInputA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReadConsoleInputA", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, "ptr", lpNumberOfEventsRead, "int")
+        result := DllCall("KERNEL32.dll\ReadConsoleInputA", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, "uint*", lpNumberOfEventsRead, "int")
         if(A_LastError)
             throw OSError()
 
@@ -487,7 +499,7 @@ class Console {
      * To determine the number of unread input records in a console's input buffer, use the [**GetNumberOfConsoleInputEvents**](getnumberofconsoleinputevents.md) function. To read input records from a console input buffer without affecting the number of unread records, use the [**PeekConsoleInput**](peekconsoleinput.md) function. To discard all unread records in a console's input buffer, use the [**FlushConsoleInputBuffer**](flushconsoleinputbuffer.md) function.
      * 
      * [!INCLUDE [setting-codepage-mode-remarks](./includes/setting-codepage-mode-remarks.md)]
-     * @param {Pointer<HANDLE>} hConsoleInput A handle to the console input buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleInput A handle to the console input buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Pointer<INPUT_RECORD>} lpBuffer A pointer to an array of [**INPUT\_RECORD**](input-record-str.md) structures that receives the input buffer data.
      * @param {Integer} nLength The size of the array pointed to by the *lpBuffer* parameter, in array elements.
      * @param {Pointer<UInt32>} lpNumberOfEventsRead A pointer to a variable that receives the number of input records read.
@@ -499,7 +511,7 @@ class Console {
     static ReadConsoleInputW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReadConsoleInputW", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, "ptr", lpNumberOfEventsRead, "int")
+        result := DllCall("KERNEL32.dll\ReadConsoleInputW", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, "uint*", lpNumberOfEventsRead, "int")
         if(A_LastError)
             throw OSError()
 
@@ -512,7 +524,7 @@ class Console {
      * If the number of records requested exceeds the number of records available in the buffer, the number available is read. If no data is available, the function returns immediately.
      * 
      * [!INCLUDE [setting-codepage-mode-remarks](./includes/setting-codepage-mode-remarks.md)]
-     * @param {Pointer<HANDLE>} hConsoleInput A handle to the console input buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleInput A handle to the console input buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Pointer<INPUT_RECORD>} lpBuffer A pointer to an array of [**INPUT\_RECORD**](input-record-str.md) structures that receives the input buffer data.
      * @param {Integer} nLength The size of the array pointed to by the *lpBuffer* parameter, in array elements.
      * @param {Pointer<UInt32>} lpNumberOfEventsRead A pointer to a variable that receives the number of input records read.
@@ -524,7 +536,7 @@ class Console {
     static PeekConsoleInputA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\PeekConsoleInputA", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, "ptr", lpNumberOfEventsRead, "int")
+        result := DllCall("KERNEL32.dll\PeekConsoleInputA", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, "uint*", lpNumberOfEventsRead, "int")
         if(A_LastError)
             throw OSError()
 
@@ -537,7 +549,7 @@ class Console {
      * If the number of records requested exceeds the number of records available in the buffer, the number available is read. If no data is available, the function returns immediately.
      * 
      * [!INCLUDE [setting-codepage-mode-remarks](./includes/setting-codepage-mode-remarks.md)]
-     * @param {Pointer<HANDLE>} hConsoleInput A handle to the console input buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleInput A handle to the console input buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Pointer<INPUT_RECORD>} lpBuffer A pointer to an array of [**INPUT\_RECORD**](input-record-str.md) structures that receives the input buffer data.
      * @param {Integer} nLength The size of the array pointed to by the *lpBuffer* parameter, in array elements.
      * @param {Pointer<UInt32>} lpNumberOfEventsRead A pointer to a variable that receives the number of input records read.
@@ -549,7 +561,7 @@ class Console {
     static PeekConsoleInputW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\PeekConsoleInputW", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, "ptr", lpNumberOfEventsRead, "int")
+        result := DllCall("KERNEL32.dll\PeekConsoleInputW", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, "uint*", lpNumberOfEventsRead, "int")
         if(A_LastError)
             throw OSError()
 
@@ -574,7 +586,7 @@ class Console {
      * **Cooked Mode** is when **ENABLE_LINE_INPUT** is set with [**SetConsoleMode**](setconsolemode.md) on the console input handle. In cooked mode, the console host will provide an edit line on the command-line application's behalf and calls to **ReadFile** or **ReadConsole** will not return until the enter key is pressed.
      * 
      * **Intermediate Read** is an augmentation to that behavior on the **ReadConsole** call in cooked read mode. Setting a flag in [**dwCtrlWakeupMask**](console-readconsole-control.md) on the [**CONSOLE\_READCONSOLE\_CONTROL**](console-readconsole-control.md) structure and pass it into *pinputControl* as it calls **ReadConsole**, will result in the read will not necessarily waiting for a newline, but returning on a specified character as well.
-     * @param {Pointer<HANDLE>} hConsoleInput A handle to the console input buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleInput A handle to the console input buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Pointer<Void>} lpBuffer A pointer to a buffer that receives the data read from the console input buffer.
      * @param {Integer} nNumberOfCharsToRead The number of characters to be read. The size of the buffer pointed to by the *lpBuffer* parameter should be at least `nNumberOfCharsToRead * sizeof(TCHAR)` bytes.
      * @param {Pointer<UInt32>} lpNumberOfCharsRead A pointer to a variable that receives the number of characters actually read.
@@ -589,7 +601,7 @@ class Console {
     static ReadConsoleA(hConsoleInput, lpBuffer, nNumberOfCharsToRead, lpNumberOfCharsRead, pInputControl) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReadConsoleA", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nNumberOfCharsToRead, "ptr", lpNumberOfCharsRead, "ptr", pInputControl, "int")
+        result := DllCall("KERNEL32.dll\ReadConsoleA", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nNumberOfCharsToRead, "uint*", lpNumberOfCharsRead, "ptr", pInputControl, "int")
         if(A_LastError)
             throw OSError()
 
@@ -614,7 +626,7 @@ class Console {
      * **Cooked Mode** is when **ENABLE_LINE_INPUT** is set with [**SetConsoleMode**](setconsolemode.md) on the console input handle. In cooked mode, the console host will provide an edit line on the command-line application's behalf and calls to **ReadFile** or **ReadConsole** will not return until the enter key is pressed.
      * 
      * **Intermediate Read** is an augmentation to that behavior on the **ReadConsole** call in cooked read mode. Setting a flag in [**dwCtrlWakeupMask**](console-readconsole-control.md) on the [**CONSOLE\_READCONSOLE\_CONTROL**](console-readconsole-control.md) structure and pass it into *pinputControl* as it calls **ReadConsole**, will result in the read will not necessarily waiting for a newline, but returning on a specified character as well.
-     * @param {Pointer<HANDLE>} hConsoleInput A handle to the console input buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleInput A handle to the console input buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Pointer<Void>} lpBuffer A pointer to a buffer that receives the data read from the console input buffer.
      * @param {Integer} nNumberOfCharsToRead The number of characters to be read. The size of the buffer pointed to by the *lpBuffer* parameter should be at least `nNumberOfCharsToRead * sizeof(TCHAR)` bytes.
      * @param {Pointer<UInt32>} lpNumberOfCharsRead A pointer to a variable that receives the number of characters actually read.
@@ -629,7 +641,7 @@ class Console {
     static ReadConsoleW(hConsoleInput, lpBuffer, nNumberOfCharsToRead, lpNumberOfCharsRead, pInputControl) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReadConsoleW", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nNumberOfCharsToRead, "ptr", lpNumberOfCharsRead, "ptr", pInputControl, "int")
+        result := DllCall("KERNEL32.dll\ReadConsoleW", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nNumberOfCharsToRead, "uint*", lpNumberOfCharsRead, "ptr", pInputControl, "int")
         if(A_LastError)
             throw OSError()
 
@@ -652,8 +664,8 @@ class Console {
      * Although an application can use **WriteConsole** in ANSI mode to write ANSI characters, consoles do not support "ANSI escape" or "virtual terminal" sequences unless enabled. See [**Console Virtual Terminal Sequences**](console-virtual-terminal-sequences.md) for more information and for operating system version applicability.
      * 
      * When virtual terminal escape sequences are not enabled, console functions can provide equivalent functionality. For more information, see [**SetCursorPos**](/windows/win32/api/winuser/nf-winuser-setcursorpos), [**SetConsoleTextAttribute**](setconsoletextattribute.md), and [**GetConsoleCursorInfo**](getconsolecursorinfo.md).
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
-     * @param {Pointer<PSTR>} lpBuffer A pointer to a buffer that contains characters to be written to the console screen buffer. This is expected to be an array of either `char` for `WriteConsoleA` or `wchar_t` for `WriteConsoleW`.
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Byte>} lpBuffer A pointer to a buffer that contains characters to be written to the console screen buffer. This is expected to be an array of either `char` for `WriteConsoleA` or `wchar_t` for `WriteConsoleW`.
      * @param {Integer} nNumberOfCharsToWrite The number of characters to be written. If the total size of the specified number of characters exceeds the available heap, the function fails with **ERROR\_NOT\_ENOUGH\_MEMORY**.
      * @param {Pointer<UInt32>} lpNumberOfCharsWritten A pointer to a variable that receives the number of characters actually written.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -668,7 +680,7 @@ class Console {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WriteConsoleA", "ptr", hConsoleOutput, "ptr", lpBuffer, "uint", nNumberOfCharsToWrite, "ptr", lpNumberOfCharsWritten, "ptr", lpReserved, "int")
+        result := DllCall("KERNEL32.dll\WriteConsoleA", "ptr", hConsoleOutput, "ptr", lpBuffer, "uint", nNumberOfCharsToWrite, "uint*", lpNumberOfCharsWritten, "ptr", lpReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -691,8 +703,8 @@ class Console {
      * Although an application can use **WriteConsole** in ANSI mode to write ANSI characters, consoles do not support "ANSI escape" or "virtual terminal" sequences unless enabled. See [**Console Virtual Terminal Sequences**](console-virtual-terminal-sequences.md) for more information and for operating system version applicability.
      * 
      * When virtual terminal escape sequences are not enabled, console functions can provide equivalent functionality. For more information, see [**SetCursorPos**](/windows/win32/api/winuser/nf-winuser-setcursorpos), [**SetConsoleTextAttribute**](setconsoletextattribute.md), and [**GetConsoleCursorInfo**](getconsolecursorinfo.md).
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
-     * @param {Pointer<PWSTR>} lpBuffer A pointer to a buffer that contains characters to be written to the console screen buffer. This is expected to be an array of either `char` for `WriteConsoleA` or `wchar_t` for `WriteConsoleW`.
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Char>} lpBuffer A pointer to a buffer that contains characters to be written to the console screen buffer. This is expected to be an array of either `char` for `WriteConsoleA` or `wchar_t` for `WriteConsoleW`.
      * @param {Integer} nNumberOfCharsToWrite The number of characters to be written. If the total size of the specified number of characters exceeds the available heap, the function fails with **ERROR\_NOT\_ENOUGH\_MEMORY**.
      * @param {Pointer<UInt32>} lpNumberOfCharsWritten A pointer to a variable that receives the number of characters actually written.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -707,7 +719,7 @@ class Console {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WriteConsoleW", "ptr", hConsoleOutput, "ptr", lpBuffer, "uint", nNumberOfCharsToWrite, "ptr", lpNumberOfCharsWritten, "ptr", lpReserved, "int")
+        result := DllCall("KERNEL32.dll\WriteConsoleW", "ptr", hConsoleOutput, "ptr", lpBuffer, "uint", nNumberOfCharsToWrite, "uint*", lpNumberOfCharsWritten, "ptr", lpReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -774,8 +786,8 @@ class Console {
      * 
      * If using `PSEUDOCONSOLE_INHERIT_CURSOR`, the calling application should be prepared to respond to the request for the cursor state in an asynchronous fashion on a background thread by forwarding or interpreting the request for cursor information that will be received on `hOutput` and replying on `hInput`. Failure to do so may cause the calling application to hang while making another request of the pseudoconsole system.
      * @param {Pointer} size The dimensions of the window/buffer in count of characters that will be used on initial creation of the pseudoconsole. This can be adjusted later with [ResizePseudoConsole](resizepseudoconsole.md).
-     * @param {Pointer<HANDLE>} hInput An open handle to a stream of data that represents user input to the device. This is currently restricted to [synchronous](/windows/desktop/Sync/synchronization-and-overlapped-input-and-output) I/O.
-     * @param {Pointer<HANDLE>} hOutput An open handle to a stream of data that represents application output from the device. This is currently restricted to [synchronous](/windows/desktop/Sync/synchronization-and-overlapped-input-and-output) I/O.
+     * @param {Pointer<Void>} hInput An open handle to a stream of data that represents user input to the device. This is currently restricted to [synchronous](/windows/desktop/Sync/synchronization-and-overlapped-input-and-output) I/O.
+     * @param {Pointer<Void>} hOutput An open handle to a stream of data that represents application output from the device. This is currently restricted to [synchronous](/windows/desktop/Sync/synchronization-and-overlapped-input-and-output) I/O.
      * @param {Integer} dwFlags The value can be one of the following:
      * 
      * | Value | Meaning |
@@ -789,7 +801,7 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/createpseudoconsole
      */
     static CreatePseudoConsole(size, hInput, hOutput, dwFlags, phPC) {
-        result := DllCall("KERNEL32.dll\CreatePseudoConsole", "ptr", size, "ptr", hInput, "ptr", hOutput, "uint", dwFlags, "ptr", phPC, "int")
+        result := DllCall("KERNEL32.dll\CreatePseudoConsole", "ptr", size, "ptr", hInput, "ptr", hOutput, "uint", dwFlags, "ptr*", phPC, "int")
         return result
     }
 
@@ -816,11 +828,12 @@ class Console {
      * 
      * A final painted frame may arrive on the `hOutput` handle originally provided to [CreatePseudoConsole](createpseudoconsole.md) when this API is called. It is expected that the caller will drain this information from the communication channel buffer and either present it or discard it. Failure to drain the buffer may cause the Close call to wait indefinitely until it is drained or the communication channels are broken another way.
      * @param {Pointer} hPC A handle to an active pseudoconsole as opened by [CreatePseudoConsole](createpseudoconsole.md).
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} *none*
      * @see https://learn.microsoft.com/windows/console/closepseudoconsole
      */
     static ClosePseudoConsole(hPC) {
-        DllCall("KERNEL32.dll\ClosePseudoConsole", "ptr", hPC)
+        result := DllCall("KERNEL32.dll\ClosePseudoConsole", "ptr", hPC)
+        return result
     }
 
     /**
@@ -834,7 +847,7 @@ class Console {
      * 
      * > [!TIP]
      * > This API is not recommended and does not have a specific **[virtual terminal](console-virtual-terminal-sequences.md)** equivalent. Filling the region outside the viewable window is not supported and is reserved for the terminal's history space. Filling a visible region with new text or color is performed through **[moving the cursor](console-virtual-terminal-sequences.md#cursor-positioning)**, **[setting the new attributes](console-virtual-terminal-sequences.md#text-formatting)**, then writing the desired text for that region, repeating characters if necessary for the length of the fill run. Additional cursor movement may be required followed by writing the desired text to fill a rectangular region. The client application is expected to keep its own memory of what is on the screen and is not able to query the remote state. More information can be found in **[classic console versus virtual terminal](classic-vs-vt.md)** documentation.
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Integer} cCharacter The character to be written to the console screen buffer.
      * @param {Integer} nLength The number of character cells to which the character should be written.
      * @param {Pointer} dwWriteCoord A [**COORD**](coord-str.md) structure that specifies the character coordinates of the first cell to which the character is to be written.
@@ -847,7 +860,7 @@ class Console {
     static FillConsoleOutputCharacterA(hConsoleOutput, cCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FillConsoleOutputCharacterA", "ptr", hConsoleOutput, "char", cCharacter, "uint", nLength, "ptr", dwWriteCoord, "ptr", lpNumberOfCharsWritten, "int")
+        result := DllCall("KERNEL32.dll\FillConsoleOutputCharacterA", "ptr", hConsoleOutput, "char", cCharacter, "uint", nLength, "ptr", dwWriteCoord, "uint*", lpNumberOfCharsWritten, "int")
         if(A_LastError)
             throw OSError()
 
@@ -865,7 +878,7 @@ class Console {
      * 
      * > [!TIP]
      * > This API is not recommended and does not have a specific **[virtual terminal](console-virtual-terminal-sequences.md)** equivalent. Filling the region outside the viewable window is not supported and is reserved for the terminal's history space. Filling a visible region with new text or color is performed through **[moving the cursor](console-virtual-terminal-sequences.md#cursor-positioning)**, **[setting the new attributes](console-virtual-terminal-sequences.md#text-formatting)**, then writing the desired text for that region, repeating characters if necessary for the length of the fill run. Additional cursor movement may be required followed by writing the desired text to fill a rectangular region. The client application is expected to keep its own memory of what is on the screen and is not able to query the remote state. More information can be found in **[classic console versus virtual terminal](classic-vs-vt.md)** documentation.
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Integer} cCharacter The character to be written to the console screen buffer.
      * @param {Integer} nLength The number of character cells to which the character should be written.
      * @param {Pointer} dwWriteCoord A [**COORD**](coord-str.md) structure that specifies the character coordinates of the first cell to which the character is to be written.
@@ -878,7 +891,7 @@ class Console {
     static FillConsoleOutputCharacterW(hConsoleOutput, cCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FillConsoleOutputCharacterW", "ptr", hConsoleOutput, "char", cCharacter, "uint", nLength, "ptr", dwWriteCoord, "ptr", lpNumberOfCharsWritten, "int")
+        result := DllCall("KERNEL32.dll\FillConsoleOutputCharacterW", "ptr", hConsoleOutput, "char", cCharacter, "uint", nLength, "ptr", dwWriteCoord, "uint*", lpNumberOfCharsWritten, "int")
         if(A_LastError)
             throw OSError()
 
@@ -894,7 +907,7 @@ class Console {
      * 
      * > [!TIP]
      * > This API is not recommended and does not have a specific **[virtual terminal](console-virtual-terminal-sequences.md)** equivalent. Filling the region outside the viewable window is not supported and is reserved for the terminal's history space. Filling a visible region with new text or color is performed through **[moving the cursor](console-virtual-terminal-sequences.md#cursor-positioning)**, **[setting the new attributes](console-virtual-terminal-sequences.md#text-formatting)**, then writing the desired text for that region, repeating characters if necessary for the length of the fill run. Additional cursor movement may be required followed by writing the desired text to fill a rectangular region. The client application is expected to keep its own memory of what is on the screen and is not able to query the remote state. More information can be found in **[classic console versus virtual terminal](classic-vs-vt.md)** documentation.
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Integer} wAttribute The attributes to use when writing to the console screen buffer. For more information, see [Character Attributes](console-screen-buffers.md#character-attributes).
      * @param {Integer} nLength The number of character cells to be set to the specified color attributes.
      * @param {Pointer} dwWriteCoord A [**COORD**](coord-str.md) structure that specifies the character coordinates of the first cell whose attributes are to be set.
@@ -907,7 +920,7 @@ class Console {
     static FillConsoleOutputAttribute(hConsoleOutput, wAttribute, nLength, dwWriteCoord, lpNumberOfAttrsWritten) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FillConsoleOutputAttribute", "ptr", hConsoleOutput, "ushort", wAttribute, "uint", nLength, "ptr", dwWriteCoord, "ptr", lpNumberOfAttrsWritten, "int")
+        result := DllCall("KERNEL32.dll\FillConsoleOutputAttribute", "ptr", hConsoleOutput, "ushort", wAttribute, "uint", nLength, "ptr", dwWriteCoord, "uint*", lpNumberOfAttrsWritten, "int")
         if(A_LastError)
             throw OSError()
 
@@ -973,7 +986,7 @@ class Console {
      * | **FILE_SHARE_WRITE** 0x00000002 | Other open operations can be performed on the console screen buffer for write access. |
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpSecurityAttributes A pointer to a [**SECURITY\_ATTRIBUTES**](/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)) structure that determines whether the returned handle can be inherited by child processes. If *lpSecurityAttributes* is **NULL**, the handle cannot be inherited. The **lpSecurityDescriptor** member of the structure specifies a security descriptor for the new console screen buffer. If *lpSecurityAttributes* is **NULL**, the console screen buffer gets a default security descriptor. The ACLs in the default security descriptor for a console screen buffer come from the primary or impersonation token of the creator.
      * @param {Integer} dwFlags The type of console screen buffer to create. The only supported screen buffer type is **CONSOLE\_TEXTMODE\_BUFFER**.
-     * @returns {Pointer<HANDLE>} If the function succeeds, the return value is a handle to the new console screen buffer.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the new console screen buffer.
      * 
      * If the function fails, the return value is **INVALID\_HANDLE\_VALUE**. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
      * @see https://learn.microsoft.com/windows/console/createconsolescreenbuffer
@@ -983,7 +996,7 @@ class Console {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateConsoleScreenBuffer", "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwFlags, "ptr", lpScreenBufferData, "ptr")
+        result := DllCall("KERNEL32.dll\CreateConsoleScreenBuffer", "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwFlags, "ptr", lpScreenBufferData)
         if(A_LastError)
             throw OSError()
 
@@ -996,7 +1009,7 @@ class Console {
      * A console can have multiple screen buffers. **SetConsoleActiveScreenBuffer** determines which one is displayed. You can write to an inactive screen buffer and then use **SetConsoleActiveScreenBuffer** to display the buffer's contents.
      * 
      * [!INCLUDE [no-vt-equiv-alt-buf](./includes/no-vt-equiv-alt-buf.md)]
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer.
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
@@ -1017,7 +1030,7 @@ class Console {
      * @remarks
      * > [!TIP]
      * > This API is not recommended and does not have a **[virtual terminal](console-virtual-terminal-sequences.md)** equivalent. Attempting to empty the input queue all at once can destroy state in the queue in an unexpected manner.
-     * @param {Pointer<HANDLE>} hConsoleInput A handle to the console input buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleInput A handle to the console input buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
@@ -1098,7 +1111,7 @@ class Console {
      * Retrieves information about the size and visibility of the cursor for the specified console screen buffer.
      * @remarks
      * [!INCLUDE [no-vt-equiv-user-priv](./includes/no-vt-equiv-user-priv.md)]
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Pointer<CONSOLE_CURSOR_INFO>} lpConsoleCursorInfo A pointer to a [**CONSOLE\_CURSOR\_INFO**](console-cursor-info-str.md) structure that receives information about the console's cursor.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
@@ -1122,7 +1135,7 @@ class Console {
      * 
      * > [!TIP]
      * > This API has a **[virtual terminal](console-virtual-terminal-sequences.md)** equivalent in the **[cursor visibility](console-virtual-terminal-sequences.md#cursor-visibility)** section with the `^[[?25h` and `^[[?25l` sequences.
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Pointer<CONSOLE_CURSOR_INFO>} lpConsoleCursorInfo A pointer to a [**CONSOLE\_CURSOR\_INFO**](console-cursor-info-str.md) structure that provides the new specifications for the console screen buffer's cursor.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
@@ -1148,7 +1161,7 @@ class Console {
      * 
      * > [!TIP]
      * > This API does not have a **[virtual terminal](console-virtual-terminal-sequences.md)** equivalent. Its use may still be required for applications that are attempting to draw columns, grids, or fill the display to retrieve the window size. This window state is managed by the TTY/PTY/Pseudoconsole outside of the normal stream flow and is generally considered a user privilege not adjustable by the client application. Updates can be received on [**ReadConsoleInput**](readconsoleinput.md).
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Pointer<CONSOLE_SCREEN_BUFFER_INFO>} lpConsoleScreenBufferInfo A pointer to a [**CONSOLE\_SCREEN\_BUFFER\_INFO**](console-screen-buffer-info-str.md) structure that receives the console screen buffer information.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
@@ -1174,7 +1187,7 @@ class Console {
      * 
      * > [!TIP]
      * > This API does not have a **[virtual terminal](console-virtual-terminal-sequences.md)** equivalent. Its use may still be required for applications that are attempting to draw columns, grids, or fill the display to retrieve the window size. This window state is managed by the TTY/PTY/Pseudoconsole outside of the normal stream flow and is generally considered a user privilege not adjustable by the client application. Updates can be received on [**ReadConsoleInput**](readconsoleinput.md).
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Pointer<CONSOLE_SCREEN_BUFFER_INFOEX>} lpConsoleScreenBufferInfoEx A [**CONSOLE\_SCREEN\_BUFFER\_INFOEX**](console-screen-buffer-infoex.md) structure that receives the requested console screen buffer information.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
@@ -1196,7 +1209,7 @@ class Console {
      * @remarks
      * > [!TIP]
      * > This API has a partial **[virtual terminal](console-virtual-terminal-sequences.md)** equivalent. **[Cursor positioning buffer](console-virtual-terminal-sequences.md#cursor-positioning)** and **[text attributes](console-virtual-terminal-sequences.md#text-formatting)** have specific sequence equivalents. The color table is not configurable, but **[extended colors](console-virtual-terminal-sequences.md#extended-colors)** are available beyond what is normally available through **[console functions](console-functions.md)**. Popup attributes have no equivalent as popup menus are the responsibility of the command-line client application in the **virtual terminal** world. Finally, the size of the window and the full screen status are considered privileges owned by the user in the **virtual terminal** world and have no equivalent sequence.
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Pointer<CONSOLE_SCREEN_BUFFER_INFOEX>} lpConsoleScreenBufferInfoEx A [**CONSOLE\_SCREEN\_BUFFER\_INFOEX**](console-screen-buffer-infoex.md) structure that contains the console screen buffer information.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
@@ -1217,7 +1230,7 @@ class Console {
      * See reference information about the SetConsoleScreenBufferSize function, which changes the size of the specified console screen buffer.
      * @remarks
      * [!INCLUDE [no-vt-equiv-user-priv](./includes/no-vt-equiv-user-priv.md)]
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Pointer} dwSize A [**COORD**](coord-str.md) structure that specifies the new size of the console screen buffer, in character rows and columns. The specified width and height cannot be less than the width and height of the console screen buffer's window. The specified dimensions also cannot be less than the minimum size allowed by the system. This minimum depends on the current font size for the console (selected by the user) and the **SM\_CXMIN** and **SM\_CYMIN** values returned by the [**GetSystemMetrics**](/windows/win32/api/winuser/nf-winuser-getsystemmetrics) function.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
@@ -1243,7 +1256,7 @@ class Console {
      * 
      * > [!TIP]
      * > This API has a **[virtual terminal](console-virtual-terminal-sequences.md)** equivalent in the **[simple cursor positioning](console-virtual-terminal-sequences.md#simple-cursor-positioning)** and **[cursor positioning](console-virtual-terminal-sequences.md#cursor-positioning)** sections. Use of the newline, carriage return, backspace, and tab control sequences can also assist with cursor positioning.
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Pointer} dwCursorPosition A [**COORD**](coord-str.md) structure that specifies the new cursor position, in characters. The coordinates are the column and row of a screen buffer character cell. The coordinates must be within the boundaries of the console screen buffer.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
@@ -1266,17 +1279,20 @@ class Console {
      * The function does not take into consideration the size of the console screen buffer, which means that the window size returned may be larger than the size of the console screen buffer. The [**GetConsoleScreenBufferInfo**](getconsolescreenbufferinfo.md) function can be used to determine the maximum size of the console window, given the current screen buffer size, the current font, and the display size.
      * 
      * [!INCLUDE [no-vt-equiv-user-priv](./includes/no-vt-equiv-user-priv.md)]
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer.
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer.
+     * @returns {Pointer} If the function succeeds, the return value is a [**COORD**](coord-str.md) structure that specifies the number of character cell columns (**X** member) and rows (**Y** member) in the largest possible console window. Otherwise, the members of the structure are zero.
+     * 
+     * To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
      * @see https://learn.microsoft.com/windows/console/getlargestconsolewindowsize
      */
     static GetLargestConsoleWindowSize(hConsoleOutput) {
         A_LastError := 0
 
-        DllCall("KERNEL32.dll\GetLargestConsoleWindowSize", "ptr", hConsoleOutput)
+        result := DllCall("KERNEL32.dll\GetLargestConsoleWindowSize", "ptr", hConsoleOutput)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -1286,7 +1302,7 @@ class Console {
      * 
      * > [!TIP]
      * > This API has a **[virtual terminal](console-virtual-terminal-sequences.md)** equivalent in the **[text formatting](console-virtual-terminal-sequences.md#text-formatting)** sequences. _Virtual terminal sequences_ are recommended for all new and ongoing development.
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Integer} wAttributes The [character attributes](console-screen-buffers.md#character-attributes).
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
@@ -1315,7 +1331,7 @@ class Console {
      * **SetConsoleWindowInfo** can be used to scroll the contents of the console screen buffer by shifting the position of the window rectangle without changing its size.
      * 
      * [!INCLUDE [no-vt-equiv-user-priv](./includes/no-vt-equiv-user-priv.md)]
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Integer} bAbsolute If this parameter is **TRUE**, the coordinates specify the new upper-left and lower-right corners of the window. If it is **FALSE**, the coordinates are relative to the current window-corner coordinates.
      * @param {Pointer<SMALL_RECT>} lpConsoleWindow A pointer to a [**SMALL\_RECT**](small-rect-str.md) structure that specifies the new upper-left and lower-right corners of the window.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -1344,8 +1360,8 @@ class Console {
      * 
      * > [!TIP]
      * > This API has a **[virtual terminal](console-virtual-terminal-sequences.md)** equivalent in the **[text formatting](console-virtual-terminal-sequences.md#text-formatting)** and **[cursor positioning](console-virtual-terminal-sequences.md#cursor-positioning)** sequences. Move the cursor to the location to insert, apply the formatting desired, and write out text to fill. There is no equivalent to emit text to an area without also applying the active color formatting. This decision intentionally aligns the Windows platform with other operating systems where the individual client application is expected to remember its own drawn state for further manipulation.
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
-     * @param {Pointer<PSTR>} lpCharacter The characters to be written to the console screen buffer.
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Byte>} lpCharacter The characters to be written to the console screen buffer.
      * @param {Integer} nLength The number of characters to be written.
      * @param {Pointer} dwWriteCoord A [**COORD**](coord-str.md) structure that specifies the character coordinates of the first cell in the console screen buffer to which characters will be written.
      * @param {Pointer<UInt32>} lpNumberOfCharsWritten A pointer to a variable that receives the number of characters actually written.
@@ -1359,7 +1375,7 @@ class Console {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WriteConsoleOutputCharacterA", "ptr", hConsoleOutput, "ptr", lpCharacter, "uint", nLength, "ptr", dwWriteCoord, "ptr", lpNumberOfCharsWritten, "int")
+        result := DllCall("KERNEL32.dll\WriteConsoleOutputCharacterA", "ptr", hConsoleOutput, "ptr", lpCharacter, "uint", nLength, "ptr", dwWriteCoord, "uint*", lpNumberOfCharsWritten, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1377,8 +1393,8 @@ class Console {
      * 
      * > [!TIP]
      * > This API has a **[virtual terminal](console-virtual-terminal-sequences.md)** equivalent in the **[text formatting](console-virtual-terminal-sequences.md#text-formatting)** and **[cursor positioning](console-virtual-terminal-sequences.md#cursor-positioning)** sequences. Move the cursor to the location to insert, apply the formatting desired, and write out text to fill. There is no equivalent to emit text to an area without also applying the active color formatting. This decision intentionally aligns the Windows platform with other operating systems where the individual client application is expected to remember its own drawn state for further manipulation.
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
-     * @param {Pointer<PWSTR>} lpCharacter The characters to be written to the console screen buffer.
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Char>} lpCharacter The characters to be written to the console screen buffer.
      * @param {Integer} nLength The number of characters to be written.
      * @param {Pointer} dwWriteCoord A [**COORD**](coord-str.md) structure that specifies the character coordinates of the first cell in the console screen buffer to which characters will be written.
      * @param {Pointer<UInt32>} lpNumberOfCharsWritten A pointer to a variable that receives the number of characters actually written.
@@ -1392,7 +1408,7 @@ class Console {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WriteConsoleOutputCharacterW", "ptr", hConsoleOutput, "ptr", lpCharacter, "uint", nLength, "ptr", dwWriteCoord, "ptr", lpNumberOfCharsWritten, "int")
+        result := DllCall("KERNEL32.dll\WriteConsoleOutputCharacterW", "ptr", hConsoleOutput, "ptr", lpCharacter, "uint", nLength, "ptr", dwWriteCoord, "uint*", lpNumberOfCharsWritten, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1408,7 +1424,7 @@ class Console {
      * 
      * > [!TIP]
      * > This API has a **[virtual terminal](console-virtual-terminal-sequences.md)** equivalent in the **[text formatting](console-virtual-terminal-sequences.md#text-formatting)** and **[cursor positioning](console-virtual-terminal-sequences.md#cursor-positioning)** sequences. Move the cursor to the location to insert, apply the formatting desired, and write out text to fill. There is no equivalent to apply color to an area without also emitting text. This decision intentionally aligns the Windows platform with other operating systems where the individual client application is expected to remember its own drawn state for further manipulation.
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Pointer<UInt16>} lpAttribute The attributes to be used when writing to the console screen buffer. For more information, see [Character Attributes](console-screen-buffers.md#character-attributes).
      * @param {Integer} nLength The number of screen buffer character cells to which the attributes will be copied.
      * @param {Pointer} dwWriteCoord A [**COORD**](coord-str.md) structure that specifies the character coordinates of the first cell in the console screen buffer to which the attributes will be written.
@@ -1421,7 +1437,7 @@ class Console {
     static WriteConsoleOutputAttribute(hConsoleOutput, lpAttribute, nLength, dwWriteCoord, lpNumberOfAttrsWritten) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WriteConsoleOutputAttribute", "ptr", hConsoleOutput, "ptr", lpAttribute, "uint", nLength, "ptr", dwWriteCoord, "ptr", lpNumberOfAttrsWritten, "int")
+        result := DllCall("KERNEL32.dll\WriteConsoleOutputAttribute", "ptr", hConsoleOutput, "ushort*", lpAttribute, "uint", nLength, "ptr", dwWriteCoord, "uint*", lpNumberOfAttrsWritten, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1436,8 +1452,8 @@ class Console {
      * [!INCLUDE [setting-codepage-mode-remarks](./includes/setting-codepage-mode-remarks.md)]
      * 
      * [!INCLUDE [no-vt-equiv-banner](./includes/no-vt-equiv-banner.md)]
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
-     * @param {Pointer<PSTR>} lpCharacter A pointer to a buffer that receives the characters read from the console screen buffer.
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Byte>} lpCharacter A pointer to a buffer that receives the characters read from the console screen buffer.
      * @param {Integer} nLength The number of screen buffer character cells from which to read. The size of the buffer pointed to by the *lpCharacter* parameter should be `nLength * sizeof(TCHAR)`.
      * @param {Pointer} dwReadCoord The coordinates of the first cell in the console screen buffer from which to read, in characters. The **X** member of the [**COORD**](coord-str.md) structure is the column, and the **Y** member is the row.
      * @param {Pointer<UInt32>} lpNumberOfCharsRead A pointer to a variable that receives the number of characters actually read.
@@ -1451,7 +1467,7 @@ class Console {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReadConsoleOutputCharacterA", "ptr", hConsoleOutput, "ptr", lpCharacter, "uint", nLength, "ptr", dwReadCoord, "ptr", lpNumberOfCharsRead, "int")
+        result := DllCall("KERNEL32.dll\ReadConsoleOutputCharacterA", "ptr", hConsoleOutput, "ptr", lpCharacter, "uint", nLength, "ptr", dwReadCoord, "uint*", lpNumberOfCharsRead, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1466,8 +1482,8 @@ class Console {
      * [!INCLUDE [setting-codepage-mode-remarks](./includes/setting-codepage-mode-remarks.md)]
      * 
      * [!INCLUDE [no-vt-equiv-banner](./includes/no-vt-equiv-banner.md)]
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
-     * @param {Pointer<PWSTR>} lpCharacter A pointer to a buffer that receives the characters read from the console screen buffer.
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Char>} lpCharacter A pointer to a buffer that receives the characters read from the console screen buffer.
      * @param {Integer} nLength The number of screen buffer character cells from which to read. The size of the buffer pointed to by the *lpCharacter* parameter should be `nLength * sizeof(TCHAR)`.
      * @param {Pointer} dwReadCoord The coordinates of the first cell in the console screen buffer from which to read, in characters. The **X** member of the [**COORD**](coord-str.md) structure is the column, and the **Y** member is the row.
      * @param {Pointer<UInt32>} lpNumberOfCharsRead A pointer to a variable that receives the number of characters actually read.
@@ -1481,7 +1497,7 @@ class Console {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReadConsoleOutputCharacterW", "ptr", hConsoleOutput, "ptr", lpCharacter, "uint", nLength, "ptr", dwReadCoord, "ptr", lpNumberOfCharsRead, "int")
+        result := DllCall("KERNEL32.dll\ReadConsoleOutputCharacterW", "ptr", hConsoleOutput, "ptr", lpCharacter, "uint", nLength, "ptr", dwReadCoord, "uint*", lpNumberOfCharsRead, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1494,7 +1510,7 @@ class Console {
      * If the number of attributes to be read from extends beyond the end of the specified screen buffer row, attributes are read from the next row. If the number of attributes to be read from extends beyond the end of the console screen buffer, attributes up to the end of the console screen buffer are read.
      * 
      * [!INCLUDE [no-vt-equiv-banner](./includes/no-vt-equiv-banner.md)]
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Pointer<UInt16>} lpAttribute A pointer to a buffer that receives the attributes being used by the console screen buffer.
      * 
      * For more information, see [Character Attributes](console-screen-buffers.md#character-attributes).
@@ -1509,7 +1525,7 @@ class Console {
     static ReadConsoleOutputAttribute(hConsoleOutput, lpAttribute, nLength, dwReadCoord, lpNumberOfAttrsRead) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReadConsoleOutputAttribute", "ptr", hConsoleOutput, "ptr", lpAttribute, "uint", nLength, "ptr", dwReadCoord, "ptr", lpNumberOfAttrsRead, "int")
+        result := DllCall("KERNEL32.dll\ReadConsoleOutputAttribute", "ptr", hConsoleOutput, "ushort*", lpAttribute, "uint", nLength, "ptr", dwReadCoord, "uint*", lpNumberOfAttrsRead, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1525,7 +1541,7 @@ class Console {
      * 
      * > [!TIP]
      * > This API is not recommended and does not have a **[virtual terminal](console-virtual-terminal-sequences.md)** equivalent. This decision intentionally aligns the Windows platform with other operating systems. This operation is considered the **[wrong-way verb](console-buffer-security-and-access-rights.md#wrong-way-verbs)** for this buffer. Applications remoting via cross-platform utilities and transports like SSH may not work as expected if using this API.
-     * @param {Pointer<HANDLE>} hConsoleInput A handle to the console input buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleInput A handle to the console input buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Pointer<INPUT_RECORD>} lpBuffer A pointer to an array of [**INPUT\_RECORD**](input-record-str.md) structures that contain data to be written to the input buffer.
      * @param {Integer} nLength The number of input records to be written.
      * @param {Pointer<UInt32>} lpNumberOfEventsWritten A pointer to a variable that receives the number of input records actually written.
@@ -1537,7 +1553,7 @@ class Console {
     static WriteConsoleInputA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsWritten) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WriteConsoleInputA", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, "ptr", lpNumberOfEventsWritten, "int")
+        result := DllCall("KERNEL32.dll\WriteConsoleInputA", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, "uint*", lpNumberOfEventsWritten, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1553,7 +1569,7 @@ class Console {
      * 
      * > [!TIP]
      * > This API is not recommended and does not have a **[virtual terminal](console-virtual-terminal-sequences.md)** equivalent. This decision intentionally aligns the Windows platform with other operating systems. This operation is considered the **[wrong-way verb](console-buffer-security-and-access-rights.md#wrong-way-verbs)** for this buffer. Applications remoting via cross-platform utilities and transports like SSH may not work as expected if using this API.
-     * @param {Pointer<HANDLE>} hConsoleInput A handle to the console input buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleInput A handle to the console input buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Pointer<INPUT_RECORD>} lpBuffer A pointer to an array of [**INPUT\_RECORD**](input-record-str.md) structures that contain data to be written to the input buffer.
      * @param {Integer} nLength The number of input records to be written.
      * @param {Pointer<UInt32>} lpNumberOfEventsWritten A pointer to a variable that receives the number of input records actually written.
@@ -1565,7 +1581,7 @@ class Console {
     static WriteConsoleInputW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsWritten) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WriteConsoleInputW", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, "ptr", lpNumberOfEventsWritten, "int")
+        result := DllCall("KERNEL32.dll\WriteConsoleInputW", "ptr", hConsoleInput, "ptr", lpBuffer, "uint", nLength, "uint*", lpNumberOfEventsWritten, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1585,7 +1601,7 @@ class Console {
      * 
      * > [!TIP]
      * > This API is not recommended and does not have a **[virtual terminal](console-virtual-terminal-sequences.md)** equivalent. Use can be approximated with **[scroll margins](console-virtual-terminal-sequences.md#scrolling-margins)** to fix an area of the screen, **[cursor positioning](console-virtual-terminal-sequences.md#cursor-positioning)** to set the active position outside the region, and newlines to force text to move. The remaining space can be filled by moving the cursor, **[setting graphical attributes](console-virtual-terminal-sequences.md#text-formatting)**, and writing normal text.
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Pointer<SMALL_RECT>} lpScrollRectangle A pointer to a [**SMALL\_RECT**](small-rect-str.md) structure whose members specify the upper-left and lower-right coordinates of the console screen buffer rectangle to be moved.
      * @param {Pointer<SMALL_RECT>} lpClipRectangle A pointer to a [**SMALL\_RECT**](small-rect-str.md) structure whose members specify the upper-left and lower-right coordinates of the console screen buffer rectangle that is affected by the scrolling. This pointer can be **NULL**.
      * @param {Pointer} dwDestinationOrigin A [**COORD**](coord-str.md) structure that specifies the upper-left corner of the new location of the *lpScrollRectangle* contents, in characters.
@@ -1618,7 +1634,7 @@ class Console {
      * 
      * > [!TIP]
      * > This API is not recommended and does not have a **[virtual terminal](console-virtual-terminal-sequences.md)** equivalent. Use can be approximated with **[scroll margins](console-virtual-terminal-sequences.md#scrolling-margins)** to fix an area of the screen, **[cursor positioning](console-virtual-terminal-sequences.md#cursor-positioning)** to set the active position outside the region, and newlines to force text to move. The remaining space can be filled by moving the cursor, **[setting graphical attributes](console-virtual-terminal-sequences.md#text-formatting)**, and writing normal text.
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Pointer<SMALL_RECT>} lpScrollRectangle A pointer to a [**SMALL\_RECT**](small-rect-str.md) structure whose members specify the upper-left and lower-right coordinates of the console screen buffer rectangle to be moved.
      * @param {Pointer<SMALL_RECT>} lpClipRectangle A pointer to a [**SMALL\_RECT**](small-rect-str.md) structure whose members specify the upper-left and lower-right coordinates of the console screen buffer rectangle that is affected by the scrolling. This pointer can be **NULL**.
      * @param {Pointer} dwDestinationOrigin A [**COORD**](coord-str.md) structure that specifies the upper-left corner of the new location of the *lpScrollRectangle* contents, in characters.
@@ -1655,7 +1671,7 @@ class Console {
      * 
      * > [!TIP]
      * > This API has a **[virtual terminal](console-virtual-terminal-sequences.md)** equivalent in the **[text formatting](console-virtual-terminal-sequences.md#text-formatting)** and **[cursor positioning](console-virtual-terminal-sequences.md#cursor-positioning)** sequences. Move the cursor to the location to insert, apply the formatting desired, and write out the text. _Virtual terminal sequences_ are recommended for all new and ongoing development.
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Pointer<CHAR_INFO>} lpBuffer The data to be written to the console screen buffer. This pointer is treated as the origin of a two-dimensional array of [**CHAR\_INFO**](char-info-str.md) structures whose size is specified by the *dwBufferSize* parameter.
      * @param {Pointer} dwBufferSize The size of the buffer pointed to by the *lpBuffer* parameter, in character cells. The **X** member of the [**COORD**](coord-str.md) structure is the number of columns; the **Y** member is the number of rows.
      * @param {Pointer} dwBufferCoord The coordinates of the upper-left cell in the buffer pointed to by the *lpBuffer* parameter. The **X** member of the [**COORD**](coord-str.md) structure is the column, and the **Y** member is the row.
@@ -1692,7 +1708,7 @@ class Console {
      * 
      * > [!TIP]
      * > This API has a **[virtual terminal](console-virtual-terminal-sequences.md)** equivalent in the **[text formatting](console-virtual-terminal-sequences.md#text-formatting)** and **[cursor positioning](console-virtual-terminal-sequences.md#cursor-positioning)** sequences. Move the cursor to the location to insert, apply the formatting desired, and write out the text. _Virtual terminal sequences_ are recommended for all new and ongoing development.
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Pointer<CHAR_INFO>} lpBuffer The data to be written to the console screen buffer. This pointer is treated as the origin of a two-dimensional array of [**CHAR\_INFO**](char-info-str.md) structures whose size is specified by the *dwBufferSize* parameter.
      * @param {Pointer} dwBufferSize The size of the buffer pointed to by the *lpBuffer* parameter, in character cells. The **X** member of the [**COORD**](coord-str.md) structure is the number of columns; the **Y** member is the number of rows.
      * @param {Pointer} dwBufferCoord The coordinates of the upper-left cell in the buffer pointed to by the *lpBuffer* parameter. The **X** member of the [**COORD**](coord-str.md) structure is the column, and the **Y** member is the row.
@@ -1728,7 +1744,7 @@ class Console {
      * [!INCLUDE [setting-codepage-mode-remarks](./includes/setting-codepage-mode-remarks.md)]
      * 
      * [!INCLUDE [no-vt-equiv-banner](./includes/no-vt-equiv-banner.md)]
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Pointer<CHAR_INFO>} lpBuffer A pointer to a destination buffer that receives the data read from the console screen buffer. This pointer is treated as the origin of a two-dimensional array of [**CHAR\_INFO**](char-info-str.md) structures whose size is specified by the *dwBufferSize* parameter.
      * @param {Pointer} dwBufferSize The size of the *lpBuffer* parameter, in character cells. The **X** member of the [**COORD**](coord-str.md) structure is the number of columns; the **Y** member is the number of rows.
      * @param {Pointer} dwBufferCoord The coordinates of the upper-left cell in the *lpBuffer* parameter that receives the data read from the console screen buffer. The **X** member of the [**COORD**](coord-str.md) structure is the column, and the **Y** member is the row.
@@ -1764,7 +1780,7 @@ class Console {
      * [!INCLUDE [setting-codepage-mode-remarks](./includes/setting-codepage-mode-remarks.md)]
      * 
      * [!INCLUDE [no-vt-equiv-banner](./includes/no-vt-equiv-banner.md)]
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Pointer<CHAR_INFO>} lpBuffer A pointer to a destination buffer that receives the data read from the console screen buffer. This pointer is treated as the origin of a two-dimensional array of [**CHAR\_INFO**](char-info-str.md) structures whose size is specified by the *dwBufferSize* parameter.
      * @param {Pointer} dwBufferSize The size of the *lpBuffer* parameter, in character cells. The **X** member of the [**COORD**](coord-str.md) structure is the number of columns; the **Y** member is the number of rows.
      * @param {Pointer} dwBufferCoord The coordinates of the upper-left cell in the *lpBuffer* parameter that receives the data read from the console screen buffer. The **X** member of the [**COORD**](coord-str.md) structure is the column, and the **Y** member is the row.
@@ -1793,7 +1809,7 @@ class Console {
      * 
      * > [!TIP]
      * > This API is not recommended and does not have a **[virtual terminal](console-virtual-terminal-sequences.md)** equivalent. This decision intentionally aligns the Windows platform with other operating systems. Applications remoting via cross-platform utilities and transports like SSH may not work as expected if using this API.
-     * @param {Pointer<PSTR>} lpConsoleTitle A pointer to a buffer that receives a null-terminated string containing the title. If the buffer is too small to store the title, the function stores as many characters of the title as will fit in the buffer, ending with a null terminator.
+     * @param {Pointer<Byte>} lpConsoleTitle A pointer to a buffer that receives a null-terminated string containing the title. If the buffer is too small to store the title, the function stores as many characters of the title as will fit in the buffer, ending with a null terminator.
      * @param {Integer} nSize The size of the buffer pointed to by the *lpConsoleTitle* parameter, in characters.
      * @returns {Integer} If the function succeeds, the return value is the length of the console window's title, in characters.
      * 
@@ -1821,7 +1837,7 @@ class Console {
      * 
      * > [!TIP]
      * > This API is not recommended and does not have a **[virtual terminal](console-virtual-terminal-sequences.md)** equivalent. This decision intentionally aligns the Windows platform with other operating systems. Applications remoting via cross-platform utilities and transports like SSH may not work as expected if using this API.
-     * @param {Pointer<PWSTR>} lpConsoleTitle A pointer to a buffer that receives a null-terminated string containing the title. If the buffer is too small to store the title, the function stores as many characters of the title as will fit in the buffer, ending with a null terminator.
+     * @param {Pointer<Char>} lpConsoleTitle A pointer to a buffer that receives a null-terminated string containing the title. If the buffer is too small to store the title, the function stores as many characters of the title as will fit in the buffer, ending with a null terminator.
      * @param {Integer} nSize The size of the buffer pointed to by the *lpConsoleTitle* parameter, in characters.
      * @returns {Integer} If the function succeeds, the return value is the length of the console window's title, in characters.
      * 
@@ -1849,7 +1865,7 @@ class Console {
      * 
      * > [!TIP]
      * > This API is not recommended and does not have a **[virtual terminal](console-virtual-terminal-sequences.md)** equivalent. This decision intentionally aligns the Windows platform with other operating systems. Applications remoting via cross-platform utilities and transports like SSH may not work as expected if using this API.
-     * @param {Pointer<PSTR>} lpConsoleTitle A pointer to a buffer that receives a null-terminated string containing the original title.
+     * @param {Pointer<Byte>} lpConsoleTitle A pointer to a buffer that receives a null-terminated string containing the original title.
      * @param {Integer} nSize The size of the *lpConsoleTitle* buffer, in characters.
      * @returns {Integer} If *nSize* is zero, the return value is zero.
      * 
@@ -1879,7 +1895,7 @@ class Console {
      * 
      * > [!TIP]
      * > This API is not recommended and does not have a **[virtual terminal](console-virtual-terminal-sequences.md)** equivalent. This decision intentionally aligns the Windows platform with other operating systems. Applications remoting via cross-platform utilities and transports like SSH may not work as expected if using this API.
-     * @param {Pointer<PWSTR>} lpConsoleTitle A pointer to a buffer that receives a null-terminated string containing the original title.
+     * @param {Pointer<Char>} lpConsoleTitle A pointer to a buffer that receives a null-terminated string containing the original title.
      * @param {Integer} nSize The size of the *lpConsoleTitle* buffer, in characters.
      * @returns {Integer} If *nSize* is zero, the return value is zero.
      * 
@@ -1909,7 +1925,7 @@ class Console {
      * 
      * > [!TIP]
      * > This API has a **[virtual terminal](console-virtual-terminal-sequences.md)** equivalent in the **[window title](console-virtual-terminal-sequences.md#window-title)** sequences. _Virtual terminal sequences_ are recommended for all new and ongoing development.
-     * @param {Pointer<PSTR>} lpConsoleTitle The string to be displayed in the title bar of the console window. The total size must be less than 64K.
+     * @param {Pointer<Byte>} lpConsoleTitle The string to be displayed in the title bar of the console window. The total size must be less than 64K.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
@@ -1936,7 +1952,7 @@ class Console {
      * 
      * > [!TIP]
      * > This API has a **[virtual terminal](console-virtual-terminal-sequences.md)** equivalent in the **[window title](console-virtual-terminal-sequences.md#window-title)** sequences. _Virtual terminal sequences_ are recommended for all new and ongoing development.
-     * @param {Pointer<PWSTR>} lpConsoleTitle The string to be displayed in the title bar of the console window. The total size must be less than 64K.
+     * @param {Pointer<Char>} lpConsoleTitle The string to be displayed in the title bar of the console window. The total size must be less than 64K.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
@@ -1970,7 +1986,7 @@ class Console {
     static GetNumberOfConsoleMouseButtons(lpNumberOfMouseButtons) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNumberOfConsoleMouseButtons", "ptr", lpNumberOfMouseButtons, "int")
+        result := DllCall("KERNEL32.dll\GetNumberOfConsoleMouseButtons", "uint*", lpNumberOfMouseButtons, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1983,18 +1999,21 @@ class Console {
      * To compile an application that uses this function, define **\_WIN32\_WINNT** as 0x0500 or later. For more information, see [Using the Windows Headers](/windows/win32/winprog/using-the-windows-headers).
      * 
      * [!INCLUDE [no-vt-equiv-user-priv](./includes/no-vt-equiv-user-priv.md)]
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Integer} nFont The index of the font whose size is to be retrieved. This index is obtained by calling the [**GetCurrentConsoleFont**](getcurrentconsolefont.md) function.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is a [**COORD**](coord-str.md) structure that contains the width and height of each character in the font, in logical units. The **X** member contains the width, while the **Y** member contains the height.
+     * 
+     * If the function fails, the width and the height are zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
      * @see https://learn.microsoft.com/windows/console/getconsolefontsize
      */
     static GetConsoleFontSize(hConsoleOutput, nFont) {
         A_LastError := 0
 
-        DllCall("KERNEL32.dll\GetConsoleFontSize", "ptr", hConsoleOutput, "uint", nFont)
+        result := DllCall("KERNEL32.dll\GetConsoleFontSize", "ptr", hConsoleOutput, "uint", nFont)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -2003,7 +2022,7 @@ class Console {
      * To compile an application that uses this function, define **\_WIN32\_WINNT** as 0x0500 or later. For more information, see [Using the Windows Headers](/windows/win32/winprog/using-the-windows-headers).
      * 
      * [!INCLUDE [no-vt-equiv-user-priv](./includes/no-vt-equiv-user-priv.md)]
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Integer} bMaximumWindow If this parameter is **TRUE**, font information is retrieved for the maximum window size. If this parameter is **FALSE**, font information is retrieved for the current window size.
      * @param {Pointer<CONSOLE_FONT_INFO>} lpConsoleCurrentFont A pointer to a [**CONSOLE\_FONT\_INFO**](console-font-info-str.md) structure that receives the requested font information.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -2023,7 +2042,7 @@ class Console {
 
     /**
      * See reference information about the GetCurrentConsoleFontEx function, which retrieves extended information about the currently used console font.
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Integer} bMaximumWindow If this parameter is **TRUE**, font information is retrieved for the maximum window size. If this parameter is **FALSE**, font information is retrieved for the current window size.
      * @param {Pointer<CONSOLE_FONT_INFOEX>} lpConsoleCurrentFontEx A pointer to a [**CONSOLE\_FONT\_INFOEX**](console-font-infoex.md) structure that receives the requested font information.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -2049,7 +2068,7 @@ class Console {
      * To compile an application that uses this function, define **\_WIN32\_WINNT** as 0x0500 or later. For more information, see [Using the Windows Headers](/windows/win32/winprog/using-the-windows-headers).
      * 
      * [!INCLUDE [no-vt-equiv-user-priv](./includes/no-vt-equiv-user-priv.md)]
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_WRITE** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
      * @param {Integer} bMaximumWindow If this parameter is **TRUE**, font information is set for the maximum window size. If this parameter is **FALSE**, font information is set for the current window size.
      * @param {Pointer<CONSOLE_FONT_INFOEX>} lpConsoleCurrentFontEx A pointer to a [**CONSOLE\_FONT\_INFOEX**](console-font-infoex.md) structure that contains the font information.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -2156,7 +2175,7 @@ class Console {
     static GetConsoleDisplayMode(lpModeFlags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetConsoleDisplayMode", "ptr", lpModeFlags, "int")
+        result := DllCall("KERNEL32.dll\GetConsoleDisplayMode", "uint*", lpModeFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2167,7 +2186,7 @@ class Console {
      * See reference information about the SetConsoleDisplayMode function, which sets the display mode of the specified console screen buffer.
      * @remarks
      * [!INCLUDE [no-vt-equiv-user-priv](./includes/no-vt-equiv-user-priv.md)]
-     * @param {Pointer<HANDLE>} hConsoleOutput A handle to the console screen buffer.
+     * @param {Pointer<Void>} hConsoleOutput A handle to the console screen buffer.
      * @param {Integer} dwFlags The display mode of the console. This parameter can be one or more of the following values.
      * 
      * | Value | Meaning |
@@ -2199,14 +2218,14 @@ class Console {
      * [!INCLUDE [no-vt-equiv-local-context](./includes/no-vt-equiv-local-context.md)]
      * 
      * For an application that is hosted inside a [**pseudoconsole**](pseudoconsoles.md) session, this function returns a window handle for message queue purposes only. The associated window is not displayed locally as the _pseudoconsole_ is serializing all actions to a stream for presentation on another terminal window elsewhere.
-     * @returns {Pointer<HWND>} This function has no parameters.
+     * @returns {Pointer<Void>} This function has no parameters.
      * 
      * 
      * The return value is a handle to the window used by the console associated with the calling process or **NULL** if there is no such associated console.
      * @see https://learn.microsoft.com/windows/console/getconsolewindow
      */
     static GetConsoleWindow() {
-        result := DllCall("KERNEL32.dll\GetConsoleWindow", "ptr")
+        result := DllCall("KERNEL32.dll\GetConsoleWindow")
         return result
     }
 
@@ -2216,9 +2235,9 @@ class Console {
      * To compile an application that uses this function, define **\_WIN32\_WINNT** as 0x0501 or later. For more information, see [Using the Windows Headers](/windows/win32/winprog/using-the-windows-headers).
      * 
      * [!INCLUDE [no-vt-equiv-shell-banner](./includes/no-vt-equiv-shell-banner.md)]
-     * @param {Pointer<PSTR>} Source The console alias to be mapped to the text specified by *Target*.
-     * @param {Pointer<PSTR>} Target The text to be substituted for *Source*. If this parameter is **NULL**, then the console alias is removed.
-     * @param {Pointer<PSTR>} ExeName The name of the executable file for which the console alias is to be defined.
+     * @param {Pointer<Byte>} Source The console alias to be mapped to the text specified by *Target*.
+     * @param {Pointer<Byte>} Target The text to be substituted for *Source*. If this parameter is **NULL**, then the console alias is removed.
+     * @param {Pointer<Byte>} ExeName The name of the executable file for which the console alias is to be defined.
      * @returns {Integer} If the function succeeds, the return value is **TRUE**.
      * 
      * If the function fails, the return value is **FALSE**. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
@@ -2244,9 +2263,9 @@ class Console {
      * To compile an application that uses this function, define **\_WIN32\_WINNT** as 0x0501 or later. For more information, see [Using the Windows Headers](/windows/win32/winprog/using-the-windows-headers).
      * 
      * [!INCLUDE [no-vt-equiv-shell-banner](./includes/no-vt-equiv-shell-banner.md)]
-     * @param {Pointer<PWSTR>} Source The console alias to be mapped to the text specified by *Target*.
-     * @param {Pointer<PWSTR>} Target The text to be substituted for *Source*. If this parameter is **NULL**, then the console alias is removed.
-     * @param {Pointer<PWSTR>} ExeName The name of the executable file for which the console alias is to be defined.
+     * @param {Pointer<Char>} Source The console alias to be mapped to the text specified by *Target*.
+     * @param {Pointer<Char>} Target The text to be substituted for *Source*. If this parameter is **NULL**, then the console alias is removed.
+     * @param {Pointer<Char>} ExeName The name of the executable file for which the console alias is to be defined.
      * @returns {Integer} If the function succeeds, the return value is **TRUE**.
      * 
      * If the function fails, the return value is **FALSE**. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
@@ -2272,10 +2291,10 @@ class Console {
      * To compile an application that uses this function, define **\_WIN32\_WINNT** as 0x0501 or later. For more information, see [Using the Windows Headers](/windows/win32/winprog/using-the-windows-headers).
      * 
      * [!INCLUDE [no-vt-equiv-shell-banner](./includes/no-vt-equiv-shell-banner.md)]
-     * @param {Pointer<PSTR>} Source 
-     * @param {Pointer<PSTR>} TargetBuffer 
+     * @param {Pointer<Byte>} Source 
+     * @param {Pointer<Byte>} TargetBuffer 
      * @param {Integer} TargetBufferLength The size of the buffer pointed to by *lpTargetBuffer*, in bytes.
-     * @param {Pointer<PSTR>} ExeName 
+     * @param {Pointer<Byte>} ExeName 
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
@@ -2301,10 +2320,10 @@ class Console {
      * To compile an application that uses this function, define **\_WIN32\_WINNT** as 0x0501 or later. For more information, see [Using the Windows Headers](/windows/win32/winprog/using-the-windows-headers).
      * 
      * [!INCLUDE [no-vt-equiv-shell-banner](./includes/no-vt-equiv-shell-banner.md)]
-     * @param {Pointer<PWSTR>} Source 
-     * @param {Pointer<PWSTR>} TargetBuffer 
+     * @param {Pointer<Char>} Source 
+     * @param {Pointer<Char>} TargetBuffer 
      * @param {Integer} TargetBufferLength The size of the buffer pointed to by *lpTargetBuffer*, in bytes.
-     * @param {Pointer<PWSTR>} ExeName 
+     * @param {Pointer<Char>} ExeName 
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
@@ -2330,7 +2349,7 @@ class Console {
      * To compile an application that uses this function, define **\_WIN32\_WINNT** as 0x0501 or later. For more information, see [Using the Windows Headers](/windows/win32/winprog/using-the-windows-headers).
      * 
      * [!INCLUDE [no-vt-equiv-shell-banner](./includes/no-vt-equiv-shell-banner.md)]
-     * @param {Pointer<PSTR>} ExeName 
+     * @param {Pointer<Byte>} ExeName 
      * @returns {Integer} The size of the buffer required to store all console aliases defined for this executable file, in bytes.
      * @see https://learn.microsoft.com/windows/console/getconsolealiaseslength
      */
@@ -2347,7 +2366,7 @@ class Console {
      * To compile an application that uses this function, define **\_WIN32\_WINNT** as 0x0501 or later. For more information, see [Using the Windows Headers](/windows/win32/winprog/using-the-windows-headers).
      * 
      * [!INCLUDE [no-vt-equiv-shell-banner](./includes/no-vt-equiv-shell-banner.md)]
-     * @param {Pointer<PWSTR>} ExeName 
+     * @param {Pointer<Char>} ExeName 
      * @returns {Integer} The size of the buffer required to store all console aliases defined for this executable file, in bytes.
      * @see https://learn.microsoft.com/windows/console/getconsolealiaseslength
      */
@@ -2400,9 +2419,9 @@ class Console {
      * To compile an application that uses this function, define **\_WIN32\_WINNT** as 0x0501 or later. For more information, see [Using the Windows Headers](/windows/win32/winprog/using-the-windows-headers).
      * 
      * [!INCLUDE [no-vt-equiv-shell-banner](./includes/no-vt-equiv-shell-banner.md)]
-     * @param {Pointer<PSTR>} AliasBuffer 
+     * @param {Pointer<Byte>} AliasBuffer 
      * @param {Integer} AliasBufferLength The size of the buffer pointed to by *lpAliasBuffer*, in bytes.
-     * @param {Pointer<PSTR>} ExeName 
+     * @param {Pointer<Byte>} ExeName 
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
@@ -2429,9 +2448,9 @@ class Console {
      * To compile an application that uses this function, define **\_WIN32\_WINNT** as 0x0501 or later. For more information, see [Using the Windows Headers](/windows/win32/winprog/using-the-windows-headers).
      * 
      * [!INCLUDE [no-vt-equiv-shell-banner](./includes/no-vt-equiv-shell-banner.md)]
-     * @param {Pointer<PWSTR>} AliasBuffer 
+     * @param {Pointer<Char>} AliasBuffer 
      * @param {Integer} AliasBufferLength The size of the buffer pointed to by *lpAliasBuffer*, in bytes.
-     * @param {Pointer<PWSTR>} ExeName 
+     * @param {Pointer<Char>} ExeName 
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
@@ -2458,7 +2477,7 @@ class Console {
      * To compile an application that uses this function, define **\_WIN32\_WINNT** as 0x0501 or later. For more information, see [Using the Windows Headers](/windows/win32/winprog/using-the-windows-headers).
      * 
      * [!INCLUDE [no-vt-equiv-shell-banner](./includes/no-vt-equiv-shell-banner.md)]
-     * @param {Pointer<PSTR>} ExeNameBuffer 
+     * @param {Pointer<Byte>} ExeNameBuffer 
      * @param {Integer} ExeNameBufferLength The size of the buffer pointed to by *lpExeNameBuffer*, in bytes.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
@@ -2485,7 +2504,7 @@ class Console {
      * To compile an application that uses this function, define **\_WIN32\_WINNT** as 0x0501 or later. For more information, see [Using the Windows Headers](/windows/win32/winprog/using-the-windows-headers).
      * 
      * [!INCLUDE [no-vt-equiv-shell-banner](./includes/no-vt-equiv-shell-banner.md)]
-     * @param {Pointer<PWSTR>} ExeNameBuffer 
+     * @param {Pointer<Char>} ExeNameBuffer 
      * @param {Integer} ExeNameBufferLength The size of the buffer pointed to by *lpExeNameBuffer*, in bytes.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
@@ -2506,30 +2525,32 @@ class Console {
 
     /**
      * 
-     * @param {Pointer<PSTR>} ExeName 
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Byte>} ExeName 
+     * @returns {Pointer} 
      */
     static ExpungeConsoleCommandHistoryA(ExeName) {
         ExeName := ExeName is String? StrPtr(ExeName) : ExeName
 
-        DllCall("KERNEL32.dll\ExpungeConsoleCommandHistoryA", "ptr", ExeName)
+        result := DllCall("KERNEL32.dll\ExpungeConsoleCommandHistoryA", "ptr", ExeName)
+        return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ExeName 
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Char>} ExeName 
+     * @returns {Pointer} 
      */
     static ExpungeConsoleCommandHistoryW(ExeName) {
         ExeName := ExeName is String? StrPtr(ExeName) : ExeName
 
-        DllCall("KERNEL32.dll\ExpungeConsoleCommandHistoryW", "ptr", ExeName)
+        result := DllCall("KERNEL32.dll\ExpungeConsoleCommandHistoryW", "ptr", ExeName)
+        return result
     }
 
     /**
      * 
      * @param {Integer} Number 
-     * @param {Pointer<PSTR>} ExeName 
+     * @param {Pointer<Byte>} ExeName 
      * @returns {Integer} 
      */
     static SetConsoleNumberOfCommandsA(Number, ExeName) {
@@ -2542,7 +2563,7 @@ class Console {
     /**
      * 
      * @param {Integer} Number 
-     * @param {Pointer<PWSTR>} ExeName 
+     * @param {Pointer<Char>} ExeName 
      * @returns {Integer} 
      */
     static SetConsoleNumberOfCommandsW(Number, ExeName) {
@@ -2554,7 +2575,7 @@ class Console {
 
     /**
      * 
-     * @param {Pointer<PSTR>} ExeName 
+     * @param {Pointer<Byte>} ExeName 
      * @returns {Integer} 
      */
     static GetConsoleCommandHistoryLengthA(ExeName) {
@@ -2566,7 +2587,7 @@ class Console {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ExeName 
+     * @param {Pointer<Char>} ExeName 
      * @returns {Integer} 
      */
     static GetConsoleCommandHistoryLengthW(ExeName) {
@@ -2578,13 +2599,12 @@ class Console {
 
     /**
      * 
-     * @param {Pointer<PSTR>} Commands 
+     * @param {Pointer} Commands 
      * @param {Integer} CommandBufferLength 
-     * @param {Pointer<PSTR>} ExeName 
+     * @param {Pointer<Byte>} ExeName 
      * @returns {Integer} 
      */
     static GetConsoleCommandHistoryA(Commands, CommandBufferLength, ExeName) {
-        Commands := Commands is String? StrPtr(Commands) : Commands
         ExeName := ExeName is String? StrPtr(ExeName) : ExeName
 
         result := DllCall("KERNEL32.dll\GetConsoleCommandHistoryA", "ptr", Commands, "uint", CommandBufferLength, "ptr", ExeName, "uint")
@@ -2593,13 +2613,12 @@ class Console {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} Commands 
+     * @param {Pointer} Commands 
      * @param {Integer} CommandBufferLength 
-     * @param {Pointer<PWSTR>} ExeName 
+     * @param {Pointer<Char>} ExeName 
      * @returns {Integer} 
      */
     static GetConsoleCommandHistoryW(Commands, CommandBufferLength, ExeName) {
-        Commands := Commands is String? StrPtr(Commands) : Commands
         ExeName := ExeName is String? StrPtr(ExeName) : ExeName
 
         result := DllCall("KERNEL32.dll\GetConsoleCommandHistoryW", "ptr", Commands, "uint", CommandBufferLength, "ptr", ExeName, "uint")
@@ -2626,7 +2645,7 @@ class Console {
     static GetConsoleProcessList(lpdwProcessList, dwProcessCount) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetConsoleProcessList", "ptr", lpdwProcessList, "uint", dwProcessCount, "uint")
+        result := DllCall("KERNEL32.dll\GetConsoleProcessList", "uint*", lpdwProcessList, "uint", dwProcessCount, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -2636,7 +2655,7 @@ class Console {
     /**
      * 
      * @param {Integer} Command 
-     * @param {Pointer<Void>} ConsoleInformation 
+     * @param {Pointer} ConsoleInformation 
      * @param {Integer} ConsoleInformationLength 
      * @returns {Integer} 
      */
@@ -2668,7 +2687,7 @@ class Console {
      * > [!NOTE]
      * > The values for these constants are unsigned numbers, but are defined in the header files as a cast from a 
      * signed number and take advantage of the C compiler rolling them over to just under the maximum 32-bit value. When interfacing with these handles in a language that does not parse the headers and is re-defining the constants, please be aware of this constraint. As an example, `((DWORD)-10)` is actually the unsigned number `4294967286`.
-     * @returns {Pointer<HANDLE>} If the function succeeds, the return value is a handle to the specified device, or a redirected handle set by a previous call to [**SetStdHandle**](setstdhandle.md). The handle has **GENERIC\_READ** and **GENERIC\_WRITE** access rights, unless the application has used **SetStdHandle** to set a standard handle with lesser access.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the specified device, or a redirected handle set by a previous call to [**SetStdHandle**](setstdhandle.md). The handle has **GENERIC\_READ** and **GENERIC\_WRITE** access rights, unless the application has used **SetStdHandle** to set a standard handle with lesser access.
      * 
      * > [!TIP]
      * > It is not required to dispose of this handle with [**CloseHandle**](/windows/win32/api/handleapi/nf-handleapi-closehandle) when done. See [**Remarks**](#handle-disposal) for more information.
@@ -2681,7 +2700,7 @@ class Console {
     static GetStdHandle(nStdHandle) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetStdHandle", "uint", nStdHandle, "ptr")
+        result := DllCall("KERNEL32.dll\GetStdHandle", "uint", nStdHandle)
         if(A_LastError)
             throw OSError()
 
@@ -2703,7 +2722,7 @@ class Console {
      * > [!NOTE]
      * > The values for these constants are unsigned numbers, but are defined in the header files as a cast from a 
      * signed number and take advantage of the C compiler rolling them over to just under the maximum 32-bit value. When interfacing with these handles in a language that does not parse the headers and is re-defining the constants, please be aware of this constraint. As an example, `((DWORD)-10)` is actually the unsigned number `4294967286`.
-     * @param {Pointer<HANDLE>} hHandle The handle for the standard device.
+     * @param {Pointer<Void>} hHandle The handle for the standard device.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
@@ -2722,8 +2741,8 @@ class Console {
     /**
      * The SetStdHandleEx function (processenv.h) sets the handle for the input, output, or error streams.
      * @param {Integer} nStdHandle A DWORD indicating the stream for which the handle is being set.
-     * @param {Pointer<HANDLE>} hHandle The handle.
-     * @param {Pointer<HANDLE>} phPrevValue Optional. Receives the previous handle.
+     * @param {Pointer<Void>} hHandle The handle.
+     * @param {Pointer<Void>} phPrevValue Optional. Receives the previous handle.
      * @returns {Integer} Returns S_OK on success.
      * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-setstdhandleex
      */

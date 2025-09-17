@@ -176,7 +176,7 @@ class CMSG_CONTENT_ENCRYPT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<BCRYPT_KEY_HANDLE>}
+     * @type {Pointer<Void>}
      */
     hCNGContentEncryptKey {
         get => NumGet(this, 88, "ptr")

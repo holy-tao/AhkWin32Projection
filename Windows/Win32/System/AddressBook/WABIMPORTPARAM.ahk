@@ -37,7 +37,7 @@ class WABIMPORTPARAM extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hWnd {
         get => NumGet(this, 16, "ptr")
@@ -59,7 +59,7 @@ class WABIMPORTPARAM extends Win32Struct
      * Type: <b>LPSTR</b>
      * 
      * Value of type <b>LPSTR</b> that specifies the filename to import, or <b>NULL</b> to cause a FileOpen dialog box to open.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpszFileName {
         get => NumGet(this, 32, "ptr")

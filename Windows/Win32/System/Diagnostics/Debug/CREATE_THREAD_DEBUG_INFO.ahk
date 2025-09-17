@@ -15,7 +15,7 @@ class CREATE_THREAD_DEBUG_INFO extends Win32Struct
 
     /**
      * A handle to the thread whose creation caused the debugging event. If this member is <b>NULL</b>, the handle is not valid. Otherwise, the debugger has THREAD_GET_CONTEXT, THREAD_SET_CONTEXT, and THREAD_SUSPEND_RESUME access to the thread, allowing the debugger to read from and write to the registers of the thread and control execution of the thread.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hThread {
         get => NumGet(this, 0, "ptr")

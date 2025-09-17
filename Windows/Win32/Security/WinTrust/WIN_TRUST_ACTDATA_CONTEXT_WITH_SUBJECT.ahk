@@ -12,7 +12,7 @@ class WIN_TRUST_ACTDATA_CONTEXT_WITH_SUBJECT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hClientToken {
         get => NumGet(this, 0, "ptr")

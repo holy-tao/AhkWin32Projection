@@ -13,7 +13,7 @@ class JET_USERDEFINEDDEFAULT_W extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     szCallback {
         get => NumGet(this, 0, "ptr")
@@ -37,7 +37,7 @@ class JET_USERDEFINEDDEFAULT_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     szDependantColumns {
         get => NumGet(this, 24, "ptr")

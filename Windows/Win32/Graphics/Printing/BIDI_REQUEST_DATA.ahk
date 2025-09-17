@@ -22,7 +22,7 @@ class BIDI_REQUEST_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pSchema {
         get => NumGet(this, 8, "ptr")

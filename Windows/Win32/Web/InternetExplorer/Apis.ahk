@@ -2306,8 +2306,8 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hState 
-     * @param {Pointer<PWSTR>} lpwstrSourceFile 
+     * @param {Pointer<Void>} hState 
+     * @param {Pointer<Char>} lpwstrSourceFile 
      * @returns {Integer} 
      */
     static IESaveFile(hState, lpwstrSourceFile) {
@@ -2319,7 +2319,7 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hState 
+     * @param {Pointer<Void>} hState 
      * @returns {Integer} 
      */
     static IECancelSaveFile(hState) {
@@ -2329,15 +2329,15 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<HWND>} hwnd 
-     * @param {Pointer<PWSTR>} lpwstrInitialFileName 
-     * @param {Pointer<PWSTR>} lpwstrInitialDir 
-     * @param {Pointer<PWSTR>} lpwstrFilter 
-     * @param {Pointer<PWSTR>} lpwstrDefExt 
+     * @param {Pointer<Void>} hwnd 
+     * @param {Pointer<Char>} lpwstrInitialFileName 
+     * @param {Pointer<Char>} lpwstrInitialDir 
+     * @param {Pointer<Char>} lpwstrFilter 
+     * @param {Pointer<Char>} lpwstrDefExt 
      * @param {Integer} dwFilterIndex 
      * @param {Integer} dwFlags 
-     * @param {Pointer<PWSTR>} lppwstrDestinationFilePath 
-     * @param {Pointer<HANDLE>} phState 
+     * @param {Pointer<Char>} lppwstrDestinationFilePath 
+     * @param {Pointer<Void>} phState 
      * @returns {Integer} 
      */
     static IEShowSaveFileDialog(hwnd, lpwstrInitialFileName, lpwstrInitialDir, lpwstrFilter, lpwstrDefExt, dwFilterIndex, dwFlags, lppwstrDestinationFilePath, phState) {
@@ -2345,7 +2345,6 @@ class InternetExplorer {
         lpwstrInitialDir := lpwstrInitialDir is String? StrPtr(lpwstrInitialDir) : lpwstrInitialDir
         lpwstrFilter := lpwstrFilter is String? StrPtr(lpwstrFilter) : lpwstrFilter
         lpwstrDefExt := lpwstrDefExt is String? StrPtr(lpwstrDefExt) : lpwstrDefExt
-        lppwstrDestinationFilePath := lppwstrDestinationFilePath is String? StrPtr(lppwstrDestinationFilePath) : lppwstrDestinationFilePath
 
         result := DllCall("Ieframe.dll\IEShowSaveFileDialog", "ptr", hwnd, "ptr", lpwstrInitialFileName, "ptr", lpwstrInitialDir, "ptr", lpwstrFilter, "ptr", lpwstrDefExt, "uint", dwFilterIndex, "uint", dwFlags, "ptr", lppwstrDestinationFilePath, "ptr", phState, "int")
         return result
@@ -2353,15 +2352,15 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<HWND>} hwnd 
-     * @param {Pointer<PWSTR>} lpwstrFileName 
+     * @param {Pointer<Void>} hwnd 
+     * @param {Pointer<Char>} lpwstrFileName 
      * @param {Integer} cchMaxFileName 
-     * @param {Pointer<PWSTR>} lpwstrInitialDir 
-     * @param {Pointer<PWSTR>} lpwstrFilter 
-     * @param {Pointer<PWSTR>} lpwstrDefExt 
+     * @param {Pointer<Char>} lpwstrInitialDir 
+     * @param {Pointer<Char>} lpwstrFilter 
+     * @param {Pointer<Char>} lpwstrDefExt 
      * @param {Integer} dwFilterIndex 
      * @param {Integer} dwFlags 
-     * @param {Pointer<HANDLE>} phFile 
+     * @param {Pointer<Void>} phFile 
      * @returns {Integer} 
      */
     static IEShowOpenFileDialog(hwnd, lpwstrFileName, cchMaxFileName, lpwstrInitialDir, lpwstrFilter, lpwstrDefExt, dwFilterIndex, dwFlags, phFile) {
@@ -2376,7 +2375,7 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<HKEY>} pHKey 
+     * @param {Pointer<Void>} pHKey 
      * @returns {Integer} 
      */
     static IEGetWriteableLowHKCU(pHKey) {
@@ -2387,12 +2386,10 @@ class InternetExplorer {
     /**
      * 
      * @param {Pointer<Guid>} clsidFolderID 
-     * @param {Pointer<PWSTR>} lppwstrPath 
+     * @param {Pointer<Char>} lppwstrPath 
      * @returns {Integer} 
      */
     static IEGetWriteableFolderPath(clsidFolderID, lppwstrPath) {
-        lppwstrPath := lppwstrPath is String? StrPtr(lppwstrPath) : lppwstrPath
-
         result := DllCall("Ieframe.dll\IEGetWriteableFolderPath", "ptr", clsidFolderID, "ptr", lppwstrPath, "int")
         return result
     }
@@ -2403,13 +2400,13 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static IEIsProtectedModeProcess(pbResult) {
-        result := DllCall("Ieframe.dll\IEIsProtectedModeProcess", "ptr", pbResult, "int")
+        result := DllCall("Ieframe.dll\IEIsProtectedModeProcess", "int*", pbResult, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpwstrUrl 
+     * @param {Pointer<Char>} lpwstrUrl 
      * @returns {Integer} 
      */
     static IEIsProtectedModeURL(lpwstrUrl) {
@@ -2421,7 +2418,7 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpwstrUrl 
+     * @param {Pointer<Char>} lpwstrUrl 
      * @param {Pointer<PROCESS_INFORMATION>} lpProcInfo 
      * @param {Pointer<Void>} lpInfo 
      * @returns {Integer} 
@@ -2444,9 +2441,9 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpszURL 
-     * @param {Pointer<PWSTR>} lpszCookieName 
-     * @param {Pointer<PWSTR>} lpszCookieData 
+     * @param {Pointer<Char>} lpszURL 
+     * @param {Pointer<Char>} lpszCookieName 
+     * @param {Pointer<Char>} lpszCookieData 
      * @param {Pointer<UInt32>} pcchCookieData 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
@@ -2456,15 +2453,15 @@ class InternetExplorer {
         lpszCookieName := lpszCookieName is String? StrPtr(lpszCookieName) : lpszCookieName
         lpszCookieData := lpszCookieData is String? StrPtr(lpszCookieData) : lpszCookieData
 
-        result := DllCall("Ieframe.dll\IEGetProtectedModeCookie", "ptr", lpszURL, "ptr", lpszCookieName, "ptr", lpszCookieData, "ptr", pcchCookieData, "uint", dwFlags, "int")
+        result := DllCall("Ieframe.dll\IEGetProtectedModeCookie", "ptr", lpszURL, "ptr", lpszCookieName, "ptr", lpszCookieData, "uint*", pcchCookieData, "uint", dwFlags, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpszURL 
-     * @param {Pointer<PWSTR>} lpszCookieName 
-     * @param {Pointer<PWSTR>} lpszCookieData 
+     * @param {Pointer<Char>} lpszURL 
+     * @param {Pointer<Char>} lpszCookieName 
+     * @param {Pointer<Char>} lpszCookieData 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
      */
@@ -2480,7 +2477,7 @@ class InternetExplorer {
     /**
      * 
      * @param {Pointer<Guid>} guid 
-     * @param {Pointer<PWSTR>} lpSubkey 
+     * @param {Pointer<Char>} lpSubkey 
      * @param {Integer} fSubkeyAllowed 
      * @returns {Integer} 
      */
@@ -2494,10 +2491,10 @@ class InternetExplorer {
     /**
      * 
      * @param {Pointer<Guid>} guid 
-     * @param {Pointer<PWSTR>} lpPath 
-     * @param {Pointer<PWSTR>} lpValueName 
+     * @param {Pointer<Char>} lpPath 
+     * @param {Pointer<Char>} lpValueName 
      * @param {Integer} dwType 
-     * @param {Pointer<Byte>} lpData 
+     * @param {Pointer} lpData 
      * @param {Integer} cbMaxData 
      * @returns {Integer} 
      */
@@ -2521,13 +2518,13 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpSubKey 
+     * @param {Pointer<Char>} lpSubKey 
      * @param {Integer} Reserved 
-     * @param {Pointer<PWSTR>} lpClass 
+     * @param {Pointer<Char>} lpClass 
      * @param {Integer} dwOptions 
      * @param {Integer} samDesired 
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpSecurityAttributes 
-     * @param {Pointer<HKEY>} phkResult 
+     * @param {Pointer<Void>} phkResult 
      * @param {Pointer<UInt32>} lpdwDisposition 
      * @returns {Integer} 
      */
@@ -2535,17 +2532,17 @@ class InternetExplorer {
         lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
         lpClass := lpClass is String? StrPtr(lpClass) : lpClass
 
-        result := DllCall("Ieframe.dll\IERegCreateKeyEx", "ptr", lpSubKey, "uint", Reserved, "ptr", lpClass, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, "ptr", lpdwDisposition, "int")
+        result := DllCall("Ieframe.dll\IERegCreateKeyEx", "ptr", lpSubKey, "uint", Reserved, "ptr", lpClass, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, "uint*", lpdwDisposition, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpSubKey 
-     * @param {Pointer<PWSTR>} lpValueName 
+     * @param {Pointer<Char>} lpSubKey 
+     * @param {Pointer<Char>} lpValueName 
      * @param {Integer} Reserved 
      * @param {Integer} dwType 
-     * @param {Pointer<Byte>} lpData 
+     * @param {Pointer} lpData 
      * @param {Integer} cbData 
      * @returns {Integer} 
      */
@@ -2559,25 +2556,25 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpFileName 
+     * @param {Pointer<Char>} lpFileName 
      * @param {Integer} dwDesiredAccess 
      * @param {Integer} dwShareMode 
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpSecurityAttributes 
      * @param {Integer} dwCreationDisposition 
      * @param {Integer} dwFlagsAndAttributes 
-     * @param {Pointer<HANDLE>} hTemplateFile 
-     * @returns {Pointer<HANDLE>} 
+     * @param {Pointer<Void>} hTemplateFile 
+     * @returns {Pointer<Void>} 
      */
     static IECreateFile(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile) {
         lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("Ieframe.dll\IECreateFile", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwCreationDisposition, "uint", dwFlagsAndAttributes, "ptr", hTemplateFile, "ptr")
+        result := DllCall("Ieframe.dll\IECreateFile", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwCreationDisposition, "uint", dwFlagsAndAttributes, "ptr", hTemplateFile)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpFileName 
+     * @param {Pointer<Char>} lpFileName 
      * @returns {Integer} 
      */
     static IEDeleteFile(lpFileName) {
@@ -2589,7 +2586,7 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpPathName 
+     * @param {Pointer<Char>} lpPathName 
      * @returns {Integer} 
      */
     static IERemoveDirectory(lpPathName) {
@@ -2601,8 +2598,8 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpExistingFileName 
-     * @param {Pointer<PWSTR>} lpNewFileName 
+     * @param {Pointer<Char>} lpExistingFileName 
+     * @param {Pointer<Char>} lpNewFileName 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
      */
@@ -2616,7 +2613,7 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpPathName 
+     * @param {Pointer<Char>} lpPathName 
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpSecurityAttributes 
      * @returns {Integer} 
      */
@@ -2629,7 +2626,7 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpFileName 
+     * @param {Pointer<Char>} lpFileName 
      * @param {Integer} fInfoLevelId 
      * @param {Pointer<Void>} lpFileInformation 
      * @returns {Integer} 
@@ -2643,21 +2640,21 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpFileName 
+     * @param {Pointer<Char>} lpFileName 
      * @param {Pointer<WIN32_FIND_DATAA>} lpFindFileData 
-     * @returns {Pointer<HANDLE>} 
+     * @returns {Pointer<Void>} 
      */
     static IEFindFirstFile(lpFileName, lpFindFileData) {
         lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("Ieframe.dll\IEFindFirstFile", "ptr", lpFileName, "ptr", lpFindFileData, "ptr")
+        result := DllCall("Ieframe.dll\IEFindFirstFile", "ptr", lpFileName, "ptr", lpFindFileData)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<HWND>} hwndParent 
-     * @param {Pointer<PSTR>} pszUsername 
+     * @param {Pointer<Void>} hwndParent 
+     * @param {Pointer<Byte>} pszUsername 
      * @param {Integer} fEnable 
      * @returns {Integer} 
      */
@@ -2670,8 +2667,8 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<HWND>} hwndParent 
-     * @param {Pointer<PWSTR>} pszUsername 
+     * @param {Pointer<Void>} hwndParent 
+     * @param {Pointer<Char>} pszUsername 
      * @param {Integer} fEnable 
      * @returns {Integer} 
      */
@@ -2684,10 +2681,10 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<PSTR>} pszUsername 
-     * @param {Pointer<PSTR>} pszURL 
-     * @param {Pointer<PSTR>} pszRatingInfo 
-     * @param {Pointer<Byte>} pData 
+     * @param {Pointer<Byte>} pszUsername 
+     * @param {Pointer<Byte>} pszURL 
+     * @param {Pointer<Byte>} pszRatingInfo 
+     * @param {Pointer} pData 
      * @param {Integer} cbData 
      * @param {Pointer<Void>} ppRatingDetails 
      * @returns {Integer} 
@@ -2703,10 +2700,10 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pszUsername 
-     * @param {Pointer<PWSTR>} pszURL 
-     * @param {Pointer<PWSTR>} pszRatingInfo 
-     * @param {Pointer<Byte>} pData 
+     * @param {Pointer<Char>} pszUsername 
+     * @param {Pointer<Char>} pszURL 
+     * @param {Pointer<Char>} pszRatingInfo 
+     * @param {Pointer} pData 
      * @param {Integer} cbData 
      * @param {Pointer<Void>} ppRatingDetails 
      * @returns {Integer} 
@@ -2722,9 +2719,9 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<HWND>} hDlg 
-     * @param {Pointer<PSTR>} pszUsername 
-     * @param {Pointer<PSTR>} pszContentDescription 
+     * @param {Pointer<Void>} hDlg 
+     * @param {Pointer<Byte>} pszUsername 
+     * @param {Pointer<Byte>} pszContentDescription 
      * @param {Pointer<Void>} pRatingDetails 
      * @returns {Integer} 
      */
@@ -2738,9 +2735,9 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<HWND>} hDlg 
-     * @param {Pointer<PWSTR>} pszUsername 
-     * @param {Pointer<PWSTR>} pszContentDescription 
+     * @param {Pointer<Void>} hDlg 
+     * @param {Pointer<Char>} pszUsername 
+     * @param {Pointer<Char>} pszContentDescription 
      * @param {Pointer<Void>} pRatingDetails 
      * @returns {Integer} 
      */
@@ -2754,8 +2751,8 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<HWND>} hDlg 
-     * @param {Pointer<PSTR>} pszUsername 
+     * @param {Pointer<Void>} hDlg 
+     * @param {Pointer<Byte>} pszUsername 
      * @param {Pointer<Void>} pRatingDetails 
      * @returns {Integer} 
      */
@@ -2768,8 +2765,8 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<HWND>} hDlg 
-     * @param {Pointer<PWSTR>} pszUsername 
+     * @param {Pointer<Void>} hDlg 
+     * @param {Pointer<Char>} pszUsername 
      * @param {Pointer<Void>} pRatingDetails 
      * @returns {Integer} 
      */
@@ -2792,7 +2789,7 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hRatingObtainQuery 
+     * @param {Pointer<Void>} hRatingObtainQuery 
      * @returns {Integer} 
      */
     static RatingObtainCancel(hRatingObtainQuery) {
@@ -2802,10 +2799,10 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<PSTR>} pszTargetUrl 
+     * @param {Pointer<Byte>} pszTargetUrl 
      * @param {Integer} dwUserData 
      * @param {Pointer} fCallback 
-     * @param {Pointer<HANDLE>} phRatingObtainQuery 
+     * @param {Pointer<Void>} phRatingObtainQuery 
      * @returns {Integer} 
      */
     static RatingObtainQuery(pszTargetUrl, dwUserData, fCallback, phRatingObtainQuery) {
@@ -2817,10 +2814,10 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pszTargetUrl 
+     * @param {Pointer<Char>} pszTargetUrl 
      * @param {Integer} dwUserData 
      * @param {Pointer} fCallback 
-     * @param {Pointer<HANDLE>} phRatingObtainQuery 
+     * @param {Pointer<Void>} phRatingObtainQuery 
      * @returns {Integer} 
      */
     static RatingObtainQueryW(pszTargetUrl, dwUserData, fCallback, phRatingObtainQuery) {
@@ -2832,8 +2829,8 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<HWND>} hDlg 
-     * @param {Pointer<PSTR>} pszUsername 
+     * @param {Pointer<Void>} hDlg 
+     * @param {Pointer<Byte>} pszUsername 
      * @returns {Integer} 
      */
     static RatingSetupUI(hDlg, pszUsername) {
@@ -2845,8 +2842,8 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<HWND>} hDlg 
-     * @param {Pointer<PWSTR>} pszUsername 
+     * @param {Pointer<Void>} hDlg 
+     * @param {Pointer<Char>} pszUsername 
      * @returns {Integer} 
      */
     static RatingSetupUIW(hDlg, pszUsername) {
@@ -2858,10 +2855,10 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<HWND>} hDlg 
+     * @param {Pointer<Void>} hDlg 
      * @param {Integer} cbPasswordBlob 
-     * @param {Pointer<Byte>} pbPasswordBlob 
-     * @param {Pointer<PWSTR>} lpszUrl 
+     * @param {Pointer} pbPasswordBlob 
+     * @param {Pointer<Char>} lpszUrl 
      * @param {Integer} fAlwaysNever 
      * @param {Integer} fSitePage 
      * @param {Integer} fApprovedSitesEnforced 
@@ -2876,9 +2873,9 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<HWND>} hWndOwner 
-     * @param {Pointer<HINSTANCE>} param1 
-     * @param {Pointer<PSTR>} lpszFileName 
+     * @param {Pointer<Void>} hWndOwner 
+     * @param {Pointer<Void>} param1 
+     * @param {Pointer<Byte>} lpszFileName 
      * @param {Integer} nShow 
      * @returns {Integer} 
      */
@@ -2891,9 +2888,9 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<HWND>} hWndOwner 
-     * @param {Pointer<HINSTANCE>} param1 
-     * @param {Pointer<PSTR>} lpszFileName 
+     * @param {Pointer<Void>} hWndOwner 
+     * @param {Pointer<Void>} param1 
+     * @param {Pointer<Byte>} lpszFileName 
      * @param {Integer} nShow 
      * @returns {Integer} 
      */
@@ -2952,7 +2949,7 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static SniffStream(pInStream, pnFormat, ppOutStream) {
-        result := DllCall("ImgUtil.dll\SniffStream", "ptr", pInStream, "ptr", pnFormat, "ptr", ppOutStream, "int")
+        result := DllCall("ImgUtil.dll\SniffStream", "ptr", pInStream, "uint*", pnFormat, "ptr", ppOutStream, "int")
         return result
     }
 
@@ -2962,7 +2959,7 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static GetMaxMIMEIDBytes(pnMaxBytes) {
-        result := DllCall("ImgUtil.dll\GetMaxMIMEIDBytes", "ptr", pnMaxBytes, "int")
+        result := DllCall("ImgUtil.dll\GetMaxMIMEIDBytes", "uint*", pnMaxBytes, "int")
         return result
     }
 
@@ -2974,7 +2971,7 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static IdentifyMIMEType(pbBytes, nBytes, pnFormat) {
-        result := DllCall("ImgUtil.dll\IdentifyMIMEType", "ptr", pbBytes, "uint", nBytes, "ptr", pnFormat, "int")
+        result := DllCall("ImgUtil.dll\IdentifyMIMEType", "char*", pbBytes, "uint", nBytes, "uint*", pnFormat, "int")
         return result
     }
 
@@ -2987,7 +2984,7 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static ComputeInvCMAP(pRGBColors, nColors, pInvTable, cbTable) {
-        result := DllCall("ImgUtil.dll\ComputeInvCMAP", "ptr", pRGBColors, "uint", nColors, "ptr", pInvTable, "uint", cbTable, "int")
+        result := DllCall("ImgUtil.dll\ComputeInvCMAP", "ptr", pRGBColors, "uint", nColors, "char*", pInvTable, "uint", cbTable, "int")
         return result
     }
 
@@ -3010,13 +3007,13 @@ class InternetExplorer {
      * @returns {Integer} 
      */
     static DitherTo8(pDestBits, nDestPitch, pSrcBits, nSrcPitch, bfidSrc, prgbDestColors, prgbSrcColors, pbDestInvMap, x, y, cx, cy, lDestTrans, lSrcTrans) {
-        result := DllCall("ImgUtil.dll\DitherTo8", "ptr", pDestBits, "int", nDestPitch, "ptr", pSrcBits, "int", nSrcPitch, "ptr", bfidSrc, "ptr", prgbDestColors, "ptr", prgbSrcColors, "ptr", pbDestInvMap, "int", x, "int", y, "int", cx, "int", cy, "int", lDestTrans, "int", lSrcTrans, "int")
+        result := DllCall("ImgUtil.dll\DitherTo8", "char*", pDestBits, "int", nDestPitch, "char*", pSrcBits, "int", nSrcPitch, "ptr", bfidSrc, "ptr", prgbDestColors, "ptr", prgbSrcColors, "char*", pbDestInvMap, "int", x, "int", y, "int", cx, "int", cy, "int", lDestTrans, "int", lSrcTrans, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<HBITMAP>} hbmDib 
+     * @param {Pointer<Void>} hbmDib 
      * @param {Pointer<IDirectDrawSurface>} ppSurface 
      * @returns {Integer} 
      */
@@ -3030,7 +3027,7 @@ class InternetExplorer {
      * @param {Pointer<IStream>} pStream 
      * @param {Pointer<IMapMIMEToCLSID>} pMap 
      * @param {Pointer<IUnknown>} pEventSink 
-     * @param {Pointer<PWSTR>} pszMIMETypeParam 
+     * @param {Pointer<Char>} pszMIMETypeParam 
      * @returns {Integer} 
      */
     static DecodeImageEx(pStream, pMap, pEventSink, pszMIMETypeParam) {

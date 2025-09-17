@@ -21,7 +21,7 @@ class CRYPT_CSP_PROVIDER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszProviderName {
         get => NumGet(this, 8, "ptr")

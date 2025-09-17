@@ -98,7 +98,7 @@ class SHFILEOPSTRUCTA extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A window handle to the dialog box to display information about the status of the file operation.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwnd {
         get => NumGet(this, 0, "ptr")
@@ -191,7 +191,7 @@ class SHFILEOPSTRUCTA extends Win32Struct
      * Type: <b>PCTSTR</b>
      * 
      * A pointer to the title of a progress dialog box. This is a null-terminated string. This member is used only if <b>fFlags</b> includes the <b>FOF_SIMPLEPROGRESS</b> flag.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpszProgressTitle {
         get => NumGet(this, 48, "ptr")

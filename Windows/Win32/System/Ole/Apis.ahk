@@ -2544,11 +2544,12 @@ class Ole {
      * @param {Integer} vt The base type of the array (the VARTYPE of each element of the array). The VARTYPE is restricted to a subset of the variant types. Neither the VT_ARRAY nor the VT_BYREF flag can be set. VT_EMPTY and VT_NULL are not valid base types for the array. All other types are legal.
      * @param {Integer} cDims The number of dimensions in the array. The number cannot be changed after the array is created.
      * @param {Pointer<SAFEARRAYBOUND>} rgsabound A vector of bounds (one for each dimension) to allocate for the array.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} A safe array descriptor, or null if the array could not be created.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearraycreate
      */
     static SafeArrayCreate(vt, cDims, rgsabound) {
-        DllCall("OLEAUT32.dll\SafeArrayCreate", "ushort", vt, "uint", cDims, "ptr", rgsabound)
+        result := DllCall("OLEAUT32.dll\SafeArrayCreate", "ushort", vt, "uint", cDims, "ptr", rgsabound)
+        return result
     }
 
     /**
@@ -2559,11 +2560,12 @@ class Ole {
      * @param {Integer} cDims The number of dimensions in the array.
      * @param {Pointer<SAFEARRAYBOUND>} rgsabound A vector of bounds (one for each dimension) to allocate for the array.
      * @param {Pointer<Void>} pvExtra the type information of the user-defined type, if you are creating a safe array of user-defined types. If the vt parameter is VT_RECORD, then <i>pvExtra</i> will be a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-irecordinfo">IRecordInfo</a> describing the record. If the <i>vt</i> parameter is VT_DISPATCH or VT_UNKNOWN, then <i>pvExtra</i> will contain a pointer to a GUID representing the type of interface being passed to the array.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} A safe array descriptor, or null if the array could not be created.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearraycreateex
      */
     static SafeArrayCreateEx(vt, cDims, rgsabound, pvExtra) {
-        DllCall("OLEAUT32.dll\SafeArrayCreateEx", "ushort", vt, "uint", cDims, "ptr", rgsabound, "ptr", pvExtra)
+        result := DllCall("OLEAUT32.dll\SafeArrayCreateEx", "ushort", vt, "uint", cDims, "ptr", rgsabound, "ptr", pvExtra)
+        return result
     }
 
     /**
@@ -2623,12 +2625,13 @@ class Ole {
      * @remarks
      * A call to the <b>SafeArrayReleaseDescriptor</b> function should match every previous call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-safearrayaddref">SafeArrayAddRef</a> function.
      * @param {Pointer<SAFEARRAY>} psa The safe array for which the pinning reference count of the descriptor should decrease.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearrayreleasedescriptor
      * @since windows5.1.2600
      */
     static SafeArrayReleaseDescriptor(psa) {
-        DllCall("OLEAUT32.dll\SafeArrayReleaseDescriptor", "ptr", psa)
+        result := DllCall("OLEAUT32.dll\SafeArrayReleaseDescriptor", "ptr", psa)
+        return result
     }
 
     /**
@@ -2689,12 +2692,13 @@ class Ole {
      * @remarks
      * A call to the <b>SafeArrayReleaseData</b> function should match every previous call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-safearrayaddref">SafeArrayAddRef</a> function that returned a non-null value in the <i>ppDataToRelease</i> parameter.
      * @param {Pointer<Void>} pData The safe array data for which the pinning reference count should decrease.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearrayreleasedata
      * @since windows5.1.2600
      */
     static SafeArrayReleaseData(pData) {
-        DllCall("OLEAUT32.dll\SafeArrayReleaseData", "ptr", pData)
+        result := DllCall("OLEAUT32.dll\SafeArrayReleaseData", "ptr", pData)
+        return result
     }
 
     /**
@@ -2882,21 +2886,23 @@ class Ole {
     /**
      * Gets the number of dimensions in the array.
      * @param {Pointer<SAFEARRAY>} psa An array descriptor created by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-safearraycreate">SafeArrayCreate</a>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The number of dimensions in the array.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearraygetdim
      */
     static SafeArrayGetDim(psa) {
-        DllCall("OLEAUT32.dll\SafeArrayGetDim", "ptr", psa)
+        result := DllCall("OLEAUT32.dll\SafeArrayGetDim", "ptr", psa)
+        return result
     }
 
     /**
      * Gets the size of an element.
      * @param {Pointer<SAFEARRAY>} psa An array descriptor created by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-safearraycreate">SafeArrayCreate</a>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The size of an element in a safe array, in bytes.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearraygetelemsize
      */
     static SafeArrayGetElemsize(psa) {
-        DllCall("OLEAUT32.dll\SafeArrayGetElemsize", "ptr", psa)
+        result := DllCall("OLEAUT32.dll\SafeArrayGetElemsize", "ptr", psa)
+        return result
     }
 
     /**
@@ -2959,7 +2965,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearraygetubound
      */
     static SafeArrayGetUBound(psa, nDim, plUbound) {
-        result := DllCall("OLEAUT32.dll\SafeArrayGetUBound", "ptr", psa, "uint", nDim, "ptr", plUbound, "int")
+        result := DllCall("OLEAUT32.dll\SafeArrayGetUBound", "ptr", psa, "uint", nDim, "int*", plUbound, "int")
         return result
     }
 
@@ -3012,7 +3018,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearraygetlbound
      */
     static SafeArrayGetLBound(psa, nDim, plLbound) {
-        result := DllCall("OLEAUT32.dll\SafeArrayGetLBound", "ptr", psa, "uint", nDim, "ptr", plLbound, "int")
+        result := DllCall("OLEAUT32.dll\SafeArrayGetLBound", "ptr", psa, "uint", nDim, "int*", plLbound, "int")
         return result
     }
 
@@ -3291,7 +3297,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearraygetelement
      */
     static SafeArrayGetElement(psa, rgIndices, pv) {
-        result := DllCall("OLEAUT32.dll\SafeArrayGetElement", "ptr", psa, "ptr", rgIndices, "ptr", pv, "int")
+        result := DllCall("OLEAUT32.dll\SafeArrayGetElement", "ptr", psa, "int*", rgIndices, "ptr", pv, "int")
         return result
     }
 
@@ -3361,7 +3367,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearrayputelement
      */
     static SafeArrayPutElement(psa, rgIndices, pv) {
-        result := DllCall("OLEAUT32.dll\SafeArrayPutElement", "ptr", psa, "ptr", rgIndices, "ptr", pv, "int")
+        result := DllCall("OLEAUT32.dll\SafeArrayPutElement", "ptr", psa, "int*", rgIndices, "ptr", pv, "int")
         return result
     }
 
@@ -3470,7 +3476,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearrayptrofindex
      */
     static SafeArrayPtrOfIndex(psa, rgIndices, ppvData) {
-        result := DllCall("OLEAUT32.dll\SafeArrayPtrOfIndex", "ptr", psa, "ptr", rgIndices, "ptr", ppvData, "int")
+        result := DllCall("OLEAUT32.dll\SafeArrayPtrOfIndex", "ptr", psa, "int*", rgIndices, "ptr", ppvData, "int")
         return result
     }
 
@@ -3679,7 +3685,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearraygetvartype
      */
     static SafeArrayGetVartype(psa, pvt) {
-        result := DllCall("OLEAUT32.dll\SafeArrayGetVartype", "ptr", psa, "ptr", pvt, "int")
+        result := DllCall("OLEAUT32.dll\SafeArrayGetVartype", "ptr", psa, "ushort*", pvt, "int")
         return result
     }
 
@@ -3688,11 +3694,12 @@ class Ole {
      * @param {Integer} vt The base type of the array (the VARTYPE of each element of the array). The VARTYPE is restricted to a subset of the variant types. Neither the VT_ARRAY nor the VT_BYREF flag can be set. VT_EMPTY and VT_NULL are not valid base types for the array. All other types are legal.
      * @param {Integer} lLbound The lower bound for the array. This parameter can be negative.
      * @param {Integer} cElements The number of elements in the array.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} A safe array descriptor, or null if the array could not be created.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearraycreatevector
      */
     static SafeArrayCreateVector(vt, lLbound, cElements) {
-        DllCall("OLEAUT32.dll\SafeArrayCreateVector", "ushort", vt, "int", lLbound, "uint", cElements)
+        result := DllCall("OLEAUT32.dll\SafeArrayCreateVector", "ushort", vt, "int", lLbound, "uint", cElements)
+        return result
     }
 
     /**
@@ -3701,16 +3708,17 @@ class Ole {
      * @param {Integer} lLbound The lower bound for the array. This parameter can be negative.
      * @param {Integer} cElements The number of elements in the array.
      * @param {Pointer<Void>} pvExtra The type information of the user-defined type, if you are creating a safe array of user-defined types. If the vt parameter is VT_RECORD, then <i>pvExtra</i> will be a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-irecordinfo">IRecordInfo</a> describing the record. If the <i>vt</i> parameter is VT_DISPATCH or VT_UNKNOWN, then <i>pvExtra</i> will contain a pointer to a GUID representing the type of interface being passed to the array.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} A safe array descriptor, or null if the array could not be created.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearraycreatevectorex
      */
     static SafeArrayCreateVectorEx(vt, lLbound, cElements, pvExtra) {
-        DllCall("OLEAUT32.dll\SafeArrayCreateVectorEx", "ushort", vt, "int", lLbound, "uint", cElements, "ptr", pvExtra)
+        result := DllCall("OLEAUT32.dll\SafeArrayCreateVectorEx", "ushort", vt, "int", lLbound, "uint", cElements, "ptr", pvExtra)
+        return result
     }
 
     /**
      * Returns a vector, assigning each character in the BSTR to an element of the vector.
-     * @param {Pointer<BSTR>} bstr The BSTR to be converted to a vector.
+     * @param {Pointer<Char>} bstr The BSTR to be converted to a vector.
      * @param {Pointer<SAFEARRAY>} ppsa A one-dimensional safearray containing the characters in the BSTR.
      * @returns {Integer} This function can return one of these values.
      * 
@@ -3758,14 +3766,14 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vectorfrombstr
      */
     static VectorFromBstr(bstr, ppsa) {
-        result := DllCall("OLEAUT32.dll\VectorFromBstr", "ptr", bstr, "ptr", ppsa, "int")
+        result := DllCall("OLEAUT32.dll\VectorFromBstr", "char*", bstr, "ptr", ppsa, "int")
         return result
     }
 
     /**
      * Returns a BSTR, assigning each element of the vector to a character in the BSTR.
      * @param {Pointer<SAFEARRAY>} psa The vector to be converted to a BSTR.
-     * @param {Pointer<BSTR>} pbstr A BSTR, each character of which is assigned to an element from the vector.
+     * @param {Pointer<Char>} pbstr A BSTR, each character of which is assigned to an element from the vector.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -3912,7 +3920,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui1fromi2
      */
     static VarUI1FromI2(sIn, pbOut) {
-        result := DllCall("OLEAUT32.dll\VarUI1FromI2", "short", sIn, "ptr", pbOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI1FromI2", "short", sIn, "char*", pbOut, "int")
         return result
     }
 
@@ -3999,7 +4007,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui1fromi4
      */
     static VarUI1FromI4(lIn, pbOut) {
-        result := DllCall("OLEAUT32.dll\VarUI1FromI4", "int", lIn, "ptr", pbOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI1FromI4", "int", lIn, "char*", pbOut, "int")
         return result
     }
 
@@ -4086,7 +4094,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui1fromi8
      */
     static VarUI1FromI8(i64In, pbOut) {
-        result := DllCall("OLEAUT32.dll\VarUI1FromI8", "int64", i64In, "ptr", pbOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI1FromI8", "int64", i64In, "char*", pbOut, "int")
         return result
     }
 
@@ -4173,7 +4181,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui1fromr4
      */
     static VarUI1FromR4(fltIn, pbOut) {
-        result := DllCall("OLEAUT32.dll\VarUI1FromR4", "float", fltIn, "ptr", pbOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI1FromR4", "float", fltIn, "char*", pbOut, "int")
         return result
     }
 
@@ -4260,7 +4268,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui1fromr8
      */
     static VarUI1FromR8(dblIn, pbOut) {
-        result := DllCall("OLEAUT32.dll\VarUI1FromR8", "double", dblIn, "ptr", pbOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI1FromR8", "double", dblIn, "char*", pbOut, "int")
         return result
     }
 
@@ -4347,7 +4355,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui1fromcy
      */
     static VarUI1FromCy(cyIn, pbOut) {
-        result := DllCall("OLEAUT32.dll\VarUI1FromCy", "ptr", cyIn, "ptr", pbOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI1FromCy", "ptr", cyIn, "char*", pbOut, "int")
         return result
     }
 
@@ -4434,13 +4442,13 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui1fromdate
      */
     static VarUI1FromDate(dateIn, pbOut) {
-        result := DllCall("OLEAUT32.dll\VarUI1FromDate", "double", dateIn, "ptr", pbOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI1FromDate", "double", dateIn, "char*", pbOut, "int")
         return result
     }
 
     /**
      * Converts an OLECHAR string to an unsigned char string.
-     * @param {Pointer<PWSTR>} strIn The value to convert.
+     * @param {Pointer<Char>} strIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One or more of the following flags.
      * 
@@ -4542,7 +4550,7 @@ class Ole {
     static VarUI1FromStr(strIn, lcid, dwFlags, pbOut) {
         strIn := strIn is String? StrPtr(strIn) : strIn
 
-        result := DllCall("OLEAUT32.dll\VarUI1FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pbOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI1FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "char*", pbOut, "int")
         return result
     }
 
@@ -4630,7 +4638,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui1fromdisp
      */
     static VarUI1FromDisp(pdispIn, lcid, pbOut) {
-        result := DllCall("OLEAUT32.dll\VarUI1FromDisp", "ptr", pdispIn, "uint", lcid, "ptr", pbOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI1FromDisp", "ptr", pdispIn, "uint", lcid, "char*", pbOut, "int")
         return result
     }
 
@@ -4717,7 +4725,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui1frombool
      */
     static VarUI1FromBool(boolIn, pbOut) {
-        result := DllCall("OLEAUT32.dll\VarUI1FromBool", "short", boolIn, "ptr", pbOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI1FromBool", "short", boolIn, "char*", pbOut, "int")
         return result
     }
 
@@ -4804,7 +4812,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui1fromi1
      */
     static VarUI1FromI1(cIn, pbOut) {
-        result := DllCall("OLEAUT32.dll\VarUI1FromI1", "char", cIn, "ptr", pbOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI1FromI1", "char", cIn, "char*", pbOut, "int")
         return result
     }
 
@@ -4891,7 +4899,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui1fromui2
      */
     static VarUI1FromUI2(uiIn, pbOut) {
-        result := DllCall("OLEAUT32.dll\VarUI1FromUI2", "ushort", uiIn, "ptr", pbOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI1FromUI2", "ushort", uiIn, "char*", pbOut, "int")
         return result
     }
 
@@ -4978,7 +4986,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui1fromui4
      */
     static VarUI1FromUI4(ulIn, pbOut) {
-        result := DllCall("OLEAUT32.dll\VarUI1FromUI4", "uint", ulIn, "ptr", pbOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI1FromUI4", "uint", ulIn, "char*", pbOut, "int")
         return result
     }
 
@@ -5065,7 +5073,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui1fromui8
      */
     static VarUI1FromUI8(ui64In, pbOut) {
-        result := DllCall("OLEAUT32.dll\VarUI1FromUI8", "uint", ui64In, "ptr", pbOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI1FromUI8", "uint", ui64In, "char*", pbOut, "int")
         return result
     }
 
@@ -5152,7 +5160,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui1fromdec
      */
     static VarUI1FromDec(pdecIn, pbOut) {
-        result := DllCall("OLEAUT32.dll\VarUI1FromDec", "ptr", pdecIn, "ptr", pbOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI1FromDec", "ptr", pdecIn, "char*", pbOut, "int")
         return result
     }
 
@@ -5239,7 +5247,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari2fromui1
      */
     static VarI2FromUI1(bIn, psOut) {
-        result := DllCall("OLEAUT32.dll\VarI2FromUI1", "char", bIn, "ptr", psOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI2FromUI1", "char", bIn, "short*", psOut, "int")
         return result
     }
 
@@ -5326,7 +5334,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari2fromi4
      */
     static VarI2FromI4(lIn, psOut) {
-        result := DllCall("OLEAUT32.dll\VarI2FromI4", "int", lIn, "ptr", psOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI2FromI4", "int", lIn, "short*", psOut, "int")
         return result
     }
 
@@ -5413,7 +5421,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari2fromi8
      */
     static VarI2FromI8(i64In, psOut) {
-        result := DllCall("OLEAUT32.dll\VarI2FromI8", "int64", i64In, "ptr", psOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI2FromI8", "int64", i64In, "short*", psOut, "int")
         return result
     }
 
@@ -5500,7 +5508,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari2fromr4
      */
     static VarI2FromR4(fltIn, psOut) {
-        result := DllCall("OLEAUT32.dll\VarI2FromR4", "float", fltIn, "ptr", psOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI2FromR4", "float", fltIn, "short*", psOut, "int")
         return result
     }
 
@@ -5587,7 +5595,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari2fromr8
      */
     static VarI2FromR8(dblIn, psOut) {
-        result := DllCall("OLEAUT32.dll\VarI2FromR8", "double", dblIn, "ptr", psOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI2FromR8", "double", dblIn, "short*", psOut, "int")
         return result
     }
 
@@ -5674,7 +5682,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari2fromcy
      */
     static VarI2FromCy(cyIn, psOut) {
-        result := DllCall("OLEAUT32.dll\VarI2FromCy", "ptr", cyIn, "ptr", psOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI2FromCy", "ptr", cyIn, "short*", psOut, "int")
         return result
     }
 
@@ -5761,13 +5769,13 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari2fromdate
      */
     static VarI2FromDate(dateIn, psOut) {
-        result := DllCall("OLEAUT32.dll\VarI2FromDate", "double", dateIn, "ptr", psOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI2FromDate", "double", dateIn, "short*", psOut, "int")
         return result
     }
 
     /**
      * Converts an OLECHAR string to a short value.
-     * @param {Pointer<PWSTR>} strIn The value to convert.
+     * @param {Pointer<Char>} strIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One or more of the following flags.
      * 
@@ -5889,7 +5897,7 @@ class Ole {
     static VarI2FromStr(strIn, lcid, dwFlags, psOut) {
         strIn := strIn is String? StrPtr(strIn) : strIn
 
-        result := DllCall("OLEAUT32.dll\VarI2FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", psOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI2FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "short*", psOut, "int")
         return result
     }
 
@@ -5977,7 +5985,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari2fromdisp
      */
     static VarI2FromDisp(pdispIn, lcid, psOut) {
-        result := DllCall("OLEAUT32.dll\VarI2FromDisp", "ptr", pdispIn, "uint", lcid, "ptr", psOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI2FromDisp", "ptr", pdispIn, "uint", lcid, "short*", psOut, "int")
         return result
     }
 
@@ -6064,7 +6072,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari2frombool
      */
     static VarI2FromBool(boolIn, psOut) {
-        result := DllCall("OLEAUT32.dll\VarI2FromBool", "short", boolIn, "ptr", psOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI2FromBool", "short", boolIn, "short*", psOut, "int")
         return result
     }
 
@@ -6151,7 +6159,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari2fromi1
      */
     static VarI2FromI1(cIn, psOut) {
-        result := DllCall("OLEAUT32.dll\VarI2FromI1", "char", cIn, "ptr", psOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI2FromI1", "char", cIn, "short*", psOut, "int")
         return result
     }
 
@@ -6238,7 +6246,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari2fromui2
      */
     static VarI2FromUI2(uiIn, psOut) {
-        result := DllCall("OLEAUT32.dll\VarI2FromUI2", "ushort", uiIn, "ptr", psOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI2FromUI2", "ushort", uiIn, "short*", psOut, "int")
         return result
     }
 
@@ -6325,7 +6333,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari2fromui4
      */
     static VarI2FromUI4(ulIn, psOut) {
-        result := DllCall("OLEAUT32.dll\VarI2FromUI4", "uint", ulIn, "ptr", psOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI2FromUI4", "uint", ulIn, "short*", psOut, "int")
         return result
     }
 
@@ -6412,7 +6420,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari2fromui8
      */
     static VarI2FromUI8(ui64In, psOut) {
-        result := DllCall("OLEAUT32.dll\VarI2FromUI8", "uint", ui64In, "ptr", psOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI2FromUI8", "uint", ui64In, "short*", psOut, "int")
         return result
     }
 
@@ -6499,7 +6507,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari2fromdec
      */
     static VarI2FromDec(pdecIn, psOut) {
-        result := DllCall("OLEAUT32.dll\VarI2FromDec", "ptr", pdecIn, "ptr", psOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI2FromDec", "ptr", pdecIn, "short*", psOut, "int")
         return result
     }
 
@@ -6586,7 +6594,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari4fromui1
      */
     static VarI4FromUI1(bIn, plOut) {
-        result := DllCall("OLEAUT32.dll\VarI4FromUI1", "char", bIn, "ptr", plOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI4FromUI1", "char", bIn, "int*", plOut, "int")
         return result
     }
 
@@ -6673,7 +6681,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari4fromi2
      */
     static VarI4FromI2(sIn, plOut) {
-        result := DllCall("OLEAUT32.dll\VarI4FromI2", "short", sIn, "ptr", plOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI4FromI2", "short", sIn, "int*", plOut, "int")
         return result
     }
 
@@ -6760,7 +6768,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari4fromi8
      */
     static VarI4FromI8(i64In, plOut) {
-        result := DllCall("OLEAUT32.dll\VarI4FromI8", "int64", i64In, "ptr", plOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI4FromI8", "int64", i64In, "int*", plOut, "int")
         return result
     }
 
@@ -6847,7 +6855,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari4fromr4
      */
     static VarI4FromR4(fltIn, plOut) {
-        result := DllCall("OLEAUT32.dll\VarI4FromR4", "float", fltIn, "ptr", plOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI4FromR4", "float", fltIn, "int*", plOut, "int")
         return result
     }
 
@@ -6934,7 +6942,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari4fromr8
      */
     static VarI4FromR8(dblIn, plOut) {
-        result := DllCall("OLEAUT32.dll\VarI4FromR8", "double", dblIn, "ptr", plOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI4FromR8", "double", dblIn, "int*", plOut, "int")
         return result
     }
 
@@ -7021,7 +7029,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari4fromcy
      */
     static VarI4FromCy(cyIn, plOut) {
-        result := DllCall("OLEAUT32.dll\VarI4FromCy", "ptr", cyIn, "ptr", plOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI4FromCy", "ptr", cyIn, "int*", plOut, "int")
         return result
     }
 
@@ -7108,13 +7116,13 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari4fromdate
      */
     static VarI4FromDate(dateIn, plOut) {
-        result := DllCall("OLEAUT32.dll\VarI4FromDate", "double", dateIn, "ptr", plOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI4FromDate", "double", dateIn, "int*", plOut, "int")
         return result
     }
 
     /**
      * Converts an OLECHAR string to a long value.
-     * @param {Pointer<PWSTR>} strIn The value to convert.
+     * @param {Pointer<Char>} strIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One or more of the following flags.
      * 
@@ -7236,7 +7244,7 @@ class Ole {
     static VarI4FromStr(strIn, lcid, dwFlags, plOut) {
         strIn := strIn is String? StrPtr(strIn) : strIn
 
-        result := DllCall("OLEAUT32.dll\VarI4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", plOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "int*", plOut, "int")
         return result
     }
 
@@ -7324,7 +7332,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari4fromdisp
      */
     static VarI4FromDisp(pdispIn, lcid, plOut) {
-        result := DllCall("OLEAUT32.dll\VarI4FromDisp", "ptr", pdispIn, "uint", lcid, "ptr", plOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI4FromDisp", "ptr", pdispIn, "uint", lcid, "int*", plOut, "int")
         return result
     }
 
@@ -7411,7 +7419,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari4frombool
      */
     static VarI4FromBool(boolIn, plOut) {
-        result := DllCall("OLEAUT32.dll\VarI4FromBool", "short", boolIn, "ptr", plOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI4FromBool", "short", boolIn, "int*", plOut, "int")
         return result
     }
 
@@ -7498,7 +7506,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari4fromi1
      */
     static VarI4FromI1(cIn, plOut) {
-        result := DllCall("OLEAUT32.dll\VarI4FromI1", "char", cIn, "ptr", plOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI4FromI1", "char", cIn, "int*", plOut, "int")
         return result
     }
 
@@ -7585,7 +7593,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari4fromui2
      */
     static VarI4FromUI2(uiIn, plOut) {
-        result := DllCall("OLEAUT32.dll\VarI4FromUI2", "ushort", uiIn, "ptr", plOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI4FromUI2", "ushort", uiIn, "int*", plOut, "int")
         return result
     }
 
@@ -7672,7 +7680,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari4fromui4
      */
     static VarI4FromUI4(ulIn, plOut) {
-        result := DllCall("OLEAUT32.dll\VarI4FromUI4", "uint", ulIn, "ptr", plOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI4FromUI4", "uint", ulIn, "int*", plOut, "int")
         return result
     }
 
@@ -7759,7 +7767,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari4fromui8
      */
     static VarI4FromUI8(ui64In, plOut) {
-        result := DllCall("OLEAUT32.dll\VarI4FromUI8", "uint", ui64In, "ptr", plOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI4FromUI8", "uint", ui64In, "int*", plOut, "int")
         return result
     }
 
@@ -7846,7 +7854,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari4fromdec
      */
     static VarI4FromDec(pdecIn, plOut) {
-        result := DllCall("OLEAUT32.dll\VarI4FromDec", "ptr", pdecIn, "ptr", plOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI4FromDec", "ptr", pdecIn, "int*", plOut, "int")
         return result
     }
 
@@ -7933,7 +7941,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari8fromui1
      */
     static VarI8FromUI1(bIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarI8FromUI1", "char", bIn, "ptr", pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarI8FromUI1", "char", bIn, "int64*", pi64Out, "int")
         return result
     }
 
@@ -8020,7 +8028,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari8fromi2
      */
     static VarI8FromI2(sIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarI8FromI2", "short", sIn, "ptr", pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarI8FromI2", "short", sIn, "int64*", pi64Out, "int")
         return result
     }
 
@@ -8107,7 +8115,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari8fromr4
      */
     static VarI8FromR4(fltIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarI8FromR4", "float", fltIn, "ptr", pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarI8FromR4", "float", fltIn, "int64*", pi64Out, "int")
         return result
     }
 
@@ -8194,7 +8202,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari8fromr8
      */
     static VarI8FromR8(dblIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarI8FromR8", "double", dblIn, "ptr", pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarI8FromR8", "double", dblIn, "int64*", pi64Out, "int")
         return result
     }
 
@@ -8281,7 +8289,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari8fromcy
      */
     static VarI8FromCy(cyIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarI8FromCy", "ptr", cyIn, "ptr", pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarI8FromCy", "ptr", cyIn, "int64*", pi64Out, "int")
         return result
     }
 
@@ -8368,13 +8376,13 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari8fromdate
      */
     static VarI8FromDate(dateIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarI8FromDate", "double", dateIn, "ptr", pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarI8FromDate", "double", dateIn, "int64*", pi64Out, "int")
         return result
     }
 
     /**
      * Converts an OLECHAR string to an 8-byte integer value.
-     * @param {Pointer<PWSTR>} strIn The value to convert.
+     * @param {Pointer<Char>} strIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One or more of the following flags.
      * 
@@ -8476,7 +8484,7 @@ class Ole {
     static VarI8FromStr(strIn, lcid, dwFlags, pi64Out) {
         strIn := strIn is String? StrPtr(strIn) : strIn
 
-        result := DllCall("OLEAUT32.dll\VarI8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarI8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "int64*", pi64Out, "int")
         return result
     }
 
@@ -8564,7 +8572,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari8fromdisp
      */
     static VarI8FromDisp(pdispIn, lcid, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarI8FromDisp", "ptr", pdispIn, "uint", lcid, "ptr", pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarI8FromDisp", "ptr", pdispIn, "uint", lcid, "int64*", pi64Out, "int")
         return result
     }
 
@@ -8651,7 +8659,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari8frombool
      */
     static VarI8FromBool(boolIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarI8FromBool", "short", boolIn, "ptr", pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarI8FromBool", "short", boolIn, "int64*", pi64Out, "int")
         return result
     }
 
@@ -8738,7 +8746,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari8fromi1
      */
     static VarI8FromI1(cIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarI8FromI1", "char", cIn, "ptr", pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarI8FromI1", "char", cIn, "int64*", pi64Out, "int")
         return result
     }
 
@@ -8825,7 +8833,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari8fromui2
      */
     static VarI8FromUI2(uiIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarI8FromUI2", "ushort", uiIn, "ptr", pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarI8FromUI2", "ushort", uiIn, "int64*", pi64Out, "int")
         return result
     }
 
@@ -8912,7 +8920,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari8fromui4
      */
     static VarI8FromUI4(ulIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarI8FromUI4", "uint", ulIn, "ptr", pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarI8FromUI4", "uint", ulIn, "int64*", pi64Out, "int")
         return result
     }
 
@@ -8999,7 +9007,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari8fromui8
      */
     static VarI8FromUI8(ui64In, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarI8FromUI8", "uint", ui64In, "ptr", pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarI8FromUI8", "uint", ui64In, "int64*", pi64Out, "int")
         return result
     }
 
@@ -9086,7 +9094,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari8fromdec
      */
     static VarI8FromDec(pdecIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarI8FromDec", "ptr", pdecIn, "ptr", pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarI8FromDec", "ptr", pdecIn, "int64*", pi64Out, "int")
         return result
     }
 
@@ -9173,7 +9181,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr4fromui1
      */
     static VarR4FromUI1(bIn, pfltOut) {
-        result := DllCall("OLEAUT32.dll\VarR4FromUI1", "char", bIn, "ptr", pfltOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR4FromUI1", "char", bIn, "float*", pfltOut, "int")
         return result
     }
 
@@ -9260,7 +9268,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr4fromi2
      */
     static VarR4FromI2(sIn, pfltOut) {
-        result := DllCall("OLEAUT32.dll\VarR4FromI2", "short", sIn, "ptr", pfltOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR4FromI2", "short", sIn, "float*", pfltOut, "int")
         return result
     }
 
@@ -9347,7 +9355,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr4fromi4
      */
     static VarR4FromI4(lIn, pfltOut) {
-        result := DllCall("OLEAUT32.dll\VarR4FromI4", "int", lIn, "ptr", pfltOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR4FromI4", "int", lIn, "float*", pfltOut, "int")
         return result
     }
 
@@ -9434,7 +9442,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr4fromi8
      */
     static VarR4FromI8(i64In, pfltOut) {
-        result := DllCall("OLEAUT32.dll\VarR4FromI8", "int64", i64In, "ptr", pfltOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR4FromI8", "int64", i64In, "float*", pfltOut, "int")
         return result
     }
 
@@ -9521,7 +9529,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr4fromr8
      */
     static VarR4FromR8(dblIn, pfltOut) {
-        result := DllCall("OLEAUT32.dll\VarR4FromR8", "double", dblIn, "ptr", pfltOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR4FromR8", "double", dblIn, "float*", pfltOut, "int")
         return result
     }
 
@@ -9608,7 +9616,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr4fromcy
      */
     static VarR4FromCy(cyIn, pfltOut) {
-        result := DllCall("OLEAUT32.dll\VarR4FromCy", "ptr", cyIn, "ptr", pfltOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR4FromCy", "ptr", cyIn, "float*", pfltOut, "int")
         return result
     }
 
@@ -9695,13 +9703,13 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr4fromdate
      */
     static VarR4FromDate(dateIn, pfltOut) {
-        result := DllCall("OLEAUT32.dll\VarR4FromDate", "double", dateIn, "ptr", pfltOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR4FromDate", "double", dateIn, "float*", pfltOut, "int")
         return result
     }
 
     /**
      * Converts an OLECHAR string to a float value.
-     * @param {Pointer<PWSTR>} strIn The value to convert.
+     * @param {Pointer<Char>} strIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One or more of the following flags.
      * 
@@ -9823,7 +9831,7 @@ class Ole {
     static VarR4FromStr(strIn, lcid, dwFlags, pfltOut) {
         strIn := strIn is String? StrPtr(strIn) : strIn
 
-        result := DllCall("OLEAUT32.dll\VarR4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pfltOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "float*", pfltOut, "int")
         return result
     }
 
@@ -9911,7 +9919,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr4fromdisp
      */
     static VarR4FromDisp(pdispIn, lcid, pfltOut) {
-        result := DllCall("OLEAUT32.dll\VarR4FromDisp", "ptr", pdispIn, "uint", lcid, "ptr", pfltOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR4FromDisp", "ptr", pdispIn, "uint", lcid, "float*", pfltOut, "int")
         return result
     }
 
@@ -9998,7 +10006,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr4frombool
      */
     static VarR4FromBool(boolIn, pfltOut) {
-        result := DllCall("OLEAUT32.dll\VarR4FromBool", "short", boolIn, "ptr", pfltOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR4FromBool", "short", boolIn, "float*", pfltOut, "int")
         return result
     }
 
@@ -10085,7 +10093,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr4fromi1
      */
     static VarR4FromI1(cIn, pfltOut) {
-        result := DllCall("OLEAUT32.dll\VarR4FromI1", "char", cIn, "ptr", pfltOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR4FromI1", "char", cIn, "float*", pfltOut, "int")
         return result
     }
 
@@ -10172,7 +10180,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr4fromui2
      */
     static VarR4FromUI2(uiIn, pfltOut) {
-        result := DllCall("OLEAUT32.dll\VarR4FromUI2", "ushort", uiIn, "ptr", pfltOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR4FromUI2", "ushort", uiIn, "float*", pfltOut, "int")
         return result
     }
 
@@ -10259,7 +10267,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr4fromui4
      */
     static VarR4FromUI4(ulIn, pfltOut) {
-        result := DllCall("OLEAUT32.dll\VarR4FromUI4", "uint", ulIn, "ptr", pfltOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR4FromUI4", "uint", ulIn, "float*", pfltOut, "int")
         return result
     }
 
@@ -10346,7 +10354,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr4fromui8
      */
     static VarR4FromUI8(ui64In, pfltOut) {
-        result := DllCall("OLEAUT32.dll\VarR4FromUI8", "uint", ui64In, "ptr", pfltOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR4FromUI8", "uint", ui64In, "float*", pfltOut, "int")
         return result
     }
 
@@ -10433,7 +10441,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr4fromdec
      */
     static VarR4FromDec(pdecIn, pfltOut) {
-        result := DllCall("OLEAUT32.dll\VarR4FromDec", "ptr", pdecIn, "ptr", pfltOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR4FromDec", "ptr", pdecIn, "float*", pfltOut, "int")
         return result
     }
 
@@ -10520,7 +10528,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8fromui1
      */
     static VarR8FromUI1(bIn, pdblOut) {
-        result := DllCall("OLEAUT32.dll\VarR8FromUI1", "char", bIn, "ptr", pdblOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR8FromUI1", "char", bIn, "double*", pdblOut, "int")
         return result
     }
 
@@ -10607,7 +10615,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8fromi2
      */
     static VarR8FromI2(sIn, pdblOut) {
-        result := DllCall("OLEAUT32.dll\VarR8FromI2", "short", sIn, "ptr", pdblOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR8FromI2", "short", sIn, "double*", pdblOut, "int")
         return result
     }
 
@@ -10694,7 +10702,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8fromi4
      */
     static VarR8FromI4(lIn, pdblOut) {
-        result := DllCall("OLEAUT32.dll\VarR8FromI4", "int", lIn, "ptr", pdblOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR8FromI4", "int", lIn, "double*", pdblOut, "int")
         return result
     }
 
@@ -10781,7 +10789,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8fromi8
      */
     static VarR8FromI8(i64In, pdblOut) {
-        result := DllCall("OLEAUT32.dll\VarR8FromI8", "int64", i64In, "ptr", pdblOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR8FromI8", "int64", i64In, "double*", pdblOut, "int")
         return result
     }
 
@@ -10868,7 +10876,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8fromr4
      */
     static VarR8FromR4(fltIn, pdblOut) {
-        result := DllCall("OLEAUT32.dll\VarR8FromR4", "float", fltIn, "ptr", pdblOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR8FromR4", "float", fltIn, "double*", pdblOut, "int")
         return result
     }
 
@@ -10955,7 +10963,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8fromcy
      */
     static VarR8FromCy(cyIn, pdblOut) {
-        result := DllCall("OLEAUT32.dll\VarR8FromCy", "ptr", cyIn, "ptr", pdblOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR8FromCy", "ptr", cyIn, "double*", pdblOut, "int")
         return result
     }
 
@@ -11042,13 +11050,13 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8fromdate
      */
     static VarR8FromDate(dateIn, pdblOut) {
-        result := DllCall("OLEAUT32.dll\VarR8FromDate", "double", dateIn, "ptr", pdblOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR8FromDate", "double", dateIn, "double*", pdblOut, "int")
         return result
     }
 
     /**
      * Converts an OLECHAR string to a double value.
-     * @param {Pointer<PWSTR>} strIn The value to convert.
+     * @param {Pointer<Char>} strIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One or more of the following flags.
      * 
@@ -11170,7 +11178,7 @@ class Ole {
     static VarR8FromStr(strIn, lcid, dwFlags, pdblOut) {
         strIn := strIn is String? StrPtr(strIn) : strIn
 
-        result := DllCall("OLEAUT32.dll\VarR8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pdblOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "double*", pdblOut, "int")
         return result
     }
 
@@ -11258,7 +11266,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8fromdisp
      */
     static VarR8FromDisp(pdispIn, lcid, pdblOut) {
-        result := DllCall("OLEAUT32.dll\VarR8FromDisp", "ptr", pdispIn, "uint", lcid, "ptr", pdblOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR8FromDisp", "ptr", pdispIn, "uint", lcid, "double*", pdblOut, "int")
         return result
     }
 
@@ -11345,7 +11353,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8frombool
      */
     static VarR8FromBool(boolIn, pdblOut) {
-        result := DllCall("OLEAUT32.dll\VarR8FromBool", "short", boolIn, "ptr", pdblOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR8FromBool", "short", boolIn, "double*", pdblOut, "int")
         return result
     }
 
@@ -11432,7 +11440,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8fromi1
      */
     static VarR8FromI1(cIn, pdblOut) {
-        result := DllCall("OLEAUT32.dll\VarR8FromI1", "char", cIn, "ptr", pdblOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR8FromI1", "char", cIn, "double*", pdblOut, "int")
         return result
     }
 
@@ -11519,7 +11527,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8fromui2
      */
     static VarR8FromUI2(uiIn, pdblOut) {
-        result := DllCall("OLEAUT32.dll\VarR8FromUI2", "ushort", uiIn, "ptr", pdblOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR8FromUI2", "ushort", uiIn, "double*", pdblOut, "int")
         return result
     }
 
@@ -11606,7 +11614,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8fromui4
      */
     static VarR8FromUI4(ulIn, pdblOut) {
-        result := DllCall("OLEAUT32.dll\VarR8FromUI4", "uint", ulIn, "ptr", pdblOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR8FromUI4", "uint", ulIn, "double*", pdblOut, "int")
         return result
     }
 
@@ -11693,7 +11701,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8fromui8
      */
     static VarR8FromUI8(ui64In, pdblOut) {
-        result := DllCall("OLEAUT32.dll\VarR8FromUI8", "uint", ui64In, "ptr", pdblOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR8FromUI8", "uint", ui64In, "double*", pdblOut, "int")
         return result
     }
 
@@ -11780,7 +11788,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8fromdec
      */
     static VarR8FromDec(pdecIn, pdblOut) {
-        result := DllCall("OLEAUT32.dll\VarR8FromDec", "ptr", pdecIn, "ptr", pdblOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR8FromDec", "ptr", pdecIn, "double*", pdblOut, "int")
         return result
     }
 
@@ -11867,7 +11875,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefromui1
      */
     static VarDateFromUI1(bIn, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromUI1", "char", bIn, "ptr", pdateOut, "int")
+        result := DllCall("OLEAUT32.dll\VarDateFromUI1", "char", bIn, "double*", pdateOut, "int")
         return result
     }
 
@@ -11954,7 +11962,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefromi2
      */
     static VarDateFromI2(sIn, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromI2", "short", sIn, "ptr", pdateOut, "int")
+        result := DllCall("OLEAUT32.dll\VarDateFromI2", "short", sIn, "double*", pdateOut, "int")
         return result
     }
 
@@ -12041,7 +12049,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefromi4
      */
     static VarDateFromI4(lIn, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromI4", "int", lIn, "ptr", pdateOut, "int")
+        result := DllCall("OLEAUT32.dll\VarDateFromI4", "int", lIn, "double*", pdateOut, "int")
         return result
     }
 
@@ -12128,7 +12136,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefromi8
      */
     static VarDateFromI8(i64In, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromI8", "int64", i64In, "ptr", pdateOut, "int")
+        result := DllCall("OLEAUT32.dll\VarDateFromI8", "int64", i64In, "double*", pdateOut, "int")
         return result
     }
 
@@ -12215,7 +12223,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefromr4
      */
     static VarDateFromR4(fltIn, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromR4", "float", fltIn, "ptr", pdateOut, "int")
+        result := DllCall("OLEAUT32.dll\VarDateFromR4", "float", fltIn, "double*", pdateOut, "int")
         return result
     }
 
@@ -12302,7 +12310,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefromr8
      */
     static VarDateFromR8(dblIn, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromR8", "double", dblIn, "ptr", pdateOut, "int")
+        result := DllCall("OLEAUT32.dll\VarDateFromR8", "double", dblIn, "double*", pdateOut, "int")
         return result
     }
 
@@ -12389,13 +12397,13 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefromcy
      */
     static VarDateFromCy(cyIn, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromCy", "ptr", cyIn, "ptr", pdateOut, "int")
+        result := DllCall("OLEAUT32.dll\VarDateFromCy", "ptr", cyIn, "double*", pdateOut, "int")
         return result
     }
 
     /**
      * Converts an OLECHAR string to a date value.
-     * @param {Pointer<PWSTR>} strIn The value to convert.
+     * @param {Pointer<Char>} strIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One or more of the following flags.
      * 
@@ -12528,7 +12536,7 @@ class Ole {
     static VarDateFromStr(strIn, lcid, dwFlags, pdateOut) {
         strIn := strIn is String? StrPtr(strIn) : strIn
 
-        result := DllCall("OLEAUT32.dll\VarDateFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pdateOut, "int")
+        result := DllCall("OLEAUT32.dll\VarDateFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "double*", pdateOut, "int")
         return result
     }
 
@@ -12616,7 +12624,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefromdisp
      */
     static VarDateFromDisp(pdispIn, lcid, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromDisp", "ptr", pdispIn, "uint", lcid, "ptr", pdateOut, "int")
+        result := DllCall("OLEAUT32.dll\VarDateFromDisp", "ptr", pdispIn, "uint", lcid, "double*", pdateOut, "int")
         return result
     }
 
@@ -12703,7 +12711,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefrombool
      */
     static VarDateFromBool(boolIn, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromBool", "short", boolIn, "ptr", pdateOut, "int")
+        result := DllCall("OLEAUT32.dll\VarDateFromBool", "short", boolIn, "double*", pdateOut, "int")
         return result
     }
 
@@ -12790,7 +12798,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefromi1
      */
     static VarDateFromI1(cIn, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromI1", "char", cIn, "ptr", pdateOut, "int")
+        result := DllCall("OLEAUT32.dll\VarDateFromI1", "char", cIn, "double*", pdateOut, "int")
         return result
     }
 
@@ -12877,7 +12885,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefromui2
      */
     static VarDateFromUI2(uiIn, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromUI2", "ushort", uiIn, "ptr", pdateOut, "int")
+        result := DllCall("OLEAUT32.dll\VarDateFromUI2", "ushort", uiIn, "double*", pdateOut, "int")
         return result
     }
 
@@ -12964,7 +12972,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefromui4
      */
     static VarDateFromUI4(ulIn, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromUI4", "uint", ulIn, "ptr", pdateOut, "int")
+        result := DllCall("OLEAUT32.dll\VarDateFromUI4", "uint", ulIn, "double*", pdateOut, "int")
         return result
     }
 
@@ -13051,7 +13059,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefromui8
      */
     static VarDateFromUI8(ui64In, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromUI8", "uint", ui64In, "ptr", pdateOut, "int")
+        result := DllCall("OLEAUT32.dll\VarDateFromUI8", "uint", ui64In, "double*", pdateOut, "int")
         return result
     }
 
@@ -13138,7 +13146,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefromdec
      */
     static VarDateFromDec(pdecIn, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromDec", "ptr", pdecIn, "ptr", pdateOut, "int")
+        result := DllCall("OLEAUT32.dll\VarDateFromDec", "ptr", pdecIn, "double*", pdateOut, "int")
         return result
     }
 
@@ -13753,7 +13761,7 @@ class Ole {
 
     /**
      * Converts an OLECHAR string to a currency value.
-     * @param {Pointer<PWSTR>} strIn The value to convert.
+     * @param {Pointer<Char>} strIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One of more of the following flags.
      * 
@@ -14511,7 +14519,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
+     * @param {Pointer<Char>} pbstrOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -14600,7 +14608,7 @@ class Ole {
      * @param {Integer} iVal The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags Reserved. Set to zero.
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
+     * @param {Pointer<Char>} pbstrOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -14689,7 +14697,7 @@ class Ole {
      * @param {Integer} lIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags Reserved. Set to zero.
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
+     * @param {Pointer<Char>} pbstrOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -14778,7 +14786,7 @@ class Ole {
      * @param {Integer} i64In The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags Reserved. Set to zero.
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
+     * @param {Pointer<Char>} pbstrOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -14884,7 +14892,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
+     * @param {Pointer<Char>} pbstrOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -14990,7 +14998,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
+     * @param {Pointer<Char>} pbstrOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -15106,7 +15114,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
+     * @param {Pointer<Char>} pbstrOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -15275,7 +15283,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
+     * @param {Pointer<Char>} pbstrOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -15364,7 +15372,7 @@ class Ole {
      * @param {Pointer<IDispatch>} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags Reserved. Set to zero.
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
+     * @param {Pointer<Char>} pbstrOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -15480,7 +15488,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
+     * @param {Pointer<Char>} pbstrOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -15569,7 +15577,7 @@ class Ole {
      * @param {Integer} cIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags Reserved. Set to zero.
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
+     * @param {Pointer<Char>} pbstrOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -15675,7 +15683,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
+     * @param {Pointer<Char>} pbstrOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -15764,7 +15772,7 @@ class Ole {
      * @param {Integer} ulIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags Reserved. Set to zero.
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
+     * @param {Pointer<Char>} pbstrOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -15853,7 +15861,7 @@ class Ole {
      * @param {Integer} ui64In The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags Reserved. Set to zero.
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
+     * @param {Pointer<Char>} pbstrOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -15981,7 +15989,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
+     * @param {Pointer<Char>} pbstrOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -16148,7 +16156,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varboolfromui1
      */
     static VarBoolFromUI1(bIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromUI1", "char", bIn, "ptr", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromUI1", "char", bIn, "short*", pboolOut, "int")
         return result
     }
 
@@ -16235,7 +16243,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varboolfromi2
      */
     static VarBoolFromI2(sIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromI2", "short", sIn, "ptr", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromI2", "short", sIn, "short*", pboolOut, "int")
         return result
     }
 
@@ -16322,7 +16330,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varboolfromi4
      */
     static VarBoolFromI4(lIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromI4", "int", lIn, "ptr", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromI4", "int", lIn, "short*", pboolOut, "int")
         return result
     }
 
@@ -16409,7 +16417,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varboolfromi8
      */
     static VarBoolFromI8(i64In, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromI8", "int64", i64In, "ptr", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromI8", "int64", i64In, "short*", pboolOut, "int")
         return result
     }
 
@@ -16496,7 +16504,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varboolfromr4
      */
     static VarBoolFromR4(fltIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromR4", "float", fltIn, "ptr", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromR4", "float", fltIn, "short*", pboolOut, "int")
         return result
     }
 
@@ -16583,7 +16591,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varboolfromr8
      */
     static VarBoolFromR8(dblIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromR8", "double", dblIn, "ptr", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromR8", "double", dblIn, "short*", pboolOut, "int")
         return result
     }
 
@@ -16670,7 +16678,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varboolfromdate
      */
     static VarBoolFromDate(dateIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromDate", "double", dateIn, "ptr", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromDate", "double", dateIn, "short*", pboolOut, "int")
         return result
     }
 
@@ -16757,13 +16765,13 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varboolfromcy
      */
     static VarBoolFromCy(cyIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromCy", "ptr", cyIn, "ptr", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromCy", "ptr", cyIn, "short*", pboolOut, "int")
         return result
     }
 
     /**
      * Converts an OLECHAR string to a Boolean value.
-     * @param {Pointer<PWSTR>} strIn The value to convert.
+     * @param {Pointer<Char>} strIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One or more of the following flags.
      * 
@@ -16875,7 +16883,7 @@ class Ole {
     static VarBoolFromStr(strIn, lcid, dwFlags, pboolOut) {
         strIn := strIn is String? StrPtr(strIn) : strIn
 
-        result := DllCall("OLEAUT32.dll\VarBoolFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "short*", pboolOut, "int")
         return result
     }
 
@@ -16963,7 +16971,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varboolfromdisp
      */
     static VarBoolFromDisp(pdispIn, lcid, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromDisp", "ptr", pdispIn, "uint", lcid, "ptr", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromDisp", "ptr", pdispIn, "uint", lcid, "short*", pboolOut, "int")
         return result
     }
 
@@ -17050,7 +17058,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varboolfromi1
      */
     static VarBoolFromI1(cIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromI1", "char", cIn, "ptr", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromI1", "char", cIn, "short*", pboolOut, "int")
         return result
     }
 
@@ -17137,7 +17145,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varboolfromui2
      */
     static VarBoolFromUI2(uiIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromUI2", "ushort", uiIn, "ptr", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromUI2", "ushort", uiIn, "short*", pboolOut, "int")
         return result
     }
 
@@ -17224,7 +17232,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varboolfromui4
      */
     static VarBoolFromUI4(ulIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromUI4", "uint", ulIn, "ptr", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromUI4", "uint", ulIn, "short*", pboolOut, "int")
         return result
     }
 
@@ -17311,7 +17319,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varboolfromui8
      */
     static VarBoolFromUI8(i64In, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromUI8", "uint", i64In, "ptr", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromUI8", "uint", i64In, "short*", pboolOut, "int")
         return result
     }
 
@@ -17398,14 +17406,14 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varboolfromdec
      */
     static VarBoolFromDec(pdecIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromDec", "ptr", pdecIn, "ptr", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromDec", "ptr", pdecIn, "short*", pboolOut, "int")
         return result
     }
 
     /**
      * Converts an unsigned char value to a char value.
      * @param {Integer} bIn The value to convert.
-     * @param {Pointer<PSTR>} pcOut The resulting value.
+     * @param {Pointer<Byte>} pcOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -17494,7 +17502,7 @@ class Ole {
     /**
      * Converts a short value to a char value.
      * @param {Integer} uiIn The value to convert.
-     * @param {Pointer<PSTR>} pcOut The resulting value.
+     * @param {Pointer<Byte>} pcOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -17583,7 +17591,7 @@ class Ole {
     /**
      * Converts a long value to a char value.
      * @param {Integer} lIn The value to convert.
-     * @param {Pointer<PSTR>} pcOut The resulting value.
+     * @param {Pointer<Byte>} pcOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -17672,7 +17680,7 @@ class Ole {
     /**
      * Converts an 8-byte integer value to a char value.
      * @param {Integer} i64In The value to convert.
-     * @param {Pointer<PSTR>} pcOut The resulting value.
+     * @param {Pointer<Byte>} pcOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -17761,7 +17769,7 @@ class Ole {
     /**
      * Converts a float value to a char value.
      * @param {Float} fltIn The value to convert.
-     * @param {Pointer<PSTR>} pcOut The resulting value.
+     * @param {Pointer<Byte>} pcOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -17850,7 +17858,7 @@ class Ole {
     /**
      * Converts a double value to a char value.
      * @param {Float} dblIn The value to convert.
-     * @param {Pointer<PSTR>} pcOut The resulting value.
+     * @param {Pointer<Byte>} pcOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -17939,7 +17947,7 @@ class Ole {
     /**
      * Converts a date value to a char value.
      * @param {Float} dateIn The value to convert.
-     * @param {Pointer<PSTR>} pcOut The resulting value.
+     * @param {Pointer<Byte>} pcOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -18028,7 +18036,7 @@ class Ole {
     /**
      * Converts a currency value to a char value.
      * @param {Pointer} cyIn The value to convert.
-     * @param {Pointer<PSTR>} pcOut The resulting value.
+     * @param {Pointer<Byte>} pcOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -18116,7 +18124,7 @@ class Ole {
 
     /**
      * Converts an OLECHAR string to a char value.
-     * @param {Pointer<PWSTR>} strIn The value to convert.
+     * @param {Pointer<Char>} strIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One or more of the following flags.
      * 
@@ -18136,7 +18144,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PSTR>} pcOut The resulting value.
+     * @param {Pointer<Byte>} pcOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -18227,7 +18235,7 @@ class Ole {
      * Converts the default property of an IDispatch instance to a char value.
      * @param {Pointer<IDispatch>} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
-     * @param {Pointer<PSTR>} pcOut The resulting value.
+     * @param {Pointer<Byte>} pcOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -18316,7 +18324,7 @@ class Ole {
     /**
      * Converts a Boolean value to a char value.
      * @param {Integer} boolIn The value to convert.
-     * @param {Pointer<PSTR>} pcOut The resulting value.
+     * @param {Pointer<Byte>} pcOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -18405,7 +18413,7 @@ class Ole {
     /**
      * Converts an unsigned short value to a char value.
      * @param {Integer} uiIn The value to convert.
-     * @param {Pointer<PSTR>} pcOut The resulting value.
+     * @param {Pointer<Byte>} pcOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -18494,7 +18502,7 @@ class Ole {
     /**
      * Converts an unsigned long value to a char value.
      * @param {Integer} ulIn The value to convert.
-     * @param {Pointer<PSTR>} pcOut The resulting value.
+     * @param {Pointer<Byte>} pcOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -18583,7 +18591,7 @@ class Ole {
     /**
      * Converts an 8-byte unsigned integer value to a char value.
      * @param {Integer} i64In The value to convert.
-     * @param {Pointer<PSTR>} pcOut The resulting value.
+     * @param {Pointer<Byte>} pcOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -18672,7 +18680,7 @@ class Ole {
     /**
      * Converts a decimal value to a char value.
      * @param {Pointer<DECIMAL>} pdecIn The value to convert.
-     * @param {Pointer<PSTR>} pcOut The resulting value.
+     * @param {Pointer<Byte>} pcOut The resulting value.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -18841,7 +18849,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui2fromui1
      */
     static VarUI2FromUI1(bIn, puiOut) {
-        result := DllCall("OLEAUT32.dll\VarUI2FromUI1", "char", bIn, "ptr", puiOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI2FromUI1", "char", bIn, "ushort*", puiOut, "int")
         return result
     }
 
@@ -18928,7 +18936,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui2fromi2
      */
     static VarUI2FromI2(uiIn, puiOut) {
-        result := DllCall("OLEAUT32.dll\VarUI2FromI2", "short", uiIn, "ptr", puiOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI2FromI2", "short", uiIn, "ushort*", puiOut, "int")
         return result
     }
 
@@ -19015,7 +19023,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui2fromi4
      */
     static VarUI2FromI4(lIn, puiOut) {
-        result := DllCall("OLEAUT32.dll\VarUI2FromI4", "int", lIn, "ptr", puiOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI2FromI4", "int", lIn, "ushort*", puiOut, "int")
         return result
     }
 
@@ -19102,7 +19110,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui2fromi8
      */
     static VarUI2FromI8(i64In, puiOut) {
-        result := DllCall("OLEAUT32.dll\VarUI2FromI8", "int64", i64In, "ptr", puiOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI2FromI8", "int64", i64In, "ushort*", puiOut, "int")
         return result
     }
 
@@ -19189,7 +19197,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui2fromr4
      */
     static VarUI2FromR4(fltIn, puiOut) {
-        result := DllCall("OLEAUT32.dll\VarUI2FromR4", "float", fltIn, "ptr", puiOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI2FromR4", "float", fltIn, "ushort*", puiOut, "int")
         return result
     }
 
@@ -19276,7 +19284,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui2fromr8
      */
     static VarUI2FromR8(dblIn, puiOut) {
-        result := DllCall("OLEAUT32.dll\VarUI2FromR8", "double", dblIn, "ptr", puiOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI2FromR8", "double", dblIn, "ushort*", puiOut, "int")
         return result
     }
 
@@ -19363,7 +19371,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui2fromdate
      */
     static VarUI2FromDate(dateIn, puiOut) {
-        result := DllCall("OLEAUT32.dll\VarUI2FromDate", "double", dateIn, "ptr", puiOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI2FromDate", "double", dateIn, "ushort*", puiOut, "int")
         return result
     }
 
@@ -19450,13 +19458,13 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui2fromcy
      */
     static VarUI2FromCy(cyIn, puiOut) {
-        result := DllCall("OLEAUT32.dll\VarUI2FromCy", "ptr", cyIn, "ptr", puiOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI2FromCy", "ptr", cyIn, "ushort*", puiOut, "int")
         return result
     }
 
     /**
      * Converts an OLECHAR string to an unsigned short value.
-     * @param {Pointer<PWSTR>} strIn The value to convert.
+     * @param {Pointer<Char>} strIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One or more of the following flags.
      * 
@@ -19578,7 +19586,7 @@ class Ole {
     static VarUI2FromStr(strIn, lcid, dwFlags, puiOut) {
         strIn := strIn is String? StrPtr(strIn) : strIn
 
-        result := DllCall("OLEAUT32.dll\VarUI2FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", puiOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI2FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ushort*", puiOut, "int")
         return result
     }
 
@@ -19666,7 +19674,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui2fromdisp
      */
     static VarUI2FromDisp(pdispIn, lcid, puiOut) {
-        result := DllCall("OLEAUT32.dll\VarUI2FromDisp", "ptr", pdispIn, "uint", lcid, "ptr", puiOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI2FromDisp", "ptr", pdispIn, "uint", lcid, "ushort*", puiOut, "int")
         return result
     }
 
@@ -19753,7 +19761,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui2frombool
      */
     static VarUI2FromBool(boolIn, puiOut) {
-        result := DllCall("OLEAUT32.dll\VarUI2FromBool", "short", boolIn, "ptr", puiOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI2FromBool", "short", boolIn, "ushort*", puiOut, "int")
         return result
     }
 
@@ -19840,7 +19848,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui2fromi1
      */
     static VarUI2FromI1(cIn, puiOut) {
-        result := DllCall("OLEAUT32.dll\VarUI2FromI1", "char", cIn, "ptr", puiOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI2FromI1", "char", cIn, "ushort*", puiOut, "int")
         return result
     }
 
@@ -19927,7 +19935,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui2fromui4
      */
     static VarUI2FromUI4(ulIn, puiOut) {
-        result := DllCall("OLEAUT32.dll\VarUI2FromUI4", "uint", ulIn, "ptr", puiOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI2FromUI4", "uint", ulIn, "ushort*", puiOut, "int")
         return result
     }
 
@@ -20014,7 +20022,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui2fromui8
      */
     static VarUI2FromUI8(i64In, puiOut) {
-        result := DllCall("OLEAUT32.dll\VarUI2FromUI8", "uint", i64In, "ptr", puiOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI2FromUI8", "uint", i64In, "ushort*", puiOut, "int")
         return result
     }
 
@@ -20101,7 +20109,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui2fromdec
      */
     static VarUI2FromDec(pdecIn, puiOut) {
-        result := DllCall("OLEAUT32.dll\VarUI2FromDec", "ptr", pdecIn, "ptr", puiOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI2FromDec", "ptr", pdecIn, "ushort*", puiOut, "int")
         return result
     }
 
@@ -20188,7 +20196,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui4fromui1
      */
     static VarUI4FromUI1(bIn, pulOut) {
-        result := DllCall("OLEAUT32.dll\VarUI4FromUI1", "char", bIn, "ptr", pulOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI4FromUI1", "char", bIn, "uint*", pulOut, "int")
         return result
     }
 
@@ -20275,7 +20283,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui4fromi2
      */
     static VarUI4FromI2(uiIn, pulOut) {
-        result := DllCall("OLEAUT32.dll\VarUI4FromI2", "short", uiIn, "ptr", pulOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI4FromI2", "short", uiIn, "uint*", pulOut, "int")
         return result
     }
 
@@ -20362,7 +20370,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui4fromi4
      */
     static VarUI4FromI4(lIn, pulOut) {
-        result := DllCall("OLEAUT32.dll\VarUI4FromI4", "int", lIn, "ptr", pulOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI4FromI4", "int", lIn, "uint*", pulOut, "int")
         return result
     }
 
@@ -20449,7 +20457,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui4fromi8
      */
     static VarUI4FromI8(i64In, plOut) {
-        result := DllCall("OLEAUT32.dll\VarUI4FromI8", "int64", i64In, "ptr", plOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI4FromI8", "int64", i64In, "uint*", plOut, "int")
         return result
     }
 
@@ -20536,7 +20544,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui4fromr4
      */
     static VarUI4FromR4(fltIn, pulOut) {
-        result := DllCall("OLEAUT32.dll\VarUI4FromR4", "float", fltIn, "ptr", pulOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI4FromR4", "float", fltIn, "uint*", pulOut, "int")
         return result
     }
 
@@ -20623,7 +20631,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui4fromr8
      */
     static VarUI4FromR8(dblIn, pulOut) {
-        result := DllCall("OLEAUT32.dll\VarUI4FromR8", "double", dblIn, "ptr", pulOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI4FromR8", "double", dblIn, "uint*", pulOut, "int")
         return result
     }
 
@@ -20710,7 +20718,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui4fromdate
      */
     static VarUI4FromDate(dateIn, pulOut) {
-        result := DllCall("OLEAUT32.dll\VarUI4FromDate", "double", dateIn, "ptr", pulOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI4FromDate", "double", dateIn, "uint*", pulOut, "int")
         return result
     }
 
@@ -20797,13 +20805,13 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui4fromcy
      */
     static VarUI4FromCy(cyIn, pulOut) {
-        result := DllCall("OLEAUT32.dll\VarUI4FromCy", "ptr", cyIn, "ptr", pulOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI4FromCy", "ptr", cyIn, "uint*", pulOut, "int")
         return result
     }
 
     /**
      * Converts an OLECHAR string to an unsigned long value.
-     * @param {Pointer<PWSTR>} strIn The value to convert.
+     * @param {Pointer<Char>} strIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One or more of the following flags.
      * 
@@ -20925,7 +20933,7 @@ class Ole {
     static VarUI4FromStr(strIn, lcid, dwFlags, pulOut) {
         strIn := strIn is String? StrPtr(strIn) : strIn
 
-        result := DllCall("OLEAUT32.dll\VarUI4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pulOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "uint*", pulOut, "int")
         return result
     }
 
@@ -21013,7 +21021,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui4fromdisp
      */
     static VarUI4FromDisp(pdispIn, lcid, pulOut) {
-        result := DllCall("OLEAUT32.dll\VarUI4FromDisp", "ptr", pdispIn, "uint", lcid, "ptr", pulOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI4FromDisp", "ptr", pdispIn, "uint", lcid, "uint*", pulOut, "int")
         return result
     }
 
@@ -21100,7 +21108,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui4frombool
      */
     static VarUI4FromBool(boolIn, pulOut) {
-        result := DllCall("OLEAUT32.dll\VarUI4FromBool", "short", boolIn, "ptr", pulOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI4FromBool", "short", boolIn, "uint*", pulOut, "int")
         return result
     }
 
@@ -21187,7 +21195,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui4fromi1
      */
     static VarUI4FromI1(cIn, pulOut) {
-        result := DllCall("OLEAUT32.dll\VarUI4FromI1", "char", cIn, "ptr", pulOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI4FromI1", "char", cIn, "uint*", pulOut, "int")
         return result
     }
 
@@ -21274,7 +21282,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui4fromui2
      */
     static VarUI4FromUI2(uiIn, pulOut) {
-        result := DllCall("OLEAUT32.dll\VarUI4FromUI2", "ushort", uiIn, "ptr", pulOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI4FromUI2", "ushort", uiIn, "uint*", pulOut, "int")
         return result
     }
 
@@ -21361,7 +21369,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui4fromui8
      */
     static VarUI4FromUI8(ui64In, plOut) {
-        result := DllCall("OLEAUT32.dll\VarUI4FromUI8", "uint", ui64In, "ptr", plOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI4FromUI8", "uint", ui64In, "uint*", plOut, "int")
         return result
     }
 
@@ -21448,7 +21456,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui4fromdec
      */
     static VarUI4FromDec(pdecIn, pulOut) {
-        result := DllCall("OLEAUT32.dll\VarUI4FromDec", "ptr", pdecIn, "ptr", pulOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI4FromDec", "ptr", pdecIn, "uint*", pulOut, "int")
         return result
     }
 
@@ -21535,7 +21543,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui8fromui1
      */
     static VarUI8FromUI1(bIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarUI8FromUI1", "char", bIn, "ptr", pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarUI8FromUI1", "char", bIn, "uint*", pi64Out, "int")
         return result
     }
 
@@ -21622,7 +21630,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui8fromi2
      */
     static VarUI8FromI2(sIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarUI8FromI2", "short", sIn, "ptr", pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarUI8FromI2", "short", sIn, "uint*", pi64Out, "int")
         return result
     }
 
@@ -21709,7 +21717,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui8fromi8
      */
     static VarUI8FromI8(ui64In, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarUI8FromI8", "int64", ui64In, "ptr", pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarUI8FromI8", "int64", ui64In, "uint*", pi64Out, "int")
         return result
     }
 
@@ -21796,7 +21804,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui8fromr4
      */
     static VarUI8FromR4(fltIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarUI8FromR4", "float", fltIn, "ptr", pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarUI8FromR4", "float", fltIn, "uint*", pi64Out, "int")
         return result
     }
 
@@ -21883,7 +21891,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui8fromr8
      */
     static VarUI8FromR8(dblIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarUI8FromR8", "double", dblIn, "ptr", pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarUI8FromR8", "double", dblIn, "uint*", pi64Out, "int")
         return result
     }
 
@@ -21970,7 +21978,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui8fromcy
      */
     static VarUI8FromCy(cyIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarUI8FromCy", "ptr", cyIn, "ptr", pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarUI8FromCy", "ptr", cyIn, "uint*", pi64Out, "int")
         return result
     }
 
@@ -22057,13 +22065,13 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui8fromdate
      */
     static VarUI8FromDate(dateIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarUI8FromDate", "double", dateIn, "ptr", pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarUI8FromDate", "double", dateIn, "uint*", pi64Out, "int")
         return result
     }
 
     /**
      * Converts an OLECHAR string to an 8-byte unsigned integer value.
-     * @param {Pointer<PWSTR>} strIn The value to convert.
+     * @param {Pointer<Char>} strIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One or more of the following flags.
      * 
@@ -22165,7 +22173,7 @@ class Ole {
     static VarUI8FromStr(strIn, lcid, dwFlags, pi64Out) {
         strIn := strIn is String? StrPtr(strIn) : strIn
 
-        result := DllCall("OLEAUT32.dll\VarUI8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarUI8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "uint*", pi64Out, "int")
         return result
     }
 
@@ -22253,7 +22261,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui8fromdisp
      */
     static VarUI8FromDisp(pdispIn, lcid, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarUI8FromDisp", "ptr", pdispIn, "uint", lcid, "ptr", pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarUI8FromDisp", "ptr", pdispIn, "uint", lcid, "uint*", pi64Out, "int")
         return result
     }
 
@@ -22340,7 +22348,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui8frombool
      */
     static VarUI8FromBool(boolIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarUI8FromBool", "short", boolIn, "ptr", pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarUI8FromBool", "short", boolIn, "uint*", pi64Out, "int")
         return result
     }
 
@@ -22427,7 +22435,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui8fromi1
      */
     static VarUI8FromI1(cIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarUI8FromI1", "char", cIn, "ptr", pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarUI8FromI1", "char", cIn, "uint*", pi64Out, "int")
         return result
     }
 
@@ -22514,7 +22522,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui8fromui2
      */
     static VarUI8FromUI2(uiIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarUI8FromUI2", "ushort", uiIn, "ptr", pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarUI8FromUI2", "ushort", uiIn, "uint*", pi64Out, "int")
         return result
     }
 
@@ -22601,7 +22609,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui8fromui4
      */
     static VarUI8FromUI4(ulIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarUI8FromUI4", "uint", ulIn, "ptr", pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarUI8FromUI4", "uint", ulIn, "uint*", pi64Out, "int")
         return result
     }
 
@@ -22688,7 +22696,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui8fromdec
      */
     static VarUI8FromDec(pdecIn, pi64Out) {
-        result := DllCall("OLEAUT32.dll\VarUI8FromDec", "ptr", pdecIn, "ptr", pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarUI8FromDec", "ptr", pdecIn, "uint*", pi64Out, "int")
         return result
     }
 
@@ -23390,7 +23398,7 @@ class Ole {
 
     /**
      * Converts an OLECHAR string to a decimal value.
-     * @param {Pointer<PWSTR>} strIn The value to convert.
+     * @param {Pointer<Char>} strIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One or more of the following flags.
      * 
@@ -24041,7 +24049,7 @@ class Ole {
 
     /**
      * Parses a string, and creates a type-independent description of the number it represents.
-     * @param {Pointer<PWSTR>} strIn The input string to convert.
+     * @param {Pointer<Char>} strIn The input string to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags Enables the caller to control parsing, therefore defining the acceptable syntax of a number. If this field is set to zero, the input string must contain nothing but decimal digits. Setting each defined flag bit enables parsing of that syntactic feature. Standard Automation parsing (for example, as used by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-vari2fromstr">VarI2FromStr</a>) has all flags set (NUMPRS_STD).
      * @param {Pointer<NUMPARSE>} pnumprs The parsed results.
@@ -24106,7 +24114,7 @@ class Ole {
     static VarParseNumFromStr(strIn, lcid, dwFlags, pnumprs, rgbDig) {
         strIn := strIn is String? StrPtr(strIn) : strIn
 
-        result := DllCall("OLEAUT32.dll\VarParseNumFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pnumprs, "ptr", rgbDig, "int")
+        result := DllCall("OLEAUT32.dll\VarParseNumFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pnumprs, "char*", rgbDig, "int")
         return result
     }
 
@@ -24166,7 +24174,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varnumfromparsenum
      */
     static VarNumFromParseNum(pnumprs, rgbDig, dwVtBits, pvar) {
-        result := DllCall("OLEAUT32.dll\VarNumFromParseNum", "ptr", pnumprs, "ptr", rgbDig, "uint", dwVtBits, "ptr", pvar, "int")
+        result := DllCall("OLEAUT32.dll\VarNumFromParseNum", "ptr", pnumprs, "char*", rgbDig, "uint", dwVtBits, "ptr", pvar, "int")
         return result
     }
 
@@ -25534,14 +25542,14 @@ class Ole {
 
     /**
      * Concatenates two variants of type BSTR and returns the resulting BSTR.
-     * @param {Pointer<BSTR>} bstrLeft The first variant.
-     * @param {Pointer<BSTR>} bstrRight The second variant.
-     * @param {Pointer<BSTR>} pbstrResult The result.
+     * @param {Pointer<Char>} bstrLeft The first variant.
+     * @param {Pointer<Char>} bstrRight The second variant.
+     * @param {Pointer<Char>} pbstrResult The result.
      * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varbstrcat
      */
     static VarBstrCat(bstrLeft, bstrRight, pbstrResult) {
-        result := DllCall("OLEAUT32.dll\VarBstrCat", "ptr", bstrLeft, "ptr", bstrRight, "ptr", pbstrResult, "int")
+        result := DllCall("OLEAUT32.dll\VarBstrCat", "char*", bstrLeft, "char*", bstrRight, "ptr", pbstrResult, "int")
         return result
     }
 
@@ -25549,8 +25557,8 @@ class Ole {
      * Compares two variants of type BSTR.
      * @remarks
      * This function will not compare arrays or records.
-     * @param {Pointer<BSTR>} bstrLeft The first variant.
-     * @param {Pointer<BSTR>} bstrRight The second variant.
+     * @param {Pointer<Char>} bstrLeft The first variant.
+     * @param {Pointer<Char>} bstrRight The second variant.
      * @param {Integer} lcid The locale identifier of the program to determine whether UNICODE or ANSI strings are being used.
      * @param {Integer} dwFlags The following are compare results flags.
      * 
@@ -25673,7 +25681,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varbstrcmp
      */
     static VarBstrCmp(bstrLeft, bstrRight, lcid, dwFlags) {
-        result := DllCall("OLEAUT32.dll\VarBstrCmp", "ptr", bstrLeft, "ptr", bstrRight, "uint", lcid, "uint", dwFlags, "int")
+        result := DllCall("OLEAUT32.dll\VarBstrCmp", "char*", bstrLeft, "char*", bstrRight, "uint", lcid, "uint", dwFlags, "int")
         return result
     }
 
@@ -25686,7 +25694,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8pow
      */
     static VarR8Pow(dblLeft, dblRight, pdblResult) {
-        result := DllCall("OLEAUT32.dll\VarR8Pow", "double", dblLeft, "double", dblRight, "ptr", pdblResult, "int")
+        result := DllCall("OLEAUT32.dll\VarR8Pow", "double", dblLeft, "double", dblRight, "double*", pdblResult, "int")
         return result
     }
 
@@ -25768,7 +25776,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8round
      */
     static VarR8Round(dblIn, cDecimals, pdblResult) {
-        result := DllCall("OLEAUT32.dll\VarR8Round", "double", dblIn, "int", cDecimals, "ptr", pdblResult, "int")
+        result := DllCall("OLEAUT32.dll\VarR8Round", "double", dblIn, "int", cDecimals, "double*", pdblResult, "int")
         return result
     }
 
@@ -25835,7 +25843,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefromudate
      */
     static VarDateFromUdate(pudateIn, dwFlags, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromUdate", "ptr", pudateIn, "uint", dwFlags, "ptr", pdateOut, "int")
+        result := DllCall("OLEAUT32.dll\VarDateFromUdate", "ptr", pudateIn, "uint", dwFlags, "double*", pdateOut, "int")
         return result
     }
 
@@ -25901,7 +25909,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vardatefromudateex
      */
     static VarDateFromUdateEx(pudateIn, lcid, dwFlags, pdateOut) {
-        result := DllCall("OLEAUT32.dll\VarDateFromUdateEx", "ptr", pudateIn, "uint", lcid, "uint", dwFlags, "ptr", pdateOut, "int")
+        result := DllCall("OLEAUT32.dll\VarDateFromUdateEx", "ptr", pudateIn, "uint", lcid, "uint", dwFlags, "double*", pdateOut, "int")
         return result
     }
 
@@ -25975,13 +25983,11 @@ class Ole {
      * @remarks
      * Useful for Hijri, Polish and Russian alternate month names.
      * @param {Integer} lcid The locale identifier to be used in retrieving the alternate month names.
-     * @param {Pointer<PWSTR>} prgp An array of pointers to strings containing the alternate month names.
+     * @param {Pointer<Char>} prgp An array of pointers to strings containing the alternate month names.
      * @returns {Integer} The function returns TRUE on success and FALSE otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-getaltmonthnames
      */
     static GetAltMonthNames(lcid, prgp) {
-        prgp := prgp is String? StrPtr(prgp) : prgp
-
         result := DllCall("OLEAUT32.dll\GetAltMonthNames", "uint", lcid, "ptr", prgp, "int")
         return result
     }
@@ -25991,7 +25997,7 @@ class Ole {
      * @remarks
      * This function uses the user's default locale while calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-vartokenizeformatstring">VarTokenizeFormatString</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-varformatfromtokens">VarFormatFromTokens</a>.
      * @param {Pointer<VARIANT>} pvarIn The variant.
-     * @param {Pointer<PWSTR>} pstrFormat The format string. For example "mm-dd-yy".
+     * @param {Pointer<Char>} pstrFormat The format string. For example "mm-dd-yy".
      * @param {Integer} iFirstDay First day of the week.
      * 
      * 
@@ -26143,7 +26149,7 @@ class Ole {
      * </tr>
      * </table>
      * @param {Integer} dwFlags Flags that control the formatting process. The only flags that can be set are VAR_CALENDAR_HIJRI or VAR_FORMAT_NOSUBSTITUTE.
-     * @param {Pointer<BSTR>} pbstrOut The formatted string that represents the variant.
+     * @param {Pointer<Char>} pbstrOut The formatted string that represents the variant.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -26252,7 +26258,7 @@ class Ole {
      * </tr>
      * </table>
      * @param {Integer} dwFlags VAR_CALENDAR_HIJRI is the only flag that can be set.
-     * @param {Pointer<BSTR>} pbstrOut Receives the formatted string that represents the variant.
+     * @param {Pointer<Char>} pbstrOut Receives the formatted string that represents the variant.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -26422,7 +26428,7 @@ class Ole {
      * </tr>
      * </table>
      * @param {Integer} dwFlags VAR_CALENDAR_HIJRI is the only flag that can be set.
-     * @param {Pointer<BSTR>} pbstrOut Points to the formatted string that represents the variant.
+     * @param {Pointer<Char>} pbstrOut Points to the formatted string that represents the variant.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -26592,7 +26598,7 @@ class Ole {
      * </tr>
      * </table>
      * @param {Integer} dwFlags VAR_CALENDAR_HIJRI is the only flag that can be set.
-     * @param {Pointer<BSTR>} pbstrOut Receives the formatted string that represents the variant.
+     * @param {Pointer<Char>} pbstrOut Receives the formatted string that represents the variant.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -26762,7 +26768,7 @@ class Ole {
      * </tr>
      * </table>
      * @param {Integer} dwFlags VAR_CALENDAR_HIJRI is the only flag that can be set.
-     * @param {Pointer<BSTR>} pbstrOut The formatted string that represents the variant.
+     * @param {Pointer<Char>} pbstrOut The formatted string that represents the variant.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -26997,7 +27003,7 @@ class Ole {
      * </tr>
      * </table>
      * @param {Integer} dwFlags VAR_CALENDAR_HIJRI is the only flag that can be set.
-     * @param {Pointer<BSTR>} pbstrOut Receives the formatted string that represents the variant.
+     * @param {Pointer<Char>} pbstrOut Receives the formatted string that represents the variant.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -27052,7 +27058,7 @@ class Ole {
      * @param {Integer} iMonth Represents the month, as a number from 1 to 12.
      * @param {Integer} fAbbrev If zero then the full (non-abbreviated) month name is used. If non-zero, then the abbreviation for the month name is used.
      * @param {Integer} dwFlags VAR_CALENDAR_HIJRI is the only flag that can be set.
-     * @param {Pointer<BSTR>} pbstrOut Receives the formatted string that represents the variant.
+     * @param {Pointer<Char>} pbstrOut Receives the formatted string that represents the variant.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -27095,10 +27101,10 @@ class Ole {
      * @remarks
      * The locale <i>lcid</i> controls the formatted output string.
      * @param {Pointer<VARIANT>} pvarIn The variant containing the value to format.
-     * @param {Pointer<PWSTR>} pstrFormat The original format string.
+     * @param {Pointer<Char>} pstrFormat The original format string.
      * @param {Pointer<Byte>} pbTokCur The tokenized format string from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-vartokenizeformatstring">VarTokenizeFormatString</a>.
      * @param {Integer} dwFlags The only flags that can be set are VAR_CALENDAR_HIJRI or VAR_FORMAT_NOSUBSTITUTE.
-     * @param {Pointer<BSTR>} pbstrOut The formatted output string.
+     * @param {Pointer<Char>} pbstrOut The formatted output string.
      * @param {Integer} lcid The locale to use for the formatted output string.
      * @returns {Integer} This function can return one of these values.
      * 
@@ -27160,7 +27166,7 @@ class Ole {
     static VarFormatFromTokens(pvarIn, pstrFormat, pbTokCur, dwFlags, pbstrOut, lcid) {
         pstrFormat := pstrFormat is String? StrPtr(pstrFormat) : pstrFormat
 
-        result := DllCall("OLEAUT32.dll\VarFormatFromTokens", "ptr", pvarIn, "ptr", pstrFormat, "ptr", pbTokCur, "uint", dwFlags, "ptr", pbstrOut, "uint", lcid, "int")
+        result := DllCall("OLEAUT32.dll\VarFormatFromTokens", "ptr", pvarIn, "ptr", pstrFormat, "char*", pbTokCur, "uint", dwFlags, "ptr", pbstrOut, "uint", lcid, "int")
         return result
     }
 
@@ -27170,7 +27176,7 @@ class Ole {
      * Parsing the format string once and then using it repeatedly is usually faster than calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-varformat">VarFormat</a> repeatedly, because the latter routine calls <b>VarTokenizeFormatString</b> for each call.
      * 
      * The locale you pass in controls how the format string is interpreted, not how the actual output of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-varformatfromtokens">VarFormatFromTokens</a> looks.
-     * @param {Pointer<PWSTR>} pstrFormat The format string. For example "mm-dd-yy".
+     * @param {Pointer<Char>} pstrFormat The format string. For example "mm-dd-yy".
      * @param {Pointer<Byte>} rgbTok The destination token buffer.
      * @param {Integer} cbTok The size of the destination token buffer.
      * @param {Integer} iFirstDay First day of the week.
@@ -27372,7 +27378,7 @@ class Ole {
     static VarTokenizeFormatString(pstrFormat, rgbTok, cbTok, iFirstDay, iFirstWeek, lcid, pcbActual) {
         pstrFormat := pstrFormat is String? StrPtr(pstrFormat) : pstrFormat
 
-        result := DllCall("OLEAUT32.dll\VarTokenizeFormatString", "ptr", pstrFormat, "ptr", rgbTok, "int", cbTok, "int", iFirstDay, "int", iFirstWeek, "uint", lcid, "ptr", pcbActual, "int")
+        result := DllCall("OLEAUT32.dll\VarTokenizeFormatString", "ptr", pstrFormat, "char*", rgbTok, "int", cbTok, "int", iFirstDay, "int", iFirstWeek, "uint", lcid, "int*", pcbActual, "int")
         return result
     }
 
@@ -27380,7 +27386,7 @@ class Ole {
      * Computes a hash value for the specified name.
      * @param {Integer} syskind The SYSKIND of the target operating system.
      * @param {Integer} lcid The LCID for the string.
-     * @param {Pointer<PSTR>} szName The string whose hash value is to be computed.
+     * @param {Pointer<Byte>} szName The string whose hash value is to be computed.
      * @returns {Integer} A hash value that represents the specified name.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-lhashvalofnamesysa
      */
@@ -27395,7 +27401,7 @@ class Ole {
      * Computes a hash value for a name. (LHashValOfNameSys)
      * @param {Integer} syskind The SYSKIND of the target operating system.
      * @param {Integer} lcid The LCID for the string.
-     * @param {Pointer<PWSTR>} szName The string whose hash value is to be computed.
+     * @param {Pointer<Char>} szName The string whose hash value is to be computed.
      * @returns {Integer} A hash value that represents the passed-in name.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-lhashvalofnamesys
      */
@@ -27443,7 +27449,7 @@ class Ole {
      * 
      * 
      * For backward compatibility, <b>LoadTypeLib</b> will register the type library if the path is not specified in the <i>szFile</i> parameter. <b>LoadTypeLib</b> will not register the type library if the path of the type library is specified. It is recommended that <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-registertypelib">RegisterTypeLib</a> be used to register a type library.
-     * @param {Pointer<PWSTR>} szFile The name of the file from which the method should attempt to load a type library.
+     * @param {Pointer<Char>} szFile The name of the file from which the method should attempt to load a type library.
      * @param {Pointer<ITypeLib>} pptlib The loaded type library.
      * @returns {Integer} This function can return one of these values.
      * 
@@ -27578,7 +27584,7 @@ class Ole {
      * Loads a type library and (optionally) registers it in the system registry.  .
      * @remarks
      * Enables programmers to specify whether or not the type library should be loaded.
-     * @param {Pointer<PWSTR>} szFile The type library file.
+     * @param {Pointer<Char>} szFile The type library file.
      * @param {Integer} regkind Identifies the kind of registration to perform for the type library based on the following flags: DEFAULT, REGISTER and NONE. REGKIND_DEFAULT simply calls LoadTypeLib and registration occurs based on the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-loadtypelib">LoadTypeLib</a> registration rules. REGKIND_NONE calls <b>LoadTypeLib</b> without the registration process enabled. REGKIND_REGISTER calls <b>LoadTypeLib</b> followed by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-registertypelib">RegisterTypeLib</a>, which registers the type library. To unregister the type library, use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-unregistertypelib">UnRegisterTypeLib</a>.
      * @param {Pointer<ITypeLib>} pptlib The type library.
      * @returns {Integer} This function can return one of these values.
@@ -27854,7 +27860,7 @@ class Ole {
      * @param {Integer} wMaj The major version number of the library.
      * @param {Integer} wMin The minor version number of the library.
      * @param {Integer} lcid The national language code for the library.
-     * @param {Pointer<BSTR>} lpbstrPathName The type library name.
+     * @param {Pointer<Char>} lpbstrPathName The type library name.
      * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-querypathofregtypelib
      */
@@ -27872,8 +27878,8 @@ class Ole {
      * 
      * In addition to filling in a complete registry entry under the type library key, <b>RegisterTypeLib</b> adds entries for each of the dispinterfaces and Automation-compatible interfaces, including dual interfaces. This information is required to create instances of these interfaces. Coclasses are not registered (that is, <b>RegisterTypeLib</b> does not write any values to the CLSID key of the coclass).
      * @param {Pointer<ITypeLib>} ptlib The type library.
-     * @param {Pointer<PWSTR>} szFullPath The fully qualified path specification for the type library.
-     * @param {Pointer<PWSTR>} szHelpDir The directory in which the Help file for the library being registered can be found. This parameter can be null.
+     * @param {Pointer<Char>} szFullPath The fully qualified path specification for the type library.
+     * @param {Pointer<Char>} szHelpDir The directory in which the Help file for the library being registered can be found. This parameter can be null.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -28071,8 +28077,8 @@ class Ole {
      * @remarks
      * <b>RegisterTypeLibForUser</b> has functionality identical to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-registertypelib">RegisterTypeLib</a> except that type library is registered for use only by the calling user identity.
      * @param {Pointer<ITypeLib>} ptlib The type library.
-     * @param {Pointer<PWSTR>} szFullPath The fully qualified path specification for the type library.
-     * @param {Pointer<PWSTR>} szHelpDir The directory in which the Help file for the library being registered can be found. This parameter can be null.
+     * @param {Pointer<Char>} szFullPath The fully qualified path specification for the type library.
+     * @param {Pointer<Char>} szHelpDir The directory in which the Help file for the library being registered can be found. This parameter can be null.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -28270,7 +28276,7 @@ class Ole {
      * @remarks
      * <b>CreateTypeLib</b> sets its output parameter (ppctlib) to point to a newly created object that supports the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-icreatetypelib">ICreateTypeLib</a> interface.
      * @param {Integer} syskind The target operating system for which to create a type library.
-     * @param {Pointer<PWSTR>} szFile The name of the file to create.
+     * @param {Pointer<Char>} szFile The name of the file to create.
      * @param {Pointer<ICreateTypeLib>} ppctlib The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-icreatetypelib">ICreateTypeLib</a> interface.
      * @returns {Integer} <table>
      * <tr>
@@ -28353,7 +28359,7 @@ class Ole {
     /**
      * Creates a type library in the current file format.
      * @param {Integer} syskind The target operating system for which to create a type library.
-     * @param {Pointer<PWSTR>} szFile The name of the file to create.
+     * @param {Pointer<Char>} szFile The name of the file to create.
      * @param {Pointer<ICreateTypeLib2>} ppctlib The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-icreatetypelib2">ICreateTypeLib2</a> interface.
      * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-createtypelib2
@@ -28477,14 +28483,14 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-dispgetparam
      */
     static DispGetParam(pdispparams, position, vtTarg, pvarResult, puArgErr) {
-        result := DllCall("OLEAUT32.dll\DispGetParam", "ptr", pdispparams, "uint", position, "ushort", vtTarg, "ptr", pvarResult, "ptr", puArgErr, "int")
+        result := DllCall("OLEAUT32.dll\DispGetParam", "ptr", pdispparams, "uint", position, "ushort", vtTarg, "ptr", pvarResult, "uint*", puArgErr, "int")
         return result
     }
 
     /**
      * Low-level helper for Invoke that provides machine independence for customized Invoke. (DispGetIDsOfNames)
      * @param {Pointer<ITypeInfo>} ptinfo The type information for an interface. This type information is specific to one interface and language code, so it is not necessary to pass an interface identifier (IID) or LCID to this function.
-     * @param {Pointer<PWSTR>} rgszNames An array of name strings that can be the same array passed to DispInvoke in the DISPPARAMS structure. If <i>cNames</i> is greater than 1, the first name is interpreted as a method name, and subsequent names are interpreted as parameters to that method.
+     * @param {Pointer<Char>} rgszNames An array of name strings that can be the same array passed to DispInvoke in the DISPPARAMS structure. If <i>cNames</i> is greater than 1, the first name is interpreted as a method name, and subsequent names are interpreted as parameters to that method.
      * @param {Integer} cNames The number of elements in <i>rgszNames</i>.
      * @param {Pointer<Int32>} rgdispid An array of DISPIDs to be filled in by this function. The first ID corresponds to the method name. Subsequent IDs are interpreted as parameters to the method.
      * @returns {Integer} <table>
@@ -28534,9 +28540,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-dispgetidsofnames
      */
     static DispGetIDsOfNames(ptinfo, rgszNames, cNames, rgdispid) {
-        rgszNames := rgszNames is String? StrPtr(rgszNames) : rgszNames
-
-        result := DllCall("OLEAUT32.dll\DispGetIDsOfNames", "ptr", ptinfo, "ptr", rgszNames, "uint", cNames, "ptr", rgdispid, "int")
+        result := DllCall("OLEAUT32.dll\DispGetIDsOfNames", "ptr", ptinfo, "ptr", rgszNames, "uint", cNames, "int*", rgdispid, "int")
         return result
     }
 
@@ -28755,7 +28759,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-dispinvoke
      */
     static DispInvoke(_this, ptinfo, dispidMember, wFlags, pparams, pvarResult, pexcepinfo, puArgErr) {
-        result := DllCall("OLEAUT32.dll\DispInvoke", "ptr", _this, "ptr", ptinfo, "int", dispidMember, "ushort", wFlags, "ptr", pparams, "ptr", pvarResult, "ptr", pexcepinfo, "ptr", puArgErr, "int")
+        result := DllCall("OLEAUT32.dll\DispInvoke", "ptr", _this, "ptr", ptinfo, "int", dispidMember, "ushort", wFlags, "ptr", pparams, "ptr", pvarResult, "ptr", pexcepinfo, "uint*", puArgErr, "int")
         return result
     }
 
@@ -28912,7 +28916,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-dispcallfunc
      */
     static DispCallFunc(pvInstance, oVft, cc, vtReturn, cActuals, prgvt, prgpvarg, pvargResult) {
-        result := DllCall("OLEAUT32.dll\DispCallFunc", "ptr", pvInstance, "ptr", oVft, "int", cc, "ushort", vtReturn, "uint", cActuals, "ptr", prgvt, "ptr", prgpvarg, "ptr", pvargResult, "int")
+        result := DllCall("OLEAUT32.dll\DispCallFunc", "ptr", pvInstance, "ptr", oVft, "int", cc, "ushort", vtReturn, "uint", cActuals, "ushort*", prgvt, "ptr", prgpvarg, "ptr", pvargResult, "int")
         return result
     }
 
@@ -29003,7 +29007,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-registeractiveobject
      */
     static RegisterActiveObject(punk, rclsid, dwFlags, pdwRegister) {
-        result := DllCall("OLEAUT32.dll\RegisterActiveObject", "ptr", punk, "ptr", rclsid, "uint", dwFlags, "ptr", pdwRegister, "int")
+        result := DllCall("OLEAUT32.dll\RegisterActiveObject", "ptr", punk, "ptr", rclsid, "uint", dwFlags, "uint*", pdwRegister, "int")
         return result
     }
 
@@ -29207,11 +29211,12 @@ class Ole {
     /**
      * Releases memory used to hold the custom data item.
      * @param {Pointer<CUSTDATA>} pCustData The custom data item to be released.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-clearcustdata
      */
     static ClearCustData(pCustData) {
-        DllCall("OLEAUT32.dll\ClearCustData", "ptr", pCustData)
+        result := DllCall("OLEAUT32.dll\ClearCustData", "ptr", pCustData)
+        return result
     }
 
     /**
@@ -29254,11 +29259,12 @@ class Ole {
      * </li>
      * </ul>
      * When using run-time dynamic linking it should be noted that the setting to enable per-user type library registration is a global setting in oleaut32.dll, so if oleaut32.dll is unloaded then this setting is lost.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-oaenableperusertlibregistration
      */
     static OaEnablePerUserTLibRegistration() {
-        DllCall("OLEAUT32.dll\OaEnablePerUserTLibRegistration")
+        result := DllCall("OLEAUT32.dll\OaEnablePerUserTLibRegistration")
+        return result
     }
 
     /**
@@ -29354,12 +29360,13 @@ class Ole {
      * The <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-oleinitialize">OleInitialize</a> and <b>OleUninitialize</b> calls must be balanced. If there are multiple calls to the <b>OleInitialize</b> function, there must be the same number of calls to <b>OleUninitialize</b>; only the <b>OleUninitialize</b> call corresponding to the <b>OleInitialize</b> call that actually initialized the library can close it.
      * 
      * Because there is no way to control the order in which in-process servers are loaded or unloaded, do not call <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-oleinitialize">OleInitialize</a> or <b>OleUninitialize</b> from the <a href="https://docs.microsoft.com/windows/desktop/Dlls/dllmain">DllMain</a> function.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/ole2/nf-ole2-oleuninitialize
      * @since windows5.0
      */
     static OleUninitialize() {
-        DllCall("OLE32.dll\OleUninitialize")
+        result := DllCall("OLE32.dll\OleUninitialize")
+        return result
     }
 
     /**
@@ -29552,7 +29559,7 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateEx(rclsid, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
-        result := DllCall("ole32.dll\OleCreateEx", "ptr", rclsid, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "ptr", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "ptr", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
+        result := DllCall("ole32.dll\OleCreateEx", "ptr", rclsid, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "uint*", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "uint*", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
         return result
     }
 
@@ -29746,7 +29753,7 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateFromDataEx(pSrcDataObj, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
-        result := DllCall("ole32.dll\OleCreateFromDataEx", "ptr", pSrcDataObj, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "ptr", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "ptr", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
+        result := DllCall("ole32.dll\OleCreateFromDataEx", "ptr", pSrcDataObj, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "uint*", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "uint*", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
         return result
     }
 
@@ -29919,7 +29926,7 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateLinkFromDataEx(pSrcDataObj, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
-        result := DllCall("ole32.dll\OleCreateLinkFromDataEx", "ptr", pSrcDataObj, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "ptr", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "ptr", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
+        result := DllCall("ole32.dll\OleCreateLinkFromDataEx", "ptr", pSrcDataObj, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "uint*", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "uint*", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
         return result
     }
 
@@ -30078,7 +30085,7 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateLinkEx(pmkLinkSrc, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
-        result := DllCall("ole32.dll\OleCreateLinkEx", "ptr", pmkLinkSrc, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "ptr", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "ptr", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
+        result := DllCall("ole32.dll\OleCreateLinkEx", "ptr", pmkLinkSrc, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "uint*", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "uint*", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
         return result
     }
 
@@ -30086,7 +30093,7 @@ class Ole {
      * Creates an object that is linked to a file.
      * @remarks
      * The <b>OleCreateLinkToFile</b> function differs from the <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-olecreatelink">OleCreateLink</a> function because it can create links both to files that are not aware of OLE, as well as to those that are using the Windows Packager.
-     * @param {Pointer<PWSTR>} lpszFileName Pointer to a string naming the source file to be linked to.
+     * @param {Pointer<Char>} lpszFileName Pointer to a string naming the source file to be linked to.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface the caller later uses to communicate with the new object (usually IID_IOleObject, defined in the OLE headers as the interface identifier for <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a>).
      * @param {Integer} renderopt Value from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> that indicates the locally cached drawing or data-retrieval capabilities the newly created object is to have. Additional considerations are described in the following Remarks section.
      * @param {Pointer<FORMATETC>} lpFormatEtc Pointer to a value from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> that indicates the locally cached drawing or data-retrieval capabilities the newly created object is to have. The <b>OLERENDER</b> value chosen affects the possible values for the <i>pFormatEtc</i> parameter.
@@ -30164,7 +30171,7 @@ class Ole {
      * 
      * 
      * These new functions are for OLE Compound Documents. Using these functions, applications can avoid the repeated launching and initialization steps required by the current functions. They are targeted at OLE Compound Document container applications that use default data- and presentation-caching, and also at applications that provide their own caching and data transfer from the underlying <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a> support.
-     * @param {Pointer<PWSTR>} lpszFileName Pointer to the name of the file to create a link to.
+     * @param {Pointer<Char>} lpszFileName Pointer to the name of the file to create a link to.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface of the object to return.
      * @param {Integer} dwFlags This parameter can be 0 or OLECREATE_LEAVERUNNING (0x00000001).
      * @param {Integer} renderopt Value taken from the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> enumeration.
@@ -30212,7 +30219,7 @@ class Ole {
     static OleCreateLinkToFileEx(lpszFileName, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
         lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
 
-        result := DllCall("ole32.dll\OleCreateLinkToFileEx", "ptr", lpszFileName, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "ptr", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "ptr", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
+        result := DllCall("ole32.dll\OleCreateLinkToFileEx", "ptr", lpszFileName, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "uint*", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "uint*", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
         return result
     }
 
@@ -30223,7 +30230,7 @@ class Ole {
      * 
      * As for other OleCreateXxx functions, the newly created object is not shown to the user for editing, which requires a <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-doverb">DoVerb</a> operation. It is used to implement insert file operations.
      * @param {Pointer<Guid>} rclsid This parameter is reserved and must be CLSID_NULL.
-     * @param {Pointer<PWSTR>} lpszFileName Pointer to a string specifying the full path of the file from which the object should be initialized.
+     * @param {Pointer<Char>} lpszFileName Pointer to a string specifying the full path of the file from which the object should be initialized.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface the caller later uses to communicate with the new object (usually IID_IOleObject, defined in the OLE headers as the interface ID of <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a>).
      * @param {Integer} renderopt Value from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> that indicates the locally cached drawing or data-retrieval capabilities the newly created object is to have. The <b>OLERENDER</b> value chosen affects the possible values for the <i>lpFormatEtc</i> parameter.
      * @param {Pointer<FORMATETC>} lpFormatEtc Depending on which of the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> flags is used as the value of <i>renderopt</i>, pointer to one of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> enumeration values. Refer also to the <b>OLERENDER</b> enumeration for restrictions.
@@ -30344,7 +30351,7 @@ class Ole {
      * 
      * These new functions are for OLE Compound Documents. Using these functions, applications can avoid the repeated launching and initialization steps required by the current functions. They are targeted at OLE Compound Document container applications that use default data- and presentation-caching, and also at applications that provide their own caching and data transfer from the underlying <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a> support.
      * @param {Pointer<Guid>} rclsid This parameter is reserved and must be CLSID_NULL.
-     * @param {Pointer<PWSTR>} lpszFileName Pointer to the name of the file from which the new object should be initialized.
+     * @param {Pointer<Char>} lpszFileName Pointer to the name of the file from which the new object should be initialized.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface of the object to return.
      * @param {Integer} dwFlags This parameter can be 0 or OLECREATE_LEAVERUNNING (0x00000001).
      * @param {Integer} renderopt Value taken from the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> enumeration.
@@ -30392,7 +30399,7 @@ class Ole {
     static OleCreateFromFileEx(rclsid, lpszFileName, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
         lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
 
-        result := DllCall("ole32.dll\OleCreateFromFileEx", "ptr", rclsid, "ptr", lpszFileName, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "ptr", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "ptr", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
+        result := DllCall("ole32.dll\OleCreateFromFileEx", "ptr", rclsid, "ptr", lpszFileName, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "uint*", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "uint*", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
         return result
     }
 
@@ -30731,7 +30738,7 @@ class Ole {
      * As the mouse passes over unobscured portions of the target window during an OLE drag-and-drop operation, the <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-dodragdrop">DoDragDrop</a> function calls the specified <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-idroptarget-dragover">IDropTarget::DragOver</a> method for the current window. When a drop operation actually occurs in a given window, the <b>DoDragDrop</b> function calls <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-idroptarget-drop">IDropTarget::Drop</a>.
      * 
      * The <b>RegisterDragDrop</b> function also calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">IUnknown::AddRef</a> method on the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-idroptarget">IDropTarget</a> pointer.
-     * @param {Pointer<HWND>} hwnd Handle to a window that can be a target for an OLE drag-and-drop operation.
+     * @param {Pointer<Void>} hwnd Handle to a window that can be a target for an OLE drag-and-drop operation.
      * @param {Pointer<IDropTarget>} pDropTarget Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-idroptarget">IDropTarget</a> interface on the object that is to be the target of a drag-and-drop operation in a specified window. This interface is used to communicate OLE drag-and-drop information for that window.
      * @returns {Integer} This function returns S_OK on success. Other possible values include the following.
      * 
@@ -30792,7 +30799,7 @@ class Ole {
      * When your application window is no longer available as a potential target for an OLE drag-and-drop operation, you must call <b>RevokeDragDrop</b>.
      * 
      * This function calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method for your drop target interface.
-     * @param {Pointer<HWND>} hwnd Handle to a window previously registered as a target for an OLE drag-and-drop operation.
+     * @param {Pointer<Void>} hwnd Handle to a window previously registered as a target for an OLE drag-and-drop operation.
      * @returns {Integer} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -30962,7 +30969,7 @@ class Ole {
      * @since windows5.0
      */
     static DoDragDrop(pDataObj, pDropSource, dwOKEffects, pdwEffect) {
-        result := DllCall("OLE32.dll\DoDragDrop", "ptr", pDataObj, "ptr", pDropSource, "uint", dwOKEffects, "ptr", pdwEffect, "int")
+        result := DllCall("OLE32.dll\DoDragDrop", "ptr", pDataObj, "ptr", pDropSource, "uint", dwOKEffects, "uint*", pdwEffect, "int")
         return result
     }
 
@@ -31157,11 +31164,11 @@ class Ole {
      * 
      * If you call the <b>OleGetClipboardWithEnterpriseInfo</b> function, you should only hold on to the returned <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> for a very short time. It consumes resources in the application that offered it.
      * @param {Pointer<IDataObject>} dataObject Address of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> pointer variable that receives the interface pointer to the clipboard data object.
-     * @param {Pointer<PWSTR>} dataEnterpriseId The enterprise id of the application that set the clipboard data. 
+     * @param {Pointer<Char>} dataEnterpriseId The enterprise id of the application that set the clipboard data. 
      * If the data is personal, this will be an empty string.
-     * @param {Pointer<PWSTR>} sourceDescription The description of the application that set the clipboard.
-     * @param {Pointer<PWSTR>} targetDescription The         description of the caller's application to be used in auditing.
-     * @param {Pointer<PWSTR>} dataDescription The description of the data object to be used in auditing.
+     * @param {Pointer<Char>} sourceDescription The description of the application that set the clipboard.
+     * @param {Pointer<Char>} targetDescription The         description of the caller's application to be used in auditing.
+     * @param {Pointer<Char>} dataDescription The description of the data object to be used in auditing.
      * @returns {Integer} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -31196,11 +31203,6 @@ class Ole {
      * @since windows10.0.10240
      */
     static OleGetClipboardWithEnterpriseInfo(dataObject, dataEnterpriseId, sourceDescription, targetDescription, dataDescription) {
-        dataEnterpriseId := dataEnterpriseId is String? StrPtr(dataEnterpriseId) : dataEnterpriseId
-        sourceDescription := sourceDescription is String? StrPtr(sourceDescription) : sourceDescription
-        targetDescription := targetDescription is String? StrPtr(targetDescription) : targetDescription
-        dataDescription := dataDescription is String? StrPtr(dataDescription) : dataDescription
-
         result := DllCall("ole32.dll\OleGetClipboardWithEnterpriseInfo", "ptr", dataObject, "ptr", dataEnterpriseId, "ptr", sourceDescription, "ptr", targetDescription, "ptr", dataDescription, "int")
         return result
     }
@@ -31292,7 +31294,7 @@ class Ole {
      * Creates and returns an OLE menu descriptor (that is, an OLE-provided data structure that describes the menus) for OLE to use when dispatching menu messages and commands.
      * @remarks
      * The <b>OleCreateMenuDescriptor</b> function can be called by the object to create a descriptor for the composite menu. OLE then uses this descriptor to dispatch menu messages and commands. To free the shared menu descriptor when it is no longer needed, the container should call the companion helper function, <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-oledestroymenudescriptor">OleDestroyMenuDescriptor</a>.
-     * @param {Pointer<HMENU>} hmenuCombined Handle to the combined menu created by the object.
+     * @param {Pointer<Void>} hmenuCombined Handle to the combined menu created by the object.
      * @param {Pointer<OLEMENUGROUPWIDTHS>} lpMenuWidths Pointer to an array of six <b>LONG</b> values giving the number of menus in each group.
      * @returns {Pointer} Returns the handle to the descriptor, or <b>NULL</b> if insufficient memory is available.
      * @see https://learn.microsoft.com/windows/win32/api/ole2/nf-ole2-olecreatemenudescriptor
@@ -31310,8 +31312,8 @@ class Ole {
      * 
      * If both the <i>lpFrame</i> and <i>lpActiveObj</i> parameters are non-<b>NULL</b>, OLE installs the context-sensitive help F1 message filter for the application. Otherwise, the application must supply its own message filter.
      * @param {Pointer} holemenu Handle to the composite menu descriptor returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-olecreatemenudescriptor">OleCreateMenuDescriptor</a> function. If <b>NULL</b>, the dispatching code is unhooked.
-     * @param {Pointer<HWND>} hwndFrame Handle to the container's frame window where the in-place composite menu is to be installed.
-     * @param {Pointer<HWND>} hwndActiveObject Handle to the object's in-place activation window. OLE dispatches menu messages and commands to this window.
+     * @param {Pointer<Void>} hwndFrame Handle to the container's frame window where the in-place composite menu is to be installed.
+     * @param {Pointer<Void>} hwndActiveObject Handle to the object's in-place activation window. OLE dispatches menu messages and commands to this window.
      * @param {Pointer<IOleInPlaceFrame>} lpFrame Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceframe">IOleInPlaceFrame</a> interface on the container's frame window.
      * @param {Pointer<IOleInPlaceActiveObject>} lpActiveObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceactiveobject">IOleInPlaceActiveObject</a> interface on the active in-place object.
      * @returns {Integer} This function returns S_OK on success.
@@ -31387,15 +31389,15 @@ class Ole {
      * Duplicates the data found in the specified handle and returns a handle to the duplicated data. The source data is in a clipboard format. Use this function to help implement some of the data transfer interfaces such as IDataObject.
      * @remarks
      * The CF_METAFILEPICT, CF_PALETTE, or CF_BITMAP formats receive special handling. They are GDI handles and a new GDI object must be created instead of just copying the bytes. All other formats are duplicated byte-wise.
-     * @param {Pointer<HANDLE>} hSrc Handle of the source data.
+     * @param {Pointer<Void>} hSrc Handle of the source data.
      * @param {Integer} cfFormat Clipboard format of the source data.
      * @param {Integer} uiFlags Flags to be used to allocate global memory for the copied data. These flags are passed to GlobalAlloc. If the value of <i>uiFlags</i> is <b>NULL</b>, GMEM_MOVEABLE is used as a default flag.
-     * @returns {Pointer<HANDLE>} On success the HANDLE to the source data is returned; on failure a  <b>NULL</b> value is returned.
+     * @returns {Pointer<Void>} On success the HANDLE to the source data is returned; on failure a  <b>NULL</b> value is returned.
      * @see https://learn.microsoft.com/windows/win32/api/ole2/nf-ole2-oleduplicatedata
      * @since windows5.0
      */
     static OleDuplicateData(hSrc, cfFormat, uiFlags) {
-        result := DllCall("OLE32.dll\OleDuplicateData", "ptr", hSrc, "ushort", cfFormat, "uint", uiFlags, "ptr")
+        result := DllCall("OLE32.dll\OleDuplicateData", "ptr", hSrc, "ushort", cfFormat, "uint", uiFlags)
         return result
     }
 
@@ -31412,7 +31414,7 @@ class Ole {
      * Do not use this function to draw into a metafile because it does not specify the parameter required for drawing into metafiles.
      * @param {Pointer<IUnknown>} pUnknown Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the view object that is to be drawn.
      * @param {Integer} dwAspect How the object is to be represented. Representations include content, an icon, a thumbnail, or a printed document. Possible values are taken from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a> enumeration.
-     * @param {Pointer<HDC>} hdcDraw Device context on which to draw. Cannot be a metafile device context.
+     * @param {Pointer<Void>} hdcDraw Device context on which to draw. Cannot be a metafile device context.
      * @param {Pointer<RECT>} lprcBounds Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure specifying the rectangle in which the object should be drawn. This parameter is converted to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-rectl">RECTL</a> structure and passed to <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iviewobject-draw">IViewObject::Draw</a>.
      * @returns {Integer} This function returns S_OK on success. Other possible values include the following.
      * 
@@ -31700,12 +31702,13 @@ class Ole {
      * 
      * In either case, after the call to <b>ReleaseStgMedium</b>, the specified storage medium is invalid and can no longer be used.
      * @param {Pointer<STGMEDIUM>} param0 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/ole2/nf-ole2-releasestgmedium
      * @since windows5.0
      */
     static ReleaseStgMedium(param0) {
-        DllCall("OLE32.dll\ReleaseStgMedium", "ptr", param0)
+        result := DllCall("OLE32.dll\ReleaseStgMedium", "ptr", param0)
+        return result
     }
 
     /**
@@ -31915,7 +31918,7 @@ class Ole {
      * If the keystroke is not one of the object's accelerators, then the object must call <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-oletranslateaccelerator">OleTranslateAccelerator</a> to let the container try its accelerator translation.
      * 
      * The object's server can call <b>IsAccelerator</b> to determine if the accelerator message belongs to it. Some servers do accelerator translation on their own and do not call <a href="https://docs.microsoft.com/windows/desktop/DirectShow/cbasepropertypage-translateaccelerator">TranslateAccelerator</a>. Those applications will not call <b>IsAccelerator</b>, because they already have the information.
-     * @param {Pointer<HACCEL>} hAccel A handle to the accelerator table.
+     * @param {Pointer<Void>} hAccel A handle to the accelerator table.
      * @param {Integer} cAccelEntries The number of entries in the accelerator table.
      * @param {Pointer<MSG>} lpMsg A pointer to the keystroke message to be translated.
      * @param {Pointer<UInt16>} lpwCmd A pointer to a variable  to receive the corresponding command identifier if there is an accelerator for the keystroke. This parameter may be <b>NULL</b>.
@@ -31924,38 +31927,38 @@ class Ole {
      * @since windows5.0
      */
     static IsAccelerator(hAccel, cAccelEntries, lpMsg, lpwCmd) {
-        result := DllCall("OLE32.dll\IsAccelerator", "ptr", hAccel, "int", cAccelEntries, "ptr", lpMsg, "ptr", lpwCmd, "int")
+        result := DllCall("OLE32.dll\IsAccelerator", "ptr", hAccel, "int", cAccelEntries, "ptr", lpMsg, "ushort*", lpwCmd, "int")
         return result
     }
 
     /**
      * Returns a handle to a metafile containing an icon and string label for the specified file name.
-     * @param {Pointer<PWSTR>} lpszPath A pointer to a file for which the icon and string are to be requested.
+     * @param {Pointer<Char>} lpszPath A pointer to a file for which the icon and string are to be requested.
      * @param {Integer} fUseFileAsLabel Indicates whether to use the file name as the icon label.
-     * @returns {Pointer<HGLOBAL>} If the function succeeds, the return value is a handle to a metafile that contains and icon and label for the specified file. If there is no CLSID in the registration database for the file, then the function returns the string "Document". If <i>lpszPath</i> is <b>NULL</b>, the function returns <b>NULL</b>.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to a metafile that contains and icon and label for the specified file. If there is no CLSID in the registration database for the file, then the function returns the string "Document". If <i>lpszPath</i> is <b>NULL</b>, the function returns <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/ole2/nf-ole2-olegeticonoffile
      * @since windows5.0
      */
     static OleGetIconOfFile(lpszPath, fUseFileAsLabel) {
         lpszPath := lpszPath is String? StrPtr(lpszPath) : lpszPath
 
-        result := DllCall("ole32.dll\OleGetIconOfFile", "ptr", lpszPath, "int", fUseFileAsLabel, "ptr")
+        result := DllCall("ole32.dll\OleGetIconOfFile", "ptr", lpszPath, "int", fUseFileAsLabel)
         return result
     }
 
     /**
      * Returns a handle to a metafile containing an icon and a string label for the specified CLSID.
      * @param {Pointer<Guid>} rclsid The CLSID for which the icon and string are to be requested.
-     * @param {Pointer<PWSTR>} lpszLabel A pointer to the label for the icon.
+     * @param {Pointer<Char>} lpszLabel A pointer to the label for the icon.
      * @param {Integer} fUseTypeAsLabel Indicates whether to use the user type string in the CLSID as the icon label.
-     * @returns {Pointer<HGLOBAL>} If the function succeeds, the return value is a handle to a metafile that contains and icon and label for the specified CLSID. Otherwise, the function returns <b>NULL</b>.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to a metafile that contains and icon and label for the specified CLSID. Otherwise, the function returns <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/ole2/nf-ole2-olegeticonofclass
      * @since windows5.0
      */
     static OleGetIconOfClass(rclsid, lpszLabel, fUseTypeAsLabel) {
         lpszLabel := lpszLabel is String? StrPtr(lpszLabel) : lpszLabel
 
-        result := DllCall("OLE32.dll\OleGetIconOfClass", "ptr", rclsid, "ptr", lpszLabel, "int", fUseTypeAsLabel, "ptr")
+        result := DllCall("OLE32.dll\OleGetIconOfClass", "ptr", rclsid, "ptr", lpszLabel, "int", fUseTypeAsLabel)
         return result
     }
 
@@ -31965,11 +31968,11 @@ class Ole {
      * This function is called by <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-olegeticonoffile">OleGetIconOfFile</a> and <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-olegeticonofclass">OleGetIconOfClass</a>.
      * 
      * If <i>lpszSourceFile</i> is not <b>NULL</b> and <i>iIconIndex</i> is not 0, the name of the source file passed in <i>lpszSourceFile</i> and the index passed by <i>iIconIndex</i> are added to the created metafile as a comment record.
-     * @param {Pointer<HICON>} hIcon Handle to the icon that is to be drawn into the metafile. This parameter can be <b>NULL</b>. If <i>hIcon</i> is <b>NULL</b>, this function returns <b>NULL</b> without creating a metafile.
-     * @param {Pointer<PWSTR>} lpszLabel The icon label. This parameter can be <b>NULL</b>. If <i>lpszLabel</i> is <b>NULL</b>, the resulting metafile will not include a label.
-     * @param {Pointer<PWSTR>} lpszSourceFile The path and file name of the icon file. This string can be obtained through the user interface or from the registration database. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Void>} hIcon Handle to the icon that is to be drawn into the metafile. This parameter can be <b>NULL</b>. If <i>hIcon</i> is <b>NULL</b>, this function returns <b>NULL</b> without creating a metafile.
+     * @param {Pointer<Char>} lpszLabel The icon label. This parameter can be <b>NULL</b>. If <i>lpszLabel</i> is <b>NULL</b>, the resulting metafile will not include a label.
+     * @param {Pointer<Char>} lpszSourceFile The path and file name of the icon file. This string can be obtained through the user interface or from the registration database. This parameter can be <b>NULL</b>.
      * @param {Integer} iIconIndex The location of the icon within the file named by <i>lpszSourceFile</i>, expressed as an offset in bytes from the beginning of file.
-     * @returns {Pointer<HGLOBAL>} A global handle to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-metafilepict">METAFILEPICT</a> structure containing the icon and label. The metafile uses the MM_ANISOTROPIC mapping mode.
+     * @returns {Pointer<Void>} A global handle to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-metafilepict">METAFILEPICT</a> structure containing the icon and label. The metafile uses the MM_ANISOTROPIC mapping mode.
      * 
      * If an error occurs, the returned handle is <b>NULL</b>. In this case, the caller can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to obtain further information.
      * @see https://learn.microsoft.com/windows/win32/api/ole2/nf-ole2-olemetafilepictfromiconandlabel
@@ -31981,7 +31984,7 @@ class Ole {
 
         A_LastError := 0
 
-        result := DllCall("ole32.dll\OleMetafilePictFromIconAndLabel", "ptr", hIcon, "ptr", lpszLabel, "ptr", lpszSourceFile, "uint", iIconIndex, "ptr")
+        result := DllCall("ole32.dll\OleMetafilePictFromIconAndLabel", "ptr", hIcon, "ptr", lpszLabel, "ptr", lpszSourceFile, "uint", iIconIndex)
         if(A_LastError)
             throw OSError()
 
@@ -31998,7 +32001,7 @@ class Ole {
      * The <b>OleRegGetUserType</b> function and its sibling functions, <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-olereggetmiscstatus">OleRegGetMiscStatus</a>, <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-oleregenumformatetc">OleRegEnumFormatEtc</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-oleregenumverbs">OleRegEnumVerbs</a>, provide a way for developers of custom DLL object applications to emulate the behavior of OLE's default object handler in getting information about objects from the registry. By using these functions, you avoid the considerable work of writing your own, and the pitfalls inherent in working directly in the registry. In addition, you get future enhancements and optimizations of these functions without having to code them yourself.
      * @param {Pointer<Guid>} clsid The CLSID of the class for which the user type is to be requested.
      * @param {Integer} dwFormOfType The form of the user-presentable string. Possible values are taken from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-userclasstype">USERCLASSTYPE</a>.
-     * @param {Pointer<PWSTR>} pszUserType A pointer to a string that receives the user type.
+     * @param {Pointer<Char>} pszUserType A pointer to a string that receives the user type.
      * @returns {Integer} This function can return the standard return value E_OUTOFMEMORY, as well as the following values.
      * 
      * <table>
@@ -32056,8 +32059,6 @@ class Ole {
      * @since windows5.0
      */
     static OleRegGetUserType(clsid, dwFormOfType, pszUserType) {
-        pszUserType := pszUserType is String? StrPtr(pszUserType) : pszUserType
-
         result := DllCall("OLE32.dll\OleRegGetUserType", "ptr", clsid, "uint", dwFormOfType, "ptr", pszUserType, "int")
         return result
     }
@@ -32130,7 +32131,7 @@ class Ole {
      * @since windows5.0
      */
     static OleRegGetMiscStatus(clsid, dwAspect, pdwStatus) {
-        result := DllCall("OLE32.dll\OleRegGetMiscStatus", "ptr", clsid, "uint", dwAspect, "ptr", pdwStatus, "int")
+        result := DllCall("OLE32.dll\OleRegGetMiscStatus", "ptr", clsid, "uint", dwAspect, "uint*", pdwStatus, "int")
         return result
     }
 
@@ -32277,7 +32278,7 @@ class Ole {
 
     /**
      * 
-     * @param {Pointer<OLESTREAM>} lpolestream 
+     * @param {Pointer<TypeHandle>} lpolestream 
      * @param {Pointer<IStorage>} pstg 
      * @param {Pointer<DVTARGETDEVICE>} ptd 
      * @param {Integer} opt 
@@ -32503,7 +32504,7 @@ class Ole {
 
     /**
      * 
-     * @param {Pointer<OLESTREAM>} polestm 
+     * @param {Pointer<TypeHandle>} polestm 
      * @param {Pointer<IStorage>} pstg 
      * @param {Pointer<UInt16>} pcfFormat 
      * @param {Pointer<Int32>} plwWidth 
@@ -32516,7 +32517,7 @@ class Ole {
      * @returns {Integer} 
      */
     static OleConvertOLESTREAMToIStorageEx2(polestm, pstg, pcfFormat, plwWidth, plHeight, pdwSize, pmedium, opt, pvCallbackContext, pQueryConvertOLELinkCallback) {
-        result := DllCall("ole32.dll\OleConvertOLESTREAMToIStorageEx2", "ptr", polestm, "ptr", pstg, "ptr", pcfFormat, "ptr", plwWidth, "ptr", plHeight, "ptr", pdwSize, "ptr", pmedium, "uint", opt, "ptr", pvCallbackContext, "ptr", pQueryConvertOLELinkCallback, "int")
+        result := DllCall("ole32.dll\OleConvertOLESTREAMToIStorageEx2", "ptr", polestm, "ptr", pstg, "ushort*", pcfFormat, "int*", plwWidth, "int*", plHeight, "uint*", pdwSize, "ptr", pmedium, "uint", opt, "ptr", pvCallbackContext, "ptr", pQueryConvertOLELinkCallback, "int")
         return result
     }
 
@@ -32524,11 +32525,11 @@ class Ole {
      * 
      * @param {Pointer<UInt32>} param0 
      * @param {Integer} param1 
-     * @param {Pointer<HRGN>} param2 
+     * @param {Pointer<Void>} param2 
      * @returns {Integer} 
      */
     static HRGN_UserSize(param0, param1, param2) {
-        result := DllCall("OLE32.dll\HRGN_UserSize", "ptr", param0, "uint", param1, "ptr", param2, "uint")
+        result := DllCall("OLE32.dll\HRGN_UserSize", "uint*", param0, "uint", param1, "ptr", param2, "uint")
         return result
     }
 
@@ -32536,11 +32537,11 @@ class Ole {
      * 
      * @param {Pointer<UInt32>} param0 
      * @param {Pointer<Byte>} param1 
-     * @param {Pointer<HRGN>} param2 
+     * @param {Pointer<Void>} param2 
      * @returns {Pointer<Byte>} 
      */
     static HRGN_UserMarshal(param0, param1, param2) {
-        result := DllCall("OLE32.dll\HRGN_UserMarshal", "ptr", param0, "ptr", param1, "ptr", param2, "ptr")
+        result := DllCall("OLE32.dll\HRGN_UserMarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
         return result
     }
 
@@ -32548,33 +32549,34 @@ class Ole {
      * 
      * @param {Pointer<UInt32>} param0 
      * @param {Pointer<Byte>} param1 
-     * @param {Pointer<HRGN>} param2 
+     * @param {Pointer<Void>} param2 
      * @returns {Pointer<Byte>} 
      */
     static HRGN_UserUnmarshal(param0, param1, param2) {
-        result := DllCall("OLE32.dll\HRGN_UserUnmarshal", "ptr", param0, "ptr", param1, "ptr", param2, "ptr")
+        result := DllCall("OLE32.dll\HRGN_UserUnmarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<HRGN>} param1 
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Void>} param1 
+     * @returns {Pointer} 
      */
     static HRGN_UserFree(param0, param1) {
-        DllCall("OLE32.dll\HRGN_UserFree", "ptr", param0, "ptr", param1)
+        result := DllCall("OLE32.dll\HRGN_UserFree", "uint*", param0, "ptr", param1)
+        return result
     }
 
     /**
      * 
      * @param {Pointer<UInt32>} param0 
      * @param {Integer} param1 
-     * @param {Pointer<HRGN>} param2 
+     * @param {Pointer<Void>} param2 
      * @returns {Integer} 
      */
     static HRGN_UserSize64(param0, param1, param2) {
-        result := DllCall("api-ms-win-core-marshal-l1-1-0.dll\HRGN_UserSize64", "ptr", param0, "uint", param1, "ptr", param2, "uint")
+        result := DllCall("api-ms-win-core-marshal-l1-1-0.dll\HRGN_UserSize64", "uint*", param0, "uint", param1, "ptr", param2, "uint")
         return result
     }
 
@@ -32582,11 +32584,11 @@ class Ole {
      * 
      * @param {Pointer<UInt32>} param0 
      * @param {Pointer<Byte>} param1 
-     * @param {Pointer<HRGN>} param2 
+     * @param {Pointer<Void>} param2 
      * @returns {Pointer<Byte>} 
      */
     static HRGN_UserMarshal64(param0, param1, param2) {
-        result := DllCall("api-ms-win-core-marshal-l1-1-0.dll\HRGN_UserMarshal64", "ptr", param0, "ptr", param1, "ptr", param2, "ptr")
+        result := DllCall("api-ms-win-core-marshal-l1-1-0.dll\HRGN_UserMarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
         return result
     }
 
@@ -32594,22 +32596,23 @@ class Ole {
      * 
      * @param {Pointer<UInt32>} param0 
      * @param {Pointer<Byte>} param1 
-     * @param {Pointer<HRGN>} param2 
+     * @param {Pointer<Void>} param2 
      * @returns {Pointer<Byte>} 
      */
     static HRGN_UserUnmarshal64(param0, param1, param2) {
-        result := DllCall("api-ms-win-core-marshal-l1-1-0.dll\HRGN_UserUnmarshal64", "ptr", param0, "ptr", param1, "ptr", param2, "ptr")
+        result := DllCall("api-ms-win-core-marshal-l1-1-0.dll\HRGN_UserUnmarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<HRGN>} param1 
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Void>} param1 
+     * @returns {Pointer} 
      */
     static HRGN_UserFree64(param0, param1) {
-        DllCall("api-ms-win-core-marshal-l1-1-0.dll\HRGN_UserFree64", "ptr", param0, "ptr", param1)
+        result := DllCall("api-ms-win-core-marshal-l1-1-0.dll\HRGN_UserFree64", "uint*", param0, "ptr", param1)
+        return result
     }
 
     /**
@@ -32618,10 +32621,10 @@ class Ole {
      * The property pages to be displayed are identified with <i>pPageClsID</i>, which is an array of <i>cPages</i> <a href="https://docs.microsoft.com/windows/desktop/com/clsid">CLSID</a> values. The objects that are affected by this property sheet are identified in <i>ppUnk</i>, an array of size <i>cObjects</i> containing <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> pointers.
      * 
      * This function always creates a modal dialog box and does not return until the dialog box is closed.
-     * @param {Pointer<HWND>} hwndOwner Handle to the parent window of the resulting property sheet dialog box.
+     * @param {Pointer<Void>} hwndOwner Handle to the parent window of the resulting property sheet dialog box.
      * @param {Integer} x Reserved. Horizontal position for the dialog box relative to <i>hwndOwner</i>.
      * @param {Integer} y Reserved. Vertical position for the dialog box relative to <i>hwndOwner</i>.
-     * @param {Pointer<PWSTR>} lpszCaption Pointer to the string used for the caption of the dialog box.
+     * @param {Pointer<Char>} lpszCaption Pointer to the string used for the caption of the dialog box.
      * @param {Integer} cObjects Number of object pointers passed in <i>ppUnk</i>.
      * @param {Pointer<IUnknown>} ppUnk An array of <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> pointers on the objects for which this property sheet is being invoked. The number of elements in the array is specified by <i>cObjects</i>. These pointers are passed to each property page through <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipropertypage-setobjects">IPropertyPage::SetObjects</a>.
      * @param {Integer} cPages Number of property pages specified in <i>pPageCIsID</i>.
@@ -32827,7 +32830,7 @@ class Ole {
      * </tr>
      * </table>
      * @param {Integer} clr The OLE color to be converted into a <b>COLORREF</b>.
-     * @param {Pointer<HPALETTE>} hpal Palette used as a basis for the conversion.
+     * @param {Pointer<Void>} hpal Palette used as a basis for the conversion.
      * @param {Pointer<UInt32>} lpcolorref Pointer to the caller's variable that receives the converted <b>COLORREF</b> result. This parameter can be <b>NULL</b>, indicating that the caller wants only to verify that a converted color exists.
      * @returns {Integer} This function supports the standard return values E_INVALIDARG and E_UNEXPECTED, as well as the following value.
      * 
@@ -32852,7 +32855,7 @@ class Ole {
      * @since windows5.0
      */
     static OleTranslateColor(clr, hpal, lpcolorref) {
-        result := DllCall("OLEAUT32.dll\OleTranslateColor", "uint", clr, "ptr", hpal, "ptr", lpcolorref, "int")
+        result := DllCall("OLEAUT32.dll\OleTranslateColor", "uint", clr, "ptr", hpal, "uint*", lpcolorref, "int")
         return result
     }
 
@@ -33084,7 +33087,7 @@ class Ole {
      * Creates a new picture object and initializes it from the contents of a stream. This is equivalent to calling OleCreatePictureIndirect(NULL, ...) followed by IPersistStream::Load.
      * @remarks
      * The stream must be in BMP (bitmap), JPEG, WMF (metafile), ICO (icon), or GIF format.
-     * @param {Pointer<PWSTR>} szURLorPath The path or URL to the file you want to open.
+     * @param {Pointer<Char>} szURLorPath The path or URL to the file you want to open.
      * @param {Pointer<IUnknown>} punkCaller Points to <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> for COM aggregation.
      * @param {Integer} clrReserved The color you want to reserve to be transparent.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface describing the type of interface pointer to return in ppvRet.
@@ -33304,7 +33307,7 @@ class Ole {
     /**
      * Saves a picture to a file.
      * @param {Pointer<IDispatch>} lpdispPicture Points to the <b>IPictureDisp</b> picture object.
-     * @param {Pointer<BSTR>} bstrFileName The name of the file to save the picture to.
+     * @param {Pointer<Char>} bstrFileName The name of the file to save the picture to.
      * @returns {Integer} This method returns standard COM error codes in addition to the following values.
      * 
      * 
@@ -33353,7 +33356,7 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/olectl/nf-olectl-olesavepicturefile
      */
     static OleSavePictureFile(lpdispPicture, bstrFileName) {
-        result := DllCall("OLEAUT32.dll\OleSavePictureFile", "ptr", lpdispPicture, "ptr", bstrFileName, "int")
+        result := DllCall("OLEAUT32.dll\OleSavePictureFile", "ptr", lpdispPicture, "char*", bstrFileName, "int")
         return result
     }
 
@@ -33361,14 +33364,14 @@ class Ole {
      * Converts an icon to a cursor.
      * @remarks
      * This function calls the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-copycursor">CopyCursor</a> function.
-     * @param {Pointer<HINSTANCE>} hinstExe This parameter is ignored.
-     * @param {Pointer<HICON>} hIcon A handle to the icon to be converted.
-     * @returns {Pointer<HCURSOR>} The function returns a handle to the new cursor object. The caller is responsible for deleting this cursor with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroycursor">DestroyCursor</a> function. If the conversion could not be completed, the return value is <b>NULL</b>.
+     * @param {Pointer<Void>} hinstExe This parameter is ignored.
+     * @param {Pointer<Void>} hIcon A handle to the icon to be converted.
+     * @returns {Pointer<Void>} The function returns a handle to the new cursor object. The caller is responsible for deleting this cursor with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroycursor">DestroyCursor</a> function. If the conversion could not be completed, the return value is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/olectl/nf-olectl-oleicontocursor
      * @since windows5.0
      */
     static OleIconToCursor(hinstExe, hIcon) {
-        result := DllCall("OLEAUT32.dll\OleIconToCursor", "ptr", hinstExe, "ptr", hIcon, "ptr")
+        result := DllCall("OLEAUT32.dll\OleIconToCursor", "ptr", hinstExe, "ptr", hIcon)
         return result
     }
 
@@ -33384,14 +33387,14 @@ class Ole {
      * > [!NOTE]
      * > The oledlg.h header defines OleUIAddVerbMenu as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<IOleObject>} lpOleObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a> interface on the selected object. If this is <b>NULL</b>, then a default disabled menu item is created.
-     * @param {Pointer<PWSTR>} lpszShortType Pointer to the short name defined in the registry (AuxName==2) for the object identified with <i>lpOleObj</i>. If the string is not known, then <b>NULL</b> may be passed. If <b>NULL</b> is passed, <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-getusertype">IOleObject::GetUserType</a> is called to retrieve it. If the caller has easy access to the string, it is faster to pass it in.
-     * @param {Pointer<HMENU>} hMenu Handle to the menu in which to make modifications.
+     * @param {Pointer<Char>} lpszShortType Pointer to the short name defined in the registry (AuxName==2) for the object identified with <i>lpOleObj</i>. If the string is not known, then <b>NULL</b> may be passed. If <b>NULL</b> is passed, <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-getusertype">IOleObject::GetUserType</a> is called to retrieve it. If the caller has easy access to the string, it is faster to pass it in.
+     * @param {Pointer<Void>} hMenu Handle to the menu in which to make modifications.
      * @param {Integer} uPos Position of the menu item.
      * @param {Integer} uIDVerbMin The identifier value at which to start the verbs.
      * @param {Integer} uIDVerbMax The maximum identifier value to be used for object verbs. If <i>uIDVerbMax</i> is 0, then no maximum identifier value is used.
      * @param {Integer} bAddConvert Indicates whether to add a <b>Convert</b> item to the bottom of the menu (preceded by a separator).
      * @param {Integer} idConvert The identifier value to use for the <b>Convert</b> menu item, if <i>bAddConvert</i> is <b>TRUE</b>.
-     * @param {Pointer<HMENU>} lphMenu An <b>HMENU</b> pointer to the cascading verb menu if it's created. If there is only one verb, this will be filled with <b>NULL</b>.
+     * @param {Pointer<Void>} lphMenu An <b>HMENU</b> pointer to the cascading verb menu if it's created. If there is only one verb, this will be filled with <b>NULL</b>.
      * @returns {Integer} This function returns <b>TRUE</b> if <i>lpOleObj</i> was valid and at least one verb was added to the menu. A <b>FALSE</b> return indicates that <i>lpOleObj</i> was <b>NULL</b> and a disabled default menu item was created.
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-oleuiaddverbmenuw
      * @since windows5.0
@@ -33415,14 +33418,14 @@ class Ole {
      * > [!NOTE]
      * > The oledlg.h header defines OleUIAddVerbMenu as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<IOleObject>} lpOleObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a> interface on the selected object. If this is <b>NULL</b>, then a default disabled menu item is created.
-     * @param {Pointer<PSTR>} lpszShortType Pointer to the short name defined in the registry (AuxName==2) for the object identified with <i>lpOleObj</i>. If the string is not known, then <b>NULL</b> may be passed. If <b>NULL</b> is passed, <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-getusertype">IOleObject::GetUserType</a> is called to retrieve it. If the caller has easy access to the string, it is faster to pass it in.
-     * @param {Pointer<HMENU>} hMenu Handle to the menu in which to make modifications.
+     * @param {Pointer<Byte>} lpszShortType Pointer to the short name defined in the registry (AuxName==2) for the object identified with <i>lpOleObj</i>. If the string is not known, then <b>NULL</b> may be passed. If <b>NULL</b> is passed, <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-getusertype">IOleObject::GetUserType</a> is called to retrieve it. If the caller has easy access to the string, it is faster to pass it in.
+     * @param {Pointer<Void>} hMenu Handle to the menu in which to make modifications.
      * @param {Integer} uPos Position of the menu item.
      * @param {Integer} uIDVerbMin The identifier value at which to start the verbs.
      * @param {Integer} uIDVerbMax The maximum identifier value to be used for object verbs. If <i>uIDVerbMax</i> is 0, then no maximum identifier value is used.
      * @param {Integer} bAddConvert Indicates whether to add a <b>Convert</b> item to the bottom of the menu (preceded by a separator).
      * @param {Integer} idConvert The identifier value to use for the <b>Convert</b> menu item, if <i>bAddConvert</i> is <b>TRUE</b>.
-     * @param {Pointer<HMENU>} lphMenu An <b>HMENU</b> pointer to the cascading verb menu if it's created. If there is only one verb, this will be filled with <b>NULL</b>.
+     * @param {Pointer<Void>} lphMenu An <b>HMENU</b> pointer to the cascading verb menu if it's created. If there is only one verb, this will be filled with <b>NULL</b>.
      * @returns {Integer} This function returns <b>TRUE</b> if <i>lpOleObj</i> was valid and at least one verb was added to the menu. A <b>FALSE</b> return indicates that <i>lpOleObj</i> was <b>NULL</b> and a disabled default menu item was created.
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-oleuiaddverbmenua
      * @since windows5.0
@@ -33477,12 +33480,380 @@ class Ole {
      * > [!NOTE]
      * > The oledlg.h header defines OLEUIINSERTOBJECT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<OLEUIINSERTOBJECTW>} param0 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} Standard Success/Error Definitions
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unknown failure (unused).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the OK button.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_SUCCESS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No error, same as OLEUI_OK.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CANCEL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the Cancel button.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Standard Field Validation Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMIN</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTURENULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The pointer to an OLEUIXXX structure passed into the function was <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTUREINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient permissions for read or write access to an OLEUIXXX structure.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_CBSTRUCTINCORRECT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>cbstruct</i> value is incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HWNDOWNERINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hWndOwner</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZCAPTIONINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszCaption</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPFNHOOKINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpfnHook</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HINSTANCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hInstance</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZTEMPLATEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszTemplate</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HRESOURCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hResource</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Initialization Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_FINDTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to find the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to load the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_DIALOGFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Dialog box initialization failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOCALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_GLOBALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADSTRING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to call LoadString for localized resources from the library.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_OLEMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Function Specific Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMAX </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_IOERR_LPSZFILEINVALID </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>lpszFile</b> value is invalid or user has insufficient write access permissions.This <b>lpszFile</b> member points to the name of the file linked to or inserted.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_IOERR_PPVOBJINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>ppvOjb</i> value is invalid. This member points to the location where the pointer for the object is returned. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_IOERR_LPIOLECLIENTSITEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>lpIOleClientSite</b> value is invalid. This member points to the client site for the object.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_IOERR_LPISTORAGEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>lpIStorage</b> value is invalid. This member points to the storage to be used for the object.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_IOERR_SCODEHASERROR</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>sc</b> member of <i>lpIO</i> has additional error information.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_IOERR_LPCLSIDEXCLUDEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>lpClsidExclude</b> value is invalid. This member contains the list of CLSIDs to exclude.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_IOERR_CCHFILEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>cchFile</b> or <b>lpszFile</b> value is invalid. The <b>cchFile</b> member specifies the size of the <b>lpszFile</b> buffer. The <b>lpszFile</b> member points to the name of the file linked to or inserted.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-oleuiinsertobjectw
      * @since windows5.0
      */
     static OleUIInsertObjectW(param0) {
-        DllCall("oledlg.dll\OleUIInsertObjectW", "ptr", param0)
+        result := DllCall("oledlg.dll\OleUIInsertObjectW", "ptr", param0)
+        return result
     }
 
     /**
@@ -33528,12 +33899,380 @@ class Ole {
      * > [!NOTE]
      * > The oledlg.h header defines OLEUIINSERTOBJECT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<OLEUIINSERTOBJECTA>} param0 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} Standard Success/Error Definitions
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unknown failure (unused).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the OK button.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_SUCCESS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No error, same as OLEUI_OK.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CANCEL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the Cancel button.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Standard Field Validation Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMIN</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTURENULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The pointer to an OLEUIXXX structure passed into the function was <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTUREINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient permissions for read or write access to an OLEUIXXX structure.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_CBSTRUCTINCORRECT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>cbstruct</i> value is incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HWNDOWNERINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hWndOwner</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZCAPTIONINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszCaption</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPFNHOOKINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpfnHook</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HINSTANCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hInstance</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZTEMPLATEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszTemplate</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HRESOURCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hResource</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Initialization Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_FINDTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to find the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to load the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_DIALOGFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Dialog box initialization failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOCALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_GLOBALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADSTRING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to call LoadString for localized resources from the library.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_OLEMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Function Specific Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMAX </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_IOERR_LPSZFILEINVALID </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>lpszFile</b> value is invalid or user has insufficient write access permissions.This <b>lpszFile</b> member points to the name of the file linked to or inserted.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_IOERR_PPVOBJINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>ppvOjb</i> value is invalid. This member points to the location where the pointer for the object is returned. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_IOERR_LPIOLECLIENTSITEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>lpIOleClientSite</b> value is invalid. This member points to the client site for the object.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_IOERR_LPISTORAGEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>lpIStorage</b> value is invalid. This member points to the storage to be used for the object.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_IOERR_SCODEHASERROR</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>sc</b> member of <i>lpIO</i> has additional error information.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_IOERR_LPCLSIDEXCLUDEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>lpClsidExclude</b> value is invalid. This member contains the list of CLSIDs to exclude.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_IOERR_CCHFILEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>cchFile</b> or <b>lpszFile</b> value is invalid. The <b>cchFile</b> member specifies the size of the <b>lpszFile</b> buffer. The <b>lpszFile</b> member points to the name of the file linked to or inserted.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-oleuiinsertobjecta
      * @since windows5.0
      */
     static OleUIInsertObjectA(param0) {
-        DllCall("oledlg.dll\OleUIInsertObjectA", "ptr", param0)
+        result := DllCall("oledlg.dll\OleUIInsertObjectA", "ptr", param0)
+        return result
     }
 
     /**
@@ -33575,12 +34314,361 @@ class Ole {
      * > [!NOTE]
      * > The oledlg.h header defines OLEUIPASTESPECIAL as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<OLEUIPASTESPECIALW>} param0 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} Standard Success/Error Definitions
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unknown failure (unused).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the OK button.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_SUCCESS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No error, same as OLEUI_OK.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CANCEL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the Cancel button.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Standard Field Validation Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMIN</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTURENULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The pointer to an OLEUIXXX structure passed into the function was <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTUREINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient permissions for read or write access to an OLEUIXXX structure.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_CBSTRUCTINCORRECT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>cbstruct</i> value is incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HWNDOWNERINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hWndOwner</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZCAPTIONINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszCaption</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPFNHOOKINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpfnHook</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HINSTANCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hInstance</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZTEMPLATEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszTemplate</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HRESOURCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hResource</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Initialization Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_FINDTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to find the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to load the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_DIALOGFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Dialog box initialization failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOCALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_GLOBALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADSTRING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadstringa">LoadString</a> to get localized resources from the library.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_OLEMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Function Specific Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMAX</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_IOERR_SRCDATAOBJECTINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>lpSrcDataObject</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuipastespeciala">OLEUIPASTESPECIAL</a> is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_IOERR_ARRPASTEENTRIESINVALID </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>arrPasteEntries</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuipastespeciala">OLEUIPASTESPECIAL</a> is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_IOERR_ARRLINKTYPESINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>arrLinkTypes</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuipastespeciala">OLEUIPASTESPECIAL</a> is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_PSERR_CLIPBOARDCHANGED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The clipboard contents changed while the dialog box was displayed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_PSERR_GETCLIPBOAARDFAILED 
+     * 
+     * </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>lpSrcDataObj</b> member is incorrect.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-oleuipastespecialw
      * @since windows5.0
      */
     static OleUIPasteSpecialW(param0) {
-        DllCall("oledlg.dll\OleUIPasteSpecialW", "ptr", param0)
+        result := DllCall("oledlg.dll\OleUIPasteSpecialW", "ptr", param0)
+        return result
     }
 
     /**
@@ -33622,12 +34710,361 @@ class Ole {
      * > [!NOTE]
      * > The oledlg.h header defines OLEUIPASTESPECIAL as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<OLEUIPASTESPECIALA>} param0 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} Standard Success/Error Definitions
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unknown failure (unused).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the OK button.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_SUCCESS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No error, same as OLEUI_OK.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CANCEL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the Cancel button.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Standard Field Validation Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMIN</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTURENULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The pointer to an OLEUIXXX structure passed into the function was <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTUREINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient permissions for read or write access to an OLEUIXXX structure.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_CBSTRUCTINCORRECT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>cbstruct</i> value is incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HWNDOWNERINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hWndOwner</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZCAPTIONINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszCaption</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPFNHOOKINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpfnHook</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HINSTANCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hInstance</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZTEMPLATEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszTemplate</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HRESOURCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hResource</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Initialization Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_FINDTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to find the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to load the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_DIALOGFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Dialog box initialization failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOCALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_GLOBALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADSTRING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadstringa">LoadString</a> to get localized resources from the library.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_OLEMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Function Specific Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMAX</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_IOERR_SRCDATAOBJECTINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>lpSrcDataObject</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuipastespeciala">OLEUIPASTESPECIAL</a> is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_IOERR_ARRPASTEENTRIESINVALID </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>arrPasteEntries</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuipastespeciala">OLEUIPASTESPECIAL</a> is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_IOERR_ARRLINKTYPESINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>arrLinkTypes</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuipastespeciala">OLEUIPASTESPECIAL</a> is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_PSERR_CLIPBOARDCHANGED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The clipboard contents changed while the dialog box was displayed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_PSERR_GETCLIPBOAARDFAILED 
+     * 
+     * </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>lpSrcDataObj</b> member is incorrect.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-oleuipastespeciala
      * @since windows5.0
      */
     static OleUIPasteSpecialA(param0) {
-        DllCall("oledlg.dll\OleUIPasteSpecialA", "ptr", param0)
+        result := DllCall("oledlg.dll\OleUIPasteSpecialA", "ptr", param0)
+        return result
     }
 
     /**
@@ -33636,12 +35073,303 @@ class Ole {
      * > [!NOTE]
      * > The oledlg.h header defines OLEUIEDITLINKS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<OLEUIEDITLINKSW>} param0 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} Standard Success/Error Definitions
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unknown failure (unused).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the OK button.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_SUCCESS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No error, same as OLEUI_OK.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CANCEL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the Cancel button.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Standard Field Validation Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMIN</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTURENULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The pointer to an OLEUIXXX structure passed into the function was <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTUREINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient permissions for read or write access to an OLEUIXXX structure.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_CBSTRUCTINCORRECT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>cbstruct</i> value is incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HWNDOWNERINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hWndOwner</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZCAPTIONINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszCaption</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPFNHOOKINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpfnHook</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HINSTANCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hInstance</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZTEMPLATEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszTemplate</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HRESOURCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hResource</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Initialization Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_FINDTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to find the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to load the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_DIALOGFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Dialog box initialization failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOCALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_GLOBALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADSTRING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to call LoadString for localized resources from the library.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_OLEMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Function Specific Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMAX</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-oleuieditlinksw
      * @since windows5.0
      */
     static OleUIEditLinksW(param0) {
-        DllCall("oledlg.dll\OleUIEditLinksW", "ptr", param0)
+        result := DllCall("oledlg.dll\OleUIEditLinksW", "ptr", param0)
+        return result
     }
 
     /**
@@ -33650,12 +35378,303 @@ class Ole {
      * > [!NOTE]
      * > The oledlg.h header defines OLEUIEDITLINKS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<OLEUIEDITLINKSA>} param0 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} Standard Success/Error Definitions
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unknown failure (unused).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the OK button.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_SUCCESS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No error, same as OLEUI_OK.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CANCEL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the Cancel button.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Standard Field Validation Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMIN</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTURENULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The pointer to an OLEUIXXX structure passed into the function was <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTUREINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient permissions for read or write access to an OLEUIXXX structure.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_CBSTRUCTINCORRECT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>cbstruct</i> value is incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HWNDOWNERINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hWndOwner</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZCAPTIONINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszCaption</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPFNHOOKINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpfnHook</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HINSTANCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hInstance</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZTEMPLATEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszTemplate</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HRESOURCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hResource</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Initialization Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_FINDTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to find the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to load the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_DIALOGFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Dialog box initialization failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOCALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_GLOBALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADSTRING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to call LoadString for localized resources from the library.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_OLEMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Function Specific Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMAX</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-oleuieditlinksa
      * @since windows5.0
      */
     static OleUIEditLinksA(param0) {
-        DllCall("oledlg.dll\OleUIEditLinksA", "ptr", param0)
+        result := DllCall("oledlg.dll\OleUIEditLinksA", "ptr", param0)
+        return result
     }
 
     /**
@@ -33671,12 +35690,336 @@ class Ole {
      * > [!NOTE]
      * > The oledlg.h header defines OLEUICHANGEICON as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<OLEUICHANGEICONW>} param0 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} Standard Success/Error Definitions
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unknown failure (unused).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the OK button.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_SUCCESS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No error, same as OLEUI_OK.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CANCEL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the Cancel button.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Standard Field Validation Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMIN</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTURENULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The pointer to an OLEUIXXX structure passed into the function was <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTUREINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient permissions for read or write access to an OLEUIXXX structure.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_CBSTRUCTINCORRECT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>cbstruct</i> value is incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HWNDOWNERINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hWndOwner</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZCAPTIONINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszCaption</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPFNHOOKINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpfnHook</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HINSTANCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hInstance</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZTEMPLATEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszTemplate</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HRESOURCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hResource</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Initialization Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_FINDTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to find the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to load the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_DIALOGFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Dialog box initialization failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOCALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_GLOBALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADSTRING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to call LoadString for localized resources from the library.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_OLEMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Function Specific Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMAX</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CIERR_MUSTHAVECLSID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>clsid</b> member was not the current CLSID.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CIERR_MUSTHAVECURRENTMETAFILE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>hMetaPict</b> member was not the current metafile.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CIERR_SZICONEXEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>szIconExe</i> value was invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-oleuichangeiconw
      * @since windows5.0
      */
     static OleUIChangeIconW(param0) {
-        DllCall("oledlg.dll\OleUIChangeIconW", "ptr", param0)
+        result := DllCall("oledlg.dll\OleUIChangeIconW", "ptr", param0)
+        return result
     }
 
     /**
@@ -33692,12 +36035,336 @@ class Ole {
      * > [!NOTE]
      * > The oledlg.h header defines OLEUICHANGEICON as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<OLEUICHANGEICONA>} param0 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} Standard Success/Error Definitions
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unknown failure (unused).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the OK button.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_SUCCESS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No error, same as OLEUI_OK.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CANCEL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the Cancel button.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Standard Field Validation Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMIN</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTURENULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The pointer to an OLEUIXXX structure passed into the function was <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTUREINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient permissions for read or write access to an OLEUIXXX structure.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_CBSTRUCTINCORRECT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>cbstruct</i> value is incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HWNDOWNERINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hWndOwner</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZCAPTIONINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszCaption</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPFNHOOKINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpfnHook</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HINSTANCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hInstance</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZTEMPLATEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszTemplate</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HRESOURCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hResource</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Initialization Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_FINDTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to find the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to load the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_DIALOGFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Dialog box initialization failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOCALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_GLOBALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADSTRING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to call LoadString for localized resources from the library.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_OLEMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Function Specific Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMAX</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CIERR_MUSTHAVECLSID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>clsid</b> member was not the current CLSID.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CIERR_MUSTHAVECURRENTMETAFILE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>hMetaPict</b> member was not the current metafile.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CIERR_SZICONEXEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>szIconExe</i> value was invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-oleuichangeicona
      * @since windows5.0
      */
     static OleUIChangeIconA(param0) {
-        DllCall("oledlg.dll\OleUIChangeIconA", "ptr", param0)
+        result := DllCall("oledlg.dll\OleUIChangeIconA", "ptr", param0)
+        return result
     }
 
     /**
@@ -33719,12 +36386,347 @@ class Ole {
      * > [!NOTE]
      * > The oledlg.h header defines OLEUICONVERT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<OLEUICONVERTW>} param0 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} Standard Success/Error Definitions
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unknown failure (unused).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the OK button.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_SUCCESS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No error, same as OLEUI_OK.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CANCEL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the Cancel button.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Standard Field Validation Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMIN</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTURENULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The pointer to an OLEUIXXX structure passed into the function was <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTUREINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient permissions for read or write access to an OLEUIXXX structure.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_CBSTRUCTINCORRECT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>cbstruct</i> value is incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HWNDOWNERINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hWndOwner</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZCAPTIONINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszCaption</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPFNHOOKINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpfnHook</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HINSTANCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hInstance</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZTEMPLATEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszTemplate</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HRESOURCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hResource</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Initialization Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_FINDTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to find the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to load the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_DIALOGFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Dialog box initialization failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOCALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_GLOBALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADSTRING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to call LoadString for localized resources from the library.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_OLEMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Function Specific Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMAX</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CTERR_CLASSIDINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A <b>clsid</b> value was invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CTERR_DVASPECTINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>dvAspect</b> value was invalid. This member specifies the aspect of the object.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CTERR_CBFORMATINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>wFormat</b> value was invalid. This member specifies the data format of the object.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CTERR_STRINGINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A string value (for example, <b>lpszUserType</b> or <b>lpszDefLabel</b>) was invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-oleuiconvertw
      * @since windows5.0
      */
     static OleUIConvertW(param0) {
-        DllCall("oledlg.dll\OleUIConvertW", "ptr", param0)
+        result := DllCall("oledlg.dll\OleUIConvertW", "ptr", param0)
+        return result
     }
 
     /**
@@ -33746,12 +36748,347 @@ class Ole {
      * > [!NOTE]
      * > The oledlg.h header defines OLEUICONVERT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<OLEUICONVERTA>} param0 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} Standard Success/Error Definitions
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unknown failure (unused).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the OK button.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_SUCCESS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No error, same as OLEUI_OK.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CANCEL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the Cancel button.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Standard Field Validation Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMIN</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTURENULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The pointer to an OLEUIXXX structure passed into the function was <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTUREINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient permissions for read or write access to an OLEUIXXX structure.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_CBSTRUCTINCORRECT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>cbstruct</i> value is incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HWNDOWNERINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hWndOwner</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZCAPTIONINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszCaption</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPFNHOOKINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpfnHook</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HINSTANCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hInstance</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZTEMPLATEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszTemplate</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HRESOURCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hResource</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Initialization Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_FINDTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to find the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to load the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_DIALOGFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Dialog box initialization failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOCALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_GLOBALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADSTRING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to call LoadString for localized resources from the library.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_OLEMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Function Specific Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMAX</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CTERR_CLASSIDINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A <b>clsid</b> value was invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CTERR_DVASPECTINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>dvAspect</b> value was invalid. This member specifies the aspect of the object.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CTERR_CBFORMATINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <b>wFormat</b> value was invalid. This member specifies the data format of the object.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CTERR_STRINGINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A string value (for example, <b>lpszUserType</b> or <b>lpszDefLabel</b>) was invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-oleuiconverta
      * @since windows5.0
      */
     static OleUIConvertA(param0) {
-        DllCall("oledlg.dll\OleUIConvertA", "ptr", param0)
+        result := DllCall("oledlg.dll\OleUIConvertA", "ptr", param0)
+        return result
     }
 
     /**
@@ -33787,12 +37124,374 @@ class Ole {
      * > [!NOTE]
      * > The oledlg.h header defines OLEUIBUSY as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<OLEUIBUSYW>} param0 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} This function returns the following values:
+     * 
+     * 
+     * Standard Success/Error Definitions
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unknown failure (unused).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_SUCCESS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No error, same as OLEUI_OK.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the <b>OK</b> button.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CANCEL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user has pressed the <b>Cancel</b> button and that the caller should cancel the operation. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_BZ_SWITCHTOSELECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user has pressed <b>Switch To</b> and <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nf-oledlg-oleuibusya">OleUIBusy</a> was unable to determine how to switch to the blocking application. In this case, the caller should either take measures to attempt to resolve the conflict itself, if possible, or retry the operation. <b>OleUIBusy</b> will only return OLEUI_BZ_SWITCHTOSELECTED if the user has pressed the <b>Switch To</b> button, <i>hTask</i> is <b>NULL</b> and the BZ_NOTRESPONDING flag is set. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_BZ_SWITCHTOSELECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user has pressed <b>Switch To</b> and <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nf-oledlg-oleuibusya">OleUIBusy</a> was unable to determine how to switch to the blocking application. In this case, the caller should either take measures to attempt to resolve the conflict itself, if possible, or retry the operation. <b>OleUIBusy</b> will only return OLEUI_BZ_SWITCHTOSELECTED if the user has pressed the <b>Switch To</b> button, <i>hTask</i> is <b>NULL</b> and the BZ_NOTRESPONDING flag is set.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_BZ_SWITCHTOSELECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user has pressed <b>Switch To</b> and <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nf-oledlg-oleuibusya">OleUIBusy</a> was unable to determine how to switch to the blocking application. In this case, the caller should either take measures to attempt to resolve the conflict itself, if possible, or retry the operation. <b>OleUIBusy</b> will only return OLEUI_BZ_SWITCHTOSELECTED if the user has pressed the <b>Switch To</b> button, <i>hTask</i> is <b>NULL</b> and the BZ_NOTRESPONDING flag is set. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_BZ_RETRYSELECTED </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user has either pressed the <b>Retry</b> button or attempted to resolve the conflict (probably by switching to the blocking application). In this case, the caller should retry the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_BZ_CALLUNBLOCKED </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The dialog box has been informed that the operation is no longer blocked. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Standard Field Validation Errors
+     * 
+     * 
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMIN</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTURENULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The pointer to an OLEUIXXX structure passed into the function was <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTUREINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient permissions for read or write access to an OLEUIXXX structure.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_CBSTRUCTINCORRECT </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>cbstruct</i> value is incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HWNDOWNERINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hWndOwner</i> value is invalid. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZCAPTIONINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszCaption</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPFNHOOKINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpfnHook</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HINSTANCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hInstance</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZTEMPLATEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszTemplate</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HRESOURCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hResource</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Initialization Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_FINDTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to find the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to load the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_DIALOGFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Dialog box initialization failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOCALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_GLOBALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADSTRING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadstringa">LoadString</a> for the localized resources from the library.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_OLEMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Function Specific Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMAX</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_BZERR_HTASKINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The hTask specified in the <i>hTask</i> member of the <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuibusya">OLEUIBUSY</a> structure is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-oleuibusyw
      * @since windows5.0
      */
     static OleUIBusyW(param0) {
-        DllCall("oledlg.dll\OleUIBusyW", "ptr", param0)
+        result := DllCall("oledlg.dll\OleUIBusyW", "ptr", param0)
+        return result
     }
 
     /**
@@ -33808,12 +37507,374 @@ class Ole {
      * > [!NOTE]
      * > The oledlg.h header defines OLEUIBUSY as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<OLEUIBUSYA>} param0 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} This function returns the following values:
+     * 
+     * 
+     * Standard Success/Error Definitions
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unknown failure (unused).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_SUCCESS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No error, same as OLEUI_OK.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the <b>OK</b> button.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CANCEL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user has pressed the <b>Cancel</b> button and that the caller should cancel the operation. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_BZ_SWITCHTOSELECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user has pressed <b>Switch To</b> and <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nf-oledlg-oleuibusya">OleUIBusy</a> was unable to determine how to switch to the blocking application. In this case, the caller should either take measures to attempt to resolve the conflict itself, if possible, or retry the operation. <b>OleUIBusy</b> will only return OLEUI_BZ_SWITCHTOSELECTED if the user has pressed the <b>Switch To</b> button, <i>hTask</i> is <b>NULL</b> and the BZ_NOTRESPONDING flag is set. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_BZ_SWITCHTOSELECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user has pressed <b>Switch To</b> and <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nf-oledlg-oleuibusya">OleUIBusy</a> was unable to determine how to switch to the blocking application. In this case, the caller should either take measures to attempt to resolve the conflict itself, if possible, or retry the operation. <b>OleUIBusy</b> will only return OLEUI_BZ_SWITCHTOSELECTED if the user has pressed the <b>Switch To</b> button, <i>hTask</i> is <b>NULL</b> and the BZ_NOTRESPONDING flag is set.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_BZ_SWITCHTOSELECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user has pressed <b>Switch To</b> and <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nf-oledlg-oleuibusya">OleUIBusy</a> was unable to determine how to switch to the blocking application. In this case, the caller should either take measures to attempt to resolve the conflict itself, if possible, or retry the operation. <b>OleUIBusy</b> will only return OLEUI_BZ_SWITCHTOSELECTED if the user has pressed the <b>Switch To</b> button, <i>hTask</i> is <b>NULL</b> and the BZ_NOTRESPONDING flag is set. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_BZ_RETRYSELECTED </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user has either pressed the <b>Retry</b> button or attempted to resolve the conflict (probably by switching to the blocking application). In this case, the caller should retry the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_BZ_CALLUNBLOCKED </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The dialog box has been informed that the operation is no longer blocked. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Standard Field Validation Errors
+     * 
+     * 
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMIN</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTURENULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The pointer to an OLEUIXXX structure passed into the function was <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTUREINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient permissions for read or write access to an OLEUIXXX structure.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_CBSTRUCTINCORRECT </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>cbstruct</i> value is incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HWNDOWNERINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hWndOwner</i> value is invalid. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZCAPTIONINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszCaption</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPFNHOOKINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpfnHook</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HINSTANCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hInstance</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZTEMPLATEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszTemplate</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HRESOURCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hResource</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Initialization Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_FINDTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to find the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to load the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_DIALOGFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Dialog box initialization failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOCALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_GLOBALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADSTRING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadstringa">LoadString</a> for the localized resources from the library.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_OLEMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Function Specific Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMAX</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_BZERR_HTASKINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The hTask specified in the <i>hTask</i> member of the <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuibusya">OLEUIBUSY</a> structure is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-oleuibusya
      * @since windows5.0
      */
     static OleUIBusyA(param0) {
-        DllCall("oledlg.dll\OleUIBusyA", "ptr", param0)
+        result := DllCall("oledlg.dll\OleUIBusyA", "ptr", param0)
+        return result
     }
 
     /**
@@ -33829,12 +37890,369 @@ class Ole {
      * > [!NOTE]
      * > The oledlg.h header defines OLEUICHANGESOURCE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<OLEUICHANGESOURCEW>} param0 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} Standard Success/Error Definitions
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unknown failure (unused).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the OK button.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_SUCCESS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No error, same as OLEUI_OK.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CANCEL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the Cancel button.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Standard Field Validation Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMIN</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTURENULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The pointer to an OLEUIXXX structure passed into the function was <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTUREINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient permissions for read or write access to an OLEUIXXX structure.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_CBSTRUCTINCORRECT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>cbstruct</i> value is incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HWNDOWNERINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hWndOwner</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZCAPTIONINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszCaption</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPFNHOOKINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpfnHook</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HINSTANCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hInstance</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZTEMPLATEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszTemplate</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HRESOURCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hResource</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Initialization Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_FINDTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to find the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to load the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_DIALOGFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Dialog box initialization failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOCALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_GLOBALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADSTRING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to call LoadString for localized resources from the library.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_OLEMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Function Specific Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMAX</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CSERR_LINKCNTRNULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpOleUILinkContainer</i> value is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CSERR_LINKCNTRINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpOleUILinkContainer</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CSERR_FROMNOTNULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszFrom</i> value is not <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CSERR_TONOTNULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszTo</i> value is not <b>NULL</b>. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CSERR_SOURCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszDisplayName</i> or <i>nFileLength</i> value is invalid, or cannot retrieve the link source.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CSERR_SOURCEPARSEERROR</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>nFilename</i> value is wrong.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-oleuichangesourcew
      * @since windows5.0
      */
     static OleUIChangeSourceW(param0) {
-        DllCall("oledlg.dll\OleUIChangeSourceW", "ptr", param0)
+        result := DllCall("oledlg.dll\OleUIChangeSourceW", "ptr", param0)
+        return result
     }
 
     /**
@@ -33850,12 +38268,369 @@ class Ole {
      * > [!NOTE]
      * > The oledlg.h header defines OLEUICHANGESOURCE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<OLEUICHANGESOURCEA>} param0 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} Standard Success/Error Definitions
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unknown failure (unused).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the OK button.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_SUCCESS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No error, same as OLEUI_OK.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CANCEL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the Cancel button.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Standard Field Validation Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMIN</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTURENULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The pointer to an OLEUIXXX structure passed into the function was <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTUREINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient permissions for read or write access to an OLEUIXXX structure.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_CBSTRUCTINCORRECT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>cbstruct</i> value is incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HWNDOWNERINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hWndOwner</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZCAPTIONINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszCaption</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPFNHOOKINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpfnHook</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HINSTANCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hInstance</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZTEMPLATEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszTemplate</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HRESOURCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hResource</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Initialization Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_FINDTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to find the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to load the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_DIALOGFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Dialog box initialization failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOCALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_GLOBALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADSTRING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to call LoadString for localized resources from the library.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_OLEMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Function Specific Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMAX</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CSERR_LINKCNTRNULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpOleUILinkContainer</i> value is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CSERR_LINKCNTRINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpOleUILinkContainer</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CSERR_FROMNOTNULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszFrom</i> value is not <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CSERR_TONOTNULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszTo</i> value is not <b>NULL</b>. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CSERR_SOURCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszDisplayName</i> or <i>nFileLength</i> value is invalid, or cannot retrieve the link source.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CSERR_SOURCEPARSEERROR</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>nFilename</i> value is wrong.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-oleuichangesourcea
      * @since windows5.0
      */
     static OleUIChangeSourceA(param0) {
-        DllCall("oledlg.dll\OleUIChangeSourceA", "ptr", param0)
+        result := DllCall("oledlg.dll\OleUIChangeSourceA", "ptr", param0)
+        return result
     }
 
     /**
@@ -33870,12 +38645,528 @@ class Ole {
      * > [!NOTE]
      * > The oledlg.h header defines OleUIObjectProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<OLEUIOBJECTPROPSW>} param0 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} Standard Success/Error Definitions
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unknown failure (unused).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the <b>OK</b> button.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_SUCCESS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No error, same as OLEUI_OK.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CANCEL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the <b>Cancel</b> button.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Standard Field Validation Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMIN</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTURENULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The pointer to an OLEUIXXX structure passed into the function was <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTUREINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient permissions for read or write access to an OLEUIXXX structure.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_CBSTRUCTINCORRECT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>cbstruct</i> value is incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HWNDOWNERINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hWndOwner</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZCAPTIONINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszCaption</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPFNHOOKINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpfnHook</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HINSTANCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hInstance</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZTEMPLATEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszTemplate</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HRESOURCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hResource</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Initialization Errors
+     * 
+     * 
+     * Initialization Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_FINDTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to find the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to load the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_DIALOGFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Dialog box initialization failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOCALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_GLOBALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADSTRING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to call LoadString for localized resources from the library.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_OLEMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Function Specific Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMAX</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OPERR_SUBPROPNULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>lpGP</i> or <i>lpVP</i> is <b>NULL</b>, or <i>dwFlags</i> and OPF_OBJECTISLINK and <i>lpLP</i> are <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OPERR_SUBPROPINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient write-access permissions for the structures pointed to by <i>lpGP</i>, <i>lpVP</i>, or <i>lpLP</i>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OPERR_PROPSHEETNULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpLP</i> value is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OPERR_PROPSHEETINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient write-access permissions for the structures pointed to by <i>lpGP</i>, <i>lpVP</i>, or <i>lpLP</i>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OPERR_SUPPROP</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The sub-link property pointer, <i>lpLP</i>, is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OPERR_PROPSINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient write access for the sub-link property pointer, <i>lpLP</i>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OPERR_PAGESINCORRECT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Some sub-link properties of the <i>lpPS</i> member are incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OPERR_INVALIDPAGES</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Some sub-link properties of the <i>lpPS</i> member are incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OPERR_NOTSUPPORTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A sub-link property of the <i>lpPS</i> member is incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OPERR_DLGPROCNOTNULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A sub-link property of the <i>lpPS</i> member is incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OPERR_LPARAMNOTZERO</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A sub-link property of the <i>lpPS</i> member is incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_GPERR_STRINGINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A string value (for example, <i>lplpszLabel</i> or <i>lplpszType</i>) is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_GPERR_CLASSIDINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>clsid</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_GPERR_LPCLSIDEXCLUDEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>ClsidExcluded</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_GPERR_CBFORMATINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>wFormat</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_VPERR_METAPICTINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hMetaPict</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_VPERR_DVASPECTINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>dvAspect</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OPERR_PROPERTYSHEET</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpPS</i> value is incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OPERR_OBJINFOINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpObjInfo</i> value is <b>NULL</b> or the calling process doesn't have read access.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OPERR_LINKINFOINVALID 
+     * 
+     * </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpLinkInfo</i> value is <b>NULL</b> or the calling process doesn't have read access.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-oleuiobjectpropertiesw
      * @since windows5.0
      */
     static OleUIObjectPropertiesW(param0) {
-        DllCall("oledlg.dll\OleUIObjectPropertiesW", "ptr", param0)
+        result := DllCall("oledlg.dll\OleUIObjectPropertiesW", "ptr", param0)
+        return result
     }
 
     /**
@@ -33890,12 +39181,528 @@ class Ole {
      * > [!NOTE]
      * > The oledlg.h header defines OleUIObjectProperties as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<OLEUIOBJECTPROPSA>} param0 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} Standard Success/Error Definitions
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unknown failure (unused).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the <b>OK</b> button.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_SUCCESS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No error, same as OLEUI_OK.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CANCEL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the <b>Cancel</b> button.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Standard Field Validation Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMIN</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTURENULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The pointer to an OLEUIXXX structure passed into the function was <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTUREINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient permissions for read or write access to an OLEUIXXX structure.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_CBSTRUCTINCORRECT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>cbstruct</i> value is incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HWNDOWNERINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hWndOwner</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZCAPTIONINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszCaption</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPFNHOOKINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpfnHook</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HINSTANCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hInstance</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZTEMPLATEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszTemplate</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HRESOURCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hResource</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Initialization Errors
+     * 
+     * 
+     * Initialization Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_FINDTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to find the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to load the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_DIALOGFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Dialog box initialization failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOCALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_GLOBALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADSTRING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to call LoadString for localized resources from the library.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_OLEMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Function Specific Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMAX</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OPERR_SUBPROPNULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>lpGP</i> or <i>lpVP</i> is <b>NULL</b>, or <i>dwFlags</i> and OPF_OBJECTISLINK and <i>lpLP</i> are <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OPERR_SUBPROPINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient write-access permissions for the structures pointed to by <i>lpGP</i>, <i>lpVP</i>, or <i>lpLP</i>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OPERR_PROPSHEETNULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpLP</i> value is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OPERR_PROPSHEETINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient write-access permissions for the structures pointed to by <i>lpGP</i>, <i>lpVP</i>, or <i>lpLP</i>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OPERR_SUPPROP</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The sub-link property pointer, <i>lpLP</i>, is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OPERR_PROPSINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient write access for the sub-link property pointer, <i>lpLP</i>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OPERR_PAGESINCORRECT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Some sub-link properties of the <i>lpPS</i> member are incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OPERR_INVALIDPAGES</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Some sub-link properties of the <i>lpPS</i> member are incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OPERR_NOTSUPPORTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A sub-link property of the <i>lpPS</i> member is incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OPERR_DLGPROCNOTNULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A sub-link property of the <i>lpPS</i> member is incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OPERR_LPARAMNOTZERO</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A sub-link property of the <i>lpPS</i> member is incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_GPERR_STRINGINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A string value (for example, <i>lplpszLabel</i> or <i>lplpszType</i>) is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_GPERR_CLASSIDINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>clsid</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_GPERR_LPCLSIDEXCLUDEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>ClsidExcluded</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_GPERR_CBFORMATINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>wFormat</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_VPERR_METAPICTINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hMetaPict</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_VPERR_DVASPECTINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>dvAspect</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OPERR_PROPERTYSHEET</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpPS</i> value is incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OPERR_OBJINFOINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpObjInfo</i> value is <b>NULL</b> or the calling process doesn't have read access.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OPERR_LINKINFOINVALID 
+     * 
+     * </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpLinkInfo</i> value is <b>NULL</b> or the calling process doesn't have read access.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-oleuiobjectpropertiesa
      * @since windows5.0
      */
     static OleUIObjectPropertiesA(param0) {
-        DllCall("oledlg.dll\OleUIObjectPropertiesA", "ptr", param0)
+        result := DllCall("oledlg.dll\OleUIObjectPropertiesA", "ptr", param0)
+        return result
     }
 
     /**
@@ -33918,13 +39725,304 @@ class Ole {
      * > [!NOTE]
      * > The oledlg.h header defines OleUIPromptUser as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} nTemplate The resource number of the dialog box to be displayed. See Remarks.
-     * @param {Pointer<HWND>} hwndParent The handle to the parent window of the dialog box.
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Void>} hwndParent The handle to the parent window of the dialog box.
+     * @returns {Pointer} Standard Success/Error Definitions
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unknown failure (unused).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the <b>OK</b> button.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_SUCCESS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No error, same as OLEUI_OK.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CANCEL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the <b>Cancel</b> button.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Standard Field Validation Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMIN</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTURENULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The pointer to an OLEUIXXX structure passed into the function was <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTUREINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient permissions for read or write access to an OLEUIXXX structure.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_CBSTRUCTINCORRECT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>cbstruct</i> value is incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HWNDOWNERINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hWndOwner</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZCAPTIONINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszCaption</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPFNHOOKINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpfnHook</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HINSTANCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hInstance</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZTEMPLATEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszTemplate</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HRESOURCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hResource</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Initialization Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_FINDTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to find the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to load the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_DIALOGFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Dialog box initialization failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOCALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_GLOBALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADSTRING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to call LoadString for localized resources from the library.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_OLEMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Function Specific Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMAX</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-oleuipromptuserw
      * @since windows5.0
      */
     static OleUIPromptUserW(nTemplate, hwndParent) {
-        DllCall("oledlg.dll\OleUIPromptUserW", "int", nTemplate, "ptr", hwndParent, "CDecl ")
+        result := DllCall("oledlg.dll\OleUIPromptUserW", "int", nTemplate, "ptr", hwndParent, "CDecl ptr")
+        return result
     }
 
     /**
@@ -33947,13 +40045,304 @@ class Ole {
      * > [!NOTE]
      * > The oledlg.h header defines OleUIPromptUser as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} nTemplate The resource number of the dialog box to be displayed. See Remarks.
-     * @param {Pointer<HWND>} hwndParent The handle to the parent window of the dialog box.
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Void>} hwndParent The handle to the parent window of the dialog box.
+     * @returns {Pointer} Standard Success/Error Definitions
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unknown failure (unused).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the <b>OK</b> button.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_SUCCESS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No error, same as OLEUI_OK.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_CANCEL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user pressed the <b>Cancel</b> button.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Standard Field Validation Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMIN</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTURENULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The pointer to an OLEUIXXX structure passed into the function was <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STRUCTUREINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient permissions for read or write access to an OLEUIXXX structure.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_CBSTRUCTINCORRECT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>cbstruct</i> value is incorrect.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HWNDOWNERINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hWndOwner</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZCAPTIONINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszCaption</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPFNHOOKINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpfnHook</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HINSTANCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hInstance</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LPSZTEMPLATEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>lpszTemplate</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_HRESOURCEINVALID</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>hResource</i> value is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Initialization Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_FINDTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to find the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADTEMPLATEFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to load the dialog box template.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_DIALOGFAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Dialog box initialization failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOCALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_GLOBALMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> or the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_LOADSTRING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to call LoadString for localized resources from the library.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_OLEMEMALLOC</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A call to the standard <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> allocator failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * Function Specific Errors
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OLEUI_ERR_STANDARDMAX</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Errors common to all dialog boxes lie in the range OLEUI_ERR_STANDARDMIN to OLEUI_ERR_STANDARDMAX. This value allows the application to test for standard messages in order to display error messages to the user.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-oleuipromptusera
      * @since windows5.0
      */
     static OleUIPromptUserA(nTemplate, hwndParent) {
-        DllCall("oledlg.dll\OleUIPromptUserA", "int", nTemplate, "ptr", hwndParent, "CDecl ")
+        result := DllCall("oledlg.dll\OleUIPromptUserA", "int", nTemplate, "ptr", hwndParent, "CDecl ptr")
+        return result
     }
 
     /**
@@ -33962,8 +40351,8 @@ class Ole {
      * > [!NOTE]
      * > The oledlg.h header defines OleUIUpdateLinks as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<IOleUILinkContainerW>} lpOleUILinkCntr Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nn-oledlg-ioleuilinkcontainera">IOleUILinkContainer</a> interface on the link container.
-     * @param {Pointer<HWND>} hwndParent Parent window of the dialog box.
-     * @param {Pointer<PWSTR>} lpszTitle Pointer to the title of the dialog box.
+     * @param {Pointer<Void>} hwndParent Parent window of the dialog box.
+     * @param {Pointer<Char>} lpszTitle Pointer to the title of the dialog box.
      * @param {Integer} cLinks Total number of links.
      * @returns {Integer} Returns <b>TRUE</b> if the links were successfully updated; otherwise, <b>FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-oleuiupdatelinksw
@@ -33982,8 +40371,8 @@ class Ole {
      * > [!NOTE]
      * > The oledlg.h header defines OleUIUpdateLinks as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<IOleUILinkContainerA>} lpOleUILinkCntr Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nn-oledlg-ioleuilinkcontainera">IOleUILinkContainer</a> interface on the link container.
-     * @param {Pointer<HWND>} hwndParent Parent window of the dialog box.
-     * @param {Pointer<PSTR>} lpszTitle Pointer to the title of the dialog box.
+     * @param {Pointer<Void>} hwndParent Parent window of the dialog box.
+     * @param {Pointer<Byte>} lpszTitle Pointer to the title of the dialog box.
      * @param {Integer} cLinks Total number of links.
      * @returns {Integer} Returns <b>TRUE</b> if the links were successfully updated; otherwise, <b>FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-oleuiupdatelinksa

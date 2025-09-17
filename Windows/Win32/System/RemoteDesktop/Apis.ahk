@@ -1295,7 +1295,7 @@ class RemoteDesktop {
      * @remarks
      * > [!NOTE]
      * > The wtsapi32.h header defines WTSStartRemoteControlSession as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} pTargetServerName A pointer to the name of the server where the session that you want remote control of exists.
+     * @param {Pointer<Char>} pTargetServerName A pointer to the name of the server where the session that you want remote control of exists.
      * @param {Integer} TargetLogonId The logon ID of the session that you want remote control of.
      * @param {Integer} HotkeyVk The virtual-key code that represents the key to press to stop remote control of the session. The key that is defined in this parameter is used with the  <i>HotkeyModifiers</i> parameter.
      * @param {Integer} HotkeyModifiers The virtual modifier that represents the key to press to stop remote control of the session. The virtual modifier is used with the <i>HotkeyVk</i> parameter.
@@ -1325,7 +1325,7 @@ class RemoteDesktop {
      * @remarks
      * > [!NOTE]
      * > The wtsapi32.h header defines WTSStartRemoteControlSession as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} pTargetServerName A pointer to the name of the server where the session that you want remote control of exists.
+     * @param {Pointer<Byte>} pTargetServerName A pointer to the name of the server where the session that you want remote control of exists.
      * @param {Integer} TargetLogonId The logon ID of the session that you want remote control of.
      * @param {Integer} HotkeyVk The virtual-key code that represents the key to press to stop remote control of the session. The key that is defined in this parameter is used with the  <i>HotkeyModifiers</i> parameter.
      * @param {Integer} HotkeyModifiers The virtual modifier that represents the key to press to stop remote control of the session. The virtual modifier is used with the <i>HotkeyVk</i> parameter.
@@ -1366,7 +1366,7 @@ class RemoteDesktop {
      * @param {Integer} TargetLogonId The logon ID of the session to receive the output of the session represented by the <i>LogonId</i> parameter. The output of the session identified by the <i>LogonId</i> parameter will be routed to this session.
      * 
      * This can be <b>LOGONID_CURRENT</b> to use the current session.
-     * @param {Pointer<PSTR>} pPassword A pointer to the password for the user account that is specified in the <i>LogonId</i> parameter. The value of <i>pPassword</i> can be an empty string if the caller is logged on using the same domain name and user name as the logon ID. The value of <i>pPassword</i> cannot be <b>NULL</b>.
+     * @param {Pointer<Byte>} pPassword A pointer to the password for the user account that is specified in the <i>LogonId</i> parameter. The value of <i>pPassword</i> can be an empty string if the caller is logged on using the same domain name and user name as the logon ID. The value of <i>pPassword</i> cannot be <b>NULL</b>.
      * @param {Integer} bWait Indicates whether the operation is synchronous. Specify <b>TRUE</b> to wait for the operation to complete, or <b>FALSE</b> to return immediately.
      * @returns {Integer} If the function succeeds, the return value is a nonzero value.
      * 
@@ -1403,7 +1403,7 @@ class RemoteDesktop {
      * @param {Integer} TargetLogonId The logon ID of the session to receive the output of the session represented by the <i>LogonId</i> parameter. The output of the session identified by the <i>LogonId</i> parameter will be routed to this session.
      * 
      * This can be <b>LOGONID_CURRENT</b> to use the current session.
-     * @param {Pointer<PWSTR>} pPassword A pointer to the password for the user account that is specified in the <i>LogonId</i> parameter. The value of <i>pPassword</i> can be an empty string if the caller is logged on using the same domain name and user name as the logon ID. The value of <i>pPassword</i> cannot be <b>NULL</b>.
+     * @param {Pointer<Char>} pPassword A pointer to the password for the user account that is specified in the <i>LogonId</i> parameter. The value of <i>pPassword</i> can be an empty string if the caller is logged on using the same domain name and user name as the logon ID. The value of <i>pPassword</i> cannot be <b>NULL</b>.
      * @param {Integer} bWait Indicates whether the operation is synchronous. Specify <b>TRUE</b> to wait for the operation to complete, or <b>FALSE</b> to return immediately.
      * @returns {Integer} If the function succeeds, the return value is a nonzero value.
      * 
@@ -1435,11 +1435,11 @@ class RemoteDesktop {
      * 
      * > [!NOTE]
      * > The wtsapi32.h header defines WTSEnumerateServers as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} pDomainName Pointer to the name of the domain to be queried. If the value of this parameter is 
+     * @param {Pointer<Char>} pDomainName Pointer to the name of the domain to be queried. If the value of this parameter is 
      *       <b>NULL</b>, the specified domain is the current domain.
      * @param {Integer} Reserved Reserved. The value of this parameter must be 0.
      * @param {Integer} Version Version of the enumeration request. The value of the parameter must be 1.
-     * @param {Pointer<PWSTR>} ppServerInfo Points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_server_infoa">WTS_SERVER_INFO</a> 
+     * @param {Pointer<Char>} ppServerInfo Points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_server_infoa">WTS_SERVER_INFO</a> 
      *       structures, which contains the returned results of the enumeration. After use, the memory used by this buffer 
      *       should be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a>.
      * @param {Pointer<UInt32>} pCount Pointer to a variable that receives the number of 
@@ -1454,11 +1454,10 @@ class RemoteDesktop {
      */
     static WTSEnumerateServersW(pDomainName, Reserved, Version, ppServerInfo, pCount) {
         pDomainName := pDomainName is String? StrPtr(pDomainName) : pDomainName
-        ppServerInfo := ppServerInfo is String? StrPtr(ppServerInfo) : ppServerInfo
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateServersW", "ptr", pDomainName, "uint", Reserved, "uint", Version, "ptr", ppServerInfo, "ptr", pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateServersW", "ptr", pDomainName, "uint", Reserved, "uint", Version, "ptr", ppServerInfo, "uint*", pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1476,11 +1475,11 @@ class RemoteDesktop {
      * 
      * > [!NOTE]
      * > The wtsapi32.h header defines WTSEnumerateServers as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} pDomainName Pointer to the name of the domain to be queried. If the value of this parameter is 
+     * @param {Pointer<Byte>} pDomainName Pointer to the name of the domain to be queried. If the value of this parameter is 
      *       <b>NULL</b>, the specified domain is the current domain.
      * @param {Integer} Reserved Reserved. The value of this parameter must be 0.
      * @param {Integer} Version Version of the enumeration request. The value of the parameter must be 1.
-     * @param {Pointer<PSTR>} ppServerInfo Points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_server_infoa">WTS_SERVER_INFO</a> 
+     * @param {Pointer<Byte>} ppServerInfo Points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_server_infoa">WTS_SERVER_INFO</a> 
      *       structures, which contains the returned results of the enumeration. After use, the memory used by this buffer 
      *       should be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a>.
      * @param {Pointer<UInt32>} pCount Pointer to a variable that receives the number of 
@@ -1495,11 +1494,10 @@ class RemoteDesktop {
      */
     static WTSEnumerateServersA(pDomainName, Reserved, Version, ppServerInfo, pCount) {
         pDomainName := pDomainName is String? StrPtr(pDomainName) : pDomainName
-        ppServerInfo := ppServerInfo is String? StrPtr(ppServerInfo) : ppServerInfo
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateServersA", "ptr", pDomainName, "uint", Reserved, "uint", Version, "ptr", ppServerInfo, "ptr", pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateServersA", "ptr", pDomainName, "uint", Reserved, "uint", Version, "ptr", ppServerInfo, "uint*", pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1520,8 +1518,8 @@ class RemoteDesktop {
      * 
      * > [!NOTE]
      * > The wtsapi32.h header defines WTSOpenServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} pServerName Pointer to a null-terminated string specifying the NetBIOS name of the RD Session Host server.
-     * @returns {Pointer<HANDLE>} If the function succeeds, the return value is a handle to the specified server.
+     * @param {Pointer<Char>} pServerName Pointer to a null-terminated string specifying the NetBIOS name of the RD Session Host server.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the specified server.
      * 
      * If the function fails, it returns a handle that is not valid. You can test the validity of the handle by using it in another function call.
      * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsopenserverw
@@ -1530,7 +1528,7 @@ class RemoteDesktop {
     static WTSOpenServerW(pServerName) {
         pServerName := pServerName is String? StrPtr(pServerName) : pServerName
 
-        result := DllCall("WTSAPI32.dll\WTSOpenServerW", "ptr", pServerName, "ptr")
+        result := DllCall("WTSAPI32.dll\WTSOpenServerW", "ptr", pServerName)
         return result
     }
 
@@ -1548,8 +1546,8 @@ class RemoteDesktop {
      * 
      * > [!NOTE]
      * > The wtsapi32.h header defines WTSOpenServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} pServerName Pointer to a null-terminated string specifying the NetBIOS name of the RD Session Host server.
-     * @returns {Pointer<HANDLE>} If the function succeeds, the return value is a handle to the specified server.
+     * @param {Pointer<Byte>} pServerName Pointer to a null-terminated string specifying the NetBIOS name of the RD Session Host server.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the specified server.
      * 
      * If the function fails, it returns a handle that is not valid. You can test the validity of the handle by using it in another function call.
      * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsopenservera
@@ -1558,7 +1556,7 @@ class RemoteDesktop {
     static WTSOpenServerA(pServerName) {
         pServerName := pServerName is String? StrPtr(pServerName) : pServerName
 
-        result := DllCall("WTSAPI32.dll\WTSOpenServerA", "ptr", pServerName, "ptr")
+        result := DllCall("WTSAPI32.dll\WTSOpenServerA", "ptr", pServerName)
         return result
     }
 
@@ -1577,8 +1575,8 @@ class RemoteDesktop {
      * 
      * > [!NOTE]
      * > The wtsapi32.h header defines WTSOpenServerEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} pServerName A pointer to a null-terminated string that contains the NetBIOS name of the server.
-     * @returns {Pointer<HANDLE>} If the function succeeds, the return value is a handle to the specified server.
+     * @param {Pointer<Char>} pServerName A pointer to a null-terminated string that contains the NetBIOS name of the server.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the specified server.
      * 
      * If the function fails, it returns an invalid handle. You can test the validity of the handle by using it in another function call.
      * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsopenserverexw
@@ -1587,7 +1585,7 @@ class RemoteDesktop {
     static WTSOpenServerExW(pServerName) {
         pServerName := pServerName is String? StrPtr(pServerName) : pServerName
 
-        result := DllCall("WTSAPI32.dll\WTSOpenServerExW", "ptr", pServerName, "ptr")
+        result := DllCall("WTSAPI32.dll\WTSOpenServerExW", "ptr", pServerName)
         return result
     }
 
@@ -1606,8 +1604,8 @@ class RemoteDesktop {
      * 
      * > [!NOTE]
      * > The wtsapi32.h header defines WTSOpenServerEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} pServerName A pointer to a null-terminated string that contains the NetBIOS name of the server.
-     * @returns {Pointer<HANDLE>} If the function succeeds, the return value is a handle to the specified server.
+     * @param {Pointer<Byte>} pServerName A pointer to a null-terminated string that contains the NetBIOS name of the server.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the specified server.
      * 
      * If the function fails, it returns an invalid handle. You can test the validity of the handle by using it in another function call.
      * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsopenserverexa
@@ -1616,7 +1614,7 @@ class RemoteDesktop {
     static WTSOpenServerExA(pServerName) {
         pServerName := pServerName is String? StrPtr(pServerName) : pServerName
 
-        result := DllCall("WTSAPI32.dll\WTSOpenServerExA", "ptr", pServerName, "ptr")
+        result := DllCall("WTSAPI32.dll\WTSOpenServerExA", "ptr", pServerName)
         return result
     }
 
@@ -1627,16 +1625,17 @@ class RemoteDesktop {
      *     close all the server handles opened by calls to the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> function.
      * 
      * After the handle has been closed, it cannot be used with any other WTS APIs.
-     * @param {Pointer<HANDLE>} hServer A handle to an RD Session Host server opened by a call to the 
+     * @param {Pointer<Void>} hServer A handle to an RD Session Host server opened by a call to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> function.
      * 
      * Do not pass <b>WTS_CURRENT_SERVER_HANDLE</b> for this parameter.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtscloseserver
      * @since windows6.0.6000
      */
     static WTSCloseServer(hServer) {
-        DllCall("WTSAPI32.dll\WTSCloseServer", "ptr", hServer)
+        result := DllCall("WTSAPI32.dll\WTSCloseServer", "ptr", hServer)
+        return result
     }
 
     /**
@@ -1644,7 +1643,7 @@ class RemoteDesktop {
      * @remarks
      * > [!NOTE]
      * > The wtsapi32.h header defines WTSEnumerateSessions as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} hServer A handle to the RD Session Host server.
+     * @param {Pointer<Void>} hServer A handle to the RD Session Host server.
      * 
      * <div class="alert"><b>Note</b>  You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> functions to retrieve a handle to a specific server, or  <b>WTS_CURRENT_SERVER_HANDLE</b> to use the RD Session Host server that hosts your application.</div>
@@ -1672,7 +1671,7 @@ class RemoteDesktop {
     static WTSEnumerateSessionsW(hServer, Reserved, Version, ppSessionInfo, pCount) {
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsW", "ptr", hServer, "uint", Reserved, "uint", Version, "ptr", ppSessionInfo, "ptr", pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsW", "ptr", hServer, "uint", Reserved, "uint", Version, "ptr", ppSessionInfo, "uint*", pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1684,7 +1683,7 @@ class RemoteDesktop {
      * @remarks
      * > [!NOTE]
      * > The wtsapi32.h header defines WTSEnumerateSessions as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} hServer A handle to the RD Session Host server.
+     * @param {Pointer<Void>} hServer A handle to the RD Session Host server.
      * 
      * <div class="alert"><b>Note</b>  You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> functions to retrieve a handle to a specific server, or  <b>WTS_CURRENT_SERVER_HANDLE</b> to use the RD Session Host server that hosts your application.</div>
@@ -1712,7 +1711,7 @@ class RemoteDesktop {
     static WTSEnumerateSessionsA(hServer, Reserved, Version, ppSessionInfo, pCount) {
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsA", "ptr", hServer, "uint", Reserved, "uint", Version, "ptr", ppSessionInfo, "ptr", pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsA", "ptr", hServer, "uint", Reserved, "uint", Version, "ptr", ppSessionInfo, "uint*", pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1736,7 +1735,7 @@ class RemoteDesktop {
      * 
      * > [!NOTE]
      * > The wtsapi32.h header defines WTSEnumerateSessionsEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} hServer A handle to the target server. Specify a handle returned by the 
+     * @param {Pointer<Void>} hServer A handle to the target server. Specify a handle returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> function. To enumerate sessions on  the RD Session Host server on which the application is running, specify <b>WTS_CURRENT_SERVER_HANDLE</b>.
      * @param {Pointer<UInt32>} pLevel This parameter is reserved. Always set this parameter to one. On output, <b>WTSEnumerateSessionsEx</b> does not change the value of this parameter.
      * @param {Integer} Filter This parameter is reserved. Always set this parameter to zero.
@@ -1754,7 +1753,7 @@ class RemoteDesktop {
     static WTSEnumerateSessionsExW(hServer, pLevel, Filter, ppSessionInfo, pCount) {
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsExW", "ptr", hServer, "ptr", pLevel, "uint", Filter, "ptr", ppSessionInfo, "ptr", pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsExW", "ptr", hServer, "uint*", pLevel, "uint", Filter, "ptr", ppSessionInfo, "uint*", pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1778,7 +1777,7 @@ class RemoteDesktop {
      * 
      * > [!NOTE]
      * > The wtsapi32.h header defines WTSEnumerateSessionsEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} hServer A handle to the target server. Specify a handle returned by the 
+     * @param {Pointer<Void>} hServer A handle to the target server. Specify a handle returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> function. To enumerate sessions on  the RD Session Host server on which the application is running, specify <b>WTS_CURRENT_SERVER_HANDLE</b>.
      * @param {Pointer<UInt32>} pLevel This parameter is reserved. Always set this parameter to one. On output, <b>WTSEnumerateSessionsEx</b> does not change the value of this parameter.
      * @param {Integer} Filter This parameter is reserved. Always set this parameter to zero.
@@ -1796,7 +1795,7 @@ class RemoteDesktop {
     static WTSEnumerateSessionsExA(hServer, pLevel, Filter, ppSessionInfo, pCount) {
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsExA", "ptr", hServer, "ptr", pLevel, "uint", Filter, "ptr", ppSessionInfo, "ptr", pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsExA", "ptr", hServer, "uint*", pLevel, "uint", Filter, "ptr", ppSessionInfo, "uint*", pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1815,7 +1814,7 @@ class RemoteDesktop {
      * 
      * > [!NOTE]
      * > The wtsapi32.h header defines WTSEnumerateProcesses as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} hServer Handle to an RD Session Host server. Specify a handle opened by the 
+     * @param {Pointer<Void>} hServer Handle to an RD Session Host server. Specify a handle opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify 
      *       <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application is 
      *       running.
@@ -1837,7 +1836,7 @@ class RemoteDesktop {
     static WTSEnumerateProcessesW(hServer, Reserved, Version, ppProcessInfo, pCount) {
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesW", "ptr", hServer, "uint", Reserved, "uint", Version, "ptr", ppProcessInfo, "ptr", pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesW", "ptr", hServer, "uint", Reserved, "uint", Version, "ptr", ppProcessInfo, "uint*", pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1856,7 +1855,7 @@ class RemoteDesktop {
      * 
      * > [!NOTE]
      * > The wtsapi32.h header defines WTSEnumerateProcesses as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} hServer Handle to an RD Session Host server. Specify a handle opened by the 
+     * @param {Pointer<Void>} hServer Handle to an RD Session Host server. Specify a handle opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify 
      *       <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application is 
      *       running.
@@ -1878,7 +1877,7 @@ class RemoteDesktop {
     static WTSEnumerateProcessesA(hServer, Reserved, Version, ppProcessInfo, pCount) {
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesA", "ptr", hServer, "uint", Reserved, "uint", Version, "ptr", ppProcessInfo, "ptr", pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesA", "ptr", hServer, "uint", Reserved, "uint", Version, "ptr", ppProcessInfo, "uint*", pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1887,7 +1886,7 @@ class RemoteDesktop {
 
     /**
      * Terminates the specified process on the specified Remote Desktop Session Host (RD Session Host) server.
-     * @param {Pointer<HANDLE>} hServer Handle to an RD Session Host server. Specify a handle opened by the 
+     * @param {Pointer<Void>} hServer Handle to an RD Session Host server. Specify a handle opened by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify WTS_CURRENT_SERVER_HANDLE to indicate the RD Session Host server on which your application is running.
      * @param {Integer} ProcessId Specifies the process identifier of the process to terminate.
      * @param {Integer} ExitCode Specifies the exit code for the terminated process.
@@ -1931,7 +1930,7 @@ class RemoteDesktop {
      * 
      * > [!NOTE]
      * > The wtsapi32.h header defines WTSQuerySessionInformation as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} hServer A handle to an RD Session Host server. Specify a handle opened by the 
+     * @param {Pointer<Void>} hServer A handle to an RD Session Host server. Specify a handle opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify 
      *       <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application 
      *       is running.
@@ -1951,7 +1950,7 @@ class RemoteDesktop {
      * @param {Integer} WTSInfoClass A value of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_info_class">WTS_INFO_CLASS</a> enumeration that indicates the type of 
      *     session information to retrieve in a call to the 
      *     <b>WTSQuerySessionInformation</b> function.
-     * @param {Pointer<PWSTR>} ppBuffer A pointer to a variable that receives a pointer to the requested information. The format and contents of the 
+     * @param {Pointer<Char>} ppBuffer A pointer to a variable that receives a pointer to the requested information. The format and contents of the 
      *       data depend on the information class specified in the <i>WTSInfoClass</i> parameter. To free 
      *       the returned buffer, call the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> 
      *       function.
@@ -1965,11 +1964,9 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSQuerySessionInformationW(hServer, SessionId, WTSInfoClass, ppBuffer, pBytesReturned) {
-        ppBuffer := ppBuffer is String? StrPtr(ppBuffer) : ppBuffer
-
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSQuerySessionInformationW", "ptr", hServer, "uint", SessionId, "int", WTSInfoClass, "ptr", ppBuffer, "ptr", pBytesReturned, "int")
+        result := DllCall("WTSAPI32.dll\WTSQuerySessionInformationW", "ptr", hServer, "uint", SessionId, "int", WTSInfoClass, "ptr", ppBuffer, "uint*", pBytesReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1999,7 +1996,7 @@ class RemoteDesktop {
      * 
      * > [!NOTE]
      * > The wtsapi32.h header defines WTSQuerySessionInformation as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} hServer A handle to an RD Session Host server. Specify a handle opened by the 
+     * @param {Pointer<Void>} hServer A handle to an RD Session Host server. Specify a handle opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify 
      *       <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application 
      *       is running.
@@ -2019,7 +2016,7 @@ class RemoteDesktop {
      * @param {Integer} WTSInfoClass A value of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_info_class">WTS_INFO_CLASS</a> enumeration that indicates the type of 
      *     session information to retrieve in a call to the 
      *     <b>WTSQuerySessionInformation</b> function.
-     * @param {Pointer<PSTR>} ppBuffer A pointer to a variable that receives a pointer to the requested information. The format and contents of the 
+     * @param {Pointer<Byte>} ppBuffer A pointer to a variable that receives a pointer to the requested information. The format and contents of the 
      *       data depend on the information class specified in the <i>WTSInfoClass</i> parameter. To free 
      *       the returned buffer, call the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> 
      *       function.
@@ -2033,11 +2030,9 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSQuerySessionInformationA(hServer, SessionId, WTSInfoClass, ppBuffer, pBytesReturned) {
-        ppBuffer := ppBuffer is String? StrPtr(ppBuffer) : ppBuffer
-
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSQuerySessionInformationA", "ptr", hServer, "uint", SessionId, "int", WTSInfoClass, "ptr", ppBuffer, "ptr", pBytesReturned, "int")
+        result := DllCall("WTSAPI32.dll\WTSQuerySessionInformationA", "ptr", hServer, "uint", SessionId, "int", WTSInfoClass, "ptr", ppBuffer, "uint*", pBytesReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2062,14 +2057,14 @@ class RemoteDesktop {
      * 
      * > [!NOTE]
      * > The wtsapi32.h header defines WTSQueryUserConfig as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} pServerName Pointer to a null-terminated string containing the name of a domain controller or an RD Session Host server. Specify <b>WTS_CURRENT_SERVER_NAME</b> to indicate the RD Session Host server on which your application is running.
-     * @param {Pointer<PWSTR>} pUserName Pointer to a null-terminated string containing the user name to query. To retrieve the default user settings for the RD Session Host server, set this parameter to <b>NULL</b>.
+     * @param {Pointer<Char>} pServerName Pointer to a null-terminated string containing the name of a domain controller or an RD Session Host server. Specify <b>WTS_CURRENT_SERVER_NAME</b> to indicate the RD Session Host server on which your application is running.
+     * @param {Pointer<Char>} pUserName Pointer to a null-terminated string containing the user name to query. To retrieve the default user settings for the RD Session Host server, set this parameter to <b>NULL</b>.
      * 
      * <b>Windows Server 2008 and Windows Vista:  </b>Setting this parameter to <b>NULL</b> returns an error.
      * @param {Integer} WTSConfigClass Specifies the type of information to retrieve. This parameter can be one of the values from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_config_class">WTS_CONFIG_CLASS</a> enumeration type. The documentation for 
      * <b>WTS_CONFIG_CLASS</b> describes the format of the data returned in <i>ppBuffer</i> for each of the information types.
-     * @param {Pointer<PWSTR>} ppBuffer Pointer to a variable that receives a pointer to the requested information. The format and contents of the data depend on the information class specified in the <i>WTSConfigClass</i> parameter. To free the returned buffer, call the 
+     * @param {Pointer<Char>} ppBuffer Pointer to a variable that receives a pointer to the requested information. The format and contents of the data depend on the information class specified in the <i>WTSConfigClass</i> parameter. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> function.
      * @param {Pointer<UInt32>} pBytesReturned Pointer to a variable that receives the size, in bytes, of the data returned in <i>ppBuffer</i>.
      * @returns {Integer} If the function succeeds, the return value is a nonzero value.
@@ -2082,11 +2077,10 @@ class RemoteDesktop {
     static WTSQueryUserConfigW(pServerName, pUserName, WTSConfigClass, ppBuffer, pBytesReturned) {
         pServerName := pServerName is String? StrPtr(pServerName) : pServerName
         pUserName := pUserName is String? StrPtr(pUserName) : pUserName
-        ppBuffer := ppBuffer is String? StrPtr(ppBuffer) : ppBuffer
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSQueryUserConfigW", "ptr", pServerName, "ptr", pUserName, "int", WTSConfigClass, "ptr", ppBuffer, "ptr", pBytesReturned, "int")
+        result := DllCall("WTSAPI32.dll\WTSQueryUserConfigW", "ptr", pServerName, "ptr", pUserName, "int", WTSConfigClass, "ptr", ppBuffer, "uint*", pBytesReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2111,14 +2105,14 @@ class RemoteDesktop {
      * 
      * > [!NOTE]
      * > The wtsapi32.h header defines WTSQueryUserConfig as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} pServerName Pointer to a null-terminated string containing the name of a domain controller or an RD Session Host server. Specify <b>WTS_CURRENT_SERVER_NAME</b> to indicate the RD Session Host server on which your application is running.
-     * @param {Pointer<PSTR>} pUserName Pointer to a null-terminated string containing the user name to query. To retrieve the default user settings for the RD Session Host server, set this parameter to <b>NULL</b>.
+     * @param {Pointer<Byte>} pServerName Pointer to a null-terminated string containing the name of a domain controller or an RD Session Host server. Specify <b>WTS_CURRENT_SERVER_NAME</b> to indicate the RD Session Host server on which your application is running.
+     * @param {Pointer<Byte>} pUserName Pointer to a null-terminated string containing the user name to query. To retrieve the default user settings for the RD Session Host server, set this parameter to <b>NULL</b>.
      * 
      * <b>Windows Server 2008 and Windows Vista:  </b>Setting this parameter to <b>NULL</b> returns an error.
      * @param {Integer} WTSConfigClass Specifies the type of information to retrieve. This parameter can be one of the values from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_config_class">WTS_CONFIG_CLASS</a> enumeration type. The documentation for 
      * <b>WTS_CONFIG_CLASS</b> describes the format of the data returned in <i>ppBuffer</i> for each of the information types.
-     * @param {Pointer<PSTR>} ppBuffer Pointer to a variable that receives a pointer to the requested information. The format and contents of the data depend on the information class specified in the <i>WTSConfigClass</i> parameter. To free the returned buffer, call the 
+     * @param {Pointer<Byte>} ppBuffer Pointer to a variable that receives a pointer to the requested information. The format and contents of the data depend on the information class specified in the <i>WTSConfigClass</i> parameter. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> function.
      * @param {Pointer<UInt32>} pBytesReturned Pointer to a variable that receives the size, in bytes, of the data returned in <i>ppBuffer</i>.
      * @returns {Integer} If the function succeeds, the return value is a nonzero value.
@@ -2131,11 +2125,10 @@ class RemoteDesktop {
     static WTSQueryUserConfigA(pServerName, pUserName, WTSConfigClass, ppBuffer, pBytesReturned) {
         pServerName := pServerName is String? StrPtr(pServerName) : pServerName
         pUserName := pUserName is String? StrPtr(pUserName) : pUserName
-        ppBuffer := ppBuffer is String? StrPtr(ppBuffer) : ppBuffer
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSQueryUserConfigA", "ptr", pServerName, "ptr", pUserName, "int", WTSConfigClass, "ptr", ppBuffer, "ptr", pBytesReturned, "int")
+        result := DllCall("WTSAPI32.dll\WTSQueryUserConfigA", "ptr", pServerName, "ptr", pUserName, "int", WTSConfigClass, "ptr", ppBuffer, "uint*", pBytesReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2180,15 +2173,15 @@ class RemoteDesktop {
      * 
      * > [!NOTE]
      * > The wtsapi32.h header defines WTSSetUserConfig as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} pServerName Pointer to a null-terminated string containing the name of a domain controller or 
+     * @param {Pointer<Char>} pServerName Pointer to a null-terminated string containing the name of a domain controller or 
      *       RD Session Host server. Specify <b>WTS_CURRENT_SERVER_NAME</b> to indicate the 
      *       RD Session Host server on which your application is running.
-     * @param {Pointer<PWSTR>} pUserName Pointer to a null-terminated string containing the name of the user whose configuration is being set.
+     * @param {Pointer<Char>} pUserName Pointer to a null-terminated string containing the name of the user whose configuration is being set.
      * @param {Integer} WTSConfigClass Specifies the type of information to set for the user. This parameter can be one of the values from the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_config_class">WTS_CONFIG_CLASS</a> enumeration type. The 
      *       documentation for <b>WTS_CONFIG_CLASS</b> describes 
      *       the format of the data specified in <i>ppBuffer</i> for each of the information types.
-     * @param {Pointer<PWSTR>} pBuffer Pointer to the data used to modify the specified user's configuration.
+     * @param {Pointer} pBuffer Pointer to the data used to modify the specified user's configuration.
      * @param {Integer} DataLength Size, in <b>TCHARs</b>, of the <i>pBuffer</i> buffer.
      * @returns {Integer} If the function succeeds, the return value is a nonzero value.
      * 
@@ -2200,7 +2193,6 @@ class RemoteDesktop {
     static WTSSetUserConfigW(pServerName, pUserName, WTSConfigClass, pBuffer, DataLength) {
         pServerName := pServerName is String? StrPtr(pServerName) : pServerName
         pUserName := pUserName is String? StrPtr(pUserName) : pUserName
-        pBuffer := pBuffer is String? StrPtr(pBuffer) : pBuffer
 
         A_LastError := 0
 
@@ -2249,15 +2241,15 @@ class RemoteDesktop {
      * 
      * > [!NOTE]
      * > The wtsapi32.h header defines WTSSetUserConfig as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} pServerName Pointer to a null-terminated string containing the name of a domain controller or 
+     * @param {Pointer<Byte>} pServerName Pointer to a null-terminated string containing the name of a domain controller or 
      *       RD Session Host server. Specify <b>WTS_CURRENT_SERVER_NAME</b> to indicate the 
      *       RD Session Host server on which your application is running.
-     * @param {Pointer<PSTR>} pUserName Pointer to a null-terminated string containing the name of the user whose configuration is being set.
+     * @param {Pointer<Byte>} pUserName Pointer to a null-terminated string containing the name of the user whose configuration is being set.
      * @param {Integer} WTSConfigClass Specifies the type of information to set for the user. This parameter can be one of the values from the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_config_class">WTS_CONFIG_CLASS</a> enumeration type. The 
      *       documentation for <b>WTS_CONFIG_CLASS</b> describes 
      *       the format of the data specified in <i>ppBuffer</i> for each of the information types.
-     * @param {Pointer<PSTR>} pBuffer Pointer to the data used to modify the specified user's configuration.
+     * @param {Pointer} pBuffer Pointer to the data used to modify the specified user's configuration.
      * @param {Integer} DataLength Size, in <b>TCHARs</b>, of the <i>pBuffer</i> buffer.
      * @returns {Integer} If the function succeeds, the return value is a nonzero value.
      * 
@@ -2269,7 +2261,6 @@ class RemoteDesktop {
     static WTSSetUserConfigA(pServerName, pUserName, WTSConfigClass, pBuffer, DataLength) {
         pServerName := pServerName is String? StrPtr(pServerName) : pServerName
         pUserName := pUserName is String? StrPtr(pUserName) : pUserName
-        pBuffer := pBuffer is String? StrPtr(pBuffer) : pBuffer
 
         A_LastError := 0
 
@@ -2285,7 +2276,7 @@ class RemoteDesktop {
      * @remarks
      * > [!NOTE]
      * > The wtsapi32.h header defines WTSSendMessage as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} hServer A handle to an RD Session Host server. Specify a handle opened by the 
+     * @param {Pointer<Void>} hServer A handle to an RD Session Host server. Specify a handle opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify 
      *        <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application 
      *        is running.
@@ -2298,9 +2289,9 @@ class RemoteDesktop {
      *        information, see <a href="https://docs.microsoft.com/windows/desktop/TermServ/terminal-services-permissions">Remote Desktop Services  
      *        Permissions</a>. To modify permissions on a session, use the Remote Desktop Services Configuration administrative 
      *        tool.
-     * @param {Pointer<PWSTR>} pTitle A pointer to a null-terminated string for the title bar of the message box.
+     * @param {Pointer} pTitle A pointer to a null-terminated string for the title bar of the message box.
      * @param {Integer} TitleLength The length, in bytes, of the title bar string.
-     * @param {Pointer<PWSTR>} pMessage A pointer to a null-terminated string that contains the message to display.
+     * @param {Pointer} pMessage A pointer to a null-terminated string that contains the message to display.
      * @param {Integer} MessageLength The length, in bytes, of the message string.
      * @param {Integer} Style The contents and behavior of the message box. This value is typically 
      *       <b>MB_OK</b>. For a complete list of values, see the <i>uType</i> 
@@ -2327,12 +2318,9 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSSendMessageW(hServer, SessionId, pTitle, TitleLength, pMessage, MessageLength, Style, Timeout, pResponse, bWait) {
-        pTitle := pTitle is String? StrPtr(pTitle) : pTitle
-        pMessage := pMessage is String? StrPtr(pMessage) : pMessage
-
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSSendMessageW", "ptr", hServer, "uint", SessionId, "ptr", pTitle, "uint", TitleLength, "ptr", pMessage, "uint", MessageLength, "uint", Style, "uint", Timeout, "ptr", pResponse, "int", bWait, "int")
+        result := DllCall("WTSAPI32.dll\WTSSendMessageW", "ptr", hServer, "uint", SessionId, "ptr", pTitle, "uint", TitleLength, "ptr", pMessage, "uint", MessageLength, "uint", Style, "uint", Timeout, "int*", pResponse, "int", bWait, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2344,7 +2332,7 @@ class RemoteDesktop {
      * @remarks
      * > [!NOTE]
      * > The wtsapi32.h header defines WTSSendMessage as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} hServer A handle to an RD Session Host server. Specify a handle opened by the 
+     * @param {Pointer<Void>} hServer A handle to an RD Session Host server. Specify a handle opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify 
      *        <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application 
      *        is running.
@@ -2357,9 +2345,9 @@ class RemoteDesktop {
      *        information, see <a href="https://docs.microsoft.com/windows/desktop/TermServ/terminal-services-permissions">Remote Desktop Services  
      *        Permissions</a>. To modify permissions on a session, use the Remote Desktop Services Configuration administrative 
      *        tool.
-     * @param {Pointer<PSTR>} pTitle A pointer to a null-terminated string for the title bar of the message box.
+     * @param {Pointer} pTitle A pointer to a null-terminated string for the title bar of the message box.
      * @param {Integer} TitleLength The length, in bytes, of the title bar string.
-     * @param {Pointer<PSTR>} pMessage A pointer to a null-terminated string that contains the message to display.
+     * @param {Pointer} pMessage A pointer to a null-terminated string that contains the message to display.
      * @param {Integer} MessageLength The length, in bytes, of the message string.
      * @param {Integer} Style The contents and behavior of the message box. This value is typically 
      *       <b>MB_OK</b>. For a complete list of values, see the <i>uType</i> 
@@ -2386,12 +2374,9 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSSendMessageA(hServer, SessionId, pTitle, TitleLength, pMessage, MessageLength, Style, Timeout, pResponse, bWait) {
-        pTitle := pTitle is String? StrPtr(pTitle) : pTitle
-        pMessage := pMessage is String? StrPtr(pMessage) : pMessage
-
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSSendMessageA", "ptr", hServer, "uint", SessionId, "ptr", pTitle, "uint", TitleLength, "ptr", pMessage, "uint", MessageLength, "uint", Style, "uint", Timeout, "ptr", pResponse, "int", bWait, "int")
+        result := DllCall("WTSAPI32.dll\WTSSendMessageA", "ptr", hServer, "uint", SessionId, "ptr", pTitle, "uint", TitleLength, "ptr", pMessage, "uint", MessageLength, "uint", Style, "uint", Timeout, "int*", pResponse, "int", bWait, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2400,7 +2385,7 @@ class RemoteDesktop {
 
     /**
      * Disconnects the logged-on user from the specified Remote Desktop Services session without closing the session.
-     * @param {Pointer<HANDLE>} hServer A handle to an RD Session Host server. Specify a handle opened by the 
+     * @param {Pointer<Void>} hServer A handle to an RD Session Host server. Specify a handle opened by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> function, or specify <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application is running.
      * @param {Integer} SessionId A Remote Desktop Services session identifier. To indicate the current session, specify <b>WTS_CURRENT_SESSION</b>. To retrieve the identifiers of all sessions on a specified RD Session Host server, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsenumeratesessionsa">WTSEnumerateSessions</a> function.
@@ -2429,7 +2414,7 @@ class RemoteDesktop {
 
     /**
      * Logs off a specified Remote Desktop Services session.
-     * @param {Pointer<HANDLE>} hServer A handle to an RD Session Host server. Specify a handle opened by the 
+     * @param {Pointer<Void>} hServer A handle to an RD Session Host server. Specify a handle opened by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> function, or specify <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application is running.
      * @param {Integer} SessionId A Remote Desktop Services session identifier. To indicate the current session, specify <b>WTS_CURRENT_SESSION</b>. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsenumeratesessionsa">WTSEnumerateSessions</a> function to retrieve the identifiers of all sessions on a specified RD Session Host server.
@@ -2480,7 +2465,7 @@ class RemoteDesktop {
      * <div class="alert"><b>Note</b>  Because there can be many users and processes in a large multiple-user configuration, large system configurations may take some time to shut down in an orderly fashion. It is important to allow the system to shut down completely.</div>
      * <div> </div>
      * <b>Windows Server 2008 and Windows Vista:  </b>A call to <b>WTSShutdownSystem</b> does not work when Remote Connection Manager (RCM) is disabled. This is the case when the Remote Desktop Services service is stopped.
-     * @param {Pointer<HANDLE>} hServer Handle to an RD Session Host server. Specify a handle opened by the 
+     * @param {Pointer<Void>} hServer Handle to an RD Session Host server. Specify a handle opened by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application is running.
      * @param {Integer} ShutdownFlag 
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -2502,7 +2487,7 @@ class RemoteDesktop {
 
     /**
      * Waits for a Remote Desktop Services event before returning to the caller.
-     * @param {Pointer<HANDLE>} hServer Handle to an RD Session Host server. Specify a handle opened by the 
+     * @param {Pointer<Void>} hServer Handle to an RD Session Host server. Specify a handle opened by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify WTS_CURRENT_SERVER_HANDLE to indicate the RD Session Host server on which your application is running.
      * @param {Integer} EventMask Bitmask that specifies the set of events to wait for. This mask can be WTS_EVENT_FLUSH to cause all pending
      * @param {Pointer<UInt32>} pEventFlags Pointer to a variable that receives a bitmask of the event or events that occurred. The returned mask can 
@@ -2519,7 +2504,7 @@ class RemoteDesktop {
     static WTSWaitSystemEvent(hServer, EventMask, pEventFlags) {
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSWaitSystemEvent", "ptr", hServer, "uint", EventMask, "ptr", pEventFlags, "int")
+        result := DllCall("WTSAPI32.dll\WTSWaitSystemEvent", "ptr", hServer, "uint", EventMask, "uint*", pEventFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2540,8 +2525,8 @@ class RemoteDesktop {
      * 
      * To open a virtual channel on another user's session, you need to have permission from the Virtual Channel. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/TermServ/terminal-services-permissions">Remote Desktop Services Permissions</a>. To modify permissions on a session, use the Remote Desktop Services Configuration administrative tool.
-     * @param {Pointer<PSTR>} pVirtualName A pointer to a <b>null</b>-terminated string containing the virtual channel name. Note that this is an ANSI string even when UNICODE is defined. The virtual channel name consists of one to CHANNEL_NAME_LEN characters, not including the terminating <b>null</b>.
-     * @returns {Pointer<HANDLE>} If the function succeeds, the return value is a handle to the specified virtual channel.
+     * @param {Pointer<Byte>} pVirtualName A pointer to a <b>null</b>-terminated string containing the virtual channel name. Note that this is an ANSI string even when UNICODE is defined. The virtual channel name consists of one to CHANNEL_NAME_LEN characters, not including the terminating <b>null</b>.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the specified virtual channel.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2555,7 +2540,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSVirtualChannelOpen", "ptr", hServer, "uint", SessionId, "ptr", pVirtualName, "ptr")
+        result := DllCall("WTSAPI32.dll\WTSVirtualChannelOpen", "ptr", hServer, "uint", SessionId, "ptr", pVirtualName)
         if(A_LastError)
             throw OSError()
 
@@ -2573,7 +2558,7 @@ class RemoteDesktop {
      *        permission. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/TermServ/terminal-services-permissions">Remote Desktop Services Permissions</a>. 
      *        To modify permissions on a session, use the Remote Desktop Services Configuration administrative tool.
-     * @param {Pointer<PSTR>} pVirtualName In the case of an SVC, points to a null-terminated string that contains the virtual channel name. The length 
+     * @param {Pointer<Byte>} pVirtualName In the case of an SVC, points to a null-terminated string that contains the virtual channel name. The length 
      *        of an SVC name is limited to <b>CHANNEL_NAME_LEN</b> characters, not including the 
      *        terminating null.
      * 
@@ -2585,7 +2570,7 @@ class RemoteDesktop {
      * When opening a DVC, you can specify a priority setting for the data that is being transferred by specifying 
      *        one of the <b>WTS_CHANNEL_OPTION_DYNAMIC_PRI_<i>XXX</i></b> values in 
      *        combination with the <b>WTS_CHANNEL_OPTION_DYNAMIC</b> value.
-     * @returns {Pointer<HANDLE>} <b>NULL</b> on error with 
+     * @returns {Pointer<Void>} <b>NULL</b> on error with 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> set.
      * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelopenex
      * @since windows6.0.6000
@@ -2595,7 +2580,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSVirtualChannelOpenEx", "uint", SessionId, "ptr", pVirtualName, "uint", flags, "ptr")
+        result := DllCall("WTSAPI32.dll\WTSVirtualChannelOpenEx", "uint", SessionId, "ptr", pVirtualName, "uint", flags)
         if(A_LastError)
             throw OSError()
 
@@ -2604,7 +2589,7 @@ class RemoteDesktop {
 
     /**
      * Closes an open virtual channel handle.
-     * @param {Pointer<HANDLE>} hChannelHandle Handle to a virtual channel opened by the 
+     * @param {Pointer<Void>} hChannelHandle Handle to a virtual channel opened by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelopen">WTSVirtualChannelOpen</a> function.
      * @returns {Integer} If the function succeeds, the return value is a nonzero value.
      * 
@@ -2631,13 +2616,13 @@ class RemoteDesktop {
      *     <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelquery">WTSVirtualChannelQuery</a> with 
      *     <b>WTSVirtualFileHandle</b>.</div>
      * <div> </div>
-     * @param {Pointer<HANDLE>} hChannelHandle Handle to a virtual channel opened by the 
+     * @param {Pointer<Void>} hChannelHandle Handle to a virtual channel opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelopen">WTSVirtualChannelOpen</a> function.
      * @param {Integer} TimeOut Specifies the time-out, in milliseconds. If <i>TimeOut</i> is zero, 
      *       <b>WTSVirtualChannelRead</b> returns immediately 
      *       if there is no data to read. If <i>TimeOut</i> is INFINITE (defined in Winbase.h), the 
      *       function waits indefinitely until there is data to read.
-     * @param {Pointer<PSTR>} Buffer Pointer to a buffer that receives a chunk of data read from the server end of the virtual channel. The maximum 
+     * @param {Pointer} Buffer Pointer to a buffer that receives a chunk of data read from the server end of the virtual channel. The maximum 
      *       amount of data that the server can receive in a single 
      *       <b>WTSVirtualChannelRead</b> call is 
      *       <b>CHANNEL_CHUNK_LENGTH</b> bytes. If the client's 
@@ -2663,11 +2648,9 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSVirtualChannelRead(hChannelHandle, TimeOut, Buffer, BufferSize, pBytesRead) {
-        Buffer := Buffer is String? StrPtr(Buffer) : Buffer
-
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSVirtualChannelRead", "ptr", hChannelHandle, "uint", TimeOut, "ptr", Buffer, "uint", BufferSize, "ptr", pBytesRead, "int")
+        result := DllCall("WTSAPI32.dll\WTSVirtualChannelRead", "ptr", hChannelHandle, "uint", TimeOut, "ptr", Buffer, "uint", BufferSize, "uint*", pBytesRead, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2682,9 +2665,9 @@ class RemoteDesktop {
      *     <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelquery">WTSVirtualChannelQuery</a> with 
      *     <b>WTSVirtualFileHandle</b>.</div>
      * <div> </div>
-     * @param {Pointer<HANDLE>} hChannelHandle Handle to a virtual channel opened by the 
+     * @param {Pointer<Void>} hChannelHandle Handle to a virtual channel opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelopen">WTSVirtualChannelOpen</a> function.
-     * @param {Pointer<PSTR>} Buffer Pointer to a buffer containing the data to write to the virtual channel.
+     * @param {Pointer} Buffer Pointer to a buffer containing the data to write to the virtual channel.
      * @param {Integer} Length Specifies the size, in bytes, of the data to write.
      * @param {Pointer<UInt32>} pBytesWritten Pointer to a variable that receives the number of bytes written.
      * @returns {Integer} If the function succeeds, the return value is a nonzero value.
@@ -2695,11 +2678,9 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSVirtualChannelWrite(hChannelHandle, Buffer, Length, pBytesWritten) {
-        Buffer := Buffer is String? StrPtr(Buffer) : Buffer
-
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSVirtualChannelWrite", "ptr", hChannelHandle, "ptr", Buffer, "uint", Length, "ptr", pBytesWritten, "int")
+        result := DllCall("WTSAPI32.dll\WTSVirtualChannelWrite", "ptr", hChannelHandle, "ptr", Buffer, "uint", Length, "uint*", pBytesWritten, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2708,7 +2689,7 @@ class RemoteDesktop {
 
     /**
      * Deletes all queued input data sent from the client to the server on a specified virtual channel.
-     * @param {Pointer<HANDLE>} hChannelHandle Handle to a virtual channel opened by the 
+     * @param {Pointer<Void>} hChannelHandle Handle to a virtual channel opened by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelopen">WTSVirtualChannelOpen</a> function.
      * @returns {Integer} If the function succeeds, the return value is a nonzero value.
      * 
@@ -2729,7 +2710,7 @@ class RemoteDesktop {
 
     /**
      * Deletes all queued output data sent from the server to the client on a specified virtual channel.
-     * @param {Pointer<HANDLE>} hChannelHandle Handle to a virtual channel opened by the 
+     * @param {Pointer<Void>} hChannelHandle Handle to a virtual channel opened by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelopen">WTSVirtualChannelOpen</a> function.
      * @returns {Integer} If the function succeeds, the return value is a nonzero value.
      * 
@@ -2841,7 +2822,7 @@ class RemoteDesktop {
      * For more information about overlapped mode, see 
      *     <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-and-overlapped-input-and-output">Synchronization and Overlapped Input and 
      *     Output</a>.
-     * @param {Pointer<HANDLE>} hChannelHandle Handle to a virtual channel opened by the 
+     * @param {Pointer<Void>} hChannelHandle Handle to a virtual channel opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelopen">WTSVirtualChannelOpen</a> function.
      * @param {Integer} param1 
      * @param {Pointer<Void>} ppBuffer Pointer to a buffer that receives the requested information.
@@ -2861,7 +2842,7 @@ class RemoteDesktop {
     static WTSVirtualChannelQuery(hChannelHandle, param1, ppBuffer, pBytesReturned) {
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSVirtualChannelQuery", "ptr", hChannelHandle, "int", param1, "ptr", ppBuffer, "ptr", pBytesReturned, "int")
+        result := DllCall("WTSAPI32.dll\WTSVirtualChannelQuery", "ptr", hChannelHandle, "int", param1, "ptr", ppBuffer, "uint*", pBytesReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2874,12 +2855,13 @@ class RemoteDesktop {
      * Several Remote Desktop Services functions allocate buffers to return information. Use the 
      * <b>WTSFreeMemory</b> function to free these buffers.
      * @param {Pointer<Void>} pMemory Pointer to the memory to free.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsfreememory
      * @since windows6.0.6000
      */
     static WTSFreeMemory(pMemory) {
-        DllCall("WTSAPI32.dll\WTSFreeMemory", "ptr", pMemory)
+        result := DllCall("WTSAPI32.dll\WTSFreeMemory", "ptr", pMemory)
+        return result
     }
 
     /**
@@ -2902,7 +2884,7 @@ class RemoteDesktop {
      * 
      * To receive session change notifications from a service, use the 
      *     <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nc-winsvc-lphandler_function_ex">HandlerEx</a> function.
-     * @param {Pointer<HWND>} hWnd Handle of the window to receive session change notifications.
+     * @param {Pointer<Void>} hWnd Handle of the window to receive session change notifications.
      * @param {Integer} dwFlags Specifies which session notifications are to be received. This parameter can be one of the following 
      *       values.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, it is 
@@ -2927,7 +2909,7 @@ class RemoteDesktop {
      * This function must be called once for every call to the 
      *     <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsregistersessionnotification">WTSRegisterSessionNotification</a> 
      *     function.
-     * @param {Pointer<HWND>} hWnd Handle of the window to be unregistered from receiving session notifications.
+     * @param {Pointer<Void>} hWnd Handle of the window to be unregistered from receiving session notifications.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, it is <b>FALSE</b>. To get extended error 
      *        information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsunregistersessionnotification
@@ -2965,10 +2947,10 @@ class RemoteDesktop {
      * 
      * To receive session change notifications from a service, use the 
      *     <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nc-winsvc-lphandler_function_ex">HandlerEx</a> function.
-     * @param {Pointer<HANDLE>} hServer Handle of the server returned from 
+     * @param {Pointer<Void>} hServer Handle of the server returned from 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or 
      *       <b>WTS_CURRENT_SERVER</b>.
-     * @param {Pointer<HWND>} hWnd Handle of the window to receive session change notifications.
+     * @param {Pointer<Void>} hWnd Handle of the window to receive session change notifications.
      * @param {Integer} dwFlags Specifies which session notifications are to be received. This parameter can only be 
      *       <b>NOTIFY_FOR_THIS_SESSION</b> if <i>hServer</i> is a remote server.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, it is 
@@ -2993,10 +2975,10 @@ class RemoteDesktop {
      * This function must be called once for every call to the 
      *     <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsregistersessionnotificationex">WTSRegisterSessionNotificationEx</a> 
      *     function.
-     * @param {Pointer<HANDLE>} hServer Handle of the server returned from 
+     * @param {Pointer<Void>} hServer Handle of the server returned from 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or 
      *       <b>WTS_CURRENT_SERVER</b>.
-     * @param {Pointer<HWND>} hWnd Handle of the window to be unregistered from receiving session notifications.
+     * @param {Pointer<Void>} hWnd Handle of the window to be unregistered from receiving session notifications.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, it is <b>FALSE</b>. To get extended error 
      *        information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsunregistersessionnotificationex
@@ -3033,7 +3015,7 @@ class RemoteDesktop {
      *        <a href="https://docs.microsoft.com/windows/desktop/TermServ/terminal-services-permissions">Remote Desktop Services 
      *        Permissions</a>. To modify permissions on a session, use the Remote Desktop Services Configuration 
      *        administrative tool.
-     * @param {Pointer<HANDLE>} phToken If the function succeeds, receives a pointer to the token handle for the logged-on user. Note that you must 
+     * @param {Pointer<Void>} phToken If the function succeeds, receives a pointer to the token handle for the logged-on user. Note that you must 
      *       call the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function to close this 
      *       handle.
      * @returns {Integer} If the function succeeds, the return value is a nonzero value, and the <i>phToken</i> 
@@ -3141,7 +3123,7 @@ class RemoteDesktop {
      * 
      * > [!NOTE]
      * > The wtsapi32.h header defines WTSEnumerateProcessesEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} hServer A handle to an RD Session Host server. Specify a handle opened by the 
+     * @param {Pointer<Void>} hServer A handle to an RD Session Host server. Specify a handle opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify 
      *       <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the server on which your application is 
      *       running.
@@ -3149,7 +3131,7 @@ class RemoteDesktop {
      * 
      * If you do not specify a valid value for this parameter, on output, <b>WTSEnumerateProcessesEx</b> sets this parameter to one and returns an error. Otherwise, on output, <b>WTSEnumerateProcessesEx</b> does not change the value of this parameter.
      * @param {Integer} SessionId The session  for which to enumerate processes. To enumerate processes for all sessions on the server,  specify <b>WTS_ANY_SESSION</b>.
-     * @param {Pointer<PWSTR>} ppProcessInfo A pointer to a variable that receives a pointer to an array of 
+     * @param {Pointer<Char>} ppProcessInfo A pointer to a variable that receives a pointer to an array of 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_infoa">WTS_PROCESS_INFO</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_info_exa">WTS_PROCESS_INFO_EX</a> structures. The type of structure is determined by the value passed to the <i>pLevel</i> parameter. Each structure 
      *       in the array contains information about an active process. When you have finished using the array, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememoryexa">WTSFreeMemoryEx</a> function. You should also set the pointer to <b>NULL</b>.
      * @param {Pointer<UInt32>} pCount A pointer to a variable that receives the number of  
@@ -3162,11 +3144,9 @@ class RemoteDesktop {
      * @since windows6.1
      */
     static WTSEnumerateProcessesExW(hServer, pLevel, SessionId, ppProcessInfo, pCount) {
-        ppProcessInfo := ppProcessInfo is String? StrPtr(ppProcessInfo) : ppProcessInfo
-
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesExW", "ptr", hServer, "ptr", pLevel, "uint", SessionId, "ptr", ppProcessInfo, "ptr", pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesExW", "ptr", hServer, "uint*", pLevel, "uint", SessionId, "ptr", ppProcessInfo, "uint*", pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3184,7 +3164,7 @@ class RemoteDesktop {
      * 
      * > [!NOTE]
      * > The wtsapi32.h header defines WTSEnumerateProcessesEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} hServer A handle to an RD Session Host server. Specify a handle opened by the 
+     * @param {Pointer<Void>} hServer A handle to an RD Session Host server. Specify a handle opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify 
      *       <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the server on which your application is 
      *       running.
@@ -3192,7 +3172,7 @@ class RemoteDesktop {
      * 
      * If you do not specify a valid value for this parameter, on output, <b>WTSEnumerateProcessesEx</b> sets this parameter to one and returns an error. Otherwise, on output, <b>WTSEnumerateProcessesEx</b> does not change the value of this parameter.
      * @param {Integer} SessionId The session  for which to enumerate processes. To enumerate processes for all sessions on the server,  specify <b>WTS_ANY_SESSION</b>.
-     * @param {Pointer<PSTR>} ppProcessInfo A pointer to a variable that receives a pointer to an array of 
+     * @param {Pointer<Byte>} ppProcessInfo A pointer to a variable that receives a pointer to an array of 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_infoa">WTS_PROCESS_INFO</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_info_exa">WTS_PROCESS_INFO_EX</a> structures. The type of structure is determined by the value passed to the <i>pLevel</i> parameter. Each structure 
      *       in the array contains information about an active process. When you have finished using the array, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememoryexa">WTSFreeMemoryEx</a> function. You should also set the pointer to <b>NULL</b>.
      * @param {Pointer<UInt32>} pCount A pointer to a variable that receives the number of  
@@ -3205,11 +3185,9 @@ class RemoteDesktop {
      * @since windows6.1
      */
     static WTSEnumerateProcessesExA(hServer, pLevel, SessionId, ppProcessInfo, pCount) {
-        ppProcessInfo := ppProcessInfo is String? StrPtr(ppProcessInfo) : ppProcessInfo
-
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesExA", "ptr", hServer, "ptr", pLevel, "uint", SessionId, "ptr", ppProcessInfo, "ptr", pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesExA", "ptr", hServer, "uint*", pLevel, "uint", SessionId, "ptr", ppProcessInfo, "uint*", pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3255,7 +3233,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateListenersW", "ptr", hServer, "ptr", pReserved, "uint", Reserved, "ptr", pListeners, "ptr", pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateListenersW", "ptr", hServer, "ptr", pReserved, "uint", Reserved, "ptr", pListeners, "uint*", pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3301,7 +3279,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateListenersA", "ptr", hServer, "ptr", pReserved, "uint", Reserved, "ptr", pListeners, "ptr", pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateListenersA", "ptr", hServer, "ptr", pReserved, "uint", Reserved, "ptr", pListeners, "uint*", pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3321,7 +3299,7 @@ class RemoteDesktop {
      * > The wtsapi32.h header defines WTSQueryListenerConfig as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
-     * @param {Pointer<PWSTR>} pListenerName A pointer to a null-terminated string that contains the name of the listener to query.
+     * @param {Pointer<Char>} pListenerName A pointer to a null-terminated string that contains the name of the listener to query.
      * @param {Pointer<WTSLISTENERCONFIGW>} pBuffer A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wtslistenerconfiga">WTSLISTENERCONFIG</a> structure that receives the  retrieved listener configuration information.
      * @returns {Integer} If the function succeeds, the return value is a nonzero value.
      * 
@@ -3357,7 +3335,7 @@ class RemoteDesktop {
      * > The wtsapi32.h header defines WTSQueryListenerConfig as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
-     * @param {Pointer<PSTR>} pListenerName A pointer to a null-terminated string that contains the name of the listener to query.
+     * @param {Pointer<Byte>} pListenerName A pointer to a null-terminated string that contains the name of the listener to query.
      * @param {Pointer<WTSLISTENERCONFIGA>} pBuffer A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wtslistenerconfiga">WTSLISTENERCONFIG</a> structure that receives the  retrieved listener configuration information.
      * @returns {Integer} If the function succeeds, the return value is a nonzero value.
      * 
@@ -3397,7 +3375,7 @@ class RemoteDesktop {
      * > The wtsapi32.h header defines WTSCreateListener as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
-     * @param {Pointer<PWSTR>} pListenerName A pointer to a null-terminated string that contains the name of the listener to create or configure.
+     * @param {Pointer<Char>} pListenerName A pointer to a null-terminated string that contains the name of the listener to create or configure.
      * @param {Pointer<WTSLISTENERCONFIGW>} pBuffer A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wtslistenerconfiga">WTSLISTENERCONFIG</a> structure that contains configuration information for the listener.
      * @param {Integer} flag 
      * @returns {Integer} If the function succeeds, the return value is a nonzero value.
@@ -3438,7 +3416,7 @@ class RemoteDesktop {
      * > The wtsapi32.h header defines WTSCreateListener as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
-     * @param {Pointer<PSTR>} pListenerName A pointer to a null-terminated string that contains the name of the listener to create or configure.
+     * @param {Pointer<Byte>} pListenerName A pointer to a null-terminated string that contains the name of the listener to create or configure.
      * @param {Pointer<WTSLISTENERCONFIGA>} pBuffer A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wtslistenerconfiga">WTSLISTENERCONFIG</a> structure that contains configuration information for the listener.
      * @param {Integer} flag 
      * @returns {Integer} If the function succeeds, the return value is a nonzero value.
@@ -3469,11 +3447,11 @@ class RemoteDesktop {
      * > The wtsapi32.h header defines WTSSetListenerSecurity as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
-     * @param {Pointer<PWSTR>} pListenerName A pointer to a null-terminated string that contains the name of the listener.
+     * @param {Pointer<Char>} pListenerName A pointer to a null-terminated string that contains the name of the listener.
      * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that specifies the security information  to set. Always enable the  <b>DACL_SECURITY_INFORMATION</b> and <b>SACL_SECURITY_INFORMATION</b> flags.
      * 
      * For more information about possible values, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a>.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} pSecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains the security information associated with the listener. For more information about possible values, see <b>SECURITY_DESCRIPTOR</b>. For information about <b>STANDARD_RIGHTS_REQUIRED</b>, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">Standard Access Rights</a>.
+     * @param {Pointer<Void>} pSecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains the security information associated with the listener. For more information about possible values, see <b>SECURITY_DESCRIPTOR</b>. For information about <b>STANDARD_RIGHTS_REQUIRED</b>, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">Standard Access Rights</a>.
      * @returns {Integer} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -3502,11 +3480,11 @@ class RemoteDesktop {
      * > The wtsapi32.h header defines WTSSetListenerSecurity as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
-     * @param {Pointer<PSTR>} pListenerName A pointer to a null-terminated string that contains the name of the listener.
+     * @param {Pointer<Byte>} pListenerName A pointer to a null-terminated string that contains the name of the listener.
      * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that specifies the security information  to set. Always enable the  <b>DACL_SECURITY_INFORMATION</b> and <b>SACL_SECURITY_INFORMATION</b> flags.
      * 
      * For more information about possible values, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a>.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} pSecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains the security information associated with the listener. For more information about possible values, see <b>SECURITY_DESCRIPTOR</b>. For information about <b>STANDARD_RIGHTS_REQUIRED</b>, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">Standard Access Rights</a>.
+     * @param {Pointer<Void>} pSecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains the security information associated with the listener. For more information about possible values, see <b>SECURITY_DESCRIPTOR</b>. For information about <b>STANDARD_RIGHTS_REQUIRED</b>, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">Standard Access Rights</a>.
      * @returns {Integer} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -3541,11 +3519,11 @@ class RemoteDesktop {
      * > The wtsapi32.h header defines WTSGetListenerSecurity as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
-     * @param {Pointer<PWSTR>} pListenerName A pointer to a null-terminated string that contains the name of the listener.
+     * @param {Pointer<Char>} pListenerName A pointer to a null-terminated string that contains the name of the listener.
      * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that specifies the security information  to retrieve. Always enable the  <b>DACL_SECURITY_INFORMATION</b> and <b>SACL_SECURITY_INFORMATION</b> flags.
      * 
      * For more information about possible values, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a>.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} pSecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that receives the security information associated with  the listener referenced by the <i>pListenerName</i> parameter. The <b>SECURITY_DESCRIPTOR</b> structure is returned in self-relative format. For more information about possible values, see <b>SECURITY_DESCRIPTOR</b>.
+     * @param {Pointer<Void>} pSecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that receives the security information associated with  the listener referenced by the <i>pListenerName</i> parameter. The <b>SECURITY_DESCRIPTOR</b> structure is returned in self-relative format. For more information about possible values, see <b>SECURITY_DESCRIPTOR</b>.
      * @param {Integer} nLength The size, in bytes, of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure referenced by the <i>pSecurityDescriptor</i> parameter.
      * @param {Pointer<UInt32>} lpnLengthNeeded A pointer to a variable that receives the number of bytes required to store the complete security descriptor. If this number is less than or equal to the value of the <i>nLength</i> parameter, the security descriptor is copied to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure referenced by the <i>pSecurityDescriptor</i> parameter; otherwise, no action is taken.
      * @returns {Integer} If the function succeeds, the return value is a nonzero value.
@@ -3562,7 +3540,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSGetListenerSecurityW", "ptr", hServer, "ptr", pReserved, "uint", Reserved, "ptr", pListenerName, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "uint", nLength, "ptr", lpnLengthNeeded, "int")
+        result := DllCall("WTSAPI32.dll\WTSGetListenerSecurityW", "ptr", hServer, "ptr", pReserved, "uint", Reserved, "ptr", pListenerName, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "uint", nLength, "uint*", lpnLengthNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3582,11 +3560,11 @@ class RemoteDesktop {
      * > The wtsapi32.h header defines WTSGetListenerSecurity as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
-     * @param {Pointer<PSTR>} pListenerName A pointer to a null-terminated string that contains the name of the listener.
+     * @param {Pointer<Byte>} pListenerName A pointer to a null-terminated string that contains the name of the listener.
      * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that specifies the security information  to retrieve. Always enable the  <b>DACL_SECURITY_INFORMATION</b> and <b>SACL_SECURITY_INFORMATION</b> flags.
      * 
      * For more information about possible values, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a>.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} pSecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that receives the security information associated with  the listener referenced by the <i>pListenerName</i> parameter. The <b>SECURITY_DESCRIPTOR</b> structure is returned in self-relative format. For more information about possible values, see <b>SECURITY_DESCRIPTOR</b>.
+     * @param {Pointer<Void>} pSecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that receives the security information associated with  the listener referenced by the <i>pListenerName</i> parameter. The <b>SECURITY_DESCRIPTOR</b> structure is returned in self-relative format. For more information about possible values, see <b>SECURITY_DESCRIPTOR</b>.
      * @param {Integer} nLength The size, in bytes, of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure referenced by the <i>pSecurityDescriptor</i> parameter.
      * @param {Pointer<UInt32>} lpnLengthNeeded A pointer to a variable that receives the number of bytes required to store the complete security descriptor. If this number is less than or equal to the value of the <i>nLength</i> parameter, the security descriptor is copied to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure referenced by the <i>pSecurityDescriptor</i> parameter; otherwise, no action is taken.
      * @returns {Integer} If the function succeeds, the return value is a nonzero value.
@@ -3603,7 +3581,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSGetListenerSecurityA", "ptr", hServer, "ptr", pReserved, "uint", Reserved, "ptr", pListenerName, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "uint", nLength, "ptr", lpnLengthNeeded, "int")
+        result := DllCall("WTSAPI32.dll\WTSGetListenerSecurityA", "ptr", hServer, "ptr", pReserved, "uint", Reserved, "ptr", pListenerName, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "uint", nLength, "uint*", lpnLengthNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3634,7 +3612,7 @@ class RemoteDesktop {
      * @since windows8.0
      */
     static WTSIsChildSessionsEnabled(pbEnabled) {
-        result := DllCall("WTSAPI32.dll\WTSIsChildSessionsEnabled", "ptr", pbEnabled, "int")
+        result := DllCall("WTSAPI32.dll\WTSIsChildSessionsEnabled", "int*", pbEnabled, "int")
         return result
     }
 
@@ -3648,7 +3626,7 @@ class RemoteDesktop {
      * @since windows8.0
      */
     static WTSGetChildSessionId(pSessionId) {
-        result := DllCall("WTSAPI32.dll\WTSGetChildSessionId", "ptr", pSessionId, "int")
+        result := DllCall("WTSAPI32.dll\WTSGetChildSessionId", "uint*", pSessionId, "int")
         return result
     }
 
@@ -3657,11 +3635,11 @@ class RemoteDesktop {
      * @param {Pointer<UInt64>} pRenderHintID The address of a value that identifies the rendering hint affected by this call. If a new hint is being 
      *       created, this value must contain zero. This function will return a unique rendering hint identifier which is 
      *       used for subsequent calls, such as clearing the hint.
-     * @param {Pointer<HWND>} hwndOwner The handle of window linked to lifetime of the rendering hint. This window is used in situations where a 
+     * @param {Pointer<Void>} hwndOwner The handle of window linked to lifetime of the rendering hint. This window is used in situations where a 
      *       hint target is removed without the hint being explicitly cleared.
      * @param {Integer} renderHintType Specifies the type of hint represented by this call.
      * @param {Integer} cbHintDataLength The size, in <b>BYTE</b>s, of the <i>pHintData</i> buffer.
-     * @param {Pointer<Byte>} pHintData Additional data for the hint.
+     * @param {Pointer} pHintData Additional data for the hint.
      * 
      * The format of this data is dependent upon the value passed in the <i>renderHintType</i> 
      *        parameter.
@@ -3670,7 +3648,7 @@ class RemoteDesktop {
      * @since windows8.0
      */
     static WTSSetRenderHint(pRenderHintID, hwndOwner, renderHintType, cbHintDataLength, pHintData) {
-        result := DllCall("WTSAPI32.dll\WTSSetRenderHint", "ptr", pRenderHintID, "ptr", hwndOwner, "uint", renderHintType, "uint", cbHintDataLength, "ptr", pHintData, "int")
+        result := DllCall("WTSAPI32.dll\WTSSetRenderHint", "uint*", pRenderHintID, "ptr", hwndOwner, "uint", renderHintType, "uint", cbHintDataLength, "ptr", pHintData, "int")
         return result
     }
 
@@ -3697,7 +3675,7 @@ class RemoteDesktop {
     static ProcessIdToSessionId(dwProcessId, pSessionId) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ProcessIdToSessionId", "uint", dwProcessId, "ptr", pSessionId, "int")
+        result := DllCall("KERNEL32.dll\ProcessIdToSessionId", "uint", dwProcessId, "uint*", pSessionId, "int")
         if(A_LastError)
             throw OSError()
 

@@ -37,7 +37,7 @@ class DHCP_IP_RESERVATION_INFO extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that represents the DHCPv4 reserved client machine name.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ReservedClientName {
         get => NumGet(this, 24, "ptr")
@@ -46,7 +46,7 @@ class DHCP_IP_RESERVATION_INFO extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that represents the description of the DHCPv4 reserved client.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ReservedClientDesc {
         get => NumGet(this, 32, "ptr")

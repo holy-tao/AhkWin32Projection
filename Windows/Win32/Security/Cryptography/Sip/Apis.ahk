@@ -175,7 +175,7 @@ class Sip {
     static CryptSIPGetSignedDataMsg(pSubjectInfo, pdwEncodingType, dwIndex, pcbSignedDataMsg, pbSignedDataMsg) {
         A_LastError := 0
 
-        result := DllCall("WINTRUST.dll\CryptSIPGetSignedDataMsg", "ptr", pSubjectInfo, "ptr", pdwEncodingType, "uint", dwIndex, "ptr", pcbSignedDataMsg, "ptr", pbSignedDataMsg, "int")
+        result := DllCall("WINTRUST.dll\CryptSIPGetSignedDataMsg", "ptr", pSubjectInfo, "uint*", pdwEncodingType, "uint", dwIndex, "uint*", pcbSignedDataMsg, "char*", pbSignedDataMsg, "int")
         if(A_LastError)
             throw OSError()
 
@@ -250,7 +250,7 @@ class Sip {
     static CryptSIPPutSignedDataMsg(pSubjectInfo, dwEncodingType, pdwIndex, cbSignedDataMsg, pbSignedDataMsg) {
         A_LastError := 0
 
-        result := DllCall("WINTRUST.dll\CryptSIPPutSignedDataMsg", "ptr", pSubjectInfo, "uint", dwEncodingType, "ptr", pdwIndex, "uint", cbSignedDataMsg, "ptr", pbSignedDataMsg, "int")
+        result := DllCall("WINTRUST.dll\CryptSIPPutSignedDataMsg", "ptr", pSubjectInfo, "uint", dwEncodingType, "uint*", pdwIndex, "uint", cbSignedDataMsg, "char*", pbSignedDataMsg, "int")
         if(A_LastError)
             throw OSError()
 
@@ -339,7 +339,7 @@ class Sip {
     static CryptSIPCreateIndirectData(pSubjectInfo, pcbIndirectData, pIndirectData) {
         A_LastError := 0
 
-        result := DllCall("WINTRUST.dll\CryptSIPCreateIndirectData", "ptr", pSubjectInfo, "ptr", pcbIndirectData, "ptr", pIndirectData, "int")
+        result := DllCall("WINTRUST.dll\CryptSIPCreateIndirectData", "ptr", pSubjectInfo, "uint*", pcbIndirectData, "ptr", pIndirectData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -443,8 +443,8 @@ class Sip {
 
     /**
      * Retrieves a GUID based on the header information in a specified file.
-     * @param {Pointer<PWSTR>} FileName The name of the file.
-     * @param {Pointer<HANDLE>} hFileIn A handle to the file to check.
+     * @param {Pointer<Char>} FileName The name of the file.
+     * @param {Pointer<Void>} hFileIn A handle to the file to check.
      * @param {Pointer<Guid>} pgSubject A GUID that identifies the subject.
      * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
      * 
@@ -468,8 +468,8 @@ class Sip {
      * Retrieves the subject GUID associated with the specified file.
      * @remarks
      * This function only supports <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">subject interface packages</a> (SIPs) that are used for portable executable images (.exe), cabinet (.cab) images, and flat files.
-     * @param {Pointer<PWSTR>} FileName The name of the file. If the <i>hFileIn</i> parameter is set, the value in this parameter is ignored.
-     * @param {Pointer<HANDLE>} hFileIn A handle to the file to check. This parameter must contain a valid handle if the <i>FileName</i> parameter is <b>NULL</b>.
+     * @param {Pointer<Char>} FileName The name of the file. If the <i>hFileIn</i> parameter is set, the value in this parameter is ignored.
+     * @param {Pointer<Void>} hFileIn A handle to the file to check. This parameter must contain a valid handle if the <i>FileName</i> parameter is <b>NULL</b>.
      * @param {Pointer<Guid>} pgSubject A globally unique ID that identifies the subject.
      * @returns {Integer} The return value is <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
@@ -575,7 +575,7 @@ class Sip {
      * @returns {Integer} 
      */
     static CryptSIPGetSealedDigest(pSubjectInfo, pSig, dwSig, pbDigest, pcbDigest) {
-        result := DllCall("WINTRUST.dll\CryptSIPGetSealedDigest", "ptr", pSubjectInfo, "ptr", pSig, "uint", dwSig, "ptr", pbDigest, "ptr", pcbDigest, "int")
+        result := DllCall("WINTRUST.dll\CryptSIPGetSealedDigest", "ptr", pSubjectInfo, "char*", pSig, "uint", dwSig, "char*", pbDigest, "uint*", pcbDigest, "int")
         return result
     }
 

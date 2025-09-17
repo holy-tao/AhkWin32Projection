@@ -27,7 +27,7 @@ class DNS_QUERY_REQUEST extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  If <b>QueryName</b> is NULL, the query is for the local machine name.</div>
      * <div> </div>
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     QueryName {
         get => NumGet(this, 8, "ptr")

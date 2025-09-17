@@ -50,7 +50,7 @@ class SIGNER_CERT_STORE_INFO extends Win32Struct
 
     /**
      * Optional. A handle to an additional certificate store.
-     * @type {Pointer<HCERTSTORE>}
+     * @type {Pointer<Void>}
      */
     hCertStore {
         get => NumGet(this, 24, "ptr")

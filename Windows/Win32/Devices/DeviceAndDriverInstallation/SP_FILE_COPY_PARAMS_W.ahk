@@ -38,7 +38,7 @@ class SP_FILE_COPY_PARAMS_W extends Win32Struct
 
     /**
      * Optional pointer to the root of the source for this copy, such as A:\.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     SourceRootPath {
         get => NumGet(this, 16, "ptr")
@@ -47,7 +47,7 @@ class SP_FILE_COPY_PARAMS_W extends Win32Struct
 
     /**
      * Optional pointer to the path relative to <b>SourceRootPath</b> where the file can be found.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     SourcePath {
         get => NumGet(this, 24, "ptr")
@@ -56,7 +56,7 @@ class SP_FILE_COPY_PARAMS_W extends Win32Struct
 
     /**
      * File name part of the file to be copied.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     SourceFilename {
         get => NumGet(this, 32, "ptr")
@@ -65,7 +65,7 @@ class SP_FILE_COPY_PARAMS_W extends Win32Struct
 
     /**
      * Optional pointer to a description of the source media to be used during disk prompts.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     SourceDescription {
         get => NumGet(this, 40, "ptr")
@@ -74,7 +74,7 @@ class SP_FILE_COPY_PARAMS_W extends Win32Struct
 
     /**
      * Optional pointer to a tag file whose presence at <b>SourceRootPath</b> indicates the presence of the source media. If not specified, the file itself will be used as the tag file if required.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     SourceTagfile {
         get => NumGet(this, 48, "ptr")
@@ -83,7 +83,7 @@ class SP_FILE_COPY_PARAMS_W extends Win32Struct
 
     /**
      * Directory where the file is to be copied.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     TargetDirectory {
         get => NumGet(this, 56, "ptr")
@@ -92,7 +92,7 @@ class SP_FILE_COPY_PARAMS_W extends Win32Struct
 
     /**
      * Optional pointer to the name of the target file. If not specified, the target file will have the same name as the source file.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     TargetFilename {
         get => NumGet(this, 64, "ptr")
@@ -119,7 +119,7 @@ class SP_FILE_COPY_PARAMS_W extends Win32Struct
 
     /**
      * An optional Security Descriptor String specifying the ACL to apply to the file.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     SecurityDescriptor {
         get => NumGet(this, 88, "ptr")

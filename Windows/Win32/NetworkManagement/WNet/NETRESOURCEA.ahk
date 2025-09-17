@@ -165,7 +165,7 @@ class NETRESOURCEA extends Win32Struct
      * 
      * 
      * If <b>dwScope</b> is not set to RESOURCE_CONNECTED, this field is undefined.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpLocalName {
         get => NumGet(this, 16, "ptr")
@@ -175,7 +175,7 @@ class NETRESOURCEA extends Win32Struct
     /**
      * If the enumerated item is a network resource, this field contains a remote network name. This name may be then passed to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-npaddconnection">NPAddConnection</a> to make a network connection if <b>dwUsage</b> is set to RESOURCEUSAGE_CONNECTABLE. If the enumerated item is a current connection, this field will refer to the remote network name that <b>lpLocalName</b> is connected to.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpRemoteName {
         get => NumGet(this, 24, "ptr")
@@ -184,7 +184,7 @@ class NETRESOURCEA extends Win32Struct
 
     /**
      * May be any provider-supplied comment associated with the enumerated item.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpComment {
         get => NumGet(this, 32, "ptr")
@@ -193,7 +193,7 @@ class NETRESOURCEA extends Win32Struct
 
     /**
      * Specifies the name of the provider that owns this enumerated item.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpProvider {
         get => NumGet(this, 40, "ptr")

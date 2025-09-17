@@ -25,7 +25,7 @@ class DHCP_OPTION extends Win32Struct
 
     /**
      * Unicode string that contains the name of this option.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     OptionName {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +34,7 @@ class DHCP_OPTION extends Win32Struct
 
     /**
      * Unicode string that contains a comment about this option.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     OptionComment {
         get => NumGet(this, 16, "ptr")

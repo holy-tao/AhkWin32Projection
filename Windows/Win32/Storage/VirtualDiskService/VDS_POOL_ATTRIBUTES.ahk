@@ -364,7 +364,7 @@ class VDS_POOL_ATTRIBUTES extends Win32Struct
 
     /**
      * A string that specifies the usage of the storage pool. Typically, this may indicate the application that is using the storage pool (for example,  "SQL" or "Exchange") or the business function that is using the storage pool (for example, "Finance" or "Human Resources").
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszIntendedUsage {
         get => NumGet(this, 16, "ptr")

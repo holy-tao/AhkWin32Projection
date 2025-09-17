@@ -101,7 +101,7 @@ class WER_REPORT_METADATA_V3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     FileNames {
         get => NumGet(this, 792, "ptr")

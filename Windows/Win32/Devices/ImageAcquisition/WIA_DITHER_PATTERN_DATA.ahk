@@ -28,7 +28,7 @@ class WIA_DITHER_PATTERN_DATA extends Win32Struct
      * Type: <b>BSTR</b>
      * 
      * Specifies a string that contains the name of this dither pattern.
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     bstrPatternName {
         get => NumGet(this, 8, "ptr")

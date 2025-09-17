@@ -93,7 +93,7 @@ class ACMDRIVERDETAILSA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HICON>}
+     * @type {Pointer<Void>}
      */
     hicon {
         get => NumGet(this, 40, "ptr")

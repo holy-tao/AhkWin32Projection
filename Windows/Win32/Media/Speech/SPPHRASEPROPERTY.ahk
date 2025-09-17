@@ -15,7 +15,7 @@ class SPPHRASEPROPERTY extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszName {
         get => NumGet(this, 0, "ptr")
@@ -55,7 +55,7 @@ class SPPHRASEPROPERTY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszValue {
         get => NumGet(this, 16, "ptr")

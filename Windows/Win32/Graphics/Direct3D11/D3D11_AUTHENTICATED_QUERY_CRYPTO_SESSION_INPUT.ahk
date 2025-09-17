@@ -28,7 +28,7 @@ class D3D11_AUTHENTICATED_QUERY_CRYPTO_SESSION_INPUT extends Win32Struct
 
     /**
      * A handle to a decoder device.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     DecoderHandle {
         get => NumGet(this, 24, "ptr")

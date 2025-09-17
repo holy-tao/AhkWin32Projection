@@ -42,7 +42,7 @@ class WMT_WATERMARK_ENTRY extends Win32Struct
 
     /**
      * Pointer to a wide-character null-terminated string containing the display name.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszDisplayName {
         get => NumGet(this, 24, "ptr")

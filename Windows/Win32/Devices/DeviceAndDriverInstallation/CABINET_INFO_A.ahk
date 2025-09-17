@@ -19,7 +19,7 @@ class CABINET_INFO_A extends Win32Struct
 
     /**
      * Path to the cabinet file.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     CabinetPath {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class CABINET_INFO_A extends Win32Struct
 
     /**
      * Name of the cabinet file.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     CabinetFile {
         get => NumGet(this, 8, "ptr")
@@ -37,7 +37,7 @@ class CABINET_INFO_A extends Win32Struct
 
     /**
      * Name of the source media that contains the cabinet file.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     DiskName {
         get => NumGet(this, 16, "ptr")

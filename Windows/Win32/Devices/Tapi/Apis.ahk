@@ -5668,7 +5668,7 @@ class Tapi {
      * 
      * The application has the option to send user-user information at the time of the accept. Even if user-user information is sent, there is no guarantee that the network will deliver this information to the calling party. An application should consult a line's device capabilities to determine whether call accept is available.
      * @param {Integer} hCall Handle to the call to be accepted. The application must be an owner of the call. Call state of <i>hCall</i> must be <i>offering</i>.
-     * @param {Pointer<PSTR>} lpsUserUserInfo Pointer to a <b>null</b>-terminated string containing user-user information to be sent to the remote party as part of the call accept. This pointer can be left <b>NULL</b> if no user-user information is to be sent. User-user information is only sent if supported by the underlying network (see 
+     * @param {Pointer<Byte>} lpsUserUserInfo Pointer to a <b>null</b>-terminated string containing user-user information to be sent to the remote party as part of the call accept. This pointer can be left <b>NULL</b> if no user-user information is to be sent. User-user information is only sent if supported by the underlying network (see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linedevcaps">LINEDEVCAPS</a>). The protocol discriminator member for the user-user information, if required, should appear as the first byte of the buffer pointed to by <i>lpsUserUserInfo</i>, and must be accounted for in <i>dwSize</i>.
      * @param {Integer} dwSize Size of the user-user information in <i>lpsUserUserInfo</i> (including the <b>null</b> terminator), in bytes. If <i>lpsUserUserInfo</i> is <b>NULL</b>, no user-user information is sent to the calling party and <i>dwSize</i> is ignored.
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously, or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding 
@@ -5697,10 +5697,10 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-linedevstate">LINE_LINEDEVSTATE</a> message requesting reinitialization (if the application does not support the CREATE messages).
      * 
      * This function copies no files—not the service provider DLL itself nor any supporting files; the application managing the addition of the provider must ensure that the provider is installed in a directory where it can be found by TAPI (for example, \WINDOWS, \WINDOWS\SYSTEM, or elsewhere on the path).
-     * @param {Pointer<PSTR>} lpszProviderFilename Pointer to a <b></b>
+     * @param {Pointer<Byte>} lpszProviderFilename Pointer to a <b></b>
      * 
      * <b>null</b>-terminated string containing the path of the service provider to be added.
-     * @param {Pointer<HWND>} hwndOwner Handle to a window in which any dialog boxes that need to be displayed as part of the installation process (for example, by the service provider's 
+     * @param {Pointer<Void>} hwndOwner Handle to a window in which any dialog boxes that need to be displayed as part of the installation process (for example, by the service provider's 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tspi/nf-tspi-tspi_providerinstall">TSPI_providerInstall</a> function) would be attached. Can be <b>NULL</b> to indicate that any window created during the function should have no owner window.
      * @param {Pointer<UInt32>} lpdwPermanentProviderID Pointer to a variable that receives the permanent provider identifier of the newly installed service provider.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
@@ -5711,7 +5711,7 @@ class Tapi {
     static lineAddProvider(lpszProviderFilename, hwndOwner, lpdwPermanentProviderID) {
         lpszProviderFilename := lpszProviderFilename is String? StrPtr(lpszProviderFilename) : lpszProviderFilename
 
-        result := DllCall("TAPI32.dll\lineAddProvider", "ptr", lpszProviderFilename, "ptr", hwndOwner, "ptr", lpdwPermanentProviderID, "int")
+        result := DllCall("TAPI32.dll\lineAddProvider", "ptr", lpszProviderFilename, "ptr", hwndOwner, "uint*", lpdwPermanentProviderID, "int")
         return result
     }
 
@@ -5735,10 +5735,10 @@ class Tapi {
      * 
      * > [!NOTE]
      * > The tapi.h header defines lineAddProvider as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszProviderFilename Pointer to a <b></b>
+     * @param {Pointer<Byte>} lpszProviderFilename Pointer to a <b></b>
      * 
      * <b>null</b>-terminated string containing the path of the service provider to be added.
-     * @param {Pointer<HWND>} hwndOwner Handle to a window in which any dialog boxes that need to be displayed as part of the installation process (for example, by the service provider's 
+     * @param {Pointer<Void>} hwndOwner Handle to a window in which any dialog boxes that need to be displayed as part of the installation process (for example, by the service provider's 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tspi/nf-tspi-tspi_providerinstall">TSPI_providerInstall</a> function) would be attached. Can be <b>NULL</b> to indicate that any window created during the function should have no owner window.
      * @param {Pointer<UInt32>} lpdwPermanentProviderID Pointer to a variable that receives the permanent provider identifier of the newly installed service provider.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
@@ -5749,7 +5749,7 @@ class Tapi {
     static lineAddProviderA(lpszProviderFilename, hwndOwner, lpdwPermanentProviderID) {
         lpszProviderFilename := lpszProviderFilename is String? StrPtr(lpszProviderFilename) : lpszProviderFilename
 
-        result := DllCall("TAPI32.dll\lineAddProviderA", "ptr", lpszProviderFilename, "ptr", hwndOwner, "ptr", lpdwPermanentProviderID, "int")
+        result := DllCall("TAPI32.dll\lineAddProviderA", "ptr", lpszProviderFilename, "ptr", hwndOwner, "uint*", lpdwPermanentProviderID, "int")
         return result
     }
 
@@ -5773,10 +5773,10 @@ class Tapi {
      * 
      * > [!NOTE]
      * > The tapi.h header defines lineAddProvider as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszProviderFilename Pointer to a <b></b>
+     * @param {Pointer<Char>} lpszProviderFilename Pointer to a <b></b>
      * 
      * <b>null</b>-terminated string containing the path of the service provider to be added.
-     * @param {Pointer<HWND>} hwndOwner Handle to a window in which any dialog boxes that need to be displayed as part of the installation process (for example, by the service provider's 
+     * @param {Pointer<Void>} hwndOwner Handle to a window in which any dialog boxes that need to be displayed as part of the installation process (for example, by the service provider's 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tspi/nf-tspi-tspi_providerinstall">TSPI_providerInstall</a> function) would be attached. Can be <b>NULL</b> to indicate that any window created during the function should have no owner window.
      * @param {Pointer<UInt32>} lpdwPermanentProviderID Pointer to a variable that receives the permanent provider identifier of the newly installed service provider.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
@@ -5787,7 +5787,7 @@ class Tapi {
     static lineAddProviderW(lpszProviderFilename, hwndOwner, lpdwPermanentProviderID) {
         lpszProviderFilename := lpszProviderFilename is String? StrPtr(lpszProviderFilename) : lpszProviderFilename
 
-        result := DllCall("TAPI32.dll\lineAddProviderW", "ptr", lpszProviderFilename, "ptr", hwndOwner, "ptr", lpdwPermanentProviderID, "int")
+        result := DllCall("TAPI32.dll\lineAddProviderW", "ptr", lpszProviderFilename, "ptr", hwndOwner, "uint*", lpdwPermanentProviderID, "int")
         return result
     }
 
@@ -5885,7 +5885,7 @@ class Tapi {
      * 
      * The application has the option to send user-user information at the time of the answer. Even if user-user information can be sent, there is no guarantee that the network will deliver this information to the calling party. An application should consult a line's device capabilities to determine whether sending user-user information upon answering the call is available.
      * @param {Integer} hCall Handle to the call to be answered. The application must be an owner of this call. The call state of <i>hCall</i> must be <i>offering</i> or <i>accepted</i>.
-     * @param {Pointer<PSTR>} lpsUserUserInfo Pointer to a <b>null</b>-terminated string containing user-user information to be sent to the remote party at the time the call is answered. This pointer can be left <b>NULL</b> if no user-user information is to be sent. User-user information is only sent if supported by the underlying network (see 
+     * @param {Pointer<Byte>} lpsUserUserInfo Pointer to a <b>null</b>-terminated string containing user-user information to be sent to the remote party at the time the call is answered. This pointer can be left <b>NULL</b> if no user-user information is to be sent. User-user information is only sent if supported by the underlying network (see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linedevcaps">LINEDEVCAPS</a>). The protocol discriminator field for the user-user information, if required, should appear as the first byte of the buffer pointed to by <i>lpsUserUserInfo</i>, and must be accounted for in <i>dwSize</i>.
      * @param {Integer} dwSize Size of the user-user information in <i>lpsUserUserInfo</i> (including the <b>null</b> terminator), in bytes If <i>lpsUserUserInfo</i> is <b>NULL</b>, no user-user information is sent to the calling party and <i>dwSize</i> is ignored.
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously, or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding 
@@ -5911,7 +5911,7 @@ class Tapi {
      * The application's call handle remains valid after the transfer has completed. The application must deallocate its handle using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linedeallocatecall">lineDeallocateCall</a> when it is no longer interested in the transferred call.
      * @param {Integer} hCall Handle to the call to be transferred. The application must be an owner of this call. The call state of <i>hCall</i> must be <i>connected</i>.
-     * @param {Pointer<PSTR>} lpszDestAddress TBD
+     * @param {Pointer<Byte>} lpszDestAddress TBD
      * @param {Integer} dwCountryCode Country or region code of the destination. This is used by the implementation to select the call progress protocols for the destination address. If a value of 0 is specified, a default call-progress protocol defined by the service provider is used.
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously, or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
@@ -5943,7 +5943,7 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines lineBlindTransfer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} hCall Handle to the call to be transferred. The application must be an owner of this call. The call state of <i>hCall</i> must be <i>connected</i>.
-     * @param {Pointer<PSTR>} lpszDestAddress TBD
+     * @param {Pointer<Byte>} lpszDestAddress TBD
      * @param {Integer} dwCountryCode Country or region code of the destination. This is used by the implementation to select the call progress protocols for the destination address. If a value of 0 is specified, a default call-progress protocol defined by the service provider is used.
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously, or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
@@ -5975,7 +5975,7 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines lineBlindTransfer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} hCall Handle to the call to be transferred. The application must be an owner of this call. The call state of <i>hCall</i> must be <i>connected</i>.
-     * @param {Pointer<PWSTR>} lpszDestAddressW Pointer to a null-terminated string identifying where the call is to be transferred to. The destination address uses the standard dialable number format.
+     * @param {Pointer<Char>} lpszDestAddressW Pointer to a null-terminated string identifying where the call is to be transferred to. The destination address uses the standard dialable number format.
      * @param {Integer} dwCountryCode Country or region code of the destination. This is used by the implementation to select the call progress protocols for the destination address. If a value of 0 is specified, a default call-progress protocol defined by the service provider is used.
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously, or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
@@ -6033,7 +6033,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linecompletecall
      */
     static lineCompleteCall(hCall, lpdwCompletionID, dwCompletionMode, dwMessageID) {
-        result := DllCall("TAPI32.dll\lineCompleteCall", "uint", hCall, "ptr", lpdwCompletionID, "uint", dwCompletionMode, "uint", dwMessageID, "int")
+        result := DllCall("TAPI32.dll\lineCompleteCall", "uint", hCall, "uint*", lpdwCompletionID, "uint", dwCompletionMode, "uint", dwMessageID, "int")
         return result
     }
 
@@ -6072,7 +6072,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linecompletetransfer
      */
     static lineCompleteTransfer(hCall, hConsultCall, lphConfCall, dwTransferMode) {
-        result := DllCall("TAPI32.dll\lineCompleteTransfer", "uint", hCall, "uint", hConsultCall, "ptr", lphConfCall, "uint", dwTransferMode, "int")
+        result := DllCall("TAPI32.dll\lineCompleteTransfer", "uint", hCall, "uint", hConsultCall, "uint*", lphConfCall, "uint", dwTransferMode, "int")
         return result
     }
 
@@ -6085,8 +6085,8 @@ class Tapi {
      * 
      * The <i>lpszDeviceClass</i> parameter would be "tapi/line" , "", or <b>NULL</b> to cause the provider to display the highest level configuration for the line.
      * @param {Integer} dwDeviceID Identifier of the line device to be configured.
-     * @param {Pointer<HWND>} hwndOwner Handle to a window to which the dialog box is to be attached. Can be <b>NULL</b> to indicate that any window created during the function should have no owner window.
-     * @param {Pointer<PSTR>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific subscreen of configuration information applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest level configuration is selected.
+     * @param {Pointer<Void>} hwndOwner Handle to a window to which the dialog box is to be attached. Can be <b>NULL</b> to indicate that any window created during the function should have no owner window.
+     * @param {Pointer<Byte>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific subscreen of configuration information applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest level configuration is selected.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_NOMEM, LINEERR_INUSE, LINEERR_OPERATIONFAILED, LINEERR_INVALDEVICECLASS, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPARAM, LINEERR_UNINITIALIZED, LINEERR_INVALPOINTER, LINEERR_OPERATIONUNAVAIL, LINEERR_NODEVICE.
@@ -6115,8 +6115,8 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines lineConfigDialog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} dwDeviceID Identifier of the line device to be configured.
-     * @param {Pointer<HWND>} hwndOwner Handle to a window to which the dialog box is to be attached. Can be <b>NULL</b> to indicate that any window created during the function should have no owner window.
-     * @param {Pointer<PSTR>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific subscreen of configuration information applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest level configuration is selected.
+     * @param {Pointer<Void>} hwndOwner Handle to a window to which the dialog box is to be attached. Can be <b>NULL</b> to indicate that any window created during the function should have no owner window.
+     * @param {Pointer<Byte>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific subscreen of configuration information applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest level configuration is selected.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_NOMEM, LINEERR_INUSE, LINEERR_OPERATIONFAILED, LINEERR_INVALDEVICECLASS, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPARAM, LINEERR_UNINITIALIZED, LINEERR_INVALPOINTER, LINEERR_OPERATIONUNAVAIL, LINEERR_NODEVICE.
@@ -6145,8 +6145,8 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines lineConfigDialog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} dwDeviceID Identifier of the line device to be configured.
-     * @param {Pointer<HWND>} hwndOwner Handle to a window to which the dialog box is to be attached. Can be <b>NULL</b> to indicate that any window created during the function should have no owner window.
-     * @param {Pointer<PWSTR>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific subscreen of configuration information applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest level configuration is selected.
+     * @param {Pointer<Void>} hwndOwner Handle to a window to which the dialog box is to be attached. Can be <b>NULL</b> to indicate that any window created during the function should have no owner window.
+     * @param {Pointer<Char>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific subscreen of configuration information applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest level configuration is selected.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_NOMEM, LINEERR_INUSE, LINEERR_OPERATIONFAILED, LINEERR_INVALDEVICECLASS, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPARAM, LINEERR_UNINITIALIZED, LINEERR_INVALPOINTER, LINEERR_OPERATIONUNAVAIL, LINEERR_NODEVICE.
@@ -6184,8 +6184,8 @@ class Tapi {
      * <b>lineConfigDialogEdit</b> permits an application to provide the ability for the user to set up parameters for future calls without having an impact on any active call. However, the output of this function can be passed to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linesetdevconfig">lineSetDevConfig</a> to affect the current call or next call.
      * @param {Integer} dwDeviceID Identifier of the line device to be configured.
-     * @param {Pointer<HWND>} hwndOwner Handle to a window to which the dialog box is to be attached. Can be <b>NULL</b> to indicate that any window created during the function should have no owner window.
-     * @param {Pointer<PSTR>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific subscreen of configuration information applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest level configuration is selected.
+     * @param {Pointer<Void>} hwndOwner Handle to a window to which the dialog box is to be attached. Can be <b>NULL</b> to indicate that any window created during the function should have no owner window.
+     * @param {Pointer<Byte>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific subscreen of configuration information applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest level configuration is selected.
      * @param {Pointer<Void>} lpDeviceConfigIn Pointer to the opaque configuration data structure that was returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetdevconfig">lineGetDevConfig</a> (or a previous invocation of 
      * <b>lineConfigDialogEdit</b>) in the variable portion of the 
@@ -6243,8 +6243,8 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines lineConfigDialogEdit as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} dwDeviceID Identifier of the line device to be configured.
-     * @param {Pointer<HWND>} hwndOwner Handle to a window to which the dialog box is to be attached. Can be <b>NULL</b> to indicate that any window created during the function should have no owner window.
-     * @param {Pointer<PSTR>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific subscreen of configuration information applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest level configuration is selected.
+     * @param {Pointer<Void>} hwndOwner Handle to a window to which the dialog box is to be attached. Can be <b>NULL</b> to indicate that any window created during the function should have no owner window.
+     * @param {Pointer<Byte>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific subscreen of configuration information applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest level configuration is selected.
      * @param {Pointer<Void>} lpDeviceConfigIn Pointer to the opaque configuration data structure that was returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetdevconfig">lineGetDevConfig</a> (or a previous invocation of 
      * <b>lineConfigDialogEdit</b>) in the variable portion of the 
@@ -6302,8 +6302,8 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines lineConfigDialogEdit as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} dwDeviceID Identifier of the line device to be configured.
-     * @param {Pointer<HWND>} hwndOwner Handle to a window to which the dialog box is to be attached. Can be <b>NULL</b> to indicate that any window created during the function should have no owner window.
-     * @param {Pointer<PWSTR>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific subscreen of configuration information applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest level configuration is selected.
+     * @param {Pointer<Void>} hwndOwner Handle to a window to which the dialog box is to be attached. Can be <b>NULL</b> to indicate that any window created during the function should have no owner window.
+     * @param {Pointer<Char>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific subscreen of configuration information applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest level configuration is selected.
      * @param {Pointer<Void>} lpDeviceConfigIn Pointer to the opaque configuration data structure that was returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetdevconfig">lineGetDevConfig</a> (or a previous invocation of 
      * <b>lineConfigDialogEdit</b>) in the variable portion of the 
@@ -6334,7 +6334,7 @@ class Tapi {
      * @remarks
      * This is basically a straight pass-through to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tspi/nf-tspi-tspi_providerconfig">TSPI_providerConfig</a>.
-     * @param {Pointer<HWND>} hwndOwner Handle to a window to which the configuration dialog box (displayed by 
+     * @param {Pointer<Void>} hwndOwner Handle to a window to which the configuration dialog box (displayed by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tspi/nf-tspi-tspi_providerconfig">TSPI_providerConfig</a>) is attached. Can be <b>NULL</b> to indicate that any window created during the function should have no owner window.
      * @param {Integer} dwPermanentProviderID Permanent provider identifier of the service provider to be configured.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
@@ -6353,8 +6353,8 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines lineCreateAgent as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} hLine Handle to the line device.
-     * @param {Pointer<PWSTR>} lpszAgentID Pointer to a <b>null</b>-terminated Unicode string containing the agent identifier. Used when working with legacy ACD systems. With an ACD system that uses the operating system's user login for authentication, <i>lpszAgentID</i> is set to <b>NULL</b>.
-     * @param {Pointer<PWSTR>} lpszAgentPIN Pointer to a <b>null</b>-terminated Unicode string containing the agent PIN or password. Used when working with legacy ACD systems. With an ACD system that uses the operating system's user login for authentication, <i>lpszAgentPIN</i> is set to <b>NULL</b>.
+     * @param {Pointer<Char>} lpszAgentID Pointer to a <b>null</b>-terminated Unicode string containing the agent identifier. Used when working with legacy ACD systems. With an ACD system that uses the operating system's user login for authentication, <i>lpszAgentID</i> is set to <b>NULL</b>.
+     * @param {Pointer<Char>} lpszAgentPIN Pointer to a <b>null</b>-terminated Unicode string containing the agent PIN or password. Used when working with legacy ACD systems. With an ACD system that uses the operating system's user login for authentication, <i>lpszAgentPIN</i> is set to <b>NULL</b>.
      * @param {Pointer<UInt32>} lphAgent Handle to the created agent, returned by the ACD proxy. It is the responsibility of the agent handler proxy application to generate and maintain uniqueness of this identifier.
      * @returns {Integer} Returns a request identifier if the asynchronous operation starts; otherwise, the function returns one of the following error values:
      * 
@@ -6365,7 +6365,7 @@ class Tapi {
         lpszAgentID := lpszAgentID is String? StrPtr(lpszAgentID) : lpszAgentID
         lpszAgentPIN := lpszAgentPIN is String? StrPtr(lpszAgentPIN) : lpszAgentPIN
 
-        result := DllCall("TAPI32.dll\lineCreateAgentW", "uint", hLine, "ptr", lpszAgentID, "ptr", lpszAgentPIN, "ptr", lphAgent, "int")
+        result := DllCall("TAPI32.dll\lineCreateAgentW", "uint", hLine, "ptr", lpszAgentID, "ptr", lpszAgentPIN, "uint*", lphAgent, "int")
         return result
     }
 
@@ -6375,8 +6375,8 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines lineCreateAgent as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} hLine Handle to the line device.
-     * @param {Pointer<PSTR>} lpszAgentID Pointer to a <b>null</b>-terminated Unicode string containing the agent identifier. Used when working with legacy ACD systems. With an ACD system that uses the operating system's user login for authentication, <i>lpszAgentID</i> is set to <b>NULL</b>.
-     * @param {Pointer<PSTR>} lpszAgentPIN Pointer to a <b>null</b>-terminated Unicode string containing the agent PIN or password. Used when working with legacy ACD systems. With an ACD system that uses the operating system's user login for authentication, <i>lpszAgentPIN</i> is set to <b>NULL</b>.
+     * @param {Pointer<Byte>} lpszAgentID Pointer to a <b>null</b>-terminated Unicode string containing the agent identifier. Used when working with legacy ACD systems. With an ACD system that uses the operating system's user login for authentication, <i>lpszAgentID</i> is set to <b>NULL</b>.
+     * @param {Pointer<Byte>} lpszAgentPIN Pointer to a <b>null</b>-terminated Unicode string containing the agent PIN or password. Used when working with legacy ACD systems. With an ACD system that uses the operating system's user login for authentication, <i>lpszAgentPIN</i> is set to <b>NULL</b>.
      * @param {Pointer<UInt32>} lphAgent Handle to the created agent, returned by the ACD proxy. It is the responsibility of the agent handler proxy application to generate and maintain uniqueness of this identifier.
      * @returns {Integer} Returns a request identifier if the asynchronous operation starts; otherwise, the function returns one of the following error values:
      * 
@@ -6387,7 +6387,7 @@ class Tapi {
         lpszAgentID := lpszAgentID is String? StrPtr(lpszAgentID) : lpszAgentID
         lpszAgentPIN := lpszAgentPIN is String? StrPtr(lpszAgentPIN) : lpszAgentPIN
 
-        result := DllCall("TAPI32.dll\lineCreateAgentA", "uint", hLine, "ptr", lpszAgentID, "ptr", lpszAgentPIN, "ptr", lphAgent, "int")
+        result := DllCall("TAPI32.dll\lineCreateAgentA", "uint", hLine, "ptr", lpszAgentID, "ptr", lpszAgentPIN, "uint*", lphAgent, "int")
         return result
     }
 
@@ -6398,7 +6398,7 @@ class Tapi {
      * > The tapi.h header defines lineCreateAgentSession as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} hLine Handle to the line device.
      * @param {Integer} hAgent Identifier of the agent for whom the session is to be created.
-     * @param {Pointer<PWSTR>} lpszAgentPIN Pointer to a <b>null</b>-terminated Unicode string containing the agent PIN or password. Used when working with legacy ACD systems that require a separate PIN for each session created (or group logged into). With an ACD system that uses the operating system's user login for authentication, <i>lpszAgentPIN</i> is set to <b>NULL</b>.
+     * @param {Pointer<Char>} lpszAgentPIN Pointer to a <b>null</b>-terminated Unicode string containing the agent PIN or password. Used when working with legacy ACD systems that require a separate PIN for each session created (or group logged into). With an ACD system that uses the operating system's user login for authentication, <i>lpszAgentPIN</i> is set to <b>NULL</b>.
      * @param {Integer} dwWorkingAddressID Identifier of the address on which the agent will receive calls for this session.
      * @param {Pointer<Guid>} lpGroupID Pointer to a GUID that identifies the group for which the session is being created.
      * @param {Pointer<UInt32>} lphAgentSession Handle to the created agent session, returned by the ACD proxy. It is the responsibility of the agent handler proxy application to generate and maintain uniqueness of these identifiers.
@@ -6410,7 +6410,7 @@ class Tapi {
     static lineCreateAgentSessionW(hLine, hAgent, lpszAgentPIN, dwWorkingAddressID, lpGroupID, lphAgentSession) {
         lpszAgentPIN := lpszAgentPIN is String? StrPtr(lpszAgentPIN) : lpszAgentPIN
 
-        result := DllCall("TAPI32.dll\lineCreateAgentSessionW", "uint", hLine, "uint", hAgent, "ptr", lpszAgentPIN, "uint", dwWorkingAddressID, "ptr", lpGroupID, "ptr", lphAgentSession, "int")
+        result := DllCall("TAPI32.dll\lineCreateAgentSessionW", "uint", hLine, "uint", hAgent, "ptr", lpszAgentPIN, "uint", dwWorkingAddressID, "ptr", lpGroupID, "uint*", lphAgentSession, "int")
         return result
     }
 
@@ -6421,7 +6421,7 @@ class Tapi {
      * > The tapi.h header defines lineCreateAgentSession as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} hLine Handle to the line device.
      * @param {Integer} hAgent Identifier of the agent for whom the session is to be created.
-     * @param {Pointer<PSTR>} lpszAgentPIN Pointer to a <b>null</b>-terminated Unicode string containing the agent PIN or password. Used when working with legacy ACD systems that require a separate PIN for each session created (or group logged into). With an ACD system that uses the operating system's user login for authentication, <i>lpszAgentPIN</i> is set to <b>NULL</b>.
+     * @param {Pointer<Byte>} lpszAgentPIN Pointer to a <b>null</b>-terminated Unicode string containing the agent PIN or password. Used when working with legacy ACD systems that require a separate PIN for each session created (or group logged into). With an ACD system that uses the operating system's user login for authentication, <i>lpszAgentPIN</i> is set to <b>NULL</b>.
      * @param {Integer} dwWorkingAddressID Identifier of the address on which the agent will receive calls for this session.
      * @param {Pointer<Guid>} lpGroupID Pointer to a GUID that identifies the group for which the session is being created.
      * @param {Pointer<UInt32>} lphAgentSession Handle to the created agent session, returned by the ACD proxy. It is the responsibility of the agent handler proxy application to generate and maintain uniqueness of these identifiers.
@@ -6433,7 +6433,7 @@ class Tapi {
     static lineCreateAgentSessionA(hLine, hAgent, lpszAgentPIN, dwWorkingAddressID, lpGroupID, lphAgentSession) {
         lpszAgentPIN := lpszAgentPIN is String? StrPtr(lpszAgentPIN) : lpszAgentPIN
 
-        result := DllCall("TAPI32.dll\lineCreateAgentSessionA", "uint", hLine, "uint", hAgent, "ptr", lpszAgentPIN, "uint", dwWorkingAddressID, "ptr", lpGroupID, "ptr", lphAgentSession, "int")
+        result := DllCall("TAPI32.dll\lineCreateAgentSessionA", "uint", hLine, "uint", hAgent, "ptr", lpszAgentPIN, "uint", dwWorkingAddressID, "ptr", lpGroupID, "uint*", lphAgentSession, "int")
         return result
     }
 
@@ -6553,7 +6553,7 @@ class Tapi {
      * </div>
      * <div> </div>
      * @param {Integer} hCall Handle to the call on which a number is to be dialed. The application must be an owner of the call. The call state of <i>hCall</i> can be any state except <i>idle</i> and <i>disconnected</i>.
-     * @param {Pointer<PSTR>} lpszDestAddress Destination to be dialed using the standard dialable number format.
+     * @param {Pointer<Byte>} lpszDestAddress Destination to be dialed using the standard dialable number format.
      * @param {Integer} dwCountryCode Country or region code of the destination. This is used by the implementation to select the call progress protocols for the destination address. If a value of 0 is specified, a service provider-defined default call progress protocol is used.
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously, or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
@@ -6603,7 +6603,7 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines lineDial as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} hCall Handle to the call on which a number is to be dialed. The application must be an owner of the call. The call state of <i>hCall</i> can be any state except <i>idle</i> and <i>disconnected</i>.
-     * @param {Pointer<PSTR>} lpszDestAddress Destination to be dialed using the standard dialable number format.
+     * @param {Pointer<Byte>} lpszDestAddress Destination to be dialed using the standard dialable number format.
      * @param {Integer} dwCountryCode Country or region code of the destination. This is used by the implementation to select the call progress protocols for the destination address. If a value of 0 is specified, a service provider-defined default call progress protocol is used.
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously, or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
@@ -6653,7 +6653,7 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines lineDial as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} hCall Handle to the call on which a number is to be dialed. The application must be an owner of the call. The call state of <i>hCall</i> can be any state except <i>idle</i> and <i>disconnected</i>.
-     * @param {Pointer<PWSTR>} lpszDestAddress Destination to be dialed using the standard dialable number format.
+     * @param {Pointer<Char>} lpszDestAddress Destination to be dialed using the standard dialable number format.
      * @param {Integer} dwCountryCode Country or region code of the destination. This is used by the implementation to select the call progress protocols for the destination address. If a value of 0 is specified, a service provider-defined default call progress protocol is used.
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously, or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
@@ -6684,7 +6684,7 @@ class Tapi {
      * <b>lineDrop</b> may not actually clear the call. For example, in a bridged situation, a 
      * <b>lineDrop</b> operation may not actually drop the call because the status of other stations on the call may govern; instead, the call may simply be changed to the LINECONNECTEDMODE_INACTIVE mode if it remains <i>connected</i> at other stations.
      * @param {Integer} hCall Handle to the call to be dropped. The application must be an owner of the call. The call state of <i>hCall</i> can be any state except <i>idle</i>.
-     * @param {Pointer<PSTR>} lpsUserUserInfo Pointer to a string containing user-user information to be sent to the remote party as part of the call disconnect. This pointer can be left <b>NULL</b> if no user-user information is to be sent. User-user information is only sent if supported by the underlying network (see 
+     * @param {Pointer<Byte>} lpsUserUserInfo Pointer to a string containing user-user information to be sent to the remote party as part of the call disconnect. This pointer can be left <b>NULL</b> if no user-user information is to be sent. User-user information is only sent if supported by the underlying network (see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linedevcaps">LINEDEVCAPS</a>). The protocol discriminator field for the user-user information, if required, should appear as the first byte of the buffer pointed to by <i>lpsUserUserInfo</i>, and must be accounted for in <i>dwSize</i>.
      * @param {Integer} dwSize Size of the user-user information in <i>lpsUserUserInfo</i>, in bytes. If <i>lpsUserUserInfo</i> is <b>NULL</b>, no user-user information is sent to the calling party and <i>dwSize</i> is ignored.
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously, or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding 
@@ -6740,7 +6740,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineforward
      */
     static lineForward(hLine, bAllAddresses, dwAddressID, lpForwardList, dwNumRingsNoAnswer, lphConsultCall, lpCallParams) {
-        result := DllCall("TAPI32.dll\lineForward", "uint", hLine, "uint", bAllAddresses, "uint", dwAddressID, "ptr", lpForwardList, "uint", dwNumRingsNoAnswer, "ptr", lphConsultCall, "ptr", lpCallParams, "int")
+        result := DllCall("TAPI32.dll\lineForward", "uint", hLine, "uint", bAllAddresses, "uint", dwAddressID, "ptr", lpForwardList, "uint", dwNumRingsNoAnswer, "uint*", lphConsultCall, "ptr", lpCallParams, "int")
         return result
     }
 
@@ -6791,7 +6791,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineforwarda
      */
     static lineForwardA(hLine, bAllAddresses, dwAddressID, lpForwardList, dwNumRingsNoAnswer, lphConsultCall, lpCallParams) {
-        result := DllCall("TAPI32.dll\lineForwardA", "uint", hLine, "uint", bAllAddresses, "uint", dwAddressID, "ptr", lpForwardList, "uint", dwNumRingsNoAnswer, "ptr", lphConsultCall, "ptr", lpCallParams, "int")
+        result := DllCall("TAPI32.dll\lineForwardA", "uint", hLine, "uint", bAllAddresses, "uint", dwAddressID, "ptr", lpForwardList, "uint", dwNumRingsNoAnswer, "uint*", lphConsultCall, "ptr", lpCallParams, "int")
         return result
     }
 
@@ -6842,7 +6842,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineforwardw
      */
     static lineForwardW(hLine, bAllAddresses, dwAddressID, lpForwardList, dwNumRingsNoAnswer, lphConsultCall, lpCallParams) {
-        result := DllCall("TAPI32.dll\lineForwardW", "uint", hLine, "uint", bAllAddresses, "uint", dwAddressID, "ptr", lpForwardList, "uint", dwNumRingsNoAnswer, "ptr", lphConsultCall, "ptr", lpCallParams, "int")
+        result := DllCall("TAPI32.dll\lineForwardW", "uint", hLine, "uint", bAllAddresses, "uint", dwAddressID, "ptr", lpForwardList, "uint", dwNumRingsNoAnswer, "uint*", lphConsultCall, "ptr", lpCallParams, "int")
         return result
     }
 
@@ -6879,10 +6879,10 @@ class Tapi {
      * @param {Integer} hCall Handle to the call on which digits are to be gathered. The application must be an owner of the call. The call state of <i>hCall</i> can be any state.
      * @param {Integer} dwDigitModes Digit modes to be monitored. This parameter uses one or more of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linedigitmode--constants">LINEDIGITMODE_ Constants</a>.
-     * @param {Pointer<PSTR>} lpsDigits Pointer to the buffer where detected digits are to be stored as text characters. Digits may not show up in the buffer one at a time as they are collected. Only after a 
+     * @param {Pointer<Byte>} lpsDigits Pointer to the buffer where detected digits are to be stored as text characters. Digits may not show up in the buffer one at a time as they are collected. Only after a 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-gatherdigits">LINE_GATHERDIGITS</a> message is received should the content of the buffer be assumed to be valid. If <i>lpsDigits</i> is <b>NULL</b>, the digit gathering currently in progress on the call is terminated and <i>dwNumDigits</i> is ignored. Otherwise, <i>lpsDigits</i> is assumed to have room for <i>dwNumDigits</i> digits.
      * @param {Integer} dwNumDigits Number of digits to be collected before a LINE_GATHERDIGITS message is sent to the application. The <i>dwNumDigits</i> parameter is ignored when <i>lpsDigits</i> is <b>NULL</b>. This function fails if <i>dwNumDigits</i> is zero.
-     * @param {Pointer<PSTR>} lpszTerminationDigits <b>Null</b>-terminated string of termination digits as text characters. If one of the digits in the string is detected, that termination digit is appended to the buffer, digit collection is terminated, and the 
+     * @param {Pointer<Byte>} lpszTerminationDigits <b>Null</b>-terminated string of termination digits as text characters. If one of the digits in the string is detected, that termination digit is appended to the buffer, digit collection is terminated, and the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-gatherdigits">LINE_GATHERDIGITS</a> message is sent to the application. 
      * 
      * 
@@ -6948,10 +6948,10 @@ class Tapi {
      * @param {Integer} hCall Handle to the call on which digits are to be gathered. The application must be an owner of the call. The call state of <i>hCall</i> can be any state.
      * @param {Integer} dwDigitModes Digit modes to be monitored. This parameter uses one or more of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linedigitmode--constants">LINEDIGITMODE_ Constants</a>.
-     * @param {Pointer<PSTR>} lpsDigits Pointer to the buffer where detected digits are to be stored as text characters. Digits may not show up in the buffer one at a time as they are collected. Only after a 
+     * @param {Pointer<Byte>} lpsDigits Pointer to the buffer where detected digits are to be stored as text characters. Digits may not show up in the buffer one at a time as they are collected. Only after a 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-gatherdigits">LINE_GATHERDIGITS</a> message is received should the content of the buffer be assumed to be valid. If <i>lpsDigits</i> is <b>NULL</b>, the digit gathering currently in progress on the call is terminated and <i>dwNumDigits</i> is ignored. Otherwise, <i>lpsDigits</i> is assumed to have room for <i>dwNumDigits</i> digits.
      * @param {Integer} dwNumDigits Number of digits to be collected before a LINE_GATHERDIGITS message is sent to the application. The <i>dwNumDigits</i> parameter is ignored when <i>lpsDigits</i> is <b>NULL</b>. This function fails if <i>dwNumDigits</i> is zero.
-     * @param {Pointer<PSTR>} lpszTerminationDigits <b>Null</b>-terminated string of termination digits as text characters. If one of the digits in the string is detected, that termination digit is appended to the buffer, digit collection is terminated, and the 
+     * @param {Pointer<Byte>} lpszTerminationDigits <b>Null</b>-terminated string of termination digits as text characters. If one of the digits in the string is detected, that termination digit is appended to the buffer, digit collection is terminated, and the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-gatherdigits">LINE_GATHERDIGITS</a> message is sent to the application. 
      * 
      * 
@@ -7017,10 +7017,10 @@ class Tapi {
      * @param {Integer} hCall Handle to the call on which digits are to be gathered. The application must be an owner of the call. The call state of <i>hCall</i> can be any state.
      * @param {Integer} dwDigitModes Digit modes to be monitored. This parameter uses one or more of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linedigitmode--constants">LINEDIGITMODE_ Constants</a>.
-     * @param {Pointer<PWSTR>} lpsDigits Pointer to the buffer where detected digits are to be stored as text characters. Digits may not show up in the buffer one at a time as they are collected. Only after a 
+     * @param {Pointer<Char>} lpsDigits Pointer to the buffer where detected digits are to be stored as text characters. Digits may not show up in the buffer one at a time as they are collected. Only after a 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-gatherdigits">LINE_GATHERDIGITS</a> message is received should the content of the buffer be assumed to be valid. If <i>lpsDigits</i> is <b>NULL</b>, the digit gathering currently in progress on the call is terminated and <i>dwNumDigits</i> is ignored. Otherwise, <i>lpsDigits</i> is assumed to have room for <i>dwNumDigits</i> digits.
      * @param {Integer} dwNumDigits Number of digits to be collected before a LINE_GATHERDIGITS message is sent to the application. The <i>dwNumDigits</i> parameter is ignored when <i>lpsDigits</i> is <b>NULL</b>. This function fails if <i>dwNumDigits</i> is zero.
-     * @param {Pointer<PWSTR>} lpszTerminationDigits <b>Null</b>-terminated string of termination digits as text characters. If one of the digits in the string is detected, that termination digit is appended to the buffer, digit collection is terminated, and the 
+     * @param {Pointer<Char>} lpszTerminationDigits <b>Null</b>-terminated string of termination digits as text characters. If one of the digits in the string is detected, that termination digit is appended to the buffer, digit collection is terminated, and the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-gatherdigits">LINE_GATHERDIGITS</a> message is sent to the application. 
      * 
      * 
@@ -7065,7 +7065,7 @@ class Tapi {
      * @param {Integer} hCall Handle to the call. The application must be an owner of the call. Call state of <i>hCall</i> can be any state. TAPI does not impose any callstate requirements, however some Tapi Service Providers may require that the hCall be in the LINECALLSTATE_CONNECTED state.
      * @param {Integer} dwDigitMode Format to be used for signaling these digits. Be aware that <i>dwDigitMode</i> can only have a single flag set. This parameter uses one of the 
      * <a href="https://docs.microsoft.com/windows/win32/Tapi/linedigitmode--constants">LINEDIGITMODE_ Constants</a>.
-     * @param {Pointer<PSTR>} lpszDigits Pointer to a <b>null</b>-terminated character buffer that contains the digits to be generated. Valid characters are those specified for the 
+     * @param {Pointer<Byte>} lpszDigits Pointer to a <b>null</b>-terminated character buffer that contains the digits to be generated. Valid characters are those specified for the 
      * <a href="https://docs.microsoft.com/windows/win32/Tapi/linedigitmode--constants">LINEDIGITMODE_ Constants</a> provided in <i>dwDigitModes</i>. 
      * 
      * 
@@ -7114,7 +7114,7 @@ class Tapi {
      * @param {Integer} hCall Handle to the call. The application must be an owner of the call. Call state of <i>hCall</i> can be any state. TAPI does not impose any callstate requirements, however some Tapi Service Providers may require that the hCall be in the LINECALLSTATE_CONNECTED state.
      * @param {Integer} dwDigitMode Format to be used for signaling these digits. Be aware that <i>dwDigitMode</i> can only have a single flag set. This parameter uses one of the 
      * <a href="https://docs.microsoft.com/windows/win32/Tapi/linedigitmode--constants">LINEDIGITMODE_ Constants</a>.
-     * @param {Pointer<PSTR>} lpszDigits Pointer to a <b>null</b>-terminated character buffer that contains the digits to be generated. Valid characters are those specified for the 
+     * @param {Pointer<Byte>} lpszDigits Pointer to a <b>null</b>-terminated character buffer that contains the digits to be generated. Valid characters are those specified for the 
      * <a href="https://docs.microsoft.com/windows/win32/Tapi/linedigitmode--constants">LINEDIGITMODE_ Constants</a> provided in <i>dwDigitModes</i>. 
      * 
      * 
@@ -7163,7 +7163,7 @@ class Tapi {
      * @param {Integer} hCall Handle to the call. The application must be an owner of the call. Call state of <i>hCall</i> can be any state. TAPI does not impose any callstate requirements, however some Tapi Service Providers may require that the hCall be in the LINECALLSTATE_CONNECTED state.
      * @param {Integer} dwDigitMode Format to be used for signaling these digits. Be aware that <i>dwDigitMode</i> can only have a single flag set. This parameter uses one of the 
      * <a href="https://docs.microsoft.com/windows/win32/Tapi/linedigitmode--constants">LINEDIGITMODE_ Constants</a>.
-     * @param {Pointer<PWSTR>} lpszDigits Pointer to a <b>null</b>-terminated character buffer that contains the digits to be generated. Valid characters are those specified for the 
+     * @param {Pointer<Char>} lpszDigits Pointer to a <b>null</b>-terminated character buffer that contains the digits to be generated. Valid characters are those specified for the 
      * <a href="https://docs.microsoft.com/windows/win32/Tapi/linedigitmode--constants">LINEDIGITMODE_ Constants</a> provided in <i>dwDigitModes</i>. 
      * 
      * 
@@ -7351,7 +7351,7 @@ class Tapi {
      * @param {Pointer<UInt32>} lpdwAddressID Pointer to a <b>DWORD</b>-sized memory location where the address identifier is returned. An address identifier is permanently associated with an address; the identifier remains constant across operating system upgrades.
      * @param {Integer} dwAddressMode Address mode of the address contained in <i>lpsAddress</i>. This parameter uses one and only one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddressmode--constants">LINEADDRESSMODE_ Constants</a>. You must specify LINEADDRESSMODE_DIALABLEADDR.
-     * @param {Pointer<PSTR>} lpsAddress Pointer to a data structure holding the address assigned to the specified line device. The format of the address is determined by <i>dwAddressMode</i>. Because the only valid value is LINEADDRESSMODE_DIALABLEADDR, <i>lpsAddress</i> uses the common dialable number format and is null-terminated.
+     * @param {Pointer<Byte>} lpsAddress Pointer to a data structure holding the address assigned to the specified line device. The format of the address is determined by <i>dwAddressMode</i>. Because the only valid value is LINEADDRESSMODE_DIALABLEADDR, <i>lpsAddress</i> uses the common dialable number format and is null-terminated.
      * @param {Integer} dwSize Size, in bytes, of the address contained in <i>lpsAddress</i>. The size of the string must include the null terminator.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
@@ -7361,7 +7361,7 @@ class Tapi {
     static lineGetAddressID(hLine, lpdwAddressID, dwAddressMode, lpsAddress, dwSize) {
         lpsAddress := lpsAddress is String? StrPtr(lpsAddress) : lpsAddress
 
-        result := DllCall("TAPI32.dll\lineGetAddressID", "uint", hLine, "ptr", lpdwAddressID, "uint", dwAddressMode, "ptr", lpsAddress, "uint", dwSize, "int")
+        result := DllCall("TAPI32.dll\lineGetAddressID", "uint", hLine, "uint*", lpdwAddressID, "uint", dwAddressMode, "ptr", lpsAddress, "uint", dwSize, "int")
         return result
     }
 
@@ -7385,7 +7385,7 @@ class Tapi {
      * @param {Pointer<UInt32>} lpdwAddressID Pointer to a <b>DWORD</b>-sized memory location where the address identifier is returned. An address identifier is permanently associated with an address; the identifier remains constant across operating system upgrades.
      * @param {Integer} dwAddressMode Address mode of the address contained in <i>lpsAddress</i>. This parameter uses one and only one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddressmode--constants">LINEADDRESSMODE_ Constants</a>. You must specify LINEADDRESSMODE_DIALABLEADDR.
-     * @param {Pointer<PSTR>} lpsAddress Pointer to a data structure holding the address assigned to the specified line device. The format of the address is determined by <i>dwAddressMode</i>. Because the only valid value is LINEADDRESSMODE_DIALABLEADDR, <i>lpsAddress</i> uses the common dialable number format and is null-terminated.
+     * @param {Pointer<Byte>} lpsAddress Pointer to a data structure holding the address assigned to the specified line device. The format of the address is determined by <i>dwAddressMode</i>. Because the only valid value is LINEADDRESSMODE_DIALABLEADDR, <i>lpsAddress</i> uses the common dialable number format and is null-terminated.
      * @param {Integer} dwSize Size, in bytes, of the address contained in <i>lpsAddress</i>. The size of the string must include the null terminator.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
@@ -7395,7 +7395,7 @@ class Tapi {
     static lineGetAddressIDA(hLine, lpdwAddressID, dwAddressMode, lpsAddress, dwSize) {
         lpsAddress := lpsAddress is String? StrPtr(lpsAddress) : lpsAddress
 
-        result := DllCall("TAPI32.dll\lineGetAddressIDA", "uint", hLine, "ptr", lpdwAddressID, "uint", dwAddressMode, "ptr", lpsAddress, "uint", dwSize, "int")
+        result := DllCall("TAPI32.dll\lineGetAddressIDA", "uint", hLine, "uint*", lpdwAddressID, "uint", dwAddressMode, "ptr", lpsAddress, "uint", dwSize, "int")
         return result
     }
 
@@ -7419,7 +7419,7 @@ class Tapi {
      * @param {Pointer<UInt32>} lpdwAddressID Pointer to a <b>DWORD</b>-sized memory location where the address identifier is returned. An address identifier is permanently associated with an address; the identifier remains constant across operating system upgrades.
      * @param {Integer} dwAddressMode Address mode of the address contained in <i>lpsAddress</i>. This parameter uses one and only one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddressmode--constants">LINEADDRESSMODE_ Constants</a>. You must specify LINEADDRESSMODE_DIALABLEADDR.
-     * @param {Pointer<PWSTR>} lpsAddress Pointer to a data structure holding the address assigned to the specified line device. The format of the address is determined by <i>dwAddressMode</i>. Because the only valid value is LINEADDRESSMODE_DIALABLEADDR, <i>lpsAddress</i> uses the common dialable number format and is null-terminated.
+     * @param {Pointer<Char>} lpsAddress Pointer to a data structure holding the address assigned to the specified line device. The format of the address is determined by <i>dwAddressMode</i>. Because the only valid value is LINEADDRESSMODE_DIALABLEADDR, <i>lpsAddress</i> uses the common dialable number format and is null-terminated.
      * @param {Integer} dwSize Size, in bytes, of the address contained in <i>lpsAddress</i>. The size of the string must include the null terminator.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
@@ -7429,7 +7429,7 @@ class Tapi {
     static lineGetAddressIDW(hLine, lpdwAddressID, dwAddressMode, lpsAddress, dwSize) {
         lpsAddress := lpsAddress is String? StrPtr(lpsAddress) : lpsAddress
 
-        result := DllCall("TAPI32.dll\lineGetAddressIDW", "uint", hLine, "ptr", lpdwAddressID, "uint", dwAddressMode, "ptr", lpsAddress, "uint", dwSize, "int")
+        result := DllCall("TAPI32.dll\lineGetAddressIDW", "uint", hLine, "uint*", lpdwAddressID, "uint", dwAddressMode, "ptr", lpsAddress, "uint", dwSize, "int")
         return result
     }
 
@@ -7764,7 +7764,7 @@ class Tapi {
      * @remarks
      * If LINEERR_INVALMEDIAMODE is returned, the value specified in <i>dwMediaMode</i> is not zero, not a valid extended media mode, and not one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linemediamode--constants">LINEMEDIAMODE_ Constants</a>, or more than one bit is on in the parameter value.
-     * @param {Pointer<PSTR>} lpszAppFilename A pointer to a string that contains the application executable module file name, without directory data. In API version 2.0 or later, the parameter can be in long file name format, of which the 8.3 file name format is a proper subset. Long file names, unlike 8.3 file names, are case preserving. Neither file name format is case sensitive. For more information, see 
+     * @param {Pointer<Byte>} lpszAppFilename A pointer to a string that contains the application executable module file name, without directory data. In API version 2.0 or later, the parameter can be in long file name format, of which the 8.3 file name format is a proper subset. Long file names, unlike 8.3 file names, are case preserving. Neither file name format is case sensitive. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">File Name Conventions</a>. In API versions earlier than 2.0, the parameter must specify a file name in the 8.3 format; long file names cannot be used.
      * @param {Integer} dwMediaMode A media mode for which the priority data is to be obtained. The value can be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linemediamode--constants">LINEMEDIAMODE_ Constants</a>; only a single bit can be on. The value 0 should be used if verifying application priority for Assisted Telephony requests.
@@ -7788,7 +7788,7 @@ class Tapi {
     static lineGetAppPriority(lpszAppFilename, dwMediaMode, lpExtensionID, dwRequestMode, lpExtensionName, lpdwPriority) {
         lpszAppFilename := lpszAppFilename is String? StrPtr(lpszAppFilename) : lpszAppFilename
 
-        result := DllCall("TAPI32.dll\lineGetAppPriority", "ptr", lpszAppFilename, "uint", dwMediaMode, "ptr", lpExtensionID, "uint", dwRequestMode, "ptr", lpExtensionName, "ptr", lpdwPriority, "int")
+        result := DllCall("TAPI32.dll\lineGetAppPriority", "ptr", lpszAppFilename, "uint", dwMediaMode, "ptr", lpExtensionID, "uint", dwRequestMode, "ptr", lpExtensionName, "uint*", lpdwPriority, "int")
         return result
     }
 
@@ -7804,7 +7804,7 @@ class Tapi {
      * 
      * > [!NOTE]
      * > The tapi.h header defines lineGetAppPriority as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszAppFilename A pointer to a string that contains the application executable module file name, without directory data. In API version 2.0 or later, the parameter can be in long file name format, of which the 8.3 file name format is a proper subset. Long file names, unlike 8.3 file names, are case preserving. Neither file name format is case sensitive. For more information, see 
+     * @param {Pointer<Byte>} lpszAppFilename A pointer to a string that contains the application executable module file name, without directory data. In API version 2.0 or later, the parameter can be in long file name format, of which the 8.3 file name format is a proper subset. Long file names, unlike 8.3 file names, are case preserving. Neither file name format is case sensitive. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">File Name Conventions</a>. In API versions earlier than 2.0, the parameter must specify a file name in the 8.3 format; long file names cannot be used.
      * @param {Integer} dwMediaMode A media mode for which the priority data is to be obtained. The value can be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linemediamode--constants">LINEMEDIAMODE_ Constants</a>; only a single bit can be on. The value 0 should be used if verifying application priority for Assisted Telephony requests.
@@ -7828,7 +7828,7 @@ class Tapi {
     static lineGetAppPriorityA(lpszAppFilename, dwMediaMode, lpExtensionID, dwRequestMode, lpExtensionName, lpdwPriority) {
         lpszAppFilename := lpszAppFilename is String? StrPtr(lpszAppFilename) : lpszAppFilename
 
-        result := DllCall("TAPI32.dll\lineGetAppPriorityA", "ptr", lpszAppFilename, "uint", dwMediaMode, "ptr", lpExtensionID, "uint", dwRequestMode, "ptr", lpExtensionName, "ptr", lpdwPriority, "int")
+        result := DllCall("TAPI32.dll\lineGetAppPriorityA", "ptr", lpszAppFilename, "uint", dwMediaMode, "ptr", lpExtensionID, "uint", dwRequestMode, "ptr", lpExtensionName, "uint*", lpdwPriority, "int")
         return result
     }
 
@@ -7844,7 +7844,7 @@ class Tapi {
      * 
      * > [!NOTE]
      * > The tapi.h header defines lineGetAppPriority as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszAppFilename A pointer to a string that contains the application executable module file name, without directory data. In API version 2.0 or later, the parameter can be in long file name format, of which the 8.3 file name format is a proper subset. Long file names, unlike 8.3 file names, are case preserving. Neither file name format is case sensitive. For more information, see 
+     * @param {Pointer<Char>} lpszAppFilename A pointer to a string that contains the application executable module file name, without directory data. In API version 2.0 or later, the parameter can be in long file name format, of which the 8.3 file name format is a proper subset. Long file names, unlike 8.3 file names, are case preserving. Neither file name format is case sensitive. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">File Name Conventions</a>. In API versions earlier than 2.0, the parameter must specify a file name in the 8.3 format; long file names cannot be used.
      * @param {Integer} dwMediaMode A media mode for which the priority data is to be obtained. The value can be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linemediamode--constants">LINEMEDIAMODE_ Constants</a>; only a single bit can be on. The value 0 should be used if verifying application priority for Assisted Telephony requests.
@@ -7868,7 +7868,7 @@ class Tapi {
     static lineGetAppPriorityW(lpszAppFilename, dwMediaMode, lpExtensionID, dwRequestMode, lpExtensionName, lpdwPriority) {
         lpszAppFilename := lpszAppFilename is String? StrPtr(lpszAppFilename) : lpszAppFilename
 
-        result := DllCall("TAPI32.dll\lineGetAppPriorityW", "ptr", lpszAppFilename, "uint", dwMediaMode, "ptr", lpExtensionID, "uint", dwRequestMode, "ptr", lpExtensionName, "ptr", lpdwPriority, "int")
+        result := DllCall("TAPI32.dll\lineGetAppPriorityW", "ptr", lpszAppFilename, "uint", dwMediaMode, "ptr", lpExtensionID, "uint", dwRequestMode, "ptr", lpExtensionName, "uint*", lpdwPriority, "int")
         return result
     }
 
@@ -8247,7 +8247,7 @@ class Tapi {
      * <div class="alert"><b>Note</b>  If the size parameters in the structure are not correct, there is a possibility that data could get overwritten. For more information on setting structure sizes, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/memory-allocation">memory allocation</a> topic. </div>
      * <div> </div>
-     * @param {Pointer<PSTR>} lpszDeviceClass Pointer to a null-terminated string that specifies the device class of the device whose configuration is requested. Valid device class 
+     * @param {Pointer<Byte>} lpszDeviceClass Pointer to a null-terminated string that specifies the device class of the device whose configuration is requested. Valid device class 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetid">lineGetID</a> strings are the same as those specified for the function.
      * @returns {Integer} Returns zero if the function succeeds or a negative error number if an error occurs. Possible return values are:
      * 
@@ -8299,7 +8299,7 @@ class Tapi {
      * <div class="alert"><b>Note</b>  If the size parameters in the structure are not correct, there is a possibility that data could get overwritten. For more information on setting structure sizes, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/memory-allocation">memory allocation</a> topic. </div>
      * <div> </div>
-     * @param {Pointer<PSTR>} lpszDeviceClass Pointer to a null-terminated string that specifies the device class of the device whose configuration is requested. Valid device class 
+     * @param {Pointer<Byte>} lpszDeviceClass Pointer to a null-terminated string that specifies the device class of the device whose configuration is requested. Valid device class 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetid">lineGetID</a> strings are the same as those specified for the function.
      * @returns {Integer} Returns zero if the function succeeds or a negative error number if an error occurs. Possible return values are:
      * 
@@ -8351,7 +8351,7 @@ class Tapi {
      * <div class="alert"><b>Note</b>  If the size parameters in the structure are not correct, there is a possibility that data could get overwritten. For more information on setting structure sizes, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/memory-allocation">memory allocation</a> topic. </div>
      * <div> </div>
-     * @param {Pointer<PWSTR>} lpszDeviceClass Pointer to a null-terminated string that specifies the device class of the device whose configuration is requested. Valid device class 
+     * @param {Pointer<Char>} lpszDeviceClass Pointer to a null-terminated string that specifies the device class of the device whose configuration is requested. Valid device class 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetid">lineGetID</a> strings are the same as those specified for the function.
      * @returns {Integer} Returns zero if the function succeeds or a negative error number if an error occurs. Possible return values are:
      * 
@@ -8431,8 +8431,8 @@ class Tapi {
      * For applications using an API version earlier than 2.0, if the provider does not return an icon (whether because the given device class is invalid or the provider does not support icons), TAPI substitutes a generic  Telephony line device icon. For applications using API version 2.0 or later, TAPI substitutes the default line icon only if the <i>lpszDeviceClass</i> parameter is "tapi/line", "" or <b>NULL</b>. For any other device class, if the given device class is not valid or the provider does not support icons for the class, 
      * <b>lineGetIcon</b> returns LINEERR_INVALDEVICECLASS.
      * @param {Integer} dwDeviceID Identifier of the line device whose icon is requested.
-     * @param {Pointer<PSTR>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific sub-icon applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest-level icon associated with the line device rather than a specified media stream device would be selected.
-     * @param {Pointer<HICON>} lphIcon Pointer to a memory location in which the handle to the icon is returned.
+     * @param {Pointer<Byte>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific sub-icon applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest-level icon associated with the line device rather than a specified media stream device would be selected.
+     * @param {Pointer<Void>} lphIcon Pointer to a memory location in which the handle to the icon is returned.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_OPERATIONFAILED, LINEERR_INVALPOINTER, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALDEVICECLASS, LINEERR_UNINITIALIZED, LINEERR_NOMEM, LINEERR_NODEVICE.
@@ -8466,8 +8466,8 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines lineGetIcon as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} dwDeviceID Identifier of the line device whose icon is requested.
-     * @param {Pointer<PSTR>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific sub-icon applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest-level icon associated with the line device rather than a specified media stream device would be selected.
-     * @param {Pointer<HICON>} lphIcon Pointer to a memory location in which the handle to the icon is returned.
+     * @param {Pointer<Byte>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific sub-icon applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest-level icon associated with the line device rather than a specified media stream device would be selected.
+     * @param {Pointer<Void>} lphIcon Pointer to a memory location in which the handle to the icon is returned.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_OPERATIONFAILED, LINEERR_INVALPOINTER, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALDEVICECLASS, LINEERR_UNINITIALIZED, LINEERR_NOMEM, LINEERR_NODEVICE.
@@ -8501,8 +8501,8 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines lineGetIcon as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} dwDeviceID Identifier of the line device whose icon is requested.
-     * @param {Pointer<PWSTR>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific sub-icon applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest-level icon associated with the line device rather than a specified media stream device would be selected.
-     * @param {Pointer<HICON>} lphIcon Pointer to a memory location in which the handle to the icon is returned.
+     * @param {Pointer<Char>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific sub-icon applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest-level icon associated with the line device rather than a specified media stream device would be selected.
+     * @param {Pointer<Void>} lphIcon Pointer to a memory location in which the handle to the icon is returned.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_OPERATIONFAILED, LINEERR_INVALPOINTER, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALDEVICECLASS, LINEERR_UNINITIALIZED, LINEERR_NOMEM, LINEERR_NODEVICE.
@@ -8541,7 +8541,7 @@ class Tapi {
      * <div class="alert"><b>Note</b>  If the size parameters in the structure are not correct, there is a possibility that data could get overwritten. For more information on setting structure sizes, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/memory-allocation">memory allocation</a> topic. </div>
      * <div> </div>
-     * @param {Pointer<PSTR>} lpszDeviceClass Pointer to a null-terminated string that specifies the device class of the device whose identifier is requested. Valid device class strings are those used in the SYSTEM.INI section to identify device classes.
+     * @param {Pointer<Byte>} lpszDeviceClass Pointer to a null-terminated string that specifies the device class of the device whose identifier is requested. Valid device class strings are those used in the SYSTEM.INI section to identify device classes.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_NOMEM, LINEERR_INVALADDRESSID, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONFAILED, LINEERR_INVALCALLSELECT, LINEERR_INVALDEVICECLASS, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_STRUCTURETOOSMALL, LINEERR_NODEVICE, LINEERR_UNINITIALIZED.
@@ -8587,7 +8587,7 @@ class Tapi {
      * <div class="alert"><b>Note</b>  If the size parameters in the structure are not correct, there is a possibility that data could get overwritten. For more information on setting structure sizes, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/memory-allocation">memory allocation</a> topic. </div>
      * <div> </div>
-     * @param {Pointer<PSTR>} lpszDeviceClass Pointer to a null-terminated string that specifies the device class of the device whose identifier is requested. Valid device class strings are those used in the SYSTEM.INI section to identify device classes.
+     * @param {Pointer<Byte>} lpszDeviceClass Pointer to a null-terminated string that specifies the device class of the device whose identifier is requested. Valid device class strings are those used in the SYSTEM.INI section to identify device classes.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_NOMEM, LINEERR_INVALADDRESSID, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONFAILED, LINEERR_INVALCALLSELECT, LINEERR_INVALDEVICECLASS, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_STRUCTURETOOSMALL, LINEERR_NODEVICE, LINEERR_UNINITIALIZED.
@@ -8633,7 +8633,7 @@ class Tapi {
      * <div class="alert"><b>Note</b>  If the size parameters in the structure are not correct, there is a possibility that data could get overwritten. For more information on setting structure sizes, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/memory-allocation">memory allocation</a> topic. </div>
      * <div> </div>
-     * @param {Pointer<PWSTR>} lpszDeviceClass Pointer to a null-terminated string that specifies the device class of the device whose identifier is requested. Valid device class strings are those used in the SYSTEM.INI section to identify device classes.
+     * @param {Pointer<Char>} lpszDeviceClass Pointer to a null-terminated string that specifies the device class of the device whose identifier is requested. Valid device class strings are those used in the SYSTEM.INI section to identify device classes.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_NOMEM, LINEERR_INVALADDRESSID, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONFAILED, LINEERR_INVALCALLSELECT, LINEERR_INVALDEVICECLASS, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_STRUCTURETOOSMALL, LINEERR_NODEVICE, LINEERR_UNINITIALIZED.
@@ -8793,7 +8793,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetnumrings
      */
     static lineGetNumRings(hLine, dwAddressID, lpdwNumRings) {
-        result := DllCall("TAPI32.dll\lineGetNumRings", "uint", hLine, "uint", dwAddressID, "ptr", lpdwNumRings, "int")
+        result := DllCall("TAPI32.dll\lineGetNumRings", "uint", hLine, "uint", dwAddressID, "uint*", lpdwNumRings, "int")
         return result
     }
 
@@ -9119,7 +9119,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetstatusmessages
      */
     static lineGetStatusMessages(hLine, lpdwLineStates, lpdwAddressStates) {
-        result := DllCall("TAPI32.dll\lineGetStatusMessages", "uint", hLine, "ptr", lpdwLineStates, "ptr", lpdwAddressStates, "int")
+        result := DllCall("TAPI32.dll\lineGetStatusMessages", "uint", hLine, "uint*", lpdwLineStates, "uint*", lpdwAddressStates, "int")
         return result
     }
 
@@ -9265,7 +9265,7 @@ class Tapi {
      * <b>lineHandoff</b> fails if the application is the only remaining owner of the call. This informs the application that it should drop the call and deallocate its handle, in which case the call is abandoned. The privileges of the invoking application to the call are unchanged by this operation, but the application can change its privileges to a call with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linesetcallprivilege">lineSetCallPrivilege</a>.
      * @param {Integer} hCall Handle to the call to be handed off. The application must be an owner of the call. The call state of <i>hCall</i> can be any state.
-     * @param {Pointer<PSTR>} lpszFileName Pointer to a <b>null</b>-terminated string. If this pointer parameter is non-<b>NULL</b>, it contains the file name of the application that is the target of the handoff. If <b>NULL</b>, the handoff target is the highest priority application that has opened the line for owner privilege for the specified media mode. A valid file name does not include the path of the file.
+     * @param {Pointer<Byte>} lpszFileName Pointer to a <b>null</b>-terminated string. If this pointer parameter is non-<b>NULL</b>, it contains the file name of the application that is the target of the handoff. If <b>NULL</b>, the handoff target is the highest priority application that has opened the line for owner privilege for the specified media mode. A valid file name does not include the path of the file.
      * @param {Integer} dwMediaMode Media mode used to identify the target for the indirect handoff. The <i>dwMediaMode</i> parameter indirectly identifies the target application that is to receive ownership of the call. This parameter is ignored if <i>lpszFileName</i> is not <b>NULL</b>. This parameter uses one and only one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linemediamode--constants">LINEMEDIAMODE_ Constants</a>.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
@@ -9327,7 +9327,7 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines lineHandoff as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} hCall Handle to the call to be handed off. The application must be an owner of the call. The call state of <i>hCall</i> can be any state.
-     * @param {Pointer<PSTR>} lpszFileName Pointer to a <b>null</b>-terminated string. If this pointer parameter is non-<b>NULL</b>, it contains the file name of the application that is the target of the handoff. If <b>NULL</b>, the handoff target is the highest priority application that has opened the line for owner privilege for the specified media mode. A valid file name does not include the path of the file.
+     * @param {Pointer<Byte>} lpszFileName Pointer to a <b>null</b>-terminated string. If this pointer parameter is non-<b>NULL</b>, it contains the file name of the application that is the target of the handoff. If <b>NULL</b>, the handoff target is the highest priority application that has opened the line for owner privilege for the specified media mode. A valid file name does not include the path of the file.
      * @param {Integer} dwMediaMode Media mode used to identify the target for the indirect handoff. The <i>dwMediaMode</i> parameter indirectly identifies the target application that is to receive ownership of the call. This parameter is ignored if <i>lpszFileName</i> is not <b>NULL</b>. This parameter uses one and only one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linemediamode--constants">LINEMEDIAMODE_ Constants</a>.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
@@ -9389,7 +9389,7 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines lineHandoff as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} hCall Handle to the call to be handed off. The application must be an owner of the call. The call state of <i>hCall</i> can be any state.
-     * @param {Pointer<PWSTR>} lpszFileName Pointer to a <b>null</b>-terminated string. If this pointer parameter is non-<b>NULL</b>, it contains the file name of the application that is the target of the handoff. If <b>NULL</b>, the handoff target is the highest priority application that has opened the line for owner privilege for the specified media mode. A valid file name does not include the path of the file.
+     * @param {Pointer<Char>} lpszFileName Pointer to a <b>null</b>-terminated string. If this pointer parameter is non-<b>NULL</b>, it contains the file name of the application that is the target of the handoff. If <b>NULL</b>, the handoff target is the highest priority application that has opened the line for owner privilege for the specified media mode. A valid file name does not include the path of the file.
      * @param {Integer} dwMediaMode Media mode used to identify the target for the indirect handoff. The <i>dwMediaMode</i> parameter indirectly identifies the target application that is to receive ownership of the call. This parameter is ignored if <i>lpszFileName</i> is not <b>NULL</b>. This parameter uses one and only one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linemediamode--constants">LINEMEDIAMODE_ Constants</a>.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
@@ -9455,10 +9455,10 @@ class Tapi {
      * <b>lineInitialize</b> is equivalent to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-lineinitializeexa">lineInitializeEx</a> using the LINEINITIALIZEEXOPTION_USEHIDDENWINDOW option.
      * @param {Pointer<UInt32>} lphLineApp Pointer to a location that is filled with the application's usage handle for TAPI.
-     * @param {Pointer<HINSTANCE>} hInstance Instance handle of the client application or DLL.
+     * @param {Pointer<Void>} hInstance Instance handle of the client application or DLL.
      * @param {Pointer<LINECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the line device, addresses, or calls. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nc-tapi-linecallback">lineCallbackFunc</a>.
-     * @param {Pointer<PSTR>} lpszAppName Pointer to a <b>null</b>-terminated text string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
+     * @param {Pointer<Byte>} lpszAppName Pointer to a <b>null</b>-terminated text string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linecallinfo">LINECALLINFO</a> structure to indicate, in a user-friendly way, which application originated, or originally accepted or answered the call. This information can be useful for call logging purposes. If <i>lpszAppName</i> is <b>NULL</b>, the application's file name is used instead.
      * @param {Pointer<UInt32>} lpdwNumDevs Pointer to a <b>DWORD</b>-sized location. Upon successful completion of this request, this location is filled with the number of line devices available to the application.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
@@ -9469,7 +9469,7 @@ class Tapi {
     static lineInitialize(lphLineApp, hInstance, lpfnCallback, lpszAppName, lpdwNumDevs) {
         lpszAppName := lpszAppName is String? StrPtr(lpszAppName) : lpszAppName
 
-        result := DllCall("TAPI32.dll\lineInitialize", "ptr", lphLineApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszAppName, "ptr", lpdwNumDevs, "int")
+        result := DllCall("TAPI32.dll\lineInitialize", "uint*", lphLineApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszAppName, "uint*", lpdwNumDevs, "int")
         return result
     }
 
@@ -9531,10 +9531,10 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines lineInitializeEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<UInt32>} lphLineApp Pointer to a location that is filled with the application's usage handle for TAPI.
-     * @param {Pointer<HINSTANCE>} hInstance Instance handle of the client application or DLL. The application or DLL can pass <b>NULL</b> for this parameter, in which case TAPI uses the module handle of the root executable of the process (for purposes of identifying call handoff targets and media mode priorities).
+     * @param {Pointer<Void>} hInstance Instance handle of the client application or DLL. The application or DLL can pass <b>NULL</b> for this parameter, in which case TAPI uses the module handle of the root executable of the process (for purposes of identifying call handoff targets and media mode priorities).
      * @param {Pointer<LINECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the line device, addresses, or calls, when the application is using the "hidden window" method of event notification (for more information see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nc-tapi-linecallback">lineCallbackFunc</a>). This parameter is ignored and should be set to <b>NULL</b> when the application chooses to use the "event handle" or "completion port" event notification mechanisms.
-     * @param {Pointer<PSTR>} lpszFriendlyAppName Pointer to a <b>null</b>-terminated text string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
+     * @param {Pointer<Byte>} lpszFriendlyAppName Pointer to a <b>null</b>-terminated text string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linecallinfo">LINECALLINFO</a> structure to indicate, in a user-friendly way, which application originated, or originally accepted or answered the call. This information can be useful for call-logging purposes. If <i>lpszFriendlyAppName</i> is <b>NULL</b>, the application's module file name is used instead (as returned by the function 
      * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulefilenamea">GetModuleFileName</a>).
      * @param {Pointer<UInt32>} lpdwNumDevs Pointer to a <b>DWORD</b>-sized location. Upon successful completion of this request, this location is filled with the number of line devices available to the application.
@@ -9550,7 +9550,7 @@ class Tapi {
     static lineInitializeExA(lphLineApp, hInstance, lpfnCallback, lpszFriendlyAppName, lpdwNumDevs, lpdwAPIVersion, lpLineInitializeExParams) {
         lpszFriendlyAppName := lpszFriendlyAppName is String? StrPtr(lpszFriendlyAppName) : lpszFriendlyAppName
 
-        result := DllCall("TAPI32.dll\lineInitializeExA", "ptr", lphLineApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, "ptr", lpdwNumDevs, "ptr", lpdwAPIVersion, "ptr", lpLineInitializeExParams, "int")
+        result := DllCall("TAPI32.dll\lineInitializeExA", "uint*", lphLineApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, "uint*", lpdwNumDevs, "uint*", lpdwAPIVersion, "ptr", lpLineInitializeExParams, "int")
         return result
     }
 
@@ -9612,10 +9612,10 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines lineInitializeEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<UInt32>} lphLineApp Pointer to a location that is filled with the application's usage handle for TAPI.
-     * @param {Pointer<HINSTANCE>} hInstance Instance handle of the client application or DLL. The application or DLL can pass <b>NULL</b> for this parameter, in which case TAPI uses the module handle of the root executable of the process (for purposes of identifying call handoff targets and media mode priorities).
+     * @param {Pointer<Void>} hInstance Instance handle of the client application or DLL. The application or DLL can pass <b>NULL</b> for this parameter, in which case TAPI uses the module handle of the root executable of the process (for purposes of identifying call handoff targets and media mode priorities).
      * @param {Pointer<LINECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the line device, addresses, or calls, when the application is using the "hidden window" method of event notification (for more information see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nc-tapi-linecallback">lineCallbackFunc</a>). This parameter is ignored and should be set to <b>NULL</b> when the application chooses to use the "event handle" or "completion port" event notification mechanisms.
-     * @param {Pointer<PWSTR>} lpszFriendlyAppName Pointer to a <b>null</b>-terminated text string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
+     * @param {Pointer<Char>} lpszFriendlyAppName Pointer to a <b>null</b>-terminated text string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linecallinfo">LINECALLINFO</a> structure to indicate, in a user-friendly way, which application originated, or originally accepted or answered the call. This information can be useful for call-logging purposes. If <i>lpszFriendlyAppName</i> is <b>NULL</b>, the application's module file name is used instead (as returned by the function 
      * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulefilenamea">GetModuleFileName</a>).
      * @param {Pointer<UInt32>} lpdwNumDevs Pointer to a <b>DWORD</b>-sized location. Upon successful completion of this request, this location is filled with the number of line devices available to the application.
@@ -9631,7 +9631,7 @@ class Tapi {
     static lineInitializeExW(lphLineApp, hInstance, lpfnCallback, lpszFriendlyAppName, lpdwNumDevs, lpdwAPIVersion, lpLineInitializeExParams) {
         lpszFriendlyAppName := lpszFriendlyAppName is String? StrPtr(lpszFriendlyAppName) : lpszFriendlyAppName
 
-        result := DllCall("TAPI32.dll\lineInitializeExW", "ptr", lphLineApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, "ptr", lpdwNumDevs, "ptr", lpdwAPIVersion, "ptr", lpLineInitializeExParams, "int")
+        result := DllCall("TAPI32.dll\lineInitializeExW", "uint*", lphLineApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, "uint*", lpdwNumDevs, "uint*", lpdwAPIVersion, "ptr", lpLineInitializeExParams, "int")
         return result
     }
 
@@ -9669,7 +9669,7 @@ class Tapi {
      * @param {Pointer<UInt32>} lphCall Pointer to an HCALL handle. The handle is only valid after the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is received by the application indicating that the 
      * <b>lineMakeCall</b> function successfully completed. Use this handle to identify the call when invoking other telephony operations on the call. The application is initially the sole owner of this call. This handle is void if the function returns an error (synchronously or asynchronously by the reply message).
-     * @param {Pointer<PSTR>} lpszDestAddress Pointer to the destination address. This follows the standard dialable number format. This pointer can be <b>NULL</b> for non-dialed addresses (as with a hot phone) or when all dialing is performed using 
+     * @param {Pointer<Byte>} lpszDestAddress Pointer to the destination address. This follows the standard dialable number format. This pointer can be <b>NULL</b> for non-dialed addresses (as with a hot phone) or when all dialing is performed using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linedial">lineDial</a>. In the latter case, 
      * <b>lineMakeCall</b> allocates an available call appearance that would typically remain in the <b>dialtone</b> state until dialing begins. Service providers that have inverse multiplexing capabilities can allow an application to specify multiple addresses at once.
      * @param {Integer} dwCountryCode Country or region code of the called party. If a value of 0 is specified, a default is used by the implementation.
@@ -9684,7 +9684,7 @@ class Tapi {
     static lineMakeCall(hLine, lphCall, lpszDestAddress, dwCountryCode, lpCallParams) {
         lpszDestAddress := lpszDestAddress is String? StrPtr(lpszDestAddress) : lpszDestAddress
 
-        result := DllCall("TAPI32.dll\lineMakeCall", "uint", hLine, "ptr", lphCall, "ptr", lpszDestAddress, "uint", dwCountryCode, "ptr", lpCallParams, "int")
+        result := DllCall("TAPI32.dll\lineMakeCall", "uint", hLine, "uint*", lphCall, "ptr", lpszDestAddress, "uint", dwCountryCode, "ptr", lpCallParams, "int")
         return result
     }
 
@@ -9728,7 +9728,7 @@ class Tapi {
      * @param {Pointer<UInt32>} lphCall Pointer to an HCALL handle. The handle is only valid after the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is received by the application indicating that the 
      * <b>lineMakeCall</b> function successfully completed. Use this handle to identify the call when invoking other telephony operations on the call. The application is initially the sole owner of this call. This handle is void if the function returns an error (synchronously or asynchronously by the reply message).
-     * @param {Pointer<PSTR>} lpszDestAddress Pointer to the destination address. This follows the standard dialable number format. This pointer can be <b>NULL</b> for non-dialed addresses (as with a hot phone) or when all dialing is performed using 
+     * @param {Pointer<Byte>} lpszDestAddress Pointer to the destination address. This follows the standard dialable number format. This pointer can be <b>NULL</b> for non-dialed addresses (as with a hot phone) or when all dialing is performed using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linedial">lineDial</a>. In the latter case, 
      * <b>lineMakeCall</b> allocates an available call appearance that would typically remain in the <b>dialtone</b> state until dialing begins. Service providers that have inverse multiplexing capabilities can allow an application to specify multiple addresses at once.
      * @param {Integer} dwCountryCode Country or region code of the called party. If a value of 0 is specified, a default is used by the implementation.
@@ -9743,7 +9743,7 @@ class Tapi {
     static lineMakeCallA(hLine, lphCall, lpszDestAddress, dwCountryCode, lpCallParams) {
         lpszDestAddress := lpszDestAddress is String? StrPtr(lpszDestAddress) : lpszDestAddress
 
-        result := DllCall("TAPI32.dll\lineMakeCallA", "uint", hLine, "ptr", lphCall, "ptr", lpszDestAddress, "uint", dwCountryCode, "ptr", lpCallParams, "int")
+        result := DllCall("TAPI32.dll\lineMakeCallA", "uint", hLine, "uint*", lphCall, "ptr", lpszDestAddress, "uint", dwCountryCode, "ptr", lpCallParams, "int")
         return result
     }
 
@@ -9787,7 +9787,7 @@ class Tapi {
      * @param {Pointer<UInt32>} lphCall Pointer to an HCALL handle. The handle is only valid after the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is received by the application indicating that the 
      * <b>lineMakeCall</b> function successfully completed. Use this handle to identify the call when invoking other telephony operations on the call. The application is initially the sole owner of this call. This handle is void if the function returns an error (synchronously or asynchronously by the reply message).
-     * @param {Pointer<PWSTR>} lpszDestAddress Pointer to the destination address. This follows the standard dialable number format. This pointer can be <b>NULL</b> for non-dialed addresses (as with a hot phone) or when all dialing is performed using 
+     * @param {Pointer<Char>} lpszDestAddress Pointer to the destination address. This follows the standard dialable number format. This pointer can be <b>NULL</b> for non-dialed addresses (as with a hot phone) or when all dialing is performed using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linedial">lineDial</a>. In the latter case, 
      * <b>lineMakeCall</b> allocates an available call appearance that would typically remain in the <b>dialtone</b> state until dialing begins. Service providers that have inverse multiplexing capabilities can allow an application to specify multiple addresses at once.
      * @param {Integer} dwCountryCode Country or region code of the called party. If a value of 0 is specified, a default is used by the implementation.
@@ -9802,7 +9802,7 @@ class Tapi {
     static lineMakeCallW(hLine, lphCall, lpszDestAddress, dwCountryCode, lpCallParams) {
         lpszDestAddress := lpszDestAddress is String? StrPtr(lpszDestAddress) : lpszDestAddress
 
-        result := DllCall("TAPI32.dll\lineMakeCallW", "uint", hLine, "ptr", lphCall, "ptr", lpszDestAddress, "uint", dwCountryCode, "ptr", lpCallParams, "int")
+        result := DllCall("TAPI32.dll\lineMakeCallW", "uint", hLine, "uint*", lphCall, "ptr", lpszDestAddress, "uint", dwCountryCode, "ptr", lpCallParams, "int")
         return result
     }
 
@@ -9921,7 +9921,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linenegotiateapiversion
      */
     static lineNegotiateAPIVersion(hLineApp, dwDeviceID, dwAPILowVersion, dwAPIHighVersion, lpdwAPIVersion, lpExtensionID) {
-        result := DllCall("TAPI32.dll\lineNegotiateAPIVersion", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAPILowVersion, "uint", dwAPIHighVersion, "ptr", lpdwAPIVersion, "ptr", lpExtensionID, "int")
+        result := DllCall("TAPI32.dll\lineNegotiateAPIVersion", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAPILowVersion, "uint", dwAPIHighVersion, "uint*", lpdwAPIVersion, "ptr", lpExtensionID, "int")
         return result
     }
 
@@ -9953,7 +9953,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linenegotiateextversion
      */
     static lineNegotiateExtVersion(hLineApp, dwDeviceID, dwAPIVersion, dwExtLowVersion, dwExtHighVersion, lpdwExtVersion) {
-        result := DllCall("TAPI32.dll\lineNegotiateExtVersion", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAPIVersion, "uint", dwExtLowVersion, "uint", dwExtHighVersion, "ptr", lpdwExtVersion, "int")
+        result := DllCall("TAPI32.dll\lineNegotiateExtVersion", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAPIVersion, "uint", dwExtLowVersion, "uint", dwExtHighVersion, "uint*", lpdwExtVersion, "int")
         return result
     }
 
@@ -10065,7 +10065,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineopen
      */
     static lineOpen(hLineApp, dwDeviceID, lphLine, dwAPIVersion, dwExtVersion, dwCallbackInstance, dwPrivileges, dwMediaModes, lpCallParams) {
-        result := DllCall("TAPI32.dll\lineOpen", "uint", hLineApp, "uint", dwDeviceID, "ptr", lphLine, "uint", dwAPIVersion, "uint", dwExtVersion, "ptr", dwCallbackInstance, "uint", dwPrivileges, "uint", dwMediaModes, "ptr", lpCallParams, "int")
+        result := DllCall("TAPI32.dll\lineOpen", "uint", hLineApp, "uint", dwDeviceID, "uint*", lphLine, "uint", dwAPIVersion, "uint", dwExtVersion, "ptr", dwCallbackInstance, "uint", dwPrivileges, "uint", dwMediaModes, "ptr", lpCallParams, "int")
         return result
     }
 
@@ -10184,7 +10184,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineopena
      */
     static lineOpenA(hLineApp, dwDeviceID, lphLine, dwAPIVersion, dwExtVersion, dwCallbackInstance, dwPrivileges, dwMediaModes, lpCallParams) {
-        result := DllCall("TAPI32.dll\lineOpenA", "uint", hLineApp, "uint", dwDeviceID, "ptr", lphLine, "uint", dwAPIVersion, "uint", dwExtVersion, "ptr", dwCallbackInstance, "uint", dwPrivileges, "uint", dwMediaModes, "ptr", lpCallParams, "int")
+        result := DllCall("TAPI32.dll\lineOpenA", "uint", hLineApp, "uint", dwDeviceID, "uint*", lphLine, "uint", dwAPIVersion, "uint", dwExtVersion, "ptr", dwCallbackInstance, "uint", dwPrivileges, "uint", dwMediaModes, "ptr", lpCallParams, "int")
         return result
     }
 
@@ -10303,7 +10303,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineopenw
      */
     static lineOpenW(hLineApp, dwDeviceID, lphLine, dwAPIVersion, dwExtVersion, dwCallbackInstance, dwPrivileges, dwMediaModes, lpCallParams) {
-        result := DllCall("TAPI32.dll\lineOpenW", "uint", hLineApp, "uint", dwDeviceID, "ptr", lphLine, "uint", dwAPIVersion, "uint", dwExtVersion, "ptr", dwCallbackInstance, "uint", dwPrivileges, "uint", dwMediaModes, "ptr", lpCallParams, "int")
+        result := DllCall("TAPI32.dll\lineOpenW", "uint", hLineApp, "uint", dwDeviceID, "uint*", lphLine, "uint", dwAPIVersion, "uint", dwExtVersion, "ptr", dwCallbackInstance, "uint", dwPrivileges, "uint", dwMediaModes, "ptr", lpCallParams, "int")
         return result
     }
 
@@ -10324,7 +10324,7 @@ class Tapi {
      * @param {Integer} hCall Handle to the call to be parked. The application must be an owner of the call. The call state of <i>hCall</i> must be <i>connected</i>.
      * @param {Integer} dwParkMode Park mode with which the call is to be parked. This parameter can have only a single flag set, and uses one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineparkmode--constants">LINEPARKMODE_ Constants</a>.
-     * @param {Pointer<PSTR>} lpszDirAddress Pointer to a <b>null</b>-terminated string that indicates the address where the call is to be parked when using directed park. The address is in dialable number format. This parameter is ignored for nondirected park.
+     * @param {Pointer<Byte>} lpszDirAddress Pointer to a <b>null</b>-terminated string that indicates the address where the call is to be parked when using directed park. The address is in dialable number format. This parameter is ignored for nondirected park.
      * @param {Pointer<VARSTRING>} lpNonDirAddress Pointer to a structure of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-varstring">VARSTRING</a>. For nondirected park, the address where the call is parked is returned in this structure. This parameter is ignored for directed park. Within the 
      * <b>VARSTRING</b> structure, <b>dwStringFormat</b> must be set to STRINGFORMAT_ASCII (an ASCII string buffer containing a <b>null</b>-terminated string), and the terminating <b>NULL</b> must be accounted for in the <b>dwStringSize</b>. Prior to calling 
@@ -10366,7 +10366,7 @@ class Tapi {
      * @param {Integer} hCall Handle to the call to be parked. The application must be an owner of the call. The call state of <i>hCall</i> must be <i>connected</i>.
      * @param {Integer} dwParkMode Park mode with which the call is to be parked. This parameter can have only a single flag set, and uses one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineparkmode--constants">LINEPARKMODE_ Constants</a>.
-     * @param {Pointer<PSTR>} lpszDirAddress Pointer to a <b>null</b>-terminated string that indicates the address where the call is to be parked when using directed park. The address is in dialable number format. This parameter is ignored for nondirected park.
+     * @param {Pointer<Byte>} lpszDirAddress Pointer to a <b>null</b>-terminated string that indicates the address where the call is to be parked when using directed park. The address is in dialable number format. This parameter is ignored for nondirected park.
      * @param {Pointer<VARSTRING>} lpNonDirAddress Pointer to a structure of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-varstring">VARSTRING</a>. For nondirected park, the address where the call is parked is returned in this structure. This parameter is ignored for directed park. Within the 
      * <b>VARSTRING</b> structure, <b>dwStringFormat</b> must be set to STRINGFORMAT_ASCII (an ASCII string buffer containing a <b>null</b>-terminated string), and the terminating <b>NULL</b> must be accounted for in the <b>dwStringSize</b>. Prior to calling 
@@ -10408,7 +10408,7 @@ class Tapi {
      * @param {Integer} hCall Handle to the call to be parked. The application must be an owner of the call. The call state of <i>hCall</i> must be <i>connected</i>.
      * @param {Integer} dwParkMode Park mode with which the call is to be parked. This parameter can have only a single flag set, and uses one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineparkmode--constants">LINEPARKMODE_ Constants</a>.
-     * @param {Pointer<PWSTR>} lpszDirAddress Pointer to a <b>null</b>-terminated string that indicates the address where the call is to be parked when using directed park. The address is in dialable number format. This parameter is ignored for nondirected park.
+     * @param {Pointer<Char>} lpszDirAddress Pointer to a <b>null</b>-terminated string that indicates the address where the call is to be parked when using directed park. The address is in dialable number format. This parameter is ignored for nondirected park.
      * @param {Pointer<VARSTRING>} lpNonDirAddress Pointer to a structure of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-varstring">VARSTRING</a>. For nondirected park, the address where the call is parked is returned in this structure. This parameter is ignored for directed park. Within the 
      * <b>VARSTRING</b> structure, <b>dwStringFormat</b> must be set to STRINGFORMAT_ASCII (an ASCII string buffer containing a <b>null</b>-terminated string), and the terminating <b>NULL</b> must be accounted for in the <b>dwStringSize</b>. Prior to calling 
@@ -10448,8 +10448,8 @@ class Tapi {
      * @param {Integer} hLine Handle to the open line device on which a call is to be picked up.
      * @param {Integer} dwAddressID Address on <i>hLine</i> at which the pickup is to be originated. An address identifier is permanently associated with an address; the identifier remains constant across operating system upgrades.
      * @param {Pointer<UInt32>} lphCall Pointer to a memory location where the handle to the picked up call is returned. The application is the initial sole owner of the call.
-     * @param {Pointer<PSTR>} lpszDestAddress Pointer to a <b>null</b>-terminated character buffer that contains the address whose call is to be picked up. The address is in standard dialable address format.
-     * @param {Pointer<PSTR>} lpszGroupID Pointer to a <b>null</b>-terminated character buffer containing the group identifier to which the alerting station belongs. This parameter is required on some switches to pick up calls outside of the current pickup group. 
+     * @param {Pointer<Byte>} lpszDestAddress Pointer to a <b>null</b>-terminated character buffer that contains the address whose call is to be picked up. The address is in standard dialable address format.
+     * @param {Pointer<Byte>} lpszGroupID Pointer to a <b>null</b>-terminated character buffer containing the group identifier to which the alerting station belongs. This parameter is required on some switches to pick up calls outside of the current pickup group. 
      * 
      * 
      * 
@@ -10465,7 +10465,7 @@ class Tapi {
         lpszDestAddress := lpszDestAddress is String? StrPtr(lpszDestAddress) : lpszDestAddress
         lpszGroupID := lpszGroupID is String? StrPtr(lpszGroupID) : lpszGroupID
 
-        result := DllCall("TAPI32.dll\linePickup", "uint", hLine, "uint", dwAddressID, "ptr", lphCall, "ptr", lpszDestAddress, "ptr", lpszGroupID, "int")
+        result := DllCall("TAPI32.dll\linePickup", "uint", hLine, "uint", dwAddressID, "uint*", lphCall, "ptr", lpszDestAddress, "ptr", lpszGroupID, "int")
         return result
     }
 
@@ -10498,8 +10498,8 @@ class Tapi {
      * @param {Integer} hLine Handle to the open line device on which a call is to be picked up.
      * @param {Integer} dwAddressID Address on <i>hLine</i> at which the pickup is to be originated. An address identifier is permanently associated with an address; the identifier remains constant across operating system upgrades.
      * @param {Pointer<UInt32>} lphCall Pointer to a memory location where the handle to the picked up call is returned. The application is the initial sole owner of the call.
-     * @param {Pointer<PSTR>} lpszDestAddress Pointer to a <b>null</b>-terminated character buffer that contains the address whose call is to be picked up. The address is in standard dialable address format.
-     * @param {Pointer<PSTR>} lpszGroupID Pointer to a <b>null</b>-terminated character buffer containing the group identifier to which the alerting station belongs. This parameter is required on some switches to pick up calls outside of the current pickup group. 
+     * @param {Pointer<Byte>} lpszDestAddress Pointer to a <b>null</b>-terminated character buffer that contains the address whose call is to be picked up. The address is in standard dialable address format.
+     * @param {Pointer<Byte>} lpszGroupID Pointer to a <b>null</b>-terminated character buffer containing the group identifier to which the alerting station belongs. This parameter is required on some switches to pick up calls outside of the current pickup group. 
      * 
      * 
      * 
@@ -10515,7 +10515,7 @@ class Tapi {
         lpszDestAddress := lpszDestAddress is String? StrPtr(lpszDestAddress) : lpszDestAddress
         lpszGroupID := lpszGroupID is String? StrPtr(lpszGroupID) : lpszGroupID
 
-        result := DllCall("TAPI32.dll\linePickupA", "uint", hLine, "uint", dwAddressID, "ptr", lphCall, "ptr", lpszDestAddress, "ptr", lpszGroupID, "int")
+        result := DllCall("TAPI32.dll\linePickupA", "uint", hLine, "uint", dwAddressID, "uint*", lphCall, "ptr", lpszDestAddress, "ptr", lpszGroupID, "int")
         return result
     }
 
@@ -10548,8 +10548,8 @@ class Tapi {
      * @param {Integer} hLine Handle to the open line device on which a call is to be picked up.
      * @param {Integer} dwAddressID Address on <i>hLine</i> at which the pickup is to be originated. An address identifier is permanently associated with an address; the identifier remains constant across operating system upgrades.
      * @param {Pointer<UInt32>} lphCall Pointer to a memory location where the handle to the picked up call is returned. The application is the initial sole owner of the call.
-     * @param {Pointer<PWSTR>} lpszDestAddress Pointer to a <b>null</b>-terminated character buffer that contains the address whose call is to be picked up. The address is in standard dialable address format.
-     * @param {Pointer<PWSTR>} lpszGroupID Pointer to a <b>null</b>-terminated character buffer containing the group identifier to which the alerting station belongs. This parameter is required on some switches to pick up calls outside of the current pickup group. 
+     * @param {Pointer<Char>} lpszDestAddress Pointer to a <b>null</b>-terminated character buffer that contains the address whose call is to be picked up. The address is in standard dialable address format.
+     * @param {Pointer<Char>} lpszGroupID Pointer to a <b>null</b>-terminated character buffer containing the group identifier to which the alerting station belongs. This parameter is required on some switches to pick up calls outside of the current pickup group. 
      * 
      * 
      * 
@@ -10565,7 +10565,7 @@ class Tapi {
         lpszDestAddress := lpszDestAddress is String? StrPtr(lpszDestAddress) : lpszDestAddress
         lpszGroupID := lpszGroupID is String? StrPtr(lpszGroupID) : lpszGroupID
 
-        result := DllCall("TAPI32.dll\linePickupW", "uint", hLine, "uint", dwAddressID, "ptr", lphCall, "ptr", lpszDestAddress, "ptr", lpszGroupID, "int")
+        result := DllCall("TAPI32.dll\linePickupW", "uint", hLine, "uint", dwAddressID, "uint*", lphCall, "ptr", lpszDestAddress, "ptr", lpszGroupID, "int")
         return result
     }
 
@@ -10598,7 +10598,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineprepareaddtoconference
      */
     static linePrepareAddToConference(hConfCall, lphConsultCall, lpCallParams) {
-        result := DllCall("TAPI32.dll\linePrepareAddToConference", "uint", hConfCall, "ptr", lphConsultCall, "ptr", lpCallParams, "int")
+        result := DllCall("TAPI32.dll\linePrepareAddToConference", "uint", hConfCall, "uint*", lphConsultCall, "ptr", lpCallParams, "int")
         return result
     }
 
@@ -10638,7 +10638,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineprepareaddtoconferencea
      */
     static linePrepareAddToConferenceA(hConfCall, lphConsultCall, lpCallParams) {
-        result := DllCall("TAPI32.dll\linePrepareAddToConferenceA", "uint", hConfCall, "ptr", lphConsultCall, "ptr", lpCallParams, "int")
+        result := DllCall("TAPI32.dll\linePrepareAddToConferenceA", "uint", hConfCall, "uint*", lphConsultCall, "ptr", lpCallParams, "int")
         return result
     }
 
@@ -10678,7 +10678,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineprepareaddtoconferencew
      */
     static linePrepareAddToConferenceW(hConfCall, lphConsultCall, lpCallParams) {
-        result := DllCall("TAPI32.dll\linePrepareAddToConferenceW", "uint", hConfCall, "ptr", lphConsultCall, "ptr", lpCallParams, "int")
+        result := DllCall("TAPI32.dll\linePrepareAddToConferenceW", "uint", hConfCall, "uint*", lphConsultCall, "ptr", lpCallParams, "int")
         return result
     }
 
@@ -10736,7 +10736,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linedrop">lineDrop</a>, or answer the call using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-lineanswer">lineAnswer</a>. The availability of these operations is dependent on device capabilities.
      * @param {Integer} hCall Handle to the call to be redirected. The application must be an owner of the call. The call state of <i>hCall</i> must be <i>offering</i>.
-     * @param {Pointer<PSTR>} lpszDestAddress Pointer to the destination address. This follows the standard dialable number format.
+     * @param {Pointer<Byte>} lpszDestAddress Pointer to the destination address. This follows the standard dialable number format.
      * @param {Integer} dwCountryCode Country/region code of the party the call is redirected to. If a value of 0 is specified, a default is used by the implementation.
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously, or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
@@ -10770,7 +10770,7 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines lineRedirect as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} hCall Handle to the call to be redirected. The application must be an owner of the call. The call state of <i>hCall</i> must be <i>offering</i>.
-     * @param {Pointer<PSTR>} lpszDestAddress Pointer to the destination address. This follows the standard dialable number format.
+     * @param {Pointer<Byte>} lpszDestAddress Pointer to the destination address. This follows the standard dialable number format.
      * @param {Integer} dwCountryCode Country/region code of the party the call is redirected to. If a value of 0 is specified, a default is used by the implementation.
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously, or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
@@ -10804,7 +10804,7 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines lineRedirect as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} hCall Handle to the call to be redirected. The application must be an owner of the call. The call state of <i>hCall</i> must be <i>offering</i>.
-     * @param {Pointer<PWSTR>} lpszDestAddress Pointer to the destination address. This follows the standard dialable number format.
+     * @param {Pointer<Char>} lpszDestAddress Pointer to the destination address. This follows the standard dialable number format.
      * @param {Integer} dwCountryCode Country/region code of the party the call is redirected to. If a value of 0 is specified, a default is used by the implementation.
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously, or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
@@ -10899,7 +10899,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/phone-close">PHONE_CLOSE</a> messages (it is preferable for service providers to issue these messages as part of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tspi/nf-tspi-tspi_providerremove">TSPI_providerRemove</a>, after verification with the user). The devices previously under the control of that provider are then marked as "unavailable", so that any future attempts by applications to reference them by device identifier result in LINEERR_NODRIVER.
      * @param {Integer} dwPermanentProviderID Permanent provider identifier of the service provider to be removed.
-     * @param {Pointer<HWND>} hwndOwner Handle to a window to which any dialog boxes that need to be displayed as part of the removal process (for example, a confirmation dialog box by the service provider's 
+     * @param {Pointer<Void>} hwndOwner Handle to a window to which any dialog boxes that need to be displayed as part of the removal process (for example, a confirmation dialog box by the service provider's 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tspi/nf-tspi-tspi_providerremove">TSPI_providerRemove</a> function) would be attached. Can be a <b>NULL</b> value to indicate that any window created during the function should have no owner window.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
@@ -10939,7 +10939,7 @@ class Tapi {
      * 
      * This function may send data over the wire in unencrypted form; therefore, someone eavesdropping on the network may be able to read the data. The security risk of sending the data in clear text should be considered before using this method.
      * @param {Integer} hCall Handle to the call on which to send user-user information. The application must be an owner of the call. The call state of <i>hCall</i> must be <i>connected</i>, <i>offering</i>, <i>accepted</i>, or <i>ringback</i>.
-     * @param {Pointer<PSTR>} lpsUserUserInfo Pointer to a string containing user-user information to be sent to the remote party. User-user information is only sent if supported by the underlying network (see 
+     * @param {Pointer<Byte>} lpsUserUserInfo Pointer to a string containing user-user information to be sent to the remote party. User-user information is only sent if supported by the underlying network (see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linedevcaps">LINEDEVCAPS</a>). The protocol discriminator field for the user-user information, if required, should appear as the first byte of the buffer pointed to by <i>lpsUserUserInfo</i>, and must be accounted for in <i>dwSize</i>.
      * @param {Integer} dwSize Size of the user-user information in <i>lpsUserUserInfo</i>, in bytes.
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously, or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding 
@@ -11068,13 +11068,13 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linehandoff">lineHandoff</a> based on media type.
      * 
      * The Priorities set with <b>lineSetAppPriority</b> will persist across restarts of the system or restarts of tapisrv. The <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-lineopen">lineOpen</a> function opens the line with no specified call priorities. By default, the highest priority application will be the one that first called <b>lineOpen</b>.
-     * @param {Pointer<PSTR>} lpszAppFilename A pointer to a string that contains the application executable module filename, without the directory data. In TAPI version 2.0 or later, the parameter can specify a filename in either long or 8.3 filename format.
+     * @param {Pointer<Byte>} lpszAppFilename A pointer to a string that contains the application executable module filename, without the directory data. In TAPI version 2.0 or later, the parameter can specify a filename in either long or 8.3 filename format.
      * @param {Integer} dwMediaMode A media type for which the priority of the application is to be set. The value can be one or more of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linemediamode--constants">LINEMEDIAMODE</a> constants. The value zero should be used to set the application priority for Assisted Telephony requests.
      * @param {Pointer<LINEEXTENSIONID>} lpExtensionID A pointer to a structure of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-lineextensionid">LINEEXTENSIONID</a>. This parameter is ignored.
      * @param {Integer} dwRequestMode The conditions for this parameter are, if the <i>dwMediaMode</i> parameter is zero, this parameter specifies the Assisted Telephony request mode for which priority is to be set. It must be LINEREQUESTMODE_MAKECALL. This parameter is ignored if <i>dwMediaMode</i> is nonzero.
-     * @param {Pointer<PSTR>} lpszExtensionName This parameter is ignored.
+     * @param {Pointer<Byte>} lpszExtensionName This parameter is ignored.
      * @param {Integer} dwPriority A parameter that indicates a new priority for the application. If the value 0 is passed, the application is removed from the priority list for the specified media or request mode; if it was not already present, no error is generated. If the value 1 is passed, the application is inserted as the highest-priority application for the media or request mode; it is removed from a lower-priority position, if already in the list. Any other value generates an error.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
@@ -11106,13 +11106,13 @@ class Tapi {
      * 
      * > [!NOTE]
      * > The tapi.h header defines lineSetAppPriority as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszAppFilename A pointer to a string that contains the application executable module filename, without the directory data. In TAPI version 2.0 or later, the parameter can specify a filename in either long or 8.3 filename format.
+     * @param {Pointer<Byte>} lpszAppFilename A pointer to a string that contains the application executable module filename, without the directory data. In TAPI version 2.0 or later, the parameter can specify a filename in either long or 8.3 filename format.
      * @param {Integer} dwMediaMode A media type for which the priority of the application is to be set. The value can be one or more of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linemediamode--constants">LINEMEDIAMODE</a> constants. The value zero should be used to set the application priority for Assisted Telephony requests.
      * @param {Pointer<LINEEXTENSIONID>} lpExtensionID A pointer to a structure of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-lineextensionid">LINEEXTENSIONID</a>. This parameter is ignored.
      * @param {Integer} dwRequestMode The conditions for this parameter are, if the <i>dwMediaMode</i> parameter is zero, this parameter specifies the Assisted Telephony request mode for which priority is to be set. It must be LINEREQUESTMODE_MAKECALL. This parameter is ignored if <i>dwMediaMode</i> is nonzero.
-     * @param {Pointer<PSTR>} lpszExtensionName This parameter is ignored.
+     * @param {Pointer<Byte>} lpszExtensionName This parameter is ignored.
      * @param {Integer} dwPriority A parameter that indicates a new priority for the application. If the value 0 is passed, the application is removed from the priority list for the specified media or request mode; if it was not already present, no error is generated. If the value 1 is passed, the application is inserted as the highest-priority application for the media or request mode; it is removed from a lower-priority position, if already in the list. Any other value generates an error.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
@@ -11144,13 +11144,13 @@ class Tapi {
      * 
      * > [!NOTE]
      * > The tapi.h header defines lineSetAppPriority as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszAppFilename A pointer to a string that contains the application executable module filename, without the directory data. In TAPI version 2.0 or later, the parameter can specify a filename in either long or 8.3 filename format.
+     * @param {Pointer<Char>} lpszAppFilename A pointer to a string that contains the application executable module filename, without the directory data. In TAPI version 2.0 or later, the parameter can specify a filename in either long or 8.3 filename format.
      * @param {Integer} dwMediaMode A media type for which the priority of the application is to be set. The value can be one or more of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linemediamode--constants">LINEMEDIAMODE</a> constants. The value zero should be used to set the application priority for Assisted Telephony requests.
      * @param {Pointer<LINEEXTENSIONID>} lpExtensionID A pointer to a structure of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-lineextensionid">LINEEXTENSIONID</a>. This parameter is ignored.
      * @param {Integer} dwRequestMode The conditions for this parameter are, if the <i>dwMediaMode</i> parameter is zero, this parameter specifies the Assisted Telephony request mode for which priority is to be set. It must be LINEREQUESTMODE_MAKECALL. This parameter is ignored if <i>dwMediaMode</i> is nonzero.
-     * @param {Pointer<PWSTR>} lpszExtensionName This parameter is ignored.
+     * @param {Pointer<Char>} lpszExtensionName This parameter is ignored.
      * @param {Integer} dwPriority A parameter that indicates a new priority for the application. If the value 0 is passed, the application is removed from the priority list for the specified media or request mode; if it was not already present, no error is generated. If the value 1 is passed, the application is inserted as the highest-priority application for the media or request mode; it is removed from a lower-priority position, if already in the list. Any other value generates an error.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
@@ -11326,7 +11326,7 @@ class Tapi {
      * @param {Integer} dwSize Number of bytes in the structure pointed to by <i>lpDeviceConfig</i>. This value is returned in the <b>dwStringSize</b> member in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-varstring">VARSTRING</a> structure returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetdevconfig">lineGetDevConfig</a>.
-     * @param {Pointer<PSTR>} lpszDeviceClass Pointer to a null-terminated string that specifies the device class of the device whose configuration is to be set. Valid device class strings are the same as those specified for the 
+     * @param {Pointer<Byte>} lpszDeviceClass Pointer to a null-terminated string that specifies the device class of the device whose configuration is to be set. Valid device class strings are the same as those specified for the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetid">lineGetID</a> function.
      * @returns {Integer} Returns zero if the function succeeds or a negative error number if an error occurs. Possible return values are:
      * 
@@ -11371,7 +11371,7 @@ class Tapi {
      * @param {Integer} dwSize Number of bytes in the structure pointed to by <i>lpDeviceConfig</i>. This value is returned in the <b>dwStringSize</b> member in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-varstring">VARSTRING</a> structure returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetdevconfig">lineGetDevConfig</a>.
-     * @param {Pointer<PSTR>} lpszDeviceClass Pointer to a null-terminated string that specifies the device class of the device whose configuration is to be set. Valid device class strings are the same as those specified for the 
+     * @param {Pointer<Byte>} lpszDeviceClass Pointer to a null-terminated string that specifies the device class of the device whose configuration is to be set. Valid device class strings are the same as those specified for the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetid">lineGetID</a> function.
      * @returns {Integer} Returns zero if the function succeeds or a negative error number if an error occurs. Possible return values are:
      * 
@@ -11416,7 +11416,7 @@ class Tapi {
      * @param {Integer} dwSize Number of bytes in the structure pointed to by <i>lpDeviceConfig</i>. This value is returned in the <b>dwStringSize</b> member in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-varstring">VARSTRING</a> structure returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetdevconfig">lineGetDevConfig</a>.
-     * @param {Pointer<PWSTR>} lpszDeviceClass Pointer to a null-terminated string that specifies the device class of the device whose configuration is to be set. Valid device class strings are the same as those specified for the 
+     * @param {Pointer<Char>} lpszDeviceClass Pointer to a null-terminated string that specifies the device class of the device whose configuration is to be set. Valid device class strings are the same as those specified for the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetid">lineGetID</a> function.
      * @returns {Integer} Returns zero if the function succeeds or a negative error number if an error occurs. Possible return values are:
      * 
@@ -11627,7 +11627,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-lineinitializeexa">lineInitializeEx</a>. If an application has not yet called the 
      * <b>lineInitializeEx</b> function, it can set the <i>hLineApp</i> parameter to zero.
      * @param {Integer} dwDeviceID Device identifier for the line device upon which the call is intended to be dialed, so that variations in dialing procedures on different lines can be applied to the translation process.
-     * @param {Pointer<PSTR>} lpszAddressIn TBD
+     * @param {Pointer<Byte>} lpszAddressIn TBD
      * @param {Integer} dwTollListOption Toll list operation to be performed. This parameter uses one and only one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linetolllistoption--constants">LINETOLLLISTOPTION_ Constants</a>.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
@@ -11651,7 +11651,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-lineinitializeexa">lineInitializeEx</a>. If an application has not yet called the 
      * <b>lineInitializeEx</b> function, it can set the <i>hLineApp</i> parameter to zero.
      * @param {Integer} dwDeviceID Device identifier for the line device upon which the call is intended to be dialed, so that variations in dialing procedures on different lines can be applied to the translation process.
-     * @param {Pointer<PSTR>} lpszAddressIn TBD
+     * @param {Pointer<Byte>} lpszAddressIn TBD
      * @param {Integer} dwTollListOption Toll list operation to be performed. This parameter uses one and only one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linetolllistoption--constants">LINETOLLLISTOPTION_ Constants</a>.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
@@ -11675,7 +11675,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-lineinitializeexa">lineInitializeEx</a>. If an application has not yet called the 
      * <b>lineInitializeEx</b> function, it can set the <i>hLineApp</i> parameter to zero.
      * @param {Integer} dwDeviceID Device identifier for the line device upon which the call is intended to be dialed, so that variations in dialing procedures on different lines can be applied to the translation process.
-     * @param {Pointer<PWSTR>} lpszAddressInW Pointer to a <b>null</b>-terminated string containing the address from which the prefix information is to be extracted for processing. This parameter must not be <b>NULL</b>, and it must be in the canonical address format.
+     * @param {Pointer<Char>} lpszAddressInW Pointer to a <b>null</b>-terminated string containing the address from which the prefix information is to be extracted for processing. This parameter must not be <b>NULL</b>, and it must be in the canonical address format.
      * @param {Integer} dwTollListOption Toll list operation to be performed. This parameter uses one and only one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linetolllistoption--constants">LINETOLLLISTOPTION_ Constants</a>.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
@@ -11729,7 +11729,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetupconference
      */
     static lineSetupConference(hCall, hLine, lphConfCall, lphConsultCall, dwNumParties, lpCallParams) {
-        result := DllCall("TAPI32.dll\lineSetupConference", "uint", hCall, "uint", hLine, "ptr", lphConfCall, "ptr", lphConsultCall, "uint", dwNumParties, "ptr", lpCallParams, "int")
+        result := DllCall("TAPI32.dll\lineSetupConference", "uint", hCall, "uint", hLine, "uint*", lphConfCall, "uint*", lphConsultCall, "uint", dwNumParties, "ptr", lpCallParams, "int")
         return result
     }
 
@@ -11779,7 +11779,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetupconferencea
      */
     static lineSetupConferenceA(hCall, hLine, lphConfCall, lphConsultCall, dwNumParties, lpCallParams) {
-        result := DllCall("TAPI32.dll\lineSetupConferenceA", "uint", hCall, "uint", hLine, "ptr", lphConfCall, "ptr", lphConsultCall, "uint", dwNumParties, "ptr", lpCallParams, "int")
+        result := DllCall("TAPI32.dll\lineSetupConferenceA", "uint", hCall, "uint", hLine, "uint*", lphConfCall, "uint*", lphConsultCall, "uint", dwNumParties, "ptr", lpCallParams, "int")
         return result
     }
 
@@ -11829,7 +11829,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetupconferencew
      */
     static lineSetupConferenceW(hCall, hLine, lphConfCall, lphConsultCall, dwNumParties, lpCallParams) {
-        result := DllCall("TAPI32.dll\lineSetupConferenceW", "uint", hCall, "uint", hLine, "ptr", lphConfCall, "ptr", lphConsultCall, "uint", dwNumParties, "ptr", lpCallParams, "int")
+        result := DllCall("TAPI32.dll\lineSetupConferenceW", "uint", hCall, "uint", hLine, "uint*", lphConfCall, "uint*", lphConsultCall, "uint", dwNumParties, "ptr", lpCallParams, "int")
         return result
     }
 
@@ -11868,7 +11868,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetuptransfer
      */
     static lineSetupTransfer(hCall, lphConsultCall, lpCallParams) {
-        result := DllCall("TAPI32.dll\lineSetupTransfer", "uint", hCall, "ptr", lphConsultCall, "ptr", lpCallParams, "int")
+        result := DllCall("TAPI32.dll\lineSetupTransfer", "uint", hCall, "uint*", lphConsultCall, "ptr", lpCallParams, "int")
         return result
     }
 
@@ -11914,7 +11914,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetuptransfera
      */
     static lineSetupTransferA(hCall, lphConsultCall, lpCallParams) {
-        result := DllCall("TAPI32.dll\lineSetupTransferA", "uint", hCall, "ptr", lphConsultCall, "ptr", lpCallParams, "int")
+        result := DllCall("TAPI32.dll\lineSetupTransferA", "uint", hCall, "uint*", lphConsultCall, "ptr", lpCallParams, "int")
         return result
     }
 
@@ -11960,7 +11960,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetuptransferw
      */
     static lineSetupTransferW(hCall, lphConsultCall, lpCallParams) {
-        result := DllCall("TAPI32.dll\lineSetupTransferW", "uint", hCall, "ptr", lphConsultCall, "ptr", lpCallParams, "int")
+        result := DllCall("TAPI32.dll\lineSetupTransferW", "uint", hCall, "uint*", lphConsultCall, "ptr", lpCallParams, "int")
         return result
     }
 
@@ -12007,7 +12007,7 @@ class Tapi {
      * @param {Integer} dwDeviceID Device identifier of the line device upon which the call is to be dialed, so that variations in dialing procedures on different lines can be applied to the translation process.
      * @param {Integer} dwAPIVersion Highest version of TAPI supported by the application (not necessarily the value negotiated by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linenegotiateapiversion">lineNegotiateAPIVersion</a> on some particular line device).
-     * @param {Pointer<PSTR>} lpszAddressIn Pointer to a <b>null</b>-terminated string that contains the address of the information that is to be extracted for translation. Must be in either the canonical address format, or an arbitrary string of dialable digits (non-canonical). This parameter must not be <b>NULL</b>. If the <i>AddressIn</i> contains a subaddress or name field, or additional addresses separated from the first address by CR and LF characters, only the first address is translated.
+     * @param {Pointer<Byte>} lpszAddressIn Pointer to a <b>null</b>-terminated string that contains the address of the information that is to be extracted for translation. Must be in either the canonical address format, or an arbitrary string of dialable digits (non-canonical). This parameter must not be <b>NULL</b>. If the <i>AddressIn</i> contains a subaddress or name field, or additional addresses separated from the first address by CR and LF characters, only the first address is translated.
      * @param {Integer} dwCard Credit card to be used for dialing. This parameter is only valid if the CARDOVERRIDE bit is set in <i>dwTranslateOptions</i>. This parameter specifies the permanent identifier of a Card entry in the [Cards] section in the registry (as obtained from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linetranslatecaps">lineTranslateCaps</a>) that should be used instead of the <b>PreferredCardID</b> specified in the definition of the <b>CurrentLocation</b>. It does not cause the <i>PreferredCardID</i> parameter of the current Location entry in the registry to be modified; the override applies only to the current translation operation. This parameter is ignored if the CARDOVERRIDE bit is not set in <i>dwTranslateOptions</i>.
      * @param {Integer} dwTranslateOptions Associated operations to be performed prior to the translation of the address into a dialable string. This parameter uses one of the 
@@ -12046,7 +12046,7 @@ class Tapi {
      * @param {Integer} dwDeviceID Device identifier of the line device upon which the call is to be dialed, so that variations in dialing procedures on different lines can be applied to the translation process.
      * @param {Integer} dwAPIVersion Highest version of TAPI supported by the application (not necessarily the value negotiated by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linenegotiateapiversion">lineNegotiateAPIVersion</a> on some particular line device).
-     * @param {Pointer<PSTR>} lpszAddressIn Pointer to a <b>null</b>-terminated string that contains the address of the information that is to be extracted for translation. Must be in either the canonical address format, or an arbitrary string of dialable digits (non-canonical). This parameter must not be <b>NULL</b>. If the <i>AddressIn</i> contains a subaddress or name field, or additional addresses separated from the first address by CR and LF characters, only the first address is translated.
+     * @param {Pointer<Byte>} lpszAddressIn Pointer to a <b>null</b>-terminated string that contains the address of the information that is to be extracted for translation. Must be in either the canonical address format, or an arbitrary string of dialable digits (non-canonical). This parameter must not be <b>NULL</b>. If the <i>AddressIn</i> contains a subaddress or name field, or additional addresses separated from the first address by CR and LF characters, only the first address is translated.
      * @param {Integer} dwCard Credit card to be used for dialing. This parameter is only valid if the CARDOVERRIDE bit is set in <i>dwTranslateOptions</i>. This parameter specifies the permanent identifier of a Card entry in the [Cards] section in the registry (as obtained from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linetranslatecaps">lineTranslateCaps</a>) that should be used instead of the <b>PreferredCardID</b> specified in the definition of the <b>CurrentLocation</b>. It does not cause the <i>PreferredCardID</i> parameter of the current Location entry in the registry to be modified; the override applies only to the current translation operation. This parameter is ignored if the CARDOVERRIDE bit is not set in <i>dwTranslateOptions</i>.
      * @param {Integer} dwTranslateOptions Associated operations to be performed prior to the translation of the address into a dialable string. This parameter uses one of the 
@@ -12085,7 +12085,7 @@ class Tapi {
      * @param {Integer} dwDeviceID Device identifier of the line device upon which the call is to be dialed, so that variations in dialing procedures on different lines can be applied to the translation process.
      * @param {Integer} dwAPIVersion Highest version of TAPI supported by the application (not necessarily the value negotiated by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linenegotiateapiversion">lineNegotiateAPIVersion</a> on some particular line device).
-     * @param {Pointer<PWSTR>} lpszAddressIn Pointer to a <b>null</b>-terminated string that contains the address of the information that is to be extracted for translation. Must be in either the canonical address format, or an arbitrary string of dialable digits (non-canonical). This parameter must not be <b>NULL</b>. If the <i>AddressIn</i> contains a subaddress or name field, or additional addresses separated from the first address by CR and LF characters, only the first address is translated.
+     * @param {Pointer<Char>} lpszAddressIn Pointer to a <b>null</b>-terminated string that contains the address of the information that is to be extracted for translation. Must be in either the canonical address format, or an arbitrary string of dialable digits (non-canonical). This parameter must not be <b>NULL</b>. If the <i>AddressIn</i> contains a subaddress or name field, or additional addresses separated from the first address by CR and LF characters, only the first address is translated.
      * @param {Integer} dwCard Credit card to be used for dialing. This parameter is only valid if the CARDOVERRIDE bit is set in <i>dwTranslateOptions</i>. This parameter specifies the permanent identifier of a Card entry in the [Cards] section in the registry (as obtained from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linetranslatecaps">lineTranslateCaps</a>) that should be used instead of the <b>PreferredCardID</b> specified in the definition of the <b>CurrentLocation</b>. It does not cause the <i>PreferredCardID</i> parameter of the current Location entry in the registry to be modified; the override applies only to the current translation operation. This parameter is ignored if the CARDOVERRIDE bit is not set in <i>dwTranslateOptions</i>.
      * @param {Integer} dwTranslateOptions Associated operations to be performed prior to the translation of the address into a dialable string. This parameter uses one of the 
@@ -12132,8 +12132,8 @@ class Tapi {
      * @param {Integer} dwDeviceID Device identifier for the line device upon which the call is intended to be dialed, so that variations in dialing procedures on different lines can be applied to the translation process.
      * @param {Integer} dwAPIVersion Highest version of TAPI supported by the application (not necessarily the value negotiated by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linenegotiateapiversion">lineNegotiateAPIVersion</a> on the line device indicated by <i>dwDeviceID</i>).
-     * @param {Pointer<HWND>} hwndOwner Handle to a window to which the dialog box is to be attached. Can be a <b>NULL</b> value to indicate that any window created during the function should have no owner window.
-     * @param {Pointer<PSTR>} lpszAddressIn Pointer to a <b>null</b>-terminated string containing a phone number that is used, in the lower portion of the dialog box, to show the effect of the user's changes on the location parameters. The number must be in canonical format; if noncanonical, the phone number portion of the dialog box is not displayed. This pointer can be left <b>NULL</b>, in which case the phone number portion of the dialog box is not displayed. If the <i>lpszAddressIn</i> parameter contains a subaddress or name field, or additional addresses separated from the first address by CR and LF characters, only the first address is used in the dialog box.
+     * @param {Pointer<Void>} hwndOwner Handle to a window to which the dialog box is to be attached. Can be a <b>NULL</b> value to indicate that any window created during the function should have no owner window.
+     * @param {Pointer<Byte>} lpszAddressIn Pointer to a <b>null</b>-terminated string containing a phone number that is used, in the lower portion of the dialog box, to show the effect of the user's changes on the location parameters. The number must be in canonical format; if noncanonical, the phone number portion of the dialog box is not displayed. This pointer can be left <b>NULL</b>, in which case the phone number portion of the dialog box is not displayed. If the <i>lpszAddressIn</i> parameter contains a subaddress or name field, or additional addresses separated from the first address by CR and LF characters, only the first address is used in the dialog box.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_INVALPARAM, LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_INVALPOINTER, LINEERR_INIFILECORRUPT, LINEERR_NODRIVER, LINEERR_INUSE, LINEERR_NOMEM, LINEERR_INVALADDRESS, LINEERR_INVALAPPHANDLE, LINEERR_OPERATIONFAILED.
@@ -12173,8 +12173,8 @@ class Tapi {
      * @param {Integer} dwDeviceID Device identifier for the line device upon which the call is intended to be dialed, so that variations in dialing procedures on different lines can be applied to the translation process.
      * @param {Integer} dwAPIVersion Highest version of TAPI supported by the application (not necessarily the value negotiated by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linenegotiateapiversion">lineNegotiateAPIVersion</a> on the line device indicated by <i>dwDeviceID</i>).
-     * @param {Pointer<HWND>} hwndOwner Handle to a window to which the dialog box is to be attached. Can be a <b>NULL</b> value to indicate that any window created during the function should have no owner window.
-     * @param {Pointer<PSTR>} lpszAddressIn Pointer to a <b>null</b>-terminated string containing a phone number that is used, in the lower portion of the dialog box, to show the effect of the user's changes on the location parameters. The number must be in canonical format; if noncanonical, the phone number portion of the dialog box is not displayed. This pointer can be left <b>NULL</b>, in which case the phone number portion of the dialog box is not displayed. If the <i>lpszAddressIn</i> parameter contains a subaddress or name field, or additional addresses separated from the first address by CR and LF characters, only the first address is used in the dialog box.
+     * @param {Pointer<Void>} hwndOwner Handle to a window to which the dialog box is to be attached. Can be a <b>NULL</b> value to indicate that any window created during the function should have no owner window.
+     * @param {Pointer<Byte>} lpszAddressIn Pointer to a <b>null</b>-terminated string containing a phone number that is used, in the lower portion of the dialog box, to show the effect of the user's changes on the location parameters. The number must be in canonical format; if noncanonical, the phone number portion of the dialog box is not displayed. This pointer can be left <b>NULL</b>, in which case the phone number portion of the dialog box is not displayed. If the <i>lpszAddressIn</i> parameter contains a subaddress or name field, or additional addresses separated from the first address by CR and LF characters, only the first address is used in the dialog box.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_INVALPARAM, LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_INVALPOINTER, LINEERR_INIFILECORRUPT, LINEERR_NODRIVER, LINEERR_INUSE, LINEERR_NOMEM, LINEERR_INVALADDRESS, LINEERR_INVALAPPHANDLE, LINEERR_OPERATIONFAILED.
@@ -12214,8 +12214,8 @@ class Tapi {
      * @param {Integer} dwDeviceID Device identifier for the line device upon which the call is intended to be dialed, so that variations in dialing procedures on different lines can be applied to the translation process.
      * @param {Integer} dwAPIVersion Highest version of TAPI supported by the application (not necessarily the value negotiated by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linenegotiateapiversion">lineNegotiateAPIVersion</a> on the line device indicated by <i>dwDeviceID</i>).
-     * @param {Pointer<HWND>} hwndOwner Handle to a window to which the dialog box is to be attached. Can be a <b>NULL</b> value to indicate that any window created during the function should have no owner window.
-     * @param {Pointer<PWSTR>} lpszAddressIn Pointer to a <b>null</b>-terminated string containing a phone number that is used, in the lower portion of the dialog box, to show the effect of the user's changes on the location parameters. The number must be in canonical format; if noncanonical, the phone number portion of the dialog box is not displayed. This pointer can be left <b>NULL</b>, in which case the phone number portion of the dialog box is not displayed. If the <i>lpszAddressIn</i> parameter contains a subaddress or name field, or additional addresses separated from the first address by CR and LF characters, only the first address is used in the dialog box.
+     * @param {Pointer<Void>} hwndOwner Handle to a window to which the dialog box is to be attached. Can be a <b>NULL</b> value to indicate that any window created during the function should have no owner window.
+     * @param {Pointer<Char>} lpszAddressIn Pointer to a <b>null</b>-terminated string containing a phone number that is used, in the lower portion of the dialog box, to show the effect of the user's changes on the location parameters. The number must be in canonical format; if noncanonical, the phone number portion of the dialog box is not displayed. This pointer can be left <b>NULL</b>, in which case the phone number portion of the dialog box is not displayed. If the <i>lpszAddressIn</i> parameter contains a subaddress or name field, or additional addresses separated from the first address by CR and LF characters, only the first address is used in the dialog box.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_INVALPARAM, LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_INVALPOINTER, LINEERR_INIFILECORRUPT, LINEERR_NODRIVER, LINEERR_INUSE, LINEERR_NOMEM, LINEERR_INVALADDRESS, LINEERR_INVALAPPHANDLE, LINEERR_OPERATIONFAILED.
@@ -12261,7 +12261,7 @@ class Tapi {
      * @param {Integer} hLine Handle to the open line device on which a call is to be unparked.
      * @param {Integer} dwAddressID Address on <i>hLine</i> at which the unpark is to be originated. An address identifier is permanently associated with an address; the identifier remains constant across operating system upgrades.
      * @param {Pointer<UInt32>} lphCall Pointer to the location of type HCALL where the handle to the unparked call is returned. This handle is unrelated to any other handle that might have been previously associated with the retrieved call, such as the handle that might have been associated with the call when it was originally parked. The application is the initial sole owner of this call.
-     * @param {Pointer<PSTR>} lpszDestAddress Pointer to a null-terminated character buffer that contains the address where the call is parked. The address is in standard dialable address format.
+     * @param {Pointer<Byte>} lpszDestAddress Pointer to a null-terminated character buffer that contains the address where the call is parked. The address is in standard dialable address format.
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously, or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
@@ -12271,7 +12271,7 @@ class Tapi {
     static lineUnpark(hLine, dwAddressID, lphCall, lpszDestAddress) {
         lpszDestAddress := lpszDestAddress is String? StrPtr(lpszDestAddress) : lpszDestAddress
 
-        result := DllCall("TAPI32.dll\lineUnpark", "uint", hLine, "uint", dwAddressID, "ptr", lphCall, "ptr", lpszDestAddress, "int")
+        result := DllCall("TAPI32.dll\lineUnpark", "uint", hLine, "uint", dwAddressID, "uint*", lphCall, "ptr", lpszDestAddress, "int")
         return result
     }
 
@@ -12283,7 +12283,7 @@ class Tapi {
      * @param {Integer} hLine Handle to the open line device on which a call is to be unparked.
      * @param {Integer} dwAddressID Address on <i>hLine</i> at which the unpark is to be originated. An address identifier is permanently associated with an address; the identifier remains constant across operating system upgrades.
      * @param {Pointer<UInt32>} lphCall Pointer to the location of type HCALL where the handle to the unparked call is returned. This handle is unrelated to any other handle that might have been previously associated with the retrieved call, such as the handle that might have been associated with the call when it was originally parked. The application is the initial sole owner of this call.
-     * @param {Pointer<PSTR>} lpszDestAddress Pointer to a null-terminated character buffer that contains the address where the call is parked. The address is in standard dialable address format.
+     * @param {Pointer<Byte>} lpszDestAddress Pointer to a null-terminated character buffer that contains the address where the call is parked. The address is in standard dialable address format.
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously, or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
@@ -12293,7 +12293,7 @@ class Tapi {
     static lineUnparkA(hLine, dwAddressID, lphCall, lpszDestAddress) {
         lpszDestAddress := lpszDestAddress is String? StrPtr(lpszDestAddress) : lpszDestAddress
 
-        result := DllCall("TAPI32.dll\lineUnparkA", "uint", hLine, "uint", dwAddressID, "ptr", lphCall, "ptr", lpszDestAddress, "int")
+        result := DllCall("TAPI32.dll\lineUnparkA", "uint", hLine, "uint", dwAddressID, "uint*", lphCall, "ptr", lpszDestAddress, "int")
         return result
     }
 
@@ -12305,7 +12305,7 @@ class Tapi {
      * @param {Integer} hLine Handle to the open line device on which a call is to be unparked.
      * @param {Integer} dwAddressID Address on <i>hLine</i> at which the unpark is to be originated. An address identifier is permanently associated with an address; the identifier remains constant across operating system upgrades.
      * @param {Pointer<UInt32>} lphCall Pointer to the location of type HCALL where the handle to the unparked call is returned. This handle is unrelated to any other handle that might have been previously associated with the retrieved call, such as the handle that might have been associated with the call when it was originally parked. The application is the initial sole owner of this call.
-     * @param {Pointer<PWSTR>} lpszDestAddress Pointer to a null-terminated character buffer that contains the address where the call is parked. The address is in standard dialable address format.
+     * @param {Pointer<Char>} lpszDestAddress Pointer to a null-terminated character buffer that contains the address where the call is parked. The address is in standard dialable address format.
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously, or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
@@ -12315,7 +12315,7 @@ class Tapi {
     static lineUnparkW(hLine, dwAddressID, lphCall, lpszDestAddress) {
         lpszDestAddress := lpszDestAddress is String? StrPtr(lpszDestAddress) : lpszDestAddress
 
-        result := DllCall("TAPI32.dll\lineUnparkW", "uint", hLine, "uint", dwAddressID, "ptr", lphCall, "ptr", lpszDestAddress, "int")
+        result := DllCall("TAPI32.dll\lineUnparkW", "uint", hLine, "uint", dwAddressID, "uint*", lphCall, "ptr", lpszDestAddress, "int")
         return result
     }
 
@@ -12343,8 +12343,8 @@ class Tapi {
      * 
      * The <i>lpszDeviceClass</i> parameter should be "tapi/phone", "", or <b>NULL</b> to cause the provider to display the highest level configuration for the phone.
      * @param {Integer} dwDeviceID Identifier of the phone device to be configured.
-     * @param {Pointer<HWND>} hwndOwner Handle to a window to which the dialog box is to be attached. Can be a <b>NULL</b> value to indicate that any window created during the function should have no owner window.
-     * @param {Pointer<PSTR>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific subscreen of configuration information applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest level configuration is selected.
+     * @param {Pointer<Void>} hwndOwner Handle to a window to which the dialog box is to be attached. Can be a <b>NULL</b> value to indicate that any window created during the function should have no owner window.
+     * @param {Pointer<Byte>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific subscreen of configuration information applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest level configuration is selected.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_BADDEVICEID, PHONEERR_NOMEM, PHONEERR_INUSE, PHONEERR_OPERATIONFAILED, PHONEERR_INVALPARAM, PHONEERR_OPERATIONUNAVAIL, PHONEERR_INVALDEVICECLASS, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPOINTER, PHONEERR_UNINITIALIZED, PHONEERR_NODEVICE.
@@ -12372,8 +12372,8 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines phoneConfigDialog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} dwDeviceID Identifier of the phone device to be configured.
-     * @param {Pointer<HWND>} hwndOwner Handle to a window to which the dialog box is to be attached. Can be a <b>NULL</b> value to indicate that any window created during the function should have no owner window.
-     * @param {Pointer<PSTR>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific subscreen of configuration information applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest level configuration is selected.
+     * @param {Pointer<Void>} hwndOwner Handle to a window to which the dialog box is to be attached. Can be a <b>NULL</b> value to indicate that any window created during the function should have no owner window.
+     * @param {Pointer<Byte>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific subscreen of configuration information applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest level configuration is selected.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_BADDEVICEID, PHONEERR_NOMEM, PHONEERR_INUSE, PHONEERR_OPERATIONFAILED, PHONEERR_INVALPARAM, PHONEERR_OPERATIONUNAVAIL, PHONEERR_INVALDEVICECLASS, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPOINTER, PHONEERR_UNINITIALIZED, PHONEERR_NODEVICE.
@@ -12401,8 +12401,8 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines phoneConfigDialog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} dwDeviceID Identifier of the phone device to be configured.
-     * @param {Pointer<HWND>} hwndOwner Handle to a window to which the dialog box is to be attached. Can be a <b>NULL</b> value to indicate that any window created during the function should have no owner window.
-     * @param {Pointer<PWSTR>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific subscreen of configuration information applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest level configuration is selected.
+     * @param {Pointer<Void>} hwndOwner Handle to a window to which the dialog box is to be attached. Can be a <b>NULL</b> value to indicate that any window created during the function should have no owner window.
+     * @param {Pointer<Char>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific subscreen of configuration information applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest level configuration is selected.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_BADDEVICEID, PHONEERR_NOMEM, PHONEERR_INUSE, PHONEERR_OPERATIONFAILED, PHONEERR_INVALPARAM, PHONEERR_OPERATIONUNAVAIL, PHONEERR_INVALDEVICECLASS, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPOINTER, PHONEERR_UNINITIALIZED, PHONEERR_NODEVICE.
@@ -12636,7 +12636,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetgain
      */
     static phoneGetGain(hPhone, dwHookSwitchDev, lpdwGain) {
-        result := DllCall("TAPI32.dll\phoneGetGain", "uint", hPhone, "uint", dwHookSwitchDev, "ptr", lpdwGain, "int")
+        result := DllCall("TAPI32.dll\phoneGetGain", "uint", hPhone, "uint", dwHookSwitchDev, "uint*", lpdwGain, "int")
         return result
     }
 
@@ -12655,7 +12655,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegethookswitch
      */
     static phoneGetHookSwitch(hPhone, lpdwHookSwitchDevs) {
-        result := DllCall("TAPI32.dll\phoneGetHookSwitch", "uint", hPhone, "ptr", lpdwHookSwitchDevs, "int")
+        result := DllCall("TAPI32.dll\phoneGetHookSwitch", "uint", hPhone, "uint*", lpdwHookSwitchDevs, "int")
         return result
     }
 
@@ -12673,8 +12673,8 @@ class Tapi {
      * For applications using a TAPI version earlier than 2.0, if the provider does not return an icon (whether because the given device class is invalid or the provider does not support icons), TAPI substitutes a generic  Telephony phone device icon. For applications using TAPI version 2.0 or later, TAPI substitutes the default phone icon only if the <i>lpszDeviceClass</i> parameter is "tapi/phone", "", or <b>NULL</b>. For any other device class, if the given device class is not valid or the provider does not support icons for the class, 
      * <b>phoneGetIcon</b> returns PHONEERR_INVALDEVICECLASS.
      * @param {Integer} dwDeviceID Identifier of the phone device whose icon is requested.
-     * @param {Pointer<PSTR>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific sub-icon applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest-level icon associated with the phone device rather than a specified media stream device would be selected.
-     * @param {Pointer<HICON>} lphIcon Pointer to a memory location in which the handle to the icon is returned.
+     * @param {Pointer<Byte>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific sub-icon applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest-level icon associated with the phone device rather than a specified media stream device would be selected.
+     * @param {Pointer<Void>} lphIcon Pointer to a memory location in which the handle to the icon is returned.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_BADDEVICEID, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPOINTER, PHONEERR_OPERATIONFAILED, PHONEERR_INVALDEVICECLASS, PHONEERR_UNINITIALIZED, PHONEERR_NOMEM, PHONEERR_NODEVICE.
@@ -12708,8 +12708,8 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines phoneGetIcon as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} dwDeviceID Identifier of the phone device whose icon is requested.
-     * @param {Pointer<PSTR>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific sub-icon applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest-level icon associated with the phone device rather than a specified media stream device would be selected.
-     * @param {Pointer<HICON>} lphIcon Pointer to a memory location in which the handle to the icon is returned.
+     * @param {Pointer<Byte>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific sub-icon applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest-level icon associated with the phone device rather than a specified media stream device would be selected.
+     * @param {Pointer<Void>} lphIcon Pointer to a memory location in which the handle to the icon is returned.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_BADDEVICEID, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPOINTER, PHONEERR_OPERATIONFAILED, PHONEERR_INVALDEVICECLASS, PHONEERR_UNINITIALIZED, PHONEERR_NOMEM, PHONEERR_NODEVICE.
@@ -12743,8 +12743,8 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines phoneGetIcon as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} dwDeviceID Identifier of the phone device whose icon is requested.
-     * @param {Pointer<PWSTR>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific sub-icon applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest-level icon associated with the phone device rather than a specified media stream device would be selected.
-     * @param {Pointer<HICON>} lphIcon Pointer to a memory location in which the handle to the icon is returned.
+     * @param {Pointer<Char>} lpszDeviceClass Pointer to a <b>null</b>-terminated string that identifies a device class name. This device class allows the application to select a specific sub-icon applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest-level icon associated with the phone device rather than a specified media stream device would be selected.
+     * @param {Pointer<Void>} lphIcon Pointer to a memory location in which the handle to the icon is returned.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_BADDEVICEID, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPOINTER, PHONEERR_OPERATIONFAILED, PHONEERR_INVALDEVICECLASS, PHONEERR_UNINITIALIZED, PHONEERR_NOMEM, PHONEERR_NODEVICE.
@@ -12770,7 +12770,7 @@ class Tapi {
      * @param {Integer} hPhone Handle to an open phone device.
      * @param {Pointer<VARSTRING>} lpDeviceID Pointer to a data structure of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-varstring">VARSTRING</a> where the device identifier is returned. Upon successful completion of the request, this location is filled with the device identifier. The format of the returned information depends on the method used by the device class (API) for naming devices.
-     * @param {Pointer<PSTR>} lpszDeviceClass Pointer to a null-terminated string that specifies the device class of the device whose identifier is requested. Valid device class strings are those used in the System.ini section to identify device classes.
+     * @param {Pointer<Byte>} lpszDeviceClass Pointer to a null-terminated string that specifies the device class of the device whose identifier is requested. Valid device class strings are those used in the System.ini section to identify device classes.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_NOMEM, PHONEERR_INVALPOINTER, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALDEVICECLASS, PHONEERR_UNINITIALIZED, PHONEERR_OPERATIONFAILED, PHONEERR_STRUCTURETOOSMALL, PHONEERR_OPERATIONUNAVAIL.
@@ -12803,7 +12803,7 @@ class Tapi {
      * @param {Integer} hPhone Handle to an open phone device.
      * @param {Pointer<VARSTRING>} lpDeviceID Pointer to a data structure of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-varstring">VARSTRING</a> where the device identifier is returned. Upon successful completion of the request, this location is filled with the device identifier. The format of the returned information depends on the method used by the device class (API) for naming devices.
-     * @param {Pointer<PSTR>} lpszDeviceClass Pointer to a null-terminated string that specifies the device class of the device whose identifier is requested. Valid device class strings are those used in the System.ini section to identify device classes.
+     * @param {Pointer<Byte>} lpszDeviceClass Pointer to a null-terminated string that specifies the device class of the device whose identifier is requested. Valid device class strings are those used in the System.ini section to identify device classes.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_NOMEM, PHONEERR_INVALPOINTER, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALDEVICECLASS, PHONEERR_UNINITIALIZED, PHONEERR_OPERATIONFAILED, PHONEERR_STRUCTURETOOSMALL, PHONEERR_OPERATIONUNAVAIL.
@@ -12836,7 +12836,7 @@ class Tapi {
      * @param {Integer} hPhone Handle to an open phone device.
      * @param {Pointer<VARSTRING>} lpDeviceID Pointer to a data structure of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-varstring">VARSTRING</a> where the device identifier is returned. Upon successful completion of the request, this location is filled with the device identifier. The format of the returned information depends on the method used by the device class (API) for naming devices.
-     * @param {Pointer<PWSTR>} lpszDeviceClass Pointer to a null-terminated string that specifies the device class of the device whose identifier is requested. Valid device class strings are those used in the System.ini section to identify device classes.
+     * @param {Pointer<Char>} lpszDeviceClass Pointer to a null-terminated string that specifies the device class of the device whose identifier is requested. Valid device class strings are those used in the System.ini section to identify device classes.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_NOMEM, PHONEERR_INVALPOINTER, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALDEVICECLASS, PHONEERR_UNINITIALIZED, PHONEERR_OPERATIONFAILED, PHONEERR_STRUCTURETOOSMALL, PHONEERR_OPERATIONUNAVAIL.
@@ -12863,7 +12863,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetlamp
      */
     static phoneGetLamp(hPhone, dwButtonLampID, lpdwLampMode) {
-        result := DllCall("TAPI32.dll\phoneGetLamp", "uint", hPhone, "uint", dwButtonLampID, "ptr", lpdwLampMode, "int")
+        result := DllCall("TAPI32.dll\phoneGetLamp", "uint", hPhone, "uint", dwButtonLampID, "uint*", lpdwLampMode, "int")
         return result
     }
 
@@ -12903,7 +12903,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetring
      */
     static phoneGetRing(hPhone, lpdwRingMode, lpdwVolume) {
-        result := DllCall("TAPI32.dll\phoneGetRing", "uint", hPhone, "ptr", lpdwRingMode, "ptr", lpdwVolume, "int")
+        result := DllCall("TAPI32.dll\phoneGetRing", "uint", hPhone, "uint*", lpdwRingMode, "uint*", lpdwVolume, "int")
         return result
     }
 
@@ -12991,7 +12991,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetstatusmessages
      */
     static phoneGetStatusMessages(hPhone, lpdwPhoneStates, lpdwButtonModes, lpdwButtonStates) {
-        result := DllCall("TAPI32.dll\phoneGetStatusMessages", "uint", hPhone, "ptr", lpdwPhoneStates, "ptr", lpdwButtonModes, "ptr", lpdwButtonStates, "int")
+        result := DllCall("TAPI32.dll\phoneGetStatusMessages", "uint", hPhone, "uint*", lpdwPhoneStates, "uint*", lpdwButtonModes, "uint*", lpdwButtonStates, "int")
         return result
     }
 
@@ -13007,7 +13007,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetvolume
      */
     static phoneGetVolume(hPhone, dwHookSwitchDev, lpdwVolume) {
-        result := DllCall("TAPI32.dll\phoneGetVolume", "uint", hPhone, "uint", dwHookSwitchDev, "ptr", lpdwVolume, "int")
+        result := DllCall("TAPI32.dll\phoneGetVolume", "uint", hPhone, "uint", dwHookSwitchDev, "uint*", lpdwVolume, "int")
         return result
     }
 
@@ -13028,9 +13028,9 @@ class Tapi {
      * If any service provider fails to initialize properly, the 
      * <b>phoneInitialize</b> function fails and returns the error indicated by the service provider. If the PHONEERR_INVALPARAM error value is returned, the specified <i>hInstance</i> parameter is invalid.
      * @param {Pointer<UInt32>} lphPhoneApp Pointer to a location that is filled with the application's usage handle for TAPI.
-     * @param {Pointer<HINSTANCE>} hInstance Instance handle of the client application or DLL.
+     * @param {Pointer<Void>} hInstance Instance handle of the client application or DLL.
      * @param {Pointer<PHONECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the phone device.
-     * @param {Pointer<PSTR>} lpszAppName Pointer to a <b>null</b>-terminated string that contains displayable characters. If this parameter is non-<b>NULL</b>, it contains an application-supplied name of the application. This name is provided in the 
+     * @param {Pointer<Byte>} lpszAppName Pointer to a <b>null</b>-terminated string that contains displayable characters. If this parameter is non-<b>NULL</b>, it contains an application-supplied name of the application. This name is provided in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-phonestatus">PHONESTATUS</a> structure to indicate, in a user-friendly way, which application is the current owner of the phone device. This information can be useful for logging and status reporting purposes. If <i>lpszAppName</i> is <b>NULL</b>, the application's filename is used instead.
      * @param {Pointer<UInt32>} lpdwNumDevs Pointer to <b>DWORD</b>. This location is loaded with the number of phone devices available to the application.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
@@ -13041,7 +13041,7 @@ class Tapi {
     static phoneInitialize(lphPhoneApp, hInstance, lpfnCallback, lpszAppName, lpdwNumDevs) {
         lpszAppName := lpszAppName is String? StrPtr(lpszAppName) : lpszAppName
 
-        result := DllCall("TAPI32.dll\phoneInitialize", "ptr", lphPhoneApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszAppName, "ptr", lpdwNumDevs, "int")
+        result := DllCall("TAPI32.dll\phoneInitialize", "uint*", lphPhoneApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszAppName, "uint*", lpdwNumDevs, "int")
         return result
     }
 
@@ -13101,10 +13101,10 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines phoneInitializeEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<UInt32>} lphPhoneApp Pointer to a location that is filled with the application's usage handle for TAPI.
-     * @param {Pointer<HINSTANCE>} hInstance Instance handle of the client application or DLL. The application or DLL can pass <b>NULL</b> for this parameter, in which case TAPI uses the module handle of the root executable of the process.
+     * @param {Pointer<Void>} hInstance Instance handle of the client application or DLL. The application or DLL can pass <b>NULL</b> for this parameter, in which case TAPI uses the module handle of the root executable of the process.
      * @param {Pointer<PHONECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the line device, addresses, or calls, when the application is using the "hidden window" method of event notification (for more information see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nc-tapi-phonecallback">phoneCallbackFunc</a>). This parameter is ignored and should be set to <b>NULL</b> when the application chooses to use the "event handle" or "completion port" event notification mechanisms.
-     * @param {Pointer<PSTR>} lpszFriendlyAppName Pointer to a <b>null</b>-terminated string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
+     * @param {Pointer<Byte>} lpszFriendlyAppName Pointer to a <b>null</b>-terminated string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-phonestatus">PHONESTATUS</a> structure to indicate, in a user-friendly way, which application has ownership of the phone device. If <i>lpszFriendlyAppName</i> is <b>NULL</b>, the application's module filename is used instead (as returned by the function 
      * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulefilenamea">GetModuleFileName</a>).
      * @param {Pointer<UInt32>} lpdwNumDevs Pointer to a <b>DWORD</b>. Upon successful completion of this request, this location is filled with the number of phone devices available to the application.
@@ -13120,7 +13120,7 @@ class Tapi {
     static phoneInitializeExA(lphPhoneApp, hInstance, lpfnCallback, lpszFriendlyAppName, lpdwNumDevs, lpdwAPIVersion, lpPhoneInitializeExParams) {
         lpszFriendlyAppName := lpszFriendlyAppName is String? StrPtr(lpszFriendlyAppName) : lpszFriendlyAppName
 
-        result := DllCall("TAPI32.dll\phoneInitializeExA", "ptr", lphPhoneApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, "ptr", lpdwNumDevs, "ptr", lpdwAPIVersion, "ptr", lpPhoneInitializeExParams, "int")
+        result := DllCall("TAPI32.dll\phoneInitializeExA", "uint*", lphPhoneApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, "uint*", lpdwNumDevs, "uint*", lpdwAPIVersion, "ptr", lpPhoneInitializeExParams, "int")
         return result
     }
 
@@ -13180,10 +13180,10 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines phoneInitializeEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<UInt32>} lphPhoneApp Pointer to a location that is filled with the application's usage handle for TAPI.
-     * @param {Pointer<HINSTANCE>} hInstance Instance handle of the client application or DLL. The application or DLL can pass <b>NULL</b> for this parameter, in which case TAPI uses the module handle of the root executable of the process.
+     * @param {Pointer<Void>} hInstance Instance handle of the client application or DLL. The application or DLL can pass <b>NULL</b> for this parameter, in which case TAPI uses the module handle of the root executable of the process.
      * @param {Pointer<PHONECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the line device, addresses, or calls, when the application is using the "hidden window" method of event notification (for more information see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nc-tapi-phonecallback">phoneCallbackFunc</a>). This parameter is ignored and should be set to <b>NULL</b> when the application chooses to use the "event handle" or "completion port" event notification mechanisms.
-     * @param {Pointer<PWSTR>} lpszFriendlyAppName Pointer to a <b>null</b>-terminated string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
+     * @param {Pointer<Char>} lpszFriendlyAppName Pointer to a <b>null</b>-terminated string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-phonestatus">PHONESTATUS</a> structure to indicate, in a user-friendly way, which application has ownership of the phone device. If <i>lpszFriendlyAppName</i> is <b>NULL</b>, the application's module filename is used instead (as returned by the function 
      * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulefilenamea">GetModuleFileName</a>).
      * @param {Pointer<UInt32>} lpdwNumDevs Pointer to a <b>DWORD</b>. Upon successful completion of this request, this location is filled with the number of phone devices available to the application.
@@ -13199,7 +13199,7 @@ class Tapi {
     static phoneInitializeExW(lphPhoneApp, hInstance, lpfnCallback, lpszFriendlyAppName, lpdwNumDevs, lpdwAPIVersion, lpPhoneInitializeExParams) {
         lpszFriendlyAppName := lpszFriendlyAppName is String? StrPtr(lpszFriendlyAppName) : lpszFriendlyAppName
 
-        result := DllCall("TAPI32.dll\phoneInitializeExW", "ptr", lphPhoneApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, "ptr", lpdwNumDevs, "ptr", lpdwAPIVersion, "ptr", lpPhoneInitializeExParams, "int")
+        result := DllCall("TAPI32.dll\phoneInitializeExW", "uint*", lphPhoneApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, "uint*", lpdwNumDevs, "uint*", lpdwAPIVersion, "ptr", lpPhoneInitializeExParams, "int")
         return result
     }
 
@@ -13229,7 +13229,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonenegotiateapiversion
      */
     static phoneNegotiateAPIVersion(hPhoneApp, dwDeviceID, dwAPILowVersion, dwAPIHighVersion, lpdwAPIVersion, lpExtensionID) {
-        result := DllCall("TAPI32.dll\phoneNegotiateAPIVersion", "uint", hPhoneApp, "uint", dwDeviceID, "uint", dwAPILowVersion, "uint", dwAPIHighVersion, "ptr", lpdwAPIVersion, "ptr", lpExtensionID, "int")
+        result := DllCall("TAPI32.dll\phoneNegotiateAPIVersion", "uint", hPhoneApp, "uint", dwDeviceID, "uint", dwAPILowVersion, "uint", dwAPIHighVersion, "uint*", lpdwAPIVersion, "ptr", lpExtensionID, "int")
         return result
     }
 
@@ -13261,7 +13261,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonenegotiateextversion
      */
     static phoneNegotiateExtVersion(hPhoneApp, dwDeviceID, dwAPIVersion, dwExtLowVersion, dwExtHighVersion, lpdwExtVersion) {
-        result := DllCall("TAPI32.dll\phoneNegotiateExtVersion", "uint", hPhoneApp, "uint", dwDeviceID, "uint", dwAPIVersion, "uint", dwExtLowVersion, "uint", dwExtHighVersion, "ptr", lpdwExtVersion, "int")
+        result := DllCall("TAPI32.dll\phoneNegotiateExtVersion", "uint", hPhoneApp, "uint", dwDeviceID, "uint", dwAPIVersion, "uint", dwExtLowVersion, "uint", dwExtHighVersion, "uint*", lpdwExtVersion, "int")
         return result
     }
 
@@ -13293,7 +13293,7 @@ class Tapi {
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phoneopen
      */
     static phoneOpen(hPhoneApp, dwDeviceID, lphPhone, dwAPIVersion, dwExtVersion, dwCallbackInstance, dwPrivilege) {
-        result := DllCall("TAPI32.dll\phoneOpen", "uint", hPhoneApp, "uint", dwDeviceID, "ptr", lphPhone, "uint", dwAPIVersion, "uint", dwExtVersion, "ptr", dwCallbackInstance, "uint", dwPrivilege, "int")
+        result := DllCall("TAPI32.dll\phoneOpen", "uint", hPhoneApp, "uint", dwDeviceID, "uint*", lphPhone, "uint", dwAPIVersion, "uint", dwExtVersion, "ptr", dwCallbackInstance, "uint", dwPrivilege, "int")
         return result
     }
 
@@ -13383,7 +13383,7 @@ class Tapi {
      * @param {Integer} hPhone Handle to the open phone device. The application must be the owner of the phone.
      * @param {Integer} dwRow Row position on the display where the new text is to be displayed.
      * @param {Integer} dwColumn Column position on the display where the new text is to be displayed.
-     * @param {Pointer<PSTR>} lpsDisplay Pointer to the memory location where the display content is stored. The display information must have the format specified in the <b>dwStringFormat</b> member of the 
+     * @param {Pointer<Byte>} lpsDisplay Pointer to the memory location where the display content is stored. The display information must have the format specified in the <b>dwStringFormat</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-phonecaps">PHONECAPS</a> structure, which describes the phone's device capabilities.
      * @param {Integer} dwSize Size of the information pointed to by <i>lpsDisplay</i>, in bytes. If the <i>lpsDisplay</i> parameter is a pointer to a string, the size must include the null terminator.
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding 
@@ -13527,8 +13527,8 @@ class Tapi {
 
     /**
      * The tapiGetLocationInfo function (tapi.h) returns the country, region, and city code that the user has set in the location parameters in the Telephony Control Panel.
-     * @param {Pointer<PSTR>} lpszCountryCode TBD
-     * @param {Pointer<PSTR>} lpszCityCode TBD
+     * @param {Pointer<Byte>} lpszCountryCode TBD
+     * @param {Pointer<Byte>} lpszCityCode TBD
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are TAPIERR_REQUESTFAILED.
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-tapigetlocationinfo
      */
@@ -13545,8 +13545,8 @@ class Tapi {
      * @remarks
      * > [!NOTE]
      * > The tapi.h header defines tapiGetLocationInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszCountryCode TBD
-     * @param {Pointer<PSTR>} lpszCityCode TBD
+     * @param {Pointer<Byte>} lpszCountryCode TBD
+     * @param {Pointer<Byte>} lpszCityCode TBD
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are TAPIERR_REQUESTFAILED.
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-tapigetlocationinfoa
      */
@@ -13563,8 +13563,8 @@ class Tapi {
      * @remarks
      * > [!NOTE]
      * > The tapi.h header defines tapiGetLocationInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszCountryCodeW Pointer to a memory location where a <b>null</b>-terminated string specifying the country or region code for the current location is to be returned. The application should allocate at least 8 bytes of storage at this location to hold the string (TAPI does not return more than 8 bytes, including the terminating <b>NULL</b>). An empty string (\0) is returned if the country or region code has not been set for the current location.
-     * @param {Pointer<PWSTR>} lpszCityCodeW Pointer to a memory location where a <b>null</b>-terminated string specifying the city (area) code for the current location is to be returned. The application should allocate at least 8 bytes of storage at this location to hold the string (TAPI does not return more than 8 bytes, including the terminating <b>NULL</b>). An empty string (\0) is returned if the city code has not been set for the current location.
+     * @param {Pointer<Char>} lpszCountryCodeW Pointer to a memory location where a <b>null</b>-terminated string specifying the country or region code for the current location is to be returned. The application should allocate at least 8 bytes of storage at this location to hold the string (TAPI does not return more than 8 bytes, including the terminating <b>NULL</b>). An empty string (\0) is returned if the country or region code has not been set for the current location.
+     * @param {Pointer<Char>} lpszCityCodeW Pointer to a memory location where a <b>null</b>-terminated string specifying the city (area) code for the current location is to be returned. The application should allocate at least 8 bytes of storage at this location to hold the string (TAPI does not return more than 8 bytes, including the terminating <b>NULL</b>). An empty string (\0) is returned if the city code has not been set for the current location.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are TAPIERR_REQUESTFAILED.
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-tapigetlocationinfow
      */
@@ -13578,7 +13578,7 @@ class Tapi {
 
     /**
      * Closes a call request made by a previous call to tapiRequestMediaCall.
-     * @param {Pointer<HWND>} hwnd Handle to the Windows process that issued this request.
+     * @param {Pointer<Void>} hwnd Handle to the Windows process that issued this request.
      * @param {Pointer} wRequestID Pointer to a 32-bit integer value that contains the ID of the call request.
      * @returns {Integer} The function is obsolete and will always return an error code.
      * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-tapirequestdrop
@@ -13596,11 +13596,11 @@ class Tapi {
      * 
      * Invoking 
      * <b>tapiRequestMakeCall</b> when no call control application is running returns the TAPIERR_NOREQUESTRECIPIENT error indication. If the call control application is not running, TAPI attempts to launch the highest-priority call control application (which is listed for <b>RequestMakeCall</b> in the registry). Invoking this function when the Assisted TAPI request queue is full returns the TAPIERR_REQUESTQUEUEFULL error.
-     * @param {Pointer<PSTR>} lpszDestAddress Pointer to a memory location where the <b>null</b>-terminated destination address of the call request is located. The address can use the 
+     * @param {Pointer<Byte>} lpszDestAddress Pointer to a memory location where the <b>null</b>-terminated destination address of the call request is located. The address can use the 
      * [canonical address](/windows/win32/tapi/address-ovr#canonical-addresses) format. Validity of the specified address is not checked by this operation. The maximum length of the address is TAPIMAXDESTADDRESSSIZE characters, which includes the <b>NULL</b> terminator.
-     * @param {Pointer<PSTR>} lpszAppName Pointer to a memory location where the <b>null</b>-terminated user-friendly application name of the call request is located. This pointer can be left <b>NULL</b> if the application does not supply an application name. The maximum length of the address is TAPIMAXAPPNAMESIZE characters, which includes the <b>NULL</b> terminator. Longer strings are truncated.
-     * @param {Pointer<PSTR>} lpszCalledParty Pointer to a memory location where the <b>null</b>-terminated called party name for the called party of the call is located. This pointer can be left <b>NULL</b> if the application does not wish to supply this information. The maximum length of the string is TAPIMAXCALLEDPARTYSIZE characters, which includes the <b>NULL</b> terminator. Longer strings are truncated.
-     * @param {Pointer<PSTR>} lpszComment Pointer to a memory location where the <b>null</b>-terminated comment about the call is located. This pointer can be left <b>NULL</b> if the application does not supply a comment. The maximum length of the address is TAPIMAXCOMMENTSIZE characters, which includes the <b>NULL</b> terminator. Longer strings are truncated.
+     * @param {Pointer<Byte>} lpszAppName Pointer to a memory location where the <b>null</b>-terminated user-friendly application name of the call request is located. This pointer can be left <b>NULL</b> if the application does not supply an application name. The maximum length of the address is TAPIMAXAPPNAMESIZE characters, which includes the <b>NULL</b> terminator. Longer strings are truncated.
+     * @param {Pointer<Byte>} lpszCalledParty Pointer to a memory location where the <b>null</b>-terminated called party name for the called party of the call is located. This pointer can be left <b>NULL</b> if the application does not wish to supply this information. The maximum length of the string is TAPIMAXCALLEDPARTYSIZE characters, which includes the <b>NULL</b> terminator. Longer strings are truncated.
+     * @param {Pointer<Byte>} lpszComment Pointer to a memory location where the <b>null</b>-terminated comment about the call is located. This pointer can be left <b>NULL</b> if the application does not supply a comment. The maximum length of the address is TAPIMAXCOMMENTSIZE characters, which includes the <b>NULL</b> terminator. Longer strings are truncated.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible error return value are:
      * 
      * TAPIERR_NOREQUESTRECIPIENT, TAPIERR_INVALDESTADDRESS, TAPIERR_REQUESTQUEUEFULL, TAPIERR_INVALPOINTER.
@@ -13631,10 +13631,10 @@ class Tapi {
      * 
      * > [!NOTE]
      * > The tapi.h header defines tapiRequestMakeCall as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszDestAddress Pointer to a memory location where the <b>null</b>-terminated destination address of the call request is located. The address can use the [canonical address](/windows/win32/tapi/address-ovr#canonical-addresses) format. Validity of the specified address is not checked by this operation. The maximum length of the address is TAPIMAXDESTADDRESSSIZE characters, which includes the <b>NULL</b> terminator.
-     * @param {Pointer<PSTR>} lpszAppName Pointer to a memory location where the <b>null</b>-terminated user-friendly application name of the call request is located. This pointer can be left <b>NULL</b> if the application does not supply an application name. The maximum length of the address is TAPIMAXAPPNAMESIZE characters, which includes the <b>NULL</b> terminator. Longer strings are truncated.
-     * @param {Pointer<PSTR>} lpszCalledParty Pointer to a memory location where the <b>null</b>-terminated called party name for the called party of the call is located. This pointer can be left <b>NULL</b> if the application does not wish to supply this information. The maximum length of the string is TAPIMAXCALLEDPARTYSIZE characters, which includes the <b>NULL</b> terminator. Longer strings are truncated.
-     * @param {Pointer<PSTR>} lpszComment Pointer to a memory location where the <b>null</b>-terminated comment about the call is located. This pointer can be left <b>NULL</b> if the application does not supply a comment. The maximum length of the address is TAPIMAXCOMMENTSIZE characters, which includes the <b>NULL</b> terminator. Longer strings are truncated.
+     * @param {Pointer<Byte>} lpszDestAddress Pointer to a memory location where the <b>null</b>-terminated destination address of the call request is located. The address can use the [canonical address](/windows/win32/tapi/address-ovr#canonical-addresses) format. Validity of the specified address is not checked by this operation. The maximum length of the address is TAPIMAXDESTADDRESSSIZE characters, which includes the <b>NULL</b> terminator.
+     * @param {Pointer<Byte>} lpszAppName Pointer to a memory location where the <b>null</b>-terminated user-friendly application name of the call request is located. This pointer can be left <b>NULL</b> if the application does not supply an application name. The maximum length of the address is TAPIMAXAPPNAMESIZE characters, which includes the <b>NULL</b> terminator. Longer strings are truncated.
+     * @param {Pointer<Byte>} lpszCalledParty Pointer to a memory location where the <b>null</b>-terminated called party name for the called party of the call is located. This pointer can be left <b>NULL</b> if the application does not wish to supply this information. The maximum length of the string is TAPIMAXCALLEDPARTYSIZE characters, which includes the <b>NULL</b> terminator. Longer strings are truncated.
+     * @param {Pointer<Byte>} lpszComment Pointer to a memory location where the <b>null</b>-terminated comment about the call is located. This pointer can be left <b>NULL</b> if the application does not supply a comment. The maximum length of the address is TAPIMAXCOMMENTSIZE characters, which includes the <b>NULL</b> terminator. Longer strings are truncated.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible error return value are:
      * 
      * TAPIERR_NOREQUESTRECIPIENT, TAPIERR_INVALDESTADDRESS, TAPIERR_REQUESTQUEUEFULL, TAPIERR_INVALPOINTER.
@@ -13665,11 +13665,11 @@ class Tapi {
      * 
      * > [!NOTE]
      * > The tapi.h header defines tapiRequestMakeCall as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszDestAddress Pointer to a memory location where the <b>null</b>-terminated destination address of the call request is located. The address can use the 
+     * @param {Pointer<Char>} lpszDestAddress Pointer to a memory location where the <b>null</b>-terminated destination address of the call request is located. The address can use the 
      * [canonical address](/windows/win32/tapi/address-ovr#canonical-addresses) format. Validity of the specified address is not checked by this operation. The maximum length of the address is TAPIMAXDESTADDRESSSIZE characters, which includes the <b>NULL</b> terminator.
-     * @param {Pointer<PWSTR>} lpszAppName Pointer to a memory location where the <b>null</b>-terminated user-friendly application name of the call request is located. This pointer can be left <b>NULL</b> if the application does not supply an application name. The maximum length of the address is TAPIMAXAPPNAMESIZE characters, which includes the <b>NULL</b> terminator. Longer strings are truncated.
-     * @param {Pointer<PWSTR>} lpszCalledParty Pointer to a memory location where the <b>null</b>-terminated called party name for the called party of the call is located. This pointer can be left <b>NULL</b> if the application does not wish to supply this information. The maximum length of the string is TAPIMAXCALLEDPARTYSIZE characters, which includes the <b>NULL</b> terminator. Longer strings are truncated.
-     * @param {Pointer<PWSTR>} lpszComment Pointer to a memory location where the <b>null</b>-terminated comment about the call is located. This pointer can be left <b>NULL</b> if the application does not supply a comment. The maximum length of the address is TAPIMAXCOMMENTSIZE characters, which includes the <b>NULL</b> terminator. Longer strings are truncated.
+     * @param {Pointer<Char>} lpszAppName Pointer to a memory location where the <b>null</b>-terminated user-friendly application name of the call request is located. This pointer can be left <b>NULL</b> if the application does not supply an application name. The maximum length of the address is TAPIMAXAPPNAMESIZE characters, which includes the <b>NULL</b> terminator. Longer strings are truncated.
+     * @param {Pointer<Char>} lpszCalledParty Pointer to a memory location where the <b>null</b>-terminated called party name for the called party of the call is located. This pointer can be left <b>NULL</b> if the application does not wish to supply this information. The maximum length of the string is TAPIMAXCALLEDPARTYSIZE characters, which includes the <b>NULL</b> terminator. Longer strings are truncated.
+     * @param {Pointer<Char>} lpszComment Pointer to a memory location where the <b>null</b>-terminated comment about the call is located. This pointer can be left <b>NULL</b> if the application does not supply a comment. The maximum length of the address is TAPIMAXCOMMENTSIZE characters, which includes the <b>NULL</b> terminator. Longer strings are truncated.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible error return value are:
      * 
      * TAPIERR_NOREQUESTRECIPIENT, TAPIERR_INVALDESTADDRESS, TAPIERR_REQUESTQUEUEFULL, TAPIERR_INVALPOINTER.
@@ -13687,16 +13687,16 @@ class Tapi {
 
     /**
      * 
-     * @param {Pointer<HWND>} hwnd 
+     * @param {Pointer<Void>} hwnd 
      * @param {Pointer} wRequestID 
-     * @param {Pointer<PSTR>} lpszDeviceClass 
-     * @param {Pointer<PSTR>} lpDeviceID 
+     * @param {Pointer<Byte>} lpszDeviceClass 
+     * @param {Pointer<Byte>} lpDeviceID 
      * @param {Integer} dwSize 
      * @param {Integer} dwSecure 
-     * @param {Pointer<PSTR>} lpszDestAddress 
-     * @param {Pointer<PSTR>} lpszAppName 
-     * @param {Pointer<PSTR>} lpszCalledParty 
-     * @param {Pointer<PSTR>} lpszComment 
+     * @param {Pointer<Byte>} lpszDestAddress 
+     * @param {Pointer<Byte>} lpszAppName 
+     * @param {Pointer<Byte>} lpszCalledParty 
+     * @param {Pointer<Byte>} lpszComment 
      * @returns {Integer} 
      */
     static tapiRequestMediaCall(hwnd, wRequestID, lpszDeviceClass, lpDeviceID, dwSize, dwSecure, lpszDestAddress, lpszAppName, lpszCalledParty, lpszComment) {
@@ -13713,16 +13713,16 @@ class Tapi {
 
     /**
      * 
-     * @param {Pointer<HWND>} hwnd 
+     * @param {Pointer<Void>} hwnd 
      * @param {Pointer} wRequestID 
-     * @param {Pointer<PSTR>} lpszDeviceClass 
-     * @param {Pointer<PSTR>} lpDeviceID 
+     * @param {Pointer<Byte>} lpszDeviceClass 
+     * @param {Pointer<Byte>} lpDeviceID 
      * @param {Integer} dwSize 
      * @param {Integer} dwSecure 
-     * @param {Pointer<PSTR>} lpszDestAddress 
-     * @param {Pointer<PSTR>} lpszAppName 
-     * @param {Pointer<PSTR>} lpszCalledParty 
-     * @param {Pointer<PSTR>} lpszComment 
+     * @param {Pointer<Byte>} lpszDestAddress 
+     * @param {Pointer<Byte>} lpszAppName 
+     * @param {Pointer<Byte>} lpszCalledParty 
+     * @param {Pointer<Byte>} lpszComment 
      * @returns {Integer} 
      */
     static tapiRequestMediaCallA(hwnd, wRequestID, lpszDeviceClass, lpDeviceID, dwSize, dwSecure, lpszDestAddress, lpszAppName, lpszCalledParty, lpszComment) {
@@ -13739,16 +13739,16 @@ class Tapi {
 
     /**
      * 
-     * @param {Pointer<HWND>} hwnd 
+     * @param {Pointer<Void>} hwnd 
      * @param {Pointer} wRequestID 
-     * @param {Pointer<PWSTR>} lpszDeviceClass 
-     * @param {Pointer<PWSTR>} lpDeviceID 
+     * @param {Pointer<Char>} lpszDeviceClass 
+     * @param {Pointer<Char>} lpDeviceID 
      * @param {Integer} dwSize 
      * @param {Integer} dwSecure 
-     * @param {Pointer<PWSTR>} lpszDestAddress 
-     * @param {Pointer<PWSTR>} lpszAppName 
-     * @param {Pointer<PWSTR>} lpszCalledParty 
-     * @param {Pointer<PWSTR>} lpszComment 
+     * @param {Pointer<Char>} lpszDestAddress 
+     * @param {Pointer<Char>} lpszAppName 
+     * @param {Pointer<Char>} lpszCalledParty 
+     * @param {Pointer<Char>} lpszComment 
      * @returns {Integer} 
      */
     static tapiRequestMediaCallW(hwnd, wRequestID, lpszDeviceClass, lpDeviceID, dwSize, dwSecure, lpszDestAddress, lpszAppName, lpszCalledParty, lpszComment) {
@@ -13807,7 +13807,7 @@ class Tapi {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/opentnefstream
      */
     static OpenTnefStream(lpvSupport, lpStream, lpszStreamName, ulFlags, lpMessage, wKeyVal, lppTNEF) {
-        result := DllCall("MAPI32.dll\OpenTnefStream", "ptr", lpvSupport, "ptr", lpStream, "ptr", lpszStreamName, "uint", ulFlags, "ptr", lpMessage, "ushort", wKeyVal, "ptr", lppTNEF, "int")
+        result := DllCall("MAPI32.dll\OpenTnefStream", "ptr", lpvSupport, "ptr", lpStream, "char*", lpszStreamName, "uint", ulFlags, "ptr", lpMessage, "ushort", wKeyVal, "ptr", lppTNEF, "int")
         return result
     }
 
@@ -13858,7 +13858,7 @@ class Tapi {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/opentnefstreamex
      */
     static OpenTnefStreamEx(lpvSupport, lpStream, lpszStreamName, ulFlags, lpMessage, wKeyVal, lpAdressBook, lppTNEF) {
-        result := DllCall("MAPI32.dll\OpenTnefStreamEx", "ptr", lpvSupport, "ptr", lpStream, "ptr", lpszStreamName, "uint", ulFlags, "ptr", lpMessage, "ushort", wKeyVal, "ptr", lpAdressBook, "ptr", lppTNEF, "int")
+        result := DllCall("MAPI32.dll\OpenTnefStreamEx", "ptr", lpvSupport, "ptr", lpStream, "char*", lpszStreamName, "uint", ulFlags, "ptr", lpMessage, "ushort", wKeyVal, "ptr", lpAdressBook, "ptr", lppTNEF, "int")
         return result
     }
 
@@ -13883,7 +13883,7 @@ class Tapi {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/gettnefstreamcodepage
      */
     static GetTnefStreamCodepage(lpStream, lpulCodepage, lpulSubCodepage) {
-        result := DllCall("MAPI32.dll\GetTnefStreamCodepage", "ptr", lpStream, "ptr", lpulCodepage, "ptr", lpulSubCodepage, "int")
+        result := DllCall("MAPI32.dll\GetTnefStreamCodepage", "ptr", lpStream, "uint*", lpulCodepage, "uint*", lpulSubCodepage, "int")
         return result
     }
 

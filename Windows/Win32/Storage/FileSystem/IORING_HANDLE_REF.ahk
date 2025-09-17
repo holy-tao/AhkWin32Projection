@@ -25,7 +25,7 @@ class IORING_HANDLE_REF extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     Handle {
         get => NumGet(this, 8, "ptr")

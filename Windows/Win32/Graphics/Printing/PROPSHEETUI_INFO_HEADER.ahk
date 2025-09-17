@@ -36,7 +36,7 @@ class PROPSHEETUI_INFO_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hWndParent {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class PROPSHEETUI_INFO_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HINSTANCE>}
+     * @type {Pointer<Void>}
      */
     hInst {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +52,7 @@ class PROPSHEETUI_INFO_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HICON>}
+     * @type {Pointer<Void>}
      */
     hIcon {
         get => NumGet(this, 32, "ptr")

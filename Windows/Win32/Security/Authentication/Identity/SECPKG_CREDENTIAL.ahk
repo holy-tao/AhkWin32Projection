@@ -74,7 +74,7 @@ class SECPKG_CREDENTIAL extends Win32Struct
 
     /**
      * The client token of the caller.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     ClientToken {
         get => NumGet(this, 32, "ptr")

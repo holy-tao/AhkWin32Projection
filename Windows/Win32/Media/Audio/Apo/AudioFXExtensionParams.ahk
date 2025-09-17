@@ -24,7 +24,7 @@ class AudioFXExtensionParams extends Win32Struct
 
     /**
      * The ID for the audio endpoint.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwstrEndpointID {
         get => NumGet(this, 8, "ptr")

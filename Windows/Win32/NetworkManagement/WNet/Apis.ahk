@@ -392,13 +392,13 @@ class WNet {
      * 
      * > [!NOTE]
      * > The winnetwk.h header defines WNetAddConnection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpRemoteName A pointer to a constant <b>null</b>-terminated string that specifies the network resource to connect to.
-     * @param {Pointer<PSTR>} lpPassword A pointer to a constant <b>null</b>-terminated string that specifies the password to be used to make a connection. This parameter is usually the password associated with the current user.
+     * @param {Pointer<Byte>} lpRemoteName A pointer to a constant <b>null</b>-terminated string that specifies the network resource to connect to.
+     * @param {Pointer<Byte>} lpPassword A pointer to a constant <b>null</b>-terminated string that specifies the password to be used to make a connection. This parameter is usually the password associated with the current user.
      * 
      * If this parameter is <b>NULL</b>, the default password is used. If the string is empty, no password is used.
      * 
      * <b>Windows Me/98/95:  </b>This parameter must be <b>NULL</b> or an empty string.
-     * @param {Pointer<PSTR>} lpLocalName A pointer to a constant <b>null</b>-terminated string that specifies the name of a local device to be redirected, such as "F:" or "LPT1". The string is treated in a case-insensitive manner. If the string is <b>NULL</b>, a connection to the network resource is made without redirecting the local device.
+     * @param {Pointer<Byte>} lpLocalName A pointer to a constant <b>null</b>-terminated string that specifies the name of a local device to be redirected, such as "F:" or "LPT1". The string is treated in a case-insensitive manner. If the string is <b>NULL</b>, a connection to the network resource is made without redirecting the local device.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
@@ -572,13 +572,13 @@ class WNet {
      * 
      * > [!NOTE]
      * > The winnetwk.h header defines WNetAddConnection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpRemoteName A pointer to a constant <b>null</b>-terminated string that specifies the network resource to connect to.
-     * @param {Pointer<PWSTR>} lpPassword A pointer to a constant <b>null</b>-terminated string that specifies the password to be used to make a connection. This parameter is usually the password associated with the current user.
+     * @param {Pointer<Char>} lpRemoteName A pointer to a constant <b>null</b>-terminated string that specifies the network resource to connect to.
+     * @param {Pointer<Char>} lpPassword A pointer to a constant <b>null</b>-terminated string that specifies the password to be used to make a connection. This parameter is usually the password associated with the current user.
      * 
      * If this parameter is <b>NULL</b>, the default password is used. If the string is empty, no password is used.
      * 
      * <b>Windows Me/98/95:  </b>This parameter must be <b>NULL</b> or an empty string.
-     * @param {Pointer<PWSTR>} lpLocalName A pointer to a constant <b>null</b>-terminated string that specifies the name of a local device to be redirected, such as "F:" or "LPT1". The string is treated in a case-insensitive manner. If the string is <b>NULL</b>, a connection to the network resource is made without redirecting the local device.
+     * @param {Pointer<Char>} lpLocalName A pointer to a constant <b>null</b>-terminated string that specifies the name of a local device to be redirected, such as "F:" or "LPT1". The string is treated in a case-insensitive manner. If the string is <b>NULL</b>, a connection to the network resource is made without redirecting the local device.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
@@ -848,7 +848,7 @@ class WNet {
      * The 
      * <b>WNetAddConnection2</b> function ignores the other members of the 
      * <a href="https://docs.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure.
-     * @param {Pointer<PSTR>} lpPassword A pointer to a constant <b>null</b>-terminated string that specifies a password to be used in making the network connection.
+     * @param {Pointer<Byte>} lpPassword A pointer to a constant <b>null</b>-terminated string that specifies a password to be used in making the network connection.
      * 
      * If <i>lpPassword</i> is <b>NULL</b>, the function uses the current default password associated with the user specified by the <i>lpUserName</i> parameter.
      * 
@@ -857,7 +857,7 @@ class WNet {
      * If the connection fails because of an invalid password and the CONNECT_INTERACTIVE value is set in the <i>dwFlags</i> parameter, the function displays a dialog box asking the user to type the password.
      * 
      * <b>Windows Me/98/95:  </b>This parameter must be <b>NULL</b> or an empty string.
-     * @param {Pointer<PSTR>} lpUserName A pointer to a constant <b>null</b>-terminated string that specifies a user name for making the connection. 
+     * @param {Pointer<Byte>} lpUserName A pointer to a constant <b>null</b>-terminated string that specifies a user name for making the connection. 
      * 
      * 
      * 
@@ -1375,7 +1375,7 @@ class WNet {
      * The 
      * <b>WNetAddConnection2</b> function ignores the other members of the 
      * <a href="https://docs.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcew">NETRESOURCE</a> structure.
-     * @param {Pointer<PWSTR>} lpPassword A pointer to a constant <b>null</b>-terminated string that specifies a password to be used in making the network connection.
+     * @param {Pointer<Char>} lpPassword A pointer to a constant <b>null</b>-terminated string that specifies a password to be used in making the network connection.
      * 
      * If <i>lpPassword</i> is <b>NULL</b>, the function uses the current default password associated with the user specified by the <i>lpUserName</i> parameter.
      * 
@@ -1384,7 +1384,7 @@ class WNet {
      * If the connection fails because of an invalid password and the CONNECT_INTERACTIVE value is set in the <i>dwFlags</i> parameter, the function displays a dialog box asking the user to type the password.
      * 
      * <b>Windows Me/98/95:  </b>This parameter must be <b>NULL</b> or an empty string.
-     * @param {Pointer<PWSTR>} lpUserName A pointer to a constant <b>null</b>-terminated string that specifies a user name for making the connection. 
+     * @param {Pointer<Char>} lpUserName A pointer to a constant <b>null</b>-terminated string that specifies a user name for making the connection. 
      * 
      * 
      * 
@@ -1834,7 +1834,7 @@ class WNet {
      * 
      * > [!NOTE]
      * > The winnetwk.h header defines WNetAddConnection3 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HWND>} hwndOwner A handle to a window that the provider of network resources can use as an owner window for dialog boxes. Use this parameter if you set the CONNECT_INTERACTIVE value in the <i>dwFlags</i> parameter.
+     * @param {Pointer<Void>} hwndOwner A handle to a window that the provider of network resources can use as an owner window for dialog boxes. Use this parameter if you set the CONNECT_INTERACTIVE value in the <i>dwFlags</i> parameter.
      * 
      * The <i>hwndOwner</i> parameter can be <b>NULL</b>. If it is, a call to 
      * <b>WNetAddConnection3</b> is equivalent to calling the 
@@ -1916,7 +1916,7 @@ class WNet {
      * The 
      * <b>WNetAddConnection3</b> function ignores the other members of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure.
-     * @param {Pointer<PSTR>} lpPassword A pointer to a <b>null</b>-terminated string that specifies a password to be used in making the network connection. 
+     * @param {Pointer<Byte>} lpPassword A pointer to a <b>null</b>-terminated string that specifies a password to be used in making the network connection. 
      * 
      * 
      * 
@@ -1929,7 +1929,7 @@ class WNet {
      * If the connection fails because of an invalid password and the CONNECT_INTERACTIVE value is set in the <i>dwFlags</i> parameter, the function displays a dialog box asking the user to type the password.
      * 
      * <b>Windows Me/98/95:  </b>This parameter must be <b>NULL</b> or an empty string.
-     * @param {Pointer<PSTR>} lpUserName A pointer to a <b>null</b>-terminated string that specifies a user name for making the connection. 
+     * @param {Pointer<Byte>} lpUserName A pointer to a <b>null</b>-terminated string that specifies a user name for making the connection. 
      * 
      * 
      * 
@@ -2263,7 +2263,7 @@ class WNet {
      * 
      * > [!NOTE]
      * > The winnetwk.h header defines WNetAddConnection3 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HWND>} hwndOwner A handle to a window that the provider of network resources can use as an owner window for dialog boxes. Use this parameter if you set the CONNECT_INTERACTIVE value in the <i>dwFlags</i> parameter.
+     * @param {Pointer<Void>} hwndOwner A handle to a window that the provider of network resources can use as an owner window for dialog boxes. Use this parameter if you set the CONNECT_INTERACTIVE value in the <i>dwFlags</i> parameter.
      * 
      * The <i>hwndOwner</i> parameter can be <b>NULL</b>. If it is, a call to 
      * <b>WNetAddConnection3</b> is equivalent to calling the 
@@ -2345,7 +2345,7 @@ class WNet {
      * The 
      * <b>WNetAddConnection3</b> function ignores the other members of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure.
-     * @param {Pointer<PWSTR>} lpPassword A pointer to a <b>null</b>-terminated string that specifies a password to be used in making the network connection. 
+     * @param {Pointer<Char>} lpPassword A pointer to a <b>null</b>-terminated string that specifies a password to be used in making the network connection. 
      * 
      * 
      * 
@@ -2358,7 +2358,7 @@ class WNet {
      * If the connection fails because of an invalid password and the CONNECT_INTERACTIVE value is set in the <i>dwFlags</i> parameter, the function displays a dialog box asking the user to type the password.
      * 
      * <b>Windows Me/98/95:  </b>This parameter must be <b>NULL</b> or an empty string.
-     * @param {Pointer<PWSTR>} lpUserName A pointer to a <b>null</b>-terminated string that specifies a user name for making the connection. 
+     * @param {Pointer<Char>} lpUserName A pointer to a <b>null</b>-terminated string that specifies a user name for making the connection. 
      * 
      * 
      * 
@@ -2649,12 +2649,12 @@ class WNet {
 
     /**
      * 
-     * @param {Pointer<HWND>} hwndOwner 
+     * @param {Pointer<Void>} hwndOwner 
      * @param {Pointer<NETRESOURCEA>} lpNetResource 
-     * @param {Pointer<Void>} pAuthBuffer 
+     * @param {Pointer} pAuthBuffer 
      * @param {Integer} cbAuthBuffer 
      * @param {Integer} dwFlags 
-     * @param {Pointer<Byte>} lpUseOptions 
+     * @param {Pointer} lpUseOptions 
      * @param {Integer} cbUseOptions 
      * @returns {Integer} 
      */
@@ -2665,12 +2665,12 @@ class WNet {
 
     /**
      * 
-     * @param {Pointer<HWND>} hwndOwner 
+     * @param {Pointer<Void>} hwndOwner 
      * @param {Pointer<NETRESOURCEW>} lpNetResource 
-     * @param {Pointer<Void>} pAuthBuffer 
+     * @param {Pointer} pAuthBuffer 
      * @param {Integer} cbAuthBuffer 
      * @param {Integer} dwFlags 
-     * @param {Pointer<Byte>} lpUseOptions 
+     * @param {Pointer} lpUseOptions 
      * @param {Integer} cbUseOptions 
      * @returns {Integer} 
      */
@@ -2694,7 +2694,7 @@ class WNet {
      * 
      * > [!NOTE]
      * > The winnetwk.h header defines WNetCancelConnection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpName Pointer to a constant null-terminated string that specifies the name of either the redirected local device or the remote network resource to disconnect from. 
+     * @param {Pointer<Byte>} lpName Pointer to a constant null-terminated string that specifies the name of either the redirected local device or the remote network resource to disconnect from. 
      * 
      * 
      * 
@@ -2804,7 +2804,7 @@ class WNet {
      * 
      * > [!NOTE]
      * > The winnetwk.h header defines WNetCancelConnection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpName Pointer to a constant null-terminated string that specifies the name of either the redirected local device or the remote network resource to disconnect from. 
+     * @param {Pointer<Char>} lpName Pointer to a constant null-terminated string that specifies the name of either the redirected local device or the remote network resource to disconnect from. 
      * 
      * 
      * 
@@ -2907,7 +2907,7 @@ class WNet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function, and the second logon runs an application that calls the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getlogicaldrives">GetLogicalDrives</a> function. <b>GetLogicalDrives</b> does not return network drive letters created by a WNet function under the first logon. Note that in the preceding example the first logon session still exists, and the example could apply to any logon session, including a Terminal Services session. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/FileIO/defining-an-ms-dos-device-name">Defining an MS-DOS Device Name</a>.
-     * @param {Pointer<PSTR>} lpName Pointer to a constant <b>null</b>-terminated string that specifies the name of either the redirected local device or the remote network resource to disconnect from. 
+     * @param {Pointer<Byte>} lpName Pointer to a constant <b>null</b>-terminated string that specifies the name of either the redirected local device or the remote network resource to disconnect from. 
      * 
      * 
      * 
@@ -3050,7 +3050,7 @@ class WNet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function, and the second logon runs an application that calls the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getlogicaldrives">GetLogicalDrives</a> function. <b>GetLogicalDrives</b> does not return network drive letters created by a WNet function under the first logon. Note that in the preceding example the first logon session still exists, and the example could apply to any logon session, including a Terminal Services session. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/FileIO/defining-an-ms-dos-device-name">Defining an MS-DOS Device Name</a>.
-     * @param {Pointer<PWSTR>} lpName Pointer to a constant <b>null</b>-terminated string that specifies the name of either the redirected local device or the remote network resource to disconnect from. 
+     * @param {Pointer<Char>} lpName Pointer to a constant <b>null</b>-terminated string that specifies the name of either the redirected local device or the remote network resource to disconnect from. 
      * 
      * 
      * 
@@ -3197,8 +3197,8 @@ class WNet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function, and the second logon runs an application that calls the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getlogicaldrives">GetLogicalDrives</a> function. <b>GetLogicalDrives</b> does not return network drive letters created by a WNet function under the first logon. Note that in the preceding example the first logon session still exists, and the example could apply to any logon session, including a Terminal Services session. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/FileIO/defining-an-ms-dos-device-name">Defining an MS-DOS Device Name</a>.
-     * @param {Pointer<PSTR>} lpLocalName Pointer to a constant null-terminated string that specifies the name of the local device to get the network name for.
-     * @param {Pointer<PSTR>} lpRemoteName Pointer to a null-terminated  string  that receives the remote name used to make the connection.
+     * @param {Pointer<Byte>} lpLocalName Pointer to a constant null-terminated string that specifies the name of the local device to get the network name for.
+     * @param {Pointer<Byte>} lpRemoteName Pointer to a null-terminated  string  that receives the remote name used to make the connection.
      * @param {Pointer<UInt32>} lpnLength Pointer to a variable that specifies the size of the buffer pointed to by the <i>lpRemoteName</i> parameter, in characters. If the function fails because the buffer is not large enough, this parameter returns the required buffer size.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -3296,7 +3296,7 @@ class WNet {
         lpLocalName := lpLocalName is String? StrPtr(lpLocalName) : lpLocalName
         lpRemoteName := lpRemoteName is String? StrPtr(lpRemoteName) : lpRemoteName
 
-        result := DllCall("MPR.dll\WNetGetConnectionA", "ptr", lpLocalName, "ptr", lpRemoteName, "ptr", lpnLength, "uint")
+        result := DllCall("MPR.dll\WNetGetConnectionA", "ptr", lpLocalName, "ptr", lpRemoteName, "uint*", lpnLength, "uint")
         return result
     }
 
@@ -3312,8 +3312,8 @@ class WNet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function, and the second logon runs an application that calls the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getlogicaldrives">GetLogicalDrives</a> function. <b>GetLogicalDrives</b> does not return network drive letters created by a WNet function under the first logon. Note that in the preceding example the first logon session still exists, and the example could apply to any logon session, including a Terminal Services session. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/FileIO/defining-an-ms-dos-device-name">Defining an MS-DOS Device Name</a>.
-     * @param {Pointer<PWSTR>} lpLocalName Pointer to a constant null-terminated string that specifies the name of the local device to get the network name for.
-     * @param {Pointer<PWSTR>} lpRemoteName Pointer to a null-terminated  string  that receives the remote name used to make the connection.
+     * @param {Pointer<Char>} lpLocalName Pointer to a constant null-terminated string that specifies the name of the local device to get the network name for.
+     * @param {Pointer<Char>} lpRemoteName Pointer to a null-terminated  string  that receives the remote name used to make the connection.
      * @param {Pointer<UInt32>} lpnLength Pointer to a variable that specifies the size of the buffer pointed to by the <i>lpRemoteName</i> parameter, in characters. If the function fails because the buffer is not large enough, this parameter returns the required buffer size.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -3411,7 +3411,7 @@ class WNet {
         lpLocalName := lpLocalName is String? StrPtr(lpLocalName) : lpLocalName
         lpRemoteName := lpRemoteName is String? StrPtr(lpRemoteName) : lpRemoteName
 
-        result := DllCall("MPR.dll\WNetGetConnectionW", "ptr", lpLocalName, "ptr", lpRemoteName, "ptr", lpnLength, "uint")
+        result := DllCall("MPR.dll\WNetGetConnectionW", "ptr", lpLocalName, "ptr", lpRemoteName, "uint*", lpnLength, "uint")
         return result
     }
 
@@ -3430,7 +3430,7 @@ class WNet {
      * 
      * > [!NOTE]
      * > The winnetwk.h header defines WNetUseConnection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HWND>} hwndOwner Handle to a window that the provider of network resources can use as an owner window for dialog boxes. Use this parameter if you set the CONNECT_INTERACTIVE value in the <i>dwFlags</i> parameter.
+     * @param {Pointer<Void>} hwndOwner Handle to a window that the provider of network resources can use as an owner window for dialog boxes. Use this parameter if you set the CONNECT_INTERACTIVE value in the <i>dwFlags</i> parameter.
      * @param {Pointer<NETRESOURCEA>} lpNetResource Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure that specifies details of the proposed connection. The structure contains information about the network resource, the local device, and the network resource provider. 
      * 
@@ -3514,7 +3514,7 @@ class WNet {
      * The 
      * <b>WNetUseConnection</b> function ignores the other members of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure. For more information, see the descriptions following for the <i>dwFlags</i> parameter.
-     * @param {Pointer<PSTR>} lpPassword Pointer to a constant <b>null</b>-terminated string that specifies a password to be used in making the network connection. 
+     * @param {Pointer<Byte>} lpPassword Pointer to a constant <b>null</b>-terminated string that specifies a password to be used in making the network connection. 
      * 
      * 
      * 
@@ -3525,7 +3525,7 @@ class WNet {
      * If <i>lpPassword</i> points to an empty string, the function does not use a password.
      * 
      * If the connection fails because of an invalid password and the CONNECT_INTERACTIVE value is set in the <i>dwFlags</i> parameter, the function displays a dialog box asking the user to type the password.
-     * @param {Pointer<PSTR>} lpUserId Pointer to a constant <b>null</b>-terminated string that specifies a user name for making the connection. 
+     * @param {Pointer<Byte>} lpUserId Pointer to a constant <b>null</b>-terminated string that specifies a user name for making the connection. 
      * 
      * 
      * 
@@ -3537,7 +3537,7 @@ class WNet {
      * The user-name string represents a 
      * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a>. It may be specific to a network provider.
      * @param {Integer} dwFlags 
-     * @param {Pointer<PSTR>} lpAccessName Pointer to a buffer that receives system requests on the connection. This parameter can be <b>NULL</b>. 
+     * @param {Pointer<Byte>} lpAccessName Pointer to a buffer that receives system requests on the connection. This parameter can be <b>NULL</b>. 
      * 
      * 
      * 
@@ -3753,7 +3753,7 @@ class WNet {
         lpUserId := lpUserId is String? StrPtr(lpUserId) : lpUserId
         lpAccessName := lpAccessName is String? StrPtr(lpAccessName) : lpAccessName
 
-        result := DllCall("MPR.dll\WNetUseConnectionA", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", lpPassword, "ptr", lpUserId, "uint", dwFlags, "ptr", lpAccessName, "ptr", lpBufferSize, "ptr", lpResult, "uint")
+        result := DllCall("MPR.dll\WNetUseConnectionA", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", lpPassword, "ptr", lpUserId, "uint", dwFlags, "ptr", lpAccessName, "uint*", lpBufferSize, "uint*", lpResult, "uint")
         return result
     }
 
@@ -3772,7 +3772,7 @@ class WNet {
      * 
      * > [!NOTE]
      * > The winnetwk.h header defines WNetUseConnection as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HWND>} hwndOwner Handle to a window that the provider of network resources can use as an owner window for dialog boxes. Use this parameter if you set the CONNECT_INTERACTIVE value in the <i>dwFlags</i> parameter.
+     * @param {Pointer<Void>} hwndOwner Handle to a window that the provider of network resources can use as an owner window for dialog boxes. Use this parameter if you set the CONNECT_INTERACTIVE value in the <i>dwFlags</i> parameter.
      * @param {Pointer<NETRESOURCEW>} lpNetResource Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure that specifies details of the proposed connection. The structure contains information about the network resource, the local device, and the network resource provider. 
      * 
@@ -3856,7 +3856,7 @@ class WNet {
      * The 
      * <b>WNetUseConnection</b> function ignores the other members of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structure. For more information, see the descriptions following for the <i>dwFlags</i> parameter.
-     * @param {Pointer<PWSTR>} lpPassword Pointer to a constant <b>null</b>-terminated string that specifies a password to be used in making the network connection. 
+     * @param {Pointer<Char>} lpPassword Pointer to a constant <b>null</b>-terminated string that specifies a password to be used in making the network connection. 
      * 
      * 
      * 
@@ -3867,7 +3867,7 @@ class WNet {
      * If <i>lpPassword</i> points to an empty string, the function does not use a password.
      * 
      * If the connection fails because of an invalid password and the CONNECT_INTERACTIVE value is set in the <i>dwFlags</i> parameter, the function displays a dialog box asking the user to type the password.
-     * @param {Pointer<PWSTR>} lpUserId Pointer to a constant <b>null</b>-terminated string that specifies a user name for making the connection. 
+     * @param {Pointer<Char>} lpUserId Pointer to a constant <b>null</b>-terminated string that specifies a user name for making the connection. 
      * 
      * 
      * 
@@ -3879,7 +3879,7 @@ class WNet {
      * The user-name string represents a 
      * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a>. It may be specific to a network provider.
      * @param {Integer} dwFlags 
-     * @param {Pointer<PWSTR>} lpAccessName Pointer to a buffer that receives system requests on the connection. This parameter can be <b>NULL</b>. 
+     * @param {Pointer<Char>} lpAccessName Pointer to a buffer that receives system requests on the connection. This parameter can be <b>NULL</b>. 
      * 
      * 
      * 
@@ -4095,20 +4095,20 @@ class WNet {
         lpUserId := lpUserId is String? StrPtr(lpUserId) : lpUserId
         lpAccessName := lpAccessName is String? StrPtr(lpAccessName) : lpAccessName
 
-        result := DllCall("MPR.dll\WNetUseConnectionW", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", lpPassword, "ptr", lpUserId, "uint", dwFlags, "ptr", lpAccessName, "ptr", lpBufferSize, "ptr", lpResult, "uint")
+        result := DllCall("MPR.dll\WNetUseConnectionW", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", lpPassword, "ptr", lpUserId, "uint", dwFlags, "ptr", lpAccessName, "uint*", lpBufferSize, "uint*", lpResult, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<HWND>} hwndOwner 
+     * @param {Pointer<Void>} hwndOwner 
      * @param {Pointer<NETRESOURCEA>} lpNetResource 
-     * @param {Pointer<Void>} pAuthBuffer 
+     * @param {Pointer} pAuthBuffer 
      * @param {Integer} cbAuthBuffer 
      * @param {Integer} dwFlags 
-     * @param {Pointer<Byte>} lpUseOptions 
+     * @param {Pointer} lpUseOptions 
      * @param {Integer} cbUseOptions 
-     * @param {Pointer<PSTR>} lpAccessName 
+     * @param {Pointer<Byte>} lpAccessName 
      * @param {Pointer<UInt32>} lpBufferSize 
      * @param {Pointer<UInt32>} lpResult 
      * @returns {Integer} 
@@ -4116,20 +4116,20 @@ class WNet {
     static WNetUseConnection4A(hwndOwner, lpNetResource, pAuthBuffer, cbAuthBuffer, dwFlags, lpUseOptions, cbUseOptions, lpAccessName, lpBufferSize, lpResult) {
         lpAccessName := lpAccessName is String? StrPtr(lpAccessName) : lpAccessName
 
-        result := DllCall("MPR.dll\WNetUseConnection4A", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", pAuthBuffer, "uint", cbAuthBuffer, "uint", dwFlags, "ptr", lpUseOptions, "uint", cbUseOptions, "ptr", lpAccessName, "ptr", lpBufferSize, "ptr", lpResult, "uint")
+        result := DllCall("MPR.dll\WNetUseConnection4A", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", pAuthBuffer, "uint", cbAuthBuffer, "uint", dwFlags, "ptr", lpUseOptions, "uint", cbUseOptions, "ptr", lpAccessName, "uint*", lpBufferSize, "uint*", lpResult, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<HWND>} hwndOwner 
+     * @param {Pointer<Void>} hwndOwner 
      * @param {Pointer<NETRESOURCEW>} lpNetResource 
-     * @param {Pointer<Void>} pAuthBuffer 
+     * @param {Pointer} pAuthBuffer 
      * @param {Integer} cbAuthBuffer 
      * @param {Integer} dwFlags 
-     * @param {Pointer<Byte>} lpUseOptions 
+     * @param {Pointer} lpUseOptions 
      * @param {Integer} cbUseOptions 
-     * @param {Pointer<PWSTR>} lpAccessName 
+     * @param {Pointer<Char>} lpAccessName 
      * @param {Pointer<UInt32>} lpBufferSize 
      * @param {Pointer<UInt32>} lpResult 
      * @returns {Integer} 
@@ -4137,7 +4137,7 @@ class WNet {
     static WNetUseConnection4W(hwndOwner, lpNetResource, pAuthBuffer, cbAuthBuffer, dwFlags, lpUseOptions, cbUseOptions, lpAccessName, lpBufferSize, lpResult) {
         lpAccessName := lpAccessName is String? StrPtr(lpAccessName) : lpAccessName
 
-        result := DllCall("MPR.dll\WNetUseConnection4W", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", pAuthBuffer, "uint", cbAuthBuffer, "uint", dwFlags, "ptr", lpUseOptions, "uint", cbUseOptions, "ptr", lpAccessName, "ptr", lpBufferSize, "ptr", lpResult, "uint")
+        result := DllCall("MPR.dll\WNetUseConnection4W", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", pAuthBuffer, "uint", cbAuthBuffer, "uint", dwFlags, "ptr", lpUseOptions, "uint", cbUseOptions, "ptr", lpAccessName, "uint*", lpBufferSize, "uint*", lpResult, "uint")
         return result
     }
 
@@ -4148,7 +4148,7 @@ class WNet {
      * <b>WNetConnectionDialog</b> function returns.
      * 
      * If the function attempts to make a connection and the network provider returns the message ERROR_INVALID_PASSWORD, the system prompts the user to enter a password. The system uses the new password in another attempt to make the connection.
-     * @param {Pointer<HWND>} hwnd Handle to the owner window for the dialog box.
+     * @param {Pointer<Void>} hwnd Handle to the owner window for the dialog box.
      * @param {Integer} dwType Resource type to allow connections to. This parameter can be the following value. 
      * 
      * 
@@ -4240,7 +4240,7 @@ class WNet {
      * <b>WNetDisconnectDialog</b> function returns immediately and creates a dialog box for disconnecting networked drives. This dialog box runs asynchronously on a worker thread.
      * 
      * If the worker thread is terminated, the owner window and its associated dialog box are also terminated. If this occurs, the user might not be able to interact with the dialog box, because it will not  appear on the user's screen or will appear briefly.
-     * @param {Pointer<HWND>} hwnd Handle to the owner window for the dialog box.
+     * @param {Pointer<Void>} hwnd Handle to the owner window for the dialog box.
      * @param {Integer} dwType Resource type to disconnect from. This parameter can have the following value. 
      * 
      * 
@@ -4768,7 +4768,7 @@ class WNet {
      * <b>NETRESOURCE</b> array returned by the 
      * <b>WNetEnumResource</b> function is a container resource, you can call 
      * <b>WNetOpenEnum</b> to open the resource for further enumeration.
-     * @param {Pointer<HANDLE>} lphEnum Pointer to an enumeration handle that can be used in a subsequent call to 
+     * @param {Pointer<Void>} lphEnum Pointer to an enumeration handle that can be used in a subsequent call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetenumresourcea">WNetEnumResource</a>.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -4893,7 +4893,7 @@ class WNet {
      * <b>NETRESOURCE</b> array returned by the 
      * <b>WNetEnumResource</b> function is a container resource, you can call 
      * <b>WNetOpenEnum</b> to open the resource for further enumeration.
-     * @param {Pointer<HANDLE>} lphEnum Pointer to an enumeration handle that can be used in a subsequent call to 
+     * @param {Pointer<Void>} lphEnum Pointer to an enumeration handle that can be used in a subsequent call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetenumresourcea">WNetEnumResource</a>.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -4979,7 +4979,7 @@ class WNet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netshareenum">NetShareEnum</a> function.
      * 
      * An application cannot set the <i>lpBuffer</i> parameter to <b>NULL</b> and retrieve the required buffer size from the <i>lpBufferSize</i> parameter. Instead, the application should allocate a buffer of a reasonable size—16 kilobytes is typical—and use the value of <i>lpBufferSize</i> for error detection.
-     * @param {Pointer<HANDLE>} hEnum Handle that identifies an enumeration instance. This handle must be returned by the 
+     * @param {Pointer<Void>} hEnum Handle that identifies an enumeration instance. This handle must be returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetopenenuma">WNetOpenEnum</a> function.
      * @param {Pointer<UInt32>} lpcCount Pointer to a variable specifying the number of entries requested. If the number requested is –1, the function returns as many entries as possible. 
      * 
@@ -4987,7 +4987,7 @@ class WNet {
      * 
      * 
      * If the function succeeds, on return the variable pointed to by this parameter contains the number of entries actually read.
-     * @param {Pointer<Void>} lpBuffer Pointer to the buffer that receives the enumeration results. The results are returned as an array of 
+     * @param {Pointer} lpBuffer Pointer to the buffer that receives the enumeration results. The results are returned as an array of 
      * <a href="https://docs.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structures. Note that the buffer you allocate must be large enough to hold the structures, plus the strings to which their members point. For more information, see the following Remarks section. 
      * 
      * 
@@ -5087,7 +5087,7 @@ class WNet {
      * @since windows5.0
      */
     static WNetEnumResourceA(hEnum, lpcCount, lpBuffer, lpBufferSize) {
-        result := DllCall("MPR.dll\WNetEnumResourceA", "ptr", hEnum, "ptr", lpcCount, "ptr", lpBuffer, "ptr", lpBufferSize, "uint")
+        result := DllCall("MPR.dll\WNetEnumResourceA", "ptr", hEnum, "uint*", lpcCount, "ptr", lpBuffer, "uint*", lpBufferSize, "uint")
         return result
     }
 
@@ -5100,7 +5100,7 @@ class WNet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netshareenum">NetShareEnum</a> function.
      * 
      * An application cannot set the <i>lpBuffer</i> parameter to <b>NULL</b> and retrieve the required buffer size from the <i>lpBufferSize</i> parameter. Instead, the application should allocate a buffer of a reasonable size—16 kilobytes is typical—and use the value of <i>lpBufferSize</i> for error detection.
-     * @param {Pointer<HANDLE>} hEnum Handle that identifies an enumeration instance. This handle must be returned by the 
+     * @param {Pointer<Void>} hEnum Handle that identifies an enumeration instance. This handle must be returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetopenenuma">WNetOpenEnum</a> function.
      * @param {Pointer<UInt32>} lpcCount Pointer to a variable specifying the number of entries requested. If the number requested is –1, the function returns as many entries as possible. 
      * 
@@ -5108,7 +5108,7 @@ class WNet {
      * 
      * 
      * If the function succeeds, on return the variable pointed to by this parameter contains the number of entries actually read.
-     * @param {Pointer<Void>} lpBuffer Pointer to the buffer that receives the enumeration results. The results are returned as an array of 
+     * @param {Pointer} lpBuffer Pointer to the buffer that receives the enumeration results. The results are returned as an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structures. Note that the buffer you allocate must be large enough to hold the structures, plus the strings to which their members point. For more information, see the following Remarks section. 
      * 
      * 
@@ -5208,13 +5208,13 @@ class WNet {
      * @since windows5.0
      */
     static WNetEnumResourceW(hEnum, lpcCount, lpBuffer, lpBufferSize) {
-        result := DllCall("MPR.dll\WNetEnumResourceW", "ptr", hEnum, "ptr", lpcCount, "ptr", lpBuffer, "ptr", lpBufferSize, "uint")
+        result := DllCall("MPR.dll\WNetEnumResourceW", "ptr", hEnum, "uint*", lpcCount, "ptr", lpBuffer, "uint*", lpBufferSize, "uint")
         return result
     }
 
     /**
      * The WNetCloseEnum function ends a network resource enumeration started by a call to the WNetOpenEnum function.
-     * @param {Pointer<HANDLE>} hEnum Handle that identifies an enumeration instance. This handle must be returned by the 
+     * @param {Pointer<Void>} hEnum Handle that identifies an enumeration instance. This handle must be returned by the 
      * <b>WNetOpenEnum</b> function.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -5348,7 +5348,7 @@ class WNet {
      * 
      * All other members of the 
      * <b>NETRESOURCE</b> structure are ignored.
-     * @param {Pointer<Void>} lpBuffer Pointer to a buffer to receive a single 
+     * @param {Pointer} lpBuffer Pointer to a buffer to receive a single 
      * <b>NETRESOURCE</b> structure that represents the parent resource. The function returns the <b>lpRemoteName</b>, <b>lpProvider</b>, <b>dwType</b>, <b>dwDisplayType</b>, and <b>dwUsage</b> members of the structure; all other members are set to <b>NULL</b>. 
      * 
      * 
@@ -5431,7 +5431,7 @@ class WNet {
      * @since windows5.0
      */
     static WNetGetResourceParentA(lpNetResource, lpBuffer, lpcbBuffer) {
-        result := DllCall("MPR.dll\WNetGetResourceParentA", "ptr", lpNetResource, "ptr", lpBuffer, "ptr", lpcbBuffer, "uint")
+        result := DllCall("MPR.dll\WNetGetResourceParentA", "ptr", lpNetResource, "ptr", lpBuffer, "uint*", lpcbBuffer, "uint")
         return result
     }
 
@@ -5514,7 +5514,7 @@ class WNet {
      * 
      * All other members of the 
      * <b>NETRESOURCE</b> structure are ignored.
-     * @param {Pointer<Void>} lpBuffer Pointer to a buffer to receive a single 
+     * @param {Pointer} lpBuffer Pointer to a buffer to receive a single 
      * <b>NETRESOURCE</b> structure that represents the parent resource. The function returns the <b>lpRemoteName</b>, <b>lpProvider</b>, <b>dwType</b>, <b>dwDisplayType</b>, and <b>dwUsage</b> members of the structure; all other members are set to <b>NULL</b>. 
      * 
      * 
@@ -5597,7 +5597,7 @@ class WNet {
      * @since windows5.0
      */
     static WNetGetResourceParentW(lpNetResource, lpBuffer, lpcbBuffer) {
-        result := DllCall("MPR.dll\WNetGetResourceParentW", "ptr", lpNetResource, "ptr", lpBuffer, "ptr", lpcbBuffer, "uint")
+        result := DllCall("MPR.dll\WNetGetResourceParentW", "ptr", lpNetResource, "ptr", lpBuffer, "uint*", lpcbBuffer, "uint")
         return result
     }
 
@@ -5614,7 +5614,7 @@ class WNet {
      * 
      * The <b>lpRemoteName</b> member of the structure should specify the remote path name of the resource, typically one typed in by a user. The <b>lpProvider</b> and <b>dwType</b> members should also be filled in if known, because this operation can be memory intensive, especially if you do not specify the <b>dwType</b> member. If you do not know the values for these members, you should set them to <b>NULL</b>. All other members of the 
      * <b>NETRESOURCE</b> structure are ignored.
-     * @param {Pointer<Void>} lpBuffer Pointer to the buffer to receive the result. On successful return, the first portion of the buffer is a 
+     * @param {Pointer} lpBuffer Pointer to the buffer to receive the result. On successful return, the first portion of the buffer is a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure representing that portion of the input resource path that is accessed through the WNet functions, rather than through system functions specific to the input resource type. (The remainder of the buffer contains the variable-length strings to which the members of the 
      * <b>NETRESOURCE</b> structure point.) 
      * 
@@ -5632,7 +5632,7 @@ class WNet {
      * <b>WNetEnumResource</b>.
      * @param {Pointer<UInt32>} lpcbBuffer Pointer to a location that, on entry, specifies the size of the <i>lpBuffer</i> buffer, in bytes. The buffer you allocate must be large enough to hold the 
      * <b>NETRESOURCE</b> structure, plus the strings to which its members point. If the buffer is too small for the result, this location receives the required buffer size, and the function returns ERROR_MORE_DATA.
-     * @param {Pointer<PSTR>} lplpSystem If the function returns successfully, this parameter points to a string in the output buffer that specifies the part of the resource that is accessed through system functions. (This applies only to functions specific to the resource type rather than the WNet functions.) 
+     * @param {Pointer<Byte>} lplpSystem If the function returns successfully, this parameter points to a string in the output buffer that specifies the part of the resource that is accessed through system functions. (This applies only to functions specific to the resource type rather than the WNet functions.) 
      * 
      * 
      * 
@@ -5710,9 +5710,7 @@ class WNet {
      * @since windows5.0
      */
     static WNetGetResourceInformationA(lpNetResource, lpBuffer, lpcbBuffer, lplpSystem) {
-        lplpSystem := lplpSystem is String? StrPtr(lplpSystem) : lplpSystem
-
-        result := DllCall("MPR.dll\WNetGetResourceInformationA", "ptr", lpNetResource, "ptr", lpBuffer, "ptr", lpcbBuffer, "ptr", lplpSystem, "uint")
+        result := DllCall("MPR.dll\WNetGetResourceInformationA", "ptr", lpNetResource, "ptr", lpBuffer, "uint*", lpcbBuffer, "ptr", lplpSystem, "uint")
         return result
     }
 
@@ -5729,7 +5727,7 @@ class WNet {
      * 
      * The <b>lpRemoteName</b> member of the structure should specify the remote path name of the resource, typically one typed in by a user. The <b>lpProvider</b> and <b>dwType</b> members should also be filled in if known, because this operation can be memory intensive, especially if you do not specify the <b>dwType</b> member. If you do not know the values for these members, you should set them to <b>NULL</b>. All other members of the 
      * <b>NETRESOURCE</b> structure are ignored.
-     * @param {Pointer<Void>} lpBuffer Pointer to the buffer to receive the result. On successful return, the first portion of the buffer is a 
+     * @param {Pointer} lpBuffer Pointer to the buffer to receive the result. On successful return, the first portion of the buffer is a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcew">NETRESOURCE</a> structure representing that portion of the input resource path that is accessed through the WNet functions, rather than through system functions specific to the input resource type. (The remainder of the buffer contains the variable-length strings to which the members of the 
      * <b>NETRESOURCE</b> structure point.) 
      * 
@@ -5747,7 +5745,7 @@ class WNet {
      * <b>WNetEnumResource</b>.
      * @param {Pointer<UInt32>} lpcbBuffer Pointer to a location that, on entry, specifies the size of the <i>lpBuffer</i> buffer, in bytes. The buffer you allocate must be large enough to hold the 
      * <b>NETRESOURCE</b> structure, plus the strings to which its members point. If the buffer is too small for the result, this location receives the required buffer size, and the function returns ERROR_MORE_DATA.
-     * @param {Pointer<PWSTR>} lplpSystem If the function returns successfully, this parameter points to a string in the output buffer that specifies the part of the resource that is accessed through system functions. (This applies only to functions specific to the resource type rather than the WNet functions.) 
+     * @param {Pointer<Char>} lplpSystem If the function returns successfully, this parameter points to a string in the output buffer that specifies the part of the resource that is accessed through system functions. (This applies only to functions specific to the resource type rather than the WNet functions.) 
      * 
      * 
      * 
@@ -5825,9 +5823,7 @@ class WNet {
      * @since windows5.0
      */
     static WNetGetResourceInformationW(lpNetResource, lpBuffer, lpcbBuffer, lplpSystem) {
-        lplpSystem := lplpSystem is String? StrPtr(lplpSystem) : lplpSystem
-
-        result := DllCall("MPR.dll\WNetGetResourceInformationW", "ptr", lpNetResource, "ptr", lpBuffer, "ptr", lpcbBuffer, "ptr", lplpSystem, "uint")
+        result := DllCall("MPR.dll\WNetGetResourceInformationW", "ptr", lpNetResource, "ptr", lpBuffer, "uint*", lpcbBuffer, "ptr", lplpSystem, "uint")
         return result
     }
 
@@ -5871,14 +5867,14 @@ class WNet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function, and the second logon runs an application that calls the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getlogicaldrives">GetLogicalDrives</a> function. <b>GetLogicalDrives</b> does not return network drive letters created by a WNet function under the first logon. Note that in the preceding example the first logon session still exists, and the example could apply to any logon session, including a Terminal Services session. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/FileIO/defining-an-ms-dos-device-name">Defining an MS-DOS Device Name</a>.
-     * @param {Pointer<PSTR>} lpLocalPath A pointer to a constant null-terminated string that is a drive-based path for a network resource. 
+     * @param {Pointer<Byte>} lpLocalPath A pointer to a constant null-terminated string that is a drive-based path for a network resource. 
      * 
      * 
      * 
      * 
      * For example, if drive H has been mapped to a network drive share, and the network       resource of interest is a file named Sample.doc in the directory \Win32\Examples on that share, the drive-based path is H:\Win32\Examples\Sample.doc.
      * @param {Integer} dwInfoLevel 
-     * @param {Pointer<Void>} lpBuffer A pointer to a buffer that receives the structure specified by the <i>dwInfoLevel</i> parameter.
+     * @param {Pointer} lpBuffer A pointer to a buffer that receives the structure specified by the <i>dwInfoLevel</i> parameter.
      * @param {Pointer<UInt32>} lpBufferSize A pointer to a variable that specifies the size, in bytes, of the buffer pointed to by the <i>lpBuffer</i> parameter.
      * 
      * If the function succeeds, it sets the variable pointed to by <i>lpBufferSize</i> to the number of bytes stored in the buffer. If the function fails because the buffer is too small, this location receives the required buffer size, and the function returns ERROR_MORE_DATA.
@@ -5988,7 +5984,7 @@ class WNet {
     static WNetGetUniversalNameA(lpLocalPath, dwInfoLevel, lpBuffer, lpBufferSize) {
         lpLocalPath := lpLocalPath is String? StrPtr(lpLocalPath) : lpLocalPath
 
-        result := DllCall("MPR.dll\WNetGetUniversalNameA", "ptr", lpLocalPath, "uint", dwInfoLevel, "ptr", lpBuffer, "ptr", lpBufferSize, "uint")
+        result := DllCall("MPR.dll\WNetGetUniversalNameA", "ptr", lpLocalPath, "uint", dwInfoLevel, "ptr", lpBuffer, "uint*", lpBufferSize, "uint")
         return result
     }
 
@@ -6032,14 +6028,14 @@ class WNet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function, and the second logon runs an application that calls the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getlogicaldrives">GetLogicalDrives</a> function. <b>GetLogicalDrives</b> does not return network drive letters created by a WNet function under the first logon. Note that in the preceding example the first logon session still exists, and the example could apply to any logon session, including a Terminal Services session. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/FileIO/defining-an-ms-dos-device-name">Defining an MS-DOS Device Name</a>.
-     * @param {Pointer<PWSTR>} lpLocalPath A pointer to a constant null-terminated string that is a drive-based path for a network resource. 
+     * @param {Pointer<Char>} lpLocalPath A pointer to a constant null-terminated string that is a drive-based path for a network resource. 
      * 
      * 
      * 
      * 
      * For example, if drive H has been mapped to a network drive share, and the network       resource of interest is a file named Sample.doc in the directory \Win32\Examples on that share, the drive-based path is H:\Win32\Examples\Sample.doc.
      * @param {Integer} dwInfoLevel 
-     * @param {Pointer<Void>} lpBuffer A pointer to a buffer that receives the structure specified by the <i>dwInfoLevel</i> parameter.
+     * @param {Pointer} lpBuffer A pointer to a buffer that receives the structure specified by the <i>dwInfoLevel</i> parameter.
      * @param {Pointer<UInt32>} lpBufferSize A pointer to a variable that specifies the size, in bytes, of the buffer pointed to by the <i>lpBuffer</i> parameter.
      * 
      * If the function succeeds, it sets the variable pointed to by <i>lpBufferSize</i> to the number of bytes stored in the buffer. If the function fails because the buffer is too small, this location receives the required buffer size, and the function returns ERROR_MORE_DATA.
@@ -6149,7 +6145,7 @@ class WNet {
     static WNetGetUniversalNameW(lpLocalPath, dwInfoLevel, lpBuffer, lpBufferSize) {
         lpLocalPath := lpLocalPath is String? StrPtr(lpLocalPath) : lpLocalPath
 
-        result := DllCall("MPR.dll\WNetGetUniversalNameW", "ptr", lpLocalPath, "uint", dwInfoLevel, "ptr", lpBuffer, "ptr", lpBufferSize, "uint")
+        result := DllCall("MPR.dll\WNetGetUniversalNameW", "ptr", lpLocalPath, "uint", dwInfoLevel, "ptr", lpBuffer, "uint*", lpBufferSize, "uint")
         return result
     }
 
@@ -6157,10 +6153,10 @@ class WNet {
      * The WNetGetUser function retrieves the current default user name, or the user name used to establish a network connection. (ANSI)
      * @remarks
      * The <b>WNetGetUser</b> function is not aware of shares on the Distributed File System (DFS). If the name specified by the <i>lpName</i> parameter is a local device  redirected to a DFS share or a remote resource that represents a DFS share, the <b>WNetGetUser</b> function fails with ERROR_NOT_CONNECTED.
-     * @param {Pointer<PSTR>} lpName A pointer to a constant <b>null</b>-terminated string that specifies either the name of a local device that has been redirected to a network resource, or the remote name of a network resource to which a connection has been made without redirecting a local device.
+     * @param {Pointer<Byte>} lpName A pointer to a constant <b>null</b>-terminated string that specifies either the name of a local device that has been redirected to a network resource, or the remote name of a network resource to which a connection has been made without redirecting a local device.
      * 
      * If this parameter is <b>NULL</b> or the empty string, the system returns the name of the current user for the process.
-     * @param {Pointer<PSTR>} lpUserName A pointer to a buffer that receives the <b>null</b>-terminated user name.
+     * @param {Pointer<Byte>} lpUserName A pointer to a buffer that receives the <b>null</b>-terminated user name.
      * @param {Pointer<UInt32>} lpnLength A pointer to a variable that specifies the size of the <i>lpUserName</i> buffer, in characters. If the call fails because the buffer is not large enough, this variable contains the required buffer size.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -6236,7 +6232,7 @@ class WNet {
         lpName := lpName is String? StrPtr(lpName) : lpName
         lpUserName := lpUserName is String? StrPtr(lpUserName) : lpUserName
 
-        result := DllCall("MPR.dll\WNetGetUserA", "ptr", lpName, "ptr", lpUserName, "ptr", lpnLength, "uint")
+        result := DllCall("MPR.dll\WNetGetUserA", "ptr", lpName, "ptr", lpUserName, "uint*", lpnLength, "uint")
         return result
     }
 
@@ -6244,10 +6240,10 @@ class WNet {
      * The WNetGetUser function retrieves the current default user name, or the user name used to establish a network connection. (Unicode)
      * @remarks
      * The <b>WNetGetUser</b> function is not aware of shares on the Distributed File System (DFS). If the name specified by the <i>lpName</i> parameter is a local device  redirected to a DFS share or a remote resource that represents a DFS share, the <b>WNetGetUser</b> function fails with ERROR_NOT_CONNECTED.
-     * @param {Pointer<PWSTR>} lpName A pointer to a constant <b>null</b>-terminated string that specifies either the name of a local device that has been redirected to a network resource, or the remote name of a network resource to which a connection has been made without redirecting a local device.
+     * @param {Pointer<Char>} lpName A pointer to a constant <b>null</b>-terminated string that specifies either the name of a local device that has been redirected to a network resource, or the remote name of a network resource to which a connection has been made without redirecting a local device.
      * 
      * If this parameter is <b>NULL</b> or the empty string, the system returns the name of the current user for the process.
-     * @param {Pointer<PWSTR>} lpUserName A pointer to a buffer that receives the <b>null</b>-terminated user name.
+     * @param {Pointer<Char>} lpUserName A pointer to a buffer that receives the <b>null</b>-terminated user name.
      * @param {Pointer<UInt32>} lpnLength A pointer to a variable that specifies the size of the <i>lpUserName</i> buffer, in characters. If the call fails because the buffer is not large enough, this variable contains the required buffer size.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -6323,7 +6319,7 @@ class WNet {
         lpName := lpName is String? StrPtr(lpName) : lpName
         lpUserName := lpUserName is String? StrPtr(lpUserName) : lpUserName
 
-        result := DllCall("MPR.dll\WNetGetUserW", "ptr", lpName, "ptr", lpUserName, "ptr", lpnLength, "uint")
+        result := DllCall("MPR.dll\WNetGetUserW", "ptr", lpName, "ptr", lpUserName, "uint*", lpnLength, "uint")
         return result
     }
 
@@ -6338,7 +6334,7 @@ class WNet {
      * 
      * 
      * You can find a complete list of network types in the header file Winnetwk.h.
-     * @param {Pointer<PSTR>} lpProviderName Pointer to a buffer that receives the network provider name.
+     * @param {Pointer<Byte>} lpProviderName Pointer to a buffer that receives the network provider name.
      * @param {Pointer<UInt32>} lpBufferSize Size of the buffer passed to the function, in characters. If the return value is ERROR_MORE_DATA, <i>lpBufferSize</i> returns the buffer size required (in characters) to hold the provider name. 
      * 
      * 
@@ -6395,7 +6391,7 @@ class WNet {
     static WNetGetProviderNameA(dwNetType, lpProviderName, lpBufferSize) {
         lpProviderName := lpProviderName is String? StrPtr(lpProviderName) : lpProviderName
 
-        result := DllCall("MPR.dll\WNetGetProviderNameA", "uint", dwNetType, "ptr", lpProviderName, "ptr", lpBufferSize, "uint")
+        result := DllCall("MPR.dll\WNetGetProviderNameA", "uint", dwNetType, "ptr", lpProviderName, "uint*", lpBufferSize, "uint")
         return result
     }
 
@@ -6410,7 +6406,7 @@ class WNet {
      * 
      * 
      * You can find a complete list of network types in the header file Winnetwk.h.
-     * @param {Pointer<PWSTR>} lpProviderName Pointer to a buffer that receives the network provider name.
+     * @param {Pointer<Char>} lpProviderName Pointer to a buffer that receives the network provider name.
      * @param {Pointer<UInt32>} lpBufferSize Size of the buffer passed to the function, in characters. If the return value is ERROR_MORE_DATA, <i>lpBufferSize</i> returns the buffer size required (in characters) to hold the provider name. 
      * 
      * 
@@ -6467,7 +6463,7 @@ class WNet {
     static WNetGetProviderNameW(dwNetType, lpProviderName, lpBufferSize) {
         lpProviderName := lpProviderName is String? StrPtr(lpProviderName) : lpProviderName
 
-        result := DllCall("MPR.dll\WNetGetProviderNameW", "uint", dwNetType, "ptr", lpProviderName, "ptr", lpBufferSize, "uint")
+        result := DllCall("MPR.dll\WNetGetProviderNameW", "uint", dwNetType, "ptr", lpProviderName, "uint*", lpBufferSize, "uint")
         return result
     }
 
@@ -6476,7 +6472,7 @@ class WNet {
      * @remarks
      * > [!NOTE]
      * > The winnetwk.h header defines WNetGetNetworkInformation as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpProvider Pointer to a constant null-terminated string that contains the name of the network provider for which information is required.
+     * @param {Pointer<Byte>} lpProvider Pointer to a constant null-terminated string that contains the name of the network provider for which information is required.
      * @param {Pointer<NETINFOSTRUCT>} lpNetInfoStruct Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netinfostruct">NETINFOSTRUCT</a> structure. The structure describes characteristics of the network.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
@@ -6528,7 +6524,7 @@ class WNet {
      * @remarks
      * > [!NOTE]
      * > The winnetwk.h header defines WNetGetNetworkInformation as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpProvider Pointer to a constant null-terminated string that contains the name of the network provider for which information is required.
+     * @param {Pointer<Char>} lpProvider Pointer to a constant null-terminated string that contains the name of the network provider for which information is required.
      * @param {Pointer<NETINFOSTRUCT>} lpNetInfoStruct Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netinfostruct">NETINFOSTRUCT</a> structure. The structure describes characteristics of the network.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
@@ -6598,9 +6594,9 @@ class WNet {
      * > [!NOTE]
      * > The winnetwk.h header defines WNetGetLastError as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<UInt32>} lpError Pointer to a variable that receives the error code reported by the network provider. The error code is specific to the network provider.
-     * @param {Pointer<PSTR>} lpErrorBuf Pointer to the buffer that receives the null-terminated string describing the error.
+     * @param {Pointer<Byte>} lpErrorBuf Pointer to the buffer that receives the null-terminated string describing the error.
      * @param {Integer} nErrorBufSize Size of the buffer pointed to by the <i>lpErrorBuf</i> parameter, in characters. If the buffer is too small for the error string, the string is truncated but still null-terminated. A buffer of at least 256 characters is recommended.
-     * @param {Pointer<PSTR>} lpNameBuf Pointer to the buffer that receives the null-terminated string identifying the network provider that raised the error.
+     * @param {Pointer<Byte>} lpNameBuf Pointer to the buffer that receives the null-terminated string identifying the network provider that raised the error.
      * @param {Integer} nNameBufSize Size of the buffer pointed to by the <i>lpNameBuf</i> parameter, in characters. If the buffer is too small for the error string, the string is truncated but still null-terminated.
      * @returns {Integer} If the function succeeds, and it obtains the last error that the network provider reported, the return value is NO_ERROR.
      * 
@@ -6614,7 +6610,7 @@ class WNet {
 
         A_LastError := 0
 
-        result := DllCall("MPR.dll\WNetGetLastErrorA", "ptr", lpError, "ptr", lpErrorBuf, "uint", nErrorBufSize, "ptr", lpNameBuf, "uint", nNameBufSize, "uint")
+        result := DllCall("MPR.dll\WNetGetLastErrorA", "uint*", lpError, "ptr", lpErrorBuf, "uint", nErrorBufSize, "ptr", lpNameBuf, "uint", nNameBufSize, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -6644,9 +6640,9 @@ class WNet {
      * > [!NOTE]
      * > The winnetwk.h header defines WNetGetLastError as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<UInt32>} lpError Pointer to a variable that receives the error code reported by the network provider. The error code is specific to the network provider.
-     * @param {Pointer<PWSTR>} lpErrorBuf Pointer to the buffer that receives the null-terminated string describing the error.
+     * @param {Pointer<Char>} lpErrorBuf Pointer to the buffer that receives the null-terminated string describing the error.
      * @param {Integer} nErrorBufSize Size of the buffer pointed to by the <i>lpErrorBuf</i> parameter, in characters. If the buffer is too small for the error string, the string is truncated but still null-terminated. A buffer of at least 256 characters is recommended.
-     * @param {Pointer<PWSTR>} lpNameBuf Pointer to the buffer that receives the null-terminated string identifying the network provider that raised the error.
+     * @param {Pointer<Char>} lpNameBuf Pointer to the buffer that receives the null-terminated string identifying the network provider that raised the error.
      * @param {Integer} nNameBufSize Size of the buffer pointed to by the <i>lpNameBuf</i> parameter, in characters. If the buffer is too small for the error string, the string is truncated but still null-terminated.
      * @returns {Integer} If the function succeeds, and it obtains the last error that the network provider reported, the return value is NO_ERROR.
      * 
@@ -6660,7 +6656,7 @@ class WNet {
 
         A_LastError := 0
 
-        result := DllCall("MPR.dll\WNetGetLastErrorW", "ptr", lpError, "ptr", lpErrorBuf, "uint", nErrorBufSize, "ptr", lpNameBuf, "uint", nNameBufSize, "uint")
+        result := DllCall("MPR.dll\WNetGetLastErrorW", "uint*", lpError, "ptr", lpErrorBuf, "uint", nErrorBufSize, "ptr", lpNameBuf, "uint", nNameBufSize, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -7094,8 +7090,8 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PWSTR>} lpPassword Pointer to the password to be used in making the connection, normally the password associated with <i>lpUserName</i>. The <b>NULL</b> value may be passed in to cause the function to use the default password. An empty string may be used to indicate no password. When you have finished using the password, clear it from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function. For more information about protecting the password, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
-     * @param {Pointer<PWSTR>} lpUserName Pointer to the user name used to make the connection. If <b>NULL</b>, the default user name (that of the currently logged-on user) is applied. This is used when the user wants to connect to a resource but has a different assigned user name or account for that resource.
+     * @param {Pointer<Char>} lpPassword Pointer to the password to be used in making the connection, normally the password associated with <i>lpUserName</i>. The <b>NULL</b> value may be passed in to cause the function to use the default password. An empty string may be used to indicate no password. When you have finished using the password, clear it from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function. For more information about protecting the password, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
+     * @param {Pointer<Char>} lpUserName Pointer to the user name used to make the connection. If <b>NULL</b>, the default user name (that of the currently logged-on user) is applied. This is used when the user wants to connect to a resource but has a different assigned user name or account for that resource.
      * 
      * For example, if you were logged using the user name "MyAccount" and wanted to connect to a network resource that was available only to a second account, where the user name was "MyOtherAccount", you could specify "MyOtherAccount" in <i>lpUserName</i> in order to connect to the resource. You would also specify the password of this second account in <i>lpPassword</i>.
      * @returns {Integer} If the function succeeds, it should return WN_SUCCESS. Otherwise, it should return an error code, which can be one of the following.
@@ -7191,7 +7187,7 @@ class WNet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetconnectiondialog1a">WNetConnectionDialog1</a> function and an access-denied code is returned, the 
      * <b>WNetConnectionDialog</b> or 
      * <b>WNetConnectionDialog1</b> function will, itself, display a password dialog box.
-     * @param {Pointer<HWND>} hwndOwner A handle to a window that should own any messages or dialog boxes. This handle is valid only if CONNECT_INTERACTIVE is set in <i>dwFlags</i>, and the handle should only be used to produce dialog boxes needed for authentication.
+     * @param {Pointer<Void>} hwndOwner A handle to a window that should own any messages or dialog boxes. This handle is valid only if CONNECT_INTERACTIVE is set in <i>dwFlags</i>, and the handle should only be used to produce dialog boxes needed for authentication.
      * @param {Pointer<NETRESOURCEW>} lpNetResource Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure that specifies the network resource to connect to. The following fields must be set when making a connection. The others are ignored.
      * 
@@ -7231,8 +7227,8 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PWSTR>} lpPassword Pointer to the password to be used in making the connection, normally the password associated with <i>lpUserName</i>. The <b>NULL</b> value may be passed in to cause the function to use the default password. An empty string may be used to indicate no password. When you have finished using the password, clear it from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function. For more information about protecting the password, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
-     * @param {Pointer<PWSTR>} lpUserName Pointer to the user name used to make the connection. If <b>NULL</b>, the default user name (that of the currently logged-on user) is applied. This is used when the user wants to connect to a resource but has a different assigned user name or account for that resource.
+     * @param {Pointer<Char>} lpPassword Pointer to the password to be used in making the connection, normally the password associated with <i>lpUserName</i>. The <b>NULL</b> value may be passed in to cause the function to use the default password. An empty string may be used to indicate no password. When you have finished using the password, clear it from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function. For more information about protecting the password, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
+     * @param {Pointer<Char>} lpUserName Pointer to the user name used to make the connection. If <b>NULL</b>, the default user name (that of the currently logged-on user) is applied. This is used when the user wants to connect to a resource but has a different assigned user name or account for that resource.
      * @param {Integer} dwFlags 
      * @returns {Integer} If the function succeeds, it will return WN_SUCCESS. Otherwise, it will return an error code. This may include one of the following.
      * 
@@ -7332,12 +7328,12 @@ class WNet {
 
     /**
      * 
-     * @param {Pointer<HWND>} hwndOwner 
+     * @param {Pointer<Void>} hwndOwner 
      * @param {Pointer<NETRESOURCEW>} lpNetResource 
-     * @param {Pointer<Void>} lpAuthBuffer 
+     * @param {Pointer} lpAuthBuffer 
      * @param {Integer} cbAuthBuffer 
      * @param {Integer} dwFlags 
-     * @param {Pointer<Byte>} lpUseOptions 
+     * @param {Pointer} lpUseOptions 
      * @param {Integer} cbUseOptions 
      * @returns {Integer} 
      */
@@ -7348,7 +7344,7 @@ class WNet {
 
     /**
      * Disconnects a network connection.
-     * @param {Pointer<PWSTR>} lpName Pointer to the name of either the redirected local device or the remote network resource to disconnect from.
+     * @param {Pointer<Char>} lpName Pointer to the name of either the redirected local device or the remote network resource to disconnect from.
      * @param {Integer} fForce Indicates whether the disconnect should continue in the event of open files or jobs on the connection. If <b>FALSE</b> is specified, the call will fail if there are open files or jobs.
      * @returns {Integer} If the function succeeds, it will return WN_SUCCESS. Otherwise, it will return an error. This can be one of the following.
      * 
@@ -7392,7 +7388,7 @@ class WNet {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpName 
+     * @param {Pointer<Char>} lpName 
      * @param {Integer} fForce 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
@@ -7409,8 +7405,8 @@ class WNet {
      * @remarks
      * The <b>NPGetConnection</b> function can return information only about a network connection that is currently connected. To retrieve information about a network connection that is currently disconnected, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-npgetconnection3">NPGetConnection3</a>.
-     * @param {Pointer<PWSTR>} lpLocalName Pointer to the name of the local device the caller is interested in. The network provider can assume this name is syntactically valid.
-     * @param {Pointer<PWSTR>} lpRemoteName Pointer to a buffer that will receive the remote name used to make the connection. This buffer is allocated by the caller.
+     * @param {Pointer<Char>} lpLocalName Pointer to the name of the local device the caller is interested in. The network provider can assume this name is syntactically valid.
+     * @param {Pointer<Char>} lpRemoteName Pointer to a buffer that will receive the remote name used to make the connection. This buffer is allocated by the caller.
      * @param {Pointer<UInt32>} lpnBufferLen Pointer to the size, in characters, of the <i>lpRemoteName</i> buffer. If the call fails because the buffer is not big enough, <i>lpBufferSize</i> is set to the required buffer size.
      * @returns {Integer} If the function succeeds, it should return WN_SUCCESS. Otherwise, it should return an error code, which can be one of the following:
      * 
@@ -7460,7 +7456,7 @@ class WNet {
         lpLocalName := lpLocalName is String? StrPtr(lpLocalName) : lpLocalName
         lpRemoteName := lpRemoteName is String? StrPtr(lpRemoteName) : lpRemoteName
 
-        result := DllCall("davclnt.dll\NPGetConnection", "ptr", lpLocalName, "ptr", lpRemoteName, "ptr", lpnBufferLen, "uint")
+        result := DllCall("davclnt.dll\NPGetConnection", "ptr", lpLocalName, "ptr", lpRemoteName, "uint*", lpnBufferLen, "uint")
         return result
     }
 
@@ -7468,7 +7464,7 @@ class WNet {
      * Retrieves information about a network connection, even if it is currently disconnected.
      * @remarks
      * A network connection can exist in three states: connected, disconnected, and unavailable. The <b>NPGetConnection3</b> function cannot retrieve information about network connections that are currently unavailable. It can, however, retrieve information about network connections that are currently disconnected because Windows stores the connection information.
-     * @param {Pointer<PWSTR>} lpLocalName Pointer to the name of the local device the caller is interested in. The provider can assume that this is syntactically valid.
+     * @param {Pointer<Char>} lpLocalName Pointer to the name of the local device the caller is interested in. The provider can assume that this is syntactically valid.
      * @param {Integer} dwLevel Value that specifies whether the network connection is currently connected or disconnected.
      * 
      * <table>
@@ -7497,7 +7493,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} lpBuffer Void pointer that receives a buffer that contains the requested information.
+     * @param {Pointer} lpBuffer Void pointer that receives a buffer that contains the requested information.
      * @param {Pointer<UInt32>} lpBufferSize Pointer to the size, in characters, of the <i>lpBuffer</i> buffer. If the call fails because the buffer is not big enough, <i>lpBufferSize</i> is set to the required buffer size.
      * @returns {Integer} If the function succeeds, it should return WN_SUCCESS.
      * 					
@@ -7549,15 +7545,15 @@ class WNet {
     static NPGetConnection3(lpLocalName, dwLevel, lpBuffer, lpBufferSize) {
         lpLocalName := lpLocalName is String? StrPtr(lpLocalName) : lpLocalName
 
-        result := DllCall("NTLANMAN.dll\NPGetConnection3", "ptr", lpLocalName, "uint", dwLevel, "ptr", lpBuffer, "ptr", lpBufferSize, "uint")
+        result := DllCall("NTLANMAN.dll\NPGetConnection3", "ptr", lpLocalName, "uint", dwLevel, "ptr", lpBuffer, "uint*", lpBufferSize, "uint")
         return result
     }
 
     /**
      * Retrieves the universal name of a network resource. The NPGetUniversalName function can retrieve this universal name in UNC format or in the older, remote-name format.
-     * @param {Pointer<PWSTR>} lpLocalPath Pointer to the local path of an object on a network resource. This is a drive-based path.
+     * @param {Pointer<Char>} lpLocalPath Pointer to the local path of an object on a network resource. This is a drive-based path.
      * @param {Integer} dwInfoLevel 
-     * @param {Pointer<Void>} lpBuffer Pointer to a buffer to receive the information the user has requested. The specific structure returned depends on the information level specified in <i>dwInfoLevel</i>.
+     * @param {Pointer} lpBuffer Pointer to a buffer to receive the information the user has requested. The specific structure returned depends on the information level specified in <i>dwInfoLevel</i>.
      * @param {Pointer<UInt32>} lpBufferSize Pointer to the size, in bytes, of the <i>lpBuffer</i> buffer. If the call fails because the buffer is not big enough, this location will be used to return the required buffer size.
      * @returns {Integer} If the function succeeds, it should return WN_SUCCESS. Otherwise, it should return an error code, which may be one of the following.
      * 
@@ -7617,13 +7613,13 @@ class WNet {
     static NPGetUniversalName(lpLocalPath, dwInfoLevel, lpBuffer, lpBufferSize) {
         lpLocalPath := lpLocalPath is String? StrPtr(lpLocalPath) : lpLocalPath
 
-        result := DllCall("davclnt.dll\NPGetUniversalName", "ptr", lpLocalPath, "uint", dwInfoLevel, "ptr", lpBuffer, "ptr", lpBufferSize, "uint")
+        result := DllCall("davclnt.dll\NPGetUniversalName", "ptr", lpLocalPath, "uint", dwInfoLevel, "ptr", lpBuffer, "uint*", lpBufferSize, "uint")
         return result
     }
 
     /**
      * Returns information about the expected performance of a connection used to access a network resource. The request can only be for a network resource that is currently connected.
-     * @param {Pointer<PWSTR>} lpRemoteName Pointer to the local name or remote name for a connected resource.
+     * @param {Pointer<Char>} lpRemoteName Pointer to the local name or remote name for a connected resource.
      * @param {Pointer<NETCONNECTINFOSTRUCT>} lpNetConnectInfo Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netconnectinfostruct">NETCONNECTINFOSTRUCT</a> structure, which is filled in by the network provider if the provider has a connection to the network resource. All other fields of this structure, except the <b>cbStructure</b> field, are filled with zeros before the MPR passes the request on to the network providers. As a result, the provider has to write only to fields for which it has information available. Also, for rate values, a value of 1 means that the performance is better than can be represented in the unit.
      * 
@@ -7795,7 +7791,7 @@ class WNet {
      * The bitmask may be zero to match all of the flags. This parameter may be ignored if <i>dwScope</i> is not set to RESOURCE_GLOBALNET.
      * @param {Pointer<NETRESOURCEW>} lpNetResource Pointer to the container to perform the enumeration. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> could have been obtained through a previous <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-npenumresource">NPEnumResource</a> call, or constructed by the caller, or it can be <b>NULL</b>. If it is <b>NULL</b> or if the <b>lpRemoteName</b> field of the <b>NETRESOURCE</b> is <b>NULL</b>, the provider should enumerate the top level of its network. Note that this means a provider cannot use an <b>lpRemoteName</b> of <b>NULL</b> to represent any network resource. A caller would normally start off by calling <b>NPOpenEnum</b> with this parameter set to <b>NULL</b> and then use the returned results for further enumeration. If the calling program knows exactly the provider and remote path to enumerate from, it may build its own <b>NETRESOURCE</b> structure to pass in, filling in the <b>lpProvider</b> and <b>lpRemoteName</b> fields. Note that if <i>dwScope</i> is RESOURCE_CONNECTED or RESOURCE_CONTEXT, this parameter will be <b>NULL</b>.
-     * @param {Pointer<HANDLE>} lphEnum Pointer to a handle that can be used by the <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-npenumresource">NPEnumResource</a> function. When you have finished using the handle, release the handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-npcloseenum">NPCloseEnum</a> function.
+     * @param {Pointer<Void>} lphEnum Pointer to a handle that can be used by the <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-npenumresource">NPEnumResource</a> function. When you have finished using the handle, release the handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-npcloseenum">NPCloseEnum</a> function.
      * @returns {Integer} If the function succeeds, it should return WN_SUCCESS. Otherwise, it should return an error code which may include one of the following.
      * 
      * <table>
@@ -7861,10 +7857,10 @@ class WNet {
      * @remarks
      * When this function is called, the provider should fill the buffer with the requested number of entries (or the maximum that can fit). The returned 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structures should be located contiguously at the head of the buffer, like an array of such structures. The pointers in these structures must point to locations within the buffer. Therefore, data referenced by these pointers should be located at the end of the buffer, after the array of structures. It is the provider's responsibility to package this information correctly.
-     * @param {Pointer<HANDLE>} hEnum Handle obtained from an 
+     * @param {Pointer<Void>} hEnum Handle obtained from an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-npopenenum">NPOpenEnum</a> call.
      * @param {Pointer<UInt32>} lpcCount Pointer to the number of entries requested. It may be 0xFFFFFFFF to request as many entries as possible. If the call succeeds, this location will receive the number of entries actually read.
-     * @param {Pointer<Void>} lpBuffer Pointer to the buffer to receive the enumeration result, which is returned as an array of 
+     * @param {Pointer} lpBuffer Pointer to the buffer to receive the enumeration result, which is returned as an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> entries. The buffer is valid until the next call using <i>hEnum</i>.
      * @param {Pointer<UInt32>} lpBufferSize Pointer to the size, in bytes, of the buffer passed to the function call on entry. If the buffer is too small for even one entry, this should contain, on exit, the number of bytes needed to read one entry. This value is  set only if the return code is WN_MORE_DATA.
      * @returns {Integer} If the function succeeds, it should return WN_SUCCESS. The caller may continue to call <b>NPEnumResource</b> to continue the enumeration. Otherwise, it should return one of the following error codes.
@@ -7923,13 +7919,13 @@ class WNet {
      * @since windows5.1.2600
      */
     static NPEnumResource(hEnum, lpcCount, lpBuffer, lpBufferSize) {
-        result := DllCall("davclnt.dll\NPEnumResource", "ptr", hEnum, "ptr", lpcCount, "ptr", lpBuffer, "ptr", lpBufferSize, "uint")
+        result := DllCall("davclnt.dll\NPEnumResource", "ptr", hEnum, "uint*", lpcCount, "ptr", lpBuffer, "uint*", lpBufferSize, "uint")
         return result
     }
 
     /**
      * Closes an enumeration.
-     * @param {Pointer<HANDLE>} hEnum Handle obtained from an 
+     * @param {Pointer<Void>} hEnum Handle obtained from an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-npopenenum">NPOpenEnum</a> call.
      * @returns {Integer} If the function succeeds, it will return WN_SUCCESS. Otherwise, it will return an error code, which can be one of the following:
      * 
@@ -7987,8 +7983,8 @@ class WNet {
 
     /**
      * Retrieves the value of the current default user name or the user name used to establish a network connection.
-     * @param {Pointer<PWSTR>} lpName Pointer to the name of the local device the caller is interested in, or a remote name for a resource that the user has made a connection to. This parameter may be <b>NULL</b> or the empty string if the caller is interested in the name of the user currently logged on to the system. If a remote name for a resource is passed in, and the user is connected to that resource using different names, it is possible that a provider cannot resolve which user name to return. In this case the provider may make an arbitrary choice amongst the possible user names.
-     * @param {Pointer<PWSTR>} lpUserName Pointer to a buffer to receive the user name. This should be a name that can be passed into the 
+     * @param {Pointer<Char>} lpName Pointer to the name of the local device the caller is interested in, or a remote name for a resource that the user has made a connection to. This parameter may be <b>NULL</b> or the empty string if the caller is interested in the name of the user currently logged on to the system. If a remote name for a resource is passed in, and the user is connected to that resource using different names, it is possible that a provider cannot resolve which user name to return. In this case the provider may make an arbitrary choice amongst the possible user names.
+     * @param {Pointer<Char>} lpUserName Pointer to a buffer to receive the user name. This should be a name that can be passed into the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-npaddconnection">NPAddConnection</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-npaddconnection3">NPAddConnection3</a> function to re-establish the connection with the same user name.
      * @param {Pointer<UInt32>} lpnBufferLen Pointer to the size, in characters, of the <i>lpUserName</i> buffer. If the call fails because the buffer is not big enough, this location will be used to return the required buffer size.
@@ -8040,23 +8036,23 @@ class WNet {
         lpName := lpName is String? StrPtr(lpName) : lpName
         lpUserName := lpUserName is String? StrPtr(lpUserName) : lpUserName
 
-        result := DllCall("davclnt.dll\NPGetUser", "ptr", lpName, "ptr", lpUserName, "ptr", lpnBufferLen, "uint")
+        result := DllCall("davclnt.dll\NPGetUser", "ptr", lpName, "ptr", lpUserName, "uint*", lpnBufferLen, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpRemotePath 
-     * @param {Pointer<Byte>} lpReadUseOptions 
+     * @param {Pointer<Char>} lpRemotePath 
+     * @param {Pointer} lpReadUseOptions 
      * @param {Integer} cbReadUseOptions 
-     * @param {Pointer<Byte>} lpWriteUseOptions 
+     * @param {Pointer} lpWriteUseOptions 
      * @param {Pointer<UInt32>} lpSizeWriteUseOptions 
      * @returns {Integer} 
      */
     static NPGetPersistentUseOptionsForConnection(lpRemotePath, lpReadUseOptions, cbReadUseOptions, lpWriteUseOptions, lpSizeWriteUseOptions) {
         lpRemotePath := lpRemotePath is String? StrPtr(lpRemotePath) : lpRemotePath
 
-        result := DllCall("NTLANMAN.dll\NPGetPersistentUseOptionsForConnection", "ptr", lpRemotePath, "ptr", lpReadUseOptions, "uint", cbReadUseOptions, "ptr", lpWriteUseOptions, "ptr", lpSizeWriteUseOptions, "uint")
+        result := DllCall("NTLANMAN.dll\NPGetPersistentUseOptionsForConnection", "ptr", lpRemotePath, "ptr", lpReadUseOptions, "uint", cbReadUseOptions, "ptr", lpWriteUseOptions, "uint*", lpSizeWriteUseOptions, "uint")
         return result
     }
 
@@ -8077,7 +8073,7 @@ class WNet {
      * The <b>dwType</b> field is filled in if the calling program knows its value. Otherwise, it is set to <b>NULL</b>.
      * 
      * All other fields in the <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> are ignored and are not initialized.
-     * @param {Pointer<Void>} lpBuffer Pointer to a buffer to receive the result, which is a single <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure representing the parent resource. The <b>lpRemoteName</b>, <b>lpProvider</b>, <b>dwType</b>, <b>dwDisplayType</b>, and <b>dwUsage</b> fields are returned; all other fields are set to <b>NULL</b>. 
+     * @param {Pointer} lpBuffer Pointer to a buffer to receive the result, which is a single <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure representing the parent resource. The <b>lpRemoteName</b>, <b>lpProvider</b>, <b>dwType</b>, <b>dwDisplayType</b>, and <b>dwUsage</b> fields are returned; all other fields are set to <b>NULL</b>. 
      * 
      * 
      * 
@@ -8154,7 +8150,7 @@ class WNet {
      * @since windows5.1.2600
      */
     static NPGetResourceParent(lpNetResource, lpBuffer, lpBufferSize) {
-        result := DllCall("davclnt.dll\NPGetResourceParent", "ptr", lpNetResource, "ptr", lpBuffer, "ptr", lpBufferSize, "uint")
+        result := DllCall("davclnt.dll\NPGetResourceParent", "ptr", lpNetResource, "ptr", lpBuffer, "uint*", lpBufferSize, "uint")
         return result
     }
 
@@ -8174,7 +8170,7 @@ class WNet {
      * If the <b>lpRemoteName</b> string contains a portion that is accessed through WNet APIs and a portion that is accessed through other system APIs specific to the resource type, the function should return information only about the network portion of the resource (except for <i>lplpSystem</i>, as described later in this topic).
      * 
      * For example, if the resource is "\\server\share\dir1\dir2", where "\\server\share" is accessed through WNet APIs and "\dir1\dir2" is accessed through file system APIs, the provider should verify that it is the right provider for "\\server\share", but need not check whether "\dir1\dir2" actually exists.
-     * @param {Pointer<Void>} lpBuffer Pointer to the buffer to receive the result. The first field in the result is a single 
+     * @param {Pointer} lpBuffer Pointer to the buffer to receive the result. The first field in the result is a single 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure, and associated strings, representing that portion of the input resource that is accessed through the WNet API, rather than system APIs specific to the resource type. For example, if the input remote resource name was "\\server\share\dir1\dir2", then the output <b>NETRESOURCE</b> contains information about the resource "\\server\share". The <b>lpRemoteName</b>, <b>lpProvider</b>, <b>dwType</b>, <b>dwDisplayType</b>, and <b>dwUsage</b> fields are returned containing values, all other fields being set to <b>NULL</b>. 
      * 
      * 
@@ -8185,7 +8181,7 @@ class WNet {
      * 
      * The provider should not do purely syntactic checking to determine whether it owns the resource. This could produce incorrect results when two networks are running on the client and the provider doing syntactic checking is called first.
      * @param {Pointer<UInt32>} lpBufferSize Pointer to a location that specifies the size, in bytes, of the buffer pointed to by <i>lpBuffer</i>. If the buffer is too small for the result, the function places the required buffer size at this location and returns the error WN_MORE_DATA.
-     * @param {Pointer<PWSTR>} lplpSystem On a successful return, a pointer to a <b>null</b>-terminated string in the output buffer specifying that part of the resource that is accessed through system APIs specific to the resource type, rather than through the WNet API. If there is no such part, <i>lplpSystem</i> is set to <b>NULL</b>. For example, if the input remote resource name was "\\server\share\dir", <b>lpRemoteName</b> is returned pointing to "\\server\share" and <i>lplpSystem</i> points to "\dir", both strings being stored in the buffer pointed to by <i>lpBuffer</i>.
+     * @param {Pointer<Char>} lplpSystem On a successful return, a pointer to a <b>null</b>-terminated string in the output buffer specifying that part of the resource that is accessed through system APIs specific to the resource type, rather than through the WNet API. If there is no such part, <i>lplpSystem</i> is set to <b>NULL</b>. For example, if the input remote resource name was "\\server\share\dir", <b>lpRemoteName</b> is returned pointing to "\\server\share" and <i>lplpSystem</i> points to "\dir", both strings being stored in the buffer pointed to by <i>lpBuffer</i>.
      * @returns {Integer} If the function succeeds, it should return WN_SUCCESS. Otherwise, it should return an error code, which may be one of the following.
      * 
      * <table>
@@ -8264,9 +8260,7 @@ class WNet {
      * @since windows5.1.2600
      */
     static NPGetResourceInformation(lpNetResource, lpBuffer, lpBufferSize, lplpSystem) {
-        lplpSystem := lplpSystem is String? StrPtr(lplpSystem) : lplpSystem
-
-        result := DllCall("davclnt.dll\NPGetResourceInformation", "ptr", lpNetResource, "ptr", lpBuffer, "ptr", lpBufferSize, "ptr", lplpSystem, "uint")
+        result := DllCall("davclnt.dll\NPGetResourceInformation", "ptr", lpNetResource, "ptr", lpBuffer, "uint*", lpBufferSize, "ptr", lplpSystem, "uint")
         return result
     }
 
@@ -8389,8 +8383,8 @@ class WNet {
      * <td> </td>
      * </tr>
      * </table>
-     * @param {Pointer<PWSTR>} lpRemoteName Pointer to the network name to format.
-     * @param {Pointer<PWSTR>} lpFormattedName Pointer to a string that receives the formatted name.
+     * @param {Pointer<Char>} lpRemoteName Pointer to the network name to format.
+     * @param {Pointer<Char>} lpFormattedName Pointer to a string that receives the formatted name.
      * @param {Pointer<UInt32>} lpnLength Pointer to <b>DWORD</b> that specifies the size, in characters, of the <i>lpFormattedName</i> buffer. If the return value of this function is WN_MORE_DATA, <i>lpnLength</i> contains the required buffer size, in characters.
      * @param {Integer} dwFlags 
      * @param {Integer} dwAveCharPerLine Specifies the average number of characters that will fit on a single line where the network name is being presented. Specifically, this value is defined as the width of the control divided by the <b>tmAveCharWidth</b> field of the 
@@ -8424,7 +8418,7 @@ class WNet {
         lpRemoteName := lpRemoteName is String? StrPtr(lpRemoteName) : lpRemoteName
         lpFormattedName := lpFormattedName is String? StrPtr(lpFormattedName) : lpFormattedName
 
-        result := DllCall("davclnt.dll\NPFormatNetworkName", "ptr", lpRemoteName, "ptr", lpFormattedName, "ptr", lpnLength, "uint", dwFlags, "uint", dwAveCharPerLine, "uint")
+        result := DllCall("davclnt.dll\NPFormatNetworkName", "ptr", lpRemoteName, "ptr", lpFormattedName, "uint*", lpnLength, "uint", dwFlags, "uint", dwAveCharPerLine, "uint")
         return result
     }
 
@@ -8463,9 +8457,9 @@ class WNet {
      * 
      * Providers do not need to call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a> before returning from a provider function. The MPR calls <b>SetLastError</b> to set the Windows error returned from a provider when necessary to satisfy applications.
      * @param {Integer} err The error that occurred. This is a network-specific error code.
-     * @param {Pointer<PSTR>} lpError String that describes the network-specific error.
-     * @param {Pointer<PSTR>} lpProviders String that names the network provider that raised the error.
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Byte>} lpError String that describes the network-specific error.
+     * @param {Pointer<Byte>} lpProviders String that names the network provider that raised the error.
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-wnetsetlasterrora
      * @since windows5.1.2600
      */
@@ -8473,7 +8467,8 @@ class WNet {
         lpError := lpError is String? StrPtr(lpError) : lpError
         lpProviders := lpProviders is String? StrPtr(lpProviders) : lpProviders
 
-        DllCall("MPR.dll\WNetSetLastErrorA", "uint", err, "ptr", lpError, "ptr", lpProviders)
+        result := DllCall("MPR.dll\WNetSetLastErrorA", "uint", err, "ptr", lpError, "ptr", lpProviders)
+        return result
     }
 
     /**
@@ -8505,16 +8500,17 @@ class WNet {
      * 
      * Providers do not need to call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a> before returning from a provider function. The MPR calls <b>SetLastError</b> to set the Windows error returned from a provider when necessary to satisfy applications.
      * @param {Integer} err The error that occurred. This is a network-specific error code.
-     * @param {Pointer<PWSTR>} lpError String that describes the network-specific error.
-     * @param {Pointer<PWSTR>} lpProviders String that names the network provider that raised the error.
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Char>} lpError String that describes the network-specific error.
+     * @param {Pointer<Char>} lpProviders String that names the network provider that raised the error.
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-wnetsetlasterrorw
      */
     static WNetSetLastErrorW(err, lpError, lpProviders) {
         lpError := lpError is String? StrPtr(lpError) : lpError
         lpProviders := lpProviders is String? StrPtr(lpProviders) : lpProviders
 
-        DllCall("MPR.dll\WNetSetLastErrorW", "uint", err, "ptr", lpError, "ptr", lpProviders)
+        result := DllCall("MPR.dll\WNetSetLastErrorW", "uint", err, "ptr", lpError, "ptr", lpProviders)
+        return result
     }
 
 ;@endregion Methods

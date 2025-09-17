@@ -32,7 +32,7 @@ class MSGBOXPARAMSW extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the owner window. This member can be <b>NULL</b>.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndOwner {
         get => NumGet(this, 8, "ptr")
@@ -46,7 +46,7 @@ class MSGBOXPARAMSW extends Win32Struct
      * 					<b>lpszIcon</b> member, and the string resource identified by the 
      * 					<b>lpszText</b> or 
      * 					<b>lpszCaption</b> member.
-     * @type {Pointer<HINSTANCE>}
+     * @type {Pointer<Void>}
      */
     hInstance {
         get => NumGet(this, 16, "ptr")
@@ -57,7 +57,7 @@ class MSGBOXPARAMSW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * A null-terminated string, or the identifier of a string resource, that contains the message to be displayed.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpszText {
         get => NumGet(this, 24, "ptr")
@@ -69,7 +69,7 @@ class MSGBOXPARAMSW extends Win32Struct
      * 
      * A null-terminated string, or the identifier of a string resource, that contains the message box title. If this member is <b>NULL</b>, the default title 
      * 					<b>Error</b> is used.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpszCaption {
         get => NumGet(this, 32, "ptr")
@@ -102,7 +102,7 @@ class MSGBOXPARAMSW extends Win32Struct
      * 
      * This member is ignored if the 
      * 						<b>dwStyle</b> member does not specify the <b>MB_USERICON</b> flag.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpszIcon {
         get => NumGet(this, 48, "ptr")

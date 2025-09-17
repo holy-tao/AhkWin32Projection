@@ -79,7 +79,7 @@ class DATETIMEPICKERINFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the edit control. For information see, <a href="https://docs.microsoft.com/windows/desktop/Controls/edit-controls">Edit Controls</a>.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndEdit {
         get => NumGet(this, 56, "ptr")
@@ -90,7 +90,7 @@ class DATETIMEPICKERINFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the up/down control—an alternative to using the drop-down grid (looks like month calendar control). For more information, see <a href="https://docs.microsoft.com/windows/desktop/Controls/up-down-controls">Up-Down Controls</a>.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndUD {
         get => NumGet(this, 64, "ptr")
@@ -101,7 +101,7 @@ class DATETIMEPICKERINFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the drop-down grid.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndDropDown {
         get => NumGet(this, 72, "ptr")

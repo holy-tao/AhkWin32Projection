@@ -93,7 +93,7 @@ class TRUSTEE_W extends Win32Struct
 
     /**
      * A pointer to a buffer that identifies the trustee and, optionally, contains information about object-specific ACEs. The type of data depends on the value of the <b>TrusteeForm</b> member.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ptstrName {
         get => NumGet(this, 24, "ptr")

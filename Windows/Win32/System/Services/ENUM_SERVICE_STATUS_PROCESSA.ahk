@@ -20,7 +20,7 @@ class ENUM_SERVICE_STATUS_PROCESSA extends Win32Struct
 
     /**
      * The name of a service in the service control manager database. The maximum string length is 256 characters. The service control manager database preserves the case of the characters, but service name comparisons are always case insensitive. A slash (/), backslash (\\), comma, and space are invalid service name characters.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpServiceName {
         get => NumGet(this, 0, "ptr")
@@ -29,7 +29,7 @@ class ENUM_SERVICE_STATUS_PROCESSA extends Win32Struct
 
     /**
      * A display name that can be used by service control programs, such as Services in Control Panel, to identify the service. This string has a maximum length of 256 characters. The case is preserved in the service control manager. Display name comparisons are always case-insensitive.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpDisplayName {
         get => NumGet(this, 8, "ptr")

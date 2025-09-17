@@ -13,7 +13,7 @@ class PrintNamedProperty extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     propertyName {
         get => NumGet(this, 0, "ptr")

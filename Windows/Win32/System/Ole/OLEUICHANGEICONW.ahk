@@ -45,7 +45,7 @@ class OLEUICHANGEICONW extends Win32Struct
 
     /**
      * The window that owns the dialog box. This member should not be **NULL**.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hWndOwner {
         get => NumGet(this, 8, "ptr")
@@ -54,7 +54,7 @@ class OLEUICHANGEICONW extends Win32Struct
 
     /**
      * Pointer to a string to be used as the title of the dialog box. If **NULL**, then the library uses **Change Icon**.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpszCaption {
         get => NumGet(this, 16, "ptr")
@@ -81,7 +81,7 @@ class OLEUICHANGEICONW extends Win32Struct
 
     /**
      * Instance that contains a dialog box template specified by the **lpTemplateName** member.
-     * @type {Pointer<HINSTANCE>}
+     * @type {Pointer<Void>}
      */
     hInstance {
         get => NumGet(this, 40, "ptr")
@@ -90,7 +90,7 @@ class OLEUICHANGEICONW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of the resource file for the dialog box template that is to be substituted for the library's **Change Icon** dialog box template.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpszTemplate {
         get => NumGet(this, 48, "ptr")
@@ -99,7 +99,7 @@ class OLEUICHANGEICONW extends Win32Struct
 
     /**
      * Customized template handle.
-     * @type {Pointer<HRSRC>}
+     * @type {Pointer<Void>}
      */
     hResource {
         get => NumGet(this, 56, "ptr")
@@ -108,7 +108,7 @@ class OLEUICHANGEICONW extends Win32Struct
 
     /**
      * Current and final image. The source of the icon is embedded in the metafile itself.
-     * @type {Pointer<HGLOBAL>}
+     * @type {Pointer<Void>}
      */
     hMetaPict {
         get => NumGet(this, 64, "ptr")

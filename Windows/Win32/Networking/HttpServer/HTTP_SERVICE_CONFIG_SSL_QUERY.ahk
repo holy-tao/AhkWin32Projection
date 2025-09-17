@@ -25,7 +25,7 @@ class HTTP_SERVICE_CONFIG_SSL_QUERY extends Win32Struct
     /**
      * If the <i>QueryDesc</i> parameter is equal to <b>HttpServiceConfigQueryExact</b>, then <i>KeyDesc</i> should contain an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_service_config_ssl_key">HTTP_SERVICE_CONFIG_SSL_KEY</a> structure that identifies the SSL certificate record queried. If the <i>QueryDesc</i> parameter is equal to HTTPServiceConfigQueryNext, then <i>KeyDesc</i> is ignored.
-     * @type {Pointer<HTTP_SERVICE_CONFIG_SSL_KEY>}
+     * @type {Pointer<TypeHandle>}
      */
     KeyDesc {
         get => NumGet(this, 8, "ptr")

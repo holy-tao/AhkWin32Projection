@@ -25,7 +25,7 @@ class NATLANGUAGERESTRICTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwcsPhrase {
         get => NumGet(this, 16, "ptr")

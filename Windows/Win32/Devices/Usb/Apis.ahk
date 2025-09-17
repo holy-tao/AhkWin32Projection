@@ -2713,8 +2713,8 @@ class Usb {
      * The handle received in the <i>InterfaceHandle</i> parameter is a pointer to the memory block allocated for the first interface in the array. 
      * 
      * If an application wants to use another interface on the device, it must call <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>,  specify the index of the interface, and retrieve a handle to the  memory block allocated for the specified interface.
-     * @param {Pointer<HANDLE>} DeviceHandle The handle to the device that <b>CreateFile</b> returned. WinUSB uses overlapped I/O, so FILE_FLAG_OVERLAPPED must be specified in the <i>dwFlagsAndAttributes</i> parameter of <b>CreateFile</b> call for <i>DeviceHandle</i> to have the characteristics necessary for <b>WinUsb_Initialize</b> to function properly.
-     * @param {Pointer<WINUSB_INTERFACE_HANDLE>} InterfaceHandle Receives an opaque handle to the first (default) interface on the device. This handle is required by other WinUSB routines that perform operations on the default interface. To release the handle, call the <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_free">WinUSB_Free</a> function.
+     * @param {Pointer<Void>} DeviceHandle The handle to the device that <b>CreateFile</b> returned. WinUSB uses overlapped I/O, so FILE_FLAG_OVERLAPPED must be specified in the <i>dwFlagsAndAttributes</i> parameter of <b>CreateFile</b> call for <i>DeviceHandle</i> to have the characteristics necessary for <b>WinUsb_Initialize</b> to function properly.
+     * @param {Pointer<Void>} InterfaceHandle Receives an opaque handle to the first (default) interface on the device. This handle is required by other WinUSB routines that perform operations on the default interface. To release the handle, call the <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_free">WinUSB_Free</a> function.
      * @returns {Integer} <b>WinUsb_Initialize</b> returns <b>TRUE</b> if the operation succeeds. Otherwise, this routine returns <b>FALSE</b>, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * 
      * 
@@ -2775,7 +2775,7 @@ class Usb {
 
     /**
      * The WinUsb_Free function releases all of the resources that WinUsb_Initialize allocated. This is a synchronous operation.
-     * @param {Pointer<WINUSB_INTERFACE_HANDLE>} InterfaceHandle An opaque handle to an interface in the selected configuration. That handle must be created by a previous call to  <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
+     * @param {Pointer<Void>} InterfaceHandle An opaque handle to an interface in the selected configuration. That handle must be created by a previous call to  <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
      * @returns {Integer} <b>WinUsb_Free</b> returns <b>TRUE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_free
      */
@@ -2794,9 +2794,9 @@ class Usb {
      * The handle that <b>WinUsb_GetAssociatedInterface</b> returns must be released by calling <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_free">WinUsb_Free</a>.
      * 
      * Callers of <b>WinUsb_GetAssociatedInterface</b> can retrieve only one handle for each interface. If a caller attempts to retrieve more than one handle for the same interface, the routine will fail with an error of ERROR_ALREADY_EXISTS.
-     * @param {Pointer<WINUSB_INTERFACE_HANDLE>} InterfaceHandle An opaque handle to the first (default) interface on the device, which is returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>.
+     * @param {Pointer<Void>} InterfaceHandle An opaque handle to the first (default) interface on the device, which is returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>.
      * @param {Integer} AssociatedInterfaceIndex An index that specifies the associated interface to retrieve. A value of 0 indicates the first associated interface, a value of 1 indicates the second associated interface, and so on.
-     * @param {Pointer<WINUSB_INTERFACE_HANDLE>} AssociatedInterfaceHandle A handle for the associated interface. Callers must pass this interface handle to <a href="https://docs.microsoft.com/windows/iot-core/learn-about-hardware/hardwarecompatlist">WinUSB Functions</a> exposed by Winusb.dll. To close this handle, call <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_free">WinUsb_Free</a>.
+     * @param {Pointer<Void>} AssociatedInterfaceHandle A handle for the associated interface. Callers must pass this interface handle to <a href="https://docs.microsoft.com/windows/iot-core/learn-about-hardware/hardwarecompatlist">WinUSB Functions</a> exposed by Winusb.dll. To close this handle, call <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_free">WinUsb_Free</a>.
      * @returns {Integer} <b>WinUsb_GetAssociatedInterface</b> returns <b>TRUE</b> if the operation succeeds. Otherwise, this routine returns <b>FALSE</b>, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * 
      * <table>
@@ -2877,7 +2877,7 @@ class Usb {
      * The WinUsb_GetDescriptor function returns the requested descriptor. This is a synchronous operation.
      * @remarks
      * If the output buffer pointed to by  the  <i>Buffer</i> parameter is large enough, <b>WinUsb_GetDescriptor</b> creates a copy of the specified descriptor into the output buffer. No data is copied if the buffer is not large enough to hold descriptor data.  The descriptor is created during the <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a> call or it may be retrieved at this point from the device.
-     * @param {Pointer<WINUSB_INTERFACE_HANDLE>} InterfaceHandle An opaque handle to an interface in the selected configuration. 
+     * @param {Pointer<Void>} InterfaceHandle An opaque handle to an interface in the selected configuration. 
      * 
      * To retrieve the device or configuration descriptor, use the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>.
      * 
@@ -2889,7 +2889,7 @@ class Usb {
      * @param {Integer} DescriptorType A value that specifies the type of descriptor to return. This parameter corresponds to the <b>bDescriptorType</b> field of a standard device descriptor, whose values are described in the <i>Universal Serial Bus </i> specification. Some of these values are listed in the description of the <b>DescriptorType</b> member of the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/usb/ns-usb-_urb_control_descriptor_request">_URB_CONTROL_DESCRIPTOR_REQUEST</a> structure.
      * @param {Integer} Index The descriptor index. For an explanation of the descriptor index, see the <i>Universal Serial Bus</i> specification (www.usb.org).
      * @param {Integer} LanguageID A value that specifies the language identifier, if the requested descriptor is a string descriptor.
-     * @param {Pointer<Byte>} Buffer A caller-allocated buffer that receives the requested descriptor.
+     * @param {Pointer} Buffer A caller-allocated buffer that receives the requested descriptor.
      * @param {Integer} BufferLength The length, in bytes, of <i>Buffer</i>.
      * @param {Pointer<UInt32>} LengthTransferred The number of bytes that were copied into <i>Buffer</i>.
      * @returns {Integer} <b>WinUsb_GetDescriptor</b> returns <b>TRUE</b> if the operation succeeds. Otherwise, this routine returns <b>FALSE</b>, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
@@ -2921,7 +2921,7 @@ class Usb {
     static WinUsb_GetDescriptor(InterfaceHandle, DescriptorType, Index, LanguageID, Buffer, BufferLength, LengthTransferred) {
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_GetDescriptor", "ptr", InterfaceHandle, "char", DescriptorType, "char", Index, "ushort", LanguageID, "ptr", Buffer, "uint", BufferLength, "ptr", LengthTransferred, "int")
+        result := DllCall("WINUSB.dll\WinUsb_GetDescriptor", "ptr", InterfaceHandle, "char", DescriptorType, "char", Index, "ushort", LanguageID, "ptr", Buffer, "uint", BufferLength, "uint*", LengthTransferred, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2934,7 +2934,7 @@ class Usb {
      * <b>WinUsb_QueryInterfaceSettings</b> parses the configuration descriptor previously retrieved by  <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>. For more information, see the Remarks section for <b>WinUsb_Initialize</b>. 
      * 
      * The <b>WinUsb_QueryInterfaceSettings</b> call searches the interface array for the alternate interface specified by the interface index passed by the caller in the <i>AlternateSettingNumber</i>. If the specified interface is found, the function populates the caller-allocated <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/usbspec/ns-usbspec-_usb_interface_descriptor">USB_INTERFACE_DESCRIPTOR</a> structure. If the specified interface is not found, then the call fails with the ERROR_NO_MORE_ITEMS code.
-     * @param {Pointer<WINUSB_INTERFACE_HANDLE>} InterfaceHandle An opaque handle to an interface in the selected configuration. 
+     * @param {Pointer<Void>} InterfaceHandle An opaque handle to an interface in the selected configuration. 
      * 
      * To retrieve the settings of the first interface, use the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>. For all other interfaces, use the handle to the target interface, retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
      * @param {Integer} AlternateInterfaceNumber A value that indicates which alternate settings to return. A value of 0 indicates the first alternate setting, a value of 1 indicates the second alternate setting, and so on.
@@ -2988,12 +2988,12 @@ class Usb {
 
     /**
      * The WinUsb_QueryDeviceInformation function gets information about the physical device that is associated with a WinUSB interface handle.
-     * @param {Pointer<WINUSB_INTERFACE_HANDLE>} InterfaceHandle An opaque handle to the first interface on the device, which is returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>.
+     * @param {Pointer<Void>} InterfaceHandle An opaque handle to the first interface on the device, which is returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>.
      * @param {Integer} InformationType A value that specifies which interface information value to retrieve.
      * 
      * On input, <i>InformationType</i> must have the following value: DEVICE_SPEED (0x01).
      * @param {Pointer<UInt32>} BufferLength The maximum number of bytes to read. This number must be less than or equal to the size, in bytes, of <i>Buffer</i>. On output, <i>BufferLength</i> is set to the actual number of bytes that were copied into <i>Buffer</i>.
-     * @param {Pointer<Void>} Buffer A caller-allocated buffer that receives the requested value.
+     * @param {Pointer} Buffer A caller-allocated buffer that receives the requested value.
      * 
      * If <i>InformationType</i> is DEVICE_SPEED, on successful return, <i>Buffer</i> indicates the operating speed of the device. 0x03 indicates high-speed or higher; 0x01 indicates full-speed or lower.
      * @returns {Integer} <b>WinUsb_QueryDeviceInformation</b> returns <b>TRUE</b> if the operation succeeds. Otherwise, this routine returns <b>FALSE</b>, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
@@ -3025,7 +3025,7 @@ class Usb {
     static WinUsb_QueryDeviceInformation(InterfaceHandle, InformationType, BufferLength, Buffer) {
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_QueryDeviceInformation", "ptr", InterfaceHandle, "uint", InformationType, "ptr", BufferLength, "ptr", Buffer, "int")
+        result := DllCall("WINUSB.dll\WinUsb_QueryDeviceInformation", "ptr", InterfaceHandle, "uint", InformationType, "uint*", BufferLength, "ptr", Buffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3036,7 +3036,7 @@ class Usb {
      * The WinUsb_SetCurrentAlternateSetting function sets the alternate setting of an interface.
      * @remarks
      * <b>WinUsb_SetCurrentAlternateSetting</b> fails if outstanding I/O requests are present on the interface.
-     * @param {Pointer<WINUSB_INTERFACE_HANDLE>} InterfaceHandle An opaque handle to an interface, which defines the alternate setting to set. 
+     * @param {Pointer<Void>} InterfaceHandle An opaque handle to an interface, which defines the alternate setting to set. 
      * 
      * To set an alternate setting in the first interface on the device, use the interface handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>. For all other interfaces, use the handle to the target interface, retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
      * @param {Integer} SettingNumber The value that is contained in the <b>bAlternateSetting</b> member of the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/usbspec/ns-usbspec-_usb_interface_descriptor">USB_INTERFACE_DESCRIPTOR</a> structure. This structure is populated by the <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_queryinterfacesettings">WinUsb_QueryInterfaceSettings</a> routine.
@@ -3078,7 +3078,7 @@ class Usb {
 
     /**
      * The WinUsb_GetCurrentAlternateSetting function gets the current alternate interface setting for an interface. This is a synchronous operation.
-     * @param {Pointer<WINUSB_INTERFACE_HANDLE>} InterfaceHandle An opaque handle to an interface in the selected configuration. To get the current alternate setting in the first (default) interface on the device, use the interface handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>. For all other interfaces, use the handle to the target interface, retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
+     * @param {Pointer<Void>} InterfaceHandle An opaque handle to an interface in the selected configuration. To get the current alternate setting in the first (default) interface on the device, use the interface handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>. For all other interfaces, use the handle to the target interface, retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
      * @param {Pointer<Byte>} SettingNumber A pointer to an unsigned character that receives an integer that indicates the current alternate setting.
      * @returns {Integer} <b>WinUsb_GetCurrentAlternateSetting</b> returns <b>TRUE</b> if the operation succeeds. Otherwise, this routine returns <b>FALSE</b>, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * 
@@ -3109,7 +3109,7 @@ class Usb {
     static WinUsb_GetCurrentAlternateSetting(InterfaceHandle, SettingNumber) {
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_GetCurrentAlternateSetting", "ptr", InterfaceHandle, "ptr", SettingNumber, "int")
+        result := DllCall("WINUSB.dll\WinUsb_GetCurrentAlternateSetting", "ptr", InterfaceHandle, "char*", SettingNumber, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3122,7 +3122,7 @@ class Usb {
      * The <b>WinUsb_QueryPipe</b> function does not retrieve information about the control pipe.
      * 
      * Each interface on the USB device can have multiple endpoints. To communicate with each of these endpoints, the bus driver creates pipes for each endpoint on the interface. The pipe indices are zero-based. Therefore for <i>n</i> number of endpoints, the pipes' indices are set from <i>n</i>-1. <b>WinUsb_QueryPipe</b> parses the configuration descriptor to get the interface specified by the caller.  It searches the interface descriptor  for the endpoint descriptor associated with the caller-specified pipe. If the endpoint is found, the function populates the caller-allocated <a href="https://docs.microsoft.com/windows/desktop/api/winusbio/ns-winusbio-winusb_pipe_information">WINUSB_PIPE_INFORMATION</a> structure with information from the endpoint descriptor.
-     * @param {Pointer<WINUSB_INTERFACE_HANDLE>} InterfaceHandle An opaque handle to an interface that contains the endpoint with which the pipe is associated.
+     * @param {Pointer<Void>} InterfaceHandle An opaque handle to an interface that contains the endpoint with which the pipe is associated.
      * 
      * To query the pipe associated with an endpoint in the first interface, use the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>. For all other interfaces, use the handle to the target interface, retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
      * @param {Integer} AlternateInterfaceNumber A value that specifies the alternate interface to return the information for.
@@ -3190,7 +3190,7 @@ class Usb {
      * The WinUsb_QueryPipeEx function retrieves extended information about the specified endpoint and the associated pipe for an interface.
      * @remarks
      * The <b>WinUsb_QueryPipeEx</b> function does not retrieve information about the control pipe.
-     * @param {Pointer<WINUSB_INTERFACE_HANDLE>} InterfaceHandle An opaque handle to an interface that contains the endpoint with which the pipe is associated.
+     * @param {Pointer<Void>} InterfaceHandle An opaque handle to an interface that contains the endpoint with which the pipe is associated.
      * 
      * To query the pipe associated with an endpoint in the first interface, use the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>. For all other interfaces, use the handle to the target interface, retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
      * @param {Integer} AlternateSettingNumber A value that specifies the alternate interface to return the information for.
@@ -3256,13 +3256,13 @@ class Usb {
 
     /**
      * The WinUsb_SetPipePolicy function sets the policy for a specific pipe associated with an endpoint on the device. This is a synchronous operation.
-     * @param {Pointer<WINUSB_INTERFACE_HANDLE>} InterfaceHandle An opaque handle to an interface that contains the endpoint with which the pipe is associated. 
+     * @param {Pointer<Void>} InterfaceHandle An opaque handle to an interface that contains the endpoint with which the pipe is associated. 
      * 
      * To set policy for the pipe associated with the endpoint in the first interface, use the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>. For all other interfaces, use the handle to the target interface, retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
      * @param {Integer} PipeID An 8-bit value that consists of a 7-bit address and a direction bit. This parameter corresponds to the <b>bEndpointAddress</b> field in the endpoint descriptor.
      * @param {Integer} PolicyType A <b>ULONG</b> variable that specifies the policy parameter to change. The <i>Value</i> parameter contains the new value for the policy parameter, defined in <i>winusbio.h</i>. For information about how to use each of the pipe policies and the resulting behavior, see <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/index">WinUSB Functions for Pipe Policy Modification</a>.
      * @param {Integer} ValueLength The size, in bytes, of the buffer at <i>Value</i>.
-     * @param {Pointer<Void>} Value The new value for the policy parameter that <i>PolicyType</i> specifies. The size of this input parameter depends on the policy to change. For information about the size of this parameter, see the description of the <i>PolicyType</i> parameter.
+     * @param {Pointer} Value The new value for the policy parameter that <i>PolicyType</i> specifies. The size of this input parameter depends on the policy to change. For information about the size of this parameter, see the description of the <i>PolicyType</i> parameter.
      * @returns {Integer} <b>WinUsb_SetPipePolicy</b> returns <b>TRUE</b> if the operation succeeds. Otherwise, this function returns <b>FALSE</b>, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * 
      * 
@@ -3323,13 +3323,13 @@ class Usb {
 
     /**
      * The WinUsb_GetPipePolicy function retrieves the policy for a specific pipe associated with an endpoint on the device. This is a synchronous operation.
-     * @param {Pointer<WINUSB_INTERFACE_HANDLE>} InterfaceHandle An opaque handle to an interface that contains the endpoint with which the pipe is associated.
+     * @param {Pointer<Void>} InterfaceHandle An opaque handle to an interface that contains the endpoint with which the pipe is associated.
      * 
      * To query the pipe associated with the endpoint in the first interface, use the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>. For all other interfaces, use the handle to the target interface, retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
      * @param {Integer} PipeID An 8-bit value that consists of a 7-bit address and a direction bit. This parameter corresponds to the <b>bEndpointAddress</b> field in the endpoint descriptor.
      * @param {Integer} PolicyType A <b>ULONG</b> variable that specifies the policy parameter to retrieve. The current value for the policy parameter is retrieved the <i>Value</i> parameter. For information about the behavior of the pipe policies, see <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/index">WinUSB Functions for Pipe Policy Modification</a>.
      * @param {Pointer<UInt32>} ValueLength A pointer to the size, in bytes, of the buffer that <i>Value</i> points to. On output, <i>ValueLength</i> receives the size, in bytes, of the data that was copied into the <i>Value </i> buffer.
-     * @param {Pointer<Void>} Value A pointer to a buffer that receives the specified pipe policy value.
+     * @param {Pointer} Value A pointer to a buffer that receives the specified pipe policy value.
      * @returns {Integer} <b>WinUsb_GetPipePolicy</b> returns <b>TRUE</b> if the operation succeeds. Otherwise, this routine returns <b>FALSE</b>, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * 
      * 
@@ -3359,7 +3359,7 @@ class Usb {
     static WinUsb_GetPipePolicy(InterfaceHandle, PipeID, PolicyType, ValueLength, Value) {
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_GetPipePolicy", "ptr", InterfaceHandle, "char", PipeID, "uint", PolicyType, "ptr", ValueLength, "ptr", Value, "int")
+        result := DllCall("WINUSB.dll\WinUsb_GetPipePolicy", "ptr", InterfaceHandle, "char", PipeID, "uint", PolicyType, "uint*", ValueLength, "ptr", Value, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3381,11 +3381,11 @@ class Usb {
      * <li>If the application specified a timeout value in the pipe policy and that timeout expires, <b>WinUsb_ReadPipe</b> returns  FALSE and <b>GetLastError</b> returns ERROR_SEM_TIMEOUT.</li>
      * <li>If an error condition occurs while reading data from the pipe, <b>WinUsb_ReadPipe</b> returns FALSE and <b>GetLastError</b> returns ERROR_GEN_FAILURE.</li>
      * </ul>
-     * @param {Pointer<WINUSB_INTERFACE_HANDLE>} InterfaceHandle An opaque handle to the interface that contains the endpoint with which the pipe is associated. 
+     * @param {Pointer<Void>} InterfaceHandle An opaque handle to the interface that contains the endpoint with which the pipe is associated. 
      * 
      * To read data from the pipe associated with an endpoint in the first interface, use the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>. For all other interfaces, use the handle to the target interface, retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
      * @param {Integer} PipeID <i>PipeID</i> corresponds to the <b>bEndpointAddress</b> field in the endpoint descriptor. For information about the layout of this field, see <b>Table 9-13</b> in "Universal Serial Bus Specification Revision 2.0" at <a href="https://www.microsoft.com/whdc/connect/usb/default.mspx">USB Technology</a>. In the <b>bEndpointAddress</b> field, Bit 7 indicates the direction of the endpoint: 0 for OUT; 1 for IN.
-     * @param {Pointer<Byte>} Buffer A caller-allocated buffer that receives the data that is read.
+     * @param {Pointer} Buffer A caller-allocated buffer that receives the data that is read.
      * @param {Integer} BufferLength The maximum number of bytes to read. This number must be less than or equal to the size, in bytes, of <i>Buffer</i>.
      * @param {Pointer<UInt32>} LengthTransferred A pointer to a ULONG variable that receives the actual number of bytes that were copied into <i>Buffer</i>. For more information, see Remarks.
      * @param {Pointer<OVERLAPPED>} Overlapped An optional pointer to an OVERLAPPED structure that is used for asynchronous operations. If this parameter is specified, <b>WinUsb_ReadPipe</b> returns immediately rather than waiting synchronously for the operation to complete before returning. An event is signaled when the operation is complete.
@@ -3451,7 +3451,7 @@ class Usb {
     static WinUsb_ReadPipe(InterfaceHandle, PipeID, Buffer, BufferLength, LengthTransferred, Overlapped) {
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_ReadPipe", "ptr", InterfaceHandle, "char", PipeID, "ptr", Buffer, "uint", BufferLength, "ptr", LengthTransferred, "ptr", Overlapped, "int")
+        result := DllCall("WINUSB.dll\WinUsb_ReadPipe", "ptr", InterfaceHandle, "char", PipeID, "ptr", Buffer, "uint", BufferLength, "uint*", LengthTransferred, "ptr", Overlapped, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3476,11 +3476,11 @@ class Usb {
      * If an application passes <b>NULL</b> in the <i>Overlapped</i> parameter (synchronous operation), it must ensure that <i>LengthTransferred</i> is not <b>NULL</b>, even when an operation produces no output data.
      * 
      * If <i>Overlapped</i> is not <b>NULL</b> (asynchronous operation),  <i>LengthTransferred</i> can be set to <b>NULL</b>. For an overlapped operation (and if <i>LengthTransferred</i> is a non-<b>NULL</b> value), the value received in <i>LengthTransferred</i> after <b>WinUsb_WritePipe</b> returns is meaningless until the overlapped operation has completed. To retrieve the actual number of bytes returned, call <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getoverlappedresult">WinUsb_GetOverlappedResult</a>.
-     * @param {Pointer<WINUSB_INTERFACE_HANDLE>} InterfaceHandle An opaque handle to the interface that contains the endpoint with which the pipe is associated. 
+     * @param {Pointer<Void>} InterfaceHandle An opaque handle to the interface that contains the endpoint with which the pipe is associated. 
      * 
      * To write to  a pipe that is associated with an endpoint in the first interface, use the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>. For all other interfaces, use the handle to the target interface, retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
      * @param {Integer} PipeID <i>PipeID</i> corresponds to the <b>bEndpointAddress</b> field in the endpoint descriptor. For information about the layout of this field, see <b>Table 9-13</b> in "Universal Serial Bus Specification Revision 2.0" at <a href="https://www.microsoft.com/whdc/connect/usb/default.mspx">USB Technology</a>. In the <b>bEndpointAddress</b> field, Bit 7 indicates the direction of the endpoint: 0 for OUT; 1 for IN.
-     * @param {Pointer<Byte>} Buffer A caller-allocated buffer that contains the data to write.
+     * @param {Pointer} Buffer A caller-allocated buffer that contains the data to write.
      * @param {Integer} BufferLength The number of bytes to write. This number must be less than or equal to the size, in bytes, of <i>Buffer</i>.
      * @param {Pointer<UInt32>} LengthTransferred A pointer to a ULONG variable that receives the actual number of bytes that were written to the pipe. For more information, see Remarks.
      * @param {Pointer<OVERLAPPED>} Overlapped An optional pointer to an OVERLAPPED structure, which is used for asynchronous operations. If this parameter is specified, <b>WinUsb_WritePipe</b> immediately returns, and the event is signaled when the operation is complete.
@@ -3546,7 +3546,7 @@ class Usb {
     static WinUsb_WritePipe(InterfaceHandle, PipeID, Buffer, BufferLength, LengthTransferred, Overlapped) {
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_WritePipe", "ptr", InterfaceHandle, "char", PipeID, "ptr", Buffer, "uint", BufferLength, "ptr", LengthTransferred, "ptr", Overlapped, "int")
+        result := DllCall("WINUSB.dll\WinUsb_WritePipe", "ptr", InterfaceHandle, "char", PipeID, "ptr", Buffer, "uint", BufferLength, "uint*", LengthTransferred, "ptr", Overlapped, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3571,11 +3571,11 @@ class Usb {
      * If the recipient of the request is an interface, the application must set the lowest two bits of <b>RequestType</b> to 0x01. The application is not required to set the lower byte of <b>Index</b> for any type of request. For  standard, class, and vendor requests,  Winusb.sys sets the value to the interface number of the target interface. The <i>InterfaceHandle</i> must be associated with the target interface. The application can obtain that handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
      * 
      * If the recipient is an endpoint, the application must set the lowest two bits of <b>RequestType</b> to 0x02 and lower byte of Index to the endpoint address. In this case, <i>InterfaceHandle</i> is associated with the interface that contains the endpoint. The application can obtain that handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
-     * @param {Pointer<WINUSB_INTERFACE_HANDLE>} InterfaceHandle An opaque handle to an interface in the selected configuration. 
+     * @param {Pointer<Void>} InterfaceHandle An opaque handle to an interface in the selected configuration. 
      * 
      * To specify the recipient of  a control request as the entire device or the first interface, use the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>. For all other interfaces, obtain the handle to the target interface by calling <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>, and then call <b>WinUsb_ControlTransfer</b> by specifying the obtained interface handle.
      * @param {Pointer} SetupPacket The 8-byte setup packet of type <a href="https://docs.microsoft.com/windows/desktop/api/winusb/ns-winusb-winusb_setup_packet">WINUSB_SETUP_PACKET</a>.
-     * @param {Pointer<Byte>} Buffer A caller-allocated buffer that contains the data to transfer. The length of this buffer must not exceed 4KB.
+     * @param {Pointer} Buffer A caller-allocated buffer that contains the data to transfer. The length of this buffer must not exceed 4KB.
      * @param {Integer} BufferLength The number of bytes to transfer, not including the setup packet. This number must be less than or equal to the size, in bytes, of <i>Buffer</i>.
      * @param {Pointer<UInt32>} LengthTransferred A pointer to a ULONG variable that receives the actual number of transferred bytes. If the application does not expect any data to be transferred during the
      *         data phase (<i>BufferLength</i> is zero),  <i>LengthTransferred</i> can be <b>NULL</b>.
@@ -3620,7 +3620,7 @@ class Usb {
     static WinUsb_ControlTransfer(InterfaceHandle, SetupPacket, Buffer, BufferLength, LengthTransferred, Overlapped) {
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_ControlTransfer", "ptr", InterfaceHandle, "ptr", SetupPacket, "ptr", Buffer, "uint", BufferLength, "ptr", LengthTransferred, "ptr", Overlapped, "int")
+        result := DllCall("WINUSB.dll\WinUsb_ControlTransfer", "ptr", InterfaceHandle, "ptr", SetupPacket, "ptr", Buffer, "uint", BufferLength, "uint*", LengthTransferred, "ptr", Overlapped, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3629,7 +3629,7 @@ class Usb {
 
     /**
      * The WinUsb_ResetPipe function resets the data toggle and clears the stall condition on a pipe.
-     * @param {Pointer<WINUSB_INTERFACE_HANDLE>} InterfaceHandle An opaque handle to the interface that contains the endpoint with which the pipe is associated. 
+     * @param {Pointer<Void>} InterfaceHandle An opaque handle to the interface that contains the endpoint with which the pipe is associated. 
      * 
      * To reset a pipe associated with an endpoint in the first interface, use the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>. For all other interfaces, use the handle to the target interface, retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
      * @param {Integer} PipeID The identifier (ID) of the control pipe. The <i>PipeID</i> parameter is an 8-bit value that consists in a 7-bit address and a direction bit. This parameter corresponds to the <b>bEndpointAddress</b> field in the endpoint descriptor.
@@ -3671,7 +3671,7 @@ class Usb {
 
     /**
      * The WinUsb_AbortPipe function aborts all of the pending transfers for a pipe. This is a synchronous operation.
-     * @param {Pointer<WINUSB_INTERFACE_HANDLE>} InterfaceHandle An opaque handle to an interface that contains the endpoint with which the pipe is associated.
+     * @param {Pointer<Void>} InterfaceHandle An opaque handle to an interface that contains the endpoint with which the pipe is associated.
      * 
      * To abort transfers on the pipe associated with the endpoint in the first interface, use the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>. For all other interfaces, use the handle to the target interface, retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
      * @param {Integer} PipeID The identifier (ID) of the control pipe. The <i>PipeID</i> parameter is an 8-bit value that consists of a 7-bit address and a direction bit. This parameter corresponds to the <b>bEndpointAddress</b> field in the endpoint descriptor.
@@ -3713,7 +3713,7 @@ class Usb {
 
     /**
      * The WinUsb_FlushPipe function discards any data that is cached in a pipe. This is a synchronous operation.
-     * @param {Pointer<WINUSB_INTERFACE_HANDLE>} InterfaceHandle An opaque handle to the interface with which the specified pipe's endpoint is associated. To clear data in a pipe that is associated with the endpoint on the first (default) interface, use the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>. For all other interfaces, use the handle to the target interface, retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
+     * @param {Pointer<Void>} InterfaceHandle An opaque handle to the interface with which the specified pipe's endpoint is associated. To clear data in a pipe that is associated with the endpoint on the first (default) interface, use the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>. For all other interfaces, use the handle to the target interface, retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
      * @param {Integer} PipeID The identifier (ID) of the control pipe. The <i>PipeID</i> parameter is an 8-bit value that consists of a 7-bit address and a direction bit. This parameter corresponds to the <b>bEndpointAddress</b> field in the endpoint descriptor.
      * @returns {Integer} <b>WinUsb_FlushPipe</b> returns <b>TRUE</b> if the operation succeeds. Otherwise, this routine returns <b>FALSE</b>, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * 
@@ -3774,7 +3774,7 @@ class Usb {
      * 
      * </li>
      * </ul>
-     * @param {Pointer<WINUSB_INTERFACE_HANDLE>} InterfaceHandle An opaque handle to the first (default) interface on the device, which is returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>.
+     * @param {Pointer<Void>} InterfaceHandle An opaque handle to the first (default) interface on the device, which is returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>.
      * @param {Integer} PolicyType A value that specifies the power policy to set. The following table describes symbolic constants that are defined in winusbio.h. 
      * 
      * <table>
@@ -3820,7 +3820,7 @@ class Usb {
      * </tr>
      * </table>
      * @param {Integer} ValueLength The size, in bytes, of the buffer at <i>Value</i>.
-     * @param {Pointer<Void>} Value The new value for the power policy parameter. Datatype and value for <i>Value</i> depends on the type of power policy passed in <i>PolicyType</i>. For more information, see <i>PolicyType</i>.
+     * @param {Pointer} Value The new value for the power policy parameter. Datatype and value for <i>Value</i> depends on the type of power policy passed in <i>PolicyType</i>. For more information, see <i>PolicyType</i>.
      * @returns {Integer} <b>WinUsb_SetPowerPolicy</b> returns <b>TRUE</b> if the operation succeeds. Otherwise, this function returns <b>FALSE</b>, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * 
      * 
@@ -3881,7 +3881,7 @@ class Usb {
 
     /**
      * The WinUsb_GetPowerPolicy function retrieves the power policy for a device. This is a synchronous operation.
-     * @param {Pointer<WINUSB_INTERFACE_HANDLE>} InterfaceHandle An opaque handle to the first interface on the device, which is returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>.
+     * @param {Pointer<Void>} InterfaceHandle An opaque handle to the first interface on the device, which is returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>.
      * @param {Integer} PolicyType A value that specifies the power policy parameter to retrieve in <i>Value</i>. The following table describes symbolic constants that are defined in <i>Winusbio.h</i>. 
      * 
      * <table>
@@ -3925,7 +3925,7 @@ class Usb {
      * </tr>
      * </table>
      * @param {Pointer<UInt32>} ValueLength A pointer to the size of the buffer that <i>Value</i>. On output, <i>ValueLength</i> receives the size of the data that was copied into the <i>Value </i> buffer.
-     * @param {Pointer<Void>} Value A buffer that receives the specified power policy parameter. For more information, see <i>PolicyType</i>.
+     * @param {Pointer} Value A buffer that receives the specified power policy parameter. For more information, see <i>PolicyType</i>.
      * @returns {Integer} <b>WinUsb_GetPowerPolicy</b> returns <b>TRUE</b> if the operation succeeds. Otherwise, this routine returns <b>FALSE</b>, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * 
      * 
@@ -3955,7 +3955,7 @@ class Usb {
     static WinUsb_GetPowerPolicy(InterfaceHandle, PolicyType, ValueLength, Value) {
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_GetPowerPolicy", "ptr", InterfaceHandle, "uint", PolicyType, "ptr", ValueLength, "ptr", Value, "int")
+        result := DllCall("WINUSB.dll\WinUsb_GetPowerPolicy", "ptr", InterfaceHandle, "uint", PolicyType, "uint*", ValueLength, "ptr", Value, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3974,7 +3974,7 @@ class Usb {
      * If the <i>bWait</i> parameter is <b>TRUE</b>, <b>WinUsb_GetOverlappedResult</b> determines whether the pending operation has been completed by waiting for the event object to be in the signaled state.
      * 
      * If the <b>hEvent</b> member of the <b>OVERLAPPED</b> structure is <b>NULL</b>, the system uses the state of the file handle to signal when the operation has been completed. Do not use file handles for this purpose. It is better to use an event object because of the confusion that can occur when multiple concurrent overlapped operations are performed on the same file. In this situation, you cannot know which operation caused the state of the object to be signaled.
-     * @param {Pointer<WINUSB_INTERFACE_HANDLE>} InterfaceHandle An opaque handle to the first interface on the device, which is returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>.
+     * @param {Pointer<Void>} InterfaceHandle An opaque handle to the first interface on the device, which is returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>.
      * @param {Pointer<OVERLAPPED>} lpOverlapped A pointer to an <b>OVERLAPPED</b> structure that was specified when the overlapped operation was started.
      * @param {Pointer<UInt32>} lpNumberOfBytesTransferred A pointer to a variable that receives the number of bytes that were actually transferred by a read or write operation.
      * @param {Integer} bWait If this parameter is <b>TRUE</b>, the function does not return until the operation has been completed. If this parameter is <b>FALSE</b> and the operation is still pending, the function returns <b>FALSE</b> and the <b>GetLastError</b> function returns ERROR_IO_INCOMPLETE.
@@ -3984,7 +3984,7 @@ class Usb {
     static WinUsb_GetOverlappedResult(InterfaceHandle, lpOverlapped, lpNumberOfBytesTransferred, bWait) {
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_GetOverlappedResult", "ptr", InterfaceHandle, "ptr", lpOverlapped, "ptr", lpNumberOfBytesTransferred, "int", bWait, "int")
+        result := DllCall("WINUSB.dll\WinUsb_GetOverlappedResult", "ptr", InterfaceHandle, "ptr", lpOverlapped, "uint*", lpNumberOfBytesTransferred, "int", bWait, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4014,7 +4014,7 @@ class Usb {
 
     /**
      * 
-     * @param {Pointer<Void>} DescriptorBuffer 
+     * @param {Pointer} DescriptorBuffer 
      * @param {Integer} TotalLength 
      * @param {Pointer<Void>} StartPosition 
      * @param {Integer} DescriptorType 
@@ -4034,7 +4034,7 @@ class Usb {
      * The WinUsb_GetCurrentFrameNumber function gets the current frame number for the bus.
      * @remarks
      * The caller may compare the PerformanceCount with the value returned by the Win32 function <a href="https://docs.microsoft.com/windows/desktop/api/profileapi/nf-profileapi-queryperformancecounter">QueryPerformanceCounter</a> to determine if there has been a delay in transitioning back to user-mode after the frame number was read.  The caller can then adjust the starting frame number as needed.
-     * @param {Pointer<WINUSB_INTERFACE_HANDLE>} InterfaceHandle The handle to the device that <b>CreateFile</b> returned.
+     * @param {Pointer<Void>} InterfaceHandle The handle to the device that <b>CreateFile</b> returned.
      * @param {Pointer<UInt32>} CurrentFrameNumber The current frame number value.
      * @param {Pointer<Int64>} TimeStamp The time stamp value when the current frame was read.
      * @returns {Integer} <b>WinUsb_GetCurrentFrameNumber</b> returns TRUE if the operation succeeds.  Otherwise this function returns FALSE, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
@@ -4044,7 +4044,7 @@ class Usb {
     static WinUsb_GetCurrentFrameNumber(InterfaceHandle, CurrentFrameNumber, TimeStamp) {
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_GetCurrentFrameNumber", "ptr", InterfaceHandle, "ptr", CurrentFrameNumber, "ptr", TimeStamp, "int")
+        result := DllCall("WINUSB.dll\WinUsb_GetCurrentFrameNumber", "ptr", InterfaceHandle, "uint*", CurrentFrameNumber, "int64*", TimeStamp, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4062,7 +4062,7 @@ class Usb {
     static WinUsb_GetAdjustedFrameNumber(CurrentFrameNumber, TimeStamp) {
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_GetAdjustedFrameNumber", "ptr", CurrentFrameNumber, "int64", TimeStamp, "int")
+        result := DllCall("WINUSB.dll\WinUsb_GetAdjustedFrameNumber", "uint*", CurrentFrameNumber, "int64", TimeStamp, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4073,9 +4073,9 @@ class Usb {
      * The WinUsb_RegisterIsochBuffer function registers a buffer to be used for isochronous transfers.
      * @remarks
      * Prior to initiating isochronous transfers to or from a buffer, the caller must register the buffer with <b>WinUsb_RegisterIsochBuffer</b>.  This call allows the Winusb.sys to pre-map and lock the buffer after for all subsequent transfers using the buffer.
-     * @param {Pointer<WINUSB_INTERFACE_HANDLE>} InterfaceHandle An opaque handle to an interface in the selected configuration. That handle must be created by a previous call to  <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
+     * @param {Pointer<Void>} InterfaceHandle An opaque handle to an interface in the selected configuration. That handle must be created by a previous call to  <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
      * @param {Integer} PipeID Derived from Bit 3...0 of the <b>bEndpointAddress</b> field in the endpoint descriptor.
-     * @param {Pointer<Byte>} Buffer Pointer to the transfer buffer to be registered.
+     * @param {Pointer} Buffer Pointer to the transfer buffer to be registered.
      * @param {Integer} BufferLength Length, in bytes, of the transfer buffer pointed to by <i>Buffer</i>.
      * @param {Pointer<Void>} IsochBufferHandle Receives an opaque handle to the registered buffer. This handle is required by other WinUSB functions that perform isochronous transfers. To release the handle, call the <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_unregisterisochbuffer">WinUsb_UnregisterIsochBuffer</a> function.
      * @returns {Integer} <b>WinUsb_RegisterIsochBuffer</b> returns TRUE if the operation succeeds.  Otherwise this function returns FALSE, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
@@ -4133,7 +4133,7 @@ class Usb {
     static WinUsb_WriteIsochPipe(BufferHandle, Offset, Length, FrameNumber, Overlapped) {
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_WriteIsochPipe", "ptr", BufferHandle, "uint", Offset, "uint", Length, "ptr", FrameNumber, "ptr", Overlapped, "int")
+        result := DllCall("WINUSB.dll\WinUsb_WriteIsochPipe", "ptr", BufferHandle, "uint", Offset, "uint", Length, "uint*", FrameNumber, "ptr", Overlapped, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4162,7 +4162,7 @@ class Usb {
     static WinUsb_ReadIsochPipe(BufferHandle, Offset, Length, FrameNumber, NumberOfPackets, IsoPacketDescriptors, Overlapped) {
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_ReadIsochPipe", "ptr", BufferHandle, "uint", Offset, "uint", Length, "ptr", FrameNumber, "uint", NumberOfPackets, "ptr", IsoPacketDescriptors, "ptr", Overlapped, "int")
+        result := DllCall("WINUSB.dll\WinUsb_ReadIsochPipe", "ptr", BufferHandle, "uint", Offset, "uint", Length, "uint*", FrameNumber, "uint", NumberOfPackets, "ptr", IsoPacketDescriptors, "ptr", Overlapped, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4238,7 +4238,7 @@ class Usb {
 
     /**
      * The WinUsb_StartTrackingForTimeSync function starts the time synchronization feature in the USB driver stack that gets the associated system QPC time for USB bus frames and microframes.
-     * @param {Pointer<WINUSB_INTERFACE_HANDLE>} InterfaceHandle An opaque handle retrieved in the previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>.
+     * @param {Pointer<Void>} InterfaceHandle An opaque handle retrieved in the previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>.
      * @param {Pointer<USB_START_TRACKING_FOR_TIME_SYNC_INFORMATION>} StartTrackingInfo A pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/usbioctl/ns-usbioctl-_usb_start_tracking_for_time_sync_information">USB_START_TRACKING_FOR_TIME_SYNC_INFORMATION</a> structure. Set <b>TimeTrackingHandle</b> to INAVLID_HANDLE.
      * Set <b>IsStartupDelayTolerable</b> to TRUE if the initial startup latency of up to 2.048 seconds is tolerable. FALSE, the registration is delayed until the USB driver stack is able to detect a valid frame or microframe boundary.
      * @returns {Integer} <b>WinUsb_StartTrackingForTimeSync</b> returns <b>TRUE</b> if the operation succeeds. Otherwise, this routine returns <b>FALSE</b>, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
@@ -4280,7 +4280,7 @@ class Usb {
 
     /**
      * The WinUsb_GetCurrentFrameNumberAndQpc function retrieves the system query performance counter (QPC) value synchronized with the frame and microframe.
-     * @param {Pointer<WINUSB_INTERFACE_HANDLE>} InterfaceHandle An opaque handle retrieved in the previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>.
+     * @param {Pointer<Void>} InterfaceHandle An opaque handle retrieved in the previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>.
      * @param {Pointer<USB_FRAME_NUMBER_AND_QPC_FOR_TIME_SYNC_INFORMATION>} FrameQpcInfo A pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/usbioctl/ns-usbioctl-_usb_frame_number_and_qpc_for_time_sync_information">USB_FRAME_NUMBER_AND_QPC_FOR_TIME_SYNC_INFORMATION</a> structure. On output, <b>CurrentQueryPerformanceCounter</b> set to the system QPC  value (in microseconds) predicted by the USB driver stack. Optionally, on input, the caller can specify a frame and microframe number for which to retrieve the QPC value. 
      * 
      * On output, the <b>QueryPerformanceCounterAtInputFrameOrMicroFrame</b> member  is set to the QPC value for that frame or microframe.
@@ -4323,8 +4323,8 @@ class Usb {
 
     /**
      * The WinUsb_StopTrackingForTimeSync function tops the time synchronization feature in the USB driver stack that gets the associated system QPC time for USB bus frames and microframes.
-     * @param {Pointer<WINUSB_INTERFACE_HANDLE>} InterfaceHandle An opaque handle retrieved in the previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>.
-     * @param {Pointer<HANDLE>} StopTrackingInfo A pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/usbioctl/ns-usbioctl-_usb_stop_tracking_for_time_sync_information">USB_STOP_TRACKING_FOR_TIME_SYNC_INFORMATION</a> structure. Set <b>TimeTrackingHandle</b> to the handle received in the previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_starttrackingfortimesync">WinUsb_StartTrackingForTimeSync</a>.
+     * @param {Pointer<Void>} InterfaceHandle An opaque handle retrieved in the previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>.
+     * @param {Pointer<Void>} StopTrackingInfo A pointer to a <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/usbioctl/ns-usbioctl-_usb_stop_tracking_for_time_sync_information">USB_STOP_TRACKING_FOR_TIME_SYNC_INFORMATION</a> structure. Set <b>TimeTrackingHandle</b> to the handle received in the previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_starttrackingfortimesync">WinUsb_StartTrackingForTimeSync</a>.
      * @returns {Integer} <b>WinUsb_StopTrackingForTimeSync</b> returns <b>TRUE</b> if the operation succeeds. Otherwise, this routine returns <b>FALSE</b>, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * 
      * 

@@ -20,7 +20,7 @@ class CAC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pElems {
         get => NumGet(this, 8, "ptr")

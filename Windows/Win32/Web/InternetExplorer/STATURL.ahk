@@ -21,7 +21,7 @@ class STATURL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwcsUrl {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +29,7 @@ class STATURL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwcsTitle {
         get => NumGet(this, 16, "ptr")

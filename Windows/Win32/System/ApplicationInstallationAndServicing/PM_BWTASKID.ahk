@@ -20,7 +20,7 @@ class PM_BWTASKID extends Win32Struct
     }
 
     /**
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     TaskID {
         get => NumGet(this, 8, "ptr")

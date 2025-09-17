@@ -1722,7 +1722,7 @@ class WindowsMediaFormat {
 ;@region Methods
     /**
      * The WMIsContentProtected function checks a file for DRM-protected content. This function is a shortcut so that your application can quickly identify protected files.
-     * @param {Pointer<PWSTR>} pwszFileName Pointer to a wide-character <b>null</b>-terminated string containing the name of the file to check for DRM-protected content.
+     * @param {Pointer<Char>} pwszFileName Pointer to a wide-character <b>null</b>-terminated string containing the name of the file to check for DRM-protected content.
      * @param {Pointer<Int32>} pfIsProtected Pointer to a Boolean value that is set to True on function return if the file contains DRM-protected content.
      * @returns {Integer} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -1771,7 +1771,7 @@ class WindowsMediaFormat {
     static WMIsContentProtected(pwszFileName, pfIsProtected) {
         pwszFileName := pwszFileName is String? StrPtr(pwszFileName) : pwszFileName
 
-        result := DllCall("WMVCore.dll\WMIsContentProtected", "ptr", pwszFileName, "ptr", pfIsProtected, "int")
+        result := DllCall("WMVCore.dll\WMIsContentProtected", "ptr", pwszFileName, "int*", pfIsProtected, "int")
         return result
     }
 

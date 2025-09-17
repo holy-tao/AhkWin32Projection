@@ -16,7 +16,7 @@ class DS_REPL_ATTR_META_DATA_2 extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the LDAP display name of the attribute that corresponds to this metadata.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszAttributeName {
         get => NumGet(this, 0, "ptr")
@@ -73,7 +73,7 @@ class DS_REPL_ATTR_META_DATA_2 extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the distinguished name of the directory system agent server that originated the last replication.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszLastOriginatingDsaDN {
         get => NumGet(this, 48, "ptr")

@@ -16,7 +16,7 @@ class DS_REPL_NEIGHBORW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the naming context to which this replication state data pertains. Each naming context is replicated independently and has different associated neighbor data, even if the naming contexts are replicated from the same source server.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszNamingContext {
         get => NumGet(this, 0, "ptr")
@@ -25,7 +25,7 @@ class DS_REPL_NEIGHBORW extends Win32Struct
 
     /**
      * Pointer to  a null-terminated string that contains the distinguished name of the directory service agent corresponding to the source server to which this replication state data pertains.  Each source server has different associated neighbor data.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszSourceDsaDN {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +34,7 @@ class DS_REPL_NEIGHBORW extends Win32Struct
 
     /**
      * Pointer to  a null-terminated string that contains the transport-specific network address of the source server. That is, a directory name service name for RPC/IP replication, or an SMTP address for an SMTP replication.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszSourceDsaAddress {
         get => NumGet(this, 16, "ptr")
@@ -43,7 +43,7 @@ class DS_REPL_NEIGHBORW extends Win32Struct
 
     /**
      * Pointer to  a null-terminated string that contains the distinguished name of the <b>interSiteTransport</b> object that corresponds to the transport over which replication is performed. This member contains <b>NULL</b> for RPC/IP replication.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszAsyncIntersiteTransportDN {
         get => NumGet(this, 24, "ptr")

@@ -77,7 +77,7 @@ class WNODE_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     KernelHandle {
         get => NumGet(this, 16, "ptr")

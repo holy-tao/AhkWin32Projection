@@ -24,7 +24,7 @@ class WSD_HEADER_RELATESTO extends Win32Struct
 
     /**
      * The identifier of the related message.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     MessageID {
         get => NumGet(this, 8, "ptr")

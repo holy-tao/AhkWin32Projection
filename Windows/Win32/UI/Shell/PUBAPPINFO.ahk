@@ -40,7 +40,7 @@ class PUBAPPINFO extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a string containing the display name of the publisher. This name appears in <b>Add/Remove Programs</b> if duplicate application names are encountered. The string buffer must be allocated using the Shell task allocator.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszSource {
         get => NumGet(this, 8, "ptr")

@@ -477,7 +477,7 @@ class Communication {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setcommbreak">SetCommBreak</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-escapecommfunction">EscapeCommFunction</a> function. Character transmission is then suspended until the break state is cleared by calling 
      * <b>ClearCommBreak</b>.
-     * @param {Pointer<HANDLE>} hFile A handle to the communications device. The 
+     * @param {Pointer<Void>} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
@@ -505,7 +505,7 @@ class Communication {
      * 
      * The 
      * <b>ClearCommError</b> function fills the status buffer pointed to by the <i>lpStat</i> parameter with the current status of the communications device specified by the <i>hFile</i> parameter.
-     * @param {Pointer<HANDLE>} hFile A handle to the communications device. The 
+     * @param {Pointer<Void>} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Pointer<UInt32>} lpErrors 
      * @param {Pointer<COMSTAT>} lpStat A pointer to a 
@@ -520,7 +520,7 @@ class Communication {
     static ClearCommError(hFile, lpErrors, lpStat) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ClearCommError", "ptr", hFile, "ptr", lpErrors, "ptr", lpStat, "int")
+        result := DllCall("KERNEL32.dll\ClearCommError", "ptr", hFile, "uint*", lpErrors, "ptr", lpStat, "int")
         if(A_LastError)
             throw OSError()
 
@@ -537,7 +537,7 @@ class Communication {
      * The <i>dwInQueue</i> and <i>dwOutQueue</i> parameters specify the recommended sizes for the internal buffers used by the driver for the specified device. For example, YMODEM protocol packets are slightly larger than 1024 bytes. Therefore, a recommended buffer size might be 1200 bytes for YMODEM communications. For Ethernet-based communications, a recommended buffer size might be 1600 bytes, which is slightly larger than a single Ethernet frame.
      * 
      * The device driver receives the recommended buffer sizes, but is free to use any input and output (I/O) buffering scheme, as long as it provides reasonable performance and data is not lost due to overrun (except under extreme circumstances). For example, the function can succeed even though the driver does not allocate a buffer, as long as some other portion of the system provides equivalent functionality.
-     * @param {Pointer<HANDLE>} hFile A handle to the communications device. The 
+     * @param {Pointer<Void>} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Integer} dwInQueue The recommended size of the device's internal input buffer, in bytes.
      * @param {Integer} dwOutQueue The recommended size of the device's internal output buffer, in bytes.
@@ -560,7 +560,7 @@ class Communication {
 
     /**
      * Directs the specified communications device to perform an extended function.
-     * @param {Pointer<HANDLE>} hFile A handle to the communications device. The 
+     * @param {Pointer<Void>} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Integer} dwFunc 
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -582,9 +582,9 @@ class Communication {
 
     /**
      * Retrieves the current configuration of a communications device.
-     * @param {Pointer<HANDLE>} hCommDev A handle to the open communications device. The 
+     * @param {Pointer<Void>} hCommDev A handle to the open communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
-     * @param {Pointer<COMMCONFIG>} lpCC A pointer to a buffer that receives a 
+     * @param {Pointer} lpCC A pointer to a buffer that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commconfig">COMMCONFIG</a> structure.
      * @param {Pointer<UInt32>} lpdwSize The size, in bytes, of the buffer pointed to by <i>lpCC</i>. When the function returns, the variable contains the number of bytes copied if the function succeeds, or the number of bytes required if the buffer was too small.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -597,7 +597,7 @@ class Communication {
     static GetCommConfig(hCommDev, lpCC, lpdwSize) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetCommConfig", "ptr", hCommDev, "ptr", lpCC, "ptr", lpdwSize, "int")
+        result := DllCall("KERNEL32.dll\GetCommConfig", "ptr", hCommDev, "ptr", lpCC, "uint*", lpdwSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -611,7 +611,7 @@ class Communication {
      * <b>GetCommMask</b> function uses a mask variable to indicate the set of events that can be monitored for a particular communications resource. A handle to the communications resource can be specified in a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-waitcommevent">WaitCommEvent</a> function, which waits for one of the events to occur. To modify the event mask of a communications resource, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setcommmask">SetCommMask</a> function.
-     * @param {Pointer<HANDLE>} hFile A handle to the communications device. The 
+     * @param {Pointer<Void>} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Pointer<UInt32>} lpEvtMask 
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -624,7 +624,7 @@ class Communication {
     static GetCommMask(hFile, lpEvtMask) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetCommMask", "ptr", hFile, "ptr", lpEvtMask, "int")
+        result := DllCall("KERNEL32.dll\GetCommMask", "ptr", hFile, "uint*", lpEvtMask, "int")
         if(A_LastError)
             throw OSError()
 
@@ -636,7 +636,7 @@ class Communication {
      * @remarks
      * The 
      * <b>GetCommProperties</b> function returns information from a device driver about the configuration settings that are supported by the driver.
-     * @param {Pointer<HANDLE>} hFile A handle to the communications device. The 
+     * @param {Pointer<Void>} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Pointer<COMMPROP>} lpCommProp A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commprop">COMMPROP</a> structure in which the communications properties information is returned. This information can be used in subsequent calls to the 
@@ -670,7 +670,7 @@ class Communication {
      * <b>GetCommModemStatus</b> to determine the state after a change occurs.
      * 
      * The function fails if the hardware does not support the control-register values.
-     * @param {Pointer<HANDLE>} hFile A handle to the communications device. The 
+     * @param {Pointer<Void>} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Pointer<UInt32>} lpModemStat 
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -683,7 +683,7 @@ class Communication {
     static GetCommModemStatus(hFile, lpModemStat) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetCommModemStatus", "ptr", hFile, "ptr", lpModemStat, "int")
+        result := DllCall("KERNEL32.dll\GetCommModemStatus", "ptr", hFile, "uint*", lpModemStat, "int")
         if(A_LastError)
             throw OSError()
 
@@ -692,7 +692,7 @@ class Communication {
 
     /**
      * Retrieves the current control settings for a specified communications device.
-     * @param {Pointer<HANDLE>} hFile A handle to the communications device. The 
+     * @param {Pointer<Void>} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Pointer<DCB>} lpDCB A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-dcb">DCB</a> structure that receives the control settings information.
@@ -718,7 +718,7 @@ class Communication {
      * @remarks
      * For more information about time-out values for communications devices, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setcommtimeouts">SetCommTimeouts</a> function.
-     * @param {Pointer<HANDLE>} hFile A handle to the communications device. The 
+     * @param {Pointer<Void>} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Pointer<COMMTIMEOUTS>} lpCommTimeouts A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commtimeouts">COMMTIMEOUTS</a> structure in which the time-out information is returned.
@@ -745,7 +745,7 @@ class Communication {
      * If a thread uses 
      * <b>PurgeComm</b> to flush an output buffer, the deleted characters are not transmitted. To empty the output buffer while ensuring that the contents are transmitted, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-flushfilebuffers">FlushFileBuffers</a> function (a synchronous operation). Note, however, that <b>FlushFileBuffers</b> is subject to flow control but not to write time-outs, and it will not return until all pending write operations have been transmitted.
-     * @param {Pointer<HANDLE>} hFile A handle to the communications resource. The 
+     * @param {Pointer<Void>} hFile A handle to the communications resource. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Integer} dwFlags 
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -767,7 +767,7 @@ class Communication {
 
     /**
      * Suspends character transmission for a specified communications device and places the transmission line in a break state until the ClearCommBreak function is called.
-     * @param {Pointer<HANDLE>} hFile A handle to the communications device. The 
+     * @param {Pointer<Void>} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
@@ -788,9 +788,9 @@ class Communication {
 
     /**
      * Sets the current configuration of a communications device.
-     * @param {Pointer<HANDLE>} hCommDev A handle to the open communications device. The 
+     * @param {Pointer<Void>} hCommDev A handle to the open communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
-     * @param {Pointer<COMMCONFIG>} lpCC A pointer to a 
+     * @param {Pointer} lpCC A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commconfig">COMMCONFIG</a> structure.
      * @param {Integer} dwSize The size of the structure pointed to by <i>lpCC</i>, in bytes.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -817,7 +817,7 @@ class Communication {
      * <b>SetCommMask</b> function specifies the set of events that can be monitored for a particular communications resource. A handle to the communications resource can be specified in a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-waitcommevent">WaitCommEvent</a> function, which waits for one of the events to occur. To get the current event mask of a communications resource, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getcommmask">GetCommMask</a> function.
-     * @param {Pointer<HANDLE>} hFile A handle to the communications device. The 
+     * @param {Pointer<Void>} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Integer} dwEvtMask 
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -860,7 +860,7 @@ class Communication {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-dcb">DCB</a> structure's <b>ByteSize</b> and <b>StopBits</b> members:
      * 
      * The number of data bits must be 5 to 8 bits.
-     * @param {Pointer<HANDLE>} hFile A handle to the communications device. The 
+     * @param {Pointer<Void>} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Pointer<DCB>} lpDCB A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-dcb">DCB</a> structure that contains the configuration information for the specified communications device.
@@ -883,7 +883,7 @@ class Communication {
 
     /**
      * Sets the time-out parameters for all read and write operations on a specified communications device.
-     * @param {Pointer<HANDLE>} hFile A handle to the communications device. The 
+     * @param {Pointer<Void>} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Pointer<COMMTIMEOUTS>} lpCommTimeouts A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commtimeouts">COMMTIMEOUTS</a> structure that contains the new time-out values.
@@ -914,7 +914,7 @@ class Communication {
      * <b>TransmitCommChar</b> cannot be called repeatedly. Once 
      * <b>TransmitCommChar</b> places a character in the output buffer, the character must be transmitted before the function can be called again. If the previous character has not yet been sent, 
      * <b>TransmitCommChar</b> returns an error.
-     * @param {Pointer<HANDLE>} hFile A handle to the communications device. The 
+     * @param {Pointer<Void>} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Integer} cChar The character to be transmitted.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -952,7 +952,7 @@ class Communication {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setcommmask">SetCommMask</a> function while an overlapped 
      * <b>WaitCommEvent</b> operation is in progress, 
      * <b>WaitCommEvent</b> returns immediately. The variable pointed to by the <i>lpEvtMask</i> parameter is set to zero.
-     * @param {Pointer<HANDLE>} hFile A handle to the communications device. The 
+     * @param {Pointer<Void>} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Pointer<UInt32>} lpEvtMask 
      * @param {Pointer<OVERLAPPED>} lpOverlapped A pointer to an 
@@ -979,7 +979,7 @@ class Communication {
     static WaitCommEvent(hFile, lpEvtMask, lpOverlapped) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WaitCommEvent", "ptr", hFile, "ptr", lpEvtMask, "ptr", lpOverlapped, "int")
+        result := DllCall("KERNEL32.dll\WaitCommEvent", "ptr", hFile, "uint*", lpEvtMask, "ptr", lpOverlapped, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1019,14 +1019,14 @@ class Communication {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer<HANDLE>} If the function succeeds, the function returns a valid <b>HANDLE</b>. Use <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> to close that handle.
+     * @returns {Pointer<Void>} If the function succeeds, the function returns a valid <b>HANDLE</b>. Use <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> to close that handle.
      * 
      * If an error occurs, the function returns <b>INVALID_HANDLE_VALUE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-opencommport
      * @since windows10.0.16299
      */
     static OpenCommPort(uPortNumber, dwDesiredAccess, dwFlagsAndAttributes) {
-        result := DllCall("api-ms-win-core-comm-l1-1-1.dll\OpenCommPort", "uint", uPortNumber, "uint", dwDesiredAccess, "uint", dwFlagsAndAttributes, "ptr")
+        result := DllCall("api-ms-win-core-comm-l1-1-1.dll\OpenCommPort", "uint", uPortNumber, "uint", dwDesiredAccess, "uint", dwFlagsAndAttributes)
         return result
     }
 
@@ -1078,7 +1078,7 @@ class Communication {
      * @since windows10.0.17134
      */
     static GetCommPorts(lpPortNumbers, uPortNumbersCount, puPortNumbersFound) {
-        result := DllCall("api-ms-win-core-comm-l1-1-2.dll\GetCommPorts", "ptr", lpPortNumbers, "uint", uPortNumbersCount, "ptr", puPortNumbersFound, "uint")
+        result := DllCall("api-ms-win-core-comm-l1-1-2.dll\GetCommPorts", "uint*", lpPortNumbers, "uint", uPortNumbersCount, "uint*", puPortNumbersFound, "uint")
         return result
     }
 
@@ -1145,7 +1145,7 @@ class Communication {
      * 
      * > [!NOTE]
      * > The winbase.h header defines BuildCommDCB as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpDef The device-control information. The function takes this string, parses it, and then sets appropriate values in the 
+     * @param {Pointer<Byte>} lpDef The device-control information. The function takes this string, parses it, and then sets appropriate values in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-dcb">DCB</a> structure pointed to by <i>lpDCB</i>. 
      * 
      * 
@@ -1244,7 +1244,7 @@ class Communication {
      * 
      * > [!NOTE]
      * > The winbase.h header defines BuildCommDCB as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpDef The device-control information. The function takes this string, parses it, and then sets appropriate values in the 
+     * @param {Pointer<Char>} lpDef The device-control information. The function takes this string, parses it, and then sets appropriate values in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-dcb">DCB</a> structure pointed to by <i>lpDCB</i>. 
      * 
      * 
@@ -1307,7 +1307,7 @@ class Communication {
      * 
      * > [!NOTE]
      * > The winbase.h header defines BuildCommDCBAndTimeouts as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpDef The device-control information. The function takes this string, parses it, and then sets appropriate values 
+     * @param {Pointer<Byte>} lpDef The device-control information. The function takes this string, parses it, and then sets appropriate values 
      *        in the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-dcb">DCB</a> structure pointed to by 
      *        <i>lpDCB</i>.
      * 
@@ -1381,7 +1381,7 @@ class Communication {
      * 
      * > [!NOTE]
      * > The winbase.h header defines BuildCommDCBAndTimeouts as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpDef The device-control information. The function takes this string, parses it, and then sets appropriate values 
+     * @param {Pointer<Char>} lpDef The device-control information. The function takes this string, parses it, and then sets appropriate values 
      *        in the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-dcb">DCB</a> structure pointed to by 
      *        <i>lpDCB</i>.
      * 
@@ -1440,8 +1440,8 @@ class Communication {
      * 
      * > [!NOTE]
      * > The winbase.h header defines CommConfigDialog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszName The name of the device for which a dialog box should be displayed. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
-     * @param {Pointer<HWND>} hWnd A handle to the window that owns the dialog box. This parameter can be any valid window handle, or it should be <b>NULL</b> if the dialog box is to have no owner.
+     * @param {Pointer<Byte>} lpszName The name of the device for which a dialog box should be displayed. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
+     * @param {Pointer<Void>} hWnd A handle to the window that owns the dialog box. This parameter can be any valid window handle, or it should be <b>NULL</b> if the dialog box is to have no owner.
      * @param {Pointer<COMMCONFIG>} lpCC A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commconfig">COMMCONFIG</a> structure. This structure contains initial settings for the dialog box before the call, and changed values after the call.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -1475,8 +1475,8 @@ class Communication {
      * 
      * > [!NOTE]
      * > The winbase.h header defines CommConfigDialog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszName The name of the device for which a dialog box should be displayed. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
-     * @param {Pointer<HWND>} hWnd A handle to the window that owns the dialog box. This parameter can be any valid window handle, or it should be <b>NULL</b> if the dialog box is to have no owner.
+     * @param {Pointer<Char>} lpszName The name of the device for which a dialog box should be displayed. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
+     * @param {Pointer<Void>} hWnd A handle to the window that owns the dialog box. This parameter can be any valid window handle, or it should be <b>NULL</b> if the dialog box is to have no owner.
      * @param {Pointer<COMMCONFIG>} lpCC A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commconfig">COMMCONFIG</a> structure. This structure contains initial settings for the dialog box before the call, and changed values after the call.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -1503,8 +1503,8 @@ class Communication {
      * @remarks
      * > [!NOTE]
      * > The winbase.h header defines GetDefaultCommConfig as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszName The name of the device. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
-     * @param {Pointer<COMMCONFIG>} lpCC A pointer to a buffer that receives a 
+     * @param {Pointer<Byte>} lpszName The name of the device. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
+     * @param {Pointer} lpCC A pointer to a buffer that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commconfig">COMMCONFIG</a> structure.
      * @param {Pointer<UInt32>} lpdwSize A pointer to a variable that specifies the size of the buffer pointed to by <i>lpCC</i>, in bytes. Upon return, the variable contains the number of bytes copied if the function succeeds, or the number of bytes required if the buffer was too small.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -1519,7 +1519,7 @@ class Communication {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetDefaultCommConfigA", "ptr", lpszName, "ptr", lpCC, "ptr", lpdwSize, "int")
+        result := DllCall("KERNEL32.dll\GetDefaultCommConfigA", "ptr", lpszName, "ptr", lpCC, "uint*", lpdwSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1531,8 +1531,8 @@ class Communication {
      * @remarks
      * > [!NOTE]
      * > The winbase.h header defines GetDefaultCommConfig as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszName The name of the device. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
-     * @param {Pointer<COMMCONFIG>} lpCC A pointer to a buffer that receives a 
+     * @param {Pointer<Char>} lpszName The name of the device. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
+     * @param {Pointer} lpCC A pointer to a buffer that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commconfig">COMMCONFIG</a> structure.
      * @param {Pointer<UInt32>} lpdwSize A pointer to a variable that specifies the size of the buffer pointed to by <i>lpCC</i>, in bytes. Upon return, the variable contains the number of bytes copied if the function succeeds, or the number of bytes required if the buffer was too small.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -1547,7 +1547,7 @@ class Communication {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetDefaultCommConfigW", "ptr", lpszName, "ptr", lpCC, "ptr", lpdwSize, "int")
+        result := DllCall("KERNEL32.dll\GetDefaultCommConfigW", "ptr", lpszName, "ptr", lpCC, "uint*", lpdwSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1559,8 +1559,8 @@ class Communication {
      * @remarks
      * > [!NOTE]
      * > The winbase.h header defines SetDefaultCommConfig as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpszName The name of the device. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
-     * @param {Pointer<COMMCONFIG>} lpCC A pointer to a 
+     * @param {Pointer<Byte>} lpszName The name of the device. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
+     * @param {Pointer} lpCC A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commconfig">COMMCONFIG</a> structure.
      * @param {Integer} dwSize The size of the structure pointed to by <i>lpCC</i>, in bytes.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -1587,8 +1587,8 @@ class Communication {
      * @remarks
      * > [!NOTE]
      * > The winbase.h header defines SetDefaultCommConfig as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpszName The name of the device. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
-     * @param {Pointer<COMMCONFIG>} lpCC A pointer to a 
+     * @param {Pointer<Char>} lpszName The name of the device. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
+     * @param {Pointer} lpCC A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commconfig">COMMCONFIG</a> structure.
      * @param {Integer} dwSize The size of the structure pointed to by <i>lpCC</i>, in bytes.
      * @returns {Integer} If the function succeeds, the return value is nonzero.

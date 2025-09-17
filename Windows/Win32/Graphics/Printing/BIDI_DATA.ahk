@@ -37,7 +37,7 @@ class BIDI_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     sData {
         get => NumGet(this, 4, "ptr")

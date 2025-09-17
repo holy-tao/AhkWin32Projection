@@ -76,7 +76,7 @@ class BranchOfficeJobData extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     LogOfflineFileFull {
         get => NumGet(this, 8, "ptr")

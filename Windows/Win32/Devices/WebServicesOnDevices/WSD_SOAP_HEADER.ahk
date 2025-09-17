@@ -16,7 +16,7 @@ class WSD_SOAP_HEADER extends Win32Struct
 
     /**
      * The URI to which the SOAP message is addressed.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     To {
         get => NumGet(this, 0, "ptr")
@@ -25,7 +25,7 @@ class WSD_SOAP_HEADER extends Win32Struct
 
     /**
      * The action encoded by the SOAP message.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     Action {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +34,7 @@ class WSD_SOAP_HEADER extends Win32Struct
 
     /**
      * An identifier that distinguishes the message from others from the same sender.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     MessageID {
         get => NumGet(this, 16, "ptr")

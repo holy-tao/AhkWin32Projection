@@ -4246,7 +4246,7 @@ class DirectShow {
      * > [!NOTE]
      * > The errors.h header defines AMGetErrorText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} hr <b>HRESULT</b> value.
-     * @param {Pointer<PSTR>} pbuffer Pointer to a character buffer that receives the error message.
+     * @param {Pointer<Byte>} pbuffer Pointer to a character buffer that receives the error message.
      * @param {Integer} MaxLen Number of characters in <i>pBuffer</i>.
      * @returns {Integer} Returns the number of characters returned in the buffer, or zero if an error occurred.
      * @see https://learn.microsoft.com/windows/win32/api/errors/nf-errors-amgeterrortexta
@@ -4264,7 +4264,7 @@ class DirectShow {
      * > [!NOTE]
      * > The errors.h header defines AMGetErrorText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} hr <b>HRESULT</b> value.
-     * @param {Pointer<PWSTR>} pbuffer Pointer to a character buffer that receives the error message.
+     * @param {Pointer<Char>} pbuffer Pointer to a character buffer that receives the error message.
      * @param {Integer} MaxLen Number of characters in <i>pBuffer</i>.
      * @returns {Integer} Returns the number of characters returned in the buffer, or zero if an error occurred.
      * @see https://learn.microsoft.com/windows/win32/api/errors/nf-errors-amgeterrortextw

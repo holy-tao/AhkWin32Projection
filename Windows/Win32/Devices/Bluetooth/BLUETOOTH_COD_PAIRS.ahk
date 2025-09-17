@@ -29,7 +29,7 @@ class BLUETOOTH_COD_PAIRS extends Win32Struct
 
     /**
      * Descriptive string of the mask.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pcszDescription {
         get => NumGet(this, 8, "ptr")

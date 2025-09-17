@@ -15,7 +15,7 @@ class ADS_HOLD extends Win32Struct
 
     /**
      * The null-terminated Unicode string that contains the name of an object put on hold.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ObjectName {
         get => NumGet(this, 0, "ptr")

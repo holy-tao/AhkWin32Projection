@@ -90,8 +90,8 @@ class Shutdown {
      * Note that calling this function with the value of the <i>bForceAppsClosed</i> parameter set to <b>TRUE</b> avoids this situation. Remember that doing this  may result in loss of data.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>If the computer is locked and the <i>bForceAppsClosed</i> parameter is <b>FALSE</b>, the last error code is <b>ERROR_MACHINE_LOCKED</b>. If the system is not ready to handle the request, the last error code is <b>ERROR_NOT_READY</b>. The application should wait a short while and retry the call. For example, the system can be unready to initiate a shutdown, and return <b>ERROR_NOT_READY</b>,  if the shutdown request comes at the same time a user tries to log onto the system. In this case, the application should wait a short while and retry the call.
-     * @param {Pointer<PSTR>} lpMachineName The network name of the computer to be shut down. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function shuts down the local computer.
-     * @param {Pointer<PSTR>} lpMessage The  message to be displayed in the shutdown dialog box. This parameter can be <b>NULL</b> if no message is required.
+     * @param {Pointer<Byte>} lpMachineName The network name of the computer to be shut down. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function shuts down the local computer.
+     * @param {Pointer<Byte>} lpMessage The  message to be displayed in the shutdown dialog box. This parameter can be <b>NULL</b> if no message is required.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>This string is also stored as a comment in the event log entry.
      * 
@@ -147,8 +147,8 @@ class Shutdown {
      * Note that calling this function with the value of the <i>bForceAppsClosed</i> parameter set to <b>TRUE</b> avoids this situation. Remember that doing this  may result in loss of data.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>If the computer is locked and the <i>bForceAppsClosed</i> parameter is <b>FALSE</b>, the last error code is <b>ERROR_MACHINE_LOCKED</b>. If the system is not ready to handle the request, the last error code is <b>ERROR_NOT_READY</b>. The application should wait a short while and retry the call. For example, the system can be unready to initiate a shutdown, and return <b>ERROR_NOT_READY</b>,  if the shutdown request comes at the same time a user tries to log onto the system. In this case, the application should wait a short while and retry the call.
-     * @param {Pointer<PWSTR>} lpMachineName The network name of the computer to be shut down. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function shuts down the local computer.
-     * @param {Pointer<PWSTR>} lpMessage The  message to be displayed in the shutdown dialog box. This parameter can be <b>NULL</b> if no message is required.
+     * @param {Pointer<Char>} lpMachineName The network name of the computer to be shut down. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function shuts down the local computer.
+     * @param {Pointer<Char>} lpMessage The  message to be displayed in the shutdown dialog box. This parameter can be <b>NULL</b> if no message is required.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>This string is also stored as a comment in the event log entry.
      * 
@@ -204,7 +204,7 @@ class Shutdown {
      * <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>.
      * 
      * Common reasons for failure include an invalid computer name, an inaccessible computer, or insufficient privilege.
-     * @param {Pointer<PSTR>} lpMachineName The network name of the computer where the shutdown is to be stopped. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function stops the shutdown on the local computer.
+     * @param {Pointer<Byte>} lpMachineName The network name of the computer where the shutdown is to be stopped. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function stops the shutdown on the local computer.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -239,7 +239,7 @@ class Shutdown {
      * <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>.
      * 
      * Common reasons for failure include an invalid computer name, an inaccessible computer, or insufficient privilege.
-     * @param {Pointer<PWSTR>} lpMachineName The network name of the computer where the shutdown is to be stopped. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function stops the shutdown on the local computer.
+     * @param {Pointer<Char>} lpMachineName The network name of the computer where the shutdown is to be stopped. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function stops the shutdown on the local computer.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -281,8 +281,8 @@ class Shutdown {
      * 
      * > [!NOTE]
      * > The winreg.h header defines InitiateSystemShutdownEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpMachineName The network name of the computer to be shut down. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function shuts down the local computer.
-     * @param {Pointer<PSTR>} lpMessage The message to be displayed in the shutdown dialog box. This parameter can be <b>NULL</b> if no message is required. 
+     * @param {Pointer<Byte>} lpMachineName The network name of the computer to be shut down. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function shuts down the local computer.
+     * @param {Pointer<Byte>} lpMessage The message to be displayed in the shutdown dialog box. This parameter can be <b>NULL</b> if no message is required. 
      * 
      * 
      * 
@@ -358,8 +358,8 @@ class Shutdown {
      * 
      * > [!NOTE]
      * > The winreg.h header defines InitiateSystemShutdownEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpMachineName The network name of the computer to be shut down. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function shuts down the local computer.
-     * @param {Pointer<PWSTR>} lpMessage The message to be displayed in the shutdown dialog box. This parameter can be <b>NULL</b> if no message is required. 
+     * @param {Pointer<Char>} lpMachineName The network name of the computer to be shut down. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function shuts down the local computer.
+     * @param {Pointer<Char>} lpMessage The message to be displayed in the shutdown dialog box. This parameter can be <b>NULL</b> if no message is required. 
      * 
      * 
      * 
@@ -429,8 +429,8 @@ class Shutdown {
      * 
      * > [!NOTE]
      * > The winreg.h header defines InitiateShutdown as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpMachineName The name of the computer to be shut down. If the value of this parameter is <b>NULL</b>, the local computer is shut down.
-     * @param {Pointer<PSTR>} lpMessage The message to be displayed in the interactive shutdown dialog box.
+     * @param {Pointer<Byte>} lpMachineName The name of the computer to be shut down. If the value of this parameter is <b>NULL</b>, the local computer is shut down.
+     * @param {Pointer<Byte>} lpMessage The message to be displayed in the interactive shutdown dialog box.
      * @param {Integer} dwGracePeriod The number of seconds to wait before shutting down the computer. If the value of this parameter is zero, the computer is shut down immediately. This value is limited to <b>MAX_SHUTDOWN_TIMEOUT</b>.
      * 
      * If the value of this parameter is greater than zero, and the <i>dwShutdownFlags</i> parameter specifies the flag <b>SHUTDOWN_GRACE_OVERRIDE</b>, the function fails and returns the error code <b>ERROR_BAD_ARGUMENTS</b>.
@@ -675,8 +675,8 @@ class Shutdown {
      * 
      * > [!NOTE]
      * > The winreg.h header defines InitiateShutdown as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpMachineName The name of the computer to be shut down. If the value of this parameter is <b>NULL</b>, the local computer is shut down.
-     * @param {Pointer<PWSTR>} lpMessage The message to be displayed in the interactive shutdown dialog box.
+     * @param {Pointer<Char>} lpMachineName The name of the computer to be shut down. If the value of this parameter is <b>NULL</b>, the local computer is shut down.
+     * @param {Pointer<Char>} lpMessage The message to be displayed in the interactive shutdown dialog box.
      * @param {Integer} dwGracePeriod The number of seconds to wait before shutting down the computer. If the value of this parameter is zero, the computer is shut down immediately. This value is limited to <b>MAX_SHUTDOWN_TIMEOUT</b>.
      * 
      * If the value of this parameter is greater than zero, and the <i>dwShutdownFlags</i> parameter specifies the flag <b>SHUTDOWN_GRACE_OVERRIDE</b>, the function fails and returns the error code <b>ERROR_BAD_ARGUMENTS</b>.
@@ -912,7 +912,7 @@ class Shutdown {
      * @returns {Integer} 
      */
     static CheckForHiberboot(pHiberboot, bClearFlag) {
-        result := DllCall("ADVAPI32.dll\CheckForHiberboot", "ptr", pHiberboot, "char", bClearFlag, "uint")
+        result := DllCall("ADVAPI32.dll\CheckForHiberboot", "char*", pHiberboot, "char", bClearFlag, "uint")
         return result
     }
 
@@ -1001,8 +1001,8 @@ class Shutdown {
      * Applications should call this function as they begin an operation that cannot be interrupted, such as burning a CD or DVD. When the operation has completed, call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-shutdownblockreasondestroy">ShutdownBlockReasonDestroy</a> function to indicate that the system can be shut down.
      * 
      * Because users are typically in a hurry when shutting down the system, they may spend only  a few seconds looking at the shutdown reasons that are displayed by the system. Therefore, it is important that your reason strings are short and clear. For example "A CD burn is in progress." is better than "This application is blocking system shutdown because a CD burn is in progress. Do not shut down."
-     * @param {Pointer<HWND>} hWnd A handle to the main window of the application.
-     * @param {Pointer<PWSTR>} pwszReason The reason the application must block system shutdown. This string will be truncated for display purposes after MAX_STR_BLOCKREASON characters.
+     * @param {Pointer<Void>} hWnd A handle to the main window of the application.
+     * @param {Pointer<Char>} pwszReason The reason the application must block system shutdown. This string will be truncated for display purposes after MAX_STR_BLOCKREASON characters.
      * @returns {Integer} If the call succeeds, the return value is nonzero.
      * 
      * If the call fails, the return value is zero. To get extended error information, call 
@@ -1026,8 +1026,8 @@ class Shutdown {
      * Retrieves the reason string set by the ShutdownBlockReasonCreate function.
      * @remarks
      * This function can only be called from the thread that created the window specified by the <i>hWnd</i> parameter. Otherwise, the function fails and the last error code is ERROR_ACCESS_DENIED.
-     * @param {Pointer<HWND>} hWnd A handle to the main window of the application.
-     * @param {Pointer<PWSTR>} pwszBuff A pointer to a buffer that receives the reason string. If this parameter is <b>NULL</b>, the function retrieves the number of characters in the reason string.
+     * @param {Pointer<Void>} hWnd A handle to the main window of the application.
+     * @param {Pointer<Char>} pwszBuff A pointer to a buffer that receives the reason string. If this parameter is <b>NULL</b>, the function retrieves the number of characters in the reason string.
      * @param {Pointer<UInt32>} pcchBuff A pointer to a variable that specifies the size of the <i>pwszBuff</i> buffer, in characters. If the function succeeds, this variable receives the number of characters copied into the buffer, including the <b>null</b>-terminating character. If the buffer is too small, the variable receives the required buffer size, in characters, not including the <b>null</b>-terminating character.
      * @returns {Integer} If the call succeeds, the return value is nonzero.
      * 
@@ -1041,7 +1041,7 @@ class Shutdown {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\ShutdownBlockReasonQuery", "ptr", hWnd, "ptr", pwszBuff, "ptr", pcchBuff, "int")
+        result := DllCall("USER32.dll\ShutdownBlockReasonQuery", "ptr", hWnd, "ptr", pwszBuff, "uint*", pcchBuff, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1054,7 +1054,7 @@ class Shutdown {
      * This function can only be called from the thread that created the window specified by the <i>hWnd</i> parameter. Otherwise, the function fails and the last error code is ERROR_ACCESS_DENIED.
      * 
      * If system shutdown has been previously blocked by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-shutdownblockreasoncreate">ShutdownBlockReasonCreate</a> function, this function frees the reason string. Otherwise, this function is a no-op.
-     * @param {Pointer<HWND>} hWnd A handle to the main window of the application.
+     * @param {Pointer<Void>} hWnd A handle to the main window of the application.
      * @returns {Integer} If the call succeeds, the return value is nonzero.
      * 
      * If the call fails, the return value is zero. To get extended error information, call 

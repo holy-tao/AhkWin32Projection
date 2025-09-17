@@ -132,7 +132,7 @@ class PM_ENUM_FILTER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     ProtocolName {
         get => NumGet(this, 4, "ptr")
@@ -140,7 +140,7 @@ class PM_ENUM_FILTER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     FileType {
         get => NumGet(this, 4, "ptr")
@@ -148,7 +148,7 @@ class PM_ENUM_FILTER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     ContentType {
         get => NumGet(this, 4, "ptr")
@@ -164,7 +164,7 @@ class PM_ENUM_FILTER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     ShareTargetFileType {
         get => NumGet(this, 4, "ptr")

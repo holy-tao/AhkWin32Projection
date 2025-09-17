@@ -19,7 +19,7 @@ class FILE_IN_CABINET_INFO_A extends Win32Struct
 
     /**
      * File name as it exists within the cabinet file.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     NameInCabinet {
         get => NumGet(this, 0, "ptr")

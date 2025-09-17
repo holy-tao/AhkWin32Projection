@@ -36,7 +36,7 @@ class USB_ID_STRING extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     Buffer {
         get => NumGet(this, 8, "ptr")

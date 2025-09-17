@@ -15,7 +15,7 @@ class DSREG_USER_INFO extends Win32Struct
 
     /**
      * The email address of the user.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszUserEmail {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class DSREG_USER_INFO extends Win32Struct
 
     /**
      * The identifier of the Microsoft Passport key that is provisioned for the user.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszUserKeyId {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class DSREG_USER_INFO extends Win32Struct
 
     /**
      * The name of the Microsoft Passport key that is provisioned for the user.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszUserKeyName {
         get => NumGet(this, 16, "ptr")

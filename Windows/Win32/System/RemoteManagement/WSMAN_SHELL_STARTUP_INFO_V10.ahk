@@ -44,7 +44,7 @@ class WSMAN_SHELL_STARTUP_INFO_V10 extends Win32Struct
 
     /**
      * Specifies the starting directory for a shell. It is  used with any execution command. If this member is a <b>NULL</b> value, a default directory will be used by the remote machine when executing the command. An empty value is treated by the underlying protocol as an omitted value.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     workingDirectory {
         get => NumGet(this, 24, "ptr")

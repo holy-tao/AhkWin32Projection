@@ -29,7 +29,7 @@ class MDICREATESTRUCTA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * The name of the window class of the MDI child window. The class name must have been registered by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> function.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     szClass {
         get => NumGet(this, 0, "ptr")
@@ -40,7 +40,7 @@ class MDICREATESTRUCTA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * The title of the MDI child window. The system displays the title in the child window's title bar.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     szTitle {
         get => NumGet(this, 8, "ptr")
@@ -51,7 +51,7 @@ class MDICREATESTRUCTA extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * A handle to the instance of the application creating the MDI client window.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hOwner {
         get => NumGet(this, 16, "ptr")

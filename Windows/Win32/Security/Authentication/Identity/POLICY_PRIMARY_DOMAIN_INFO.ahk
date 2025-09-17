@@ -29,7 +29,7 @@ class POLICY_PRIMARY_DOMAIN_INFO extends Win32Struct
 
     /**
      * Pointer to the SID of the primary domain.
-     * @type {Pointer<PSID>}
+     * @type {Pointer<Void>}
      */
     Sid {
         get => NumGet(this, 16, "ptr")

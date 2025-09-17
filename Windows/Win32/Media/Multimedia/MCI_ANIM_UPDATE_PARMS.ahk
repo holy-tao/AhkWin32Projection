@@ -32,7 +32,7 @@ class MCI_ANIM_UPDATE_PARMS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HDC>}
+     * @type {Pointer<Void>}
      */
     hDC {
         get => NumGet(this, 24, "ptr")

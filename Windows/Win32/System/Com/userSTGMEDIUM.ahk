@@ -52,7 +52,7 @@ class userSTGMEDIUM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpszFileName {
         get => NumGet(this, 8, "ptr")

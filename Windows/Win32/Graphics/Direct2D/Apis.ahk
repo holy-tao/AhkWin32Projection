@@ -395,12 +395,13 @@ class Direct2D {
      * @param {Pointer<D2D_MATRIX_3X2_F>} matrix Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
      * 
      * When this method returns, contains the new rotation transformation. You must allocate storage for this parameter.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-d2d1makerotatematrix
      * @since windows6.1
      */
     static D2D1MakeRotateMatrix(angle, center, matrix) {
-        DllCall("d2d1.dll\D2D1MakeRotateMatrix", "float", angle, "ptr", center, "ptr", matrix)
+        result := DllCall("d2d1.dll\D2D1MakeRotateMatrix", "float", angle, "ptr", center, "ptr", matrix)
+        return result
     }
 
     /**
@@ -417,12 +418,13 @@ class Direct2D {
      * @param {Pointer<D2D_MATRIX_3X2_F>} matrix Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
      * 
      * When this method returns, contains the rotation transformation. You must allocate storage for this parameter.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-d2d1makeskewmatrix
      * @since windows6.1
      */
     static D2D1MakeSkewMatrix(angleX, angleY, center, matrix) {
-        DllCall("d2d1.dll\D2D1MakeSkewMatrix", "float", angleX, "float", angleY, "ptr", center, "ptr", matrix)
+        result := DllCall("d2d1.dll\D2D1MakeSkewMatrix", "float", angleX, "float", angleY, "ptr", center, "ptr", matrix)
+        return result
     }
 
     /**
@@ -567,11 +569,12 @@ class Direct2D {
      * @param {Pointer<Single>} c Type: <b>FLOAT*</b>
      * 
      * The cosine of the angle.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-d2d1sincos
      */
     static D2D1SinCos(angle, s, c) {
-        DllCall("d2d1.dll\D2D1SinCos", "float", angle, "ptr", s, "ptr", c)
+        result := DllCall("d2d1.dll\D2D1SinCos", "float", angle, "float*", s, "float*", c)
+        return result
     }
 
     /**
@@ -579,11 +582,14 @@ class Direct2D {
      * @param {Float} angle Type: <b>FLOAT</b>
      * 
      * The angle to calculate the tangent for.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} Type: <b>FLOAT</b>
+     * 
+     * The tangent of the angle.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-d2d1tan
      */
     static D2D1Tan(angle) {
-        DllCall("d2d1.dll\D2D1Tan", "float", angle)
+        result := DllCall("d2d1.dll\D2D1Tan", "float", angle)
+        return result
     }
 
     /**
@@ -597,11 +603,14 @@ class Direct2D {
      * @param {Float} z Type: <b>FLOAT</b>
      * 
      * The  z value of the vector.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} Type: <b>FLOAT</b>
+     * 
+     * The length of the vector.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-d2d1vec3length
      */
     static D2D1Vec3Length(x, y, z) {
-        DllCall("d2d1.dll\D2D1Vec3Length", "float", x, "float", y, "float", z)
+        result := DllCall("d2d1.dll\D2D1Vec3Length", "float", x, "float", y, "float", z)
+        return result
     }
 
     /**
@@ -614,12 +623,13 @@ class Direct2D {
      * <div class="alert"><b>Note</b>  Since this describes how M affects vectors (rather than points), the translation components (_31 and _32) of M are ignored.</div>
      * <div> </div>
      * @param {Pointer<D2D_MATRIX_3X2_F>} matrix The input transform matrix.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The scale factor.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_2/nf-d2d1_2-d2d1computemaximumscalefactor
      * @since windows8.1
      */
     static D2D1ComputeMaximumScaleFactor(matrix) {
-        DllCall("d2d1.dll\D2D1ComputeMaximumScaleFactor", "ptr", matrix)
+        result := DllCall("d2d1.dll\D2D1ComputeMaximumScaleFactor", "ptr", matrix)
+        return result
     }
 
     /**
@@ -674,12 +684,13 @@ class Direct2D {
      * @param {Pointer<D2D_POINT_2F>} pTensorPoint22 Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a>*</b>
      * 
      * Returns the interior point for the gradient mesh corresponding to point22 in the <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ns-d2d1_3-d2d1_gradient_mesh_patch">D2D1_GRADIENT_MESH_PATCH</a> structure.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-d2d1getgradientmeshinteriorpointsfromcoonspatch
      * @since windows10.0.10240
      */
     static D2D1GetGradientMeshInteriorPointsFromCoonsPatch(pPoint0, pPoint1, pPoint2, pPoint3, pPoint4, pPoint5, pPoint6, pPoint7, pPoint8, pPoint9, pPoint10, pPoint11, pTensorPoint11, pTensorPoint12, pTensorPoint21, pTensorPoint22) {
-        DllCall("d2d1.dll\D2D1GetGradientMeshInteriorPointsFromCoonsPatch", "ptr", pPoint0, "ptr", pPoint1, "ptr", pPoint2, "ptr", pPoint3, "ptr", pPoint4, "ptr", pPoint5, "ptr", pPoint6, "ptr", pPoint7, "ptr", pPoint8, "ptr", pPoint9, "ptr", pPoint10, "ptr", pPoint11, "ptr", pTensorPoint11, "ptr", pTensorPoint12, "ptr", pTensorPoint21, "ptr", pTensorPoint22)
+        result := DllCall("d2d1.dll\D2D1GetGradientMeshInteriorPointsFromCoonsPatch", "ptr", pPoint0, "ptr", pPoint1, "ptr", pPoint2, "ptr", pPoint3, "ptr", pPoint4, "ptr", pPoint5, "ptr", pPoint6, "ptr", pPoint7, "ptr", pPoint8, "ptr", pPoint9, "ptr", pPoint10, "ptr", pPoint11, "ptr", pTensorPoint11, "ptr", pTensorPoint12, "ptr", pTensorPoint21, "ptr", pTensorPoint22)
+        return result
     }
 
 ;@endregion Methods

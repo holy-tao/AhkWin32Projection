@@ -12,7 +12,7 @@ class SERVICE_INFO_1 extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     svci1_name {
         get => NumGet(this, 0, "ptr")

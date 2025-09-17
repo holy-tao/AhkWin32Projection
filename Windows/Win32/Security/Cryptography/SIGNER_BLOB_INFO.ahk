@@ -51,7 +51,7 @@ class SIGNER_BLOB_INFO extends Win32Struct
 
     /**
      * The display name of the BLOB. This member can be set to **NULL**.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszDisplayName {
         get => NumGet(this, 32, "ptr")

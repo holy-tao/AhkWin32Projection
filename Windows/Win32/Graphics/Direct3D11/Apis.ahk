@@ -2606,7 +2606,7 @@ class Direct3D11 {
      * @param {Integer} DriverType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_driver_type">D3D_DRIVER_TYPE</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_driver_type">D3D_DRIVER_TYPE</a>, which represents the driver type to create.
-     * @param {Pointer<HMODULE>} Software Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMODULE</a></b>
+     * @param {Pointer<Void>} Software Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMODULE</a></b>
      * 
      * A handle to a DLL that implements a software rasterizer.
      *             If <i>DriverType</i> is <i>D3D_DRIVER_TYPE_SOFTWARE</i>,
@@ -2668,7 +2668,7 @@ class Direct3D11 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-d3d11createdevice
      */
     static D3D11CreateDevice(pAdapter, DriverType, Software, Flags, pFeatureLevels, FeatureLevels, SDKVersion, ppDevice, pFeatureLevel, ppImmediateContext) {
-        result := DllCall("d3d11.dll\D3D11CreateDevice", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, "ptr", pFeatureLevels, "uint", FeatureLevels, "uint", SDKVersion, "ptr", ppDevice, "ptr", pFeatureLevel, "ptr", ppImmediateContext, "int")
+        result := DllCall("d3d11.dll\D3D11CreateDevice", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, "int*", pFeatureLevels, "uint", FeatureLevels, "uint", SDKVersion, "ptr", ppDevice, "int*", pFeatureLevel, "ptr", ppImmediateContext, "int")
         return result
     }
 
@@ -2717,7 +2717,7 @@ class Direct3D11 {
      * @param {Integer} DriverType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_driver_type">D3D_DRIVER_TYPE</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_driver_type">D3D_DRIVER_TYPE</a>, which represents the driver type to create.
-     * @param {Pointer<HMODULE>} Software Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMODULE</a></b>
+     * @param {Pointer<Void>} Software Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMODULE</a></b>
      * 
      * A handle to a DLL that implements a software rasterizer.
      *             If <i>DriverType</i> is <i>D3D_DRIVER_TYPE_SOFTWARE</i>, <i>Software</i> must not be <b>NULL</b>. Get the handle by
@@ -2790,7 +2790,7 @@ class Direct3D11 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-d3d11createdeviceandswapchain
      */
     static D3D11CreateDeviceAndSwapChain(pAdapter, DriverType, Software, Flags, pFeatureLevels, FeatureLevels, SDKVersion, pSwapChainDesc, ppSwapChain, ppDevice, pFeatureLevel, ppImmediateContext) {
-        result := DllCall("d3d11.dll\D3D11CreateDeviceAndSwapChain", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, "ptr", pFeatureLevels, "uint", FeatureLevels, "uint", SDKVersion, "ptr", pSwapChainDesc, "ptr", ppSwapChain, "ptr", ppDevice, "ptr", pFeatureLevel, "ptr", ppImmediateContext, "int")
+        result := DllCall("d3d11.dll\D3D11CreateDeviceAndSwapChain", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, "int*", pFeatureLevels, "uint", FeatureLevels, "uint", SDKVersion, "ptr", pSwapChainDesc, "ptr", ppSwapChain, "ptr", ppDevice, "int*", pFeatureLevel, "ptr", ppImmediateContext, "int")
         return result
     }
 
@@ -2798,7 +2798,7 @@ class Direct3D11 {
      * Disassembles a section of compiled Microsoft High Level Shader Language (HLSL) code that is specified by shader trace steps.
      * @remarks
      * D3DDisassemble11Trace walks the steps of a shader trace and outputs appropriate disassembly for each step that is based on the step's instruction index. The disassembly is annotated with register-value information from the trace. The behavior of D3DDisassemble11Trace differs from D3DDisassemble in that instead of the static disassembly of a compiled shader that D3DDisassemble performs, D3DDisassemble11Trace provides an execution trace that is based on the shader trace information.
-     * @param {Pointer<Void>} pSrcData Type: <b>LPCVOID</b>
+     * @param {Pointer} pSrcData Type: <b>LPCVOID</b>
      * 
      * A pointer to compiled shader data.
      * @param {Pointer} SrcDataSize Type: <b>SIZE_T</b>

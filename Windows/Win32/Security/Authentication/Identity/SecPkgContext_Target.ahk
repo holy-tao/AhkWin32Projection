@@ -26,7 +26,7 @@ class SecPkgContext_Target extends Win32Struct
 
     /**
      * An array containing the target information.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     Target {
         get => NumGet(this, 8, "ptr")

@@ -696,7 +696,7 @@ class BiometricFramework {
      * @since windows6.1
      */
     static WinBioEnumServiceProviders(Factor, BspSchemaArray, BspCount) {
-        result := DllCall("winbio.dll\WinBioEnumServiceProviders", "uint", Factor, "ptr", BspSchemaArray, "ptr", BspCount, "int")
+        result := DllCall("winbio.dll\WinBioEnumServiceProviders", "uint", Factor, "ptr", BspSchemaArray, "ptr*", BspCount, "int")
         return result
     }
 
@@ -769,7 +769,7 @@ class BiometricFramework {
      * @since windows6.1
      */
     static WinBioEnumBiometricUnits(Factor, UnitSchemaArray, UnitCount) {
-        result := DllCall("winbio.dll\WinBioEnumBiometricUnits", "uint", Factor, "ptr", UnitSchemaArray, "ptr", UnitCount, "int")
+        result := DllCall("winbio.dll\WinBioEnumBiometricUnits", "uint", Factor, "ptr", UnitSchemaArray, "ptr*", UnitCount, "int")
         return result
     }
 
@@ -829,7 +829,7 @@ class BiometricFramework {
      * @since windows6.1
      */
     static WinBioEnumDatabases(Factor, StorageSchemaArray, StorageCount) {
-        result := DllCall("winbio.dll\WinBioEnumDatabases", "uint", Factor, "ptr", StorageSchemaArray, "ptr", StorageCount, "int")
+        result := DllCall("winbio.dll\WinBioEnumDatabases", "uint", Factor, "ptr", StorageSchemaArray, "ptr*", StorageCount, "int")
         return result
     }
 
@@ -856,7 +856,7 @@ class BiometricFramework {
      * 
      * If you set the  <i>AsynchronousOpen</i> parameter to <b>TRUE</b>, this function will return <b>S_OK</b> as soon as it has performed an initial validation of the arguments. Any errors detected beyond that point will be reported to the caller using the method specified by the <i>NotificationMethod</i> parameter. That is, a successful return value indicates only that the <b>WinBioAsyncOpenFramework</b> parameters were fine and not that the open operation succeeded. To determine whether the open operation succeeded, you must examine the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure.
      * @param {Integer} NotificationMethod 
-     * @param {Pointer<HWND>} TargetWindow Handle  of the window that will receive the completion notices. This value is ignored unless the <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_MESSAGE</b>.
+     * @param {Pointer<Void>} TargetWindow Handle  of the window that will receive the completion notices. This value is ignored unless the <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_MESSAGE</b>.
      * @param {Integer} MessageCode Window message code the framework must send to signify completion notices. This value is ignored unless the <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_MESSAGE</b>. The value must be within the range <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-app">WM_APP</a> (0x8000) to 0xBFFF.
      * 
      * The Windows Biometric Framework sets the <b>LPARAM</b> value of the message to the address of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure that contains the results of the operation. You must call <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release the structure after you have finished using it.
@@ -919,7 +919,7 @@ class BiometricFramework {
      * @since windows8.0
      */
     static WinBioAsyncOpenFramework(NotificationMethod, TargetWindow, MessageCode, CallbackRoutine, UserData, AsynchronousOpen, FrameworkHandle) {
-        result := DllCall("winbio.dll\WinBioAsyncOpenFramework", "int", NotificationMethod, "ptr", TargetWindow, "uint", MessageCode, "ptr", CallbackRoutine, "ptr", UserData, "int", AsynchronousOpen, "ptr", FrameworkHandle, "int")
+        result := DllCall("winbio.dll\WinBioAsyncOpenFramework", "int", NotificationMethod, "ptr", TargetWindow, "uint", MessageCode, "ptr", CallbackRoutine, "ptr", UserData, "int", AsynchronousOpen, "uint*", FrameworkHandle, "int")
         return result
     }
 
@@ -1491,7 +1491,7 @@ class BiometricFramework {
      * @since windows6.1
      */
     static WinBioOpenSession(Factor, PoolType, Flags, UnitArray, UnitCount, DatabaseId, SessionHandle) {
-        result := DllCall("winbio.dll\WinBioOpenSession", "uint", Factor, "uint", PoolType, "uint", Flags, "ptr", UnitArray, "ptr", UnitCount, "ptr", DatabaseId, "ptr", SessionHandle, "int")
+        result := DllCall("winbio.dll\WinBioOpenSession", "uint", Factor, "uint", PoolType, "uint", Flags, "uint*", UnitArray, "ptr", UnitCount, "ptr", DatabaseId, "uint*", SessionHandle, "int")
         return result
     }
 
@@ -1697,7 +1697,7 @@ class BiometricFramework {
      * </tr>
      * </table>
      * @param {Integer} NotificationMethod 
-     * @param {Pointer<HWND>} TargetWindow Handle  of the window that will receive the completion notices. This value is ignored unless the <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_MESSAGE</b>.
+     * @param {Pointer<Void>} TargetWindow Handle  of the window that will receive the completion notices. This value is ignored unless the <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_MESSAGE</b>.
      * @param {Integer} MessageCode Window message code the framework must send to signify completion notices. This value is ignored unless the <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_MESSAGE</b>. The value must be within the range WM_APP(0x8000) to 0xBFFF.
      * 
      * The Windows Biometric Framework sets the <b>LPARAM</b> value of the message to the address of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure that contains the results of the operation. You must call <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release the structure after you have finished using it.
@@ -1815,7 +1815,7 @@ class BiometricFramework {
      * @since windows8.0
      */
     static WinBioAsyncOpenSession(Factor, PoolType, Flags, UnitArray, UnitCount, DatabaseId, NotificationMethod, TargetWindow, MessageCode, CallbackRoutine, UserData, AsynchronousOpen, SessionHandle) {
-        result := DllCall("winbio.dll\WinBioAsyncOpenSession", "uint", Factor, "uint", PoolType, "uint", Flags, "ptr", UnitArray, "ptr", UnitCount, "ptr", DatabaseId, "int", NotificationMethod, "ptr", TargetWindow, "uint", MessageCode, "ptr", CallbackRoutine, "ptr", UserData, "int", AsynchronousOpen, "ptr", SessionHandle, "int")
+        result := DllCall("winbio.dll\WinBioAsyncOpenSession", "uint", Factor, "uint", PoolType, "uint", Flags, "uint*", UnitArray, "ptr", UnitCount, "ptr", DatabaseId, "int", NotificationMethod, "ptr", TargetWindow, "uint", MessageCode, "ptr", CallbackRoutine, "ptr", UserData, "int", AsynchronousOpen, "uint*", SessionHandle, "int")
         return result
     }
 
@@ -1990,7 +1990,7 @@ class BiometricFramework {
      * @since windows6.1
      */
     static WinBioVerify(SessionHandle, Identity, SubFactor, UnitId, Match, RejectDetail) {
-        result := DllCall("winbio.dll\WinBioVerify", "uint", SessionHandle, "ptr", Identity, "char", SubFactor, "ptr", UnitId, "ptr", Match, "ptr", RejectDetail, "int")
+        result := DllCall("winbio.dll\WinBioVerify", "uint", SessionHandle, "ptr", Identity, "char", SubFactor, "uint*", UnitId, "char*", Match, "uint*", RejectDetail, "int")
         return result
     }
 
@@ -2201,7 +2201,7 @@ class BiometricFramework {
      * @since windows6.1
      */
     static WinBioIdentify(SessionHandle, UnitId, Identity, SubFactor, RejectDetail) {
-        result := DllCall("winbio.dll\WinBioIdentify", "uint", SessionHandle, "ptr", UnitId, "ptr", Identity, "ptr", SubFactor, "ptr", RejectDetail, "int")
+        result := DllCall("winbio.dll\WinBioIdentify", "uint", SessionHandle, "uint*", UnitId, "ptr", Identity, "char*", SubFactor, "uint*", RejectDetail, "int")
         return result
     }
 
@@ -2420,7 +2420,7 @@ class BiometricFramework {
      * @since windows6.1
      */
     static WinBioLocateSensor(SessionHandle, UnitId) {
-        result := DllCall("winbio.dll\WinBioLocateSensor", "uint", SessionHandle, "ptr", UnitId, "int")
+        result := DllCall("winbio.dll\WinBioLocateSensor", "uint", SessionHandle, "uint*", UnitId, "int")
         return result
     }
 
@@ -2753,7 +2753,7 @@ class BiometricFramework {
      * @since windows6.1
      */
     static WinBioEnrollCapture(SessionHandle, RejectDetail) {
-        result := DllCall("winbio.dll\WinBioEnrollCapture", "uint", SessionHandle, "ptr", RejectDetail, "int")
+        result := DllCall("winbio.dll\WinBioEnrollCapture", "uint", SessionHandle, "uint*", RejectDetail, "int")
         return result
     }
 
@@ -2911,7 +2911,7 @@ class BiometricFramework {
      * @since windows6.1
      */
     static WinBioEnrollCommit(SessionHandle, Identity, IsNewTemplate) {
-        result := DllCall("winbio.dll\WinBioEnrollCommit", "uint", SessionHandle, "ptr", Identity, "ptr", IsNewTemplate, "int")
+        result := DllCall("winbio.dll\WinBioEnrollCommit", "uint", SessionHandle, "ptr", Identity, "char*", IsNewTemplate, "int")
         return result
     }
 
@@ -3067,7 +3067,7 @@ class BiometricFramework {
      * @since windows6.1
      */
     static WinBioEnumEnrollments(SessionHandle, UnitId, Identity, SubFactorArray, SubFactorCount) {
-        result := DllCall("winbio.dll\WinBioEnumEnrollments", "uint", SessionHandle, "uint", UnitId, "ptr", Identity, "ptr", SubFactorArray, "ptr", SubFactorCount, "int")
+        result := DllCall("winbio.dll\WinBioEnumEnrollments", "uint", SessionHandle, "uint", UnitId, "ptr", Identity, "ptr", SubFactorArray, "ptr*", SubFactorCount, "int")
         return result
     }
 
@@ -3441,7 +3441,7 @@ class BiometricFramework {
      * @since windows6.1
      */
     static WinBioCaptureSample(SessionHandle, Purpose, Flags, UnitId, Sample, SampleSize, RejectDetail) {
-        result := DllCall("winbio.dll\WinBioCaptureSample", "uint", SessionHandle, "char", Purpose, "char", Flags, "ptr", UnitId, "ptr", Sample, "ptr", SampleSize, "ptr", RejectDetail, "int")
+        result := DllCall("winbio.dll\WinBioCaptureSample", "uint", SessionHandle, "char", Purpose, "char", Flags, "uint*", UnitId, "ptr", Sample, "ptr*", SampleSize, "uint*", RejectDetail, "int")
         return result
     }
 
@@ -3807,9 +3807,9 @@ class BiometricFramework {
      * @param {Integer} UnitId A <b>WINBIO_UNIT_ID</b> value that identifies the biometric unit. This value must correspond to the unit ID used previously in  the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiolockunit">WinBioLockUnit</a> function.
      * @param {Integer} Component 
      * @param {Integer} ControlCode A vendor-defined code recognized by the biometric unit specified by the <i>UnitId</i> parameter and the adapter specified by the <i>Component</i> parameter.
-     * @param {Pointer<Byte>} SendBuffer Address of the buffer that contains the control information to be sent to the adapter specified by the <i>Component</i> parameter. The format and content of the buffer is vendor-defined.
+     * @param {Pointer} SendBuffer Address of the buffer that contains the control information to be sent to the adapter specified by the <i>Component</i> parameter. The format and content of the buffer is vendor-defined.
      * @param {Pointer} SendBufferSize Size, in bytes, of the buffer specified by the <i>SendBuffer</i> parameter.
-     * @param {Pointer<Byte>} ReceiveBuffer Address of the buffer that receives information sent by the adapter specified by the <i>Component</i> parameter. The format and content of the buffer is vendor-defined.
+     * @param {Pointer} ReceiveBuffer Address of the buffer that receives information sent by the adapter specified by the <i>Component</i> parameter. The format and content of the buffer is vendor-defined.
      * @param {Pointer} ReceiveBufferSize Size, in bytes, of the buffer specified by the <i>ReceiveBuffer</i> parameter.
      * @param {Pointer<UIntPtr>} ReceiveDataSize Pointer to a <b>SIZE_T</b> value that contains the size, in bytes, of the data written to the buffer specified by the <i>ReceiveBuffer</i> parameter.
      * @param {Pointer<UInt32>} OperationStatus Pointer to an integer that contains a vendor-defined status code that specifies the outcome of the control operation.
@@ -3880,7 +3880,7 @@ class BiometricFramework {
      * @since windows6.1
      */
     static WinBioControlUnit(SessionHandle, UnitId, Component, ControlCode, SendBuffer, SendBufferSize, ReceiveBuffer, ReceiveBufferSize, ReceiveDataSize, OperationStatus) {
-        result := DllCall("winbio.dll\WinBioControlUnit", "uint", SessionHandle, "uint", UnitId, "uint", Component, "uint", ControlCode, "ptr", SendBuffer, "ptr", SendBufferSize, "ptr", ReceiveBuffer, "ptr", ReceiveBufferSize, "ptr", ReceiveDataSize, "ptr", OperationStatus, "int")
+        result := DllCall("winbio.dll\WinBioControlUnit", "uint", SessionHandle, "uint", UnitId, "uint", Component, "uint", ControlCode, "ptr", SendBuffer, "ptr", SendBufferSize, "ptr", ReceiveBuffer, "ptr", ReceiveBufferSize, "ptr*", ReceiveDataSize, "uint*", OperationStatus, "int")
         return result
     }
 
@@ -3906,9 +3906,9 @@ class BiometricFramework {
      * @param {Integer} UnitId A <b>WINBIO_UNIT_ID</b> value that identifies the biometric unit. This value must correspond to the unit ID used previously in  the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiolockunit">WinBioLockUnit</a> function.
      * @param {Integer} Component 
      * @param {Integer} ControlCode A vendor-defined code recognized by the biometric unit specified by the <i>UnitId</i> parameter and the adapter specified by the <i>Component</i> parameter.
-     * @param {Pointer<Byte>} SendBuffer Address of the buffer that contains the control information to be sent to the adapter specified by the <i>Component</i> parameter. The format and content of the buffer is vendor-defined.
+     * @param {Pointer} SendBuffer Address of the buffer that contains the control information to be sent to the adapter specified by the <i>Component</i> parameter. The format and content of the buffer is vendor-defined.
      * @param {Pointer} SendBufferSize Size, in bytes, of the buffer specified by the <i>SendBuffer</i> parameter.
-     * @param {Pointer<Byte>} ReceiveBuffer Address of the buffer that receives information sent by the adapter specified by the <i>Component</i> parameter. The format and content of the buffer is vendor-defined.
+     * @param {Pointer} ReceiveBuffer Address of the buffer that receives information sent by the adapter specified by the <i>Component</i> parameter. The format and content of the buffer is vendor-defined.
      * @param {Pointer} ReceiveBufferSize Size, in bytes, of the buffer specified by the <i>ReceiveBuffer</i> parameter.
      * @param {Pointer<UIntPtr>} ReceiveDataSize Pointer to a <b>SIZE_T</b> value that contains the size, in bytes, of the data written to the buffer specified by the <i>ReceiveBuffer</i> parameter.
      * @param {Pointer<UInt32>} OperationStatus Pointer to an integer that contains a vendor-defined status code that specifies the outcome of the control operation.
@@ -3990,7 +3990,7 @@ class BiometricFramework {
      * @since windows6.1
      */
     static WinBioControlUnitPrivileged(SessionHandle, UnitId, Component, ControlCode, SendBuffer, SendBufferSize, ReceiveBuffer, ReceiveBufferSize, ReceiveDataSize, OperationStatus) {
-        result := DllCall("winbio.dll\WinBioControlUnitPrivileged", "uint", SessionHandle, "uint", UnitId, "uint", Component, "uint", ControlCode, "ptr", SendBuffer, "ptr", SendBufferSize, "ptr", ReceiveBuffer, "ptr", ReceiveBufferSize, "ptr", ReceiveDataSize, "ptr", OperationStatus, "int")
+        result := DllCall("winbio.dll\WinBioControlUnitPrivileged", "uint", SessionHandle, "uint", UnitId, "uint", Component, "uint", ControlCode, "ptr", SendBuffer, "ptr", SendBufferSize, "ptr", ReceiveBuffer, "ptr", ReceiveBufferSize, "ptr*", ReceiveDataSize, "uint*", OperationStatus, "int")
         return result
     }
 
@@ -4195,7 +4195,7 @@ class BiometricFramework {
      * @since windows6.1
      */
     static WinBioGetProperty(SessionHandle, PropertyType, PropertyId, UnitId, Identity, SubFactor, PropertyBuffer, PropertyBufferSize) {
-        result := DllCall("winbio.dll\WinBioGetProperty", "uint", SessionHandle, "uint", PropertyType, "uint", PropertyId, "uint", UnitId, "ptr", Identity, "char", SubFactor, "ptr", PropertyBuffer, "ptr", PropertyBufferSize, "int")
+        result := DllCall("winbio.dll\WinBioGetProperty", "uint", SessionHandle, "uint", PropertyType, "uint", PropertyId, "uint", UnitId, "ptr", Identity, "char", SubFactor, "ptr", PropertyBuffer, "ptr*", PropertyBufferSize, "int")
         return result
     }
 
@@ -4217,7 +4217,7 @@ class BiometricFramework {
      * @param {Integer} UnitId A <b>WINBIO_UNIT_ID</b> value that identifies the biometric unit. For the <b>WINBIO_PROPERTY_ANTI_SPOOF_POLICY</b> property, this value must be 0.
      * @param {Pointer<WINBIO_IDENTITY>} Identity Address of a <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-identity">WINBIO_IDENTITY</a> structure that specifies the account for which you want to set the property.
      * @param {Integer} SubFactor Reserved. This must be <b>WINBIO_SUBTYPE_NO_INFORMATION</b>.
-     * @param {Pointer<Void>} PropertyBuffer A pointer to a structure that specifies the new value for the property. This value cannot be NULL. For setting the <b>WINBIO_PROPERTY_ANTI_SPOOF_POLICY</b> property, the structure must be a <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-anti-spoof-policy">WINBIO_ANTI_SPOOF_POLICY</a> structure.
+     * @param {Pointer} PropertyBuffer A pointer to a structure that specifies the new value for the property. This value cannot be NULL. For setting the <b>WINBIO_PROPERTY_ANTI_SPOOF_POLICY</b> property, the structure must be a <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-anti-spoof-policy">WINBIO_ANTI_SPOOF_POLICY</a> structure.
      * @param {Pointer} PropertyBufferSize The size, in bytes, of the structure to which the <i>PropertyBuffer</i> parameter points. This value cannot be 0.
      * @returns {Integer} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
@@ -4418,7 +4418,7 @@ class BiometricFramework {
      * 
      * Only medium and higher  integrity processes can set credentials. If a lower integrity process attempts to set credentials, the function returns E_ACCESSDENIED.
      * @param {Integer} Type A <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-credential-type">WINBIO_CREDENTIAL_TYPE</a> value that specifies the credential type. Currently, this can be WINBIO_CREDENTIAL_PASSWORD.
-     * @param {Pointer<Byte>} Credential A pointer to a variable length array of bytes that contains the credential. The format depends on the <i>Type</i> and <i>Format</i> parameters.
+     * @param {Pointer} Credential A pointer to a variable length array of bytes that contains the credential. The format depends on the <i>Type</i> and <i>Format</i> parameters.
      * @param {Pointer} CredentialSize Size, in bytes, of the value specified by the <i>Credential</i> parameter.
      * @param {Integer} Format A <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-credential-format">WINBIO_CREDENTIAL_FORMAT</a> enumeration value that specifies the format of the credential. If the <i>Type</i> parameter is <b>WINBIO_CREDENTIAL_PASSWORD</b>, this  can be one of the following:
      * 
@@ -4640,7 +4640,7 @@ class BiometricFramework {
      * @since windows6.1
      */
     static WinBioGetCredentialState(Identity, Type, CredentialState) {
-        result := DllCall("winbio.dll\WinBioGetCredentialState", "ptr", Identity, "int", Type, "ptr", CredentialState, "int")
+        result := DllCall("winbio.dll\WinBioGetCredentialState", "ptr", Identity, "int", Type, "int*", CredentialState, "int")
         return result
     }
 
@@ -4814,7 +4814,7 @@ class BiometricFramework {
      * @since windows10.0.10240
      */
     static WinBioGetEnrolledFactors(AccountOwner, EnrolledFactors) {
-        result := DllCall("winbio.dll\WinBioGetEnrolledFactors", "ptr", AccountOwner, "ptr", EnrolledFactors, "int")
+        result := DllCall("winbio.dll\WinBioGetEnrolledFactors", "ptr", AccountOwner, "uint*", EnrolledFactors, "int")
         return result
     }
 
@@ -4822,36 +4822,39 @@ class BiometricFramework {
      * Retrieves a value that specifies whether the Windows Biometric Framework is currently enabled.
      * @param {Pointer<Byte>} Value Pointer to a Boolean value that specifies whether the Windows Biometric Framework is currently enabled.
      * @param {Pointer<UInt32>} Source 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/winbio/nf-winbio-winbiogetenabledsetting
      * @since windows6.1
      */
     static WinBioGetEnabledSetting(Value, Source) {
-        DllCall("winbio.dll\WinBioGetEnabledSetting", "ptr", Value, "ptr", Source)
+        result := DllCall("winbio.dll\WinBioGetEnabledSetting", "char*", Value, "uint*", Source)
+        return result
     }
 
     /**
      * Retrieves a value that indicates whether users can log on by using biometric information.
      * @param {Pointer<Byte>} Value Pointer to a Boolean value that specifies whether biometric logons are enabled.
      * @param {Pointer<UInt32>} Source 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/winbio/nf-winbio-winbiogetlogonsetting
      * @since windows6.1
      */
     static WinBioGetLogonSetting(Value, Source) {
-        DllCall("winbio.dll\WinBioGetLogonSetting", "ptr", Value, "ptr", Source)
+        result := DllCall("winbio.dll\WinBioGetLogonSetting", "char*", Value, "uint*", Source)
+        return result
     }
 
     /**
      * Retrieves a value that specifies whether users can log on to a domain by using biometric information.
      * @param {Pointer<Byte>} Value Pointer to a Boolean value that specifies whether biometric domain logons are enabled.
      * @param {Pointer<UInt32>} Source 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * @see https://learn.microsoft.com/windows/win32/api/winbio/nf-winbio-winbiogetdomainlogonsetting
      * @since windows6.1
      */
     static WinBioGetDomainLogonSetting(Value, Source) {
-        DllCall("winbio.dll\WinBioGetDomainLogonSetting", "ptr", Value, "ptr", Source)
+        result := DllCall("winbio.dll\WinBioGetDomainLogonSetting", "char*", Value, "uint*", Source)
+        return result
     }
 
     /**

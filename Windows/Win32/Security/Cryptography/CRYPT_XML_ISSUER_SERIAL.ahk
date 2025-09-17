@@ -15,7 +15,7 @@ class CRYPT_XML_ISSUER_SERIAL extends Win32Struct
 
     /**
      * A pointer to a null-terminated wide character string that contains the issuer of the certificate.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     wszIssuer {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class CRYPT_XML_ISSUER_SERIAL extends Win32Struct
 
     /**
      * A pointer to a null-terminated wide character string that contains the serial number of the certificate.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     wszSerial {
         get => NumGet(this, 8, "ptr")

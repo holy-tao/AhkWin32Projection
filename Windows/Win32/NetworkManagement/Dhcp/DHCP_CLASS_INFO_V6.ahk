@@ -15,7 +15,7 @@ class DHCP_CLASS_INFO_V6 extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the class name.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ClassName {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class DHCP_CLASS_INFO_V6 extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the comment for the class.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ClassComment {
         get => NumGet(this, 8, "ptr")

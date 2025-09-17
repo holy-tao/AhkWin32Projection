@@ -79,7 +79,7 @@ class CENTRAL_ACCESS_POLICY_ENTRY extends Win32Struct
 
     /**
      * A buffer of security descriptors associated with the entry.
-     * @type {Pointer<PSECURITY_DESCRIPTOR>}
+     * @type {Pointer<Void>}
      */
     SD {
         get => NumGet(this, 72, "ptr")
@@ -97,7 +97,7 @@ class CENTRAL_ACCESS_POLICY_ENTRY extends Win32Struct
 
     /**
      * A buffer of staged security descriptors associated with the entry.
-     * @type {Pointer<PSECURITY_DESCRIPTOR>}
+     * @type {Pointer<Void>}
      */
     StagedSD {
         get => NumGet(this, 88, "ptr")

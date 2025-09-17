@@ -19,7 +19,7 @@ class INTERNET_COOKIE2 extends Win32Struct
 
     /**
      * Pointer to a string containing the cookie name. May be NULL if value is not NULL.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszName {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class INTERNET_COOKIE2 extends Win32Struct
 
     /**
      * Pointer to a string containing the cookie value. May be NULL if name is not NULL.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszValue {
         get => NumGet(this, 8, "ptr")
@@ -37,7 +37,7 @@ class INTERNET_COOKIE2 extends Win32Struct
 
     /**
      * Pointer to a string containing the cookie domain. May be NULL.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszDomain {
         get => NumGet(this, 16, "ptr")
@@ -46,7 +46,7 @@ class INTERNET_COOKIE2 extends Win32Struct
 
     /**
      * Pointer to a string containing the cookie path. May be NULL.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszPath {
         get => NumGet(this, 24, "ptr")

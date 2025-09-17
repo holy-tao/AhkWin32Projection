@@ -65,7 +65,7 @@ class PERF_OBJECT_TYPE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ObjectNameTitle {
         get => NumGet(this, 16, "ptr")
@@ -85,7 +85,7 @@ class PERF_OBJECT_TYPE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ObjectHelpTitle {
         get => NumGet(this, 32, "ptr")

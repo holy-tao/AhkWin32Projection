@@ -15,7 +15,7 @@ class BCRYPT_ALGORITHM_IDENTIFIER extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the string identifier of the algorithm. The <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-algorithm-identifiers">CNG Algorithm Identifiers</a> topic contains the predefined algorithm identifiers.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszName {
         get => NumGet(this, 0, "ptr")

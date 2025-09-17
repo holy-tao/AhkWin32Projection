@@ -24,7 +24,7 @@ class AUTHZ_INIT_INFO extends Win32Struct
 
     /**
      * Pointer to a Unicode string that identifies the resource manager. This parameter can be <b>NULL</b> if the resource manager does not need a name.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     szResourceManagerName {
         get => NumGet(this, 8, "ptr")

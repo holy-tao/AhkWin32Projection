@@ -15,7 +15,7 @@ class WMFILECAPABILITIES extends Win32Struct
 
     /**
      * MIME type.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszMimeType {
         get => NumGet(this, 0, "ptr")

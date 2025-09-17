@@ -34,7 +34,7 @@ class CERT_BIOMETRIC_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszObjId {
         get => NumGet(this, 4, "ptr")

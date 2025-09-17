@@ -47,7 +47,7 @@ class ToolHelp {
      * If the specified process is the Idle process or one of the CSRSS processes, this function fails and the last error code is <b>ERROR_ACCESS_DENIED</b> because their access restrictions prevent user-level code from opening them.
      * 
      * If the specified process is a 64-bit process and the caller is a 32-bit process, this function fails and the last error code is <b>ERROR_PARTIAL_COPY</b> (299).
-     * @returns {Pointer<HANDLE>} If the function succeeds, it returns an open handle to the specified snapshot.
+     * @returns {Pointer<Void>} If the function succeeds, it returns an open handle to the specified snapshot.
      * 
      * If the function fails, it returns <b>INVALID_HANDLE_VALUE</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include <b>ERROR_BAD_LENGTH</b>.
@@ -57,7 +57,7 @@ class ToolHelp {
     static CreateToolhelp32Snapshot(dwFlags, th32ProcessID) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateToolhelp32Snapshot", "uint", dwFlags, "uint", th32ProcessID, "ptr")
+        result := DllCall("KERNEL32.dll\CreateToolhelp32Snapshot", "uint", dwFlags, "uint", th32ProcessID)
         if(A_LastError)
             throw OSError()
 
@@ -73,7 +73,7 @@ class ToolHelp {
      * 
      * To retrieve information about other heaps in the heap list, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-heap32listnext">Heap32ListNext</a> function.
-     * @param {Pointer<HANDLE>} hSnapshot A handle to the snapshot returned from a previous call to the 
+     * @param {Pointer<Void>} hSnapshot A handle to the snapshot returned from a previous call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-createtoolhelp32snapshot">CreateToolhelp32Snapshot</a> function.
      * @param {Pointer<HEAPLIST32>} lphl A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/ns-tlhelp32-heaplist32">HEAPLIST32</a> structure.
@@ -97,7 +97,7 @@ class ToolHelp {
      * @remarks
      * To retrieve information about the first heap in a heap list, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-heap32listfirst">Heap32ListFirst</a> function.
-     * @param {Pointer<HANDLE>} hSnapshot A handle to the snapshot returned from a previous call to the 
+     * @param {Pointer<Void>} hSnapshot A handle to the snapshot returned from a previous call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-createtoolhelp32snapshot">CreateToolhelp32Snapshot</a> function.
      * @param {Pointer<HEAPLIST32>} lphl A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/ns-tlhelp32-heaplist32">HEAPLIST32</a> structure.
@@ -191,7 +191,7 @@ class ToolHelp {
      * @since windows5.1.2600
      */
     static Toolhelp32ReadProcessMemory(th32ProcessID, lpBaseAddress, lpBuffer, cbRead, lpNumberOfBytesRead) {
-        result := DllCall("KERNEL32.dll\Toolhelp32ReadProcessMemory", "uint", th32ProcessID, "ptr", lpBaseAddress, "ptr", lpBuffer, "ptr", cbRead, "ptr", lpNumberOfBytesRead, "int")
+        result := DllCall("KERNEL32.dll\Toolhelp32ReadProcessMemory", "uint", th32ProcessID, "ptr", lpBaseAddress, "ptr", lpBuffer, "ptr", cbRead, "ptr*", lpNumberOfBytesRead, "int")
         return result
     }
 
@@ -204,7 +204,7 @@ class ToolHelp {
      * 
      * To retrieve information about other processes recorded in the same snapshot, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-process32next">Process32Next</a> function.
-     * @param {Pointer<HANDLE>} hSnapshot A handle to the snapshot returned from a previous call to the 
+     * @param {Pointer<Void>} hSnapshot A handle to the snapshot returned from a previous call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-createtoolhelp32snapshot">CreateToolhelp32Snapshot</a> function.
      * @param {Pointer<PROCESSENTRY32W>} lppe A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/ns-tlhelp32-processentry32w">PROCESSENTRY32W</a> structure. It contains process information such as the name of the executable file, the process identifier, and the process identifier of the parent process.
@@ -228,7 +228,7 @@ class ToolHelp {
      * @remarks
      * To retrieve information about the first process recorded in a snapshot, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-process32firstw">Process32FirstW</a> function.
-     * @param {Pointer<HANDLE>} hSnapshot A handle to the snapshot returned from a previous call to the 
+     * @param {Pointer<Void>} hSnapshot A handle to the snapshot returned from a previous call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-createtoolhelp32snapshot">CreateToolhelp32Snapshot</a> function.
      * @param {Pointer<PROCESSENTRY32W>} lppe A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/ns-tlhelp32-processentry32w">PROCESSENTRY32W</a> structure.
@@ -256,7 +256,7 @@ class ToolHelp {
      * 
      * To retrieve information about other processes recorded in the same snapshot, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-process32next">Process32Next</a> function.
-     * @param {Pointer<HANDLE>} hSnapshot A handle to the snapshot returned from a previous call to the 
+     * @param {Pointer<Void>} hSnapshot A handle to the snapshot returned from a previous call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-createtoolhelp32snapshot">CreateToolhelp32Snapshot</a> function.
      * @param {Pointer<PROCESSENTRY32>} lppe A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/ns-tlhelp32-processentry32">PROCESSENTRY32</a> structure. It contains process information such as the name of the executable file, the process identifier, and the process identifier of the parent process.
@@ -280,7 +280,7 @@ class ToolHelp {
      * @remarks
      * To retrieve information about the first process recorded in a snapshot, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-process32first">Process32First</a> function.
-     * @param {Pointer<HANDLE>} hSnapshot A handle to the snapshot returned from a previous call to the 
+     * @param {Pointer<Void>} hSnapshot A handle to the snapshot returned from a previous call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-createtoolhelp32snapshot">CreateToolhelp32Snapshot</a> function.
      * @param {Pointer<PROCESSENTRY32>} lppe A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/ns-tlhelp32-processentry32">PROCESSENTRY32</a> structure.
@@ -308,7 +308,7 @@ class ToolHelp {
      * 
      * To retrieve information about other threads recorded in the same snapshot, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-thread32next">Thread32Next</a> function.
-     * @param {Pointer<HANDLE>} hSnapshot A handle to the snapshot returned from a previous call to the 
+     * @param {Pointer<Void>} hSnapshot A handle to the snapshot returned from a previous call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-createtoolhelp32snapshot">CreateToolhelp32Snapshot</a> function.
      * @param {Pointer<THREADENTRY32>} lpte A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/ns-tlhelp32-threadentry32">THREADENTRY32</a> structure.
@@ -332,7 +332,7 @@ class ToolHelp {
      * @remarks
      * To retrieve information about the first thread recorded in a snapshot, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-thread32first">Thread32First</a> function.
-     * @param {Pointer<HANDLE>} hSnapshot A handle to the snapshot returned from a previous call to the 
+     * @param {Pointer<Void>} hSnapshot A handle to the snapshot returned from a previous call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-createtoolhelp32snapshot">CreateToolhelp32Snapshot</a> function.
      * @param {Pointer<THREADENTRY32>} lpte A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/ns-tlhelp32-threadentry32">THREADENTRY32</a> structure.
@@ -359,7 +359,7 @@ class ToolHelp {
      * 
      * To retrieve information about other modules associated with the specified process, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-module32nextw">Module32NextW</a> function.
-     * @param {Pointer<HANDLE>} hSnapshot A handle to the snapshot returned from a previous call to the 
+     * @param {Pointer<Void>} hSnapshot A handle to the snapshot returned from a previous call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-createtoolhelp32snapshot">CreateToolhelp32Snapshot</a> function.
      * @param {Pointer<MODULEENTRY32W>} lpme A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/ns-tlhelp32-moduleentry32w">MODULEENTRY32W</a> structure.
@@ -383,7 +383,7 @@ class ToolHelp {
      * @remarks
      * To retrieve information about first module associated with a process, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-module32firstw">Module32FirstW</a> function.
-     * @param {Pointer<HANDLE>} hSnapshot A handle to the snapshot returned from a previous call to the 
+     * @param {Pointer<Void>} hSnapshot A handle to the snapshot returned from a previous call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-createtoolhelp32snapshot">CreateToolhelp32Snapshot</a> function.
      * @param {Pointer<MODULEENTRY32W>} lpme A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/ns-tlhelp32-moduleentry32w">MODULEENTRY32W</a> structure.
@@ -410,7 +410,7 @@ class ToolHelp {
      * 
      * To retrieve information about other modules associated with the specified process, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-module32next">Module32Next</a> function.
-     * @param {Pointer<HANDLE>} hSnapshot A handle to the snapshot returned from a previous call to the 
+     * @param {Pointer<Void>} hSnapshot A handle to the snapshot returned from a previous call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-createtoolhelp32snapshot">CreateToolhelp32Snapshot</a> function.
      * @param {Pointer<MODULEENTRY32>} lpme A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/ns-tlhelp32-moduleentry32">MODULEENTRY32</a> structure.
@@ -434,7 +434,7 @@ class ToolHelp {
      * @remarks
      * To retrieve information about first module associated with a process, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-module32first">Module32First</a> function.
-     * @param {Pointer<HANDLE>} hSnapshot A handle to the snapshot returned from a previous call to the 
+     * @param {Pointer<Void>} hSnapshot A handle to the snapshot returned from a previous call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/nf-tlhelp32-createtoolhelp32snapshot">CreateToolhelp32Snapshot</a> function.
      * @param {Pointer<MODULEENTRY32>} lpme A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/ns-tlhelp32-moduleentry32">MODULEENTRY32</a> structure.

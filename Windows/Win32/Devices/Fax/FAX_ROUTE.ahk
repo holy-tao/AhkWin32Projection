@@ -76,7 +76,7 @@ class FAX_ROUTE extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a constant null-terminated Unicode character string that specifies the called station identifier of the local fax device that received the fax document. This identifier is usually a telephone number.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     Csid {
         get => NumGet(this, 32, "ptr")
@@ -87,7 +87,7 @@ class FAX_ROUTE extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a constant null-terminated Unicode character string that specifies the transmitting station identifier of the remote fax device that sent the fax document. This identifier is usually a telephone number.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     Tsid {
         get => NumGet(this, 40, "ptr")
@@ -98,7 +98,7 @@ class FAX_ROUTE extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a constant null-terminated Unicode character string that identifies the calling device that sent the fax document. This string may include the telephone number of the calling device.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     CallerId {
         get => NumGet(this, 48, "ptr")
@@ -115,7 +115,7 @@ class FAX_ROUTE extends Win32Struct
      * <c>Canonical-Phone-Number[|Additional-Routing-Info]</c>
      * 
      * where <c>Canonical-Phone-Number</code> is defined in the <a href="https://docs.microsoft.com/windows/desktop/Tapi/address-ovr">Address</a> topic of the TAPI documentation (see the Canonical Address subheading); and <code>Additional-Routing-Info</c> is the <i>subaddress</i> of a Canonical Address, and uses the subaddress format.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     RoutingInfo {
         get => NumGet(this, 56, "ptr")
@@ -126,7 +126,7 @@ class FAX_ROUTE extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a constant null-terminated Unicode character string that specifies the name of the person who received the fax document.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ReceiverName {
         get => NumGet(this, 64, "ptr")
@@ -137,7 +137,7 @@ class FAX_ROUTE extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a constant null-terminated Unicode character string that specifies the telephone number of the fax device that received the fax document.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ReceiverNumber {
         get => NumGet(this, 72, "ptr")
@@ -148,7 +148,7 @@ class FAX_ROUTE extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a constant null-terminated Unicode character string that specifies the name of the device that received the fax document.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     DeviceName {
         get => NumGet(this, 80, "ptr")

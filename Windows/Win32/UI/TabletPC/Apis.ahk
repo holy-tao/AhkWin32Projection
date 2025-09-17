@@ -1678,7 +1678,7 @@ class TabletPC {
     /**
      * Creates a recognizer.
      * @param {Pointer<Guid>} pCLSID CLSID of the recognizer. This value is created in the registry when you register the recognizer.
-     * @param {Pointer<HRECOGNIZER>} phrec Handle for the recognizer.
+     * @param {Pointer<Void>} phrec Handle for the recognizer.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -1752,7 +1752,7 @@ class TabletPC {
 
     /**
      * Destroys a recognizer.
-     * @param {Pointer<HRECOGNIZER>} hrec Handle to the recognizer.
+     * @param {Pointer<Void>} hrec Handle to the recognizer.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -1821,7 +1821,7 @@ class TabletPC {
      * A gesture recognizer does not normally use a recognition guide. A gesture recognizer with no guide should clear the RF_LINED_INPUT and RF_BOXED_INPUT bits.
      * 
      * The <i>awcFriendlyName</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-reco_attrs">RECO_ATTRS</a> structure may be empty (that is, having the first element set to the null character) when you use this structure as a return value from the <b>GetRecoAttributes Function</b>. Because this is not an error, the return code for <i>awcFriendlyName</i> in <b>GetRecoAttributes Function</b> will be S_OK, and the other fields will contain data.
-     * @param {Pointer<HRECOGNIZER>} hrec Handle to the recognizer.
+     * @param {Pointer<Void>} hrec Handle to the recognizer.
      * @param {Pointer<RECO_ATTRS>} pRecoAttrs The attributes of the recognizer. The attributes define the languages and capabilities that the recognizer supports. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-reco_attrs">RECO_ATTRS</a> structure.
      * @returns {Integer} This function can return one of these values.
      * 
@@ -1885,8 +1885,8 @@ class TabletPC {
 
     /**
      * Creates a recognizer context.
-     * @param {Pointer<HRECOGNIZER>} hrec Handle to the recognizer.
-     * @param {Pointer<HRECOCONTEXT>} phrc Pointer to the recognizer context.
+     * @param {Pointer<Void>} hrec Handle to the recognizer.
+     * @param {Pointer<Void>} phrc Pointer to the recognizer context.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -1960,7 +1960,7 @@ class TabletPC {
 
     /**
      * Destroys a recognizer context.
-     * @param {Pointer<HRECOCONTEXT>} hrc Handle to the recognizer context.
+     * @param {Pointer<Void>} hrc Handle to the recognizer context.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -2023,7 +2023,7 @@ class TabletPC {
 
     /**
      * Retrieves a list of properties the recognizer can return for a result range.
-     * @param {Pointer<HRECOGNIZER>} hrec Handle to the recognizer.
+     * @param {Pointer<Void>} hrec Handle to the recognizer.
      * @param {Pointer<UInt32>} pPropertyCount On input, the number of GUIDs the <i>pPropertyGuid</i> buffer can hold. On output, the number of GUIDs the <i>pPropertyGuid</i> buffer contains.
      * @param {Pointer<Guid>} pPropertyGuid Array of properties the recognizer can return. The order of the array is arbitrary. For a list of predefined properties, see the recognition <a href="https://docs.microsoft.com/windows/desktop/tablet/property-guids">Property GUIDs</a>. To determine the required size of the buffer, set <i>pPropertyGuid</i> to <b>NULL</b>; use the number of GUIDs to allocate the buffer.
      * @returns {Integer} This function can return one of these values.
@@ -2093,7 +2093,7 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static GetResultPropertyList(hrec, pPropertyCount, pPropertyGuid) {
-        result := DllCall("inkobjcore.dll\GetResultPropertyList", "ptr", hrec, "ptr", pPropertyCount, "ptr", pPropertyGuid, "int")
+        result := DllCall("inkobjcore.dll\GetResultPropertyList", "ptr", hrec, "uint*", pPropertyCount, "ptr", pPropertyGuid, "int")
         return result
     }
 
@@ -2107,7 +2107,7 @@ class TabletPC {
      * To control the Unicode ranges used by a specific recognizer context, use the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-getenabledunicoderanges">GetEnabledUnicodeRanges</a> and <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-setenabledunicoderanges">SetEnabledUnicodeRanges</a> functions. These ranges are constrained to be a subset of the ranges returned by <b>GetUnicodeRanges</b>.
      * 
      * Microsoft gesture recognizers use Unicode characters from 0xF000 to 0xF0FF. Each single Unicode value in this range represents a single gesture. For a complete list of Unicode values for gestures, see <a href="https://docs.microsoft.com/windows/desktop/tablet/unicode-range-values-of-gestures">Unicode Range Values of Gestures</a>.
-     * @param {Pointer<HRECOGNIZER>} hrec Handle to the recognizer.
+     * @param {Pointer<Void>} hrec Handle to the recognizer.
      * @param {Pointer<UInt32>} pcRanges On input, the number of ranges the <i>pcr</i> buffer can hold. On output, the number of ranges the <i>pcr</i> buffer contains.
      * @param {Pointer<CHARACTER_RANGE>} pcr Array of <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-character_range">CHARACTER_RANGE</a> structures. Each structure contains a range of Unicode points that the recognizer supports. The order of the array is arbitrary. To determine the required size of the buffer, set <i>pcr</i> to <b>NULL</b>; use the number of ranges to allocate the <i>pcr</i> buffer.
      * @returns {Integer} This function can return one of these values.
@@ -2188,7 +2188,7 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static GetUnicodeRanges(hrec, pcRanges, pcr) {
-        result := DllCall("inkobjcore.dll\GetUnicodeRanges", "ptr", hrec, "ptr", pcRanges, "ptr", pcr, "int")
+        result := DllCall("inkobjcore.dll\GetUnicodeRanges", "ptr", hrec, "uint*", pcRanges, "ptr", pcr, "int")
         return result
     }
 
@@ -2200,7 +2200,7 @@ class TabletPC {
      * It is recommended that your recognizer place a limit on the number of strokes per context and/or the points allowed in a given stroke. Limit input to 1024 strokes per context and 32767 points per stroke.
      * 
      * Strokes with zero points are not allowed. You should return E_FAIL in such a case.
-     * @param {Pointer<HRECOCONTEXT>} hrc The handle to the recognizer context.
+     * @param {Pointer<Void>} hrc The handle to the recognizer context.
      * @param {Pointer<PACKET_DESCRIPTION>} pPacketDesc Describes the contents of the packets. The description must match the contents of the packets in <i>pPacket</i>. If <b>NULL</b>, this function uses the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-getpreferredpacketdescription">GetPreferredPacketDescription</a> function.
      * @param {Integer} cbPacket Size, in bytes, of the <i>pPacket</i> buffer.
      * @param {Pointer<Byte>} pPacket Array of packets that contain tablet space coordinates.
@@ -2294,15 +2294,15 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static AddStroke(hrc, pPacketDesc, cbPacket, pPacket, pXForm) {
-        result := DllCall("inkobjcore.dll\AddStroke", "ptr", hrc, "ptr", pPacketDesc, "uint", cbPacket, "ptr", pPacket, "ptr", pXForm, "int")
+        result := DllCall("inkobjcore.dll\AddStroke", "ptr", hrc, "ptr", pPacketDesc, "uint", cbPacket, "char*", pPacket, "ptr", pXForm, "int")
         return result
     }
 
     /**
      * Retrieves the best result string.
-     * @param {Pointer<HRECOCONTEXT>} hrc Handle to the recognizer context.
+     * @param {Pointer<Void>} hrc Handle to the recognizer context.
      * @param {Pointer<UInt32>} pcSize On input, the number of characters the <i>pwcBestResult</i> buffer can hold. On output, the number of characters the <i>pwcBestResult</i> buffer contains. If <i>pwcBestResult</i> is <b>NULL</b>, the function returns the required size of the buffer that you use to allocate the <i>pwcBestResult</i> buffer.
-     * @param {Pointer<PWSTR>} pwcBestResult Recognition result. If the buffer is too small, the function truncates the string. The string is not <b>NULL</b>-terminated. To determine the required size of the buffer, set <i>pwcBestResult</i> to <b>NULL</b>; use <i>pcSize</i> to allocate the <i>pwcBestResult</i> buffer.
+     * @param {Pointer<Char>} pwcBestResult Recognition result. If the buffer is too small, the function truncates the string. The string is not <b>NULL</b>-terminated. To determine the required size of the buffer, set <i>pwcBestResult</i> to <b>NULL</b>; use <i>pcSize</i> to allocate the <i>pwcBestResult</i> buffer.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -2396,7 +2396,7 @@ class TabletPC {
     static GetBestResultString(hrc, pcSize, pwcBestResult) {
         pwcBestResult := pwcBestResult is String? StrPtr(pwcBestResult) : pwcBestResult
 
-        result := DllCall("inkobjcore.dll\GetBestResultString", "ptr", hrc, "ptr", pcSize, "ptr", pwcBestResult, "int")
+        result := DllCall("inkobjcore.dll\GetBestResultString", "ptr", hrc, "uint*", pcSize, "ptr", pwcBestResult, "int")
         return result
     }
 
@@ -2404,7 +2404,7 @@ class TabletPC {
      * Sets the recognition guide to use for boxed or lined input. You must call this function before you add strokes to the context.
      * @remarks
      * Guide boxes are numbered based on the <i>iIntex</i> value.
-     * @param {Pointer<HRECOCONTEXT>} hrc Handle to the recognizer context.
+     * @param {Pointer<Void>} hrc Handle to the recognizer context.
      * @param {Pointer<RECO_GUIDE>} pGuide Guide to use for box or line input. Setting this parameter to <b>NULL</b> means that the context has no guide. This is the default and means the recognizer is in free input mode. For guide details, see the <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-reco_guide">RECO_GUIDE</a> structure.
      * @param {Integer} iIndex Index value to use for the first box or line in the context.
      * @returns {Integer} This function can return one of these values.
@@ -2497,7 +2497,7 @@ class TabletPC {
      * For example, if you have two threads, one thread may be using <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-addstroke">AddStroke</a> and <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-process">Process</a> with other functions to obtain results. The other thread may be collecting ink, echoing it, and queuing tasks for the first thread. The second thread calls <b>AdviseInkChange</b> to notify the recognizer a change is coming. This enables the first thread to return to the caller sooner than without the call to <b>AdviseInkChange</b>. The first thread can then call the recognizer again with more ink.
      * 
      * If you set the bNewStroke parameter to <b>FALSE</b> because a stroke was modified or deleted, you must also call the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-resetcontext">ResetContext</a> function, and then call the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-addstroke">AddStroke</a> function to add the strokes from the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object to the recognizer context. This is done automatically if you attach the recognizer context to the <b>InkDisp</b> object.
-     * @param {Pointer<HRECOCONTEXT>} hrc The handle to the recognizer context.
+     * @param {Pointer<Void>} hrc The handle to the recognizer context.
      * @param {Integer} bNewStroke <b>TRUE</b> if adding a new stroke. Set to <b>FALSE</b> if strokes were erased, split, merged, extracted, or deleted from the Ink object.
      * @returns {Integer} This function can return one of these values.
      * 
@@ -2568,7 +2568,7 @@ class TabletPC {
      * 
      * <div class="alert"><b>Note</b>  This function is not guaranteed to be called by all applications or operating system components, such as the Tablet PC Input Panel. Therefore, recognizers should not rely on it being called.</div>
      * <div> </div>
-     * @param {Pointer<HRECOCONTEXT>} hrc The handle to the recognizer context.
+     * @param {Pointer<Void>} hrc The handle to the recognizer context.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -2631,7 +2631,7 @@ class TabletPC {
 
     /**
      * Performs ink recognition synchronously.
-     * @param {Pointer<HRECOCONTEXT>} hrc The handle to the recognizer context.
+     * @param {Pointer<Void>} hrc The handle to the recognizer context.
      * @param {Pointer<Int32>} pbPartialProcessing Specify <b>TRUE</b> to process a subset of the ink. Partial processing reduces the time the recognizer spends performing recognition if more ink is expected.
      * 
      * Typically an application specifies <b>FALSE</b> to process all the ink. The function does not process all the ink if you have not called the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizercontext-endinkinput">EndInkInput</a> function.
@@ -2714,7 +2714,7 @@ class TabletPC {
      * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-process
      */
     static Process(hrc, pbPartialProcessing) {
-        result := DllCall("inkobjcore.dll\Process", "ptr", hrc, "ptr", pbPartialProcessing, "int")
+        result := DllCall("inkobjcore.dll\Process", "ptr", hrc, "int*", pbPartialProcessing, "int")
         return result
     }
 
@@ -2724,9 +2724,9 @@ class TabletPC {
      * For a list of factoids that can be passed in the <i>cwcFactoid</i> parameter, see <a href="https://docs.microsoft.com/windows/desktop/tablet/supported-factoids-from-version-1">Supported Factoids from Version 1</a>. The DEFAULT factoid listed in that topic is not a valid value to pass to <b>SetFactoid</b>; the Tablet PC Platform API's internally convert DEFAULT to <b>NULL</b> before calling the <b>SetFactoid</b> function.
      * 
      * It is recommended that you limit the length of the factoid string to no more than 32768 characters.
-     * @param {Pointer<HRECOCONTEXT>} hrc Handle to the recognizer context.
+     * @param {Pointer<Void>} hrc Handle to the recognizer context.
      * @param {Integer} cwcFactoid Number of characters in <i>pwcFactoid</i>.
-     * @param {Pointer<PWSTR>} pwcFactoid Identifies the factoid to use on the recognizer context. The string is not <b>NULL</b>-terminated.
+     * @param {Pointer<Char>} pwcFactoid Identifies the factoid to use on the recognizer context. The string is not <b>NULL</b>-terminated.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -2842,7 +2842,7 @@ class TabletPC {
      * 
      * <div class="alert"><b>Note</b>  Only line mode is supported in the <b>SetFlags</b> function. Boxed mode, free mode, and single-line mode are not supported.</div>
      * <div> </div>
-     * @param {Pointer<HRECOCONTEXT>} hrc Handle to the recognizer context.
+     * @param {Pointer<Void>} hrc Handle to the recognizer context.
      * @param {Integer} dwFlags The following table lists the flags that you may set to specify how the recognizer interprets the ink and determines the result string. Use the <b>OR</b> operator (|) to combine flags as appropriate.
      * 
      * 
@@ -3009,7 +3009,7 @@ class TabletPC {
 
     /**
      * Retrieves a pointer to the lattice for the current results.
-     * @param {Pointer<HRECOCONTEXT>} hrc The handle to the recognizer context.
+     * @param {Pointer<Void>} hrc The handle to the recognizer context.
      * @param {Pointer<RECO_LATTICE>} ppLattice The recognition results.
      * @returns {Integer} This function can return one of these values.
      * 
@@ -3112,11 +3112,11 @@ class TabletPC {
      * However, if the <i>pwcAfter</i> string is "Hel" and the <i>pwcBefore</i> string is "o", the lack of space between the strings indicates the recognizer should recognize one or more letters inside a word that begins with "Hel" and ends with "o".
      * 
      * It is recommended that you limit the length of the text context to no more than 1024 characters each for the left and right contexts.
-     * @param {Pointer<HRECOCONTEXT>} hrc Handle to the recognizer context.
+     * @param {Pointer<Void>} hrc Handle to the recognizer context.
      * @param {Integer} cwcBefore Number of characters in <i>pwcBefore</i>.
-     * @param {Pointer<PWSTR>} pwcBefore Text string that comes before the text contained in the recognizer context. The string is not <b>NULL</b> terminated.
+     * @param {Pointer<Char>} pwcBefore Text string that comes before the text contained in the recognizer context. The string is not <b>NULL</b> terminated.
      * @param {Integer} cwcAfter Number of characters in <i>pwcAfter</i>.
-     * @param {Pointer<PWSTR>} pwcAfter Text string that comes after the text contained in the recognizer context. The string is not <b>NULL</b> -terminated.
+     * @param {Pointer<Char>} pwcAfter Text string that comes after the text contained in the recognizer context. The string is not <b>NULL</b> -terminated.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -3212,7 +3212,7 @@ class TabletPC {
      * Each recognizer supports one or more Unicode point ranges. To determine which Unicode point ranges the recognizer supports, call the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-getunicoderanges">GetUnicodeRanges</a> function. If you do not call this function, the recognizer uses a default set of Unicode point ranges. The default ranges are recognizer specific.
      * 
      * The Microsoft gesture recognizer uses Unicode characters from 0xF000 to 0xF0FF. Each single Unicode value in this range represents a single gesture. For a complete list of Unicode values for gestures, see <a href="https://docs.microsoft.com/windows/desktop/tablet/unicode-range-values-of-gestures">Unicode Range Values of Gestures</a>.
-     * @param {Pointer<HRECOCONTEXT>} hrc The handle to the recognizer context.
+     * @param {Pointer<Void>} hrc The handle to the recognizer context.
      * @param {Integer} cRanges The number of ranges in the <i>pRanges</i> buffer.
      * @param {Pointer<CHARACTER_RANGE>} pcr An array of <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-character_range">CHARACTER_RANGE</a> structures. Each structure identifies a range of Unicode points that you want to enable in the recognizer. The order of the array is arbitrary.
      * @returns {Integer} This function can return one of these values.
@@ -3296,9 +3296,9 @@ class TabletPC {
      * Note that this function should take into consideration any information specified in <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-settextcontext">SetTextContext</a> when returning a value. For example, if the recognizer receives calls to SetTextContext ("http:", "") and receives a URL factoid, SetFactoid ((!IS_URL)) then IsStringSupported("www.microsoft.com") should return S_FALSE because it is missing the "//".
      * 
      * The COERCE flag has no effect on IsStringSupported.
-     * @param {Pointer<HRECOCONTEXT>} hrc The handle to the recognizer context.
+     * @param {Pointer<Void>} hrc The handle to the recognizer context.
      * @param {Integer} wcString The count, in Unicode (wide) characters, of <i>pwcString</i>.
-     * @param {Pointer<PWSTR>} pwcString The Unicode (wide) characters to test.
+     * @param {Pointer<Char>} pwcString The Unicode (wide) characters to test.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -3393,8 +3393,8 @@ class TabletPC {
      * To clear the wordlist, pass <b>NULL</b> as the second parameter.
      * 
      * It is recommended that you limit the length of individual words in the wordlist to no more than 256 characters and limit memory allocation for wordlists to no more than 128 MB.
-     * @param {Pointer<HRECOCONTEXT>} hrc Handle to the recognizer context.
-     * @param {Pointer<HRECOWORDLIST>} hwl Handle to recognition word list to be used.
+     * @param {Pointer<Void>} hrc Handle to the recognizer context.
+     * @param {Pointer<Void>} hwl Handle to recognition word list to be used.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -3479,9 +3479,9 @@ class TabletPC {
 
     /**
      * Gets the right separator for the recognizer context.
-     * @param {Pointer<HRECOCONTEXT>} hrc The handle to the recognizer context.
+     * @param {Pointer<Void>} hrc The handle to the recognizer context.
      * @param {Pointer<UInt32>} pcSize A pointer to the size of the right separator.
-     * @param {Pointer<PWSTR>} pwcRightSeparator A pointer to the right separator.
+     * @param {Pointer<Char>} pwcRightSeparator A pointer to the right separator.
      * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getrightseparator
      * @since windows5.1.2600
@@ -3489,15 +3489,15 @@ class TabletPC {
     static GetRightSeparator(hrc, pcSize, pwcRightSeparator) {
         pwcRightSeparator := pwcRightSeparator is String? StrPtr(pwcRightSeparator) : pwcRightSeparator
 
-        result := DllCall("inkobjcore.dll\GetRightSeparator", "ptr", hrc, "ptr", pcSize, "ptr", pwcRightSeparator, "int")
+        result := DllCall("inkobjcore.dll\GetRightSeparator", "ptr", hrc, "uint*", pcSize, "ptr", pwcRightSeparator, "int")
         return result
     }
 
     /**
      * Gets the left separator for the recognizer context.
-     * @param {Pointer<HRECOCONTEXT>} hrc The handle to the recognizer context.
+     * @param {Pointer<Void>} hrc The handle to the recognizer context.
      * @param {Pointer<UInt32>} pcSize A pointer to the size of the left separator.
-     * @param {Pointer<PWSTR>} pwcLeftSeparator A pointer to the left separator.
+     * @param {Pointer<Char>} pwcLeftSeparator A pointer to the left separator.
      * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getleftseparator
      * @since windows5.1.2600
@@ -3505,13 +3505,13 @@ class TabletPC {
     static GetLeftSeparator(hrc, pcSize, pwcLeftSeparator) {
         pwcLeftSeparator := pwcLeftSeparator is String? StrPtr(pwcLeftSeparator) : pwcLeftSeparator
 
-        result := DllCall("inkobjcore.dll\GetLeftSeparator", "ptr", hrc, "ptr", pcSize, "ptr", pwcLeftSeparator, "int")
+        result := DllCall("inkobjcore.dll\GetLeftSeparator", "ptr", hrc, "uint*", pcSize, "ptr", pwcLeftSeparator, "int")
         return result
     }
 
     /**
      * Destroys the current word list.
-     * @param {Pointer<HRECOWORDLIST>} hwl Handle to the word list.
+     * @param {Pointer<Void>} hwl Handle to the word list.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -3574,8 +3574,8 @@ class TabletPC {
 
     /**
      * Adds one or more words to the word list.
-     * @param {Pointer<HRECOWORDLIST>} hwl Handle to the word list.
-     * @param {Pointer<PWSTR>} pwcWords Words to add to the word list. Separate words in this list with a \0 character and end the list with two \0 characters. Words that already exist in the list are not added.
+     * @param {Pointer<Void>} hwl Handle to the word list.
+     * @param {Pointer<Char>} pwcWords Words to add to the word list. Separate words in this list with a \0 character and end the list with two \0 characters. Words that already exist in the list are not added.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -3640,9 +3640,9 @@ class TabletPC {
 
     /**
      * Creates a word list.
-     * @param {Pointer<HRECOGNIZER>} hrec Handle to the recognizer.
-     * @param {Pointer<PWSTR>} pBuffer Words to insert into the new word list. Separate words in this list with a \0 character and end the list with two \0 characters.
-     * @param {Pointer<HRECOWORDLIST>} phwl Handle to the new word list.
+     * @param {Pointer<Void>} hrec Handle to the recognizer.
+     * @param {Pointer<Char>} pBuffer Words to insert into the new word list. Separate words in this list with a \0 character and end the list with two \0 characters.
+     * @param {Pointer<Void>} phwl Handle to the new word list.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -3787,7 +3787,7 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static GetAllRecognizers(recognizerClsids, count) {
-        result := DllCall("inkobjcore.dll\GetAllRecognizers", "ptr", recognizerClsids, "ptr", count, "int")
+        result := DllCall("inkobjcore.dll\GetAllRecognizers", "ptr", recognizerClsids, "uint*", count, "int")
         return result
     }
 

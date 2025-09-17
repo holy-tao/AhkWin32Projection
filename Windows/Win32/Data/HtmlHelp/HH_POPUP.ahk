@@ -26,7 +26,7 @@ class HH_POPUP extends Win32Struct
 
     /**
      * Instance handle of the program or DLL to retrieve the string resource from. Ignored if <i>idString</i> is zero, or if <i>idString</i> specifies a file name.
-     * @type {Pointer<HINSTANCE>}
+     * @type {Pointer<Void>}
      */
     hinst {
         get => NumGet(this, 8, "ptr")

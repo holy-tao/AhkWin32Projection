@@ -45,7 +45,7 @@ class LSA_STRING extends Win32Struct
      * When the <b>Length</b> structure member is zero and the <b>MaximumLength</b> structure member is 1, the <b>Buffer</b> structure member must not be an empty string or contain solely a null character.
      * 
      * <b>Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>When the <b>Length</b> structure member is zero and the <b>MaximumLength</b> structure member is 1, the <b>Buffer</b> structure member can be an empty string or contain solely a null character. This behavior changed beginning with Windows Server 2008 R2 and Windows 7 with SP1.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     Buffer {
         get => NumGet(this, 8, "ptr")

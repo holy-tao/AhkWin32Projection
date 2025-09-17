@@ -613,12 +613,13 @@ class SystemInformation {
      * Retrieves information about the current system.
      * @param {Pointer<SYSTEM_INFO>} lpSystemInfo A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/ns-sysinfoapi-system_info">SYSTEM_INFO</a> structure that receives the information.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsysteminfo
      * @since windows5.0
      */
     static GetSystemInfo(lpSystemInfo) {
-        DllCall("KERNEL32.dll\GetSystemInfo", "ptr", lpSystemInfo)
+        result := DllCall("KERNEL32.dll\GetSystemInfo", "ptr", lpSystemInfo)
+        return result
     }
 
     /**
@@ -627,24 +628,26 @@ class SystemInformation {
      * To set the current system date and time, use the <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-setsystemtime">SetSystemTime</a> function.
      * @param {Pointer<SYSTEMTIME>} lpSystemTime A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure to receive the current system date and time. The <i>lpSystemTime</i> parameter must not be <b>NULL</b>. Using <b>NULL</b> will result in an access violation.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsystemtime
      * @since windows5.0
      */
     static GetSystemTime(lpSystemTime) {
-        DllCall("KERNEL32.dll\GetSystemTime", "ptr", lpSystemTime)
+        result := DllCall("KERNEL32.dll\GetSystemTime", "ptr", lpSystemTime)
+        return result
     }
 
     /**
      * Retrieves the current system date and time. The information is in Coordinated Universal Time (UTC) format.
      * @param {Pointer<FILETIME>} lpSystemTimeAsFileTime A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure to receive the current system date and time in UTC format.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsystemtimeasfiletime
      * @since windows5.0
      */
     static GetSystemTimeAsFileTime(lpSystemTimeAsFileTime) {
-        DllCall("KERNEL32.dll\GetSystemTimeAsFileTime", "ptr", lpSystemTimeAsFileTime)
+        result := DllCall("KERNEL32.dll\GetSystemTimeAsFileTime", "ptr", lpSystemTimeAsFileTime)
+        return result
     }
 
     /**
@@ -653,12 +656,13 @@ class SystemInformation {
      * To set the current local date and time, use the <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-setlocaltime">SetLocalTime</a> function.
      * @param {Pointer<SYSTEMTIME>} lpSystemTime A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure to receive the current local date and time.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getlocaltime
      * @since windows5.0
      */
     static GetLocalTime(lpSystemTime) {
-        DllCall("KERNEL32.dll\GetLocalTime", "ptr", lpSystemTime)
+        result := DllCall("KERNEL32.dll\GetLocalTime", "ptr", lpSystemTime)
+        return result
     }
 
     /**
@@ -679,7 +683,7 @@ class SystemInformation {
      * @returns {Integer} 
      */
     static GetSystemLeapSecondInformation(Enabled, Flags) {
-        result := DllCall("KERNEL32.dll\GetSystemLeapSecondInformation", "ptr", Enabled, "ptr", Flags, "int")
+        result := DllCall("KERNEL32.dll\GetSystemLeapSecondInformation", "int*", Enabled, "uint*", Flags, "int")
         return result
     }
 
@@ -815,7 +819,7 @@ class SystemInformation {
     static GetSystemTimeAdjustment(lpTimeAdjustment, lpTimeIncrement, lpTimeAdjustmentDisabled) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetSystemTimeAdjustment", "ptr", lpTimeAdjustment, "ptr", lpTimeIncrement, "ptr", lpTimeAdjustmentDisabled, "int")
+        result := DllCall("KERNEL32.dll\GetSystemTimeAdjustment", "uint*", lpTimeAdjustment, "uint*", lpTimeIncrement, "int*", lpTimeAdjustmentDisabled, "int")
         if(A_LastError)
             throw OSError()
 
@@ -848,7 +852,7 @@ class SystemInformation {
     static GetSystemTimeAdjustmentPrecise(lpTimeAdjustment, lpTimeIncrement, lpTimeAdjustmentDisabled) {
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-sysinfo-l1-2-4.dll\GetSystemTimeAdjustmentPrecise", "ptr", lpTimeAdjustment, "ptr", lpTimeIncrement, "ptr", lpTimeAdjustmentDisabled, "int")
+        result := DllCall("api-ms-win-core-sysinfo-l1-2-4.dll\GetSystemTimeAdjustmentPrecise", "uint*", lpTimeAdjustment, "uint*", lpTimeIncrement, "int*", lpTimeAdjustmentDisabled, "int")
         if(A_LastError)
             throw OSError()
 
@@ -859,9 +863,12 @@ class SystemInformation {
      * Retrieves the path of the system directory. (ANSI)
      * @remarks
      * Applications should not create files in the system directory. If the user is running a shared version of the operating system, the application does not have write access to the system directory.
-     * @param {Pointer<PSTR>} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash unless the system directory is the root directory. For example, if the system directory is named Windows\System32 on drive C, the path of the system directory retrieved by this function is C:\Windows\System32.
+     * @param {Pointer<Byte>} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash unless the system directory is the root directory. For example, if the system directory is named Windows\System32 on drive C, the path of the system directory retrieved by this function is C:\Windows\System32.
      * @param {Integer} uSize The maximum size of the buffer, in <b>TCHARs</b>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is the length, in <b>TCHARs</b>, of the string copied to the buffer, not including the terminating null character. If the length is greater than the size of the buffer, the return value is the size of the buffer required to hold the path, including the terminating null character.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsystemdirectorya
      * @since windows5.0
      */
@@ -870,19 +877,23 @@ class SystemInformation {
 
         A_LastError := 0
 
-        DllCall("KERNEL32.dll\GetSystemDirectoryA", "ptr", lpBuffer, "uint", uSize)
+        result := DllCall("KERNEL32.dll\GetSystemDirectoryA", "ptr", lpBuffer, "uint", uSize)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
      * Retrieves the path of the system directory. (Unicode)
      * @remarks
      * Applications should not create files in the system directory. If the user is running a shared version of the operating system, the application does not have write access to the system directory.
-     * @param {Pointer<PWSTR>} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash unless the system directory is the root directory. For example, if the system directory is named Windows\System32 on drive C, the path of the system directory retrieved by this function is C:\Windows\System32.
+     * @param {Pointer<Char>} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash unless the system directory is the root directory. For example, if the system directory is named Windows\System32 on drive C, the path of the system directory retrieved by this function is C:\Windows\System32.
      * @param {Integer} uSize The maximum size of the buffer, in <b>TCHARs</b>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is the length, in <b>TCHARs</b>, of the string copied to the buffer, not including the terminating null character. If the length is greater than the size of the buffer, the return value is the size of the buffer required to hold the path, including the terminating null character.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsystemdirectoryw
      * @since windows5.0
      */
@@ -891,10 +902,11 @@ class SystemInformation {
 
         A_LastError := 0
 
-        DllCall("KERNEL32.dll\GetSystemDirectoryW", "ptr", lpBuffer, "uint", uSize)
+        result := DllCall("KERNEL32.dll\GetSystemDirectoryW", "ptr", lpBuffer, "uint", uSize)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -919,13 +931,22 @@ class SystemInformation {
      *      function returns the path of the system Windows directory, just as the 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getsystemwindowsdirectorya">GetSystemWindowsDirectory</a> function does. 
      *      Otherwise, it retrieves the path of the private Windows directory for the user.
-     * @param {Pointer<PSTR>} lpBuffer A pointer to a buffer that receives the path. This path does not end with a 
+     * @param {Pointer<Byte>} lpBuffer A pointer to a buffer that receives the path. This path does not end with a 
      *       backslash unless the Windows directory is the root directory. For example, if the Windows directory is named 
      *       Windows on drive C, the path of the Windows directory retrieved by this function is C:\Windows. If the system 
      *       was installed in the root directory of drive C, the path retrieved is C:\.
      * @param {Integer} uSize The maximum size of the buffer specified by the <i>lpBuffer</i> parameter, in 
      *       <b>TCHARs</b>. This value should be set to <b>MAX_PATH</b>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is the length of the string copied to the buffer, in 
+     *        <b>TCHARs</b>, not including the terminating null character.
+     *       
+     * 
+     * If the length is greater than the size of the buffer, the return value is the size of the buffer required to 
+     *        hold the path.
+     *       
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getwindowsdirectorya
      * @since windows5.0
      */
@@ -934,10 +955,11 @@ class SystemInformation {
 
         A_LastError := 0
 
-        DllCall("KERNEL32.dll\GetWindowsDirectoryA", "ptr", lpBuffer, "uint", uSize)
+        result := DllCall("KERNEL32.dll\GetWindowsDirectoryA", "ptr", lpBuffer, "uint", uSize)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -962,13 +984,22 @@ class SystemInformation {
      *      function returns the path of the system Windows directory, just as the 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getsystemwindowsdirectorya">GetSystemWindowsDirectory</a> function does. 
      *      Otherwise, it retrieves the path of the private Windows directory for the user.
-     * @param {Pointer<PWSTR>} lpBuffer A pointer to a buffer that receives the path. This path does not end with a 
+     * @param {Pointer<Char>} lpBuffer A pointer to a buffer that receives the path. This path does not end with a 
      *       backslash unless the Windows directory is the root directory. For example, if the Windows directory is named 
      *       Windows on drive C, the path of the Windows directory retrieved by this function is C:\Windows. If the system 
      *       was installed in the root directory of drive C, the path retrieved is C:\.
      * @param {Integer} uSize The maximum size of the buffer specified by the <i>lpBuffer</i> parameter, in 
      *       <b>TCHARs</b>. This value should be set to <b>MAX_PATH</b>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is the length of the string copied to the buffer, in 
+     *        <b>TCHARs</b>, not including the terminating null character.
+     *       
+     * 
+     * If the length is greater than the size of the buffer, the return value is the size of the buffer required to 
+     *        hold the path.
+     *       
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getwindowsdirectoryw
      * @since windows5.0
      */
@@ -977,10 +1008,11 @@ class SystemInformation {
 
         A_LastError := 0
 
-        DllCall("KERNEL32.dll\GetWindowsDirectoryW", "ptr", lpBuffer, "uint", uSize)
+        result := DllCall("KERNEL32.dll\GetWindowsDirectoryW", "ptr", lpBuffer, "uint", uSize)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -1000,9 +1032,14 @@ class SystemInformation {
      * 
      * > [!NOTE]
      * > The sysinfoapi.h header defines GetSystemWindowsDirectory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash unless the Windows directory is the root directory. For example, if the Windows directory is named Windows on drive C, the path of the Windows directory retrieved by this function is C:\Windows. If the system was installed in the root directory of drive C, the path retrieved is C:\.
+     * @param {Pointer<Byte>} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash unless the Windows directory is the root directory. For example, if the Windows directory is named Windows on drive C, the path of the Windows directory retrieved by this function is C:\Windows. If the system was installed in the root directory of drive C, the path retrieved is C:\.
      * @param {Integer} uSize The maximum size of the buffer specified by the <i>lpBuffer</i> parameter, in <b>TCHARs</b>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is the length of the string copied to the buffer, in <b>TCHARs</b>, not including the terminating null character.
+     * 
+     * If the length is greater than the size of the buffer, the return value is the size of the buffer required to hold the path.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsystemwindowsdirectorya
      * @since windows5.0
      */
@@ -1011,10 +1048,11 @@ class SystemInformation {
 
         A_LastError := 0
 
-        DllCall("KERNEL32.dll\GetSystemWindowsDirectoryA", "ptr", lpBuffer, "uint", uSize)
+        result := DllCall("KERNEL32.dll\GetSystemWindowsDirectoryA", "ptr", lpBuffer, "uint", uSize)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -1034,9 +1072,14 @@ class SystemInformation {
      * 
      * > [!NOTE]
      * > The sysinfoapi.h header defines GetSystemWindowsDirectory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash unless the Windows directory is the root directory. For example, if the Windows directory is named Windows on drive C, the path of the Windows directory retrieved by this function is C:\Windows. If the system was installed in the root directory of drive C, the path retrieved is C:\.
+     * @param {Pointer<Char>} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash unless the Windows directory is the root directory. For example, if the Windows directory is named Windows on drive C, the path of the Windows directory retrieved by this function is C:\Windows. If the system was installed in the root directory of drive C, the path retrieved is C:\.
      * @param {Integer} uSize The maximum size of the buffer specified by the <i>lpBuffer</i> parameter, in <b>TCHARs</b>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is the length of the string copied to the buffer, in <b>TCHARs</b>, not including the terminating null character.
+     * 
+     * If the length is greater than the size of the buffer, the return value is the size of the buffer required to hold the path.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsystemwindowsdirectoryw
      * @since windows5.0
      */
@@ -1045,10 +1088,11 @@ class SystemInformation {
 
         A_LastError := 0
 
-        DllCall("KERNEL32.dll\GetSystemWindowsDirectoryW", "ptr", lpBuffer, "uint", uSize)
+        result := DllCall("KERNEL32.dll\GetSystemWindowsDirectoryW", "ptr", lpBuffer, "uint", uSize)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -1163,7 +1207,7 @@ class SystemInformation {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PSTR>} lpBuffer A pointer to a buffer that receives the computer name or the cluster virtual server name. 
+     * @param {Pointer<Byte>} lpBuffer A pointer to a buffer that receives the computer name or the cluster virtual server name. 
      * 
      * 
      * 
@@ -1207,7 +1251,7 @@ class SystemInformation {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetComputerNameExA", "int", NameType, "ptr", lpBuffer, "ptr", nSize, "int")
+        result := DllCall("KERNEL32.dll\GetComputerNameExA", "int", NameType, "ptr", lpBuffer, "uint*", nSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1326,7 +1370,7 @@ class SystemInformation {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PWSTR>} lpBuffer A pointer to a buffer that receives the computer name or the cluster virtual server name. 
+     * @param {Pointer<Char>} lpBuffer A pointer to a buffer that receives the computer name or the cluster virtual server name. 
      * 
      * 
      * 
@@ -1370,7 +1414,7 @@ class SystemInformation {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetComputerNameExW", "int", NameType, "ptr", lpBuffer, "ptr", nSize, "int")
+        result := DllCall("KERNEL32.dll\GetComputerNameExW", "int", NameType, "ptr", lpBuffer, "uint*", nSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1398,7 +1442,7 @@ class SystemInformation {
      * > [!NOTE]
      * > The sysinfoapi.h header defines SetComputerNameEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} NameType 
-     * @param {Pointer<PWSTR>} lpBuffer The new name. The name cannot include control characters, leading or trailing spaces, or any of the following characters: " / \ [ ] : | &lt; &gt; + = ; , ?
+     * @param {Pointer<Char>} lpBuffer The new name. The name cannot include control characters, leading or trailing spaces, or any of the following characters: " / \ [ ] : | &lt; &gt; + = ; , ?
      * @returns {Integer} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -1614,7 +1658,7 @@ class SystemInformation {
      * 
      * > [!NOTE]
      * > Starting with *TBD Release Iron*, the behavior of this and other NUMA functions has been modified to better support systems with nodes containing more that 64 processors. For more information about this change, including information about enabling the old behavior of this API, see [NUMA Support](/windows/win32/procthread/numa-support).
-     * @param {Pointer<SYSTEM_LOGICAL_PROCESSOR_INFORMATION>} Buffer A pointer to a buffer that receives  an array of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_logical_processor_information">SYSTEM_LOGICAL_PROCESSOR_INFORMATION</a> structures. If the function fails, the contents of this buffer are undefined.
+     * @param {Pointer} Buffer A pointer to a buffer that receives  an array of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_logical_processor_information">SYSTEM_LOGICAL_PROCESSOR_INFORMATION</a> structures. If the function fails, the contents of this buffer are undefined.
      * @param {Pointer<UInt32>} ReturnedLength On input, specifies the length of the buffer pointed to by  <i>Buffer</i>, in bytes. If the buffer is large enough to contain all of the data, this function succeeds and <i>ReturnLength</i> is set to the number of bytes returned. If the buffer is not large enough to contain all of the data, the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, and <i>ReturnLength</i> is set to the buffer length required to contain all of the data. If the function fails with an error other than ERROR_INSUFFICIENT_BUFFER, the value of <i>ReturnLength</i> is undefined.
      * @returns {Integer} If the function succeeds, the return value is TRUE and at least one <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_logical_processor_information">SYSTEM_LOGICAL_PROCESSOR_INFORMATION</a> structure is written to the output buffer.
      * 
@@ -1626,7 +1670,7 @@ class SystemInformation {
     static GetLogicalProcessorInformation(Buffer, ReturnedLength) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetLogicalProcessorInformation", "ptr", Buffer, "ptr", ReturnedLength, "int")
+        result := DllCall("KERNEL32.dll\GetLogicalProcessorInformation", "ptr", Buffer, "uint*", ReturnedLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1747,7 +1791,7 @@ class SystemInformation {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX>} Buffer A pointer to a buffer that receives a sequence of variable-sized <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-system_logical_processor_information_ex">SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX</a> structures. If the function fails, the contents of this buffer are undefined.
+     * @param {Pointer} Buffer A pointer to a buffer that receives a sequence of variable-sized <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-system_logical_processor_information_ex">SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX</a> structures. If the function fails, the contents of this buffer are undefined.
      * @param {Pointer<UInt32>} ReturnedLength On input, specifies the length of the buffer pointed to by  <i>Buffer</i>, in bytes. If the buffer is large enough to contain all of the data, this function succeeds and <i>ReturnedLength</i> is set to the number of bytes returned. If the buffer is not large enough to contain all of the data, the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, and <i>ReturnedLength</i> is set to the buffer length required to contain all of the data. If the function fails with an error other than ERROR_INSUFFICIENT_BUFFER, the value of <i>ReturnedLength</i> is undefined.
      * @returns {Integer} If the function succeeds, the return value is TRUE and at least one <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-system_logical_processor_information_ex">SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX</a> structure is written to the output buffer.
      * 
@@ -1759,7 +1803,7 @@ class SystemInformation {
     static GetLogicalProcessorInformationEx(RelationshipType, Buffer, ReturnedLength) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetLogicalProcessorInformationEx", "int", RelationshipType, "ptr", Buffer, "ptr", ReturnedLength, "int")
+        result := DllCall("KERNEL32.dll\GetLogicalProcessorInformationEx", "int", RelationshipType, "ptr", Buffer, "uint*", ReturnedLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1776,12 +1820,13 @@ class SystemInformation {
      * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Pointer<SYSTEM_INFO>} lpSystemInfo A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/ns-sysinfoapi-system_info">SYSTEM_INFO</a> structure that receives the information.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getnativesysteminfo
      * @since windows5.1.2600
      */
     static GetNativeSystemInfo(lpSystemInfo) {
-        DllCall("KERNEL32.dll\GetNativeSystemInfo", "ptr", lpSystemInfo)
+        result := DllCall("KERNEL32.dll\GetNativeSystemInfo", "ptr", lpSystemInfo)
+        return result
     }
 
     /**
@@ -1793,12 +1838,13 @@ class SystemInformation {
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the 
      *       current system date and time in UTC format.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsystemtimepreciseasfiletime
      * @since windows8.0
      */
     static GetSystemTimePreciseAsFileTime(lpSystemTimeAsFileTime) {
-        DllCall("KERNEL32.dll\GetSystemTimePreciseAsFileTime", "ptr", lpSystemTimeAsFileTime)
+        result := DllCall("KERNEL32.dll\GetSystemTimePreciseAsFileTime", "ptr", lpSystemTimeAsFileTime)
+        return result
     }
 
     /**
@@ -1848,7 +1894,7 @@ class SystemInformation {
      * @since windows6.0.6000
      */
     static GetProductInfo(dwOSMajorVersion, dwOSMinorVersion, dwSpMajorVersion, dwSpMinorVersion, pdwReturnedProductType) {
-        result := DllCall("KERNEL32.dll\GetProductInfo", "uint", dwOSMajorVersion, "uint", dwOSMinorVersion, "uint", dwSpMajorVersion, "uint", dwSpMinorVersion, "ptr", pdwReturnedProductType, "int")
+        result := DllCall("KERNEL32.dll\GetProductInfo", "uint", dwOSMajorVersion, "uint", dwOSMinorVersion, "uint", dwSpMajorVersion, "uint", dwSpMinorVersion, "uint*", pdwReturnedProductType, "int")
         return result
     }
 
@@ -1883,7 +1929,7 @@ class SystemInformation {
      * @returns {Integer} 
      */
     static GetOsSafeBootMode(Flags) {
-        result := DllCall("api-ms-win-core-sysinfo-l1-2-0.dll\GetOsSafeBootMode", "ptr", Flags, "int")
+        result := DllCall("api-ms-win-core-sysinfo-l1-2-0.dll\GetOsSafeBootMode", "uint*", Flags, "int")
         return result
     }
 
@@ -1909,21 +1955,26 @@ class SystemInformation {
      * 
      * For ACPI, if the system contains multiple tables with the same name, they are all enumerated with <b>EnumSystemFirmwareTables</b>. However, <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getsystemfirmwaretable">GetSystemFirmwareTable</a> retrieves only the first table in the list with this name.
      * @param {Integer} FirmwareTableProviderSignature 
-     * @param {Pointer<Byte>} pFirmwareTableEnumBuffer A pointer to a buffer that receives the list of  firmware tables. If this parameter is <b>NULL</b>, the return value is the required buffer size.
+     * @param {Pointer} pFirmwareTableEnumBuffer A pointer to a buffer that receives the list of  firmware tables. If this parameter is <b>NULL</b>, the return value is the required buffer size.
      * 
      * For more information on the contents of this buffer, see the Remarks section.
      * @param {Integer} BufferSize The size of the <i>pFirmwareTableBuffer</i> buffer, in bytes.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is the number of bytes written to the buffer. This value will always be less than or equal to <i>BufferSize</i>.
+     * 
+     * If the function fails because the buffer is not large enough, the return value is the required buffer size, in bytes. This value is always greater than <i>BufferSize</i>.
+     * 
+     * If the function fails for any other reason, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-enumsystemfirmwaretables
      * @since windows6.0.6000
      */
     static EnumSystemFirmwareTables(FirmwareTableProviderSignature, pFirmwareTableEnumBuffer, BufferSize) {
         A_LastError := 0
 
-        DllCall("KERNEL32.dll\EnumSystemFirmwareTables", "uint", FirmwareTableProviderSignature, "ptr", pFirmwareTableEnumBuffer, "uint", BufferSize)
+        result := DllCall("KERNEL32.dll\EnumSystemFirmwareTables", "uint", FirmwareTableProviderSignature, "ptr", pFirmwareTableEnumBuffer, "uint", BufferSize)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -1952,27 +2003,32 @@ class SystemInformation {
      * <c>retVal = GetSystemFirmwareTable('ACPI', 'PCAF', pBuffer, BUFSIZE);</c>
      * 
      * For more information, see the Remarks section of the <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-enumsystemfirmwaretables">EnumSystemFirmwareTables</a> function.
-     * @param {Pointer<Byte>} pFirmwareTableBuffer A pointer to a buffer that receives the requested firmware table. If this parameter is <b>NULL</b>, the return value is the required buffer size. 
+     * @param {Pointer} pFirmwareTableBuffer A pointer to a buffer that receives the requested firmware table. If this parameter is <b>NULL</b>, the return value is the required buffer size. 
      * 
      * For more information on the contents of this buffer, see the Remarks section.
      * @param {Integer} BufferSize The size of the <i>pFirmwareTableBuffer</i> buffer, in bytes.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is the number of bytes written to the buffer. This value will always be less than or equal to <i>BufferSize</i>.
+     * 
+     * If the function fails because the buffer is not large enough, the return value is the required buffer size, in bytes. This value is always greater than <i>BufferSize</i>.
+     * 
+     * If the function fails for any other reason, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsystemfirmwaretable
      * @since windows6.0.6000
      */
     static GetSystemFirmwareTable(FirmwareTableProviderSignature, FirmwareTableID, pFirmwareTableBuffer, BufferSize) {
         A_LastError := 0
 
-        DllCall("KERNEL32.dll\GetSystemFirmwareTable", "uint", FirmwareTableProviderSignature, "uint", FirmwareTableID, "ptr", pFirmwareTableBuffer, "uint", BufferSize)
+        result := DllCall("KERNEL32.dll\GetSystemFirmwareTable", "uint", FirmwareTableProviderSignature, "uint", FirmwareTableID, "ptr", pFirmwareTableBuffer, "uint", BufferSize)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} Hostname 
-     * @param {Pointer<PWSTR>} ComputerName 
+     * @param {Pointer<Char>} Hostname 
+     * @param {Pointer<Char>} ComputerName 
      * @param {Pointer<UInt32>} nSize 
      * @returns {Integer} 
      */
@@ -1980,7 +2036,7 @@ class SystemInformation {
         Hostname := Hostname is String? StrPtr(Hostname) : Hostname
         ComputerName := ComputerName is String? StrPtr(ComputerName) : ComputerName
 
-        result := DllCall("KERNEL32.dll\DnsHostnameToComputerNameExW", "ptr", Hostname, "ptr", ComputerName, "ptr", nSize, "int")
+        result := DllCall("KERNEL32.dll\DnsHostnameToComputerNameExW", "ptr", Hostname, "ptr", ComputerName, "uint*", nSize, "int")
         return result
     }
 
@@ -2032,7 +2088,7 @@ class SystemInformation {
     static GetPhysicallyInstalledSystemMemory(TotalMemoryInKilobytes) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetPhysicallyInstalledSystemMemory", "ptr", TotalMemoryInKilobytes, "int")
+        result := DllCall("KERNEL32.dll\GetPhysicallyInstalledSystemMemory", "uint*", TotalMemoryInKilobytes, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2043,7 +2099,7 @@ class SystemInformation {
      * 
      * @param {Integer} NameType 
      * @param {Integer} Flags 
-     * @param {Pointer<PWSTR>} lpBuffer 
+     * @param {Pointer<Char>} lpBuffer 
      * @returns {Integer} 
      */
     static SetComputerNameEx2W(NameType, Flags, lpBuffer) {
@@ -2167,7 +2223,7 @@ class SystemInformation {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0601 or later. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Integer} Group The number of the processor group for which to retrieve the cycle time.
-     * @param {Pointer<UInt64>} Buffer A pointer to a buffer to receive a SYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION structure for each processor in the group. On output, the DWORD64 <b>CycleTime</b> member of this structure is set to the cycle time for one processor.
+     * @param {Pointer} Buffer A pointer to a buffer to receive a SYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION structure for each processor in the group. On output, the DWORD64 <b>CycleTime</b> member of this structure is set to the cycle time for one processor.
      * @param {Pointer<UInt32>} ReturnedLength The size of the buffer, in bytes. When the function returns, this parameter contains the number of bytes written to <i>Buffer</i>. If the buffer is too small for the data, the function fails with ERROR_INSUFFICIENT_BUFFER and sets the <i>ReturnedLength</i> parameter to the required buffer size.
      * @returns {Integer} If the function succeeds, the return value is a nonzero value.
      * 
@@ -2180,7 +2236,7 @@ class SystemInformation {
     static GetProcessorSystemCycleTime(Group, Buffer, ReturnedLength) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessorSystemCycleTime", "ushort", Group, "ptr", Buffer, "ptr", ReturnedLength, "int")
+        result := DllCall("KERNEL32.dll\GetProcessorSystemCycleTime", "ushort", Group, "ptr", Buffer, "uint*", ReturnedLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2193,7 +2249,7 @@ class SystemInformation {
      * @returns {Integer} 
      */
     static GetOsManufacturingMode(pbEnabled) {
-        result := DllCall("api-ms-win-core-sysinfo-l1-2-3.dll\GetOsManufacturingMode", "ptr", pbEnabled, "int")
+        result := DllCall("api-ms-win-core-sysinfo-l1-2-3.dll\GetOsManufacturingMode", "int*", pbEnabled, "int")
         return result
     }
 
@@ -2210,7 +2266,7 @@ class SystemInformation {
      * @since windows10.0.10240
      */
     static GetIntegratedDisplaySize(sizeInInches) {
-        result := DllCall("api-ms-win-core-sysinfo-l1-2-3.dll\GetIntegratedDisplaySize", "ptr", sizeInInches, "int")
+        result := DllCall("api-ms-win-core-sysinfo-l1-2-3.dll\GetIntegratedDisplaySize", "double*", sizeInInches, "int")
         return result
     }
 
@@ -2225,7 +2281,7 @@ class SystemInformation {
      * 
      * > [!NOTE]
      * > The sysinfoapi.h header defines SetComputerName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpComputerName The computer name that will take effect the next time the computer is started. The name must not be longer than MAX_COMPUTERNAME_LENGTH characters. 
+     * @param {Pointer<Byte>} lpComputerName The computer name that will take effect the next time the computer is started. The name must not be longer than MAX_COMPUTERNAME_LENGTH characters. 
      * 
      * 
      * 
@@ -2262,7 +2318,7 @@ class SystemInformation {
      * 
      * > [!NOTE]
      * > The sysinfoapi.h header defines SetComputerName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpComputerName The computer name that will take effect the next time the computer is started. The name must not be longer than MAX_COMPUTERNAME_LENGTH characters. 
+     * @param {Pointer<Char>} lpComputerName The computer name that will take effect the next time the computer is started. The name must not be longer than MAX_COMPUTERNAME_LENGTH characters. 
      * 
      * 
      * 
@@ -2309,7 +2365,7 @@ class SystemInformation {
      * > [!NOTE]
      * > The sysinfoapi.h header defines SetComputerNameEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} NameType 
-     * @param {Pointer<PSTR>} lpBuffer The new name. The name cannot include control characters, leading or trailing spaces, or any of the following characters: " / \ [ ] : | &lt; &gt; + = ; , ?
+     * @param {Pointer<Byte>} lpBuffer The new name. The name cannot include control characters, leading or trailing spaces, or any of the following characters: " / \ [ ] : | &lt; &gt; + = ; , ?
      * @returns {Integer} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -2331,25 +2387,26 @@ class SystemInformation {
 
     /**
      * 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static GetDeveloperDriveEnablementState() {
-        DllCall("api-ms-win-core-sysinfo-l1-2-6.dll\GetDeveloperDriveEnablementState")
+        result := DllCall("api-ms-win-core-sysinfo-l1-2-6.dll\GetDeveloperDriveEnablementState")
+        return result
     }
 
     /**
      * Allows an application to query the available CPU Sets on the system, and their current state.
-     * @param {Pointer<SYSTEM_CPU_SET_INFORMATION>} Information A pointer to a [**SYSTEM\_CPU\_SET\_INFORMATION**](/windows/desktop/api/winnt/ns-winnt-system_cpu_set_information) structure that receives the CPU Set data. Pass NULL with a buffer length of 0 to determine the required buffer size.
+     * @param {Pointer} Information A pointer to a [**SYSTEM\_CPU\_SET\_INFORMATION**](/windows/desktop/api/winnt/ns-winnt-system_cpu_set_information) structure that receives the CPU Set data. Pass NULL with a buffer length of 0 to determine the required buffer size.
      * @param {Integer} BufferLength The length, in bytes, of the output buffer passed as the Information argument.
      * @param {Pointer<UInt32>} ReturnedLength The length, in bytes, of the valid data in the output buffer if the buffer is large enough, or the required size of the output buffer. If no CPU Sets exist, this value will be 0.
-     * @param {Pointer<HANDLE>} Process An optional handle to a process. This process is used to determine the value of the **AllocatedToTargetProcess** flag in the SYSTEM\_CPU\_SET\_INFORMATION structure. If a CPU Set is allocated to the specified process, the flag is set. Otherwise, it is clear. This handle must have the PROCESS\_QUERY\_LIMITED\_INFORMATION access right. The value returned by [**GetCurrentProcess**](/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess) may also be specified here.
+     * @param {Pointer<Void>} Process An optional handle to a process. This process is used to determine the value of the **AllocatedToTargetProcess** flag in the SYSTEM\_CPU\_SET\_INFORMATION structure. If a CPU Set is allocated to the specified process, the flag is set. Otherwise, it is clear. This handle must have the PROCESS\_QUERY\_LIMITED\_INFORMATION access right. The value returned by [**GetCurrentProcess**](/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess) may also be specified here.
      * @returns {Integer} If the API succeeds it returns TRUE. If it fails, the error reason is available through **GetLastError**. If the Information buffer was NULL or not large enough, the error code ERROR\_INSUFFICIENT\_BUFFER is returned. This API cannot fail when passed valid parameters and a buffer that is large enough to hold all of the return data.
      * @see https://learn.microsoft.com/windows/win32/ProcThread/getsystemcpusetinformation
      */
     static GetSystemCpuSetInformation(Information, BufferLength, ReturnedLength, Process) {
         static Flags := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("KERNEL32.dll\GetSystemCpuSetInformation", "ptr", Information, "uint", BufferLength, "ptr", ReturnedLength, "ptr", Process, "uint", Flags, "int")
+        result := DllCall("KERNEL32.dll\GetSystemCpuSetInformation", "ptr", Information, "uint", BufferLength, "uint*", ReturnedLength, "ptr", Process, "uint", Flags, "int")
         return result
     }
 
@@ -2370,9 +2427,14 @@ class SystemInformation {
      * 
      * > [!NOTE]
      * > The wow64apiset.h header defines GetSystemWow64Directory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash.
+     * @param {Pointer<Byte>} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash.
      * @param {Integer} uSize The maximum size of the buffer, in <b>TCHARs</b>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is the length, in <b>TCHARs</b>, of the string copied to the buffer, not including the terminating null character. If the length is greater than the size of the buffer, the return value is the size of the buffer required to hold the path.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * 
+     * On 32-bit Windows, the function always fails, and the extended error is set to ERROR_CALL_NOT_IMPLEMENTED.
      * @see https://learn.microsoft.com/windows/win32/api/wow64apiset/nf-wow64apiset-getsystemwow64directorya
      * @since windows5.1.2600
      */
@@ -2381,10 +2443,11 @@ class SystemInformation {
 
         A_LastError := 0
 
-        DllCall("KERNEL32.dll\GetSystemWow64DirectoryA", "ptr", lpBuffer, "uint", uSize)
+        result := DllCall("KERNEL32.dll\GetSystemWow64DirectoryA", "ptr", lpBuffer, "uint", uSize)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -2404,9 +2467,14 @@ class SystemInformation {
      * 
      * > [!NOTE]
      * > The wow64apiset.h header defines GetSystemWow64Directory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash.
+     * @param {Pointer<Char>} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash.
      * @param {Integer} uSize The maximum size of the buffer, in <b>TCHARs</b>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is the length, in <b>TCHARs</b>, of the string copied to the buffer, not including the terminating null character. If the length is greater than the size of the buffer, the return value is the size of the buffer required to hold the path.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * 
+     * On 32-bit Windows, the function always fails, and the extended error is set to ERROR_CALL_NOT_IMPLEMENTED.
      * @see https://learn.microsoft.com/windows/win32/api/wow64apiset/nf-wow64apiset-getsystemwow64directoryw
      * @since windows5.1.2600
      */
@@ -2415,10 +2483,11 @@ class SystemInformation {
 
         A_LastError := 0
 
-        DllCall("KERNEL32.dll\GetSystemWow64DirectoryW", "ptr", lpBuffer, "uint", uSize)
+        result := DllCall("KERNEL32.dll\GetSystemWow64DirectoryW", "ptr", lpBuffer, "uint", uSize)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -2437,10 +2506,13 @@ class SystemInformation {
      * 
      * > [!NOTE]
      * > The wow64apiset.h header defines GetSystemWow64Directory2 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash.
+     * @param {Pointer<Byte>} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash.
      * @param {Integer} uSize The maximum size of the buffer, in <b>TCHARs</b>.
      * @param {Integer} ImageFileMachineType An <a href="https://docs.microsoft.com/windows/desktop/SysInfo/image-file-machine-constants">IMAGE_FILE_MACHINE_*</a> value that specifies the machine to test.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is the length, in <b>TCHARs</b>, of the string copied to the buffer, not including the terminating null character. If the length is greater than the size of the buffer, the return value is the size of the buffer required to hold the path.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wow64apiset/nf-wow64apiset-getsystemwow64directory2a
      * @since windows10.0.10586
      */
@@ -2449,10 +2521,11 @@ class SystemInformation {
 
         A_LastError := 0
 
-        DllCall("api-ms-win-core-wow64-l1-1-1.dll\GetSystemWow64Directory2A", "ptr", lpBuffer, "uint", uSize, "ushort", ImageFileMachineType)
+        result := DllCall("api-ms-win-core-wow64-l1-1-1.dll\GetSystemWow64Directory2A", "ptr", lpBuffer, "uint", uSize, "ushort", ImageFileMachineType)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -2471,10 +2544,13 @@ class SystemInformation {
      * 
      * > [!NOTE]
      * > The wow64apiset.h header defines GetSystemWow64Directory2 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash.
+     * @param {Pointer<Char>} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash.
      * @param {Integer} uSize The maximum size of the buffer, in <b>TCHARs</b>.
      * @param {Integer} ImageFileMachineType An <a href="https://docs.microsoft.com/windows/desktop/SysInfo/image-file-machine-constants">IMAGE_FILE_MACHINE_*</a> value that specifies the machine to test.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is the length, in <b>TCHARs</b>, of the string copied to the buffer, not including the terminating null character. If the length is greater than the size of the buffer, the return value is the size of the buffer required to hold the path.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wow64apiset/nf-wow64apiset-getsystemwow64directory2w
      * @since windows10.0.10586
      */
@@ -2483,10 +2559,11 @@ class SystemInformation {
 
         A_LastError := 0
 
-        DllCall("api-ms-win-core-wow64-l1-1-1.dll\GetSystemWow64Directory2W", "ptr", lpBuffer, "uint", uSize, "ushort", ImageFileMachineType)
+        result := DllCall("api-ms-win-core-wow64-l1-1-1.dll\GetSystemWow64Directory2W", "ptr", lpBuffer, "uint", uSize, "ushort", ImageFileMachineType)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -2509,7 +2586,7 @@ class SystemInformation {
     static IsWow64GuestMachineSupported(WowGuestMachine, MachineIsSupported) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\IsWow64GuestMachineSupported", "ushort", WowGuestMachine, "ptr", MachineIsSupported, "int")
+        result := DllCall("KERNEL32.dll\IsWow64GuestMachineSupported", "ushort", WowGuestMachine, "int*", MachineIsSupported, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2526,17 +2603,18 @@ class SystemInformation {
      * @returns {Integer} 
      */
     static RtlGetProductInfo(OSMajorVersion, OSMinorVersion, SpMajorVersion, SpMinorVersion, ReturnedProductType) {
-        result := DllCall("ntdll.dll\RtlGetProductInfo", "uint", OSMajorVersion, "uint", OSMinorVersion, "uint", SpMajorVersion, "uint", SpMinorVersion, "ptr", ReturnedProductType, "char")
+        result := DllCall("ntdll.dll\RtlGetProductInfo", "uint", OSMajorVersion, "uint", OSMinorVersion, "uint", SpMajorVersion, "uint", SpMinorVersion, "uint*", ReturnedProductType, "char")
         return result
     }
 
     /**
      * 
      * @param {Integer} Flags 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static RtlOsDeploymentState(Flags) {
-        DllCall("ntdll.dll\RtlOsDeploymentState", "uint", Flags)
+        result := DllCall("ntdll.dll\RtlOsDeploymentState", "uint", Flags)
+        return result
     }
 
     /**
@@ -2556,11 +2634,12 @@ class SystemInformation {
      * @param {Pointer<UInt64>} pullUAPInfo 
      * @param {Pointer<UInt32>} pulDeviceFamily 
      * @param {Pointer<UInt32>} pulDeviceForm 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} VOID
      * @see https://learn.microsoft.com/windows/win32/DevNotes/rtlgetdevicefamilyinfoenum
      */
     static RtlGetDeviceFamilyInfoEnum(pullUAPInfo, pulDeviceFamily, pulDeviceForm) {
-        DllCall("ntdll.dll\RtlGetDeviceFamilyInfoEnum", "ptr", pullUAPInfo, "ptr", pulDeviceFamily, "ptr", pulDeviceForm)
+        result := DllCall("ntdll.dll\RtlGetDeviceFamilyInfoEnum", "uint*", pullUAPInfo, "uint*", pulDeviceFamily, "uint*", pulDeviceForm)
+        return result
     }
 
     /**
@@ -2573,10 +2652,10 @@ class SystemInformation {
      * @param {Pointer<UInt32>} pulDeviceFormBufferSize Type: _Inout_ **PDWORD**
      * 
      * The size of the buffer for the device form.
-     * @param {Pointer<PWSTR>} DeviceFamily Type: _Out_writes_bytes_(*pulDeviceFamilyBufferSize) **PWSTR**
+     * @param {Pointer} DeviceFamily Type: _Out_writes_bytes_(*pulDeviceFamilyBufferSize) **PWSTR**
      * 
      * The retrieved device family.
-     * @param {Pointer<PWSTR>} DeviceForm Type: _Out_writes_bytes_(*pulDeviceFormBufferSize) **PWSTR**
+     * @param {Pointer} DeviceForm Type: _Out_writes_bytes_(*pulDeviceFormBufferSize) **PWSTR**
      * 
      * The retrieved device form.
      * @returns {Integer} Type: DWORD
@@ -2585,10 +2664,7 @@ class SystemInformation {
      * @see https://learn.microsoft.com/windows/win32/api/winnt/nf-winnt-rtlconvertdevicefamilyinfotostring
      */
     static RtlConvertDeviceFamilyInfoToString(pulDeviceFamilyBufferSize, pulDeviceFormBufferSize, DeviceFamily, DeviceForm) {
-        DeviceFamily := DeviceFamily is String? StrPtr(DeviceFamily) : DeviceFamily
-        DeviceForm := DeviceForm is String? StrPtr(DeviceForm) : DeviceForm
-
-        result := DllCall("ntdll.dll\RtlConvertDeviceFamilyInfoToString", "ptr", pulDeviceFamilyBufferSize, "ptr", pulDeviceFormBufferSize, "ptr", DeviceFamily, "ptr", DeviceForm, "uint")
+        result := DllCall("ntdll.dll\RtlConvertDeviceFamilyInfoToString", "uint*", pulDeviceFamilyBufferSize, "uint*", pulDeviceFormBufferSize, "ptr", DeviceFamily, "ptr", DeviceForm, "uint")
         return result
     }
 
@@ -2622,12 +2698,13 @@ class SystemInformation {
      * @param {Pointer<MEMORYSTATUS>} lpBuffer A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-memorystatus">MEMORYSTATUS</a> structure. The 
      * <b>GlobalMemoryStatus</b> function stores information about current memory availability into this structure.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-globalmemorystatus
      * @since windows5.1.2600
      */
     static GlobalMemoryStatus(lpBuffer) {
-        DllCall("KERNEL32.dll\GlobalMemoryStatus", "ptr", lpBuffer)
+        result := DllCall("KERNEL32.dll\GlobalMemoryStatus", "ptr", lpBuffer)
+        return result
     }
 
     /**
@@ -2640,12 +2717,68 @@ class SystemInformation {
      * A user with administrative privileges can disable DEP for selected applications by using the <b>System</b> Control Panel application. If the system DEP policy is OptOut, DEP is disabled for these applications.
      * 
      * The Application Compatibility Toolkit can be used to create a list of individual applications that are exempt from DEP. If the system DEP policy is OptOut, DEP is automatically disabled for applications on the list.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} This function returns a value of type <b>DEP_SYSTEM_POLICY_TYPE</b>, which can be one of the following values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>AlwaysOff</b></dt>
+     * <dt>0</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * DEP is disabled for all parts of the system, regardless of hardware support for DEP. The processor runs in PAE mode with 32-bit versions of Windows unless PAE is disabled in the boot configuration data. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>AlwaysOn</b></dt>
+     * <dt>1</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * DEP is enabled for all parts of the system. All processes always run with DEP enabled. DEP cannot be explicitly disabled for selected applications. System compatibility fixes are ignored. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OptIn</b></dt>
+     * <dt>2</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * On systems with processors that are capable of hardware-enforced DEP, DEP is automatically enabled only for operating system components. This is the default setting for client versions of Windows. DEP can be explicitly enabled for selected applications or the current process. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>OptOut</b></dt>
+     * <dt>3</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * DEP is automatically enabled for operating system components and all processes. This is the default setting for Windows Server versions. DEP can be explicitly disabled for selected applications or the current process. System compatibility fixes for DEP are in effect. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getsystemdeppolicy
      * @since windows6.0.6000
      */
     static GetSystemDEPPolicy() {
-        DllCall("KERNEL32.dll\GetSystemDEPPolicy")
+        result := DllCall("KERNEL32.dll\GetSystemDEPPolicy")
+        return result
     }
 
     /**
@@ -2660,7 +2793,7 @@ class SystemInformation {
     static GetFirmwareType(FirmwareType) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetFirmwareType", "ptr", FirmwareType, "int")
+        result := DllCall("KERNEL32.dll\GetFirmwareType", "int*", FirmwareType, "int")
         if(A_LastError)
             throw OSError()
 

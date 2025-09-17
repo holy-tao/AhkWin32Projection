@@ -24,7 +24,7 @@ class CERT_REVOCATION_CHAIN_PARA extends Win32Struct
 
     /**
      * A handle to the chain engine used by the caller.
-     * @type {Pointer<HCERTCHAINENGINE>}
+     * @type {Pointer<Void>}
      */
     hChainEngine {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class CERT_REVOCATION_CHAIN_PARA extends Win32Struct
 
     /**
      * A handle to a store that contains the certificates used to build the original chain. The handle can be <b>NULL</b>.
-     * @type {Pointer<HCERTSTORE>}
+     * @type {Pointer<Void>}
      */
     hAdditionalStore {
         get => NumGet(this, 16, "ptr")

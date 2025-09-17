@@ -15,7 +15,7 @@ class WSD_RELATIONSHIP_METADATA extends Win32Struct
 
     /**
      * A WS-Discovery Type.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     Type {
         get => NumGet(this, 0, "ptr")

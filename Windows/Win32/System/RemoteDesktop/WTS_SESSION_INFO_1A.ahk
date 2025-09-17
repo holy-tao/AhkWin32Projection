@@ -54,7 +54,7 @@ class WTS_SESSION_INFO_1A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the name of this session. For example, "services", "console", or "RDP-Tcp#0".
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pSessionName {
         get => NumGet(this, 16, "ptr")
@@ -63,7 +63,7 @@ class WTS_SESSION_INFO_1A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the name of the computer that the session is running on. If the session is running directly on an RD Session Host server or RD Virtualization Host server, the string contains <b>NULL</b>. If the session is running on a virtual machine, the string contains the name of the virtual machine.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pHostName {
         get => NumGet(this, 24, "ptr")
@@ -72,7 +72,7 @@ class WTS_SESSION_INFO_1A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the name of the user who is logged on to the session. If no user is logged on to the session, the string contains <b>NULL</b>.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pUserName {
         get => NumGet(this, 32, "ptr")
@@ -81,7 +81,7 @@ class WTS_SESSION_INFO_1A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the domain name of the user who is logged on to the session. If no user is logged on to the session, the string contains <b>NULL</b>.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pDomainName {
         get => NumGet(this, 40, "ptr")
@@ -90,7 +90,7 @@ class WTS_SESSION_INFO_1A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the name of the farm that the virtual machine is joined to.  If the session is not running on a virtual machine that is joined to a farm, the string contains <b>NULL</b>.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pFarmName {
         get => NumGet(this, 48, "ptr")

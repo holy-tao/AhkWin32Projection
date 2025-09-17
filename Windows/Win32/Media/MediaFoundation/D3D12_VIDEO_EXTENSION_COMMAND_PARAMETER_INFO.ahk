@@ -17,7 +17,7 @@ class D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_INFO extends Win32Struct
 
     /**
      * A pointer to a wide string containing the name of the command.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     Name {
         get => NumGet(this, 0, "ptr")

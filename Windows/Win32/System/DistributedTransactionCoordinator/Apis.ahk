@@ -357,12 +357,12 @@ class DistributedTransactionCoordinator {
 ;@region Methods
     /**
      * 
-     * @param {Pointer<PSTR>} i_pszHost 
-     * @param {Pointer<PSTR>} i_pszTmName 
+     * @param {Pointer<Byte>} i_pszHost 
+     * @param {Pointer<Byte>} i_pszTmName 
      * @param {Pointer<Guid>} i_riid 
      * @param {Integer} i_dwReserved1 
      * @param {Integer} i_wcbReserved2 
-     * @param {Pointer<Void>} i_pvReserved2 
+     * @param {Pointer} i_pvReserved2 
      * @param {Pointer<Void>} o_ppvObject 
      * @returns {Integer} 
      */
@@ -376,12 +376,12 @@ class DistributedTransactionCoordinator {
 
     /**
      * 
-     * @param {Pointer<PSTR>} i_pszHost 
-     * @param {Pointer<PSTR>} i_pszTmName 
+     * @param {Pointer<Byte>} i_pszHost 
+     * @param {Pointer<Byte>} i_pszTmName 
      * @param {Pointer<Guid>} i_riid 
      * @param {Integer} i_dwReserved1 
      * @param {Integer} i_wcbReserved2 
-     * @param {Pointer<Void>} i_pvReserved2 
+     * @param {Pointer} i_pvReserved2 
      * @param {Pointer<Void>} o_ppvObject 
      * @returns {Integer} 
      */
@@ -395,8 +395,8 @@ class DistributedTransactionCoordinator {
 
     /**
      * 
-     * @param {Pointer<PSTR>} i_pszHost 
-     * @param {Pointer<PSTR>} i_pszTmName 
+     * @param {Pointer<Byte>} i_pszHost 
+     * @param {Pointer<Byte>} i_pszTmName 
      * @param {Pointer<Guid>} i_riid 
      * @param {Integer} i_grfOptions 
      * @param {Pointer<Void>} i_pvConfigParams 
@@ -413,8 +413,8 @@ class DistributedTransactionCoordinator {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} i_pwszHost 
-     * @param {Pointer<PWSTR>} i_pwszTmName 
+     * @param {Pointer<Char>} i_pwszHost 
+     * @param {Pointer<Char>} i_pwszTmName 
      * @param {Pointer<Guid>} i_riid 
      * @param {Integer} i_grfOptions 
      * @param {Pointer<Void>} i_pvConfigParams 

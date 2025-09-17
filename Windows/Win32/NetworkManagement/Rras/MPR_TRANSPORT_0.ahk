@@ -24,7 +24,7 @@ class MPR_TRANSPORT_0 extends Win32Struct
 
     /**
      * Handle to the transport.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hTransport {
         get => NumGet(this, 8, "ptr")

@@ -83,7 +83,7 @@ class TRANSMIT_PACKETS_ELEMENT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hFile {
         get => NumGet(this, 16, "ptr")

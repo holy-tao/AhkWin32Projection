@@ -32,7 +32,7 @@ class FWPM_VSWITCH_EVENT0 extends Win32Struct
      * Type: <b>wchar_t*</b>
      * 
      * GUID that identifies a vSwitch.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     vSwitchId {
         get => NumGet(this, 8, "ptr")
@@ -48,7 +48,7 @@ class FWPM_VSWITCH_EVENT0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     vSwitchFilterExtensions {
         get => NumGet(this, 24, "ptr")

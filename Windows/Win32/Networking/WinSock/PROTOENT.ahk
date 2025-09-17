@@ -15,7 +15,7 @@ class PROTOENT extends Win32Struct
 
     /**
      * Official name of the protocol.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     p_name {
         get => NumGet(this, 0, "ptr")

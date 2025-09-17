@@ -13,7 +13,7 @@ class ENDPOINTADDRESS extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     serviceUrl {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +21,7 @@ class ENDPOINTADDRESS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     policyUrl {
         get => NumGet(this, 8, "ptr")

@@ -15,7 +15,7 @@ class RESULTFINDINFO extends Win32Struct
 
     /**
      * Null-terminated string to match.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     psz {
         get => NumGet(this, 0, "ptr")

@@ -423,7 +423,7 @@ class SERVICE_CONTROL_STATUS_REASON_PARAMSW extends Win32Struct
 
     /**
      * An optional string that provides additional information about the service stop. This string is stored in the event log along with the stop reason code. This member must be <b>NULL</b> or a valid string that is less than 128 characters, including the terminating null character.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszComment {
         get => NumGet(this, 8, "ptr")

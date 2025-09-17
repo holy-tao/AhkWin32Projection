@@ -126,7 +126,7 @@ class D3DPRESENT_PARAMETERS extends Win32Struct
      * -   For a windowed-mode application, this handle will be the default target window for [**Present**](/windows/win32/api/d3d9helper/nf-d3d9helper-idirect3ddevice9-present). If this handle is **NULL**, the focus window will be taken.
      * 
      * Note that no attempt is made by the runtime to reflect user changes in window size. The back buffer is not implicitly reset when this window is reset. However, the [**Present**](/windows/win32/api/d3d9helper/nf-d3d9helper-idirect3ddevice9-present) method does automatically track window position changes.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hDeviceWindow {
         get => NumGet(this, 32, "ptr")

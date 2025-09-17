@@ -42,7 +42,7 @@ class AUTHZ_SECURITY_ATTRIBUTES_INFORMATION extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<_Attribute_e__Union>}
+     * @type {Pointer<TypeHandle>}
      */
     Attribute {
         get => NumGet(this, 8, "ptr")

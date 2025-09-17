@@ -26,7 +26,7 @@ class WEBAUTHN_COSE_CREDENTIAL_PARAMETER extends Win32Struct
 
     /**
      * Well-known credential type specifying a credential to create.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszCredentialType {
         get => NumGet(this, 8, "ptr")

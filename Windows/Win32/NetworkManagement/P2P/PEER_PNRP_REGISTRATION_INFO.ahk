@@ -16,7 +16,7 @@ class PEER_PNRP_REGISTRATION_INFO extends Win32Struct
 
     /**
      * Pointer to a Unicode string that contains the name of the PNRP cloud for which this peer identity is requesting registration. If <b>NULL</b>, the registration will be made in all clouds.  It is possible to use the special value PEER_PNRP_ALL_LINK_CLOUDS to register in all link local clouds.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwzCloudName {
         get => NumGet(this, 0, "ptr")
@@ -25,7 +25,7 @@ class PEER_PNRP_REGISTRATION_INFO extends Win32Struct
 
     /**
      * Pointer to a Unicode string that contains the name of the peer identity requesting registration.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwzPublishingIdentity {
         get => NumGet(this, 8, "ptr")
@@ -61,7 +61,7 @@ class PEER_PNRP_REGISTRATION_INFO extends Win32Struct
 
     /**
      * Pointer to a zero-terminated Unicode string that contains a comment for this peer endpoint.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwzComment {
         get => NumGet(this, 40, "ptr")

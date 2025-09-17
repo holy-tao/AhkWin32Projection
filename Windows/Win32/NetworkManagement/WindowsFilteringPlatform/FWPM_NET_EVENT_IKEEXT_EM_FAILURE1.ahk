@@ -106,7 +106,7 @@ class FWPM_NET_EVENT_IKEEXT_EM_FAILURE1 extends Win32Struct
 
     /**
      * Name of the EM local security principal.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     localPrincipalNameForAuth {
         get => NumGet(this, 64, "ptr")
@@ -115,7 +115,7 @@ class FWPM_NET_EVENT_IKEEXT_EM_FAILURE1 extends Win32Struct
 
     /**
      * Name of the EM remote security principal.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     remotePrincipalNameForAuth {
         get => NumGet(this, 72, "ptr")
@@ -133,7 +133,7 @@ class FWPM_NET_EVENT_IKEEXT_EM_FAILURE1 extends Win32Struct
 
     /**
      * Groups in the local security principal's token.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     localPrincipalGroupSids {
         get => NumGet(this, 88, "ptr")
@@ -151,7 +151,7 @@ class FWPM_NET_EVENT_IKEEXT_EM_FAILURE1 extends Win32Struct
 
     /**
      * Groups in the remote security principal's token.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     remotePrincipalGroupSids {
         get => NumGet(this, 104, "ptr")

@@ -20,7 +20,7 @@ class REGFILTER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     Name {
         get => NumGet(this, 8, "ptr")

@@ -12,7 +12,7 @@ class MOVE_FILE_RECORD_DATA extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     FileHandle {
         get => NumGet(this, 0, "ptr")

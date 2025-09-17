@@ -24,7 +24,7 @@ class APPX_PACKAGE_WRITER_PAYLOAD_STREAM extends Win32Struct
 
     /**
      * Name of the payload file.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     fileName {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class APPX_PACKAGE_WRITER_PAYLOAD_STREAM extends Win32Struct
 
     /**
      * The content type of the payload file.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     contentType {
         get => NumGet(this, 16, "ptr")

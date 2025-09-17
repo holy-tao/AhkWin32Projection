@@ -22,7 +22,7 @@ class RAS_CONNECTION_2 extends Win32Struct
 
     /**
      * A handle to the connection.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hConnection {
         get => NumGet(this, 0, "ptr")

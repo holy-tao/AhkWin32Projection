@@ -49,7 +49,7 @@ class HELPINFO extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * The identifier of the child window or control if <b>iContextType</b> is <b>HELPINFO_WINDOW</b>, or identifier of the associated menu if <b>iContextType</b> is <b>HELPINFO_MENUITEM</b>.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hItemHandle {
         get => NumGet(this, 16, "ptr")

@@ -19,7 +19,7 @@ class FILEPATHS_A extends Win32Struct
 
     /**
      * Path to the target file.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     Target {
         get => NumGet(this, 0, "ptr")
@@ -29,7 +29,7 @@ class FILEPATHS_A extends Win32Struct
     /**
      * Path to the source file. This member is not used when the 
      * <b>FILEPATHS</b> structure is used with a file delete operation.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     Source {
         get => NumGet(this, 8, "ptr")

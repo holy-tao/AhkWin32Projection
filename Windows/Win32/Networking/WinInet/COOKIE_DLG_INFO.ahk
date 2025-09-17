@@ -12,7 +12,7 @@ class COOKIE_DLG_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszServer {
         get => NumGet(this, 0, "ptr")
@@ -52,7 +52,7 @@ class COOKIE_DLG_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszHeader {
         get => NumGet(this, 32, "ptr")

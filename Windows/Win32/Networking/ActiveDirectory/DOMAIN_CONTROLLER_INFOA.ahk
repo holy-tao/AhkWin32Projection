@@ -19,7 +19,7 @@ class DOMAIN_CONTROLLER_INFOA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the computer name of the discovered domain controller. The returned computer name is prefixed with "\\". The DNS-style name, for example, "\\phoenix.fabrikam.com", is returned, if available. If the DNS-style name is not available, the flat-style name (for example, "\\phoenix") is returned. This example would apply if the domain is a Windows NT 4.0 domain or if the domain does not support the IP family of protocols.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     DomainControllerName {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class DOMAIN_CONTROLLER_INFOA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the address of the discovered domain controller. The address is prefixed with "\\". This string is one of the types defined by the <b>DomainControllerAddressType</b> member.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     DomainControllerAddress {
         get => NumGet(this, 8, "ptr")
@@ -55,7 +55,7 @@ class DOMAIN_CONTROLLER_INFOA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of the domain. The DNS-style name, for example, "fabrikam.com", is returned if available. Otherwise, the flat-style name, for example, "fabrikam", is returned. This name may be different than the requested domain name if the domain has been renamed.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     DomainName {
         get => NumGet(this, 32, "ptr")
@@ -64,7 +64,7 @@ class DOMAIN_CONTROLLER_INFOA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of the domain at the root of the DS tree. The DNS-style name, for example, "fabrikam.com", is returned if available. Otherwise, the flat-style name, for example, "fabrikam" is returned.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     DnsForestName {
         get => NumGet(this, 40, "ptr")
@@ -82,7 +82,7 @@ class DOMAIN_CONTROLLER_INFOA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of the site where the domain controller is located. This member may be <b>NULL</b> if the domain controller is not in a site; for example, the domain controller is a Windows NT 4.0 domain controller.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     DcSiteName {
         get => NumGet(this, 56, "ptr")
@@ -91,7 +91,7 @@ class DOMAIN_CONTROLLER_INFOA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of the site that the computer belongs to. The computer is specified in the <i>ComputerName</i> parameter passed to <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcnamea">DsGetDcName</a>. This member may be <b>NULL</b> if the site that contains the computer cannot be found; for example, if the DS administrator has not associated the subnet that the computer is in with a valid site.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     ClientSiteName {
         get => NumGet(this, 64, "ptr")

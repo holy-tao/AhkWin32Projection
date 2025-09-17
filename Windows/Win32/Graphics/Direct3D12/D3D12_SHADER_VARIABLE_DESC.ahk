@@ -17,7 +17,7 @@ class D3D12_SHADER_VARIABLE_DESC extends Win32Struct
 
     /**
      * The variable name.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     Name {
         get => NumGet(this, 0, "ptr")

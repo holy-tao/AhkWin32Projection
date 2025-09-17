@@ -1733,7 +1733,7 @@ class DirectSound {
      * @param {Pointer<Guid>} pcGuidRenderDevice 
      * @param {Pointer<DSCBUFFERDESC>} pcDSCBufferDesc 
      * @param {Pointer<DSBUFFERDESC>} pcDSBufferDesc 
-     * @param {Pointer<HWND>} hWnd 
+     * @param {Pointer<Void>} hWnd 
      * @param {Integer} dwLevel 
      * @param {Pointer<IDirectSoundFullDuplex>} ppDSFD 
      * @param {Pointer<IDirectSoundCaptureBuffer8>} ppDSCBuffer8 

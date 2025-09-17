@@ -25,7 +25,7 @@ class CMC_TAGGED_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<_Anonymous_e__Union>}
+     * @type {Pointer<TypeHandle>}
      */
     Anonymous {
         get => NumGet(this, 8, "ptr")

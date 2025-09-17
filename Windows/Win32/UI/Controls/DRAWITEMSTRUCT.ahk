@@ -227,7 +227,7 @@ class DRAWITEMSTRUCT extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the control for combo boxes, list boxes, buttons, and static controls. For menus, this member is a handle to the menu that contains the item.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndItem {
         get => NumGet(this, 24, "ptr")
@@ -238,7 +238,7 @@ class DRAWITEMSTRUCT extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
      * 
      * A handle to a device context; this device context must be used when performing drawing operations on the control.
-     * @type {Pointer<HDC>}
+     * @type {Pointer<Void>}
      */
     hDC {
         get => NumGet(this, 32, "ptr")

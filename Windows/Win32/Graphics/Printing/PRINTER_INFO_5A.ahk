@@ -16,7 +16,7 @@ class PRINTER_INFO_5A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the name of the printer.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pPrinterName {
         get => NumGet(this, 0, "ptr")
@@ -25,7 +25,7 @@ class PRINTER_INFO_5A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that identifies the port(s) used to transmit data to the printer. If a printer is connected to more than one port, the names of each port must be separated by commas (for example, "LPT1:,LPT2:,LPT3:").
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pPortName {
         get => NumGet(this, 8, "ptr")

@@ -15,7 +15,7 @@ class TAG_TYPE extends Win32Struct
 
     /**
      * A tag string, in UNICODE.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszTag {
         get => NumGet(this, 0, "ptr")

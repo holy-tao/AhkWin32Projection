@@ -460,7 +460,7 @@ class Com {
      * @since windows5.1.2600
      */
     static CoRegisterInitializeSpy(pSpy, puliCookie) {
-        result := DllCall("OLE32.dll\CoRegisterInitializeSpy", "ptr", pSpy, "ptr", puliCookie, "int")
+        result := DllCall("OLE32.dll\CoRegisterInitializeSpy", "ptr", pSpy, "uint*", puliCookie, "int")
         return result
     }
 
@@ -485,7 +485,7 @@ class Com {
     /**
      * Returns the default values of the Security Descriptors of the machine-wide launch and access permissions, as well as launch and access limits.
      * @param {Integer} comSDType A value from the <a href="https://docs.microsoft.com/windows/desktop/api/objbase/ne-objbase-comsd">COMSD</a> enumeration. Specifies the type of the requested system security permissions, such as launch permissions, access permissions, launch restrictions, and access restrictions.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} ppSD Pointer to a caller-supplied variable that this routine sets to the address of a buffer containing the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> for the system security permissions. Memory will be allocated by <b>CoGetSystemSecurityPermissions</b> and should be freed by caller with <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a>.
+     * @param {Pointer<Void>} ppSD Pointer to a caller-supplied variable that this routine sets to the address of a buffer containing the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> for the system security permissions. Memory will be allocated by <b>CoGetSystemSecurityPermissions</b> and should be freed by caller with <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a>.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -552,16 +552,16 @@ class Com {
      * The <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cogetclassobject">CoGetClassObject</a> function does not call <b>CoLoadLibrary</b>. <b>CoLoadLibrary</b> loads a DLL specified by the <i>lpszLibName</i> parameter into the process that called <b>CoGetClassObject</b>. Containers should not call <b>CoLoadLibrary</b> directly.
      * 
      * Internally, a reference count is kept on the loaded DLL by using <b>CoLoadLibrary</b> to increment the count and the <a href="https://docs.microsoft.com/windows/desktop/api/objbase/nf-objbase-cofreelibrary">CoFreeLibrary</a> function to decrement it.
-     * @param {Pointer<PWSTR>} lpszLibName The name of the library to be loaded.
+     * @param {Pointer<Char>} lpszLibName The name of the library to be loaded.
      * @param {Integer} bAutoFree This parameter is maintained for compatibility with 16-bit applications, but is ignored.
-     * @returns {Pointer<HINSTANCE>} If the function succeeds, the return value is a handle to the loaded library; otherwise, it is <b>NULL</b>.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the loaded library; otherwise, it is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-coloadlibrary
      * @since windows5.0
      */
     static CoLoadLibrary(lpszLibName, bAutoFree) {
         lpszLibName := lpszLibName is String? StrPtr(lpszLibName) : lpszLibName
 
-        result := DllCall("OLE32.dll\CoLoadLibrary", "ptr", lpszLibName, "int", bAutoFree, "ptr")
+        result := DllCall("OLE32.dll\CoLoadLibrary", "ptr", lpszLibName, "int", bAutoFree)
         return result
     }
 
@@ -569,25 +569,27 @@ class Com {
      * Frees a library that, when loaded, was specified to be freed explicitly.
      * @remarks
      * The <b>CoFreeLibrary</b> function should be called to free a library that is to be freed explicitly. This is established when the library is loaded with the <i>bAutoFree</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/objbase/nf-objbase-coloadlibrary">CoLoadLibrary</a> set to <b>FALSE</b>. It is illegal to free a library explicitly when the corresponding <b>CoLoadLibrary</b> call specifies that it be freed automatically (the <i>bAutoFree</i> parameter is set to <b>TRUE</b>).
-     * @param {Pointer<HINSTANCE>} hInst A handle to the library module to be freed, as returned by the <a href="https://docs.microsoft.com/windows/desktop/api/objbase/nf-objbase-coloadlibrary">CoLoadLibrary</a> function.
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Void>} hInst A handle to the library module to be freed, as returned by the <a href="https://docs.microsoft.com/windows/desktop/api/objbase/nf-objbase-coloadlibrary">CoLoadLibrary</a> function.
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-cofreelibrary
      * @since windows5.0
      */
     static CoFreeLibrary(hInst) {
-        DllCall("OLE32.dll\CoFreeLibrary", "ptr", hInst)
+        result := DllCall("OLE32.dll\CoFreeLibrary", "ptr", hInst)
+        return result
     }
 
     /**
      * Frees all the DLLs that have been loaded with the CoLoadLibrary function (called internally by CoGetClassObject), regardless of whether they are currently in use.
      * @remarks
      * To unload libraries, <b>CoFreeAllLibraries</b> uses a list of loaded DLLs for each process that the COM library maintains. The <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-couninitialize">CoUninitialize</a> and <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-oleuninitialize">OleUninitialize</a> functions call <b>CoFreeAllLibraries</b> internally, so applications usually have no need to call this function directly.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-cofreealllibraries
      * @since windows5.0
      */
     static CoFreeAllLibraries() {
-        DllCall("OLE32.dll\CoFreeAllLibraries")
+        result := DllCall("OLE32.dll\CoFreeAllLibraries")
+        return result
     }
 
     /**
@@ -676,7 +678,7 @@ class Com {
      * @returns {Integer} 
      */
     static DcomChannelSetHResult(pvReserved, pulReserved, appsHR) {
-        result := DllCall("ole32.dll\DcomChannelSetHResult", "ptr", pvReserved, "ptr", pulReserved, "int", appsHR, "int")
+        result := DllCall("ole32.dll\DcomChannelSetHResult", "ptr", pvReserved, "uint*", pulReserved, "int", appsHR, "int")
         return result
     }
 
@@ -728,7 +730,7 @@ class Com {
      * <li><b>HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\App Management
      * </b>&#92;<b>COMClassStore</b></li>
      * </ul>
-     * @param {Pointer<PWSTR>} lpszProgID A pointer to the ProgID whose CLSID is requested.
+     * @param {Pointer<Char>} lpszProgID A pointer to the ProgID whose CLSID is requested.
      * @param {Pointer<Guid>} lpclsid Receives a pointer to the retrieved CLSID on return.
      * @returns {Integer} This function can return the following values.
      * 
@@ -792,7 +794,7 @@ class Com {
      * @since windows5.0
      */
     static CoFileTimeToDosDateTime(lpFileTime, lpDosDate, lpDosTime) {
-        result := DllCall("OLE32.dll\CoFileTimeToDosDateTime", "ptr", lpFileTime, "ptr", lpDosDate, "ptr", lpDosTime, "int")
+        result := DllCall("OLE32.dll\CoFileTimeToDosDateTime", "ptr", lpFileTime, "ushort*", lpDosDate, "ushort*", lpDosTime, "int")
         return result
     }
 
@@ -1074,7 +1076,7 @@ class Com {
      * @param {Integer} dwFlags Reserved for future use; this value must be 0.
      * @param {Pointer<uCLSSPEC>} pClassSpec A pointer to a <b>uCLSSPEC</b> union. The <b>tyspec</b> member must be set to TYSPEC_CLSID and the <b>clsid</b> member must be set to the CLSID to be installed. For more information, see <a href="https://docs.microsoft.com/windows/desktop/DevNotes/tyspec">TYSPEC</a>.
      * @param {Pointer<QUERYCONTEXT>} pQuery A pointer to a <a href="https://docs.microsoft.com/previous-versions/bb432414(v=vs.85)">QUERYCONTEXT</a> structure. The <b>dwContext</b> field must be set to the desired <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-clsctx">CLSCTX</a> value. For more information, see <b>QUERYCONTEXT</b>.
-     * @param {Pointer<PWSTR>} pszCodeBase Reserved for future use; this value must be <b>NULL</b>.
+     * @param {Pointer<Char>} pszCodeBase Reserved for future use; this value must be <b>NULL</b>.
      * @returns {Integer} This function supports the standard return value E_INVALIDARG, as well as the following.
      * 
      * 
@@ -1177,7 +1179,7 @@ class Com {
      * Converts a display name into a moniker that identifies the object named, and then binds to the object identified by the moniker.
      * @remarks
      * <b>CoGetObject</b> encapsulates calls to the COM library functions <a href="https://docs.microsoft.com/windows/desktop/api/objbase/nf-objbase-createbindctx">CreateBindCtx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/objbase/nf-objbase-mkparsedisplayname">MkParseDisplayName</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-imoniker-bindtoobject">IMoniker::BindToObject</a>.
-     * @param {Pointer<PWSTR>} pszName The display name of the object to be created.
+     * @param {Pointer<Char>} pszName The display name of the object to be created.
      * @param {Pointer<BIND_OPTS>} pBindOptions The binding options used to create a moniker that creates the actual object. For details, see <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-bind_opts">BIND_OPTS</a>. This parameter can be <b>NULL</b>.
      * @param {Pointer<Guid>} riid A reference to the identifier of an interface that is implemented on the object to be created.
      * @param {Pointer<Void>} ppv The address of a pointer to the interface specified by <i>riid</i> on the object that is created.
@@ -1301,7 +1303,7 @@ class Com {
      * </li>
      * </ol>
      * @param {Pointer<IBindCtx>} pbc A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a> interface on the bind context object to be used in this binding operation.
-     * @param {Pointer<PWSTR>} szUserName A pointer to the display name to be parsed.
+     * @param {Pointer<Char>} szUserName A pointer to the display name to be parsed.
      * @param {Pointer<UInt32>} pchEaten A pointer to the number of characters of <i>szUserName</i> that were consumed. If the function is successful, *<i>pchEaten</i> is the length of <i>szUserName</i>; otherwise, it is the number of characters successfully parsed.
      * @param {Pointer<IMoniker>} ppmk The address of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the moniker that was built from <i>szUserName</i>. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. If an error occurs, the specified interface pointer will contain as much of the moniker that the method was able to create before the error occurred.
      * @returns {Integer} This function can return the standard return value E_OUTOFMEMORY, as well as the following values.
@@ -1343,7 +1345,7 @@ class Com {
     static MkParseDisplayName(pbc, szUserName, pchEaten, ppmk) {
         szUserName := szUserName is String? StrPtr(szUserName) : szUserName
 
-        result := DllCall("OLE32.dll\MkParseDisplayName", "ptr", pbc, "ptr", szUserName, "ptr", pchEaten, "ptr", ppmk, "int")
+        result := DllCall("OLE32.dll\MkParseDisplayName", "ptr", pbc, "ptr", szUserName, "uint*", pchEaten, "ptr", ppmk, "int")
         return result
     }
 
@@ -1647,7 +1649,7 @@ class Com {
      * 
      * </li>
      * </ol>
-     * @param {Pointer<PWSTR>} szFilename A pointer to the filename for which you are requesting the associated CLSID.
+     * @param {Pointer<Char>} szFilename A pointer to the filename for which you are requesting the associated CLSID.
      * @param {Pointer<Guid>} pclsid A pointer to the location where the associated CLSID is written on return.
      * @returns {Integer} This function can return any of the file system errors, as well as the following values.
      * 
@@ -1752,7 +1754,7 @@ class Com {
      * When each object resides in its own file, as in an OLE server application that supports linking only to file-based documents in their entirety, file monikers are the only type of moniker necessary. To identify objects smaller than a file, the moniker provider must use another type of moniker (such as an item moniker) in addition to file monikers, creating a composite moniker. Composite monikers would be needed in an OLE server application that supports linking to objects smaller than a document (such as sections of a document or embedded objects).
      * 
      * A file moniker can be composed to the right only of another file moniker when the first moniker is based on an absolute path and the other is a relative path, resulting in a single file moniker based on the combination of the two paths. A moniker composed to the right of another moniker must be a refinement of that moniker, and the file moniker represents the largest unit of storage. To identify objects stored within a file, you would compose other types of monikers (usually item monikers) to the right of a file moniker.
-     * @param {Pointer<PWSTR>} lpszPathName The path on which this moniker is to be based.
+     * @param {Pointer<Char>} lpszPathName The path on which this moniker is to be based.
      * 
      * This parameter can specify a relative path, a UNC path, or a drive-letter-based path. If based on a relative path, the resulting moniker must be composed onto another file moniker before it can be bound.
      * @param {Pointer<IMoniker>} ppmk The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the new file moniker. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the file moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. When an error occurs, the value of the interface pointer is <b>NULL</b>.
@@ -1810,8 +1812,8 @@ class Com {
      * Item monikers are not used in isolation. They must be composed with a moniker that identifies the containing object as well. For example, if the object being identified is a cell range contained in a file-based document, the item moniker identifying that object must be composed with the file moniker identifying that document, resulting in a composite moniker that is the equivalent of "C:\work\sales.xls!A1:E7."
      * 
      * Nested containers are allowed also, as in the case where an object is contained within an embedded object inside another document. The complete moniker of such an object would be the equivalent of "C:\work\report.doc!embedobj1!A1:E7." In this case, each containing object must call <b>CreateItemMoniker</b> and provide its own implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleitemcontainer">IOleItemContainer</a> interface.
-     * @param {Pointer<PWSTR>} lpszDelim A pointer to a wide character string (two bytes per character) zero-terminated string containing the delimiter (typically "!") used to separate this item's display name from the display name of its containing object.
-     * @param {Pointer<PWSTR>} lpszItem A pointer to a zero-terminated string indicating the containing object's name for the object being identified. This name can later be used to retrieve a pointer to the object in a call to <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleitemcontainer-getobject">IOleItemContainer::GetObject</a>.
+     * @param {Pointer<Char>} lpszDelim A pointer to a wide character string (two bytes per character) zero-terminated string containing the delimiter (typically "!") used to separate this item's display name from the display name of its containing object.
+     * @param {Pointer<Char>} lpszItem A pointer to a zero-terminated string indicating the containing object's name for the object being identified. This name can later be used to retrieve a pointer to the object in a call to <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleitemcontainer-getobject">IOleItemContainer::GetObject</a>.
      * @param {Pointer<IMoniker>} ppmk The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the item moniker. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the item moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. If an error occurs, the supplied interface pointer has a <b>NULL</b> value.
      * @returns {Integer} This function can return the standard return values E_OUTOFMEMORY and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-createitemmoniker
@@ -1929,8 +1931,8 @@ class Com {
 
     /**
      * 
-     * @param {Pointer<HWND>} hwndParent 
-     * @param {Pointer<PWSTR>} pszTitle 
+     * @param {Pointer<Void>} hwndParent 
+     * @param {Pointer<Char>} pszTitle 
      * @param {Pointer<IBindStatusCallback>} pIbscCaller 
      * @param {Pointer<IBindStatusCallback>} ppIbsc 
      * @returns {Integer} 
@@ -1973,12 +1975,13 @@ class Com {
      * 
      * 
      * Because there is no way to control the order in which in-process servers are loaded or unloaded, do not call <a href="https://docs.microsoft.com/windows/desktop/api/objbase/nf-objbase-coinitialize">CoInitialize</a>, <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializeex">CoInitializeEx</a>, or <b>CoUninitialize</b> from the <a href="https://docs.microsoft.com/windows/desktop/Dlls/dllmain">DllMain</a> function.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-couninitialize
      * @since windows5.0
      */
     static CoUninitialize() {
-        DllCall("OLE32.dll\CoUninitialize")
+        result := DllCall("OLE32.dll\CoUninitialize")
+        return result
     }
 
     /**
@@ -2126,7 +2129,7 @@ class Com {
      * @since windows5.0
      */
     static CoGetCallerTID(lpdwTID) {
-        result := DllCall("OLE32.dll\CoGetCallerTID", "ptr", lpdwTID, "int")
+        result := DllCall("OLE32.dll\CoGetCallerTID", "uint*", lpdwTID, "int")
         return result
     }
 
@@ -2233,7 +2236,7 @@ class Com {
      * @since windows5.0
      */
     static CoGetContextToken(pToken) {
-        result := DllCall("OLE32.dll\CoGetContextToken", "ptr", pToken, "int")
+        result := DllCall("OLE32.dll\CoGetContextToken", "ptr*", pToken, "int")
         return result
     }
 
@@ -2297,7 +2300,7 @@ class Com {
      * @since windows6.1
      */
     static CoGetApartmentType(pAptType, pAptQualifier) {
-        result := DllCall("OLE32.dll\CoGetApartmentType", "ptr", pAptType, "ptr", pAptQualifier, "int")
+        result := DllCall("OLE32.dll\CoGetApartmentType", "int*", pAptType, "int*", pAptQualifier, "int")
         return result
     }
 
@@ -2324,7 +2327,7 @@ class Com {
      * <li>You want a server to keep the MTA alive even when all worker threads are idle.</li>
      * <li> Your API implementation requires COM to be initialized, but has no information about whether the current thread is already in an apartment, and does not need the current thread to go into a particular apartment. </li>
      * </ul>
-     * @param {Pointer<CO_MTA_USAGE_COOKIE>} pCookie Address of a <b>PVOID</b> variable that receives the cookie for the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-codecrementmtausage">CoDecrementMTAUsage</a> function, or <b>NULL</b> if the call fails.
+     * @param {Pointer<Void>} pCookie Address of a <b>PVOID</b> variable that receives the cookie for the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-codecrementmtausage">CoDecrementMTAUsage</a> function, or <b>NULL</b> if the call fails.
      * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coincrementmtausage
      */
@@ -2341,7 +2344,7 @@ class Com {
      * You can call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coincrementmtausage">CoIncrementMTAUsage</a> from one thread and <b>CoDecrementMTAUsage</b> from another as long as a cookie previously returned by <b>CoIncrementMTAUsage</b> is passed to <b>CoDecrementMTAUsage</b>. 
      * 
      * Don't call <b>CoDecrementMTAUsage</b> during process shutdown or inside dllmain. You can call <b>CoDecrementMTAUsage</b> before the call to start the shutdown process.
-     * @param {Pointer<CO_MTA_USAGE_COOKIE>} Cookie A <b>PVOID</b> variable that was set by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coincrementmtausage">CoIncrementMTAUsage</a> function.
+     * @param {Pointer<Void>} Cookie A <b>PVOID</b> variable that was set by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coincrementmtausage">CoIncrementMTAUsage</a> function.
      * @returns {Integer} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-codecrementmtausage
      */
@@ -2652,7 +2655,7 @@ class Com {
      * @since windows5.0
      */
     static CoRegisterClassObject(rclsid, pUnk, dwClsContext, flags, lpdwRegister) {
-        result := DllCall("OLE32.dll\CoRegisterClassObject", "ptr", rclsid, "ptr", pUnk, "uint", dwClsContext, "uint", flags, "ptr", lpdwRegister, "int")
+        result := DllCall("OLE32.dll\CoRegisterClassObject", "ptr", rclsid, "ptr", pUnk, "uint", dwClsContext, "uint", flags, "uint*", lpdwRegister, "int")
         return result
     }
 
@@ -3031,12 +3034,13 @@ class Com {
      * Unloads any DLLs that are no longer in use, probably because the DLL no longer has any instantiated COM objects outstanding.
      * @remarks
      * Applications can call <b>CoFreeUnusedLibraries</b> periodically to free resources. It is most efficient to call it either at the top of a message loop or in some idle-time task. <b>CoFreeUnusedLibraries</b> internally calls <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-dllcanunloadnow">DllCanUnloadNow</a> for DLLs that implement and export that function.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cofreeunusedlibraries
      * @since windows5.0
      */
     static CoFreeUnusedLibraries() {
-        DllCall("OLE32.dll\CoFreeUnusedLibraries")
+        result := DllCall("OLE32.dll\CoFreeUnusedLibraries")
+        return result
     }
 
     /**
@@ -3062,14 +3066,15 @@ class Com {
      * 
      * This behavior is triggered by the DLL supplying components with threading models set to Free, Neutral, or Both. For a threading model set to Apartment (or if no threading model is specified), <i>dwUnloadDelay</i> is treated as 0 because these components are tied to the single thread hosting the apartment.
      * @param {Integer} dwUnloadDelay The delay in milliseconds between the time that the DLL has stated it can be unloaded until it becomes a candidate to unload. Setting this parameter to INFINITE uses the system default delay (10 minutes). Setting this parameter to 0 forces the unloading of any DLLs without any delay.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cofreeunusedlibrariesex
      * @since windows5.1.2600
      */
     static CoFreeUnusedLibrariesEx(dwUnloadDelay) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        DllCall("OLE32.dll\CoFreeUnusedLibrariesEx", "uint", dwUnloadDelay, "uint", dwReserved)
+        result := DllCall("OLE32.dll\CoFreeUnusedLibrariesEx", "uint", dwUnloadDelay, "uint", dwReserved)
+        return result
     }
 
     /**
@@ -3203,7 +3208,7 @@ class Com {
      * </li>
      * </ul>
      * The <b>CoInitializeSecurity</b> function returns an error if both the EOAC_APPID and EOAC_ACCESS_CONTROL flags are set in <i>dwCapabilities</i>.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} pSecDesc The access permissions that a server will use to receive calls. This parameter is used by COM only when a server calls <b>CoInitializeSecurity</b>. Its value is a pointer to one of three types: an AppID, an <a href="https://docs.microsoft.com/windows/desktop/api/iaccess/nn-iaccess-iaccesscontrol">IAccessControl</a> object, or a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a>, in absolute format. See the Remarks section for more information.
+     * @param {Pointer<Void>} pSecDesc The access permissions that a server will use to receive calls. This parameter is used by COM only when a server calls <b>CoInitializeSecurity</b>. Its value is a pointer to one of three types: an AppID, an <a href="https://docs.microsoft.com/windows/desktop/api/iaccess/nn-iaccess-iaccesscontrol">IAccessControl</a> object, or a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a>, in absolute format. See the Remarks section for more information.
      * @param {Integer} cAuthSvc The count of entries in the <i>asAuthSvc</i> parameter. This parameter is used by COM only when a server calls <b>CoInitializeSecurity</b>. If this parameter is 0, no authentication services will be registered and the server cannot receive secure calls. A value of -1 tells COM to choose which authentication services to register, and if this is the case, the <i>asAuthSvc</i> parameter must be <b>NULL</b>. However, Schannel will never be chosen as an authentication service by the server if this parameter is -1.
      * @param {Pointer<SOLE_AUTHENTICATION_SERVICE>} asAuthSvc An array of authentication services that a server is willing to use to receive a call. This parameter is used by COM only when a server calls <b>CoInitializeSecurity</b>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-sole_authentication_service">SOLE_AUTHENTICATION_SERVICE</a>.
      * @param {Integer} dwAuthnLevel The default authentication level for the process. Both servers and clients use this parameter when they call <b>CoInitializeSecurity</b>. COM will fail calls that arrive with a lower authentication level. By default, all proxies will use at least this authentication level. This value should contain one of the <a href="https://docs.microsoft.com/windows/desktop/com/com-authentication-level-constants">authentication level constants</a>. By default, all calls to <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> are made at this level.
@@ -3342,7 +3347,7 @@ class Com {
      * @param {Pointer<IUnknown>} pProxy A pointer indicating the proxy to query. This parameter cannot be <b>NULL</b>. For more information, see the Remarks section.
      * @param {Pointer<UInt32>} pwAuthnSvc A pointer to a variable that receives the current authentication service. This will be a single value taken from the <a href="https://docs.microsoft.com/windows/desktop/com/com-authentication-service-constants">authentication service constants</a>. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<UInt32>} pAuthzSvc A pointer to a variable that receives the current authorization service. This will be a single value taken from the <a href="https://docs.microsoft.com/windows/desktop/com/com-authorization-constants">authorization constants</a>. If the caller specifies <b>NULL</b>, the current authorization service is not retrieved.
-     * @param {Pointer<PWSTR>} pServerPrincName The current principal name. The string will be allocated by the callee using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>, and must be freed by the caller using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>. The EOAC_MAKE_FULLSIC flag is not accepted in the <i>pCapabilities</i> parameter. For more information about the msstd and fullsic forms, see <a href="https://docs.microsoft.com/windows/desktop/Rpc/principal-names">Principal Names</a>. If the caller specifies <b>NULL</b>, the current principal name is not retrieved.
+     * @param {Pointer<Char>} pServerPrincName The current principal name. The string will be allocated by the callee using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>, and must be freed by the caller using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>. The EOAC_MAKE_FULLSIC flag is not accepted in the <i>pCapabilities</i> parameter. For more information about the msstd and fullsic forms, see <a href="https://docs.microsoft.com/windows/desktop/Rpc/principal-names">Principal Names</a>. If the caller specifies <b>NULL</b>, the current principal name is not retrieved.
      * @param {Pointer<UInt32>} pAuthnLevel A pointer to a variable that receives the current authentication level. This will be a single value taken from the <a href="https://docs.microsoft.com/windows/desktop/com/com-authentication-level-constants">authentication level constants</a>. If the caller specifies <b>NULL</b>, the current authentication level is not retrieved.
      * @param {Pointer<UInt32>} pImpLevel A pointer to a variable that receives the current impersonation level. This will be a single value taken from the <a href="https://docs.microsoft.com/windows/desktop/com/com-impersonation-level-constants">impersonation level constants</a>. If the caller specifies <b>NULL</b>, the current impersonation level is not retrieved.
      * @param {Pointer<Void>} pAuthInfo A pointer to a handle that receives the identity of the client that was passed to the last <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iclientsecurity-setblanket">IClientSecurity::SetBlanket</a> call (or the default value). Default values are only valid until the proxy is released. If the caller specifies <b>NULL</b>, the client identity is not retrieved. The format of the structure that the handle refers to depends on the authentication service. The application should not write or free the memory. For NTLMSSP and Kerberos, if the client specified a structure in the <i>pAuthInfo</i> parameter to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializesecurity">CoInitializeSecurity</a>, that value is returned. For Schannel, if a certificate for the client could be retrieved from the certificate manager, that value is returned here. Otherwise, <b>NULL</b> is returned. See <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-auth-identity-handle">RPC_AUTH_IDENTITY_HANDLE</a>.
@@ -3352,9 +3357,7 @@ class Com {
      * @since windows5.0
      */
     static CoQueryProxyBlanket(pProxy, pwAuthnSvc, pAuthzSvc, pServerPrincName, pAuthnLevel, pImpLevel, pAuthInfo, pCapabilites) {
-        pServerPrincName := pServerPrincName is String? StrPtr(pServerPrincName) : pServerPrincName
-
-        result := DllCall("OLE32.dll\CoQueryProxyBlanket", "ptr", pProxy, "ptr", pwAuthnSvc, "ptr", pAuthzSvc, "ptr", pServerPrincName, "ptr", pAuthnLevel, "ptr", pImpLevel, "ptr", pAuthInfo, "ptr", pCapabilites, "int")
+        result := DllCall("OLE32.dll\CoQueryProxyBlanket", "ptr", pProxy, "uint*", pwAuthnSvc, "uint*", pAuthzSvc, "ptr", pServerPrincName, "uint*", pAuthnLevel, "uint*", pImpLevel, "ptr", pAuthInfo, "uint*", pCapabilites, "int")
         return result
     }
 
@@ -3376,7 +3379,7 @@ class Com {
      * @param {Pointer<IUnknown>} pProxy The proxy to be set.
      * @param {Integer} dwAuthnSvc The authentication service to be used. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/com/com-authentication-service-constants">Authentication Service Constants</a>. Use RPC_C_AUTHN_NONE if no authentication is required. If RPC_C_AUTHN_DEFAULT is specified, DCOM will pick an authentication service following its normal security blanket negotiation algorithm.
      * @param {Integer} dwAuthzSvc The authorization service to be used. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/com/com-authorization-constants">Authorization Constants</a>. If RPC_C_AUTHZ_DEFAULT is specified, DCOM will pick an authorization service following its normal security blanket negotiation algorithm. RPC_C_AUTHZ_NONE should be used as the authorization service if NTLMSSP, Kerberos, or Schannel is used as the authentication service.
-     * @param {Pointer<PWSTR>} pServerPrincName The server principal name to be used with the authentication service. If COLE_DEFAULT_PRINCIPAL is specified, DCOM will pick a principal name using its security blanket negotiation algorithm. If Kerberos is used as the authentication service, this value must not be <b>NULL</b>. It must be the correct principal name of the server or the call will fail.
+     * @param {Pointer<Char>} pServerPrincName The server principal name to be used with the authentication service. If COLE_DEFAULT_PRINCIPAL is specified, DCOM will pick a principal name using its security blanket negotiation algorithm. If Kerberos is used as the authentication service, this value must not be <b>NULL</b>. It must be the correct principal name of the server or the call will fail.
      * 
      * If Schannel is used as the authentication service, this value must be one of the msstd or fullsic forms described in <a href="https://docs.microsoft.com/windows/desktop/Rpc/principal-names">Principal Names</a>, or <b>NULL</b> if you do not want mutual authentication.
      * 
@@ -3517,7 +3520,7 @@ class Com {
      * This sequence calls <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cogetcallcontext">CoGetCallContext</a> to get a pointer to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iserversecurity">IServerSecurity</a> and, with the resulting pointer, calls <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iserversecurity-queryblanket">IServerSecurity::QueryBlanket</a> and then releases the pointer.
      * @param {Pointer<UInt32>} pAuthnSvc A pointer to a variable that receives the current authentication service. This will be a single value taken from the <a href="https://docs.microsoft.com/windows/desktop/com/com-authentication-service-constants">authentication service constants</a>. If the caller specifies <b>NULL</b>, the current authentication service is not retrieved.
      * @param {Pointer<UInt32>} pAuthzSvc A pointer to a variable that receives the current authorization service. This will be a single value taken from the <a href="https://docs.microsoft.com/windows/desktop/com/com-authorization-constants">authorization constants</a>. If the caller specifies <b>NULL</b>, the current authorization service is not retrieved.
-     * @param {Pointer<PWSTR>} pServerPrincName The current principal name. The string will be allocated by the callee using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>, and must be freed by the caller using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>. By default, Schannel principal names will be in the msstd form. The fullsic form will be returned if EOAC_MAKE_FULLSIC is specified in the <i>pCapabilities</i> parameter. For more information about the msstd and fullsic forms, see <a href="https://docs.microsoft.com/windows/desktop/Rpc/principal-names">Principal Names</a>. If the caller specifies <b>NULL</b>, the current principal name is not retrieved.
+     * @param {Pointer<Char>} pServerPrincName The current principal name. The string will be allocated by the callee using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>, and must be freed by the caller using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>. By default, Schannel principal names will be in the msstd form. The fullsic form will be returned if EOAC_MAKE_FULLSIC is specified in the <i>pCapabilities</i> parameter. For more information about the msstd and fullsic forms, see <a href="https://docs.microsoft.com/windows/desktop/Rpc/principal-names">Principal Names</a>. If the caller specifies <b>NULL</b>, the current principal name is not retrieved.
      * @param {Pointer<UInt32>} pAuthnLevel A pointer to a variable that receives the current authentication level. This will be a single value taken from the <a href="https://docs.microsoft.com/windows/desktop/com/com-authentication-level-constants">authentication level constants</a>. If the caller specifies <b>NULL</b>, the current authentication level is not retrieved.
      * @param {Pointer<UInt32>} pImpLevel This parameter must be <b>NULL</b>.
      * @param {Pointer<Void>} pPrivs A pointer to a handle that receives the privilege information for the client application. The format of the structure that the handle refers to depends on the authentication service. The application should not write or free the memory. The information is valid only for the duration of the current call. For NTLMSSP and Kerberos, this is a string identifying the client principal. For Schannel, this is a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure that represents the client's certificate. If the client has no certificate, <b>NULL</b> is returned. If the caller specifies <b>NULL</b>, the current privilege information is not retrieved. See <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-authz-handle">RPC_AUTHZ_HANDLE</a>.
@@ -3527,9 +3530,7 @@ class Com {
      * @since windows5.0
      */
     static CoQueryClientBlanket(pAuthnSvc, pAuthzSvc, pServerPrincName, pAuthnLevel, pImpLevel, pPrivs, pCapabilities) {
-        pServerPrincName := pServerPrincName is String? StrPtr(pServerPrincName) : pServerPrincName
-
-        result := DllCall("OLE32.dll\CoQueryClientBlanket", "ptr", pAuthnSvc, "ptr", pAuthzSvc, "ptr", pServerPrincName, "ptr", pAuthnLevel, "ptr", pImpLevel, "ptr", pPrivs, "ptr", pCapabilities, "int")
+        result := DllCall("OLE32.dll\CoQueryClientBlanket", "uint*", pAuthnSvc, "uint*", pAuthzSvc, "ptr", pServerPrincName, "uint*", pAuthnLevel, "uint*", pImpLevel, "ptr", pPrivs, "uint*", pCapabilities, "int")
         return result
     }
 
@@ -3594,7 +3595,7 @@ class Com {
      * @since windows5.0
      */
     static CoQueryAuthenticationServices(pcAuthSvc, asAuthSvc) {
-        result := DllCall("OLE32.dll\CoQueryAuthenticationServices", "ptr", pcAuthSvc, "ptr", asAuthSvc, "int")
+        result := DllCall("OLE32.dll\CoQueryAuthenticationServices", "uint*", pcAuthSvc, "ptr", asAuthSvc, "int")
         return result
     }
 
@@ -4235,14 +4236,12 @@ class Com {
      * 
      * The caller is responsible for freeing the memory allocated for the string by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
      * @param {Pointer<Guid>} rclsid The CLSID to be converted.
-     * @param {Pointer<PWSTR>} lplpsz The address of a pointer variable that receives a pointer to the resulting string. The string that represents <i>rclsid</i> includes enclosing braces.
+     * @param {Pointer<Char>} lplpsz The address of a pointer variable that receives a pointer to the resulting string. The string that represents <i>rclsid</i> includes enclosing braces.
      * @returns {Integer} This function can return the standard return values E_OUTOFMEMORY and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-stringfromclsid
      * @since windows5.0
      */
     static StringFromCLSID(rclsid, lplpsz) {
-        lplpsz := lplpsz is String? StrPtr(lplpsz) : lplpsz
-
         result := DllCall("OLE32.dll\StringFromCLSID", "ptr", rclsid, "ptr", lplpsz, "int")
         return result
     }
@@ -4253,7 +4252,7 @@ class Com {
      * The CLSID format is <b>{xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}</b>.
      * 
      * Passing the <a href="https://docs.microsoft.com/windows/win32/com/progid">ProgID</a> results in saving associated CLSID in <b>pclsid</b>. Passing <b>NULL</b> results in <b>GUID_NULL</b>.
-     * @param {Pointer<PWSTR>} lpsz The zero terminated string representation of the CLSID or the <a href="https://docs.microsoft.com/windows/win32/com/progid">ProgID</a> or <b>NULL</b>.
+     * @param {Pointer<Char>} lpsz The zero terminated string representation of the CLSID or the <a href="https://docs.microsoft.com/windows/win32/com/progid">ProgID</a> or <b>NULL</b>.
      * @param {Pointer<Guid>} pclsid A pointer to the CLSID.
      * @returns {Integer} This function can return the standard return value E_INVALIDARG, as well as the following values.
      * 
@@ -4300,14 +4299,12 @@ class Com {
      * @remarks
      * The caller is responsible for freeing the memory allocated for the string by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
      * @param {Pointer<Guid>} rclsid The interface identifier to be converted.
-     * @param {Pointer<PWSTR>} lplpsz The address of a pointer variable that receives a pointer to the resulting string. The string that represents <i>rclsid</i> includes enclosing braces.
+     * @param {Pointer<Char>} lplpsz The address of a pointer variable that receives a pointer to the resulting string. The string that represents <i>rclsid</i> includes enclosing braces.
      * @returns {Integer} This function can return the standard return values E_OUTOFMEMORY and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-stringfromiid
      * @since windows5.0
      */
     static StringFromIID(rclsid, lplpsz) {
-        lplpsz := lplpsz is String? StrPtr(lplpsz) : lplpsz
-
         result := DllCall("OLE32.dll\StringFromIID", "ptr", rclsid, "ptr", lplpsz, "int")
         return result
     }
@@ -4320,7 +4317,7 @@ class Com {
      * The IID format is <b>{xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}</b>.
      * 
      * Passing <b>NULL</b> results in <b>GUID_NULL</b> value.
-     * @param {Pointer<PWSTR>} lpsz A pointer to the string representation of the IID or <b>NULL</b>.
+     * @param {Pointer<Char>} lpsz A pointer to the string representation of the IID or <b>NULL</b>.
      * @param {Pointer<Guid>} lpiid A pointer to the requested IID on return.
      * @returns {Integer} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-iidfromstring
@@ -4348,7 +4345,7 @@ class Com {
      * 
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-clsidfromprogid">CLSIDFromProgID</a> function to find the CLSID associated with a given ProgID. Be sure to free the returned ProgID  when you are finished with it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
      * @param {Pointer<Guid>} clsid The CLSID for which the ProgID is to be requested.
-     * @param {Pointer<PWSTR>} lplpszProgID The address of a pointer variable that receives the ProgID string. The string that represents <i>clsid</i> includes enclosing braces.
+     * @param {Pointer<Char>} lplpszProgID The address of a pointer variable that receives the ProgID string. The string that represents <i>clsid</i> includes enclosing braces.
      * @returns {Integer} This function can return the following values.
      * 
      * <table>
@@ -4394,8 +4391,6 @@ class Com {
      * @since windows5.0
      */
     static ProgIDFromCLSID(clsid, lplpszProgID) {
-        lplpszProgID := lplpszProgID is String? StrPtr(lplpszProgID) : lplpszProgID
-
         result := DllCall("OLE32.dll\ProgIDFromCLSID", "ptr", clsid, "ptr", lplpszProgID, "int")
         return result
     }
@@ -4404,7 +4399,7 @@ class Com {
      * Looks up a CLSID in the registry, given a ProgID.
      * @remarks
      * Given a ProgID, <b>CLSIDFromProgID</b> looks up its associated CLSID in the registry. If the ProgID cannot be found in the registry, <b>CLSIDFromProgID</b> creates an OLE 1 CLSID for the ProgID and a CLSID entry in the registry. Because of the restrictions placed on OLE 1 CLSID values, <b>CLSIDFromProgID</b> and <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-clsidfromstring">CLSIDFromString</a> are the only two functions that can be used to generate a CLSID for an OLE 1 object.
-     * @param {Pointer<PWSTR>} lpszProgID A pointer to the ProgID whose CLSID is requested.
+     * @param {Pointer<Char>} lpszProgID A pointer to the ProgID whose CLSID is requested.
      * @param {Pointer<Guid>} lpclsid Receives a pointer to the retrieved CLSID on return.
      * @returns {Integer} This function can return the following values.
      * 
@@ -4461,16 +4456,17 @@ class Com {
     /**
      * Converts a globally unique identifier (GUID) into a string of printable characters.
      * @param {Pointer<Guid>} rguid The GUID to be converted.
-     * @param {Pointer<PWSTR>} lpsz A pointer to a caller-allocated string variable to receive the resulting string. The string that represents <i>rguid</i> includes enclosing braces.
+     * @param {Pointer<Char>} lpsz A pointer to a caller-allocated string variable to receive the resulting string. The string that represents <i>rguid</i> includes enclosing braces.
      * @param {Integer} cchMax The number of characters available in the <i>lpsz</i> buffer.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} If the function succeeds, the return value is the number of characters in the returned string, including the null terminator. If the buffer is too small to contain the string, the return value is 0.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-stringfromguid2
      * @since windows5.0
      */
     static StringFromGUID2(rguid, lpsz, cchMax) {
         lpsz := lpsz is String? StrPtr(lpsz) : lpsz
 
-        DllCall("OLE32.dll\StringFromGUID2", "ptr", rguid, "ptr", lpsz, "int", cchMax)
+        result := DllCall("OLE32.dll\StringFromGUID2", "ptr", rguid, "ptr", lpsz, "int", cchMax)
+        return result
     }
 
     /**
@@ -4524,7 +4520,7 @@ class Com {
      * @param {Integer} dwFlags The wait options. Possible values are taken from the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/ne-combaseapi-cowait_flags">COWAIT_FLAGS</a> enumeration.
      * @param {Integer} dwTimeout The timeout period, in milliseconds.
      * @param {Integer} cHandles The number of elements in the <i>pHandles</i> array.
-     * @param {Pointer<HANDLE>} pHandles An array of handles.
+     * @param {Pointer<Void>} pHandles An array of handles.
      * @param {Pointer<UInt32>} lpdwindex A pointer to a variable that, when the returned status is S_OK, receives a value indicating the event that caused the function to return. This value is usually the index into <i>pHandles</i> for the handle that was signaled.
      * 
      * If <i>pHandles</i> includes one or more handles to mutex objects, a value between WAIT_ABANDONED_0 and (WAIT_ABANDONED_0 + nCount - 1) indicates the index into <i>pHandles</i> for the mutex that was abandoned.
@@ -4590,7 +4586,7 @@ class Com {
      * @since windows5.0
      */
     static CoWaitForMultipleHandles(dwFlags, dwTimeout, cHandles, pHandles, lpdwindex) {
-        result := DllCall("OLE32.dll\CoWaitForMultipleHandles", "uint", dwFlags, "uint", dwTimeout, "uint", cHandles, "ptr", pHandles, "ptr", lpdwindex, "int")
+        result := DllCall("OLE32.dll\CoWaitForMultipleHandles", "uint", dwFlags, "uint", dwTimeout, "uint", cHandles, "ptr", pHandles, "uint*", lpdwindex, "int")
         return result
     }
 
@@ -4599,13 +4595,13 @@ class Com {
      * @param {Integer} dwFlags <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/ne-combaseapi-cwmo_flags">CWMO_FLAGS</a> flag controlling whether call/window message reentrancy is enabled from this wait. By default, neither COM calls nor window messages are dispatched from <b>CoWaitForMultipleObjects</b> in ASTA.
      * @param {Integer} dwTimeout The timeout in milliseconds of the wait.
      * @param {Integer} cHandles The length of the <i>pHandles</i> array. Must be &lt;= 56.
-     * @param {Pointer<HANDLE>} pHandles An array of handles to waitable kernel objects.
+     * @param {Pointer<Void>} pHandles An array of handles to waitable kernel objects.
      * @param {Pointer<UInt32>} lpdwindex Receives the index of the handle that satisfied the wait.
      * @returns {Integer} Same return values as <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cowaitformultiplehandles">CoWaitForMultipleHandles</a>, except the ASTA-specific CO_E_NOTSUPPORTED cases instead return E_INVALIDARG from all apartment types.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cowaitformultipleobjects
      */
     static CoWaitForMultipleObjects(dwFlags, dwTimeout, cHandles, pHandles, lpdwindex) {
-        result := DllCall("OLE32.dll\CoWaitForMultipleObjects", "uint", dwFlags, "uint", dwTimeout, "uint", cHandles, "ptr", pHandles, "ptr", lpdwindex, "int")
+        result := DllCall("OLE32.dll\CoWaitForMultipleObjects", "uint", dwFlags, "uint", dwTimeout, "uint", cHandles, "ptr", pHandles, "uint*", lpdwindex, "int")
         return result
     }
 
@@ -4670,7 +4666,7 @@ class Com {
      * The OLE Service Control Manager is used by COM to send component activation requests to other machines. To do this, the OLE Service Control Manager maintains a cache of RPC binding handles to send activation requests to computer, keyed by computer name. Under normal circumstances, this works well, but in some scenarios, such as Web farms and load-balancing situations, the ability to purge this cache of specific handles might be needed in order to facilitate rebinding to a different physical server by the same name. <b>CoInvalidateRemoteMachineBindings</b> is used for this purpose.
      * 
      * The OLE Service Control Manager will flush unused binding handles over time. It is not necessary to call <b>CoInvalidateRemoteMachineBindings</b> to do this.
-     * @param {Pointer<PWSTR>} pszMachineName The computer name for which binding handles should be flushed, or an empty string to signify that all handles in the cache should be flushed.
+     * @param {Pointer<Char>} pszMachineName The computer name for which binding handles should be flushed, or an empty string to signify that all handles in the cache should be flushed.
      * @returns {Integer} This function can return the following values.
      * 
      * <table>
@@ -4743,12 +4739,13 @@ class Com {
      * 
      * If <i>cb</i> is 0, <b>CoTaskMemAlloc</b> allocates a zero-length item and returns a valid pointer to that item. If there is insufficient memory available, <b>CoTaskMemAlloc</b> returns <b>NULL</b>. Applications should always check the return value from this function, even when requesting small amounts of memory, because there is no guarantee that the memory will be allocated.
      * @param {Pointer} cb The size of the memory block to be allocated, in bytes.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} If the function succeeds, it returns the allocated memory block. Otherwise, it returns <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cotaskmemalloc
      * @since windows5.0
      */
     static CoTaskMemAlloc(cb) {
-        DllCall("OLE32.dll\CoTaskMemAlloc", "ptr", cb)
+        result := DllCall("OLE32.dll\CoTaskMemAlloc", "ptr", cb)
+        return result
     }
 
     /**
@@ -4765,12 +4762,13 @@ class Com {
      * The storage space pointed to by the return value is guaranteed to be suitably aligned for storage of any type of object. To get a pointer to a type other than <b>void</b>, use a type cast on the return value.
      * @param {Pointer<Void>} pv A pointer to the memory block to be reallocated. This parameter can be <b>NULL</b>, as discussed in Remarks.
      * @param {Pointer} cb The size of the memory block to be reallocated, in bytes. This parameter can be 0, as discussed in Remarks.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} If the function succeeds, it returns the reallocated memory block. Otherwise, it returns <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cotaskmemrealloc
      * @since windows5.0
      */
     static CoTaskMemRealloc(pv, cb) {
-        DllCall("OLE32.dll\CoTaskMemRealloc", "ptr", pv, "ptr", cb)
+        result := DllCall("OLE32.dll\CoTaskMemRealloc", "ptr", pv, "ptr", cb)
+        return result
     }
 
     /**
@@ -4780,20 +4778,21 @@ class Com {
      * 
      * The number of bytes freed equals the number of bytes that were originally allocated or reallocated. After the call, the memory block pointed to by pv is invalid and can no longer be used.
      * @param {Pointer<Void>} pv A pointer to the memory block to be freed. If this parameter is <b>NULL</b>, the function has no effect.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cotaskmemfree
      * @since windows5.0
      */
     static CoTaskMemFree(pv) {
-        DllCall("OLE32.dll\CoTaskMemFree", "ptr", pv)
+        result := DllCall("OLE32.dll\CoTaskMemFree", "ptr", pv)
+        return result
     }
 
     /**
      * Enables a downloaded DLL to register its device catalog interfaces within its running process so that the marshaling code will be able to marshal those interfaces.
-     * @param {Pointer<PWSTR>} deviceInstanceId Type: \_In\_ **[PCWSTR](/windows/desktop/winprog/windows-data-types)**
+     * @param {Pointer<Char>} deviceInstanceId Type: \_In\_ **[PCWSTR](/windows/desktop/winprog/windows-data-types)**
      * 
      * A null-terminated string containing the instance identifier of the device to register.
-     * @param {Pointer<CO_DEVICE_CATALOG_COOKIE>} cookie Type: \_Out\_ **CO_DEVICE_CATALOG_COOKIE\***
+     * @param {Pointer<Void>} cookie Type: \_Out\_ **CO_DEVICE_CATALOG_COOKIE\***
      * 
      * Returns an instance of **CO_DEVICE_CATALOG_COOKIE**. You can use this value to revoke the device catalog using [CoRevokeDeviceCatalog](nf-combaseapi-corevokedevicecatalog.md).
      * @returns {Integer} This function can return the standard return values **E_INVALIDARG**, **E_OUTOFMEMORY**, and **S_OK**.
@@ -4808,7 +4807,7 @@ class Com {
 
     /**
      * Revokes the registration of a device catalog performed by a previous call to [CoRegisterDeviceCatalog](/windows/win32/api/combaseapi/nf-combaseapi-coregisterdevicecatalog).
-     * @param {Pointer<CO_DEVICE_CATALOG_COOKIE>} cookie Type: \_In\_ **CO_DEVICE_CATALOG_COOKIE**
+     * @param {Pointer<Void>} cookie Type: \_In\_ **CO_DEVICE_CATALOG_COOKIE**
      * 
      * The **CO_DEVICE_CATALOG_COOKIE** that was returned by **CoRegisterDeviceCatalog**.
      * @returns {Integer} This function can return the standard return values **E_INVALIDARG**, **E_OUTOFMEMORY**, and **S_OK**.
@@ -4821,7 +4820,7 @@ class Com {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pwzURI 
+     * @param {Pointer<Char>} pwzURI 
      * @param {Integer} dwFlags 
      * @param {Pointer<IUri>} ppURI 
      * @returns {Integer} 
@@ -4837,8 +4836,8 @@ class Com {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pwzURI 
-     * @param {Pointer<PWSTR>} pwzFragment 
+     * @param {Pointer<Char>} pwzURI 
+     * @param {Pointer<Char>} pwzFragment 
      * @param {Integer} dwFlags 
      * @param {Pointer<IUri>} ppURI 
      * @returns {Integer} 
@@ -4855,7 +4854,7 @@ class Com {
 
     /**
      * 
-     * @param {Pointer<PSTR>} pszANSIInputUri 
+     * @param {Pointer<Byte>} pszANSIInputUri 
      * @param {Integer} dwEncodingFlags 
      * @param {Integer} dwCodePage 
      * @param {Integer} dwCreateFlags 

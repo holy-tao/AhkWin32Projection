@@ -12,7 +12,7 @@ class WGLSWAP extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<HDC>}
+     * @type {Pointer<Void>}
      */
     hdc {
         get => NumGet(this, 0, "ptr")

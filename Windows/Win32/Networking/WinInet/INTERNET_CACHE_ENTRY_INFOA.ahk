@@ -38,7 +38,7 @@ class INTERNET_CACHE_ENTRY_INFOA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the URL name. The string occupies the memory area at the end of this structure.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpszSourceUrlName {
         get => NumGet(this, 8, "ptr")
@@ -47,7 +47,7 @@ class INTERNET_CACHE_ENTRY_INFOA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the local file name. The string occupies the memory area at the end of this structure.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpszLocalFileName {
         get => NumGet(this, 16, "ptr")
@@ -256,7 +256,7 @@ class INTERNET_CACHE_ENTRY_INFOA extends Win32Struct
 
     /**
      * Pointer to a buffer that contains the header information. The buffer occupies the memory at the end of this structure.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpHeaderInfo {
         get => NumGet(this, 80, "ptr")
@@ -275,7 +275,7 @@ class INTERNET_CACHE_ENTRY_INFOA extends Win32Struct
 
     /**
      * Pointer to a string that contains the file name extension used to retrieve the data as a file. The string occupies the memory area at the end of this structure.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpszFileExtension {
         get => NumGet(this, 96, "ptr")

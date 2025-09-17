@@ -29,7 +29,7 @@ class POLICY_ACCOUNT_DOMAIN_INFO extends Win32Struct
 
     /**
      * Pointer to the SID of the account domain.
-     * @type {Pointer<PSID>}
+     * @type {Pointer<Void>}
      */
     DomainSid {
         get => NumGet(this, 16, "ptr")

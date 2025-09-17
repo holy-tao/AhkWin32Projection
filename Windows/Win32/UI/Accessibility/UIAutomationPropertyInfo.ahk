@@ -40,7 +40,7 @@ class UIAutomationPropertyInfo extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
      * The programmatic name of the property (a non-localizable string).
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pProgrammaticName {
         get => NumGet(this, 8, "ptr")

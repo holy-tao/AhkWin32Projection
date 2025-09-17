@@ -34,7 +34,7 @@ class GESTURENOTIFYSTRUCT extends Win32Struct
 
     /**
      * The target window for the gesture notification.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndTarget {
         get => NumGet(this, 8, "ptr")

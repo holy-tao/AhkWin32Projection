@@ -55,7 +55,7 @@ class NMLVGETINFOTIPA extends Win32Struct
      * Address of a string buffer that receives any additional text information. If 
      * 					<b>dwFlags</b> is zero, this member will contain the existing item text. In this case, you should append any additional text onto the end of this string. The size of this buffer is specified by the 
      * 					<b>cchTextMax</b> structure.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszText {
         get => NumGet(this, 32, "ptr")

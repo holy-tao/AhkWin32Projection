@@ -26,7 +26,7 @@ class LOADED_IMAGE extends Win32Struct
 
     /**
      * The file name of the mapped file.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     ModuleName {
         get => NumGet(this, 0, "ptr")
@@ -35,7 +35,7 @@ class LOADED_IMAGE extends Win32Struct
 
     /**
      * A handle to the mapped file.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hFile {
         get => NumGet(this, 8, "ptr")

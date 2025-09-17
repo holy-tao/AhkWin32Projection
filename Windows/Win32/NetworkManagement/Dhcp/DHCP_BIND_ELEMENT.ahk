@@ -69,7 +69,7 @@ class DHCP_BIND_ELEMENT extends Win32Struct
 
     /**
      * Unicode string that specifies the name assigned to this network interface device.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     IfDescription {
         get => NumGet(this, 16, "ptr")

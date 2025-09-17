@@ -12,7 +12,7 @@ class DOT11EXT_IHV_SECURITY_PROFILE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszXmlFragmentIhvSecurity {
         get => NumGet(this, 0, "ptr")

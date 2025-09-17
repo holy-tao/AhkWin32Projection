@@ -213,7 +213,7 @@ class SERVER_INFO_503 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode character string that specifies the name of the server's domain.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     sv503_domain {
         get => NumGet(this, 72, "ptr")

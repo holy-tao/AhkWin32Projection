@@ -39,7 +39,7 @@ class LVSETINFOTIP extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a></b>
      * 
      * Pointer to a Unicode string that contains the tooltip text.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszText {
         get => NumGet(this, 8, "ptr")

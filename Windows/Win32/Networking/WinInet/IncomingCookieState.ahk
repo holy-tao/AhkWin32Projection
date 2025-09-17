@@ -60,7 +60,7 @@ class IncomingCookieState extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszLocation {
         get => NumGet(this, 24, "ptr")

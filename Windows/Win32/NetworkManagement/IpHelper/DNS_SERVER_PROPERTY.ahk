@@ -52,7 +52,7 @@ class DNS_SERVER_PROPERTY extends Win32Struct
      * Type: **[DNS_SERVER_PROPERTY_TYPES](ns-netioapi-dns_server_property_types.md)**
      * 
      * If the *Type* member is set to **DnsServerDohProperty**, then the **DNS_SERVER_PROPERTY_TYPES::DohSettings** field must point to a valid **DNS_DOH_SERVER_SETTINGS** object.
-     * @type {Pointer<DNS_SERVER_PROPERTY_TYPES>}
+     * @type {Pointer<TypeHandle>}
      */
     Property {
         get => NumGet(this, 16, "ptr")

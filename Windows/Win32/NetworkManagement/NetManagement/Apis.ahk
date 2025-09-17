@@ -10508,7 +10508,7 @@ class NetManagement {
      *  
      * 
      * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
-     * @param {Pointer<PWSTR>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used. 
+     * @param {Pointer<Char>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used. 
      * 
      * 
      * 
@@ -10601,7 +10601,7 @@ class NetManagement {
     static NetUserAdd(servername, level, buf, parm_err) {
         servername := servername is String? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetUserAdd", "ptr", servername, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
+        result := DllCall("NETAPI32.dll\NetUserAdd", "ptr", servername, "uint", level, "char*", buf, "uint*", parm_err, "uint")
         return result
     }
 
@@ -10637,7 +10637,7 @@ class NetManagement {
      * 
      * The <b>NetUserEnum</b> function does not support a <i>level</i> parameter of 4 and the <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-user_info_4">USER_INFO_4</a> structure. The <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusergetinfo">NetUserGetInfo</a> 
      * 		function supports a <i>level</i> parameter of 4 and the <b>USER_INFO_4</b> structure.
-     * @param {Pointer<PWSTR>} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Integer} filter A value that specifies the user account types to be included in the enumeration. A value of zero indicates that all normal user, trust data, and machine account data should be included.
      * @param {Pointer<Byte>} bufptr A pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. 
@@ -10727,7 +10727,7 @@ class NetManagement {
     static NetUserEnum(servername, level, filter, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
         servername := servername is String? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetUserEnum", "ptr", servername, "uint", level, "uint", filter, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetUserEnum", "ptr", servername, "uint", level, "uint", filter, "ptr", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
         return result
     }
 
@@ -10747,8 +10747,8 @@ class NetManagement {
      * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
      * 
      * If the information level specified in the <i>level</i> parameter is set to 24, the <i>servername</i> parameter specified must resolve to the local computer. If the <i>servername</i> resolves to a remote computer or to a domain controller, the <b>NetUserGetInfo</b>  function will fail.
-     * @param {Pointer<PWSTR>} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} username A pointer to a constant string that specifies the name of the user account for which to return information. For more information, see the following Remarks section.
+     * @param {Pointer<Char>} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} username A pointer to a constant string that specifies the name of the user account for which to return information. For more information, see the following Remarks section.
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr A pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. For more information, see 
@@ -11022,8 +11022,8 @@ class NetManagement {
      * 
      * The 
      * <b>NetUserSetInfo</b> function does not control how the password parameters are secured when sent over the network to a remote server to change a user password. Any encryption of these parameters is handled by the Remote Procedure Call (RPC) mechanism supported by the network redirector that provides the network transport. Encryption is also controlled  by the security mechanisms supported by the local computer and the security mechanisms supported by remote network server specified in the <i>servername</i>   parameter. For more details on security when the Microsoft network redirector is used and the remote network server is running Microsoft Windows, see the protocol documentation for <a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-rpce/290c38b1-92fe-4229-91e6-4fc376610c15">MS-RPCE</a> and <a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-samr/4df07fab-1bbc-452f-8e92-7853a3c7e380">MS-SAMR</a>.
-     * @param {Pointer<PWSTR>} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} username A pointer to a constant string that specifies the name of the user account for which to set information. For more information, see the following Remarks section.
+     * @param {Pointer<Char>} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} username A pointer to a constant string that specifies the name of the user account for which to set information. For more information, see the following Remarks section.
      * @param {Integer} level 
      * @param {Pointer<Byte>} buf A pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
@@ -11144,7 +11144,7 @@ class NetManagement {
         servername := servername is String? StrPtr(servername) : servername
         username := username is String? StrPtr(username) : username
 
-        result := DllCall("NETAPI32.dll\NetUserSetInfo", "ptr", servername, "ptr", username, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
+        result := DllCall("NETAPI32.dll\NetUserSetInfo", "ptr", servername, "ptr", username, "uint", level, "char*", buf, "uint*", parm_err, "uint")
         return result
     }
 
@@ -11165,8 +11165,8 @@ class NetManagement {
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a> function, deleting the user also deletes the user's system account.
      * 
      * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
-     * @param {Pointer<PWSTR>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} username Pointer to a constant string that specifies the name of the user account to delete. For more information, see the following Remarks section.
+     * @param {Pointer<Char>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} username Pointer to a constant string that specifies the name of the user account to delete. For more information, see the following Remarks section.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -11249,8 +11249,8 @@ class NetManagement {
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusergetlocalgroups">NetUserGetLocalGroups</a> function. Network groups are separate and distinct from Windows NT system groups.
      * 
      * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
-     * @param {Pointer<PWSTR>} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} username A pointer to a constant string that specifies the name of the user to search for in each group account. For more information, see the following Remarks section.
+     * @param {Pointer<Char>} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} username A pointer to a constant string that specifies the name of the user to search for in each group account. For more information, see the following Remarks section.
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr A pointer to the buffer that receives the data. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. Note that you must free the buffer even if the function fails with ERROR_MORE_DATA.
@@ -11364,7 +11364,7 @@ class NetManagement {
         servername := servername is String? StrPtr(servername) : servername
         username := username is String? StrPtr(username) : username
 
-        result := DllCall("NETAPI32.dll\NetUserGetGroups", "ptr", servername, "ptr", username, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "uint")
+        result := DllCall("NETAPI32.dll\NetUserGetGroups", "ptr", servername, "ptr", username, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint")
         return result
     }
 
@@ -11385,8 +11385,8 @@ class NetManagement {
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netgroupadduser">NetGroupAddUser</a> function.
      * 
      * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
-     * @param {Pointer<PWSTR>} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} username A pointer to a constant string that specifies the name of the user for which to set global group memberships. For more information, see the Remarks section.
+     * @param {Pointer<Char>} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} username A pointer to a constant string that specifies the name of the user for which to set global group memberships. For more information, see the Remarks section.
      * @param {Integer} level 
      * @param {Pointer<Byte>} buf A pointer to the buffer that specifies the data. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
@@ -11507,7 +11507,7 @@ class NetManagement {
         servername := servername is String? StrPtr(servername) : servername
         username := username is String? StrPtr(username) : username
 
-        result := DllCall("NETAPI32.dll\NetUserSetGroups", "ptr", servername, "ptr", username, "uint", level, "ptr", buf, "uint", num_entries, "uint")
+        result := DllCall("NETAPI32.dll\NetUserSetGroups", "ptr", servername, "ptr", username, "uint", level, "char*", buf, "uint", num_entries, "uint")
         return result
     }
 
@@ -11528,8 +11528,8 @@ class NetManagement {
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusergetgroups">NetUserGetGroups</a> function.
      * 
      * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
-     * @param {Pointer<PWSTR>} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} username A pointer to a constant string that specifies the name of the user for which to return local group membership information. If the string is of the form <i>DomainName</i>&#92;<i>UserName</i> the user name is expected to be found on that domain. If the string is of the form <i>UserName</i>, the user name is expected to be found on the server specified by the <i>servername</i> parameter. For more information, see the Remarks section.
+     * @param {Pointer<Char>} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} username A pointer to a constant string that specifies the name of the user for which to return local group membership information. If the string is of the form <i>DomainName</i>&#92;<i>UserName</i> the user name is expected to be found on that domain. If the string is of the form <i>UserName</i>, the user name is expected to be found on the server specified by the <i>servername</i> parameter. For more information, see the Remarks section.
      * @param {Integer} level The information level of the data. This parameter can be the following value. 
      * 
      * 
@@ -11664,7 +11664,7 @@ class NetManagement {
         servername := servername is String? StrPtr(servername) : servername
         username := username is String? StrPtr(username) : username
 
-        result := DllCall("NETAPI32.dll\NetUserGetLocalGroups", "ptr", servername, "ptr", username, "uint", level, "uint", flags, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "uint")
+        result := DllCall("NETAPI32.dll\NetUserGetLocalGroups", "ptr", servername, "ptr", username, "uint", level, "uint", flags, "ptr", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint")
         return result
     }
 
@@ -11684,7 +11684,7 @@ class NetManagement {
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-identifiers">security identifier</a> (SID) of the domain to which the computer belongs, call the 
      * <b>NetUserModalsGet</b> function specifying a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-user_modals_info_2">USER_MODALS_INFO_2</a> structure and <b>NULL</b> in the <i>servername</i> parameter. If the computer isn't a member of a domain, the function returns a <b>NULL</b> pointer.
-     * @param {Pointer<PWSTR>} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used. For more information, see the following Remarks section.
+     * @param {Pointer<Char>} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used. For more information, see the following Remarks section.
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr A pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. 
      * 
@@ -11846,7 +11846,7 @@ class NetManagement {
      * <td>usrmod*_lockout_threshold</td>
      * </tr>
      * </table>
-     * @param {Pointer<PWSTR>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Byte>} buf Pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
@@ -11911,7 +11911,7 @@ class NetManagement {
     static NetUserModalsSet(servername, level, buf, parm_err) {
         servername := servername is String? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetUserModalsSet", "ptr", servername, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
+        result := DllCall("NETAPI32.dll\NetUserModalsSet", "ptr", servername, "uint", level, "char*", buf, "uint*", parm_err, "uint")
         return result
     }
 
@@ -11947,13 +11947,13 @@ class NetManagement {
      * 
      * The 
      * <b>NetUserChangePassword</b> function does not control how the <i>oldpassword</i> and <i>newpassword</i> parameters are secured when sent over the network to a remote server. Any encryption of these parameters is handled by the Remote Procedure Call (RPC) mechanism supported by the network redirector that provides the network transport. Encryption is also controlled  by the security mechanisms supported by the local computer and the security mechanisms supported by remote network server or domain specified in the <i>domainname</i>   parameter. For more details on security when the Microsoft network redirector is used and the remote network server is running Microsoft Windows, see the protocol documentation for <a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-rpce/290c38b1-92fe-4229-91e6-4fc376610c15">MS-RPCE</a>, <a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-samr/4df07fab-1bbc-452f-8e92-7853a3c7e380">MS-SAMR</a>, <a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-spng/f377a379-c24f-4a0f-a3eb-0d835389e28a">MS-SPNG</a>, and <a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-nlmp/b38c36ed-2804-4868-a9ff-8dd3182128e4">MS-NLMP</a>.
-     * @param {Pointer<PWSTR>} domainname A pointer to a constant string that specifies the DNS or NetBIOS name of a remote server or domain on which the function is to execute. If this parameter is <b>NULL</b>, the logon domain of the caller is used.
-     * @param {Pointer<PWSTR>} username A pointer to a constant string that specifies a user name. The 
+     * @param {Pointer<Char>} domainname A pointer to a constant string that specifies the DNS or NetBIOS name of a remote server or domain on which the function is to execute. If this parameter is <b>NULL</b>, the logon domain of the caller is used.
+     * @param {Pointer<Char>} username A pointer to a constant string that specifies a user name. The 
      * <b>NetUserChangePassword</b> function changes the password for the specified user.
      * 
      * If this parameter is <b>NULL</b>, the logon name of the caller is used. For more information, see the following Remarks section.
-     * @param {Pointer<PWSTR>} oldpassword A pointer to a constant string that specifies the user's old password.
-     * @param {Pointer<PWSTR>} newpassword A pointer to a constant string that specifies the user's new password.
+     * @param {Pointer<Char>} oldpassword A pointer to a constant string that specifies the user's old password.
+     * @param {Pointer<Char>} newpassword A pointer to a constant string that specifies the user's new password.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -12061,7 +12061,7 @@ class NetManagement {
      * The security descriptor of the user container is used to perform the access check for this function. The caller must be able to create child objects of the group class. Typically, callers must also have write access to the entire object for calls to this function to succeed.
      * 
      * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
-     * @param {Pointer<PWSTR>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Byte>} buf Pointer to a buffer that contains the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
@@ -12149,7 +12149,7 @@ class NetManagement {
     static NetGroupAdd(servername, level, buf, parm_err) {
         servername := servername is String? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetGroupAdd", "ptr", servername, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
+        result := DllCall("NETAPI32.dll\NetGroupAdd", "ptr", servername, "uint", level, "char*", buf, "uint*", parm_err, "uint")
         return result
     }
 
@@ -12166,9 +12166,9 @@ class NetManagement {
      * 
      * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management group functions. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
-     * @param {Pointer<PWSTR>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} GroupName Pointer to a constant string that specifies the name of the global group in which the user is to be given membership. For more information, see the following Remarks section.
-     * @param {Pointer<PWSTR>} username Pointer to a constant string that specifies the name of the user to be given membership in the global group. For more information, see the following Remarks section.
+     * @param {Pointer<Char>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} GroupName Pointer to a constant string that specifies the name of the global group in which the user is to be given membership. For more information, see the following Remarks section.
+     * @param {Pointer<Char>} username Pointer to a constant string that specifies the name of the user to be given membership in the global group. For more information, see the following Remarks section.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -12274,7 +12274,7 @@ class NetManagement {
      * <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-system-providers">ADSI Service Providers</a>.
      * 
      * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
-     * @param {Pointer<PWSTR>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr Pointer to the buffer to receive the global group information structure. The format of this data depends on the value of the <i>level</i> parameter. 
      * 
@@ -12338,7 +12338,7 @@ class NetManagement {
     static NetGroupEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
         servername := servername is String? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetGroupEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetGroupEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "ptr*", resume_handle, "uint")
         return result
     }
 
@@ -12355,8 +12355,8 @@ class NetManagement {
      * The security descriptor of the Group object is used to perform the access check for this function.
      * 
      * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
-     * @param {Pointer<PWSTR>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} groupname Pointer to a constant string that specifies the name of the global group for which to retrieve information. For more information, see the following Remarks section.
+     * @param {Pointer<Char>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} groupname Pointer to a constant string that specifies the name of the global group for which to retrieve information. For more information, see the following Remarks section.
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr Pointer to the address of the buffer that receives the global group information structure. The format of this data depends on the value of the <i>level</i> parameter. The system allocates the memory for this buffer. You must call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function to deallocate the memory. For more information, see 
@@ -12457,8 +12457,8 @@ class NetManagement {
      *  
      * 
      * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
-     * @param {Pointer<PWSTR>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} groupname Pointer to a constant string that specifies the name of the global group for which to set information. For more information, see the following Remarks section.
+     * @param {Pointer<Char>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} groupname Pointer to a constant string that specifies the name of the global group for which to set information. For more information, see the following Remarks section.
      * @param {Integer} level 
      * @param {Pointer<Byte>} buf Pointer to a buffer that contains the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
@@ -12546,7 +12546,7 @@ class NetManagement {
         servername := servername is String? StrPtr(servername) : servername
         groupname := groupname is String? StrPtr(groupname) : groupname
 
-        result := DllCall("NETAPI32.dll\NetGroupSetInfo", "ptr", servername, "ptr", groupname, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
+        result := DllCall("NETAPI32.dll\NetGroupSetInfo", "ptr", servername, "ptr", groupname, "uint", level, "char*", buf, "uint*", parm_err, "uint")
         return result
     }
 
@@ -12563,8 +12563,8 @@ class NetManagement {
      * 
      * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management group functions. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
-     * @param {Pointer<PWSTR>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} groupname Pointer to a constant string that specifies the name of the global group account to delete. For more information, see the following Remarks section.
+     * @param {Pointer<Char>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} groupname Pointer to a constant string that specifies the name of the global group account to delete. For more information, see the following Remarks section.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -12654,9 +12654,9 @@ class NetManagement {
      * 
      * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management group functions. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
-     * @param {Pointer<PWSTR>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} GroupName Pointer to a constant string that specifies the name of the global group from which the user's membership should be removed. For more information, see the following Remarks section.
-     * @param {Pointer<PWSTR>} Username Pointer to a constant string that specifies the name of the user to remove from the global group. For more information, see the following Remarks section.
+     * @param {Pointer<Char>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} GroupName Pointer to a constant string that specifies the name of the global group from which the user's membership should be removed. For more information, see the following Remarks section.
+     * @param {Pointer<Char>} Username Pointer to a constant string that specifies the name of the user to remove from the global group. For more information, see the following Remarks section.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -12774,8 +12774,8 @@ class NetManagement {
      * 
      * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management group functions. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
-     * @param {Pointer<PWSTR>} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} groupname A pointer to a constant string that specifies the name of the global group whose members are to be listed. For more information, see the following Remarks section.
+     * @param {Pointer<Char>} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} groupname A pointer to a constant string that specifies the name of the global group whose members are to be listed. For more information, see the following Remarks section.
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr A pointer to the address of the buffer that receives the information structure. The system allocates the memory for this buffer. You must call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function to deallocate the memory. Note that you must free the buffer even if the function fails with ERROR_MORE_DATA.
@@ -12879,7 +12879,7 @@ class NetManagement {
         servername := servername is String? StrPtr(servername) : servername
         groupname := groupname is String? StrPtr(groupname) : groupname
 
-        result := DllCall("NETAPI32.dll\NetGroupGetUsers", "ptr", servername, "ptr", groupname, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", ResumeHandle, "uint")
+        result := DllCall("NETAPI32.dll\NetGroupGetUsers", "ptr", servername, "ptr", groupname, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "ptr*", ResumeHandle, "uint")
         return result
     }
 
@@ -12912,8 +12912,8 @@ class NetManagement {
      * 
      * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management group functions. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
-     * @param {Pointer<PWSTR>} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} groupname A pointer to a constant string that specifies the name of the global group of interest. For more information, see the Remarks section.
+     * @param {Pointer<Char>} servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} groupname A pointer to a constant string that specifies the name of the global group of interest. For more information, see the Remarks section.
      * @param {Integer} level 
      * @param {Pointer<Byte>} buf A pointer to the buffer that contains the data. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
@@ -13045,7 +13045,7 @@ class NetManagement {
         servername := servername is String? StrPtr(servername) : servername
         groupname := groupname is String? StrPtr(groupname) : groupname
 
-        result := DllCall("NETAPI32.dll\NetGroupSetUsers", "ptr", servername, "ptr", groupname, "uint", level, "ptr", buf, "uint", totalentries, "uint")
+        result := DllCall("NETAPI32.dll\NetGroupSetUsers", "ptr", servername, "ptr", groupname, "uint", level, "char*", buf, "uint", totalentries, "uint")
         return result
     }
 
@@ -13092,7 +13092,7 @@ class NetManagement {
      * 
      * When making requests to a domain controller and Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same results as the network management local group functions. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
-     * @param {Pointer<PWSTR>} servername A pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} servername A pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Byte>} buf A pointer to a buffer that contains the local group information structure. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
@@ -13203,15 +13203,15 @@ class NetManagement {
     static NetLocalGroupAdd(servername, level, buf, parm_err) {
         servername := servername is String? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetLocalGroupAdd", "ptr", servername, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
+        result := DllCall("NETAPI32.dll\NetLocalGroupAdd", "ptr", servername, "uint", level, "char*", buf, "uint*", parm_err, "uint")
         return result
     }
 
     /**
      * The NetLocalGroupAddMember function is obsolete. You should use the NetLocalGroupAddMembers function instead.
-     * @param {Pointer<PWSTR>} servername TBD
-     * @param {Pointer<PWSTR>} groupname TBD
-     * @param {Pointer<PSID>} membersid TBD
+     * @param {Pointer<Char>} servername TBD
+     * @param {Pointer<Char>} groupname TBD
+     * @param {Pointer<Void>} membersid TBD
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netlocalgroupaddmember
      */
@@ -13240,7 +13240,7 @@ class NetManagement {
      * 
      * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management local group functions. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
-     * @param {Pointer<PWSTR>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr Pointer to the address of the buffer that receives the information structure. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. Note that you must free the buffer even if the function fails with ERROR_MORE_DATA.
@@ -13310,7 +13310,7 @@ class NetManagement {
     static NetLocalGroupEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resumehandle) {
         servername := servername is String? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetLocalGroupEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resumehandle, "uint")
+        result := DllCall("NETAPI32.dll\NetLocalGroupEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "ptr*", resumehandle, "uint")
         return result
     }
 
@@ -13327,8 +13327,8 @@ class NetManagement {
      * 
      * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management local group functions. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
-     * @param {Pointer<PWSTR>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} groupname Pointer to a constant string that specifies the name of the local group account for which the information will be retrieved. For more information, see the following Remarks section.
+     * @param {Pointer<Char>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} groupname Pointer to a constant string that specifies the name of the local group account for which the information will be retrieved. For more information, see the following Remarks section.
      * @param {Integer} level Specifies the information level of the data. This parameter can be the following value. 
      * 
      * 
@@ -13446,8 +13446,8 @@ class NetManagement {
      * 
      * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management local group functions. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
-     * @param {Pointer<PWSTR>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} groupname Pointer to a constant string that specifies the name of the local group account to modify. For more information, see the following Remarks section.
+     * @param {Pointer<Char>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} groupname Pointer to a constant string that specifies the name of the local group account to modify. For more information, see the following Remarks section.
      * @param {Integer} level 
      * @param {Pointer<Byte>} buf Pointer to a buffer that contains the local group information. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
@@ -13524,7 +13524,7 @@ class NetManagement {
         servername := servername is String? StrPtr(servername) : servername
         groupname := groupname is String? StrPtr(groupname) : groupname
 
-        result := DllCall("NETAPI32.dll\NetLocalGroupSetInfo", "ptr", servername, "ptr", groupname, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
+        result := DllCall("NETAPI32.dll\NetLocalGroupSetInfo", "ptr", servername, "ptr", groupname, "uint", level, "char*", buf, "uint*", parm_err, "uint")
         return result
     }
 
@@ -13541,8 +13541,8 @@ class NetManagement {
      * 
      * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management local group functions. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
-     * @param {Pointer<PWSTR>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} groupname Pointer to a constant string that specifies the name of the local group account to delete. For more information, see the following Remarks section.
+     * @param {Pointer<Char>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} groupname Pointer to a constant string that specifies the name of the local group account to delete. For more information, see the following Remarks section.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -13621,9 +13621,9 @@ class NetManagement {
 
     /**
      * The NetLocalGroupDelMember function is obsolete. You should use the NetLocalGroupDelMembers function instead.
-     * @param {Pointer<PWSTR>} servername TBD
-     * @param {Pointer<PWSTR>} groupname TBD
-     * @param {Pointer<PSID>} membersid TBD
+     * @param {Pointer<Char>} servername TBD
+     * @param {Pointer<Char>} groupname TBD
+     * @param {Pointer<Void>} membersid TBD
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netlocalgroupdelmember
      */
@@ -13650,8 +13650,8 @@ class NetManagement {
      * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
      * 
      * If this function returns <b>ERROR_MORE_DATA</b>, then it must be repeatedly called until <b>ERROR_SUCCESS</b> or <b>NERR_success</b> is returned.  Failure to do so can result in an RPC connection leak.
-     * @param {Pointer<PWSTR>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} localgroupname Pointer to a constant string that specifies the name of the local group whose members are to be listed. For more information, see the following Remarks section.
+     * @param {Pointer<Char>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} localgroupname Pointer to a constant string that specifies the name of the local group whose members are to be listed. For more information, see the following Remarks section.
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr Pointer to the address that receives the return information structure. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. Note that you must free the buffer even if the function fails with ERROR_MORE_DATA.
@@ -13722,7 +13722,7 @@ class NetManagement {
         servername := servername is String? StrPtr(servername) : servername
         localgroupname := localgroupname is String? StrPtr(localgroupname) : localgroupname
 
-        result := DllCall("NETAPI32.dll\NetLocalGroupGetMembers", "ptr", servername, "ptr", localgroupname, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resumehandle, "uint")
+        result := DllCall("NETAPI32.dll\NetLocalGroupGetMembers", "ptr", servername, "ptr", localgroupname, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "ptr*", resumehandle, "uint")
         return result
     }
 
@@ -13755,8 +13755,8 @@ class NetManagement {
      * 
      * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management local group functions. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
-     * @param {Pointer<PWSTR>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} groupname Pointer to a constant string that specifies the name of the local group in which the specified users or global groups should be granted membership. For more information, see the following Remarks section.
+     * @param {Pointer<Char>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} groupname Pointer to a constant string that specifies the name of the local group in which the specified users or global groups should be granted membership. For more information, see the following Remarks section.
      * @param {Integer} level 
      * @param {Pointer<Byte>} buf Pointer to the buffer that contains the member information. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
@@ -13822,7 +13822,7 @@ class NetManagement {
         servername := servername is String? StrPtr(servername) : servername
         groupname := groupname is String? StrPtr(groupname) : groupname
 
-        result := DllCall("NETAPI32.dll\NetLocalGroupSetMembers", "ptr", servername, "ptr", groupname, "uint", level, "ptr", buf, "uint", totalentries, "uint")
+        result := DllCall("NETAPI32.dll\NetLocalGroupSetMembers", "ptr", servername, "ptr", groupname, "uint", level, "char*", buf, "uint", totalentries, "uint")
         return result
     }
 
@@ -13839,8 +13839,8 @@ class NetManagement {
      * 
      * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management local group functions. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
-     * @param {Pointer<PWSTR>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} groupname Pointer to a constant string that specifies the name of the local group to which the specified users or global groups will be added. For more information, see the following Remarks section.
+     * @param {Pointer<Char>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} groupname Pointer to a constant string that specifies the name of the local group to which the specified users or global groups will be added. For more information, see the following Remarks section.
      * @param {Integer} level 
      * @param {Pointer<Byte>} buf Pointer to a buffer that contains the data for the new local group members. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
@@ -13917,7 +13917,7 @@ class NetManagement {
         servername := servername is String? StrPtr(servername) : servername
         groupname := groupname is String? StrPtr(groupname) : groupname
 
-        result := DllCall("NETAPI32.dll\NetLocalGroupAddMembers", "ptr", servername, "ptr", groupname, "uint", level, "ptr", buf, "uint", totalentries, "uint")
+        result := DllCall("NETAPI32.dll\NetLocalGroupAddMembers", "ptr", servername, "ptr", groupname, "uint", level, "char*", buf, "uint", totalentries, "uint")
         return result
     }
 
@@ -13934,8 +13934,8 @@ class NetManagement {
      * 
      * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management local group functions. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsgroup">IADsGroup</a>.
-     * @param {Pointer<PWSTR>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} groupname Pointer to a constant string that specifies the name of the local group from which the specified users or global groups will be removed. For more information, see the following Remarks section.
+     * @param {Pointer<Char>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} groupname Pointer to a constant string that specifies the name of the local group from which the specified users or global groups will be removed. For more information, see the following Remarks section.
      * @param {Integer} level 
      * @param {Pointer<Byte>} buf Pointer to a buffer that specifies the members to be removed. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
@@ -14001,7 +14001,7 @@ class NetManagement {
         servername := servername is String? StrPtr(servername) : servername
         groupname := groupname is String? StrPtr(groupname) : groupname
 
-        result := DllCall("NETAPI32.dll\NetLocalGroupDelMembers", "ptr", servername, "ptr", groupname, "uint", level, "ptr", buf, "uint", totalentries, "uint")
+        result := DllCall("NETAPI32.dll\NetLocalGroupDelMembers", "ptr", servername, "ptr", groupname, "uint", level, "char*", buf, "uint", totalentries, "uint")
         return result
     }
 
@@ -14033,7 +14033,7 @@ class NetManagement {
      * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-idirectorysearch-setsearchpreference">IDirectorySearch::SetSearchPreference</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-idirectorysearch-executesearch">IDirectorySearch::ExecuteSearch</a>. To enumerate trusted domains, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsaenumeratetrusteddomainsex">LsaEnumerateTrustedDomainsEx</a> function.
-     * @param {Pointer<PWSTR>} ServerName Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} ServerName Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} Level 
      * @param {Integer} Index Specifies the index of the first entry for which to retrieve information. Specify zero to retrieve account information beginning with the first display information entry. For more information, see the following Remarks section.
      * @param {Integer} EntriesRequested Specifies the maximum number of entries for which to retrieve information. On Windows 2000 and later, each call to 
@@ -14095,7 +14095,7 @@ class NetManagement {
     static NetQueryDisplayInformation(ServerName, Level, Index, EntriesRequested, PreferredMaximumLength, ReturnedEntryCount, SortedBuffer) {
         ServerName := ServerName is String? StrPtr(ServerName) : ServerName
 
-        result := DllCall("NETAPI32.dll\NetQueryDisplayInformation", "ptr", ServerName, "uint", Level, "uint", Index, "uint", EntriesRequested, "uint", PreferredMaximumLength, "ptr", ReturnedEntryCount, "ptr", SortedBuffer, "uint")
+        result := DllCall("NETAPI32.dll\NetQueryDisplayInformation", "ptr", ServerName, "uint", Level, "uint", Index, "uint", EntriesRequested, "uint", PreferredMaximumLength, "uint*", ReturnedEntryCount, "ptr", SortedBuffer, "uint")
         return result
     }
 
@@ -14107,9 +14107,9 @@ class NetManagement {
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
      * 
      * The function only returns information to which the caller has Read access. The caller must have List Contents access to the Domain object, and  Enumerate Entire SAM Domain access on the SAM Server object  located in the System container.
-     * @param {Pointer<PWSTR>} ServerName Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} ServerName Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} Level 
-     * @param {Pointer<PWSTR>} Prefix Pointer to a string that specifies the prefix for which to search.
+     * @param {Pointer<Char>} Prefix Pointer to a string that specifies the prefix for which to search.
      * @param {Pointer<UInt32>} Index Pointer to a value that receives the index of the requested entry.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
@@ -14172,7 +14172,7 @@ class NetManagement {
         ServerName := ServerName is String? StrPtr(ServerName) : ServerName
         Prefix := Prefix is String? StrPtr(Prefix) : Prefix
 
-        result := DllCall("NETAPI32.dll\NetGetDisplayInformationIndex", "ptr", ServerName, "uint", Level, "ptr", Prefix, "ptr", Index, "uint")
+        result := DllCall("NETAPI32.dll\NetGetDisplayInformationIndex", "ptr", ServerName, "uint", Level, "ptr", Prefix, "uint*", Index, "uint")
         return result
     }
 
@@ -14180,7 +14180,7 @@ class NetManagement {
      * Not supported. (NetAccessAdd)
      * @remarks
      * This function requires User level security to be enabled.
-     * @param {Pointer<PWSTR>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level Specifies the information level of the data. This parameter can be the following value.
      * 
      * <table>
@@ -14212,7 +14212,7 @@ class NetManagement {
     static NetAccessAdd(servername, level, buf, parm_err) {
         servername := servername is String? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetAccessAdd", "ptr", servername, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
+        result := DllCall("NETAPI32.dll\NetAccessAdd", "ptr", servername, "uint", level, "char*", buf, "uint*", parm_err, "uint")
         return result
     }
 
@@ -14220,8 +14220,8 @@ class NetManagement {
      * Not supported. (NetAccessEnum)
      * @remarks
      * This function requires Admin privilege to successfully execute on a computer that has local security enabled.
-     * @param {Pointer<PWSTR>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} BasePath Pointer to a string that contains a base pathname for the resource. A <b>NULL</b> pointer or <b>NULL</b> string means no base path is to be used. The path can be specified as a universal naming convention (UNC) pathname.
+     * @param {Pointer<Char>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} BasePath Pointer to a string that contains a base pathname for the resource. A <b>NULL</b> pointer or <b>NULL</b> string means no base path is to be used. The path can be specified as a universal naming convention (UNC) pathname.
      * @param {Integer} Recursive Specifies a flag that enables or disables recursive searching.
      * 
      * If this parameter is equal to zero, the <b>NetAccessEnum</b> function returns entries for the resource named as the base path by the <i>pszBasePath</i> parameter, and for the resources directly below that base path.
@@ -14246,7 +14246,7 @@ class NetManagement {
         servername := servername is String? StrPtr(servername) : servername
         BasePath := BasePath is String? StrPtr(BasePath) : BasePath
 
-        result := DllCall("NETAPI32.dll\NetAccessEnum", "ptr", servername, "ptr", BasePath, "uint", Recursive, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetAccessEnum", "ptr", servername, "ptr", BasePath, "uint", Recursive, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
         return result
     }
 
@@ -14254,8 +14254,8 @@ class NetManagement {
      * Not supported. (NetAccessGetInfo)
      * @remarks
      * This function requires Admin privilege to successfully execute on a computer that has local security enabled.
-     * @param {Pointer<PWSTR>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} resource 
+     * @param {Pointer<Char>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} resource 
      * @param {Integer} level Pointer to the buffer that receives the access information structure. The format of this data depends on the value of the <i>sLevel</i> parameter.
      * @param {Pointer<Byte>} bufptr Specifies the size, in bytes, of the buffer pointed to by the <i>pbBuffer</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
@@ -14277,8 +14277,8 @@ class NetManagement {
      * Not supported. (NetAccessSetInfo)
      * @remarks
      * This function requires Admin privilege to successfully execute on a computer that has local security enabled.
-     * @param {Pointer<PWSTR>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} resource Pointer to a string that contains the name of the network resource to modify.
+     * @param {Pointer<Char>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} resource Pointer to a string that contains the name of the network resource to modify.
      * @param {Integer} level Specifies the information level of the data. This parameter can be the following value.
      * 
      * <table>
@@ -14311,7 +14311,7 @@ class NetManagement {
         servername := servername is String? StrPtr(servername) : servername
         resource := resource is String? StrPtr(resource) : resource
 
-        result := DllCall("NETAPI32.dll\NetAccessSetInfo", "ptr", servername, "ptr", resource, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
+        result := DllCall("NETAPI32.dll\NetAccessSetInfo", "ptr", servername, "ptr", resource, "uint", level, "char*", buf, "uint*", parm_err, "uint")
         return result
     }
 
@@ -14319,8 +14319,8 @@ class NetManagement {
      * Not supported. (NetAccessDel)
      * @remarks
      * This function requires Admin privilege to successfully execute on a computer that has local security enabled.
-     * @param {Pointer<PWSTR>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} resource Pointer to a string that contains the name of the network resource for which to remove the access control list.
+     * @param {Pointer<Char>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} resource Pointer to a string that contains the name of the network resource for which to remove the access control list.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
@@ -14340,9 +14340,9 @@ class NetManagement {
      * Not supported. (NetAccessGetUserPerms)
      * @remarks
      * This function requires Admin privilege to successfully execute on a computer that has local security enabled. When users request their own access permissions, no special privilege is required.
-     * @param {Pointer<PWSTR>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} UGname Pointer to a string that specifies the name of the user or group to query.
-     * @param {Pointer<PWSTR>} resource Pointer to a string that contains the name of the network resource to query.
+     * @param {Pointer<Char>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} UGname Pointer to a string that specifies the name of the user or group to query.
+     * @param {Pointer<Char>} resource Pointer to a string that contains the name of the network resource to query.
      * @param {Pointer<UInt32>} Perms Pointer to an unsigned short integer that receives the user permissions for the specified resource.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
@@ -14356,7 +14356,7 @@ class NetManagement {
         UGname := UGname is String? StrPtr(UGname) : UGname
         resource := resource is String? StrPtr(resource) : resource
 
-        result := DllCall("NETAPI32.dll\NetAccessGetUserPerms", "ptr", servername, "ptr", UGname, "ptr", resource, "ptr", Perms, "uint")
+        result := DllCall("NETAPI32.dll\NetAccessGetUserPerms", "ptr", servername, "ptr", UGname, "ptr", resource, "uint*", Perms, "uint")
         return result
     }
 
@@ -14391,7 +14391,7 @@ class NetManagement {
      *         could not be examined.
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netvalidatepasswordpolicyfree">NetValidatePasswordPolicyFree</a> function should be called after calling  <b>NetValidatePasswordPolicy</b> to free the memory allocated for the <i>OutputArg</i> parameter that is returned by the call to the <b>NetValidatePasswordPolicy</b> function.
-     * @param {Pointer<PWSTR>} ServerName A pointer to a constant Unicode string specifying the name of the remote server on which the function is to execute. This string must
+     * @param {Pointer<Char>} ServerName A pointer to a constant Unicode string specifying the name of the remote server on which the function is to execute. This string must
      *         begin with \\ followed by the remote server name. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Pointer<Void>} Qualifier Reserved for future use. This parameter must be <b>NULL</b>.
      * @param {Integer} ValidationType The type of password validation to perform. This parameter must be one of the following enumerated constant values. 
@@ -14526,8 +14526,8 @@ class NetManagement {
      * @remarks
      * No special group membership is required to successfully execute the 
      * <b>NetGetDCName</b> function.
-     * @param {Pointer<PWSTR>} ServerName 
-     * @param {Pointer<PWSTR>} DomainName 
+     * @param {Pointer<Char>} ServerName 
+     * @param {Pointer<Char>} DomainName 
      * @param {Pointer<Byte>} Buffer 
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
@@ -14605,8 +14605,8 @@ class NetManagement {
      * If <i>servername</i> specifies a workstation that is a member of a domain, or a server that is a member of a domain, the <i>domainname</i> must be in the same domain as <i>servername</i>.
      * 
      * If <i>servername</i> specifies a domain controller, the <i>domainname</i> must be one of the domains trusted by the domain for which the server is a controller. The domain controller that this call finds has been operational at least once during this call.
-     * @param {Pointer<PWSTR>} ServerName 
-     * @param {Pointer<PWSTR>} DomainName 
+     * @param {Pointer<Char>} ServerName 
+     * @param {Pointer<Char>} DomainName 
      * @param {Pointer<Byte>} Buffer 
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
@@ -14688,7 +14688,7 @@ class NetManagement {
      * Controls various aspects of the Netlogon service.
      * @remarks
      * This function can be used to request that a BDC ensure that its copy of the SAM database is brought up-to-date. It can also be used to determine if a BDC currently has a secure channel open to the PDC.
-     * @param {Pointer<PWSTR>} ServerName The name of the remote server.
+     * @param {Pointer<Char>} ServerName The name of the remote server.
      * @param {Integer} FunctionCode The operation to be performed. This value  can be one of the following.
      * 
      * <table>
@@ -14970,15 +14970,15 @@ class NetManagement {
     static I_NetLogonControl2(ServerName, FunctionCode, QueryLevel, Data, Buffer) {
         ServerName := ServerName is String? StrPtr(ServerName) : ServerName
 
-        result := DllCall("NETAPI32.dll\I_NetLogonControl2", "ptr", ServerName, "uint", FunctionCode, "uint", QueryLevel, "ptr", Data, "ptr", Buffer, "uint")
+        result := DllCall("NETAPI32.dll\I_NetLogonControl2", "ptr", ServerName, "uint", FunctionCode, "uint", QueryLevel, "char*", Data, "ptr", Buffer, "uint")
         return result
     }
 
     /**
      * Creates a standalone managed service account (sMSA) or retrieves the credentials for a group managed service account (gMSA) and stores the account information on the local computer.
-     * @param {Pointer<PWSTR>} ServerName The value of this parameter must be <b>NULL</b>.
-     * @param {Pointer<PWSTR>} AccountName The name of the account to be created.
-     * @param {Pointer<PWSTR>} Password This parameter is reserved. Do not use it.
+     * @param {Pointer<Char>} ServerName The value of this parameter must be <b>NULL</b>.
+     * @param {Pointer<Char>} AccountName The name of the account to be created.
+     * @param {Pointer<Char>} Password This parameter is reserved. Do not use it.
      * @param {Integer} Flags This parameter can be the following value.
      * 
      * <table>
@@ -15015,8 +15015,8 @@ class NetManagement {
 
     /**
      * Deletes the specified service account from the Active Directory database if the account is a standalone managed service account (sMSA).
-     * @param {Pointer<PWSTR>} ServerName The value of this parameter must be <b>NULL</b>.
-     * @param {Pointer<PWSTR>} AccountName The name of the account to be deleted.
+     * @param {Pointer<Char>} ServerName The value of this parameter must be <b>NULL</b>.
+     * @param {Pointer<Char>} AccountName The name of the account to be deleted.
      * @param {Integer} Flags This parameter can have the following value.
      * 
      * <table>
@@ -15052,7 +15052,7 @@ class NetManagement {
 
     /**
      * Enumerates the standalone managed service accounts (sMSA) on the specified server.
-     * @param {Pointer<PWSTR>} ServerName The value of this parameter must be <b>NULL</b>.
+     * @param {Pointer<Char>} ServerName The value of this parameter must be <b>NULL</b>.
      * @param {Integer} Flags This parameter is reserved. Do not use it.
      * @param {Pointer<UInt32>} AccountsCount The number of elements in the <i>Accounts</i> array.
      * @param {Pointer<UInt16>} Accounts A pointer to an array of the names of the service accounts on the specified server.
@@ -15067,14 +15067,14 @@ class NetManagement {
     static NetEnumerateServiceAccounts(ServerName, Flags, AccountsCount, Accounts) {
         ServerName := ServerName is String? StrPtr(ServerName) : ServerName
 
-        result := DllCall("NETAPI32.dll\NetEnumerateServiceAccounts", "ptr", ServerName, "uint", Flags, "ptr", AccountsCount, "ptr", Accounts, "int")
+        result := DllCall("NETAPI32.dll\NetEnumerateServiceAccounts", "ptr", ServerName, "uint", Flags, "uint*", AccountsCount, "ptr", Accounts, "int")
         return result
     }
 
     /**
      * Tests whether the specified standalone managed service account (sMSA) or group managed service account (gMSA) exists in the Netlogon store on the specified server.
-     * @param {Pointer<PWSTR>} ServerName The value of this parameter must be <b>NULL</b>.
-     * @param {Pointer<PWSTR>} AccountName The name of the account to be tested.
+     * @param {Pointer<Char>} ServerName The value of this parameter must be <b>NULL</b>.
+     * @param {Pointer<Char>} AccountName The name of the account to be tested.
      * @param {Pointer<Int32>} IsService <b>TRUE</b> if the specified service account exists on the specified server; otherwise, <b>FALSE</b>.
      * @returns {Integer} If the function succeeds, it returns <b>STATUS_SUCCESS</b>.
      * 
@@ -15086,14 +15086,14 @@ class NetManagement {
         ServerName := ServerName is String? StrPtr(ServerName) : ServerName
         AccountName := AccountName is String? StrPtr(AccountName) : AccountName
 
-        result := DllCall("NETAPI32.dll\NetIsServiceAccount", "ptr", ServerName, "ptr", AccountName, "ptr", IsService, "int")
+        result := DllCall("NETAPI32.dll\NetIsServiceAccount", "ptr", ServerName, "ptr", AccountName, "int*", IsService, "int")
         return result
     }
 
     /**
      * Gets information about the specified managed service account.
-     * @param {Pointer<PWSTR>} ServerName The value of this parameter must be <b>NULL</b>.
-     * @param {Pointer<PWSTR>} AccountName The name of the account to be created.
+     * @param {Pointer<Char>} ServerName The value of this parameter must be <b>NULL</b>.
+     * @param {Pointer<Char>} AccountName The name of the account to be created.
      * @param {Integer} InfoLevel Specifies the format of the data returned in the <i>Buffer</i> parameter. This can be the following value.
      * 
      * <table>
@@ -15138,7 +15138,7 @@ class NetManagement {
      * 
      * The alerter service must be running on the client computer when you call the 
      * <b>NetAlertRaise</b> function, or the function fails with ERROR_FILE_NOT_FOUND.
-     * @param {Pointer<PWSTR>} AlertType A pointer to a constant string that specifies the alert class (type of alert) to raise. This parameter can be one of the following predefined values, or a user-defined alert class for network applications. The event name for an alert can be any text string. 
+     * @param {Pointer<Char>} AlertType A pointer to a constant string that specifies the alert class (type of alert) to raise. This parameter can be one of the following predefined values, or a user-defined alert class for network applications. The event name for an alert can be any text string. 
      * 
      * 
      * 
@@ -15262,7 +15262,7 @@ class NetManagement {
      * 
      * The alerter service must be running on the client computer when you call the 
      * <b>NetAlertRaiseEx</b> function, or the function fails with ERROR_FILE_NOT_FOUND.
-     * @param {Pointer<PWSTR>} AlertType A pointer to a constant string that specifies the alert class (type of alert) to raise. This parameter can be one of the following predefined values, or a user-defined alert class for network applications. (The event name for an alert can be any text string.) 
+     * @param {Pointer<Char>} AlertType A pointer to a constant string that specifies the alert class (type of alert) to raise. This parameter can be one of the following predefined values, or a user-defined alert class for network applications. (The event name for an alert can be any text string.) 
      * 
      * 
      * 
@@ -15334,7 +15334,7 @@ class NetManagement {
      * The calling application must allocate and free the memory for all structures and variable data. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
      * @param {Integer} VariableInfoSize The number of bytes of variable information in the buffer pointed to by the <i>VariableInfo</i> parameter.
-     * @param {Pointer<PWSTR>} ServiceName A pointer to a constant string that specifies the name of the service raising the interrupting message.
+     * @param {Pointer<Char>} ServiceName A pointer to a constant string that specifies the name of the service raising the interrupting message.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code and a can be one of the following error codes. For a list of all possible error codes, see 
@@ -15387,8 +15387,8 @@ class NetManagement {
      * 
      * The forward action flag is no longer a parameter to the LAN Manager 2.<i>x</i><b>NetMessageNameAdd</b> function because message forwarding is no longer supported. If the 
      * <b>NetMessageNameAdd</b> function detects that a forwarded version of <i>msgname</i> exists on the network, the function will fail with error NERR_Already_Exists.
-     * @param {Pointer<PWSTR>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} msgname Pointer to a constant string that specifies the message alias to add. The string cannot be more than 15 characters long.
+     * @param {Pointer<Char>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} msgname Pointer to a constant string that specifies the message alias to add. The string cannot be more than 15 characters long.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -15496,7 +15496,7 @@ class NetManagement {
      * 
      * To retrieve information about a particular message alias in the message name table, you can call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmmsg/nf-lmmsg-netmessagenamegetinfo">NetMessageNameGetInfo</a> function.
-     * @param {Pointer<PWSTR>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. Note that you must free the buffer even if the function fails with ERROR_MORE_DATA.
@@ -15600,7 +15600,7 @@ class NetManagement {
     static NetMessageNameEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
         servername := servername is String? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetMessageNameEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetMessageNameEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
         return result
     }
 
@@ -15612,8 +15612,8 @@ class NetManagement {
      * 
      * To list all the message aliases in a message name table, you can call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmmsg/nf-lmmsg-netmessagenameenum">NetMessageNameEnum</a> function.
-     * @param {Pointer<PWSTR>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} msgname Pointer to a constant string that specifies the message alias for which to return information.
+     * @param {Pointer<Char>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} msgname Pointer to a constant string that specifies the message alias for which to return information.
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. For more information, see 
@@ -15712,8 +15712,8 @@ class NetManagement {
      * @remarks
      * Only members of the Administrators local group can successfully execute the 
      * <b>NetMessageNameDel</b> function on a remote server.
-     * @param {Pointer<PWSTR>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} msgname Pointer to a constant string that specifies the message alias to delete. The string cannot be more than 15 characters long.
+     * @param {Pointer<Char>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} msgname Pointer to a constant string that specifies the message alias to delete. The string cannot be more than 15 characters long.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -15819,9 +15819,9 @@ class NetManagement {
      * If you call this function on a domain controller that is running Active Directory, access is allowed or denied based on the access control list (ACL) for the securable object. The default ACL permits only Domain Admins and Account Operators to call this function. On a member server or workstation, only Administrators and Server Operators can call this function. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/security-requirements-for-the-network-management-functions">Security Requirements for the Network Management Functions</a>. For more information on ACLs and ACEs, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control-model">Access Control Model</a>.
-     * @param {Pointer<PWSTR>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} msgname Pointer to a constant string that specifies the message alias to which the message buffer should be sent.
-     * @param {Pointer<PWSTR>} fromname Pointer to a constant string specifying who the message is from. If this parameter is <b>NULL</b>, the message is sent from the local computer name.
+     * @param {Pointer<Char>} servername Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} msgname Pointer to a constant string that specifies the message alias to which the message buffer should be sent.
+     * @param {Pointer<Char>} fromname Pointer to a constant string specifying who the message is from. If this parameter is <b>NULL</b>, the message is sent from the local computer name.
      * @param {Pointer<Byte>} buf Pointer to a buffer that contains the message text. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
      * @param {Integer} buflen Specifies a value that contains the length, in bytes, of the message text pointed to by the <i>buf</i> parameter.
@@ -15899,7 +15899,7 @@ class NetManagement {
         msgname := msgname is String? StrPtr(msgname) : msgname
         fromname := fromname is String? StrPtr(fromname) : fromname
 
-        result := DllCall("NETAPI32.dll\NetMessageBufferSend", "ptr", servername, "ptr", msgname, "ptr", fromname, "ptr", buf, "uint", buflen, "uint")
+        result := DllCall("NETAPI32.dll\NetMessageBufferSend", "ptr", servername, "ptr", msgname, "ptr", fromname, "char*", buf, "uint", buflen, "uint")
         return result
     }
 
@@ -15908,7 +15908,7 @@ class NetManagement {
      * @remarks
      * No special group membership is required to successfully execute the 
      * <b>NetRemoteTOD</b> function.
-     * @param {Pointer<PWSTR>} UncServerName Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} UncServerName Pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Pointer<Byte>} BufferPtr Pointer to the address that receives the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmremutl/ns-lmremutl-time_of_day_info">TIME_OF_DAY_INFO</a> information structure. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function.
@@ -15931,7 +15931,7 @@ class NetManagement {
      * @remarks
      * No special group membership is required to successfully execute the 
      * <b>NetRemoteComputerSupports</b> function.
-     * @param {Pointer<PWSTR>} UncServerName Pointer to a constant string that specifies the name of the remote server to query. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} UncServerName Pointer to a constant string that specifies the name of the remote server to query. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} OptionsWanted 
      * @param {Pointer<UInt32>} OptionsSupported Pointer to a value that receives a set of bit flags. The flags indicate which features specified by the <i>OptionsWanted</i> parameter are implemented on the computer specified by the <i>UncServerName</i> parameter. (All other bits are set to zero.) 
      * 
@@ -15978,13 +15978,13 @@ class NetManagement {
     static NetRemoteComputerSupports(UncServerName, OptionsWanted, OptionsSupported) {
         UncServerName := UncServerName is String? StrPtr(UncServerName) : UncServerName
 
-        result := DllCall("NETAPI32.dll\NetRemoteComputerSupports", "ptr", UncServerName, "uint", OptionsWanted, "ptr", OptionsSupported, "uint")
+        result := DllCall("NETAPI32.dll\NetRemoteComputerSupports", "ptr", UncServerName, "uint", OptionsWanted, "uint*", OptionsSupported, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} servername 
+     * @param {Pointer<Char>} servername 
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr 
      * @returns {Integer} 
@@ -15998,7 +15998,7 @@ class NetManagement {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} servername 
+     * @param {Pointer<Char>} servername 
      * @param {Integer} level 
      * @param {Pointer<Byte>} buf 
      * @param {Pointer<UInt32>} parm_err 
@@ -16007,13 +16007,13 @@ class NetManagement {
     static NetReplSetInfo(servername, level, buf, parm_err) {
         servername := servername is String? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetReplSetInfo", "ptr", servername, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
+        result := DllCall("NETAPI32.dll\NetReplSetInfo", "ptr", servername, "uint", level, "char*", buf, "uint*", parm_err, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} servername 
+     * @param {Pointer<Char>} servername 
      * @param {Integer} level 
      * @param {Pointer<Byte>} buf 
      * @param {Pointer<UInt32>} parm_err 
@@ -16022,14 +16022,14 @@ class NetManagement {
     static NetReplExportDirAdd(servername, level, buf, parm_err) {
         servername := servername is String? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetReplExportDirAdd", "ptr", servername, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
+        result := DllCall("NETAPI32.dll\NetReplExportDirAdd", "ptr", servername, "uint", level, "char*", buf, "uint*", parm_err, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} servername 
-     * @param {Pointer<PWSTR>} dirname 
+     * @param {Pointer<Char>} servername 
+     * @param {Pointer<Char>} dirname 
      * @returns {Integer} 
      */
     static NetReplExportDirDel(servername, dirname) {
@@ -16042,7 +16042,7 @@ class NetManagement {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} servername 
+     * @param {Pointer<Char>} servername 
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr 
      * @param {Integer} prefmaxlen 
@@ -16054,14 +16054,14 @@ class NetManagement {
     static NetReplExportDirEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resumehandle) {
         servername := servername is String? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetReplExportDirEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resumehandle, "uint")
+        result := DllCall("NETAPI32.dll\NetReplExportDirEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resumehandle, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} servername 
-     * @param {Pointer<PWSTR>} dirname 
+     * @param {Pointer<Char>} servername 
+     * @param {Pointer<Char>} dirname 
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr 
      * @returns {Integer} 
@@ -16076,8 +16076,8 @@ class NetManagement {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} servername 
-     * @param {Pointer<PWSTR>} dirname 
+     * @param {Pointer<Char>} servername 
+     * @param {Pointer<Char>} dirname 
      * @param {Integer} level 
      * @param {Pointer<Byte>} buf 
      * @param {Pointer<UInt32>} parm_err 
@@ -16087,14 +16087,14 @@ class NetManagement {
         servername := servername is String? StrPtr(servername) : servername
         dirname := dirname is String? StrPtr(dirname) : dirname
 
-        result := DllCall("NETAPI32.dll\NetReplExportDirSetInfo", "ptr", servername, "ptr", dirname, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
+        result := DllCall("NETAPI32.dll\NetReplExportDirSetInfo", "ptr", servername, "ptr", dirname, "uint", level, "char*", buf, "uint*", parm_err, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} servername 
-     * @param {Pointer<PWSTR>} dirname 
+     * @param {Pointer<Char>} servername 
+     * @param {Pointer<Char>} dirname 
      * @returns {Integer} 
      */
     static NetReplExportDirLock(servername, dirname) {
@@ -16107,8 +16107,8 @@ class NetManagement {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} servername 
-     * @param {Pointer<PWSTR>} dirname 
+     * @param {Pointer<Char>} servername 
+     * @param {Pointer<Char>} dirname 
      * @param {Integer} unlockforce 
      * @returns {Integer} 
      */
@@ -16122,7 +16122,7 @@ class NetManagement {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} servername 
+     * @param {Pointer<Char>} servername 
      * @param {Integer} level 
      * @param {Pointer<Byte>} buf 
      * @param {Pointer<UInt32>} parm_err 
@@ -16131,14 +16131,14 @@ class NetManagement {
     static NetReplImportDirAdd(servername, level, buf, parm_err) {
         servername := servername is String? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetReplImportDirAdd", "ptr", servername, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
+        result := DllCall("NETAPI32.dll\NetReplImportDirAdd", "ptr", servername, "uint", level, "char*", buf, "uint*", parm_err, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} servername 
-     * @param {Pointer<PWSTR>} dirname 
+     * @param {Pointer<Char>} servername 
+     * @param {Pointer<Char>} dirname 
      * @returns {Integer} 
      */
     static NetReplImportDirDel(servername, dirname) {
@@ -16151,7 +16151,7 @@ class NetManagement {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} servername 
+     * @param {Pointer<Char>} servername 
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr 
      * @param {Integer} prefmaxlen 
@@ -16163,14 +16163,14 @@ class NetManagement {
     static NetReplImportDirEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resumehandle) {
         servername := servername is String? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetReplImportDirEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resumehandle, "uint")
+        result := DllCall("NETAPI32.dll\NetReplImportDirEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resumehandle, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} servername 
-     * @param {Pointer<PWSTR>} dirname 
+     * @param {Pointer<Char>} servername 
+     * @param {Pointer<Char>} dirname 
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr 
      * @returns {Integer} 
@@ -16185,8 +16185,8 @@ class NetManagement {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} servername 
-     * @param {Pointer<PWSTR>} dirname 
+     * @param {Pointer<Char>} servername 
+     * @param {Pointer<Char>} dirname 
      * @returns {Integer} 
      */
     static NetReplImportDirLock(servername, dirname) {
@@ -16199,8 +16199,8 @@ class NetManagement {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} servername 
-     * @param {Pointer<PWSTR>} dirname 
+     * @param {Pointer<Char>} servername 
+     * @param {Pointer<Char>} dirname 
      * @param {Integer} unlockforce 
      * @returns {Integer} 
      */
@@ -16238,7 +16238,7 @@ class NetManagement {
      * 
      * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same function you can achieve by calling the network management server functions. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscomputer">IADsComputer</a>.
-     * @param {Pointer<PWSTR>} servername Reserved; must be <b>NULL</b>.
+     * @param {Pointer<Char>} servername Reserved; must be <b>NULL</b>.
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr A pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. Note that you must free the buffer even if the function fails with ERROR_MORE_DATA.
@@ -16248,7 +16248,7 @@ class NetManagement {
      * @param {Pointer<UInt32>} entriesread A pointer to a value that receives the count of elements actually enumerated.
      * @param {Pointer<UInt32>} totalentries A pointer to a value that receives the total number of visible servers and workstations on the network. Note that applications should consider this value only as a hint.
      * @param {Integer} servertype 
-     * @param {Pointer<PWSTR>} domain A pointer to a constant string that specifies the name of the domain for which a list of servers is to be returned. The domain name must be a NetBIOS domain name (for example, microsoft). 
+     * @param {Pointer<Char>} domain A pointer to a constant string that specifies the name of the domain for which a list of servers is to be returned. The domain name must be a NetBIOS domain name (for example, microsoft). 
      * The <b>NetServerEnum</b> function does not support DNS-style names (for example, microsoft.com). 
      * 
      * If this parameter is <b>NULL</b>, the primary domain is implied.
@@ -16378,7 +16378,7 @@ class NetManagement {
         servername := servername is String? StrPtr(servername) : servername
         domain := domain is String? StrPtr(domain) : domain
 
-        result := DllCall("NETAPI32.dll\NetServerEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "uint", servertype, "ptr", domain, "ptr", resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetServerEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint", servertype, "ptr", domain, "uint*", resume_handle, "uint")
         return result
     }
 
@@ -16390,7 +16390,7 @@ class NetManagement {
      * 
      * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same functionality you can achieve by calling the network management server functions. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscomputer">IADsComputer</a>.
-     * @param {Pointer<PWSTR>} servername Pointer to a string that specifies the name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} servername Pointer to a string that specifies the name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. 
      * 
@@ -16669,7 +16669,7 @@ class NetManagement {
      * <td>sv*_timesource</td>
      * </tr>
      * </table>
-     * @param {Pointer<PWSTR>} servername Pointer to a string that specifies the name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} servername Pointer to a string that specifies the name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Byte>} buf Pointer to a buffer that receives the server information. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
@@ -16734,7 +16734,7 @@ class NetManagement {
     static NetServerSetInfo(servername, level, buf, ParmError) {
         servername := servername is String? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetServerSetInfo", "ptr", servername, "uint", level, "ptr", buf, "ptr", ParmError, "uint")
+        result := DllCall("NETAPI32.dll\NetServerSetInfo", "ptr", servername, "uint", level, "char*", buf, "uint*", ParmError, "uint")
         return result
     }
 
@@ -16746,7 +16746,7 @@ class NetManagement {
      * 
      * If you are programming for Active Directory, you may be able to call certain Active Directory Service Interface (ADSI) methods to achieve the same results you can achieve by calling the network management server functions. For more information, see 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscomputer">IADsComputer</a> interface reference.
-     * @param {Pointer<PWSTR>} servername A pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} servername A pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level The level of information required. A value of zero is the only valid level.
      * @param {Pointer<Byte>} bufptr A pointer to the buffer that receives the data. The data is an array of three-character strings (a drive letter, a colon, and a terminating null character). This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. Note that you must free the buffer even if the function fails with ERROR_MORE_DATA.
@@ -16830,7 +16830,7 @@ class NetManagement {
     static NetServerDiskEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
         servername := servername is String? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetServerDiskEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetServerDiskEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
         return result
     }
 
@@ -16850,9 +16850,9 @@ class NetManagement {
      * 
      * The 
      * <b>NetServerComputerNameAdd</b> function is typically used when a system administrator replaces a server, but wants to keep the conversion transparent to users.
-     * @param {Pointer<PWSTR>} ServerName Pointer to a string that specifies the name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} EmulatedDomainName Pointer to a string that contains the domain name the specified server should use when announcing its presence using the <i>EmulatedServerName</i>. This parameter is optional.
-     * @param {Pointer<PWSTR>} EmulatedServerName Pointer to a null-terminated character string that contains the emulated name the server should begin supporting in addition to the name specified by the <i>ServerName</i> parameter.
+     * @param {Pointer<Char>} ServerName Pointer to a string that specifies the name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} EmulatedDomainName Pointer to a string that contains the domain name the specified server should use when announcing its presence using the <i>EmulatedServerName</i>. This parameter is optional.
+     * @param {Pointer<Char>} EmulatedServerName Pointer to a null-terminated character string that contains the emulated name the server should begin supporting in addition to the name specified by the <i>ServerName</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success. Note that 
      * <b>NetServerComputerNameAdd</b> succeeds if the emulated server name specified is added to at least one transport.
      * 
@@ -16936,8 +16936,8 @@ class NetManagement {
      * @remarks
      * Only members of the Administrators or Server Operators local group can successfully execute the 
      * <b>NetServerComputerNameDel</b> function.
-     * @param {Pointer<PWSTR>} ServerName Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} EmulatedServerName Pointer to a null-terminated character string that contains the emulated name the server should stop supporting. The server continues to support all other server names it was supporting.
+     * @param {Pointer<Char>} ServerName Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} EmulatedServerName Pointer to a null-terminated character string that contains the emulated name the server should stop supporting. The server continues to support all other server names it was supporting.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -17011,7 +17011,7 @@ class NetManagement {
      * 
      * If you add a transport protocol to a server using a call to the 
      * <b>NetServerTransportAdd</b> function, the connection will not remain after the server reboots or restarts.
-     * @param {Pointer<PWSTR>} servername A pointer to a string that specifies the name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} servername A pointer to a string that specifies the name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level Specifies the information level of the data. This parameter can be the following value. 
      * 
      * 
@@ -17123,7 +17123,7 @@ class NetManagement {
     static NetServerTransportAdd(servername, level, bufptr) {
         servername := servername is String? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetServerTransportAdd", "ptr", servername, "uint", level, "ptr", bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetServerTransportAdd", "ptr", servername, "uint", level, "char*", bufptr, "uint")
         return result
     }
 
@@ -17151,7 +17151,7 @@ class NetManagement {
      * The <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netshareadd">NetShareAdd</a> function is used to add a scoped share on a remote server specified in the <i>servername</i> parameter. The remote server specified in the <b>shi503_servername</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/ns-lmshare-share_info_503">SHARE_INFO_503</a> passed in the <i>bufptr</i> parameter must have been bound to a transport protocol using the <b>NetServerTransportAddEx</b> function as a scoped endpoint. The <b>SVTI2_SCOPED_NAME</b> flag must have been specified in the <b>shi503_servername</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/ns-lmserver-server_transport_info_2">SERVER_TRANSPORT_INFO_2</a> or <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/ns-lmserver-server_transport_info_3">SERVER_TRANSPORT_INFO_3</a> structure for the transport protocol.  The <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharedelex">NetShareDelEx</a> function is used to delete a scoped share.  The <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharegetinfo">NetShareGetInfo</a> and <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharesetinfo">NetShareSetInfo</a> functions are to used to get and set information on a scoped share.  
      * 
      * Scoped endpoints are generally used by the cluster namespace.
-     * @param {Pointer<PWSTR>} servername A pointer to a string that specifies the name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} servername A pointer to a string that specifies the name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr A pointer to the buffer that contains the data. The format of this data depends on the value of the <i>level</i> parameter. 
      * 
@@ -17248,7 +17248,7 @@ class NetManagement {
     static NetServerTransportAddEx(servername, level, bufptr) {
         servername := servername is String? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetServerTransportAddEx", "ptr", servername, "uint", level, "ptr", bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetServerTransportAddEx", "ptr", servername, "uint", level, "char*", bufptr, "uint")
         return result
     }
 
@@ -17257,7 +17257,7 @@ class NetManagement {
      * @remarks
      * Only members of the Administrators or Server Operators local group can successfully execute the 
      * <b>NetServerTransportDel</b> function.
-     * @param {Pointer<PWSTR>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr Pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
@@ -17332,7 +17332,7 @@ class NetManagement {
     static NetServerTransportDel(servername, level, bufptr) {
         servername := servername is String? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetServerTransportDel", "ptr", servername, "uint", level, "ptr", bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetServerTransportDel", "ptr", servername, "uint", level, "char*", bufptr, "uint")
         return result
     }
 
@@ -17340,7 +17340,7 @@ class NetManagement {
      * The NetServerTransportEnum function supplies information about transport protocols that are managed by the server.
      * @remarks
      * Only Authenticated Users can successfully call this function.<b>Windows XP/2000:  </b>No special group membership is required to successfully execute this function.
-     * @param {Pointer<PWSTR>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. Note that you must free the buffer even if the function fails with ERROR_MORE_DATA.
@@ -17410,14 +17410,14 @@ class NetManagement {
     static NetServerTransportEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
         servername := servername is String? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetServerTransportEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetServerTransportEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
         return result
     }
 
     /**
      * The NetServiceControl function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use the service functions.
-     * @param {Pointer<PWSTR>} servername 
-     * @param {Pointer<PWSTR>} service 
+     * @param {Pointer<Char>} servername 
+     * @param {Pointer<Char>} service 
      * @param {Integer} opcode 
      * @param {Integer} arg 
      * @param {Pointer<Byte>} bufptr 
@@ -17434,7 +17434,7 @@ class NetManagement {
 
     /**
      * The NetServiceEnum function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use the service functions.
-     * @param {Pointer<PWSTR>} servername 
+     * @param {Pointer<Char>} servername 
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr 
      * @param {Integer} prefmaxlen 
@@ -17447,14 +17447,14 @@ class NetManagement {
     static NetServiceEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
         servername := servername is String? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetServiceEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetServiceEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
         return result
     }
 
     /**
      * The NetServiceGetInfo function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use the service functions.
-     * @param {Pointer<PWSTR>} servername 
-     * @param {Pointer<PWSTR>} service 
+     * @param {Pointer<Char>} servername 
+     * @param {Pointer<Char>} service 
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr 
      * @returns {Integer} 
@@ -17470,10 +17470,10 @@ class NetManagement {
 
     /**
      * The NetServiceInstall function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use the service functions.
-     * @param {Pointer<PWSTR>} servername 
-     * @param {Pointer<PWSTR>} service 
+     * @param {Pointer<Char>} servername 
+     * @param {Pointer<Char>} service 
      * @param {Integer} argc 
-     * @param {Pointer<PWSTR>} argv 
+     * @param {Pointer<Char>} argv 
      * @param {Pointer<Byte>} bufptr 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/NetMgmt/netserviceinstall
@@ -17481,7 +17481,6 @@ class NetManagement {
     static NetServiceInstall(servername, service, argc, argv, bufptr) {
         servername := servername is String? StrPtr(servername) : servername
         service := service is String? StrPtr(service) : service
-        argv := argv is String? StrPtr(argv) : argv
 
         result := DllCall("NETAPI32.dll\NetServiceInstall", "ptr", servername, "ptr", service, "uint", argc, "ptr", argv, "ptr", bufptr, "uint")
         return result
@@ -17554,7 +17553,7 @@ class NetManagement {
      * @since windows5.0
      */
     static NetUseAdd(servername, LevelFlags, buf, parm_err) {
-        result := DllCall("NETAPI32.dll\NetUseAdd", "ptr", servername, "uint", LevelFlags, "ptr", buf, "ptr", parm_err, "uint")
+        result := DllCall("NETAPI32.dll\NetUseAdd", "char*", servername, "uint", LevelFlags, "char*", buf, "uint*", parm_err, "uint")
         return result
     }
 
@@ -17566,12 +17565,12 @@ class NetManagement {
      * 
      * No special group membership is required to call the 
      * <b>NetUseDel</b> function. This function cannot be executed on a remote server except in cases of downlevel compatibility.
-     * @param {Pointer<PWSTR>} UncServerName The UNC name of the computer on which to execute this function. If this is parameter is <b>NULL</b>, then the local computer is used. 
+     * @param {Pointer<Char>} UncServerName The UNC name of the computer on which to execute this function. If this is parameter is <b>NULL</b>, then the local computer is used. 
      * 
      * If the <i>UncServerName</i> parameter specified is a remote computer, then the remote computer must support remote RPC calls using the legacy Remote Access Protocol mechanism. 
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @param {Pointer<PWSTR>} UseName A pointer to a string that specifies the path of the connection to delete.
+     * @param {Pointer<Char>} UseName A pointer to a string that specifies the path of the connection to delete.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
      * @param {Integer} ForceLevelFlags The level of force to use in deleting the connection.
@@ -17600,7 +17599,7 @@ class NetManagement {
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmuse/nf-lmuse-netusegetinfo">NetUseGetInfo</a> function.
      * 
      * This function applies only to the Server Message Block (LAN Manager Workstation) client. The <b>NetUseEnum</b> function does not support Distributed File System (DFS) shares. To enumerate shares using a different network provider (WebDAV or a DFS share, for example), use the <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetopenenuma">WNetOpenEnum</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetenumresourcea">WNetEnumResource</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetcloseenum">WNetCloseEnum</a> functions.
-     * @param {Pointer<PWSTR>} UncServerName The UNC name of the computer on which to execute this function. If this is parameter is <b>NULL</b>, then the local computer is used. If the <i>UncServerName</i> parameter specified is a remote computer, then the remote computer must support remote RPC calls using the legacy Remote Access Protocol mechanism.  
+     * @param {Pointer<Char>} UncServerName The UNC name of the computer on which to execute this function. If this is parameter is <b>NULL</b>, then the local computer is used. If the <i>UncServerName</i> parameter specified is a remote computer, then the remote computer must support remote RPC calls using the legacy Remote Access Protocol mechanism.  
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
      * @param {Integer} LevelFlags 
@@ -17674,7 +17673,7 @@ class NetManagement {
     static NetUseEnum(UncServerName, LevelFlags, BufPtr, PreferedMaximumSize, EntriesRead, TotalEntries, ResumeHandle) {
         UncServerName := UncServerName is String? StrPtr(UncServerName) : UncServerName
 
-        result := DllCall("NETAPI32.dll\NetUseEnum", "ptr", UncServerName, "uint", LevelFlags, "ptr", BufPtr, "uint", PreferedMaximumSize, "ptr", EntriesRead, "ptr", TotalEntries, "ptr", ResumeHandle, "uint")
+        result := DllCall("NETAPI32.dll\NetUseEnum", "ptr", UncServerName, "uint", LevelFlags, "ptr", BufPtr, "uint", PreferedMaximumSize, "uint*", EntriesRead, "uint*", TotalEntries, "uint*", ResumeHandle, "uint")
         return result
     }
 
@@ -17688,10 +17687,10 @@ class NetManagement {
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmuse/nf-lmuse-netuseenum">NetUseEnum</a> function.
      * 
      * This function applies only to the Server Message Block (LAN Manager Workstation) client. The <b>NetUseGetInfo</b> function does not support Distributed File System (DFS) shares. To retrieve information for a share using a different network provider (WebDAV or a DFS share, for example), use the <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetgetconnectiona">WNetGetConnection</a> function.
-     * @param {Pointer<PWSTR>} UncServerName The UNC name of computer on which to execute this function. If this is parameter is <b>NULL</b>, then the local computer is used. If the <i>UncServerName</i> parameter specified is a remote computer, then the remote computer must support remote RPC calls using the legacy Remote Access Protocol mechanism. 
+     * @param {Pointer<Char>} UncServerName The UNC name of computer on which to execute this function. If this is parameter is <b>NULL</b>, then the local computer is used. If the <i>UncServerName</i> parameter specified is a remote computer, then the remote computer must support remote RPC calls using the legacy Remote Access Protocol mechanism. 
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @param {Pointer<PWSTR>} UseName A pointer to a string that specifies the name of the connection for which to return information.
+     * @param {Pointer<Char>} UseName A pointer to a string that specifies the name of the connection for which to return information.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
      * @param {Integer} LevelFlags 
@@ -17726,7 +17725,7 @@ class NetManagement {
      * 
      * To compile an application that uses this function, define the _WIN32_WINNT macro as 0x0400 or later. For more information,see 
      * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * @param {Pointer<PWSTR>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. For more information, see 
@@ -17919,7 +17918,7 @@ class NetManagement {
      * The workstation service parameter settings are stored in the registry, not in the LanMan.ini file used previously by LAN Manager. The 
      * <b>NetWkstaSetInfo</b> function does not change the values in the LanMan.ini file. When the workstation service is stopped and restarted, workstation parameters are reset to the default values specified in the registry (unless they are overwritten by command-line parameters). Values set by previous calls to 
      * <b>NetWkstaSetInfo</b> can be overwritten when workstation parameters are reset.
-     * @param {Pointer<PWSTR>} servername A pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} servername A pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Byte>} buffer A pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
@@ -17962,7 +17961,7 @@ class NetManagement {
     static NetWkstaSetInfo(servername, level, buffer, parm_err) {
         servername := servername is String? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetWkstaSetInfo", "ptr", servername, "uint", level, "ptr", buffer, "ptr", parm_err, "uint")
+        result := DllCall("NETAPI32.dll\NetWkstaSetInfo", "ptr", servername, "uint", level, "char*", buffer, "uint*", parm_err, "uint")
         return result
     }
 
@@ -17971,7 +17970,7 @@ class NetManagement {
      * @remarks
      * The 
      * <b>NetWkstaUserGetInfo</b> function only works locally.
-     * @param {Pointer<PWSTR>} reserved This parameter must be set to <b>NULL</b>.
+     * @param {Pointer<Char>} reserved This parameter must be set to <b>NULL</b>.
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>bufptr</i> parameter. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. For more information, see 
@@ -18053,7 +18052,7 @@ class NetManagement {
      * <td>wkui*_oth_domains</td>
      * </tr>
      * </table>
-     * @param {Pointer<PWSTR>} reserved This parameter must be set to zero.
+     * @param {Pointer<Char>} reserved This parameter must be set to zero.
      * @param {Integer} level 
      * @param {Pointer<Byte>} buf Pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
@@ -18096,7 +18095,7 @@ class NetManagement {
     static NetWkstaUserSetInfo(reserved, level, buf, parm_err) {
         reserved := reserved is String? StrPtr(reserved) : reserved
 
-        result := DllCall("NETAPI32.dll\NetWkstaUserSetInfo", "ptr", reserved, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
+        result := DllCall("NETAPI32.dll\NetWkstaUserSetInfo", "ptr", reserved, "uint", level, "char*", buf, "uint*", parm_err, "uint")
         return result
     }
 
@@ -18116,7 +18115,7 @@ class NetManagement {
      * 
      * To compile an application that uses this function, define the _WIN32_WINNT macro as 0x0400 or later. For more information,see 
      * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * @param {Pointer<PWSTR>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. Note that you must free the buffer even if the function fails with ERROR_MORE_DATA.
@@ -18175,7 +18174,7 @@ class NetManagement {
     static NetWkstaUserEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resumehandle) {
         servername := servername is String? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetWkstaUserEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resumehandle, "uint")
+        result := DllCall("NETAPI32.dll\NetWkstaUserEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resumehandle, "uint")
         return result
     }
 
@@ -18277,7 +18276,7 @@ class NetManagement {
      * @see https://learn.microsoft.com/windows/win32/api/lmwksta/nf-lmwksta-netwkstatransportadd
      */
     static NetWkstaTransportAdd(servername, level, buf, parm_err) {
-        result := DllCall("NETAPI32.dll\NetWkstaTransportAdd", "ptr", servername, "uint", level, "ptr", buf, "ptr", parm_err, "uint")
+        result := DllCall("NETAPI32.dll\NetWkstaTransportAdd", "char*", servername, "uint", level, "char*", buf, "uint*", parm_err, "uint")
         return result
     }
 
@@ -18286,11 +18285,11 @@ class NetManagement {
      * @remarks
      * Only members of the Administrators local group can successfully execute the 
      * <b>NetWkstaTransportDel</b> function.
-     * @param {Pointer<PWSTR>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used. 
+     * @param {Pointer<Char>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used. 
      * 
      * 
      * This string must begin with \\.
-     * @param {Pointer<PWSTR>} transportname Pointer to a string that specifies the name of the transport protocol to disconnect from the redirector.
+     * @param {Pointer<Char>} transportname Pointer to a string that specifies the name of the transport protocol to disconnect from the redirector.
      * @param {Integer} ucond 
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
@@ -18458,7 +18457,7 @@ class NetManagement {
      * @since windows5.0
      */
     static NetWkstaTransportEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
-        result := DllCall("NETAPI32.dll\NetWkstaTransportEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "ptr", entriesread, "ptr", totalentries, "ptr", resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetWkstaTransportEnum", "char*", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
         return result
     }
 
@@ -18562,14 +18561,14 @@ class NetManagement {
      * @since windows5.0
      */
     static NetApiBufferSize(Buffer, ByteCount) {
-        result := DllCall("NETAPI32.dll\NetApiBufferSize", "ptr", Buffer, "ptr", ByteCount, "uint")
+        result := DllCall("NETAPI32.dll\NetApiBufferSize", "ptr", Buffer, "uint*", ByteCount, "uint")
         return result
     }
 
     /**
      * The NetErrorLogClear function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use event logging.
-     * @param {Pointer<PWSTR>} UncServerName TBD
-     * @param {Pointer<PWSTR>} BackupFile TBD
+     * @param {Pointer<Char>} UncServerName TBD
+     * @param {Pointer<Char>} BackupFile TBD
      * @param {Pointer<Byte>} Reserved TBD
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/lmerrlog/nf-lmerrlog-neterrorlogclear
@@ -18578,14 +18577,14 @@ class NetManagement {
         UncServerName := UncServerName is String? StrPtr(UncServerName) : UncServerName
         BackupFile := BackupFile is String? StrPtr(BackupFile) : BackupFile
 
-        result := DllCall("NETAPI32.dll\NetErrorLogClear", "ptr", UncServerName, "ptr", BackupFile, "ptr", Reserved, "uint")
+        result := DllCall("NETAPI32.dll\NetErrorLogClear", "ptr", UncServerName, "ptr", BackupFile, "char*", Reserved, "uint")
         return result
     }
 
     /**
      * The NetErrorLogRead function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use event logging.
-     * @param {Pointer<PWSTR>} UncServerName TBD
-     * @param {Pointer<PWSTR>} Reserved1 TBD
+     * @param {Pointer<Char>} UncServerName TBD
+     * @param {Pointer<Char>} Reserved1 TBD
      * @param {Pointer<HLOG>} ErrorLogHandle TBD
      * @param {Integer} Offset TBD
      * @param {Pointer<UInt32>} Reserved2 TBD
@@ -18602,7 +18601,7 @@ class NetManagement {
         UncServerName := UncServerName is String? StrPtr(UncServerName) : UncServerName
         Reserved1 := Reserved1 is String? StrPtr(Reserved1) : Reserved1
 
-        result := DllCall("NETAPI32.dll\NetErrorLogRead", "ptr", UncServerName, "ptr", Reserved1, "ptr", ErrorLogHandle, "uint", Offset, "ptr", Reserved2, "uint", Reserved3, "uint", OffsetFlag, "ptr", BufPtr, "uint", PrefMaxSize, "ptr", BytesRead, "ptr", TotalAvailable, "uint")
+        result := DllCall("NETAPI32.dll\NetErrorLogRead", "ptr", UncServerName, "ptr", Reserved1, "ptr", ErrorLogHandle, "uint", Offset, "uint*", Reserved2, "uint", Reserved3, "uint", OffsetFlag, "ptr", BufPtr, "uint", PrefMaxSize, "uint*", BytesRead, "uint*", TotalAvailable, "uint")
         return result
     }
 
@@ -18610,7 +18609,7 @@ class NetManagement {
      * The NetErrorLogWrite function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use event logging.
      * @param {Pointer<Byte>} Reserved1 TBD
      * @param {Integer} Code TBD
-     * @param {Pointer<PWSTR>} Component TBD
+     * @param {Pointer<Char>} Component TBD
      * @param {Pointer<Byte>} Buffer TBD
      * @param {Integer} NumBytes TBD
      * @param {Pointer<Byte>} MsgBuf TBD
@@ -18622,15 +18621,15 @@ class NetManagement {
     static NetErrorLogWrite(Reserved1, Code, Component, Buffer, NumBytes, MsgBuf, StrCount, Reserved2) {
         Component := Component is String? StrPtr(Component) : Component
 
-        result := DllCall("NETAPI32.dll\NetErrorLogWrite", "ptr", Reserved1, "uint", Code, "ptr", Component, "ptr", Buffer, "uint", NumBytes, "ptr", MsgBuf, "uint", StrCount, "ptr", Reserved2, "uint")
+        result := DllCall("NETAPI32.dll\NetErrorLogWrite", "char*", Reserved1, "uint", Code, "ptr", Component, "char*", Buffer, "uint", NumBytes, "char*", MsgBuf, "uint", StrCount, "char*", Reserved2, "uint")
         return result
     }
 
     /**
      * The NetConfigGet function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use the registry.
-     * @param {Pointer<PWSTR>} server TBD
-     * @param {Pointer<PWSTR>} component TBD
-     * @param {Pointer<PWSTR>} parameter TBD
+     * @param {Pointer<Char>} server TBD
+     * @param {Pointer<Char>} component TBD
+     * @param {Pointer<Char>} parameter TBD
      * @param {Pointer<Byte>} bufptr TBD
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/lmconfig/nf-lmconfig-netconfigget
@@ -18646,8 +18645,8 @@ class NetManagement {
 
     /**
      * The NetConfigGetAll function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use the registry.
-     * @param {Pointer<PWSTR>} server TBD
-     * @param {Pointer<PWSTR>} component TBD
+     * @param {Pointer<Char>} server TBD
+     * @param {Pointer<Char>} component TBD
      * @param {Pointer<Byte>} bufptr TBD
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/lmconfig/nf-lmconfig-netconfiggetall
@@ -18662,9 +18661,9 @@ class NetManagement {
 
     /**
      * The NetConfigSet function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use the registry.
-     * @param {Pointer<PWSTR>} server TBD
-     * @param {Pointer<PWSTR>} reserved1 TBD
-     * @param {Pointer<PWSTR>} component TBD
+     * @param {Pointer<Char>} server TBD
+     * @param {Pointer<Char>} reserved1 TBD
+     * @param {Pointer<Char>} component TBD
      * @param {Integer} level TBD
      * @param {Integer} reserved2 TBD
      * @param {Pointer<Byte>} buf TBD
@@ -18677,15 +18676,15 @@ class NetManagement {
         reserved1 := reserved1 is String? StrPtr(reserved1) : reserved1
         component := component is String? StrPtr(component) : component
 
-        result := DllCall("NETAPI32.dll\NetConfigSet", "ptr", server, "ptr", reserved1, "ptr", component, "uint", level, "uint", reserved2, "ptr", buf, "uint", reserved3, "uint")
+        result := DllCall("NETAPI32.dll\NetConfigSet", "ptr", server, "ptr", reserved1, "ptr", component, "uint", level, "uint", reserved2, "char*", buf, "uint", reserved3, "uint")
         return result
     }
 
     /**
      * The NetAuditClear function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use event logging.
-     * @param {Pointer<PWSTR>} server 
-     * @param {Pointer<PWSTR>} backupfile 
-     * @param {Pointer<PWSTR>} service 
+     * @param {Pointer<Char>} server 
+     * @param {Pointer<Char>} backupfile 
+     * @param {Pointer<Char>} service 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/NetMgmt/netauditclear
      */
@@ -18700,8 +18699,8 @@ class NetManagement {
 
     /**
      * The NetAuditRead function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use event logging.
-     * @param {Pointer<PWSTR>} server 
-     * @param {Pointer<PWSTR>} service 
+     * @param {Pointer<Char>} server 
+     * @param {Pointer<Char>} service 
      * @param {Pointer<HLOG>} auditloghandle 
      * @param {Integer} offset 
      * @param {Pointer<UInt32>} reserved1 
@@ -18718,7 +18717,7 @@ class NetManagement {
         server := server is String? StrPtr(server) : server
         service := service is String? StrPtr(service) : service
 
-        result := DllCall("NETAPI32.dll\NetAuditRead", "ptr", server, "ptr", service, "ptr", auditloghandle, "uint", offset, "ptr", reserved1, "uint", reserved2, "uint", offsetflag, "ptr", bufptr, "uint", prefmaxlen, "ptr", bytesread, "ptr", totalavailable, "uint")
+        result := DllCall("NETAPI32.dll\NetAuditRead", "ptr", server, "ptr", service, "ptr", auditloghandle, "uint", offset, "uint*", reserved1, "uint", reserved2, "uint", offsetflag, "ptr", bufptr, "uint", prefmaxlen, "uint*", bytesread, "uint*", totalavailable, "uint")
         return result
     }
 
@@ -18727,7 +18726,7 @@ class NetManagement {
      * @param {Integer} type 
      * @param {Pointer<Byte>} buf 
      * @param {Integer} numbytes 
-     * @param {Pointer<PWSTR>} service 
+     * @param {Pointer<Char>} service 
      * @param {Pointer<Byte>} reserved 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/NetMgmt/netauditwrite
@@ -18735,7 +18734,7 @@ class NetManagement {
     static NetAuditWrite(type, buf, numbytes, service, reserved) {
         service := service is String? StrPtr(service) : service
 
-        result := DllCall("NETAPI32.dll\NetAuditWrite", "uint", type, "ptr", buf, "uint", numbytes, "ptr", service, "ptr", reserved, "uint")
+        result := DllCall("NETAPI32.dll\NetAuditWrite", "uint", type, "char*", buf, "uint", numbytes, "ptr", service, "char*", reserved, "uint")
         return result
     }
 
@@ -18759,16 +18758,16 @@ class NetManagement {
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netrenamemachineindomain">NetRenameMachineInDomain</a> function, you should defer the update of the SPN and DnsHostName properties on the computer object until the rename operation. This is because the join operation can fail in certain situations. An example of such a situation is when the SPN that is derived from the current computer name is not valid in the new domain that the computer is joining, but the SPN derived from the new name that the computer will have after the rename operation is valid in the new domain. In this situation, the call to 
      * <b>NetJoinDomain</b> fails unless you defer the update of the two properties until the rename operation by specifying the NETSETUP_DEFER_SPN_SET flag in the <i>fJoinOptions</i> parameter when you call 
      * <b>NetJoinDomain</b>.
-     * @param {Pointer<PWSTR>} lpServer A pointer to a constant string that specifies the DNS or NetBIOS name of the computer on which to execute the domain join operation. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} lpDomain A pointer to a constant null-terminated character string that specifies the name of the domain or workgroup to join. 
+     * @param {Pointer<Char>} lpServer A pointer to a constant string that specifies the DNS or NetBIOS name of the computer on which to execute the domain join operation. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} lpDomain A pointer to a constant null-terminated character string that specifies the name of the domain or workgroup to join. 
      * 
      * 
      * 
      * 
      * Optionally, you can specify the preferred domain controller to perform the join operation. In this instance, the string must be of the form  <i>DomainName\MachineName</i>,  where <i>DomainName</i>  is the name of the domain to join, and <i>MachineName</i> is the name of the domain controller to perform the join.
-     * @param {Pointer<PWSTR>} lpMachineAccountOU Optionally specifies the pointer to a constant null-terminated character string that contains the RFC 1779 format name of the organizational unit (OU) for the computer account. If you specify this parameter, the string must contain a full path, for example, OU=testOU,DC=domain,DC=Domain,DC=com. Otherwise, this parameter must be <b>NULL</b>.
-     * @param {Pointer<PWSTR>} lpAccount A pointer to a constant null-terminated character string that specifies the account name to use when connecting to the domain controller. The string must specify either a domain NetBIOS name and user account (for example, <i>REDMOND\user</i>) or the user principal name (UPN) of the user in the form of an Internet-style login name (for example, "someone@example.com"). If this parameter is <b>NULL</b>, the caller's context is used.
-     * @param {Pointer<PWSTR>} lpPassword If the <i>lpAccount</i> parameter specifies an account name, this parameter must point to the password to use when connecting to the domain controller. Otherwise, this parameter must be <b>NULL</b>. 
+     * @param {Pointer<Char>} lpMachineAccountOU Optionally specifies the pointer to a constant null-terminated character string that contains the RFC 1779 format name of the organizational unit (OU) for the computer account. If you specify this parameter, the string must contain a full path, for example, OU=testOU,DC=domain,DC=Domain,DC=com. Otherwise, this parameter must be <b>NULL</b>.
+     * @param {Pointer<Char>} lpAccount A pointer to a constant null-terminated character string that specifies the account name to use when connecting to the domain controller. The string must specify either a domain NetBIOS name and user account (for example, <i>REDMOND\user</i>) or the user principal name (UPN) of the user in the form of an Internet-style login name (for example, "someone@example.com"). If this parameter is <b>NULL</b>, the caller's context is used.
+     * @param {Pointer<Char>} lpPassword If the <i>lpAccount</i> parameter specifies an account name, this parameter must point to the password to use when connecting to the domain controller. Otherwise, this parameter must be <b>NULL</b>. 
      * 
      * 
      * 
@@ -18909,9 +18908,9 @@ class NetManagement {
      * <b>NetUnjoinDomain</b> function at the same time. This situation can leave the computer in an inconsistent state.
      * 
      * A system reboot is required after calling the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netrenamemachineindomain">NetRenameMachineInDomain</a> function for the operation to complete.
-     * @param {Pointer<PWSTR>} lpServer A pointer to a constant string that specifies the DNS or NetBIOS name of the computer on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} lpAccount A pointer to a constant string that specifies the account name to use when connecting to the domain controller. The string must specify either a domain NetBIOS name and user account (for example, <i>REDMOND\user</i>) or the user principal name (UPN) of the user in the form of an Internet-style login name (for example, "someone@example.com"). If this parameter is <b>NULL</b>, the caller's context is used.
-     * @param {Pointer<PWSTR>} lpPassword If the <i>lpAccount</i> parameter specifies an account name, this parameter must point to the password to use when connecting to the domain controller. Otherwise, this parameter must be <b>NULL</b>.
+     * @param {Pointer<Char>} lpServer A pointer to a constant string that specifies the DNS or NetBIOS name of the computer on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} lpAccount A pointer to a constant string that specifies the account name to use when connecting to the domain controller. The string must specify either a domain NetBIOS name and user account (for example, <i>REDMOND\user</i>) or the user principal name (UPN) of the user in the form of an Internet-style login name (for example, "someone@example.com"). If this parameter is <b>NULL</b>, the caller's context is used.
+     * @param {Pointer<Char>} lpPassword If the <i>lpAccount</i> parameter specifies an account name, this parameter must point to the password to use when connecting to the domain controller. Otherwise, this parameter must be <b>NULL</b>.
      * @param {Integer} fUnjoinOptions Specifies the unjoin options. If this parameter is NETSETUP_ACCT_DELETE, the account is disabled when the unjoin occurs. Note that this option does not delete the account. Currently, there are no other unjoin options defined.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
@@ -18981,11 +18980,11 @@ class NetManagement {
      * The <b>NERR_SetupNotJoined</b> and  <b>NERR_SetupDomainController</b> return values are defined in the Lmerr.h header file. This header file is automatically included by the Lm.h header file and should not be included directly.
      * 
      * A system reboot is required after calling the <b>NetRenameMachineInDomain</b> function for the operation to complete.
-     * @param {Pointer<PWSTR>} lpServer A pointer to a constant string that specifies the DNS or NetBIOS name of the computer on which to call the function. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} lpNewMachineName A pointer to a constant string that specifies the new name of the computer. If specified, the local computer name is changed as well. If this parameter is <b>NULL</b>, the function assumes you have already called the 
+     * @param {Pointer<Char>} lpServer A pointer to a constant string that specifies the DNS or NetBIOS name of the computer on which to call the function. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} lpNewMachineName A pointer to a constant string that specifies the new name of the computer. If specified, the local computer name is changed as well. If this parameter is <b>NULL</b>, the function assumes you have already called the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-setcomputernameexa">SetComputerNameEx</a> function.
-     * @param {Pointer<PWSTR>} lpAccount A pointer to a constant string that specifies an account name to use when connecting to the domain controller. If this parameter is <b>NULL</b>, the caller's context is used.
-     * @param {Pointer<PWSTR>} lpPassword If the <i>lpAccount</i> parameter specifies an account name, this parameter must point to the password to use when connecting to the domain controller. Otherwise, this parameter must be <b>NULL</b>.
+     * @param {Pointer<Char>} lpAccount A pointer to a constant string that specifies an account name to use when connecting to the domain controller. If this parameter is <b>NULL</b>, the caller's context is used.
+     * @param {Pointer<Char>} lpPassword If the <i>lpAccount</i> parameter specifies an account name, this parameter must point to the password to use when connecting to the domain controller. Otherwise, this parameter must be <b>NULL</b>.
      * @param {Integer} fRenameOptions The rename options. If this parameter is NETSETUP_ACCT_CREATE, the function renames the account in the domain.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
@@ -19075,10 +19074,10 @@ class NetManagement {
      * 
      * No special group membership is required to successfully execute the 
      * <b>NetValidateName</b> function.
-     * @param {Pointer<PWSTR>} lpServer A pointer to a constant string that specifies the DNS or NetBIOS name of the computer on which to call the function. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} lpName A pointer to a constant string that specifies the name to validate. Depending on the value specified in the <i>NameType</i> parameter, the <i>lpName</i>  parameter can point to a computer name, workgroup name, domain name, or DNS computer name.
-     * @param {Pointer<PWSTR>} lpAccount If the <i>lpName</i> parameter is a domain name, this parameter points to an account name to use when connecting to the domain controller. The string must specify either a domain NetBIOS name and user account (for example, "REDMOND\user") or the user principal name (UPN) of the user in the form of an Internet-style login name (for example, "someone@example.com"). If this parameter is <b>NULL</b>, the caller's context is used.
-     * @param {Pointer<PWSTR>} lpPassword If the <i>lpAccount</i>  parameter specifies an account name, this parameter must point to the password to use when connecting to the domain controller. Otherwise, this parameter must be <b>NULL</b>.
+     * @param {Pointer<Char>} lpServer A pointer to a constant string that specifies the DNS or NetBIOS name of the computer on which to call the function. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} lpName A pointer to a constant string that specifies the name to validate. Depending on the value specified in the <i>NameType</i> parameter, the <i>lpName</i>  parameter can point to a computer name, workgroup name, domain name, or DNS computer name.
+     * @param {Pointer<Char>} lpAccount If the <i>lpName</i> parameter is a domain name, this parameter points to an account name to use when connecting to the domain controller. The string must specify either a domain NetBIOS name and user account (for example, "REDMOND\user") or the user principal name (UPN) of the user in the form of an Internet-style login name (for example, "someone@example.com"). If this parameter is <b>NULL</b>, the caller's context is used.
+     * @param {Pointer<Char>} lpPassword If the <i>lpAccount</i>  parameter specifies an account name, this parameter must point to the password to use when connecting to the domain controller. Otherwise, this parameter must be <b>NULL</b>.
      * @param {Integer} NameType The type of the name passed in the <i>lpName</i> parameter to validate. This parameter can be one of the values from the NETSETUP_NAME_TYPE enumeration type defined in the <i>Lmjoin.h</i> header file.
      * 
      * Note that the <i>Lmjoin.h</i> header is automatically included by the <i>Lm.h</i> header file. The <i>Lmjoin.h</i> header files should not be used directly. 
@@ -19315,12 +19314,12 @@ class NetManagement {
      * 
      * For more information about organizational units, see 
      * <a href="https://docs.microsoft.com/windows/desktop/AD/managing-users">Managing Users</a> in the Active Directory documentation.
-     * @param {Pointer<PWSTR>} lpServer Pointer to a constant string that specifies the DNS or NetBIOS name of the computer on which to call the function. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} lpDomain Pointer to a constant string that specifies the name of the domain for which to retrieve the list of OUs that can be joined.
-     * @param {Pointer<PWSTR>} lpAccount Pointer to a constant string that specifies the account name to use when connecting to the domain controller. The string must specify either a domain NetBIOS name and user account (for example, "REDMOND\user") or the user principal name (UPN) of the user in the form of an Internet-style login name (for example, "someone@example.com"). If this parameter is <b>NULL</b>, the caller's context is used.
-     * @param {Pointer<PWSTR>} lpPassword If the <i>lpAccount</i> parameter specifies an account name, this parameter must point to the password to use when connecting to the domain controller. Otherwise, this parameter must be <b>NULL</b>.
+     * @param {Pointer<Char>} lpServer Pointer to a constant string that specifies the DNS or NetBIOS name of the computer on which to call the function. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} lpDomain Pointer to a constant string that specifies the name of the domain for which to retrieve the list of OUs that can be joined.
+     * @param {Pointer<Char>} lpAccount Pointer to a constant string that specifies the account name to use when connecting to the domain controller. The string must specify either a domain NetBIOS name and user account (for example, "REDMOND\user") or the user principal name (UPN) of the user in the form of an Internet-style login name (for example, "someone@example.com"). If this parameter is <b>NULL</b>, the caller's context is used.
+     * @param {Pointer<Char>} lpPassword If the <i>lpAccount</i> parameter specifies an account name, this parameter must point to the password to use when connecting to the domain controller. Otherwise, this parameter must be <b>NULL</b>.
      * @param {Pointer<UInt32>} OUCount Receives the count of OUs returned in the list of joinable OUs.
-     * @param {Pointer<PWSTR>} OUs Pointer to an array that receives the list of joinable OUs. This array is allocated by the system and must be freed using a single call to the 
+     * @param {Pointer<Char>} OUs Pointer to an array that receives the list of joinable OUs. This array is allocated by the system and must be freed using a single call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
@@ -19365,9 +19364,8 @@ class NetManagement {
         lpDomain := lpDomain is String? StrPtr(lpDomain) : lpDomain
         lpAccount := lpAccount is String? StrPtr(lpAccount) : lpAccount
         lpPassword := lpPassword is String? StrPtr(lpPassword) : lpPassword
-        OUs := OUs is String? StrPtr(OUs) : OUs
 
-        result := DllCall("NETAPI32.dll\NetGetJoinableOUs", "ptr", lpServer, "ptr", lpDomain, "ptr", lpAccount, "ptr", lpPassword, "ptr", OUCount, "ptr", OUs, "uint")
+        result := DllCall("NETAPI32.dll\NetGetJoinableOUs", "ptr", lpServer, "ptr", lpDomain, "ptr", lpAccount, "ptr", lpPassword, "uint*", OUCount, "ptr", OUs, "uint")
         return result
     }
 
@@ -19379,14 +19377,14 @@ class NetManagement {
      * The <b>NetAddAlternateComputerName</b> function is used to set secondary network names for computers. The primary name is the name used for authentication and maps to the machine account name.
      * 
      * The <b>NetAddAlternateComputerName</b> function requires that the caller is a member of the Administrators local group on the target computer.
-     * @param {Pointer<PWSTR>} Server A pointer to a constant string that specifies the name of the computer on which to execute this function. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} AlternateName A pointer to a constant string that specifies the alternate name to add. This name must be in the form of a fully qualified DNS name.
-     * @param {Pointer<PWSTR>} DomainAccount A pointer to a constant string that specifies the domain account to use for accessing the
+     * @param {Pointer<Char>} Server A pointer to a constant string that specifies the name of the computer on which to execute this function. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} AlternateName A pointer to a constant string that specifies the alternate name to add. This name must be in the form of a fully qualified DNS name.
+     * @param {Pointer<Char>} DomainAccount A pointer to a constant string that specifies the domain account to use for accessing the
      *         machine account object for the computer specified in the <i>Server</i> parameter in Active Directory. If this parameter is <b>NULL</b>, then the credentials of the user executing
      *         this routine are used. 
      * 
      * This parameter is not used if the server to execute this function is not joined to a domain.
-     * @param {Pointer<PWSTR>} DomainAccountPassword A pointer to a constant string that specifies the password matching the domain account passed in the <i>DomainAccount</i> parameter.
+     * @param {Pointer<Char>} DomainAccountPassword A pointer to a constant string that specifies the password matching the domain account passed in the <i>DomainAccount</i> parameter.
      *         If this parameter is <b>NULL</b>, then the credentials of the user executing
      *         this routine are used. 
      * 
@@ -19512,14 +19510,14 @@ class NetManagement {
      * The <b>NetRemoveAlternateComputerName</b> function is used to remove secondary computer names configured for the target computer.
      * 
      * The <b>NetRemoveAlternateComputerName</b> function requires that the caller is a member of the Administrators local group on the target computer.
-     * @param {Pointer<PWSTR>} Server A pointer to a constant string that specifies the name of the computer on which to execute this function. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} AlternateName A pointer to a constant string that specifies the alternate name to remove. This name must be in the form of a fully qualified DNS name.
-     * @param {Pointer<PWSTR>} DomainAccount A pointer to a constant string that specifies the domain account to use for accessing the
+     * @param {Pointer<Char>} Server A pointer to a constant string that specifies the name of the computer on which to execute this function. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} AlternateName A pointer to a constant string that specifies the alternate name to remove. This name must be in the form of a fully qualified DNS name.
+     * @param {Pointer<Char>} DomainAccount A pointer to a constant string that specifies the domain account to use for accessing the
      *         machine account object for the computer specified in the <i>Server</i> parameter in Active Directory. If this parameter is <b>NULL</b>, then the credentials of the user executing
      *         this routine are used. 
      * 
      * This parameter is not used if the server to execute this function is not joined to a domain.
-     * @param {Pointer<PWSTR>} DomainAccountPassword A pointer to a constant string that specifies the password matching the domain account passed in the <i>DomainAccount</i> parameter.
+     * @param {Pointer<Char>} DomainAccountPassword A pointer to a constant string that specifies the password matching the domain account passed in the <i>DomainAccount</i> parameter.
      *         If this parameter is <b>NULL</b>, then the credentials of the user executing
      *         this routine are used. 
      * 
@@ -19645,14 +19643,14 @@ class NetManagement {
      * The <b>NetSetPrimaryComputerName</b> function is used as part of computer rename operations. The specified name will be removed from the alternate name list configured for the target computer and configured as the primary name. The computer account name will be changed to match the primary name. The previous primary computer name is moved to the alternate computer name list configured for the computer.
      * 
      * The <b>NetSetPrimaryComputerName</b> function requires that the caller is a member of the Administrators local group on the target computer.
-     * @param {Pointer<PWSTR>} Server A pointer to a constant string that specifies the name of the computer on which to execute this function. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} PrimaryName A pointer to a constant string that specifies the primary name to set. This name must be in the form of a fully qualified DNS name.
-     * @param {Pointer<PWSTR>} DomainAccount A pointer to a constant string that specifies the domain account to use for accessing the
+     * @param {Pointer<Char>} Server A pointer to a constant string that specifies the name of the computer on which to execute this function. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} PrimaryName A pointer to a constant string that specifies the primary name to set. This name must be in the form of a fully qualified DNS name.
+     * @param {Pointer<Char>} DomainAccount A pointer to a constant string that specifies the domain account to use for accessing the
      *         machine account object for the computer specified in the <i>Server</i> parameter in Active Directory. If this parameter is <b>NULL</b>, then the credentials of the user executing
      *         this routine are used. 
      * 
      * This parameter is not used if the server to execute this function is not joined to a domain.
-     * @param {Pointer<PWSTR>} DomainAccountPassword A pointer to a constant string that specifies the password matching the domain account passed in the <i>DomainAccount</i> parameter.
+     * @param {Pointer<Char>} DomainAccountPassword A pointer to a constant string that specifies the password matching the domain account passed in the <i>DomainAccount</i> parameter.
      *         If this parameter is <b>NULL</b>, then the credentials of the user executing
      *         this routine are used. 
      * 
@@ -19778,12 +19776,12 @@ class NetManagement {
      * The <b>NetEnumerateComputerNames</b> function is used to request the names a computer currently has configured. 
      * 
      * The <b>NetEnumerateComputerNames</b> function requires that the caller is a member of the Administrators local group on the target computer.
-     * @param {Pointer<PWSTR>} Server A pointer to a constant string that specifies the name of the computer on which to execute this function. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} Server A pointer to a constant string that specifies the name of the computer on which to execute this function. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} NameType 
      * @param {Integer} Reserved Reserved for future use.   This parameter should be <b>NULL</b>.
      * @param {Pointer<UInt32>} EntryCount A pointer to a DWORD value that returns the number of names returned
      * in the buffer pointed to by the <i>ComputerNames</i> parameter if the function succeeds.
-     * @param {Pointer<PWSTR>} ComputerNames A pointer to an array of pointers to names.  If the function call is successful, this parameter will return the computer names that match the computer type name specified in the <i>NameType</i> parameter. 
+     * @param {Pointer<Char>} ComputerNames A pointer to an array of pointers to names.  If the function call is successful, this parameter will return the computer names that match the computer type name specified in the <i>NameType</i> parameter. 
      * 
      * When the application no longer needs this array, this buffer should be freed by
      *         calling <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function.
@@ -19880,9 +19878,8 @@ class NetManagement {
      */
     static NetEnumerateComputerNames(Server, NameType, Reserved, EntryCount, ComputerNames) {
         Server := Server is String? StrPtr(Server) : Server
-        ComputerNames := ComputerNames is String? StrPtr(ComputerNames) : ComputerNames
 
-        result := DllCall("NETAPI32.dll\NetEnumerateComputerNames", "ptr", Server, "int", NameType, "uint", Reserved, "ptr", EntryCount, "ptr", ComputerNames, "uint")
+        result := DllCall("NETAPI32.dll\NetEnumerateComputerNames", "ptr", Server, "int", NameType, "uint", Reserved, "uint*", EntryCount, "ptr", ComputerNames, "uint")
         return result
     }
 
@@ -19918,12 +19915,12 @@ class NetManagement {
      * For more information on offline domain join operations, see the <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/dd392267(v=ws.10)">Offline Domain Join Step-by-Step Guide</a>.
      * 
      * Joining (and unjoining) a computer to a domain using <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netjoindomain">NetJoinDomain</a> and <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netunjoindomain">NetUnjoinDomain</a> can be performed only by a member of the Administrators local group on the target computer. Note that the domain administrator can set additional requirements for joining the domain using delegation and assignment of privileges.
-     * @param {Pointer<PWSTR>} lpDomain A pointer to a <b>NULL</b>-terminated character string that specifies the name of the domain where the computer account is created.
-     * @param {Pointer<PWSTR>} lpMachineName A pointer to a <b>NULL</b>-terminated character string that specifies the short name of the machine from which the computer account attribute sAMAccountName is derived by appending a '$'. This parameter must contain a valid DNS or NetBIOS machine name.
-     * @param {Pointer<PWSTR>} lpMachineAccountOU An optional pointer to a <b>NULL</b>-terminated character string that contains the RFC 1779 format name of the organizational unit (OU) where the computer account will be created. If you specify this parameter, the string must contain a full path, for example, OU=testOU,DC=domain,DC=Domain,DC=com. Otherwise, this parameter must be <b>NULL</b>.
+     * @param {Pointer<Char>} lpDomain A pointer to a <b>NULL</b>-terminated character string that specifies the name of the domain where the computer account is created.
+     * @param {Pointer<Char>} lpMachineName A pointer to a <b>NULL</b>-terminated character string that specifies the short name of the machine from which the computer account attribute sAMAccountName is derived by appending a '$'. This parameter must contain a valid DNS or NetBIOS machine name.
+     * @param {Pointer<Char>} lpMachineAccountOU An optional pointer to a <b>NULL</b>-terminated character string that contains the RFC 1779 format name of the organizational unit (OU) where the computer account will be created. If you specify this parameter, the string must contain a full path, for example, OU=testOU,DC=domain,DC=Domain,DC=com. Otherwise, this parameter must be <b>NULL</b>.
      * 
      * If this parameter is <b>NULL</b>, the well known computer object container will be used as published in the domain.
-     * @param {Pointer<PWSTR>} lpDcName An optional pointer to a <b>NULL</b>-terminated character string that contains the name of the domain controller to target.
+     * @param {Pointer<Char>} lpDcName An optional pointer to a <b>NULL</b>-terminated character string that contains the name of the domain controller to target.
      * @param {Integer} dwOptions 
      * @param {Pointer<Byte>} pProvisionBinData An optional pointer that will receive the opaque binary blob of serialized metadata required by <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netrequestofflinedomainjoin">NetRequestOfflineDomainJoin</a> function to complete an offline domain join, if the <b>NetProvisionComputerAccount</b> function completes successfully.  The data is returned as an opaque binary buffer which may be passed to <b>NetRequestOfflineDomainJoin</b> function.  
      * 
@@ -19931,7 +19928,7 @@ class NetManagement {
      * @param {Pointer<UInt32>} pdwProvisionBinDataSize A pointer to a value that receives the size, in bytes, of the buffer returned in the <i>pProvisionBinData</i> parameter. 
      * 
      * This parameter must not be <b>NULL</b> if the <i>pProvisionBinData</i> parameter is not <b>NULL</b>. This parameter must be <b>NULL</b> when the <i>pProvisionBinData</i> parameter is <b>NULL</b>.
-     * @param {Pointer<PWSTR>} pProvisionTextData An optional pointer that will receive the opaque binary blob of serialized metadata required by <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netrequestofflinedomainjoin">NetRequestOfflineDomainJoin</a> function to complete an offline domain join, if the <b>NetProvisionComputerAccount</b> function completes successfully.  The data is returned in string form for embedding in an unattended setup answer file.  
+     * @param {Pointer<Char>} pProvisionTextData An optional pointer that will receive the opaque binary blob of serialized metadata required by <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netrequestofflinedomainjoin">NetRequestOfflineDomainJoin</a> function to complete an offline domain join, if the <b>NetProvisionComputerAccount</b> function completes successfully.  The data is returned in string form for embedding in an unattended setup answer file.  
      * 
      * If this parameter is <b>NULL</b>, then the <i>pProvisionBinData</i> parameter must not be <b>NULL</b>. If this parameter is not <b>NULL</b>, then the  the <i>pProvisionBinData</i> parameter must be <b>NULL</b>.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
@@ -20074,9 +20071,8 @@ class NetManagement {
         lpMachineName := lpMachineName is String? StrPtr(lpMachineName) : lpMachineName
         lpMachineAccountOU := lpMachineAccountOU is String? StrPtr(lpMachineAccountOU) : lpMachineAccountOU
         lpDcName := lpDcName is String? StrPtr(lpDcName) : lpDcName
-        pProvisionTextData := pProvisionTextData is String? StrPtr(pProvisionTextData) : pProvisionTextData
 
-        result := DllCall("NETAPI32.dll\NetProvisionComputerAccount", "ptr", lpDomain, "ptr", lpMachineName, "ptr", lpMachineAccountOU, "ptr", lpDcName, "uint", dwOptions, "ptr", pProvisionBinData, "ptr", pdwProvisionBinDataSize, "ptr", pProvisionTextData, "uint")
+        result := DllCall("NETAPI32.dll\NetProvisionComputerAccount", "ptr", lpDomain, "ptr", lpMachineName, "ptr", lpMachineAccountOU, "ptr", lpDcName, "uint", dwOptions, "ptr", pProvisionBinData, "uint*", pdwProvisionBinDataSize, "ptr", pProvisionTextData, "uint")
         return result
     }
 
@@ -20099,14 +20095,14 @@ class NetManagement {
      * The opaque blob returned in the  <i>pProvisionBinData</i> parameter by the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netprovisioncomputeraccount">NetProvisionComputerAccount</a> function is versioned to allow interoperability and serviceability scenarios between different versions of Windows (joining client, provisioning machine, and domain controller). The offline join scenario currently does not limit the lifetime of the blob returned by the <b>NetProvisionComputerAccount</b> function.   
      * 
      * For more information on offline domain join operations, see the <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/dd392267(v=ws.10)">Offline Domain Join Step-by-Step Guide</a>.
-     * @param {Pointer<Byte>} pProvisionBinData A pointer to a buffer required to initialize the registry of a Windows operating system image to process the final local state change during the completion phase of the offline domain join operation. 
+     * @param {Pointer} pProvisionBinData A pointer to a buffer required to initialize the registry of a Windows operating system image to process the final local state change during the completion phase of the offline domain join operation. 
      * 
      * The opaque binary blob of serialized metadata passed in the <i>pProvisionBinData</i> parameter is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netprovisioncomputeraccount">NetProvisionComputerAccount</a> function.
      * @param {Integer} cbProvisionBinDataSize The size, in bytes, of the buffer pointed to by the <i>pProvisionBinData</i> parameter. 
      * 
      * This parameter must not be <b>NULL</b>.
      * @param {Integer} dwOptions 
-     * @param {Pointer<PWSTR>} lpWindowsPath A pointer to a constant null-terminated character string that specifies the path to a Windows operating system image  under which the registry hives are located. This image must be offline and not currently booted unless the <i>dwOptions</i> parameter contains <b>NETSETUP_PROVISION_ONLINE_CALLER</b> in which case the locally running operating system directory is allowed. 
+     * @param {Pointer<Char>} lpWindowsPath A pointer to a constant null-terminated character string that specifies the path to a Windows operating system image  under which the registry hives are located. This image must be offline and not currently booted unless the <i>dwOptions</i> parameter contains <b>NETSETUP_PROVISION_ONLINE_CALLER</b> in which case the locally running operating system directory is allowed. 
      * 
      * This path could
      *                      be a UNC path on a remote server.
@@ -20383,7 +20379,7 @@ class NetManagement {
      * @param {Pointer<UInt32>} pdwPackageBinDataSize A pointer to a value that receives the size, in bytes, of the buffer returned in the <i>pProvisionBinData</i> parameter. 
      * 
      * This parameter must not be <b>NULL</b> if the <i>pPackageBinData</i> parameter is not <b>NULL</b>. This parameter must be <b>NULL</b> when the <i>pPackageBinData</i> parameter is <b>NULL</b>.
-     * @param {Pointer<PWSTR>} ppPackageTextData An optional pointer that will receive the package required by <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netrequestofflinedomainjoin">NetRequestOfflineDomainJoin</a> function to complete an offline domain join, if the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netprovisioncomputeraccount">NetProvisionComputerAccount</a> function completes successfully.  The data is returned in string form for embedding in an unattended setup answer file.  
+     * @param {Pointer<Char>} ppPackageTextData An optional pointer that will receive the package required by <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netrequestofflinedomainjoin">NetRequestOfflineDomainJoin</a> function to complete an offline domain join, if the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netprovisioncomputeraccount">NetProvisionComputerAccount</a> function completes successfully.  The data is returned in string form for embedding in an unattended setup answer file.  
      * 
      * If this parameter is <b>NULL</b>, then the <i>pPackageBinData</i> parameter must not be <b>NULL</b>. If this parameter is not <b>NULL</b>, then the  the <i>pPackageBinData</i> parameter must be <b>NULL</b>.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
@@ -20522,9 +20518,7 @@ class NetManagement {
      * @since windows8.0
      */
     static NetCreateProvisioningPackage(pProvisioningParams, ppPackageBinData, pdwPackageBinDataSize, ppPackageTextData) {
-        ppPackageTextData := ppPackageTextData is String? StrPtr(ppPackageTextData) : ppPackageTextData
-
-        result := DllCall("NETAPI32.dll\NetCreateProvisioningPackage", "ptr", pProvisioningParams, "ptr", ppPackageBinData, "ptr", pdwPackageBinDataSize, "ptr", ppPackageTextData, "uint")
+        result := DllCall("NETAPI32.dll\NetCreateProvisioningPackage", "ptr", pProvisioningParams, "ptr", ppPackageBinData, "uint*", pdwPackageBinDataSize, "ptr", ppPackageTextData, "uint")
         return result
     }
 
@@ -20547,14 +20541,14 @@ class NetManagement {
      * The package returned in the  <i>pPackageBinData</i> parameter by the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netcreateprovisioningpackage">NetCreateProvisioningPackage</a> function is versioned to allow interoperability and serviceability scenarios between different versions of Windows (such as joining a client, provisioning a machine, and using a domain controller). The offline join scenario currently does not limit the lifetime of the package returned by the <b>NetCreateProvisioningPackage</b> function.
      * 
      * All phases of the provisioning process append to a  <i>NetSetup.log</i> file on the local computer. The provisioning process can include up to three different computers: the computer where the provisioning package is created,  the computer that requests the installation of the package,  and the computer where the  package is installed. There will be <i>NetSetup.log</i> file information stored on all three computers according to  the operation performed. Reviewing the contents of these files is the most common means of troubleshooting online and offline provisioning errors. Provisioning operations undertaken by admins are logged to the <i>NetSetup.log</i> file in the <i>%WINDIR%\Debug</i>. Provisioning operations performed by non-admins are logged to the <i>NetSetup.log</i> file  in the <i>%USERPROFILE%\Debug</i> folder.
-     * @param {Pointer<Byte>} pPackageBinData A pointer to a buffer required to initialize the registry of a Windows operating system image to process the final local state change during the completion phase of the offline domain join operation. 
+     * @param {Pointer} pPackageBinData A pointer to a buffer required to initialize the registry of a Windows operating system image to process the final local state change during the completion phase of the offline domain join operation. 
      * 
      * The opaque binary blob of serialized metadata passed in the <i>pPackageBinData</i> parameter is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netprovisioncomputeraccount">NetCreateProvisioningPackage</a> function.
      * @param {Integer} dwPackageBinDataSize The size, in bytes, of the buffer pointed to by the <i>pPackageBinData</i> parameter. 
      * 
      * This parameter must not be <b>NULL</b>.
      * @param {Integer} dwProvisionOptions 
-     * @param {Pointer<PWSTR>} lpWindowsPath A pointer to a <b>NULL</b>-terminated character string that specifies the path to a Windows operating system image  under which the registry hives are located. This image must be offline and not currently booted unless the <i>dwProvisionOptions</i> parameter contains <b>NETSETUP_PROVISION_ONLINE_CALLER</b>, in which case, the locally running operating system directory is allowed. 
+     * @param {Pointer<Char>} lpWindowsPath A pointer to a <b>NULL</b>-terminated character string that specifies the path to a Windows operating system image  under which the registry hives are located. This image must be offline and not currently booted unless the <i>dwProvisionOptions</i> parameter contains <b>NETSETUP_PROVISION_ONLINE_CALLER</b>, in which case, the locally running operating system directory is allowed. 
      * 
      * This path could
      *                      be a UNC path on a remote server.
@@ -20703,7 +20697,7 @@ class NetManagement {
 
     /**
      * Retrieves the join information for the specified tenant. This function examines the join information for Microsoft Azure Active Directory and the work account that the current user added.
-     * @param {Pointer<PWSTR>} pcszTenantId The tenant identifier for the joined account. If the device
+     * @param {Pointer<Char>} pcszTenantId The tenant identifier for the joined account. If the device
      *                        is not joined to Azure Active Directory (Azure AD), and the user currently logged into Windows added no Azure AD work accounts  for the specified tenant,
      *                        the buffer that the <i>ppJoinInfo</i> parameter points to  is set to NULL.
      * 
@@ -20738,12 +20732,13 @@ class NetManagement {
     /**
      * Frees the memory allocated for the specified DSREG_JOIN_INFO structure, which contains join information for a tenant and which you retrieved by calling the NetGetAadJoinInformation function.
      * @param {Pointer<DSREG_JOIN_INFO>} pJoinInfo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/ns-lmjoin-dsreg_join_info">DSREG_JOIN_INFO</a> structure for which you want to free the memory.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} This function does not return a value.
      * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netfreeaadjoininformation
      * @since windows10.0.10240
      */
     static NetFreeAadJoinInformation(pJoinInfo) {
-        DllCall("NETAPI32.dll\NetFreeAadJoinInformation", "ptr", pJoinInfo)
+        result := DllCall("NETAPI32.dll\NetFreeAadJoinInformation", "ptr", pJoinInfo)
+        return result
     }
 
     /**
@@ -20751,8 +20746,8 @@ class NetManagement {
      * @remarks
      * No special group membership is required to successfully execute the 
      * <b>NetGetJoinInformation</b> function.
-     * @param {Pointer<PWSTR>} lpServer Pointer to a constant string that specifies the DNS or NetBIOS name of the computer on which to call the function. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} lpNameBuffer Pointer to the buffer that receives the NetBIOS name of the domain or workgroup to which the computer is joined. This buffer is allocated by the system and must be freed using the 
+     * @param {Pointer<Char>} lpServer Pointer to a constant string that specifies the DNS or NetBIOS name of the computer on which to call the function. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} lpNameBuffer Pointer to the buffer that receives the NetBIOS name of the domain or workgroup to which the computer is joined. This buffer is allocated by the system and must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
@@ -20784,9 +20779,8 @@ class NetManagement {
      */
     static NetGetJoinInformation(lpServer, lpNameBuffer, BufferType) {
         lpServer := lpServer is String? StrPtr(lpServer) : lpServer
-        lpNameBuffer := lpNameBuffer is String? StrPtr(lpNameBuffer) : lpNameBuffer
 
-        result := DllCall("NETAPI32.dll\NetGetJoinInformation", "ptr", lpServer, "ptr", lpNameBuffer, "ptr", BufferType, "uint")
+        result := DllCall("NETAPI32.dll\NetGetJoinInformation", "ptr", lpServer, "ptr", lpNameBuffer, "int*", BufferType, "uint")
         return result
     }
 
@@ -20797,9 +20791,9 @@ class NetManagement {
      * 
      * <b>HKLM\SOFTWARE\Microsoft\SchedulingAgent\TasksFolder\
      * </b>
-     * @param {Pointer<PWSTR>} pwszServerName A NULL-terminated wide character string for the name of the computer whose account information is being retrieved.
+     * @param {Pointer<Char>} pwszServerName A NULL-terminated wide character string for the name of the computer whose account information is being retrieved.
      * @param {Integer} ccAccount The number of characters, including the NULL terminator, allocated for <i>wszAccount</i>. The maximum allowed length for this value is the maximum domain name length plus the maximum user name length plus 2, expressed as DNLEN + UNLEN + 2. (The last two characters are the "\" character and the NULL terminator.)
-     * @param {Pointer<PWSTR>} wszAccount An array of wide characters, including the NULL terminator, that receives the account information.
+     * @param {Pointer<Char>} wszAccount An array of wide characters, including the NULL terminator, that receives the account information.
      * @returns {Integer} The return value is an HRESULT. A value of S_OK indicates the function succeeded, and the account information is  returned in <i>wszAccount</i>. A value of S_FALSE  indicates the function succeeded, and the account is the Local System account (no information will be returned in <i>wszAccount</i>). Any other return values indicate an error condition.
      * @see https://learn.microsoft.com/windows/win32/api/atacct/nf-atacct-getnetscheduleaccountinformation
      * @since windows6.0.6000
@@ -20816,9 +20810,9 @@ class NetManagement {
      * The SetNetScheduleAccountInformation function sets the AT Service account name and password. The AT Service account name and password are used as the credentials for scheduled jobs created with NetScheduleJobAdd.
      * @remarks
      * The <b>SetNetScheduleAccountInformation</b> impersonates the caller. Only members of the local Administrators group on the computer where the schedule account information is being set can successfully execute this function. Note that <b>NULL</b> passwords are not allowed.
-     * @param {Pointer<PWSTR>} pwszServerName A NULL-terminated wide character string for the name of the computer whose account information is being set.
-     * @param {Pointer<PWSTR>} pwszAccount A pointer to a NULL-terminated wide character string for the account. To specify the local system account, set this parameter to <b>NULL</b>.
-     * @param {Pointer<PWSTR>} pwszPassword A pointer to a NULL-terminated wide character string for the password. For information about securing password information, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
+     * @param {Pointer<Char>} pwszServerName A NULL-terminated wide character string for the name of the computer whose account information is being set.
+     * @param {Pointer<Char>} pwszAccount A pointer to a NULL-terminated wide character string for the account. To specify the local system account, set this parameter to <b>NULL</b>.
+     * @param {Pointer<Char>} pwszPassword A pointer to a NULL-terminated wide character string for the password. For information about securing password information, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
      * @returns {Integer} The return value is an HRESULT. A value of S_OK indicates the account name and password were successfully set. Any other value indicates an error condition.
      * 
      * If the function fails, some of the possible return values are listed below. 
@@ -20946,7 +20940,7 @@ class NetManagement {
      * On Windows 2000, the earlier AT service and the Task Scheduler were combined. The Task Scheduler service was only accurate to the minute.  Therefore, the <b>NetScheduleJobAdd</b> function only uses hours and minutes specified in the <b>JobTime</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure when a job is scheduled to run. 
      * 
      * Starting with   Windows Vista, the precision for the Task Scheduler was increased to the second. Therefore, the <b>NetScheduleJobAdd</b> function uses only the hours, minutes, and seconds specified in the <b>JobTime</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure when a job is scheduled to run.
-     * @param {Pointer<PWSTR>} Servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} Servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Pointer<Byte>} Buffer A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure describing the job to submit. For more information about scheduling jobs using different job properties, see the following Remarks section and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
@@ -20961,7 +20955,7 @@ class NetManagement {
     static NetScheduleJobAdd(Servername, Buffer, JobId) {
         Servername := Servername is String? StrPtr(Servername) : Servername
 
-        result := DllCall("NETAPI32.dll\NetScheduleJobAdd", "ptr", Servername, "ptr", Buffer, "ptr", JobId, "uint")
+        result := DllCall("NETAPI32.dll\NetScheduleJobAdd", "ptr", Servername, "char*", Buffer, "uint*", JobId, "uint")
         return result
     }
 
@@ -20983,7 +20977,7 @@ class NetManagement {
      * 
      * To delete all scheduled jobs at the server, you can call 
      * <b>NetScheduleJobDel</b> specifying <i>MinJobId</i> equal to 0 and <i>MaxJobId</i> equal to – 1. To delete one job, specify the job's identifier for both the <i>MinJobId</i> parameter and the <i>MaxJobId</i> parameter.
-     * @param {Pointer<PWSTR>} Servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} Servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} MinJobId The minimum job identifier. Jobs with a job identifier smaller than <i>MinJobId</i> will not be deleted.
      * @param {Integer} MaxJobId The  maximum job identifier. Jobs with a job identifier larger than <i>MaxJobId</i> will not be deleted.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
@@ -21013,7 +21007,7 @@ class NetManagement {
      * Each entry returned contains an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_enum">AT_ENUM</a> structure. The value of the <b>JobId</b> member can be used when calling functions that require a job identifier parameter, such as the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/nf-lmat-netschedulejobdel">NetScheduleJobDel</a> function.
-     * @param {Pointer<PWSTR>} Servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} Servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Pointer<Byte>} PointerToBuffer A pointer to the buffer that receives the data. The return information is an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_enum">AT_ENUM</a> structures. The buffer is allocated by the system and must be freed using a single call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. Note that you must free the buffer even if the function fails with ERROR_MORE_DATA.
@@ -21033,7 +21027,7 @@ class NetManagement {
     static NetScheduleJobEnum(Servername, PointerToBuffer, PrefferedMaximumLength, EntriesRead, TotalEntries, ResumeHandle) {
         Servername := Servername is String? StrPtr(Servername) : Servername
 
-        result := DllCall("NETAPI32.dll\NetScheduleJobEnum", "ptr", Servername, "ptr", PointerToBuffer, "uint", PrefferedMaximumLength, "ptr", EntriesRead, "ptr", TotalEntries, "ptr", ResumeHandle, "uint")
+        result := DllCall("NETAPI32.dll\NetScheduleJobEnum", "ptr", Servername, "ptr", PointerToBuffer, "uint", PrefferedMaximumLength, "uint*", EntriesRead, "uint*", TotalEntries, "uint*", ResumeHandle, "uint")
         return result
     }
 
@@ -21046,7 +21040,7 @@ class NetManagement {
      * 
      * 
      * <b>HKLM\System\CurrentControlSet\Control\Lsa\SubmitControl</b>
-     * @param {Pointer<PWSTR>} Servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} Servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} JobId A value that indicates the identifier of the job for which to retrieve information.
      * @param {Pointer<Byte>} PointerToBuffer A pointer to the buffer that receives the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure describing the specified job. This buffer is allocated by the system and must be freed using the 
@@ -21069,7 +21063,7 @@ class NetManagement {
 
     /**
      * 
-     * @param {Pointer<PSTR>} lpszCallerName 
+     * @param {Pointer<Byte>} lpszCallerName 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
      */
@@ -21104,7 +21098,7 @@ class NetManagement {
     /**
      * 
      * @param {Integer} dwTraceID 
-     * @param {Pointer<HANDLE>} lphConsole 
+     * @param {Pointer<Void>} lphConsole 
      * @returns {Integer} 
      */
     static TraceGetConsoleA(dwTraceID, lphConsole) {
@@ -21115,7 +21109,7 @@ class NetManagement {
     /**
      * 
      * @param {Integer} dwTraceID 
-     * @param {Pointer<PSTR>} lpszFormat 
+     * @param {Pointer<Byte>} lpszFormat 
      * @returns {Integer} 
      */
     static TracePrintfA(dwTraceID, lpszFormat) {
@@ -21129,7 +21123,7 @@ class NetManagement {
      * 
      * @param {Integer} dwTraceID 
      * @param {Integer} dwFlags 
-     * @param {Pointer<PSTR>} lpszFormat 
+     * @param {Pointer<Byte>} lpszFormat 
      * @returns {Integer} 
      */
     static TracePrintfExA(dwTraceID, dwFlags, lpszFormat) {
@@ -21143,14 +21137,14 @@ class NetManagement {
      * 
      * @param {Integer} dwTraceID 
      * @param {Integer} dwFlags 
-     * @param {Pointer<PSTR>} lpszFormat 
+     * @param {Pointer<Byte>} lpszFormat 
      * @param {Pointer<SByte>} arglist 
      * @returns {Integer} 
      */
     static TraceVprintfExA(dwTraceID, dwFlags, lpszFormat, arglist) {
         lpszFormat := lpszFormat is String? StrPtr(lpszFormat) : lpszFormat
 
-        result := DllCall("rtutils.dll\TraceVprintfExA", "uint", dwTraceID, "uint", dwFlags, "ptr", lpszFormat, "ptr", arglist, "uint")
+        result := DllCall("rtutils.dll\TraceVprintfExA", "uint", dwTraceID, "uint", dwFlags, "ptr", lpszFormat, "char*", arglist, "uint")
         return result
     }
 
@@ -21158,7 +21152,7 @@ class NetManagement {
      * 
      * @param {Integer} dwTraceID 
      * @param {Integer} dwFlags 
-     * @param {Pointer<PSTR>} lpszString 
+     * @param {Pointer<Byte>} lpszString 
      * @returns {Integer} 
      */
     static TracePutsExA(dwTraceID, dwFlags, lpszString) {
@@ -21176,19 +21170,19 @@ class NetManagement {
      * @param {Integer} dwByteCount 
      * @param {Integer} dwGroupSize 
      * @param {Integer} bAddressPrefix 
-     * @param {Pointer<PSTR>} lpszPrefix 
+     * @param {Pointer<Byte>} lpszPrefix 
      * @returns {Integer} 
      */
     static TraceDumpExA(dwTraceID, dwFlags, lpbBytes, dwByteCount, dwGroupSize, bAddressPrefix, lpszPrefix) {
         lpszPrefix := lpszPrefix is String? StrPtr(lpszPrefix) : lpszPrefix
 
-        result := DllCall("rtutils.dll\TraceDumpExA", "uint", dwTraceID, "uint", dwFlags, "ptr", lpbBytes, "uint", dwByteCount, "uint", dwGroupSize, "int", bAddressPrefix, "ptr", lpszPrefix, "uint")
+        result := DllCall("rtutils.dll\TraceDumpExA", "uint", dwTraceID, "uint", dwFlags, "char*", lpbBytes, "uint", dwByteCount, "uint", dwGroupSize, "int", bAddressPrefix, "ptr", lpszPrefix, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpszCallerName 
+     * @param {Pointer<Char>} lpszCallerName 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
      */
@@ -21223,7 +21217,7 @@ class NetManagement {
     /**
      * 
      * @param {Integer} dwTraceID 
-     * @param {Pointer<HANDLE>} lphConsole 
+     * @param {Pointer<Void>} lphConsole 
      * @returns {Integer} 
      */
     static TraceGetConsoleW(dwTraceID, lphConsole) {
@@ -21234,7 +21228,7 @@ class NetManagement {
     /**
      * 
      * @param {Integer} dwTraceID 
-     * @param {Pointer<PWSTR>} lpszFormat 
+     * @param {Pointer<Char>} lpszFormat 
      * @returns {Integer} 
      */
     static TracePrintfW(dwTraceID, lpszFormat) {
@@ -21248,7 +21242,7 @@ class NetManagement {
      * 
      * @param {Integer} dwTraceID 
      * @param {Integer} dwFlags 
-     * @param {Pointer<PWSTR>} lpszFormat 
+     * @param {Pointer<Char>} lpszFormat 
      * @returns {Integer} 
      */
     static TracePrintfExW(dwTraceID, dwFlags, lpszFormat) {
@@ -21262,14 +21256,14 @@ class NetManagement {
      * 
      * @param {Integer} dwTraceID 
      * @param {Integer} dwFlags 
-     * @param {Pointer<PWSTR>} lpszFormat 
+     * @param {Pointer<Char>} lpszFormat 
      * @param {Pointer<SByte>} arglist 
      * @returns {Integer} 
      */
     static TraceVprintfExW(dwTraceID, dwFlags, lpszFormat, arglist) {
         lpszFormat := lpszFormat is String? StrPtr(lpszFormat) : lpszFormat
 
-        result := DllCall("rtutils.dll\TraceVprintfExW", "uint", dwTraceID, "uint", dwFlags, "ptr", lpszFormat, "ptr", arglist, "uint")
+        result := DllCall("rtutils.dll\TraceVprintfExW", "uint", dwTraceID, "uint", dwFlags, "ptr", lpszFormat, "char*", arglist, "uint")
         return result
     }
 
@@ -21277,7 +21271,7 @@ class NetManagement {
      * 
      * @param {Integer} dwTraceID 
      * @param {Integer} dwFlags 
-     * @param {Pointer<PWSTR>} lpszString 
+     * @param {Pointer<Char>} lpszString 
      * @returns {Integer} 
      */
     static TracePutsExW(dwTraceID, dwFlags, lpszString) {
@@ -21295,13 +21289,13 @@ class NetManagement {
      * @param {Integer} dwByteCount 
      * @param {Integer} dwGroupSize 
      * @param {Integer} bAddressPrefix 
-     * @param {Pointer<PWSTR>} lpszPrefix 
+     * @param {Pointer<Char>} lpszPrefix 
      * @returns {Integer} 
      */
     static TraceDumpExW(dwTraceID, dwFlags, lpbBytes, dwByteCount, dwGroupSize, bAddressPrefix, lpszPrefix) {
         lpszPrefix := lpszPrefix is String? StrPtr(lpszPrefix) : lpszPrefix
 
-        result := DllCall("rtutils.dll\TraceDumpExW", "uint", dwTraceID, "uint", dwFlags, "ptr", lpbBytes, "uint", dwByteCount, "uint", dwGroupSize, "int", bAddressPrefix, "ptr", lpszPrefix, "uint")
+        result := DllCall("rtutils.dll\TraceDumpExW", "uint", dwTraceID, "uint", dwFlags, "char*", lpbBytes, "uint", dwByteCount, "uint", dwGroupSize, "int", bAddressPrefix, "ptr", lpszPrefix, "uint")
         return result
     }
 
@@ -21309,14 +21303,13 @@ class NetManagement {
      * 
      * @param {Integer} dwMessageId 
      * @param {Integer} cNumberOfSubStrings 
-     * @param {Pointer<PSTR>} plpwsSubStrings 
+     * @param {Pointer<Byte>} plpwsSubStrings 
      * @param {Integer} dwErrorCode 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static LogErrorA(dwMessageId, cNumberOfSubStrings, plpwsSubStrings, dwErrorCode) {
-        plpwsSubStrings := plpwsSubStrings is String? StrPtr(plpwsSubStrings) : plpwsSubStrings
-
-        DllCall("rtutils.dll\LogErrorA", "uint", dwMessageId, "uint", cNumberOfSubStrings, "ptr", plpwsSubStrings, "uint", dwErrorCode)
+        result := DllCall("rtutils.dll\LogErrorA", "uint", dwMessageId, "uint", cNumberOfSubStrings, "ptr", plpwsSubStrings, "uint", dwErrorCode)
+        return result
     }
 
     /**
@@ -21324,27 +21317,25 @@ class NetManagement {
      * @param {Integer} wEventType 
      * @param {Integer} dwMessageId 
      * @param {Integer} cNumberOfSubStrings 
-     * @param {Pointer<PSTR>} plpwsSubStrings 
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Byte>} plpwsSubStrings 
+     * @returns {Pointer} 
      */
     static LogEventA(wEventType, dwMessageId, cNumberOfSubStrings, plpwsSubStrings) {
-        plpwsSubStrings := plpwsSubStrings is String? StrPtr(plpwsSubStrings) : plpwsSubStrings
-
-        DllCall("rtutils.dll\LogEventA", "uint", wEventType, "uint", dwMessageId, "uint", cNumberOfSubStrings, "ptr", plpwsSubStrings)
+        result := DllCall("rtutils.dll\LogEventA", "uint", wEventType, "uint", dwMessageId, "uint", cNumberOfSubStrings, "ptr", plpwsSubStrings)
+        return result
     }
 
     /**
      * 
      * @param {Integer} dwMessageId 
      * @param {Integer} cNumberOfSubStrings 
-     * @param {Pointer<PWSTR>} plpwsSubStrings 
+     * @param {Pointer<Char>} plpwsSubStrings 
      * @param {Integer} dwErrorCode 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static LogErrorW(dwMessageId, cNumberOfSubStrings, plpwsSubStrings, dwErrorCode) {
-        plpwsSubStrings := plpwsSubStrings is String? StrPtr(plpwsSubStrings) : plpwsSubStrings
-
-        DllCall("rtutils.dll\LogErrorW", "uint", dwMessageId, "uint", cNumberOfSubStrings, "ptr", plpwsSubStrings, "uint", dwErrorCode)
+        result := DllCall("rtutils.dll\LogErrorW", "uint", dwMessageId, "uint", cNumberOfSubStrings, "ptr", plpwsSubStrings, "uint", dwErrorCode)
+        return result
     }
 
     /**
@@ -21352,259 +21343,255 @@ class NetManagement {
      * @param {Integer} wEventType 
      * @param {Integer} dwMessageId 
      * @param {Integer} cNumberOfSubStrings 
-     * @param {Pointer<PWSTR>} plpwsSubStrings 
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Char>} plpwsSubStrings 
+     * @returns {Pointer} 
      */
     static LogEventW(wEventType, dwMessageId, cNumberOfSubStrings, plpwsSubStrings) {
-        plpwsSubStrings := plpwsSubStrings is String? StrPtr(plpwsSubStrings) : plpwsSubStrings
-
-        DllCall("rtutils.dll\LogEventW", "uint", wEventType, "uint", dwMessageId, "uint", cNumberOfSubStrings, "ptr", plpwsSubStrings)
+        result := DllCall("rtutils.dll\LogEventW", "uint", wEventType, "uint", dwMessageId, "uint", cNumberOfSubStrings, "ptr", plpwsSubStrings)
+        return result
     }
 
     /**
      * 
-     * @param {Pointer<PSTR>} lpszSource 
-     * @returns {Pointer<HANDLE>} 
+     * @param {Pointer<Byte>} lpszSource 
+     * @returns {Pointer<Void>} 
      */
     static RouterLogRegisterA(lpszSource) {
         lpszSource := lpszSource is String? StrPtr(lpszSource) : lpszSource
 
-        result := DllCall("rtutils.dll\RouterLogRegisterA", "ptr", lpszSource, "ptr")
+        result := DllCall("rtutils.dll\RouterLogRegisterA", "ptr", lpszSource)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hLogHandle 
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Void>} hLogHandle 
+     * @returns {Pointer} 
      */
     static RouterLogDeregisterA(hLogHandle) {
-        DllCall("rtutils.dll\RouterLogDeregisterA", "ptr", hLogHandle)
+        result := DllCall("rtutils.dll\RouterLogDeregisterA", "ptr", hLogHandle)
+        return result
     }
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hLogHandle 
+     * @param {Pointer<Void>} hLogHandle 
      * @param {Integer} dwEventType 
      * @param {Integer} dwMessageId 
      * @param {Integer} dwSubStringCount 
-     * @param {Pointer<PSTR>} plpszSubStringArray 
+     * @param {Pointer<Byte>} plpszSubStringArray 
      * @param {Integer} dwErrorCode 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static RouterLogEventA(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwErrorCode) {
-        plpszSubStringArray := plpszSubStringArray is String? StrPtr(plpszSubStringArray) : plpszSubStringArray
-
-        DllCall("rtutils.dll\RouterLogEventA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwErrorCode)
+        result := DllCall("rtutils.dll\RouterLogEventA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwErrorCode)
+        return result
     }
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hLogHandle 
+     * @param {Pointer<Void>} hLogHandle 
      * @param {Integer} dwEventType 
      * @param {Integer} dwMessageId 
      * @param {Integer} dwSubStringCount 
-     * @param {Pointer<PSTR>} plpszSubStringArray 
+     * @param {Pointer<Byte>} plpszSubStringArray 
      * @param {Integer} dwDataBytes 
      * @param {Pointer<Byte>} lpDataBytes 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static RouterLogEventDataA(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwDataBytes, lpDataBytes) {
-        plpszSubStringArray := plpszSubStringArray is String? StrPtr(plpszSubStringArray) : plpszSubStringArray
-
-        DllCall("rtutils.dll\RouterLogEventDataA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwDataBytes, "ptr", lpDataBytes)
+        result := DllCall("rtutils.dll\RouterLogEventDataA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwDataBytes, "char*", lpDataBytes)
+        return result
     }
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hLogHandle 
+     * @param {Pointer<Void>} hLogHandle 
      * @param {Integer} dwEventType 
      * @param {Integer} dwMessageId 
      * @param {Integer} dwSubStringCount 
-     * @param {Pointer<PSTR>} plpszSubStringArray 
+     * @param {Pointer<Byte>} plpszSubStringArray 
      * @param {Integer} dwErrorCode 
      * @param {Integer} dwErrorIndex 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static RouterLogEventStringA(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwErrorCode, dwErrorIndex) {
-        plpszSubStringArray := plpszSubStringArray is String? StrPtr(plpszSubStringArray) : plpszSubStringArray
-
-        DllCall("rtutils.dll\RouterLogEventStringA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwErrorCode, "uint", dwErrorIndex)
+        result := DllCall("rtutils.dll\RouterLogEventStringA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwErrorCode, "uint", dwErrorIndex)
+        return result
     }
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hLogHandle 
+     * @param {Pointer<Void>} hLogHandle 
      * @param {Integer} dwEventType 
      * @param {Integer} dwErrorCode 
      * @param {Integer} dwMessageId 
-     * @param {Pointer<PSTR>} ptszFormat 
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Byte>} ptszFormat 
+     * @returns {Pointer} 
      */
     static RouterLogEventExA(hLogHandle, dwEventType, dwErrorCode, dwMessageId, ptszFormat) {
         ptszFormat := ptszFormat is String? StrPtr(ptszFormat) : ptszFormat
 
-        DllCall("rtutils.dll\RouterLogEventExA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwErrorCode, "uint", dwMessageId, "ptr", ptszFormat, "CDecl ")
+        result := DllCall("rtutils.dll\RouterLogEventExA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwErrorCode, "uint", dwMessageId, "ptr", ptszFormat, "CDecl ptr")
+        return result
     }
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hLogHandle 
+     * @param {Pointer<Void>} hLogHandle 
      * @param {Integer} dwEventType 
      * @param {Integer} dwErrorCode 
      * @param {Integer} dwMessageId 
-     * @param {Pointer<PSTR>} ptszFormat 
+     * @param {Pointer<Byte>} ptszFormat 
      * @param {Pointer<SByte>} arglist 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static RouterLogEventValistExA(hLogHandle, dwEventType, dwErrorCode, dwMessageId, ptszFormat, arglist) {
         ptszFormat := ptszFormat is String? StrPtr(ptszFormat) : ptszFormat
 
-        DllCall("rtutils.dll\RouterLogEventValistExA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwErrorCode, "uint", dwMessageId, "ptr", ptszFormat, "ptr", arglist)
+        result := DllCall("rtutils.dll\RouterLogEventValistExA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwErrorCode, "uint", dwMessageId, "ptr", ptszFormat, "char*", arglist)
+        return result
     }
 
     /**
      * 
      * @param {Integer} dwErrorCode 
-     * @param {Pointer<PSTR>} lplpszErrorString 
+     * @param {Pointer<Byte>} lplpszErrorString 
      * @returns {Integer} 
      */
     static RouterGetErrorStringA(dwErrorCode, lplpszErrorString) {
-        lplpszErrorString := lplpszErrorString is String? StrPtr(lplpszErrorString) : lplpszErrorString
-
         result := DllCall("rtutils.dll\RouterGetErrorStringA", "uint", dwErrorCode, "ptr", lplpszErrorString, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpszSource 
-     * @returns {Pointer<HANDLE>} 
+     * @param {Pointer<Char>} lpszSource 
+     * @returns {Pointer<Void>} 
      */
     static RouterLogRegisterW(lpszSource) {
         lpszSource := lpszSource is String? StrPtr(lpszSource) : lpszSource
 
-        result := DllCall("rtutils.dll\RouterLogRegisterW", "ptr", lpszSource, "ptr")
+        result := DllCall("rtutils.dll\RouterLogRegisterW", "ptr", lpszSource)
         return result
     }
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hLogHandle 
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Void>} hLogHandle 
+     * @returns {Pointer} 
      */
     static RouterLogDeregisterW(hLogHandle) {
-        DllCall("rtutils.dll\RouterLogDeregisterW", "ptr", hLogHandle)
+        result := DllCall("rtutils.dll\RouterLogDeregisterW", "ptr", hLogHandle)
+        return result
     }
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hLogHandle 
+     * @param {Pointer<Void>} hLogHandle 
      * @param {Integer} dwEventType 
      * @param {Integer} dwMessageId 
      * @param {Integer} dwSubStringCount 
-     * @param {Pointer<PWSTR>} plpszSubStringArray 
+     * @param {Pointer<Char>} plpszSubStringArray 
      * @param {Integer} dwErrorCode 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static RouterLogEventW(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwErrorCode) {
-        plpszSubStringArray := plpszSubStringArray is String? StrPtr(plpszSubStringArray) : plpszSubStringArray
-
-        DllCall("rtutils.dll\RouterLogEventW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwErrorCode)
+        result := DllCall("rtutils.dll\RouterLogEventW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwErrorCode)
+        return result
     }
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hLogHandle 
+     * @param {Pointer<Void>} hLogHandle 
      * @param {Integer} dwEventType 
      * @param {Integer} dwMessageId 
      * @param {Integer} dwSubStringCount 
-     * @param {Pointer<PWSTR>} plpszSubStringArray 
+     * @param {Pointer<Char>} plpszSubStringArray 
      * @param {Integer} dwDataBytes 
      * @param {Pointer<Byte>} lpDataBytes 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static RouterLogEventDataW(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwDataBytes, lpDataBytes) {
-        plpszSubStringArray := plpszSubStringArray is String? StrPtr(plpszSubStringArray) : plpszSubStringArray
-
-        DllCall("rtutils.dll\RouterLogEventDataW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwDataBytes, "ptr", lpDataBytes)
+        result := DllCall("rtutils.dll\RouterLogEventDataW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwDataBytes, "char*", lpDataBytes)
+        return result
     }
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hLogHandle 
+     * @param {Pointer<Void>} hLogHandle 
      * @param {Integer} dwEventType 
      * @param {Integer} dwMessageId 
      * @param {Integer} dwSubStringCount 
-     * @param {Pointer<PWSTR>} plpszSubStringArray 
+     * @param {Pointer<Char>} plpszSubStringArray 
      * @param {Integer} dwErrorCode 
      * @param {Integer} dwErrorIndex 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static RouterLogEventStringW(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwErrorCode, dwErrorIndex) {
-        plpszSubStringArray := plpszSubStringArray is String? StrPtr(plpszSubStringArray) : plpszSubStringArray
-
-        DllCall("rtutils.dll\RouterLogEventStringW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwErrorCode, "uint", dwErrorIndex)
+        result := DllCall("rtutils.dll\RouterLogEventStringW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwErrorCode, "uint", dwErrorIndex)
+        return result
     }
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hLogHandle 
+     * @param {Pointer<Void>} hLogHandle 
      * @param {Integer} dwEventType 
      * @param {Integer} dwErrorCode 
      * @param {Integer} dwMessageId 
-     * @param {Pointer<PWSTR>} ptszFormat 
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Char>} ptszFormat 
+     * @returns {Pointer} 
      */
     static RouterLogEventExW(hLogHandle, dwEventType, dwErrorCode, dwMessageId, ptszFormat) {
         ptszFormat := ptszFormat is String? StrPtr(ptszFormat) : ptszFormat
 
-        DllCall("rtutils.dll\RouterLogEventExW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwErrorCode, "uint", dwMessageId, "ptr", ptszFormat, "CDecl ")
+        result := DllCall("rtutils.dll\RouterLogEventExW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwErrorCode, "uint", dwMessageId, "ptr", ptszFormat, "CDecl ptr")
+        return result
     }
 
     /**
      * 
-     * @param {Pointer<HANDLE>} hLogHandle 
+     * @param {Pointer<Void>} hLogHandle 
      * @param {Integer} dwEventType 
      * @param {Integer} dwErrorCode 
      * @param {Integer} dwMessageId 
-     * @param {Pointer<PWSTR>} ptszFormat 
+     * @param {Pointer<Char>} ptszFormat 
      * @param {Pointer<SByte>} arglist 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      */
     static RouterLogEventValistExW(hLogHandle, dwEventType, dwErrorCode, dwMessageId, ptszFormat, arglist) {
         ptszFormat := ptszFormat is String? StrPtr(ptszFormat) : ptszFormat
 
-        DllCall("rtutils.dll\RouterLogEventValistExW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwErrorCode, "uint", dwMessageId, "ptr", ptszFormat, "ptr", arglist)
+        result := DllCall("rtutils.dll\RouterLogEventValistExW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwErrorCode, "uint", dwMessageId, "ptr", ptszFormat, "char*", arglist)
+        return result
     }
 
     /**
      * 
      * @param {Integer} dwErrorCode 
-     * @param {Pointer<PWSTR>} lplpwszErrorString 
+     * @param {Pointer<Char>} lplpwszErrorString 
      * @returns {Integer} 
      */
     static RouterGetErrorStringW(dwErrorCode, lplpwszErrorString) {
-        lplpwszErrorString := lplpwszErrorString is String? StrPtr(lplpwszErrorString) : lplpwszErrorString
-
         result := DllCall("rtutils.dll\RouterGetErrorStringW", "uint", dwErrorCode, "ptr", lplpwszErrorString, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PSTR>} pszFailedAssertion 
-     * @param {Pointer<PSTR>} pszFileName 
+     * @param {Pointer<Byte>} pszFailedAssertion 
+     * @param {Pointer<Byte>} pszFileName 
      * @param {Integer} dwLineNumber 
-     * @param {Pointer<PSTR>} pszMessage 
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Byte>} pszMessage 
+     * @returns {Pointer} 
      */
     static RouterAssert(pszFailedAssertion, pszFileName, dwLineNumber, pszMessage) {
         pszFailedAssertion := pszFailedAssertion is String? StrPtr(pszFailedAssertion) : pszFailedAssertion
         pszFileName := pszFileName is String? StrPtr(pszFileName) : pszFileName
         pszMessage := pszMessage is String? StrPtr(pszMessage) : pszMessage
 
-        DllCall("rtutils.dll\RouterAssert", "ptr", pszFailedAssertion, "ptr", pszFileName, "uint", dwLineNumber, "ptr", pszMessage)
+        result := DllCall("rtutils.dll\RouterAssert", "ptr", pszFailedAssertion, "ptr", pszFileName, "uint", dwLineNumber, "ptr", pszMessage)
+        return result
     }
 
     /**
@@ -21615,7 +21602,7 @@ class NetManagement {
      * @returns {Integer} 
      */
     static MprSetupProtocolEnum(dwTransportId, lplpBuffer, lpdwEntriesRead) {
-        result := DllCall("rtutils.dll\MprSetupProtocolEnum", "uint", dwTransportId, "ptr", lplpBuffer, "ptr", lpdwEntriesRead, "uint")
+        result := DllCall("rtutils.dll\MprSetupProtocolEnum", "uint", dwTransportId, "ptr", lplpBuffer, "uint*", lpdwEntriesRead, "uint")
         return result
     }
 

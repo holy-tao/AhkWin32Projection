@@ -18,7 +18,7 @@ class DIAGNOSTIC_DATA_EVENT_BINARY_STATS extends Win32Struct
     /**
      * Type: **[LPWSTR](/windows/desktop/winprog/windows-data-types)**
      * The full name of the module or binary.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     moduleName {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class DIAGNOSTIC_DATA_EVENT_BINARY_STATS extends Win32Struct
     /**
      * Type: **[LPWSTR](/windows/desktop/winprog/windows-data-types)**
      * The friendly name of the module or binary.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     friendlyModuleName {
         get => NumGet(this, 8, "ptr")

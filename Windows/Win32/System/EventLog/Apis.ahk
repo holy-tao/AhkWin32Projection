@@ -223,7 +223,7 @@ class EventLog {
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtquery">EvtQuery</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtsubscribe">EvtSubscribe</a> functions can provide extended error information if there is a problem with the specified XPath. For example, the error information can identify the character in the XPath where a parsing error occurred. To receive the extended error information for a malformed XPath, you cannot specify the EvtQueryTolerateQueryErrors flag when calling <b>EvtQuery</b> or <b>EvtSubscribe</b>.
      * @param {Integer} BufferSize The size of the <i>Buffer</i> buffer, in characters.
-     * @param {Pointer<PWSTR>} Buffer A caller-allocated string buffer that will receive the extended error information. You can set this parameter to <b>NULL</b> to determine the required buffer size.
+     * @param {Pointer<Char>} Buffer A caller-allocated string buffer that will receive the extended error information. You can set this parameter to <b>NULL</b> to determine the required buffer size.
      * @param {Pointer<UInt32>} BufferUsed The size, in characters, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {Integer} The return value is ERROR_SUCCESS if the call succeeded; otherwise, a Win32 error code.
      * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtgetextendedstatus
@@ -232,7 +232,7 @@ class EventLog {
     static EvtGetExtendedStatus(BufferSize, Buffer, BufferUsed) {
         Buffer := Buffer is String? StrPtr(Buffer) : Buffer
 
-        result := DllCall("wevtapi.dll\EvtGetExtendedStatus", "uint", BufferSize, "ptr", Buffer, "ptr", BufferUsed, "uint")
+        result := DllCall("wevtapi.dll\EvtGetExtendedStatus", "uint", BufferSize, "ptr", Buffer, "uint*", BufferUsed, "uint")
         return result
     }
 
@@ -245,8 +245,8 @@ class EventLog {
      * 
      * You must only use the query handle that this function returns on the same thread that created the handle.
      * @param {Pointer} Session A remote session handle that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopensession">EvtOpenSession</a> function returns. Set to <b>NULL</b> to query for events on the local computer.
-     * @param {Pointer<PWSTR>} Path The name of the channel or the full path to a log file that contains the events that you want to query. You can specify an .evt, .evtx, or.etl log file. The path is required if the <i>Query</i> parameter contains an XPath query; the path is ignored if the <i>Query</i> parameter contains a structured XML query and the query specifies the path.
-     * @param {Pointer<PWSTR>} Query A query that specifies the types of events that you want to retrieve. You can specify an XPath 1.0 query or structured XML query. If your XPath contains more than 20 expressions, use a structured XML query. To receive all events, set this parameter to <b>NULL</b> or "*".
+     * @param {Pointer<Char>} Path The name of the channel or the full path to a log file that contains the events that you want to query. You can specify an .evt, .evtx, or.etl log file. The path is required if the <i>Query</i> parameter contains an XPath query; the path is ignored if the <i>Query</i> parameter contains a structured XML query and the query specifies the path.
+     * @param {Pointer<Char>} Query A query that specifies the types of events that you want to retrieve. You can specify an XPath 1.0 query or structured XML query. If your XPath contains more than 20 expressions, use a structured XML query. To receive all events, set this parameter to <b>NULL</b> or "*".
      * @param {Integer} Flags One or more flags that specify the order that you want to receive the events and whether you are querying against a channel or log file.  For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_query_flags">EVT_QUERY_FLAGS</a> enumeration.
      * @returns {Pointer} A handle to the query results if successful; otherwise, <b>NULL</b>. If the function returns <b>NULL</b>, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get the error code.
      * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtquery
@@ -315,7 +315,7 @@ class EventLog {
     static EvtNext(ResultSet, EventsSize, Events, Timeout, Flags, Returned) {
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtNext", "ptr", ResultSet, "uint", EventsSize, "ptr", Events, "uint", Timeout, "uint", Flags, "ptr", Returned, "int")
+        result := DllCall("wevtapi.dll\EvtNext", "ptr", ResultSet, "uint", EventsSize, "ptr*", Events, "uint", Timeout, "uint", Flags, "uint*", Returned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -384,9 +384,9 @@ class EventLog {
      * 
      * In the poll model, you create an event object that the service signals. When signaled, you call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtnext">EvtNext</a> function using the subscription handle to enumerate the events. You must call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtclose">EvtClose</a> function on each event that you enumerate. You then reset the object and wait for the service to signal again. This process repeats until you cancel the subscription.
      * @param {Pointer} Session A remote session handle that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopensession">EvtOpenSession</a> function returns. Set to <b>NULL</b> to subscribe to events on the local computer.
-     * @param {Pointer<HANDLE>} SignalEvent The handle to an event object that the service will signal when new events are available that match your query criteria.  This parameter must be <b>NULL</b> if the <i>Callback</i> parameter is not <b>NULL</b>.
-     * @param {Pointer<PWSTR>} ChannelPath The name of the Admin or Operational channel that contains the events that you want to subscribe to (you cannot subscribe to Analytic or Debug channels). The path is required if the <i>Query</i> parameter contains an XPath query; the path is ignored if the <i>Query</i> parameter contains a structured XML query.
-     * @param {Pointer<PWSTR>} Query A query that specifies the types of events that you want the subscription service to return. You can specify an XPath 1.0 query or structured XML query. If your XPath contains more than 20 expressions, use a structured XML query. To receive all events, set this parameter to <b>NULL</b> or "*".
+     * @param {Pointer<Void>} SignalEvent The handle to an event object that the service will signal when new events are available that match your query criteria.  This parameter must be <b>NULL</b> if the <i>Callback</i> parameter is not <b>NULL</b>.
+     * @param {Pointer<Char>} ChannelPath The name of the Admin or Operational channel that contains the events that you want to subscribe to (you cannot subscribe to Analytic or Debug channels). The path is required if the <i>Query</i> parameter contains an XPath query; the path is ignored if the <i>Query</i> parameter contains a structured XML query.
+     * @param {Pointer<Char>} Query A query that specifies the types of events that you want the subscription service to return. You can specify an XPath 1.0 query or structured XML query. If your XPath contains more than 20 expressions, use a structured XML query. To receive all events, set this parameter to <b>NULL</b> or "*".
      * @param {Pointer} Bookmark A handle to a bookmark that identifies the starting point for the subscription.  To get a bookmark handle, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtcreatebookmark">EvtCreateBookmark</a> function.  You must set this parameter if the <i>Flags</i> parameter contains the EvtSubscribeStartAfterBookmark flag; otherwise, <b>NULL</b>.
      * @param {Pointer<Void>} Context A caller-defined context value that the subscription service will pass to the specified callback each time it delivers an event.
      * @param {Pointer<EVT_SUBSCRIBE_CALLBACK>} Callback Pointer to your <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nc-winevt-evt_subscribe_callback">EVT_SUBSCRIBE_CALLBACK</a> callback function that will receive the subscription events. This parameter must be <b>NULL</b> if the <i>SignalEvent</i> parameter is not <b>NULL</b>.
@@ -415,7 +415,7 @@ class EventLog {
      * 
      * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtclose">EvtClose</a> function to close the handle when done.
      * @param {Integer} ValuePathsCount The number of XPath expressions in the <i>ValuePaths</i> parameter.
-     * @param {Pointer<PWSTR>} ValuePaths An array of XPath expressions that uniquely identify a node or attribute in the event that you want to render.
+     * @param {Pointer<Char>} ValuePaths An array of XPath expressions that uniquely identify a node or attribute in the event that you want to render.
      * 
      * Set to **NULL** if the **EvtRenderContextValues** context flag is not set in the *Flags* parameter.
      * 
@@ -428,8 +428,6 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtCreateRenderContext(ValuePathsCount, ValuePaths, Flags) {
-        ValuePaths := ValuePaths is String? StrPtr(ValuePaths) : ValuePaths
-
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtCreateRenderContext", "uint", ValuePathsCount, "ptr", ValuePaths, "uint", Flags, "ptr")
@@ -451,7 +449,7 @@ class EventLog {
      * @param {Pointer} Fragment A handle to an event or to a bookmark. Set this parameter to a bookmark handle if the <i>Flags</i> parameter is set to EvtRenderBookmark; otherwise, set to an event handle.
      * @param {Integer} Flags A flag that identifies what to render. For example, the entire event or specific properties of the event. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_render_flags">EVT_RENDER_FLAGS</a> enumeration.
      * @param {Integer} BufferSize The size of the <i>Buffer</i> buffer, in bytes.
-     * @param {Pointer<Void>} Buffer A caller-allocated buffer that will receive the rendered output. The contents is a <b>null</b>-terminated Unicode string if the <i>Flags</i> parameter is set to EvtRenderEventXml or EvtRenderBookmark. Otherwise, if <i>Flags</i> is set to EvtRenderEventValues, the buffer contains an array of <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> structures; one for each property specified by the rendering context. The <i>PropertyCount</i> parameter contains the number of elements in the array.
+     * @param {Pointer} Buffer A caller-allocated buffer that will receive the rendered output. The contents is a <b>null</b>-terminated Unicode string if the <i>Flags</i> parameter is set to EvtRenderEventXml or EvtRenderBookmark. Otherwise, if <i>Flags</i> is set to EvtRenderEventValues, the buffer contains an array of <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> structures; one for each property specified by the rendering context. The <i>PropertyCount</i> parameter contains the number of elements in the array.
      * 
      *  You can set this parameter to <b>NULL</b> to determine the required buffer size.
      * @param {Pointer<UInt32>} BufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
@@ -492,7 +490,7 @@ class EventLog {
     static EvtRender(Context, Fragment, Flags, BufferSize, Buffer, BufferUsed, PropertyCount) {
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtRender", "ptr", Context, "ptr", Fragment, "uint", Flags, "uint", BufferSize, "ptr", Buffer, "ptr", BufferUsed, "ptr", PropertyCount, "int")
+        result := DllCall("wevtapi.dll\EvtRender", "ptr", Context, "ptr", Fragment, "uint", Flags, "uint", BufferSize, "ptr", Buffer, "uint*", BufferUsed, "uint*", PropertyCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -542,7 +540,7 @@ class EventLog {
      * To override the insertion values, the <i>Flags</i> parameter must be set to <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_format_message_flags">EvtFormatMessageEvent</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_format_message_flags">EvtFormatMessageXML</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_format_message_flags">EvtFormatMessageId</a>. If <i>Flags</i> is set to <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_format_message_flags">EvtFormatMessageId</a>, the resource identifier must identify the event's message string.
      * @param {Integer} Flags A flag that specifies the message string in the event to format. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_format_message_flags">EVT_FORMAT_MESSAGE_FLAGS</a> enumeration.
      * @param {Integer} BufferSize The size of the <i>Buffer</i> buffer, in characters.
-     * @param {Pointer<PWSTR>} Buffer A caller-allocated buffer that will receive the formatted message string. You can set this parameter to <b>NULL</b> to determine the required buffer size.
+     * @param {Pointer<Char>} Buffer A caller-allocated buffer that will receive the formatted message string. You can set this parameter to <b>NULL</b> to determine the required buffer size.
      * @param {Pointer<UInt32>} BufferUsed The size, in characters of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {Integer} <table>
      * <tr>
@@ -582,7 +580,7 @@ class EventLog {
 
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtFormatMessage", "ptr", PublisherMetadata, "ptr", Event, "uint", MessageId, "uint", ValueCount, "ptr", Values, "uint", Flags, "uint", BufferSize, "ptr", Buffer, "ptr", BufferUsed, "int")
+        result := DllCall("wevtapi.dll\EvtFormatMessage", "ptr", PublisherMetadata, "ptr", Event, "uint", MessageId, "uint", ValueCount, "ptr", Values, "uint", Flags, "uint", BufferSize, "ptr", Buffer, "uint*", BufferUsed, "int")
         if(A_LastError)
             throw OSError()
 
@@ -596,7 +594,7 @@ class EventLog {
      * 
      * To get information about the channel or log file, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetloginfo">EvtGetLogInfo</a> function.
      * @param {Pointer} Session A remote session handle that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopensession">EvtOpenSession</a> function returns. Set to <b>NULL</b> to open a channel or log on the local computer.
-     * @param {Pointer<PWSTR>} Path The name of the channel or the full path to the exported log file.
+     * @param {Pointer<Char>} Path The name of the channel or the full path to the exported log file.
      * @param {Integer} Flags A flag that determines whether the <i>Path</i> parameter points to a log file or channel. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_open_log_flags">EVT_OPEN_LOG_FLAGS</a> enumeration.
      * @returns {Pointer} If successful, the function returns a handle to the file or channel; otherwise, <b>NULL</b>. If <b>NULL</b>, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get the error code.
      * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtopenlog
@@ -621,7 +619,7 @@ class EventLog {
      * @param {Pointer} Log A handle to the channel or log file that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopenlog">EvtOpenLog</a> function returns.
      * @param {Integer} PropertyId The identifier of the property to retrieve. For a list of property identifiers, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_log_property_id">EVT_LOG_PROPERTY_ID</a> enumeration.
      * @param {Integer} PropertyValueBufferSize The size of the <i>PropertyValueBuffer</i> buffer, in bytes.
-     * @param {Pointer<EVT_VARIANT>} PropertyValueBuffer A caller-allocated buffer that will receive the property value. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
+     * @param {Pointer} PropertyValueBuffer A caller-allocated buffer that will receive the property value. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
      * @param {Pointer<UInt32>} PropertyValueBufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {Integer} <table>
      * <tr>
@@ -659,7 +657,7 @@ class EventLog {
     static EvtGetLogInfo(Log, PropertyId, PropertyValueBufferSize, PropertyValueBuffer, PropertyValueBufferUsed) {
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtGetLogInfo", "ptr", Log, "int", PropertyId, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, "ptr", PropertyValueBufferUsed, "int")
+        result := DllCall("wevtapi.dll\EvtGetLogInfo", "ptr", Log, "int", PropertyId, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, "uint*", PropertyValueBufferUsed, "int")
         if(A_LastError)
             throw OSError()
 
@@ -675,8 +673,8 @@ class EventLog {
      * 
      * This function affects only the channel—if the channel uses autoBackup or fileMax, this function will not affect those backup files.
      * @param {Pointer} Session A remote session handle that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopensession">EvtOpenSession</a> function returns. Set to <b>NULL</b> for local channels.
-     * @param {Pointer<PWSTR>} ChannelPath The name of the channel to clear.
-     * @param {Pointer<PWSTR>} TargetFilePath The full path to the target log file that will receive the events. Set to <b>NULL</b> to clear the log file and not save the events.
+     * @param {Pointer<Char>} ChannelPath The name of the channel to clear.
+     * @param {Pointer<Char>} TargetFilePath The full path to the target log file that will receive the events. Set to <b>NULL</b> to clear the log file and not save the events.
      * @param {Integer} Flags Reserved. Must be zero.
      * @returns {Integer} <table>
      * <tr>
@@ -735,9 +733,9 @@ class EventLog {
      * 
      * This function  affects only the specified channel or log file—if the channel uses autoBackup or fileMax, this function will not affect those backup files.
      * @param {Pointer} Session A remote session handle that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopensession">EvtOpenSession</a> function returns. Set to <b>NULL</b> for local channels.
-     * @param {Pointer<PWSTR>} Path The name of the channel or the full path to a log file that contains the events that you want to export. If the <i>Query</i> parameter contains an XPath query, you must specify the channel or log file. If the <i>Flags</i> parameter contains EvtExportLogFilePath, you must specify the log file. If the <i>Query</i> parameter contains a structured XML query, the channel or path that you specify here must match the channel or path in the query. If the <i>Flags</i> parameter contains EvtExportLogChannelPath, this parameter can be <b>NULL</b> if  the query is a structured XML query that specifies the channel.
-     * @param {Pointer<PWSTR>} Query A query that specifies the types of events that you want to export. You can specify an XPath 1.0 query or structured XML query. If your XPath contains more than 20 expressions, use a structured XML query. To export all events, set this parameter to <b>NULL</b> or "*".
-     * @param {Pointer<PWSTR>} TargetFilePath The full path to the target log file that will receive the events. The target log file must not exist.
+     * @param {Pointer<Char>} Path The name of the channel or the full path to a log file that contains the events that you want to export. If the <i>Query</i> parameter contains an XPath query, you must specify the channel or log file. If the <i>Flags</i> parameter contains EvtExportLogFilePath, you must specify the log file. If the <i>Query</i> parameter contains a structured XML query, the channel or path that you specify here must match the channel or path in the query. If the <i>Flags</i> parameter contains EvtExportLogChannelPath, this parameter can be <b>NULL</b> if  the query is a structured XML query that specifies the channel.
+     * @param {Pointer<Char>} Query A query that specifies the types of events that you want to export. You can specify an XPath 1.0 query or structured XML query. If your XPath contains more than 20 expressions, use a structured XML query. To export all events, set this parameter to <b>NULL</b> or "*".
+     * @param {Pointer<Char>} TargetFilePath The full path to the target log file that will receive the events. The target log file must not exist.
      * @param {Integer} Flags Flags that indicate whether the events come from a channel or log file. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_exportlog_flags">EVT_EXPORTLOG_FLAGS</a> enumeration.
      * @returns {Integer} <table>
      * <tr>
@@ -791,7 +789,7 @@ class EventLog {
      * @remarks
      * To consume an event from an exported log file, the provider needs to be available to provide the resources (message strings) for the event. You would call this function to include the localized resources with the event, so that you can consume the event when the provider is not available.
      * @param {Pointer} Session A remote session handle that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopensession">EvtOpenSession</a> function returns. Set to <b>NULL</b> for local channels.
-     * @param {Pointer<PWSTR>} LogFilePath The full path to the exported log file that contains the events to localize.
+     * @param {Pointer<Char>} LogFilePath The full path to the exported log file that contains the events to localize.
      * @param {Integer} Locale The locale to use to localize the strings that the service adds to the events in the log file. If zero, the function uses the calling thread's locale. If the provider's resources does not contain the locale, the string is empty.
      * @param {Integer} Flags Reserved. Must be zero.
      * @returns {Integer} <table>
@@ -867,7 +865,7 @@ class EventLog {
      * Call this function in a loop until the function returns <b>FALSE</b> and the error code is ERROR_NO_MORE_ITEMS.
      * @param {Pointer} ChannelEnum A handle to the enumerator that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopenchannelenum">EvtOpenChannelEnum</a> function returns.
      * @param {Integer} ChannelPathBufferSize The size of the <i>ChannelPathBuffer</i> buffer, in characters.
-     * @param {Pointer<PWSTR>} ChannelPathBuffer A caller-allocated buffer that will receive the name of the channel. You can set this parameter to <b>NULL</b> to determine the required buffer size.
+     * @param {Pointer<Char>} ChannelPathBuffer A caller-allocated buffer that will receive the name of the channel. You can set this parameter to <b>NULL</b> to determine the required buffer size.
      * @param {Pointer<UInt32>} ChannelPathBufferUsed The size, in characters, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {Integer} <table>
      * <tr>
@@ -907,7 +905,7 @@ class EventLog {
 
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtNextChannelPath", "ptr", ChannelEnum, "uint", ChannelPathBufferSize, "ptr", ChannelPathBuffer, "ptr", ChannelPathBufferUsed, "int")
+        result := DllCall("wevtapi.dll\EvtNextChannelPath", "ptr", ChannelEnum, "uint", ChannelPathBufferSize, "ptr", ChannelPathBuffer, "uint*", ChannelPathBufferUsed, "int")
         if(A_LastError)
             throw OSError()
 
@@ -925,7 +923,7 @@ class EventLog {
      * 
      * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtclose">EvtClose</a> function to close the handle when done.
      * @param {Pointer} Session A remote session handle that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopensession">EvtOpenSession</a> function returns. Set to <b>NULL</b> to access a channel on the local computer.
-     * @param {Pointer<PWSTR>} ChannelPath The name of the channel to access.
+     * @param {Pointer<Char>} ChannelPath The name of the channel to access.
      * @param {Integer} Flags Reserved. Must be zero.
      * @returns {Pointer} If successful, the function returns a handle to the channel's configuration; otherwise, <b>NULL</b>. If <b>NULL</b>, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get the error code.
      * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtopenchannelconfig
@@ -1053,7 +1051,7 @@ class EventLog {
      * @param {Integer} PropertyId The identifier of the channel property to retrieve. For a list of property identifiers, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_channel_config_property_id">EVT_CHANNEL_CONFIG_PROPERTY_ID</a> enumeration.
      * @param {Integer} Flags Reserved. Must be zero.
      * @param {Integer} PropertyValueBufferSize The size of the <i>PropertyValueBuffer</i> buffer, in bytes.
-     * @param {Pointer<EVT_VARIANT>} PropertyValueBuffer A caller-allocated buffer that will receive the configuration property. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
+     * @param {Pointer} PropertyValueBuffer A caller-allocated buffer that will receive the configuration property. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
      * @param {Pointer<UInt32>} PropertyValueBufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {Integer} <table>
      * <tr>
@@ -1091,7 +1089,7 @@ class EventLog {
     static EvtGetChannelConfigProperty(ChannelConfig, PropertyId, Flags, PropertyValueBufferSize, PropertyValueBuffer, PropertyValueBufferUsed) {
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtGetChannelConfigProperty", "ptr", ChannelConfig, "int", PropertyId, "uint", Flags, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, "ptr", PropertyValueBufferUsed, "int")
+        result := DllCall("wevtapi.dll\EvtGetChannelConfigProperty", "ptr", ChannelConfig, "int", PropertyId, "uint", Flags, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, "uint*", PropertyValueBufferUsed, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1128,7 +1126,7 @@ class EventLog {
      * This list of provider names is not sorted alphabetically.
      * @param {Pointer} PublisherEnum A handle to the registered providers enumerator that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopenpublisherenum">EvtOpenPublisherEnum</a> function returns.
      * @param {Integer} PublisherIdBufferSize The size of the <i>PublisherIdBuffer</i> buffer, in characters.
-     * @param {Pointer<PWSTR>} PublisherIdBuffer A caller-allocated buffer that will receive the name of the registered provider. You can set this parameter to <b>NULL</b> to determine the required buffer size.
+     * @param {Pointer<Char>} PublisherIdBuffer A caller-allocated buffer that will receive the name of the registered provider. You can set this parameter to <b>NULL</b> to determine the required buffer size.
      * @param {Pointer<UInt32>} PublisherIdBufferUsed The size, in characters, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {Integer} <table>
      * <tr>
@@ -1168,7 +1166,7 @@ class EventLog {
 
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtNextPublisherId", "ptr", PublisherEnum, "uint", PublisherIdBufferSize, "ptr", PublisherIdBuffer, "ptr", PublisherIdBufferUsed, "int")
+        result := DllCall("wevtapi.dll\EvtNextPublisherId", "ptr", PublisherEnum, "uint", PublisherIdBufferSize, "ptr", PublisherIdBuffer, "uint*", PublisherIdBufferUsed, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1184,8 +1182,8 @@ class EventLog {
      * 
      * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtclose">EvtClose</a> function to close the metadata handle when done.
      * @param {Pointer} Session A remote session handle that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopensession">EvtOpenSession</a> function returns. Set to <b>NULL</b> to get the metadata for a provider on the local computer.
-     * @param {Pointer<PWSTR>} PublisherId The name of the provider. To enumerate the names of the providers registered on the computer, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopenpublisherenum">EvtOpenPublisherEnum</a> function.
-     * @param {Pointer<PWSTR>} LogFilePath The full path to an archived log file that contains the events that the provider logged. An archived log file also contains the provider's metadata. Use this parameter when the provider is not registered on the local computer. Set to <b>NULL</b> when reading the metadata from a registered provider..
+     * @param {Pointer<Char>} PublisherId The name of the provider. To enumerate the names of the providers registered on the computer, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopenpublisherenum">EvtOpenPublisherEnum</a> function.
+     * @param {Pointer<Char>} LogFilePath The full path to an archived log file that contains the events that the provider logged. An archived log file also contains the provider's metadata. Use this parameter when the provider is not registered on the local computer. Set to <b>NULL</b> when reading the metadata from a registered provider..
      * @param {Integer} Locale The locale identifier to use when accessing the localized metadata from the provider. To create the locale identifier, use the MAKELCID macro. Set to 0 to use the locale identifier of the calling thread.
      * @param {Integer} Flags Reserved. Must be zero.
      * @returns {Pointer} If successful, the function returns a handle to the provider's metadata; otherwise, <b>NULL</b>. If <b>NULL</b>, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get the error code.
@@ -1217,7 +1215,7 @@ class EventLog {
      * @param {Integer} PropertyId The identifier of the metadata property to retrieve. For a list of property identifiers, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_publisher_metadata_property_id">EVT_PUBLISHER_METADATA_PROPERTY_ID</a> enumeration.
      * @param {Integer} Flags Reserved. Must be zero.
      * @param {Integer} PublisherMetadataPropertyBufferSize The size of the <i>PublisherMetadataPropertyBuffer</i> buffer, in bytes.
-     * @param {Pointer<EVT_VARIANT>} PublisherMetadataPropertyBuffer A caller-allocated buffer that will receive the metadata property. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
+     * @param {Pointer} PublisherMetadataPropertyBuffer A caller-allocated buffer that will receive the metadata property. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
      * @param {Pointer<UInt32>} PublisherMetadataPropertyBufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {Integer} <table>
      * <tr>
@@ -1255,7 +1253,7 @@ class EventLog {
     static EvtGetPublisherMetadataProperty(PublisherMetadata, PropertyId, Flags, PublisherMetadataPropertyBufferSize, PublisherMetadataPropertyBuffer, PublisherMetadataPropertyBufferUsed) {
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtGetPublisherMetadataProperty", "ptr", PublisherMetadata, "int", PropertyId, "uint", Flags, "uint", PublisherMetadataPropertyBufferSize, "ptr", PublisherMetadataPropertyBuffer, "ptr", PublisherMetadataPropertyBufferUsed, "int")
+        result := DllCall("wevtapi.dll\EvtGetPublisherMetadataProperty", "ptr", PublisherMetadata, "int", PropertyId, "uint", Flags, "uint", PublisherMetadataPropertyBufferSize, "ptr", PublisherMetadataPropertyBuffer, "uint*", PublisherMetadataPropertyBufferUsed, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1314,7 +1312,7 @@ class EventLog {
      * @param {Integer} PropertyId The identifier of the metadata property to retrieve. For a list of property identifiers, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_event_metadata_property_id">EVT_EVENT_METADATA_PROPERTY_ID</a> enumeration.
      * @param {Integer} Flags Reserved. Must be zero.
      * @param {Integer} EventMetadataPropertyBufferSize The size of the <i>EventMetadataPropertyBuffer</i> buffer, in bytes.
-     * @param {Pointer<EVT_VARIANT>} EventMetadataPropertyBuffer A caller-allocated buffer that will receive the metadata property. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
+     * @param {Pointer} EventMetadataPropertyBuffer A caller-allocated buffer that will receive the metadata property. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
      * @param {Pointer<UInt32>} EventMetadataPropertyBufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {Integer} <table>
      * <tr>
@@ -1352,7 +1350,7 @@ class EventLog {
     static EvtGetEventMetadataProperty(EventMetadata, PropertyId, Flags, EventMetadataPropertyBufferSize, EventMetadataPropertyBuffer, EventMetadataPropertyBufferUsed) {
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtGetEventMetadataProperty", "ptr", EventMetadata, "int", PropertyId, "uint", Flags, "uint", EventMetadataPropertyBufferSize, "ptr", EventMetadataPropertyBuffer, "ptr", EventMetadataPropertyBufferUsed, "int")
+        result := DllCall("wevtapi.dll\EvtGetEventMetadataProperty", "ptr", EventMetadata, "int", PropertyId, "uint", Flags, "uint", EventMetadataPropertyBufferSize, "ptr", EventMetadataPropertyBuffer, "uint*", EventMetadataPropertyBufferUsed, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1399,7 +1397,7 @@ class EventLog {
     static EvtGetObjectArraySize(ObjectArray, ObjectArraySize) {
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtGetObjectArraySize", "ptr", ObjectArray, "ptr", ObjectArraySize, "int")
+        result := DllCall("wevtapi.dll\EvtGetObjectArraySize", "ptr", ObjectArray, "uint*", ObjectArraySize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1426,7 +1424,7 @@ class EventLog {
      * @param {Integer} ArrayIndex The zero-based index of the object in the array.
      * @param {Integer} Flags Reserved. Must be zero.
      * @param {Integer} PropertyValueBufferSize The size of the <i>PropertyValueBuffer</i> buffer, in bytes.
-     * @param {Pointer<EVT_VARIANT>} PropertyValueBuffer A caller-allocated buffer that will receive the metadata property. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
+     * @param {Pointer} PropertyValueBuffer A caller-allocated buffer that will receive the metadata property. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
      * @param {Pointer<UInt32>} PropertyValueBufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {Integer} <table>
      * <tr>
@@ -1464,7 +1462,7 @@ class EventLog {
     static EvtGetObjectArrayProperty(ObjectArray, PropertyId, ArrayIndex, Flags, PropertyValueBufferSize, PropertyValueBuffer, PropertyValueBufferUsed) {
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtGetObjectArrayProperty", "ptr", ObjectArray, "uint", PropertyId, "uint", ArrayIndex, "uint", Flags, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, "ptr", PropertyValueBufferUsed, "int")
+        result := DllCall("wevtapi.dll\EvtGetObjectArrayProperty", "ptr", ObjectArray, "uint", PropertyId, "uint", ArrayIndex, "uint", Flags, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, "uint*", PropertyValueBufferUsed, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1478,7 +1476,7 @@ class EventLog {
      * @param {Pointer} QueryOrSubscription A handle to the query that the<a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtquery">EvtQuery</a> or  <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtsubscribe">EvtSubscribe</a> function returns.
      * @param {Integer} PropertyId The identifier of the query information to retrieve. For a list of identifiers, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_query_property_id">EVT_QUERY_PROPERTY_ID</a> enumeration.
      * @param {Integer} PropertyValueBufferSize The size of the <i>PropertyValueBuffer</i> buffer, in bytes.
-     * @param {Pointer<EVT_VARIANT>} PropertyValueBuffer A caller-allocated buffer that will receive the query information. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
+     * @param {Pointer} PropertyValueBuffer A caller-allocated buffer that will receive the query information. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
      * @param {Pointer<UInt32>} PropertyValueBufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {Integer} <table>
      * <tr>
@@ -1516,7 +1514,7 @@ class EventLog {
     static EvtGetQueryInfo(QueryOrSubscription, PropertyId, PropertyValueBufferSize, PropertyValueBuffer, PropertyValueBufferUsed) {
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtGetQueryInfo", "ptr", QueryOrSubscription, "int", PropertyId, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, "ptr", PropertyValueBufferUsed, "int")
+        result := DllCall("wevtapi.dll\EvtGetQueryInfo", "ptr", QueryOrSubscription, "int", PropertyId, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, "uint*", PropertyValueBufferUsed, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1531,7 +1529,7 @@ class EventLog {
      * If the query is against multiple channels, the bookmark handle will contain bookmarks for each channel. You cannot create a bookmark for a log file.
      * 
      * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtclose">EvtClose</a> function to close the handle when done.
-     * @param {Pointer<PWSTR>} BookmarkXml An XML string that contains the bookmark or <b>NULL</b> if creating a bookmark.
+     * @param {Pointer<Char>} BookmarkXml An XML string that contains the bookmark or <b>NULL</b> if creating a bookmark.
      * @returns {Pointer} A handle to the bookmark if the call succeeds; otherwise, <b>NULL</b>. If <b>NULL</b>, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get the error code.
      * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtcreatebookmark
      * @since windows6.0.6000
@@ -1602,7 +1600,7 @@ class EventLog {
      * @param {Pointer} Event A handle to an event for which you want to retrieve information.
      * @param {Integer} PropertyId A flag that identifies the information to retrieve. For example, the query identifier or the path. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_event_property_id">EVT_EVENT_PROPERTY_ID</a> enumeration.
      * @param {Integer} PropertyValueBufferSize The size of the <i>PropertyValueBuffer</i> buffer, in bytes.
-     * @param {Pointer<EVT_VARIANT>} PropertyValueBuffer A caller-allocated buffer that will receive the information. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
+     * @param {Pointer} PropertyValueBuffer A caller-allocated buffer that will receive the information. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
      * @param {Pointer<UInt32>} PropertyValueBufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {Integer} <table>
      * <tr>
@@ -1640,7 +1638,7 @@ class EventLog {
     static EvtGetEventInfo(Event, PropertyId, PropertyValueBufferSize, PropertyValueBuffer, PropertyValueBufferUsed) {
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtGetEventInfo", "ptr", Event, "int", PropertyId, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, "ptr", PropertyValueBufferUsed, "int")
+        result := DllCall("wevtapi.dll\EvtGetEventInfo", "ptr", Event, "int", PropertyId, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, "uint*", PropertyValueBufferUsed, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1658,8 +1656,8 @@ class EventLog {
      * 
      * > [!NOTE]
      * > The winbase.h header defines ClearEventLog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} hEventLog A handle to the event log to be cleared. The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openeventloga">OpenEventLog</a> function returns this handle.
-     * @param {Pointer<PSTR>} lpBackupFileName The absolute or relative path of the backup file. If this file already exists, the function fails. 
+     * @param {Pointer<Void>} hEventLog A handle to the event log to be cleared. The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openeventloga">OpenEventLog</a> function returns this handle.
+     * @param {Pointer<Byte>} lpBackupFileName The absolute or relative path of the backup file. If this file already exists, the function fails. 
      * 
      * 
      * 
@@ -1696,8 +1694,8 @@ class EventLog {
      * 
      * > [!NOTE]
      * > The winbase.h header defines ClearEventLog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} hEventLog A handle to the event log to be cleared. The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openeventloga">OpenEventLog</a> function returns this handle.
-     * @param {Pointer<PWSTR>} lpBackupFileName The absolute or relative path of the backup file. If this file already exists, the function fails. 
+     * @param {Pointer<Void>} hEventLog A handle to the event log to be cleared. The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openeventloga">OpenEventLog</a> function returns this handle.
+     * @param {Pointer<Char>} lpBackupFileName The absolute or relative path of the backup file. If this file already exists, the function fails. 
      * 
      * 
      * 
@@ -1734,8 +1732,8 @@ class EventLog {
      * 
      * > [!NOTE]
      * > The winbase.h header defines BackupEventLog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} hEventLog A handle to the open event log. The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openeventloga">OpenEventLog</a> function returns this handle.
-     * @param {Pointer<PSTR>} lpBackupFileName The absolute or relative path of the backup file.
+     * @param {Pointer<Void>} hEventLog A handle to the open event log. The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openeventloga">OpenEventLog</a> function returns this handle.
+     * @param {Pointer<Byte>} lpBackupFileName The absolute or relative path of the backup file.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 						
      * 
@@ -1767,8 +1765,8 @@ class EventLog {
      * 
      * > [!NOTE]
      * > The winbase.h header defines BackupEventLog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<HANDLE>} hEventLog A handle to the open event log. The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openeventloga">OpenEventLog</a> function returns this handle.
-     * @param {Pointer<PWSTR>} lpBackupFileName The absolute or relative path of the backup file.
+     * @param {Pointer<Void>} hEventLog A handle to the open event log. The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openeventloga">OpenEventLog</a> function returns this handle.
+     * @param {Pointer<Char>} lpBackupFileName The absolute or relative path of the backup file.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 						
      * 
@@ -1791,7 +1789,7 @@ class EventLog {
 
     /**
      * Closes the specified event log. (CloseEventLog)
-     * @param {Pointer<HANDLE>} hEventLog A handle to the event log to be closed. The 
+     * @param {Pointer<Void>} hEventLog A handle to the event log to be closed. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openeventloga">OpenEventLog</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openbackupeventloga">OpenBackupEventLog</a> function returns this handle.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -1814,7 +1812,7 @@ class EventLog {
 
     /**
      * Closes the specified event log. (DeregisterEventSource)
-     * @param {Pointer<HANDLE>} hEventLog A handle to the event log. The 
+     * @param {Pointer<Void>} hEventLog A handle to the event log. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-registereventsourcea">RegisterEventSource</a> function returns this handle.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 						
@@ -1846,9 +1844,9 @@ class EventLog {
      * The system will continue to notify you of changes until you close the handle to the event log. To close the event log, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-closeeventlog">CloseEventLog</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-deregistereventsource">DeregisterEventSource</a> function.
-     * @param {Pointer<HANDLE>} hEventLog A handle to an event log. The 
+     * @param {Pointer<Void>} hEventLog A handle to an event log. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openeventloga">OpenEventLog</a>  function returns this handle.
-     * @param {Pointer<HANDLE>} hEvent A handle to a manual-reset or auto-reset event object. Use the 
+     * @param {Pointer<Void>} hEvent A handle to a manual-reset or auto-reset event object. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventa">CreateEvent</a> function to create the event object.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 						
@@ -1873,7 +1871,7 @@ class EventLog {
      * @remarks
      * The oldest record in an event log is not necessarily record number 1. To determine the oldest record number in an event log, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getoldesteventlogrecord">GetOldestEventLogRecord</a> function.
-     * @param {Pointer<HANDLE>} hEventLog A handle to the open event log. The 
+     * @param {Pointer<Void>} hEventLog A handle to the open event log. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openeventloga">OpenEventLog</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openbackupeventloga">OpenBackupEventLog</a> function returns this handle.
      * @param {Pointer<UInt32>} NumberOfRecords A pointer to a variable that receives the number of records in the specified event log.
@@ -1888,7 +1886,7 @@ class EventLog {
     static GetNumberOfEventLogRecords(hEventLog, NumberOfRecords) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetNumberOfEventLogRecords", "ptr", hEventLog, "ptr", NumberOfRecords, "int")
+        result := DllCall("ADVAPI32.dll\GetNumberOfEventLogRecords", "ptr", hEventLog, "uint*", NumberOfRecords, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1900,7 +1898,7 @@ class EventLog {
      * @remarks
      * The oldest record in an event log is not necessarily record number 1. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/EventLog/event-log-records">Event Log Records</a>.
-     * @param {Pointer<HANDLE>} hEventLog A handle to the open event log. The 
+     * @param {Pointer<Void>} hEventLog A handle to the open event log. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openeventloga">OpenEventLog</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openbackupeventloga">OpenBackupEventLog</a> function returns this handle.
      * @param {Pointer<UInt32>} OldestRecord A pointer to a variable that receives the absolute record number of the oldest record in the specified event log.
@@ -1915,7 +1913,7 @@ class EventLog {
     static GetOldestEventLogRecord(hEventLog, OldestRecord) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetOldestEventLogRecord", "ptr", hEventLog, "ptr", OldestRecord, "int")
+        result := DllCall("ADVAPI32.dll\GetOldestEventLogRecord", "ptr", hEventLog, "uint*", OldestRecord, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1927,11 +1925,11 @@ class EventLog {
      * @remarks
      * To close the handle to the event log, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-closeeventlog">CloseEventLog</a> function.
-     * @param {Pointer<PSTR>} lpUNCServerName The Universal Naming Convention (UNC) name of the remote server on which the event log is to be opened. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PSTR>} lpSourceName The name of the log. 
+     * @param {Pointer<Byte>} lpUNCServerName The Universal Naming Convention (UNC) name of the remote server on which the event log is to be opened. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Byte>} lpSourceName The name of the log. 
      * 
      * If you specify a custom log and it cannot be found, the event logging service opens the <b>Application</b> log; however, there will be no associated message or category string file.
-     * @returns {Pointer<HANDLE>} If the function succeeds, the return value is the handle to an event log.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is the handle to an event log.
      * 						
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
@@ -1945,7 +1943,7 @@ class EventLog {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\OpenEventLogA", "ptr", lpUNCServerName, "ptr", lpSourceName, "ptr")
+        result := DllCall("ADVAPI32.dll\OpenEventLogA", "ptr", lpUNCServerName, "ptr", lpSourceName)
         if(A_LastError)
             throw OSError()
 
@@ -1957,11 +1955,11 @@ class EventLog {
      * @remarks
      * To close the handle to the event log, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-closeeventlog">CloseEventLog</a> function.
-     * @param {Pointer<PWSTR>} lpUNCServerName The Universal Naming Convention (UNC) name of the remote server on which the event log is to be opened. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} lpSourceName The name of the log. 
+     * @param {Pointer<Char>} lpUNCServerName The Universal Naming Convention (UNC) name of the remote server on which the event log is to be opened. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} lpSourceName The name of the log. 
      * 
      * If you specify a custom log and it cannot be found, the event logging service opens the <b>Application</b> log; however, there will be no associated message or category string file.
-     * @returns {Pointer<HANDLE>} If the function succeeds, the return value is the handle to an event log.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is the handle to an event log.
      * 						
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
@@ -1975,7 +1973,7 @@ class EventLog {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\OpenEventLogW", "ptr", lpUNCServerName, "ptr", lpSourceName, "ptr")
+        result := DllCall("ADVAPI32.dll\OpenEventLogW", "ptr", lpUNCServerName, "ptr", lpSourceName)
         if(A_LastError)
             throw OSError()
 
@@ -1989,13 +1987,13 @@ class EventLog {
      * 
      * To close the handle to the event log, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-deregistereventsource">DeregisterEventSource</a> function.
-     * @param {Pointer<PSTR>} lpUNCServerName The Universal Naming Convention (UNC) name of the remote server on which this operation is to be performed. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PSTR>} lpSourceName The name of the <a href="https://docs.microsoft.com/windows/desktop/EventLog/event-sources">event source</a> whose handle is to be retrieved. The source name must be a subkey of a log under the <b>Eventlog</b> registry key. 
+     * @param {Pointer<Byte>} lpUNCServerName The Universal Naming Convention (UNC) name of the remote server on which this operation is to be performed. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Byte>} lpSourceName The name of the <a href="https://docs.microsoft.com/windows/desktop/EventLog/event-sources">event source</a> whose handle is to be retrieved. The source name must be a subkey of a log under the <b>Eventlog</b> registry key. 
      * 						Note that the <b>Security</b> log is for system use only.
      * 
      * <div class="alert"><b>Note</b>  This string must not contain characters prohibited in XML Attributes, with the exception of XML Escape sequences such as <b>&amp;lt  &amp;gl</b>.</div>
      * <div> </div>
-     * @returns {Pointer<HANDLE>} If the function succeeds, the return value is a handle to the event log.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the event log.
      * 						
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
@@ -2011,7 +2009,7 @@ class EventLog {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\RegisterEventSourceA", "ptr", lpUNCServerName, "ptr", lpSourceName, "ptr")
+        result := DllCall("ADVAPI32.dll\RegisterEventSourceA", "ptr", lpUNCServerName, "ptr", lpSourceName)
         if(A_LastError)
             throw OSError()
 
@@ -2025,13 +2023,13 @@ class EventLog {
      * 
      * To close the handle to the event log, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-deregistereventsource">DeregisterEventSource</a> function.
-     * @param {Pointer<PWSTR>} lpUNCServerName The Universal Naming Convention (UNC) name of the remote server on which this operation is to be performed. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} lpSourceName The name of the <a href="https://docs.microsoft.com/windows/desktop/EventLog/event-sources">event source</a> whose handle is to be retrieved. The source name must be a subkey of a log under the <b>Eventlog</b> registry key. 
+     * @param {Pointer<Char>} lpUNCServerName The Universal Naming Convention (UNC) name of the remote server on which this operation is to be performed. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} lpSourceName The name of the <a href="https://docs.microsoft.com/windows/desktop/EventLog/event-sources">event source</a> whose handle is to be retrieved. The source name must be a subkey of a log under the <b>Eventlog</b> registry key. 
      * 						Note that the <b>Security</b> log is for system use only.
      * 
      * <div class="alert"><b>Note</b>  This string must not contain characters prohibited in XML Attributes, with the exception of XML Escape sequences such as <b>&amp;lt;</b> or <b>&amp;gt;</b>.</div>
      * <div> </div>
-     * @returns {Pointer<HANDLE>} If the function succeeds, the return value is a handle to the event log.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the event log.
      * 						
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
@@ -2047,7 +2045,7 @@ class EventLog {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\RegisterEventSourceW", "ptr", lpUNCServerName, "ptr", lpSourceName, "ptr")
+        result := DllCall("ADVAPI32.dll\RegisterEventSourceW", "ptr", lpUNCServerName, "ptr", lpSourceName)
         if(A_LastError)
             throw OSError()
 
@@ -2067,9 +2065,9 @@ class EventLog {
      * 
      * > [!NOTE]
      * > The winbase.h header defines OpenBackupEventLog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} lpUNCServerName The Universal Naming Convention (UNC) name of the remote server on which this operation is to be performed. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PSTR>} lpFileName The full path of the backup file.
-     * @returns {Pointer<HANDLE>} If the function succeeds, the return value is a handle to the backup event log.
+     * @param {Pointer<Byte>} lpUNCServerName The Universal Naming Convention (UNC) name of the remote server on which this operation is to be performed. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Byte>} lpFileName The full path of the backup file.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the backup event log.
      * 						
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
@@ -2083,7 +2081,7 @@ class EventLog {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\OpenBackupEventLogA", "ptr", lpUNCServerName, "ptr", lpFileName, "ptr")
+        result := DllCall("ADVAPI32.dll\OpenBackupEventLogA", "ptr", lpUNCServerName, "ptr", lpFileName)
         if(A_LastError)
             throw OSError()
 
@@ -2103,9 +2101,9 @@ class EventLog {
      * 
      * > [!NOTE]
      * > The winbase.h header defines OpenBackupEventLog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} lpUNCServerName The Universal Naming Convention (UNC) name of the remote server on which this operation is to be performed. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<PWSTR>} lpFileName The full path of the backup file.
-     * @returns {Pointer<HANDLE>} If the function succeeds, the return value is a handle to the backup event log.
+     * @param {Pointer<Char>} lpUNCServerName The Universal Naming Convention (UNC) name of the remote server on which this operation is to be performed. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {Pointer<Char>} lpFileName The full path of the backup file.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the backup event log.
      * 						
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
@@ -2119,7 +2117,7 @@ class EventLog {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\OpenBackupEventLogW", "ptr", lpUNCServerName, "ptr", lpFileName, "ptr")
+        result := DllCall("ADVAPI32.dll\OpenBackupEventLogW", "ptr", lpUNCServerName, "ptr", lpFileName)
         if(A_LastError)
             throw OSError()
 
@@ -2133,11 +2131,11 @@ class EventLog {
      * 
      * <div class="alert"><b>Note</b>  The configured file name for this source may also be the configured file name for other sources (several sources can exist as subkeys under a single log). Therefore, this function may return events that were logged by more than one source.</div>
      * <div> </div>
-     * @param {Pointer<HANDLE>} hEventLog A handle to the event log to be read. The 
+     * @param {Pointer<Void>} hEventLog A handle to the event log to be read. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openeventloga">OpenEventLog</a> function returns this handle.
      * @param {Integer} dwReadFlags 
      * @param {Integer} dwRecordOffset The record number of the log-entry at which the read operation should start. This parameter is ignored unless <i>dwReadFlags</i> includes the <b>EVENTLOG_SEEK_READ</b> flag.
-     * @param {Pointer<Void>} lpBuffer An application-allocated buffer that will receive one or more <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-eventlogrecord">EVENTLOGRECORD</a> structures. This parameter cannot be <b>NULL</b>, even if the <i>nNumberOfBytesToRead</i> parameter is zero. 
+     * @param {Pointer} lpBuffer An application-allocated buffer that will receive one or more <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-eventlogrecord">EVENTLOGRECORD</a> structures. This parameter cannot be <b>NULL</b>, even if the <i>nNumberOfBytesToRead</i> parameter is zero. 
      * 
      * 
      * 
@@ -2158,7 +2156,7 @@ class EventLog {
     static ReadEventLogA(hEventLog, dwReadFlags, dwRecordOffset, lpBuffer, nNumberOfBytesToRead, pnBytesRead, pnMinNumberOfBytesNeeded) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ReadEventLogA", "ptr", hEventLog, "uint", dwReadFlags, "uint", dwRecordOffset, "ptr", lpBuffer, "uint", nNumberOfBytesToRead, "ptr", pnBytesRead, "ptr", pnMinNumberOfBytesNeeded, "int")
+        result := DllCall("ADVAPI32.dll\ReadEventLogA", "ptr", hEventLog, "uint", dwReadFlags, "uint", dwRecordOffset, "ptr", lpBuffer, "uint", nNumberOfBytesToRead, "uint*", pnBytesRead, "uint*", pnMinNumberOfBytesNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2172,11 +2170,11 @@ class EventLog {
      * 
      * <div class="alert"><b>Note</b>  The configured file name for this source may also be the configured file name for other sources (several sources can exist as subkeys under a single log). Therefore, this function may return events that were logged by more than one source.</div>
      * <div> </div>
-     * @param {Pointer<HANDLE>} hEventLog A handle to the event log to be read. The 
+     * @param {Pointer<Void>} hEventLog A handle to the event log to be read. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openeventloga">OpenEventLog</a> function returns this handle.
      * @param {Integer} dwReadFlags 
      * @param {Integer} dwRecordOffset The record number of the log-entry at which the read operation should start. This parameter is ignored unless <i>dwReadFlags</i> includes the <b>EVENTLOG_SEEK_READ</b> flag.
-     * @param {Pointer<Void>} lpBuffer An application-allocated buffer that will receive one or more <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-eventlogrecord">EVENTLOGRECORD</a> structures. This parameter cannot be <b>NULL</b>, even if the <i>nNumberOfBytesToRead</i> parameter is zero. 
+     * @param {Pointer} lpBuffer An application-allocated buffer that will receive one or more <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-eventlogrecord">EVENTLOGRECORD</a> structures. This parameter cannot be <b>NULL</b>, even if the <i>nNumberOfBytesToRead</i> parameter is zero. 
      * 
      * 
      * 
@@ -2197,7 +2195,7 @@ class EventLog {
     static ReadEventLogW(hEventLog, dwReadFlags, dwRecordOffset, lpBuffer, nNumberOfBytesToRead, pnBytesRead, pnMinNumberOfBytesNeeded) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ReadEventLogW", "ptr", hEventLog, "uint", dwReadFlags, "uint", dwRecordOffset, "ptr", lpBuffer, "uint", nNumberOfBytesToRead, "ptr", pnBytesRead, "ptr", pnMinNumberOfBytesNeeded, "int")
+        result := DllCall("ADVAPI32.dll\ReadEventLogW", "ptr", hEventLog, "uint", dwReadFlags, "uint", dwRecordOffset, "ptr", lpBuffer, "uint", nNumberOfBytesToRead, "uint*", pnBytesRead, "uint*", pnMinNumberOfBytesNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2213,7 +2211,7 @@ class EventLog {
      * There are different size limits on the size of the message data that can be logged depending on the version of Windows used by both the client where the application is run and the server where the message is logged. The server is determined by the <i>lpUNCServerName</i> parameter passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-registereventsourcea">RegisterEventSource</a> function. Different errors are returned when the size limit is exceeded that depend on the version of Windows.
      * 
      * If the string that you log contains %<i>n</i>, where <i>n</i> is an integer value (for example, %1), the event viewer treats it as an insertion string. Because an IPv6 address can contain this character sequence, you must provide a format specifier (<i>!S!</i>) to log an event message that contains an IPv6 address. This specifier tells the formatting code to use the string literally and not perform any further expansions (for example, "my IPv6 address is: %1!S!").
-     * @param {Pointer<HANDLE>} hEventLog A handle to the event log. The 
+     * @param {Pointer<Void>} hEventLog A handle to the event log. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-registereventsourcea">RegisterEventSource</a> function returns this handle. 
      * 
      * As of Windows XP with SP2, this parameter cannot be a handle to the <b>Security</b> log. To write an event to the <b>Security</b> log, use the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzreportsecurityevent">AuthzReportSecurityEvent</a> function.
@@ -2221,13 +2219,13 @@ class EventLog {
      * @param {Integer} wCategory The event category. This is source-specific information; the category can have any value. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/EventLog/event-categories">Event Categories</a>.
      * @param {Integer} dwEventID The event identifier. The event identifier specifies the entry in the message file associated with the event source. For more information, see <a href="https://docs.microsoft.com/windows/desktop/EventLog/event-identifiers">Event Identifiers</a>.
-     * @param {Pointer<PSID>} lpUserSid A pointer to the current user's security identifier. This parameter can be <b>NULL</b> if the security identifier is not required.
+     * @param {Pointer<Void>} lpUserSid A pointer to the current user's security identifier. This parameter can be <b>NULL</b> if the security identifier is not required.
      * @param {Integer} wNumStrings The number of insert strings in the array pointed to by the <i>lpStrings</i> parameter. A value of zero indicates that no strings are present.
      * @param {Integer} dwDataSize The number of bytes of event-specific raw (binary) data to write to the log. If this parameter is zero, no event-specific data is present.
-     * @param {Pointer<PSTR>} lpStrings A pointer to a buffer containing an array of null-terminated strings that are merged into the message before Event Viewer displays the string to the user. This parameter must be a valid pointer (or <b>NULL</b>), even if <i>wNumStrings</i> is zero. Each string is limited to 31,839  characters.
+     * @param {Pointer<Byte>} lpStrings A pointer to a buffer containing an array of null-terminated strings that are merged into the message before Event Viewer displays the string to the user. This parameter must be a valid pointer (or <b>NULL</b>), even if <i>wNumStrings</i> is zero. Each string is limited to 31,839  characters.
      * 
      * <b>Prior to Windows Vista:  </b>Each string is limited to 32K characters.
-     * @param {Pointer<Void>} lpRawData A pointer to the buffer containing the binary data. This parameter must be a valid pointer (or <b>NULL</b>), even if the <i>dwDataSize</i> parameter is zero.
+     * @param {Pointer} lpRawData A pointer to the buffer containing the binary data. This parameter must be a valid pointer (or <b>NULL</b>), even if the <i>dwDataSize</i> parameter is zero.
      * @returns {Integer} If the function succeeds, the return value is nonzero, indicating that the entry was written to the log.
      * 						
      * 
@@ -2306,8 +2304,6 @@ class EventLog {
      * @since windows5.0
      */
     static ReportEventA(hEventLog, wType, wCategory, dwEventID, lpUserSid, wNumStrings, dwDataSize, lpStrings, lpRawData) {
-        lpStrings := lpStrings is String? StrPtr(lpStrings) : lpStrings
-
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ReportEventA", "ptr", hEventLog, "ushort", wType, "ushort", wCategory, "uint", dwEventID, "ptr", lpUserSid, "ushort", wNumStrings, "uint", dwDataSize, "ptr", lpStrings, "ptr", lpRawData, "int")
@@ -2326,7 +2322,7 @@ class EventLog {
      * There are different size limits on the size of the message data that can be logged depending on the version of Windows used by both the client where the application is run and the server where the message is logged. The server is determined by the <i>lpUNCServerName</i> parameter passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-registereventsourcea">RegisterEventSource</a> function. Different errors are returned when the size limit is exceeded that depend on the version of Windows.
      * 
      * If the string that you log contains %<i>n</i>, where <i>n</i> is an integer value (for example, %1), the event viewer treats it as an insertion string. Because an IPv6 address can contain this character sequence, you must provide a format specifier (<i>!S!</i>) to log an event message that contains an IPv6 address. This specifier tells the formatting code to use the string literally and not perform any further expansions (for example, "my IPv6 address is: %1!S!").
-     * @param {Pointer<HANDLE>} hEventLog A handle to the event log. The 
+     * @param {Pointer<Void>} hEventLog A handle to the event log. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-registereventsourcea">RegisterEventSource</a> function returns this handle. 
      * 
      * As of Windows XP with SP2, this parameter cannot be a handle to the <b>Security</b> log. To write an event to the <b>Security</b> log, use the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzreportsecurityevent">AuthzReportSecurityEvent</a> function.
@@ -2334,13 +2330,13 @@ class EventLog {
      * @param {Integer} wCategory The event category. This is source-specific information; the category can have any value. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/EventLog/event-categories">Event Categories</a>.
      * @param {Integer} dwEventID The event identifier. The event identifier specifies the entry in the message file associated with the event source. For more information, see <a href="https://docs.microsoft.com/windows/desktop/EventLog/event-identifiers">Event Identifiers</a>.
-     * @param {Pointer<PSID>} lpUserSid A pointer to the current user's security identifier. This parameter can be <b>NULL</b> if the security identifier is not required.
+     * @param {Pointer<Void>} lpUserSid A pointer to the current user's security identifier. This parameter can be <b>NULL</b> if the security identifier is not required.
      * @param {Integer} wNumStrings The number of insert strings in the array pointed to by the <i>lpStrings</i> parameter. A value of zero indicates that no strings are present.
      * @param {Integer} dwDataSize The number of bytes of event-specific raw (binary) data to write to the log. If this parameter is zero, no event-specific data is present.
-     * @param {Pointer<PWSTR>} lpStrings A pointer to a buffer containing an array of null-terminated strings that are merged into the message before Event Viewer displays the string to the user. This parameter must be a valid pointer (or <b>NULL</b>), even if <i>wNumStrings</i> is zero. Each string is limited to 31,839  characters.
+     * @param {Pointer<Char>} lpStrings A pointer to a buffer containing an array of null-terminated strings that are merged into the message before Event Viewer displays the string to the user. This parameter must be a valid pointer (or <b>NULL</b>), even if <i>wNumStrings</i> is zero. Each string is limited to 31,839  characters.
      * 
      * <b>Prior to Windows Vista:  </b>Each string is limited to 32K characters.
-     * @param {Pointer<Void>} lpRawData A pointer to the buffer containing the binary data. This parameter must be a valid pointer (or <b>NULL</b>), even if the <i>dwDataSize</i> parameter is zero.
+     * @param {Pointer} lpRawData A pointer to the buffer containing the binary data. This parameter must be a valid pointer (or <b>NULL</b>), even if the <i>dwDataSize</i> parameter is zero.
      * @returns {Integer} If the function succeeds, the return value is nonzero, indicating that the entry was written to the log.
      * 						
      * 
@@ -2419,8 +2415,6 @@ class EventLog {
      * @since windows5.0
      */
     static ReportEventW(hEventLog, wType, wCategory, dwEventID, lpUserSid, wNumStrings, dwDataSize, lpStrings, lpRawData) {
-        lpStrings := lpStrings is String? StrPtr(lpStrings) : lpStrings
-
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ReportEventW", "ptr", hEventLog, "ushort", wType, "ushort", wCategory, "uint", dwEventID, "ptr", lpUserSid, "ushort", wNumStrings, "uint", dwDataSize, "ptr", lpStrings, "ptr", lpRawData, "int")
@@ -2432,7 +2426,7 @@ class EventLog {
 
     /**
      * Retrieves information about the specified event log.
-     * @param {Pointer<HANDLE>} hEventLog A handle to the event log. The 
+     * @param {Pointer<Void>} hEventLog A handle to the event log. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openeventloga">OpenEventLog</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-registereventsourcea">RegisterEventSource</a> function returns this handle.
      * @param {Integer} dwInfoLevel The level of event log information to return. 
@@ -2458,7 +2452,7 @@ class EventLog {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} lpBuffer An application-allocated buffer that receives the event log information. The format of this data depends on the value of the <i>dwInfoLevel</i> parameter.
+     * @param {Pointer} lpBuffer An application-allocated buffer that receives the event log information. The format of this data depends on the value of the <i>dwInfoLevel</i> parameter.
      * @param {Integer} cbBufSize The size of the <i>lpBuffer</i> buffer, in bytes.
      * @param {Pointer<UInt32>} pcbBytesNeeded The function sets this parameter to the required buffer size for the requested information, regardless of whether the function succeeds. Use this value if the function fails with <b>ERROR_INSUFFICIENT_BUFFER</b> to allocate a buffer of the correct size.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -2472,7 +2466,7 @@ class EventLog {
     static GetEventLogInformation(hEventLog, dwInfoLevel, lpBuffer, cbBufSize, pcbBytesNeeded) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetEventLogInformation", "ptr", hEventLog, "uint", dwInfoLevel, "ptr", lpBuffer, "uint", cbBufSize, "ptr", pcbBytesNeeded, "int")
+        result := DllCall("ADVAPI32.dll\GetEventLogInformation", "ptr", hEventLog, "uint", dwInfoLevel, "ptr", lpBuffer, "uint", cbBufSize, "uint*", pcbBytesNeeded, "int")
         if(A_LastError)
             throw OSError()
 

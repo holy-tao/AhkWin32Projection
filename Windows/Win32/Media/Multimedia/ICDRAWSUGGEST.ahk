@@ -69,7 +69,7 @@ class ICDRAWSUGGEST extends Win32Struct
 
     /**
      * Handle to a decompressor that supports the format of data described in <b>lpbiIn</b>.
-     * @type {Pointer<HIC>}
+     * @type {Pointer<Void>}
      */
     hicDecompressor {
         get => NumGet(this, 32, "ptr")

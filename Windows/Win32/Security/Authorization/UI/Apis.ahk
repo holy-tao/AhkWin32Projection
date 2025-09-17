@@ -161,7 +161,7 @@ class UI {
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/advanced-security-property-sheet">advanced security property sheet</a>. This advanced security property sheet can contain three additional property pages that enable the user to view and edit the object's DACL, <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL), and owner.
      * @param {Pointer<ISecurityInformation>} psi A pointer to your implementation of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nn-aclui-isecurityinformation">ISecurityInformation</a> interface. The system calls the interface methods to retrieve information about the object being edited and to return the user's input.
-     * @returns {Pointer<HPROPSHEETPAGE>} If the function succeeds, the function returns a handle to a basic security property page.
+     * @returns {Pointer<Void>} If the function succeeds, the function returns a handle to a basic security property page.
      * 						
      * 
      * If the function fails, it returns <b>NULL</b>. To get extended error information, call 
@@ -172,7 +172,7 @@ class UI {
     static CreateSecurityPage(psi) {
         A_LastError := 0
 
-        result := DllCall("ACLUI.dll\CreateSecurityPage", "ptr", psi, "ptr")
+        result := DllCall("ACLUI.dll\CreateSecurityPage", "ptr", psi)
         if(A_LastError)
             throw OSError()
 
@@ -191,7 +191,7 @@ class UI {
      * 
      * The basic security property page can include an <b>Advanced</b> button for displaying the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/advanced-security-property-sheet">advanced security property sheet</a>. This advanced security property sheet can contain three additional property pages that enable the user to view and edit the object's DACL, SACL, and owner.
-     * @param {Pointer<HWND>} hwndOwner A handle to the window that owns the property sheet. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Void>} hwndOwner A handle to the window that owns the property sheet. This parameter can be <b>NULL</b>.
      * @param {Pointer<ISecurityInformation>} psi A pointer to your implementation of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nn-aclui-isecurityinformation">ISecurityInformation</a> interface. The system calls the interface methods to retrieve information about the object being edited and to return the user's input.
      * @returns {Integer} If the function succeeds, the return value is a nonzero value.
@@ -213,7 +213,7 @@ class UI {
 
     /**
      * Extends the EditSecurity function to include the security page type when displaying the property sheet that contains a basic security property page.
-     * @param {Pointer<HWND>} hwndOwner A handle to the window that owns the property sheet. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Void>} hwndOwner A handle to the window that owns the property sheet. This parameter can be <b>NULL</b>.
      * @param {Pointer<ISecurityInformation>} psi A pointer to your implementation of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nn-aclui-isecurityinformation">ISecurityInformation</a> interface. The system calls the interface methods to retrieve information about the object being edited and to return the user's input.
      * @param {Integer} uSIPage A value of the 

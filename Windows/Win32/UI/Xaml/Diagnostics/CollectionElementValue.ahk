@@ -24,7 +24,7 @@ class CollectionElementValue extends Win32Struct
 
     /**
      * The type of the element object.
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     ValueType {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class CollectionElementValue extends Win32Struct
 
     /**
      * The value of the element.
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     Value {
         get => NumGet(this, 16, "ptr")

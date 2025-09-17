@@ -30,7 +30,7 @@ class D3D11_SHADER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The name of the originator of the shader.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     Creator {
         get => NumGet(this, 8, "ptr")

@@ -21,7 +21,7 @@ class BROWSEINFOW extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the owner window for the dialog box.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndOwner {
         get => NumGet(this, 0, "ptr")
@@ -43,7 +43,7 @@ class BROWSEINFOW extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * Pointer to a buffer to receive the display name of the folder selected by the user. The size of this buffer is assumed to be MAX_PATH characters.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszDisplayName {
         get => NumGet(this, 16, "ptr")
@@ -54,7 +54,7 @@ class BROWSEINFOW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a null-terminated string that is displayed above the tree view control in the dialog box. This string can be used to specify instructions to the user.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpszTitle {
         get => NumGet(this, 24, "ptr")

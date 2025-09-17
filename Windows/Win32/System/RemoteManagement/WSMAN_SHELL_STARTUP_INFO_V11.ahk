@@ -27,7 +27,7 @@ class WSMAN_SHELL_STARTUP_INFO_V11 extends Win32Struct
 
     /**
      * Specifies an optional friendly name to be associated with the shell. This parameter is only functional when the client passes the  flag <b>WSMAN_FLAG_REQUESTED_API_VERSION_1_1</b> to WSManInitialize.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     name {
         get => NumGet(this, 40, "ptr")

@@ -50,7 +50,7 @@ class CF_CALLBACK_INFO extends Win32Struct
 
     /**
      * GUID name of the volume on which the placeholder file/directory to be serviced resides. It is in the form: “\\?\Volume{GUID}”.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     VolumeGuidName {
         get => NumGet(this, 24, "ptr")
@@ -59,7 +59,7 @@ class CF_CALLBACK_INFO extends Win32Struct
 
     /**
      * DOS drive letter of the volume in the form of "X:" where **X** is the drive letter.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     VolumeDosName {
         get => NumGet(this, 32, "ptr")
@@ -140,7 +140,7 @@ class CF_CALLBACK_INFO extends Win32Struct
 
     /**
      * The absolute path of the placeholder file or directory to be serviced on the volume identified by VolumeGuidName/VolumeDosName. It starts from the root directory of the volume. See the [Remarks](#-remarks) section for more details.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     NormalizedPath {
         get => NumGet(this, 104, "ptr")

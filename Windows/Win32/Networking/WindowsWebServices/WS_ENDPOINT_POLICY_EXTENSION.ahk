@@ -67,7 +67,7 @@ class WS_ENDPOINT_POLICY_EXTENSION extends Win32Struct
     /**
      * When <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsmatchpolicyalternative">WsMatchPolicyAlternative</a> returns NOERROR, the
      *                     fields of this structure will be filled out as follows:
-     * @type {Pointer<_out_e__Struct>}
+     * @type {Pointer<TypeHandle>}
      */
     out {
         get => NumGet(this, 24, "ptr")

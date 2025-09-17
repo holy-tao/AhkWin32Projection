@@ -50,7 +50,7 @@ class CERT_QC_STATEMENT extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszStatementId {
         get => NumGet(this, 0, "ptr")

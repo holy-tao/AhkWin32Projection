@@ -47,7 +47,7 @@ class FORM_INFO_2A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the name of the form. The form name cannot exceed 31 characters.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pName {
         get => NumGet(this, 8, "ptr")
@@ -80,7 +80,7 @@ class FORM_INFO_2A extends Win32Struct
 
     /**
      * A pointer to a non-localizable string identifier of the form. When passed to [**AddForm**](addform.md) or [**SetForm**](setform.md), this gives the caller a means of identifying the form in all locales.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pKeyword {
         get => NumGet(this, 40, "ptr")
@@ -106,7 +106,7 @@ class FORM_INFO_2A extends Win32Struct
 
     /**
      * The [Multilingual User Interface](/windows/desktop/Intl/mui-resource-management) localized resource DLL that contains the localized display name.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pMuiDll {
         get => NumGet(this, 56, "ptr")
@@ -124,7 +124,7 @@ class FORM_INFO_2A extends Win32Struct
 
     /**
      * The form's display name in the language specified by **wLangId**.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pDisplayName {
         get => NumGet(this, 72, "ptr")

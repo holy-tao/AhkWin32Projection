@@ -41,7 +41,7 @@ class SHARDAPPIDINFOLINK extends Win32Struct
      * Type: <b>PCWSTR</b>
      * 
      * The application-defined AppUserModelID associated with the item.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszAppID {
         get => NumGet(this, 8, "ptr")

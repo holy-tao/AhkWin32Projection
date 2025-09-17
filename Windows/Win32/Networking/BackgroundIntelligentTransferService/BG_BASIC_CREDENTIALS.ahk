@@ -38,7 +38,7 @@ class BG_BASIC_CREDENTIALS extends Win32Struct
      * A null-terminated string that contains the user name to authenticate. The user name is limited to 300 characters, not including the null terminator. The format of the user name depends on the authentication scheme requested. For example, for Basic, NTLM, and Negotiate authentication, the user name is of the form <em>DomainName</em><strong>\\</strong><em>UserName</em>. For Passport authentication, the user name is an email address. For more information, see Remarks.
      * 
      * If <strong>NULL</strong>, default credentials for this session context are used.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     UserName {
         get => NumGet(this, 0, "ptr")
@@ -49,7 +49,7 @@ class BG_BASIC_CREDENTIALS extends Win32Struct
      * A null-terminated string that contains the password in plaintext. The password is limited to 65536 characters, not including the null terminator. The password can be blank. Set it to <strong>NULL</strong> if <strong>UserName</strong> is <strong>NULL</strong>. BITS encrypts the password before persisting the job if a network disconnect occurs or the user logs off.
      * 
      * Live ID encoded passwords are supported through Negotiate 2. For more information about Live IDs, see the <a href="https://docs.microsoft.com/office/">Windows Live ID SDK</a>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     Password {
         get => NumGet(this, 8, "ptr")

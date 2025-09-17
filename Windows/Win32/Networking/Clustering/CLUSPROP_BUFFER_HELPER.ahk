@@ -69,7 +69,7 @@ class CLUSPROP_BUFFER_HELPER extends Win32Struct
 
     /**
      * Pointer to a buffer containing a <b>NULL</b>-terminated Unicode string value.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     psz {
         get => NumGet(this, 0, "ptr")

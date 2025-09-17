@@ -97,7 +97,7 @@ class DxMediaObjects {
      *         
      * 
      * The media types registered by this function are only for the purpose of finding the DMO. They do not necessarily match the types returned by the <a href="https://docs.microsoft.com/windows/desktop/api/mediaobj/nf-mediaobj-imediaobject-getinputtype">IMediaObject::GetInputType</a> and <a href="https://docs.microsoft.com/windows/desktop/api/mediaobj/nf-mediaobj-imediaobject-getoutputtype">IMediaObject::GetOutputType</a> methods. For example, a decoder might register just its main input types. After the DMO is created and its input type has been set, its <b>GetOutputType</b> method will return all of the decompressed types it can generate.
-     * @param {Pointer<PWSTR>} szName NULL-terminated string that contains a descriptive name for the DMO. Names longer than 79 characters might be truncated.
+     * @param {Pointer<Char>} szName NULL-terminated string that contains a descriptive name for the DMO. Names longer than 79 characters might be truncated.
      * @param {Pointer<Guid>} clsidDMO Class identifier (CLSID) of the DMO.
      * @param {Pointer<Guid>} guidCategory GUID that specifies the category of the DMO. See <a href="https://docs.microsoft.com/windows/desktop/DirectShow/dmo-guids">DMO GUIDs</a> for a list of category GUIDs.
      * @param {Integer} dwFlags Bitwise combination of zero or more flags from the <a href="https://docs.microsoft.com/windows/desktop/api/dmoreg/ne-dmoreg-dmo_register_flags">DMO_REGISTER_FLAGS</a> enumeration.
@@ -302,7 +302,7 @@ class DxMediaObjects {
      * @see https://learn.microsoft.com/windows/win32/api/dmoreg/nf-dmoreg-dmogettypes
      */
     static DMOGetTypes(clsidDMO, ulInputTypesRequested, pulInputTypesSupplied, pInputTypes, ulOutputTypesRequested, pulOutputTypesSupplied, pOutputTypes) {
-        result := DllCall("msdmo.dll\DMOGetTypes", "ptr", clsidDMO, "uint", ulInputTypesRequested, "ptr", pulInputTypesSupplied, "ptr", pInputTypes, "uint", ulOutputTypesRequested, "ptr", pulOutputTypesSupplied, "ptr", pOutputTypes, "int")
+        result := DllCall("msdmo.dll\DMOGetTypes", "ptr", clsidDMO, "uint", ulInputTypesRequested, "uint*", pulInputTypesSupplied, "ptr", pInputTypes, "uint", ulOutputTypesRequested, "uint*", pulOutputTypesSupplied, "ptr", pOutputTypes, "int")
         return result
     }
 
@@ -311,7 +311,7 @@ class DxMediaObjects {
      * @remarks
      * If the method returns S_FALSE, <i>szName</i> is set to '\0'.
      * @param {Pointer<Guid>} clsidDMO Class identifier (CLSID) of the DMO.
-     * @param {Pointer<PWSTR>} szName Array of 80 Unicode characters that receives the name of the DMO. The caller must allocate the array. The name is a NULL-terminated string.
+     * @param {Pointer<Char>} szName Array of 80 Unicode characters that receives the name of the DMO. The caller must allocate the array. The name is a NULL-terminated string.
      * @returns {Integer} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>

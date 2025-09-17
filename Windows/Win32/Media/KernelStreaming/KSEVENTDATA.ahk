@@ -20,7 +20,7 @@ class KSEVENTDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     Event {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +39,7 @@ class KSEVENTDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     Semaphore {
         get => NumGet(this, 8, "ptr")

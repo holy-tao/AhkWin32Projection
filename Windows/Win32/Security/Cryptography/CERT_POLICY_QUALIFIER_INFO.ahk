@@ -16,7 +16,7 @@ class CERT_POLICY_QUALIFIER_INFO extends Win32Struct
 
     /**
      * OID specifying the qualifier.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszPolicyQualifierId {
         get => NumGet(this, 0, "ptr")

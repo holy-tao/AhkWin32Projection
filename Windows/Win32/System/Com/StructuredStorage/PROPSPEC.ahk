@@ -33,7 +33,7 @@ class PROPSPEC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpwstr {
         get => NumGet(this, 4, "ptr")

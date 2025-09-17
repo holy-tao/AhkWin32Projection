@@ -12,7 +12,7 @@ class STACK_SRC_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ImagePath {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class STACK_SRC_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ModuleName {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class STACK_SRC_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     Function {
         get => NumGet(this, 16, "ptr")

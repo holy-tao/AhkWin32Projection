@@ -45,8 +45,8 @@ class Pipes {
      * If <b>CreatePipe</b> fails, the contents of the output parameters are indeterminate. No assumptions should be made about their contents in this event.
      * 
      * To free resources used by a pipe, the application should always close handles when they are no longer needed, which is accomplished either by calling the <a href="https://docs.microsoft.com/windows/win32/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function or when the process associated with the instance handles ends. Note that an instance of a pipe may have more than one handle associated with it. An instance of a pipe is always deleted when the last handle to the instance of the named pipe is closed.
-     * @param {Pointer<HANDLE>} hReadPipe A pointer to a variable that receives the read handle for the pipe.
-     * @param {Pointer<HANDLE>} hWritePipe A pointer to a variable that receives the write handle for the pipe.
+     * @param {Pointer<Void>} hReadPipe A pointer to a variable that receives the read handle for the pipe.
+     * @param {Pointer<Void>} hWritePipe A pointer to a variable that receives the write handle for the pipe.
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpPipeAttributes A pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure that determines whether the returned handle can be inherited by child processes. If <i>lpPipeAttributes</i> is <b>NULL</b>, the handle cannot be inherited. 
      * 
@@ -99,7 +99,7 @@ class Pipes {
      * <div class="alert"><b>Note</b>  Nonblocking mode is supported for compatibility with Microsoft LAN Manager version 2.0, and it should not be used to achieve asynchronous input and output (I/O) with named pipes.</div>
      * <div> </div>
      * <b>Windows 10, version 1709:  </b>Pipes are only supported within an app-container; ie, from one UWP process to another UWP process that's part of the same app. Also, named pipes must use the syntax `\\.\pipe\LOCAL\` for the pipe name.
-     * @param {Pointer<HANDLE>} hNamedPipe A handle to the server end of a named pipe instance. This handle is returned by the 
+     * @param {Pointer<Void>} hNamedPipe A handle to the server end of a named pipe instance. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-createnamedpipea">CreateNamedPipe</a> function.
      * @param {Pointer<OVERLAPPED>} lpOverlapped A pointer to an 
      * <a href="https://docs.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure. 
@@ -151,7 +151,7 @@ class Pipes {
      * <a href="https://docs.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-connectnamedpipe">ConnectNamedPipe</a> function.
      * 
      * <b>Windows 10, version 1709:  </b>Pipes are only supported within an app-container; ie, from one UWP process to another UWP process that's part of the same app. Also, named pipes must use the syntax `\\.\pipe\LOCAL\` for the pipe name.
-     * @param {Pointer<HANDLE>} hNamedPipe A handle to an instance of a named pipe. This handle must be created by the 
+     * @param {Pointer<Void>} hNamedPipe A handle to an instance of a named pipe. This handle must be created by the 
      * <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-createnamedpipea">CreateNamedPipe</a> function.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
@@ -174,7 +174,7 @@ class Pipes {
      * Sets the read mode and the blocking mode of the specified named pipe. If the specified handle is to the client end of a named pipe and if the named pipe server process is on a remote computer, the function can also be used to control local buffering.
      * @remarks
      * <b>Windows 10, version 1709:  </b>Pipes are only supported within an app-container; ie, from one UWP process to another UWP process that's part of the same app. Also, named pipes must use the syntax `\\.\pipe\LOCAL\` for the pipe name.
-     * @param {Pointer<HANDLE>} hNamedPipe A handle to the named pipe instance. This parameter can be a handle to the server end of the pipe, as returned by the 
+     * @param {Pointer<Void>} hNamedPipe A handle to the named pipe instance. This parameter can be a handle to the server end of the pipe, as returned by the 
      * <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-createnamedpipea">CreateNamedPipe</a> function, or to the client end of the pipe, as returned by the 
      * <a href="https://docs.microsoft.com/windows/win32/api/fileapi/nf-fileapi-createfilew">CreateFile</a> function. The handle must have GENERIC_WRITE access to the named pipe for a write-only or read/write pipe, or it must have GENERIC_READ and FILE_WRITE_ATTRIBUTES access for a read-only pipe. 
      * 
@@ -264,7 +264,7 @@ class Pipes {
     static SetNamedPipeHandleState(hNamedPipe, lpMode, lpMaxCollectionCount, lpCollectDataTimeout) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetNamedPipeHandleState", "ptr", hNamedPipe, "ptr", lpMode, "ptr", lpMaxCollectionCount, "ptr", lpCollectDataTimeout, "int")
+        result := DllCall("KERNEL32.dll\SetNamedPipeHandleState", "ptr", hNamedPipe, "uint*", lpMode, "uint*", lpMaxCollectionCount, "uint*", lpCollectDataTimeout, "int")
         if(A_LastError)
             throw OSError()
 
@@ -292,11 +292,11 @@ class Pipes {
      * If the specified handle is a named pipe handle in byte-read mode, the function reads all available bytes up to the size specified in <i>nBufferSize</i>. For a named pipe handle in message-read mode, the function reads the next message in the pipe. If the message is larger than <i>nBufferSize</i>, the function returns <b>TRUE</b> after reading the specified number of bytes. In this situation, <i>lpBytesLeftThisMessage</i> will receive the number of bytes remaining in the message.
      * 
      * <b>Windows 10, version 1709:  </b>Pipes are only supported within an app-container; ie, from one UWP process to another UWP process that's part of the same app. Also, named pipes must use the syntax `\\.\pipe\LOCAL\` for the pipe name.
-     * @param {Pointer<HANDLE>} hNamedPipe A handle to the pipe. This parameter can be a handle to a named pipe instance, as returned by the 
+     * @param {Pointer<Void>} hNamedPipe A handle to the pipe. This parameter can be a handle to a named pipe instance, as returned by the 
      * <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-createnamedpipea">CreateNamedPipe</a> or 
      * <a href="https://docs.microsoft.com/windows/win32/api/fileapi/nf-fileapi-createfilew">CreateFile</a> function, or it can be a handle to the read end of an anonymous pipe, as returned by the 
      * <a href="https://docs.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-createpipe">CreatePipe</a> function. The handle must have GENERIC_READ access to the pipe.
-     * @param {Pointer<Void>} lpBuffer A pointer to a buffer that receives data read from the pipe. This parameter can be <b>NULL</b> if no data is to be read.
+     * @param {Pointer} lpBuffer A pointer to a buffer that receives data read from the pipe. This parameter can be <b>NULL</b> if no data is to be read.
      * @param {Integer} nBufferSize The size of the buffer specified by the <i>lpBuffer</i> parameter, in bytes. This parameter is ignored if <i>lpBuffer</i> is <b>NULL</b>.
      * @param {Pointer<UInt32>} lpBytesRead A pointer to a variable that receives the number of bytes read from the pipe. This parameter can be <b>NULL</b> if no data is to be read.
      * @param {Pointer<UInt32>} lpTotalBytesAvail A pointer to a variable that receives the total number of bytes available to be read from the pipe. This parameter can be <b>NULL</b> if no data is to be read.
@@ -311,7 +311,7 @@ class Pipes {
     static PeekNamedPipe(hNamedPipe, lpBuffer, nBufferSize, lpBytesRead, lpTotalBytesAvail, lpBytesLeftThisMessage) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\PeekNamedPipe", "ptr", hNamedPipe, "ptr", lpBuffer, "uint", nBufferSize, "ptr", lpBytesRead, "ptr", lpTotalBytesAvail, "ptr", lpBytesLeftThisMessage, "int")
+        result := DllCall("KERNEL32.dll\PeekNamedPipe", "ptr", hNamedPipe, "ptr", lpBuffer, "uint", nBufferSize, "uint*", lpBytesRead, "uint*", lpTotalBytesAvail, "uint*", lpBytesLeftThisMessage, "int")
         if(A_LastError)
             throw OSError()
 
@@ -329,7 +329,7 @@ class Pipes {
      * The maximum guaranteed size of a named pipe transaction is 64 kilobytes. In some limited cases, transactions beyond 64 kilobytes are possible, depending on OS versions participating in the transaction and dynamic network conditions. However, there is no guarantee that transactions above 64 kilobytes will succeed. Therefore it's recommended that named pipe transactions be limited to 64 kilobytes of data.
      * 
      * <b>Windows 10, version 1709:  </b>Pipes are only supported within an app-container; ie, from one UWP process to another UWP process that's part of the same app. Also, named pipes must use the syntax `\\.\pipe\LOCAL\` for the pipe name.
-     * @param {Pointer<HANDLE>} hNamedPipe A handle to the named pipe returned by the 
+     * @param {Pointer<Void>} hNamedPipe A handle to the named pipe returned by the 
      * <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-createnamedpipea">CreateNamedPipe</a> or 
      * <a href="https://docs.microsoft.com/windows/win32/api/fileapi/nf-fileapi-createfilew">CreateFile</a> function. 
      * 
@@ -338,9 +338,9 @@ class Pipes {
      * 
      * This parameter can also be a handle to an anonymous pipe, as returned by the 
      * <a href="https://docs.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-createpipe">CreatePipe</a> function.
-     * @param {Pointer<Void>} lpInBuffer A pointer to the buffer containing the data to be written to the pipe.
+     * @param {Pointer} lpInBuffer A pointer to the buffer containing the data to be written to the pipe.
      * @param {Integer} nInBufferSize The size of the input buffer, in bytes.
-     * @param {Pointer<Void>} lpOutBuffer A pointer to the buffer that receives the data read from the pipe.
+     * @param {Pointer} lpOutBuffer A pointer to the buffer that receives the data read from the pipe.
      * @param {Integer} nOutBufferSize The size of the output buffer, in bytes.
      * @param {Pointer<UInt32>} lpBytesRead A pointer to the variable that receives the number of bytes read from the pipe. 
      * 
@@ -383,7 +383,7 @@ class Pipes {
     static TransactNamedPipe(hNamedPipe, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesRead, lpOverlapped) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\TransactNamedPipe", "ptr", hNamedPipe, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "ptr", lpBytesRead, "ptr", lpOverlapped, "int")
+        result := DllCall("KERNEL32.dll\TransactNamedPipe", "ptr", hNamedPipe, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesRead, "ptr", lpOverlapped, "int")
         if(A_LastError)
             throw OSError()
 
@@ -410,7 +410,7 @@ class Pipes {
      * To free resources used by a named pipe, the application should always close handles when they are no longer needed, which is accomplished either by calling the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function or when the process associated with the instance handles ends. Note that an instance of a named pipe may have more than one handle associated with it. An instance of a named pipe is always deleted when the last handle to the instance of the named pipe is closed.
      * 
      * <b>Windows 10, version 1709:  </b>Pipes are only supported within an app-container; ie, from one UWP process to another UWP process that's part of the same app. Also, named pipes must use the syntax `\\.\pipe\LOCAL\` for the pipe name.
-     * @param {Pointer<PWSTR>} lpName The unique pipe name. This string must have the following form:
+     * @param {Pointer<Char>} lpName The unique pipe name. This string must have the following form:
      * 
      * \\\\.\\pipe&#92;<i>pipename</i>
      * 
@@ -696,7 +696,7 @@ class Pipes {
      * A value of zero will result in a default time-out of 50 milliseconds.
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpSecurityAttributes A pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure that specifies a security descriptor for the new named pipe and determines whether child processes can inherit the returned handle. If <i>lpSecurityAttributes</i> is <b>NULL</b>, the named pipe gets a default security descriptor and the handle cannot be inherited. The ACLs in the default security descriptor for a named pipe grant full control to the LocalSystem account, administrators, and the creator owner. They also grant read access to members of the Everyone group and the anonymous account.
-     * @returns {Pointer<HANDLE>} If the function succeeds, the return value is a handle to the server end of a named pipe instance.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the server end of a named pipe instance.
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-createnamedpipew
@@ -704,7 +704,7 @@ class Pipes {
     static CreateNamedPipeW(lpName, dwOpenMode, dwPipeMode, nMaxInstances, nOutBufferSize, nInBufferSize, nDefaultTimeOut, lpSecurityAttributes) {
         lpName := lpName is String? StrPtr(lpName) : lpName
 
-        result := DllCall("KERNEL32.dll\CreateNamedPipeW", "ptr", lpName, "uint", dwOpenMode, "uint", dwPipeMode, "uint", nMaxInstances, "uint", nOutBufferSize, "uint", nInBufferSize, "uint", nDefaultTimeOut, "ptr", lpSecurityAttributes, "ptr")
+        result := DllCall("KERNEL32.dll\CreateNamedPipeW", "ptr", lpName, "uint", dwOpenMode, "uint", dwPipeMode, "uint", nMaxInstances, "uint", nOutBufferSize, "uint", nInBufferSize, "uint", nDefaultTimeOut, "ptr", lpSecurityAttributes)
         return result
     }
 
@@ -719,7 +719,7 @@ class Pipes {
      * If the function succeeds, the process should use the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function to open a handle to the named pipe. A return value of <b>TRUE</b> indicates that there is at least one instance of the pipe available. A subsequent <b>CreateFile</b> call to the pipe can fail, because the instance was closed by the server or opened by another client.
      * 
      * <b>Windows 10, version 1709:  </b>Pipes are only supported within an app-container; ie, from one UWP process to another UWP process that's part of the same app. Also, named pipes must use the syntax `\\.\pipe\LOCAL\` for the pipe name.
-     * @param {Pointer<PWSTR>} lpNamedPipeName The name of the named pipe. The string must include the name of the computer on which the server process is executing. A period may be used for the <i>servername</i> if the pipe is local. The following pipe name format is used: 
+     * @param {Pointer<Char>} lpNamedPipeName The name of the named pipe. The string must include the name of the computer on which the server process is executing. A period may be used for the <i>servername</i> if the pipe is local. The following pipe name format is used: 
      * 
      * &#92;&#92;<i>servername</i>\pipe&#92;<i>pipename</i>
      * @param {Integer} nTimeOut 
@@ -740,9 +740,9 @@ class Pipes {
      * The GetNamedPipeClientComputerNameW (Unicode) function (winbase.h) retrieves the client computer name for the specified named pipe.
      * @remarks
      * <b>Windows 10, version 1709:  </b>Pipes are only supported within an app-container; ie, from one UWP process to another UWP process that's part of the same app. Also, named pipes must use the syntax `\\.\pipe\LOCAL\` for the pipe name.
-     * @param {Pointer<HANDLE>} Pipe A handle to an instance of a named pipe. This handle must be created by the 
+     * @param {Pointer<Void>} Pipe A handle to an instance of a named pipe. This handle must be created by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/namedpipeapi/nf-namedpipeapi-createnamedpipew">CreateNamedPipe</a> function.
-     * @param {Pointer<PWSTR>} ClientComputerName The computer name.
+     * @param {Pointer} ClientComputerName The computer name.
      * @param {Integer} ClientComputerNameLength The size of the <i>ClientComputerName</i> buffer, in bytes.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
@@ -751,8 +751,6 @@ class Pipes {
      * @see https://learn.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-getnamedpipeclientcomputernamew
      */
     static GetNamedPipeClientComputerNameW(Pipe, ClientComputerName, ClientComputerNameLength) {
-        ClientComputerName := ClientComputerName is String? StrPtr(ClientComputerName) : ClientComputerName
-
         result := DllCall("KERNEL32.dll\GetNamedPipeClientComputerNameW", "ptr", Pipe, "ptr", ClientComputerName, "uint", ClientComputerNameLength, "int")
         return result
     }
@@ -778,7 +776,7 @@ class Pipes {
      * <li>The authenticated identity is same as the caller.</li>
      * </ul>
      * <b>Windows XP with SP1 and earlier:  </b>The <b>SeImpersonatePrivilege</b> privilege is not supported.
-     * @param {Pointer<HANDLE>} hNamedPipe A handle to a named pipe.
+     * @param {Pointer<Void>} hNamedPipe A handle to a named pipe.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -800,7 +798,7 @@ class Pipes {
      * Retrieves information about the specified named pipe.
      * @remarks
      * <b>Windows 10, version 1709:  </b>Pipes are only supported within an app-container; ie, from one UWP process to another UWP process that's part of the same app. Also, named pipes must use the syntax "\\\\.\\pipe\\LOCAL\\" for the pipe name.
-     * @param {Pointer<HANDLE>} hNamedPipe A handle to the named pipe instance. The handle must have GENERIC_READ access to the named pipe for a read-only or read/write pipe, or it must have GENERIC_WRITE and FILE_READ_ATTRIBUTES access for a write-only pipe. 
+     * @param {Pointer<Void>} hNamedPipe A handle to the named pipe instance. The handle must have GENERIC_READ access to the named pipe for a read-only or read/write pipe, or it must have GENERIC_WRITE and FILE_READ_ATTRIBUTES access for a write-only pipe. 
      * 
      * 
      * 
@@ -821,7 +819,7 @@ class Pipes {
     static GetNamedPipeInfo(hNamedPipe, lpFlags, lpOutBufferSize, lpInBufferSize, lpMaxInstances) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNamedPipeInfo", "ptr", hNamedPipe, "ptr", lpFlags, "ptr", lpOutBufferSize, "ptr", lpInBufferSize, "ptr", lpMaxInstances, "int")
+        result := DllCall("KERNEL32.dll\GetNamedPipeInfo", "ptr", hNamedPipe, "uint*", lpFlags, "uint*", lpOutBufferSize, "uint*", lpInBufferSize, "uint*", lpMaxInstances, "int")
         if(A_LastError)
             throw OSError()
 
@@ -837,7 +835,7 @@ class Pipes {
      * <a href="https://docs.microsoft.com/windows/desktop/api/namedpipeapi/nf-namedpipeapi-setnamedpipehandlestate">SetNamedPipeHandleState</a> function.
      * 
      * <b>Windows 10, version 1709:  </b>Pipes are only supported within an app-container; ie, from one UWP process to another UWP process that's part of the same app. Also, named pipes must use the syntax `\\.\pipe\LOCAL\` for the pipe name.
-     * @param {Pointer<HANDLE>} hNamedPipe A handle to the named pipe for which information is wanted. The handle must have GENERIC_READ access for a read-only or read/write pipe, or it must have GENERIC_WRITE and FILE_READ_ATTRIBUTES access for a write-only pipe.  
+     * @param {Pointer<Void>} hNamedPipe A handle to the named pipe for which information is wanted. The handle must have GENERIC_READ access for a read-only or read/write pipe, or it must have GENERIC_WRITE and FILE_READ_ATTRIBUTES access for a write-only pipe.  
      * 
      * This parameter can also be a handle to an anonymous pipe, as returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/namedpipeapi/nf-namedpipeapi-createpipe">CreatePipe</a> function.
@@ -845,7 +843,7 @@ class Pipes {
      * @param {Pointer<UInt32>} lpCurInstances A pointer to a variable that receives the number of current pipe instances. This parameter can be <b>NULL</b> if this information is not required.
      * @param {Pointer<UInt32>} lpMaxCollectionCount A pointer to a variable that receives the maximum number of bytes to be collected on the client's computer before transmission to the server. This parameter must be <b>NULL</b> if the specified pipe handle is to the server end of a named pipe or if client and server processes are on the same computer. This parameter can be <b>NULL</b> if this information is not required.
      * @param {Pointer<UInt32>} lpCollectDataTimeout A pointer to a variable that receives the maximum time, in milliseconds, that can pass before a remote named pipe transfers information over the network. This parameter must be <b>NULL</b> if the specified pipe handle is to the server end of a named pipe or if client and server processes are on the same computer. This parameter can be <b>NULL</b> if this information is not required.
-     * @param {Pointer<PWSTR>} lpUserName A pointer to a buffer that receives the user name string associated with the client application. The server can only retrieve this information if the client opened the pipe with SECURITY_IMPERSONATION access.
+     * @param {Pointer<Char>} lpUserName A pointer to a buffer that receives the user name string associated with the client application. The server can only retrieve this information if the client opened the pipe with SECURITY_IMPERSONATION access.
      * 
      * This parameter must be <b>NULL</b> if the specified pipe handle is to the client end of a named pipe. This parameter can be <b>NULL</b> if this information is not required.
      * @param {Integer} nMaxUserNameSize The size of the buffer specified by the <i>lpUserName</i> parameter, in <b>TCHARs</b>. This parameter is ignored if <i>lpUserName</i> is <b>NULL</b>.
@@ -858,7 +856,7 @@ class Pipes {
     static GetNamedPipeHandleStateW(hNamedPipe, lpState, lpCurInstances, lpMaxCollectionCount, lpCollectDataTimeout, lpUserName, nMaxUserNameSize) {
         lpUserName := lpUserName is String? StrPtr(lpUserName) : lpUserName
 
-        result := DllCall("KERNEL32.dll\GetNamedPipeHandleStateW", "ptr", hNamedPipe, "ptr", lpState, "ptr", lpCurInstances, "ptr", lpMaxCollectionCount, "ptr", lpCollectDataTimeout, "ptr", lpUserName, "uint", nMaxUserNameSize, "int")
+        result := DllCall("KERNEL32.dll\GetNamedPipeHandleStateW", "ptr", hNamedPipe, "uint*", lpState, "uint*", lpCurInstances, "uint*", lpMaxCollectionCount, "uint*", lpCollectDataTimeout, "ptr", lpUserName, "uint", nMaxUserNameSize, "int")
         return result
     }
 
@@ -870,10 +868,10 @@ class Pipes {
      * <b>CallNamedPipe</b> fails if the pipe is a byte-type pipe.
      * 
      * <b>Windows 10, version 1709:  </b>Pipes are only supported within an app-container; ie, from one UWP process to another UWP process that's part of the same app. Also, named pipes must use the syntax `\\.\pipe\LOCAL\` for the pipe name.
-     * @param {Pointer<PWSTR>} lpNamedPipeName The pipe name.
-     * @param {Pointer<Void>} lpInBuffer The data to be written to the pipe.
+     * @param {Pointer<Char>} lpNamedPipeName The pipe name.
+     * @param {Pointer} lpInBuffer The data to be written to the pipe.
      * @param {Integer} nInBufferSize The size of the write buffer, in bytes.
-     * @param {Pointer<Void>} lpOutBuffer A pointer to the buffer that receives the data read from the pipe.
+     * @param {Pointer} lpOutBuffer A pointer to the buffer that receives the data read from the pipe.
      * @param {Integer} nOutBufferSize The size of the read buffer, in bytes.
      * @param {Pointer<UInt32>} lpBytesRead A pointer to a variable that receives the number of bytes read from the pipe.
      * @param {Integer} nTimeOut The number of milliseconds to wait for the named pipe to be available. In addition to numeric values, the following special values can be specified.
@@ -929,7 +927,7 @@ class Pipes {
     static CallNamedPipeW(lpNamedPipeName, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesRead, nTimeOut) {
         lpNamedPipeName := lpNamedPipeName is String? StrPtr(lpNamedPipeName) : lpNamedPipeName
 
-        result := DllCall("KERNEL32.dll\CallNamedPipeW", "ptr", lpNamedPipeName, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "ptr", lpBytesRead, "uint", nTimeOut, "int")
+        result := DllCall("KERNEL32.dll\CallNamedPipeW", "ptr", lpNamedPipeName, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesRead, "uint", nTimeOut, "int")
         return result
     }
 
@@ -954,7 +952,7 @@ class Pipes {
      * To free resources used by a named pipe, the application should always close handles when they are no longer needed, which is accomplished either by calling the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function or when the process associated with the instance handles ends. Note that an instance of a named pipe may have more than one handle associated with it. An instance of a named pipe is always deleted when the last handle to the instance of the named pipe is closed.
      * 
      * <b>Windows 10, version 1709:  </b>Pipes are only supported within an app-container; ie, from one UWP process to another UWP process that's part of the same app. Also, named pipes must use the syntax `\\.\pipe\LOCAL\` for the pipe name.
-     * @param {Pointer<PSTR>} lpName The unique pipe name. This string must have the following form:
+     * @param {Pointer<Byte>} lpName The unique pipe name. This string must have the following form:
      * 
      * \\\\.\\pipe&#92;<i>pipename</i>
      * 
@@ -1249,7 +1247,7 @@ class Pipes {
      * A value of zero will result in a default time-out of 50 milliseconds.
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpSecurityAttributes A pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure that specifies a security descriptor for the new named pipe and determines whether child processes can inherit the returned handle. If <i>lpSecurityAttributes</i> is <b>NULL</b>, the named pipe gets a default security descriptor and the handle cannot be inherited. The ACLs in the default security descriptor for a named pipe grant full control to the LocalSystem account, administrators, and the creator owner. They also grant read access to members of the Everyone group and the anonymous account.
-     * @returns {Pointer<HANDLE>} If the function succeeds, the return value is a handle to the server end of a named pipe instance.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the server end of a named pipe instance.
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1261,7 +1259,7 @@ class Pipes {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateNamedPipeA", "ptr", lpName, "uint", dwOpenMode, "uint", dwPipeMode, "uint", nMaxInstances, "uint", nOutBufferSize, "uint", nInBufferSize, "uint", nDefaultTimeOut, "ptr", lpSecurityAttributes, "ptr")
+        result := DllCall("KERNEL32.dll\CreateNamedPipeA", "ptr", lpName, "uint", dwOpenMode, "uint", dwPipeMode, "uint", nMaxInstances, "uint", nOutBufferSize, "uint", nInBufferSize, "uint", nDefaultTimeOut, "ptr", lpSecurityAttributes)
         if(A_LastError)
             throw OSError()
 
@@ -1278,7 +1276,7 @@ class Pipes {
      * <a href="https://docs.microsoft.com/windows/desktop/api/namedpipeapi/nf-namedpipeapi-setnamedpipehandlestate">SetNamedPipeHandleState</a> function.
      * 
      * <b>Windows 10, version 1709:  </b>Pipes are only supported within an app-container; ie, from one UWP process to another UWP process that's part of the same app. Also, named pipes must use the syntax `\\.\pipe\LOCAL\` for the pipe name.
-     * @param {Pointer<HANDLE>} hNamedPipe A handle to the named pipe for which information is wanted. The handle must have GENERIC_READ access for a read-only or read/write pipe, or it must have GENERIC_WRITE and FILE_READ_ATTRIBUTES access for a write-only pipe. 
+     * @param {Pointer<Void>} hNamedPipe A handle to the named pipe for which information is wanted. The handle must have GENERIC_READ access for a read-only or read/write pipe, or it must have GENERIC_WRITE and FILE_READ_ATTRIBUTES access for a write-only pipe. 
      * 
      * 
      * 
@@ -1289,7 +1287,7 @@ class Pipes {
      * @param {Pointer<UInt32>} lpCurInstances A pointer to a variable that receives the number of current pipe instances. This parameter can be <b>NULL</b> if this information is not required.
      * @param {Pointer<UInt32>} lpMaxCollectionCount A pointer to a variable that receives the maximum number of bytes to be collected on the client's computer before transmission to the server. This parameter must be <b>NULL</b> if the specified pipe handle is to the server end of a named pipe or if client and server processes are on the same computer. This parameter can be <b>NULL</b> if this information is not required.
      * @param {Pointer<UInt32>} lpCollectDataTimeout A pointer to a variable that receives the maximum time, in milliseconds, that can pass before a remote named pipe transfers information over the network. This parameter must be <b>NULL</b> if the specified pipe handle is to the server end of a named pipe or if client and server processes are on the same computer. This parameter can be <b>NULL</b> if this information is not required.
-     * @param {Pointer<PSTR>} lpUserName A pointer to a buffer that receives the user name string associated with the client application. The server can only retrieve this information if the client opened the pipe with SECURITY_IMPERSONATION access. 
+     * @param {Pointer<Byte>} lpUserName A pointer to a buffer that receives the user name string associated with the client application. The server can only retrieve this information if the client opened the pipe with SECURITY_IMPERSONATION access. 
      * 
      * 
      * 
@@ -1308,7 +1306,7 @@ class Pipes {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNamedPipeHandleStateA", "ptr", hNamedPipe, "ptr", lpState, "ptr", lpCurInstances, "ptr", lpMaxCollectionCount, "ptr", lpCollectDataTimeout, "ptr", lpUserName, "uint", nMaxUserNameSize, "int")
+        result := DllCall("KERNEL32.dll\GetNamedPipeHandleStateA", "ptr", hNamedPipe, "uint*", lpState, "uint*", lpCurInstances, "uint*", lpMaxCollectionCount, "uint*", lpCollectDataTimeout, "ptr", lpUserName, "uint", nMaxUserNameSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1323,10 +1321,10 @@ class Pipes {
      * <b>CallNamedPipe</b> fails if the pipe is a byte-type pipe.
      * 
      * <b>Windows 10, version 1709:  </b>Pipes are only supported within an app-container; ie, from one UWP process to another UWP process that's part of the same app. Also, named pipes must use the syntax `\\.\pipe\LOCAL\` for the pipe name.
-     * @param {Pointer<PSTR>} lpNamedPipeName The pipe name.
-     * @param {Pointer<Void>} lpInBuffer The data to be written to the pipe.
+     * @param {Pointer<Byte>} lpNamedPipeName The pipe name.
+     * @param {Pointer} lpInBuffer The data to be written to the pipe.
      * @param {Integer} nInBufferSize The size of the write buffer, in bytes.
-     * @param {Pointer<Void>} lpOutBuffer A pointer to the buffer that receives the data read from the pipe.
+     * @param {Pointer} lpOutBuffer A pointer to the buffer that receives the data read from the pipe.
      * @param {Integer} nOutBufferSize The size of the read buffer, in bytes.
      * @param {Pointer<UInt32>} lpBytesRead A pointer to a variable that receives the number of bytes read from the pipe.
      * @param {Integer} nTimeOut The number of milliseconds to wait for the named pipe to be available. In addition to numeric values, the following special values can be specified.
@@ -1387,7 +1385,7 @@ class Pipes {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CallNamedPipeA", "ptr", lpNamedPipeName, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "ptr", lpBytesRead, "uint", nTimeOut, "int")
+        result := DllCall("KERNEL32.dll\CallNamedPipeA", "ptr", lpNamedPipeName, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesRead, "uint", nTimeOut, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1405,7 +1403,7 @@ class Pipes {
      * If the function succeeds, the process should use the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function to open a handle to the named pipe. A return value of <b>TRUE</b> indicates that there is at least one instance of the pipe available. A subsequent <b>CreateFile</b> call to the pipe can fail, because the instance was closed by the server or opened by another client.
      * 
      * <b>Windows 10, version 1709:  </b>Pipes are only supported within an app-container; ie, from one UWP process to another UWP process that's part of the same app. Also, named pipes must use the syntax `\\.\pipe\LOCAL\` for the pipe name.
-     * @param {Pointer<PSTR>} lpNamedPipeName The name of the named pipe. The string must include the name of the computer on which the server process is executing. A period may be used for the <i>servername</i> if the pipe is local. The following pipe name format is used: 
+     * @param {Pointer<Byte>} lpNamedPipeName The name of the named pipe. The string must include the name of the computer on which the server process is executing. A period may be used for the <i>servername</i> if the pipe is local. The following pipe name format is used: 
      * 
      * 
      * 
@@ -1435,9 +1433,9 @@ class Pipes {
      * The GetNamedPipeClientComputerNameA (ANSI) function (winbase.h) retrieves the client computer name for the specified named pipe.
      * @remarks
      * <b>Windows 10, version 1709:  </b>Pipes are only supported within an app-container; ie, from one UWP process to another UWP process that's part of the same app. Also, named pipes must use the syntax `\\.\pipe\LOCAL\` for the pipe name.
-     * @param {Pointer<HANDLE>} Pipe A handle to an instance of a named pipe. This handle must be created by the 
+     * @param {Pointer<Void>} Pipe A handle to an instance of a named pipe. This handle must be created by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createnamedpipea">CreateNamedPipe</a> function.
-     * @param {Pointer<PSTR>} ClientComputerName The computer name.
+     * @param {Pointer} ClientComputerName The computer name.
      * @param {Integer} ClientComputerNameLength The size of the <i>ClientComputerName</i> buffer, in bytes.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
@@ -1447,8 +1445,6 @@ class Pipes {
      * @since windows6.0.6000
      */
     static GetNamedPipeClientComputerNameA(Pipe, ClientComputerName, ClientComputerNameLength) {
-        ClientComputerName := ClientComputerName is String? StrPtr(ClientComputerName) : ClientComputerName
-
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetNamedPipeClientComputerNameA", "ptr", Pipe, "ptr", ClientComputerName, "uint", ClientComputerNameLength, "int")
@@ -1462,7 +1458,7 @@ class Pipes {
      * Retrieves the client process identifier for the specified named pipe.
      * @remarks
      * <b>Windows 10, version 1709:  </b>Pipes are only supported within an app-container; ie, from one UWP process to another UWP process that's part of the same app. Also, named pipes must use the syntax `\\.\pipe\LOCAL\` for the pipe name.
-     * @param {Pointer<HANDLE>} Pipe A handle to an instance of a named pipe. This handle must be created by the 
+     * @param {Pointer<Void>} Pipe A handle to an instance of a named pipe. This handle must be created by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createnamedpipea">CreateNamedPipe</a> function.
      * @param {Pointer<UInt32>} ClientProcessId The process identifier.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -1475,7 +1471,7 @@ class Pipes {
     static GetNamedPipeClientProcessId(Pipe, ClientProcessId) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNamedPipeClientProcessId", "ptr", Pipe, "ptr", ClientProcessId, "int")
+        result := DllCall("KERNEL32.dll\GetNamedPipeClientProcessId", "ptr", Pipe, "uint*", ClientProcessId, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1486,7 +1482,7 @@ class Pipes {
      * Retrieves the client session identifier for the specified named pipe.
      * @remarks
      * <b>Windows 10, version 1709:  </b>Pipes are only supported within an app-container; ie, from one UWP process to another UWP process that's part of the same app. Also, named pipes must use the syntax `\\.\pipe\LOCAL\` for the pipe name.
-     * @param {Pointer<HANDLE>} Pipe A handle to an instance of a named pipe. This handle must be created by the 
+     * @param {Pointer<Void>} Pipe A handle to an instance of a named pipe. This handle must be created by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createnamedpipea">CreateNamedPipe</a> function.
      * @param {Pointer<UInt32>} ClientSessionId The session identifier.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -1499,7 +1495,7 @@ class Pipes {
     static GetNamedPipeClientSessionId(Pipe, ClientSessionId) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNamedPipeClientSessionId", "ptr", Pipe, "ptr", ClientSessionId, "int")
+        result := DllCall("KERNEL32.dll\GetNamedPipeClientSessionId", "ptr", Pipe, "uint*", ClientSessionId, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1510,7 +1506,7 @@ class Pipes {
      * Retrieves the server process identifier for the specified named pipe.
      * @remarks
      * <b>Windows 10, version 1709:  </b>Pipes are only supported within an app-container; ie, from one UWP process to another UWP process that's part of the same app. Also, named pipes must use the syntax `\\.\pipe\LOCAL\` for the pipe name.
-     * @param {Pointer<HANDLE>} Pipe A handle to an instance of a named pipe. This handle must be created by the 
+     * @param {Pointer<Void>} Pipe A handle to an instance of a named pipe. This handle must be created by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createnamedpipea">CreateNamedPipe</a> function.
      * @param {Pointer<UInt32>} ServerProcessId The process identifier.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -1523,7 +1519,7 @@ class Pipes {
     static GetNamedPipeServerProcessId(Pipe, ServerProcessId) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNamedPipeServerProcessId", "ptr", Pipe, "ptr", ServerProcessId, "int")
+        result := DllCall("KERNEL32.dll\GetNamedPipeServerProcessId", "ptr", Pipe, "uint*", ServerProcessId, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1534,7 +1530,7 @@ class Pipes {
      * Retrieves the server session identifier for the specified named pipe.
      * @remarks
      * <b>Windows 10, version 1709:  </b>Pipes are only supported within an app-container; ie, from one UWP process to another UWP process that's part of the same app. Also, named pipes must use the syntax `\\.\pipe\LOCAL\` for the pipe name.
-     * @param {Pointer<HANDLE>} Pipe A handle to an instance of a named pipe. This handle must be created by the 
+     * @param {Pointer<Void>} Pipe A handle to an instance of a named pipe. This handle must be created by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createnamedpipea">CreateNamedPipe</a> function.
      * @param {Pointer<UInt32>} ServerSessionId The session identifier.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -1547,7 +1543,7 @@ class Pipes {
     static GetNamedPipeServerSessionId(Pipe, ServerSessionId) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNamedPipeServerSessionId", "ptr", Pipe, "ptr", ServerSessionId, "int")
+        result := DllCall("KERNEL32.dll\GetNamedPipeServerSessionId", "ptr", Pipe, "uint*", ServerSessionId, "int")
         if(A_LastError)
             throw OSError()
 

@@ -33,7 +33,7 @@ class SIP_ADD_NEWPROVIDER extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the name of the DLL file.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszDLLFileName {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class SIP_ADD_NEWPROVIDER extends Win32Struct
 
     /**
      * This member is not used.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszMagicNumber {
         get => NumGet(this, 24, "ptr")
@@ -51,7 +51,7 @@ class SIP_ADD_NEWPROVIDER extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the name of the function that determines whether the file contents are supported by this SIP. This member can be <b>NULL</b>. The signature for this function pointer is described in <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nc-mssip-pfnisfilesupported">pfnIsFileSupported</a>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszIsFunctionName {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +60,7 @@ class SIP_ADD_NEWPROVIDER extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the name of the function that retrieves the signed data. The signature for this function pointer is described in <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nf-mssip-cryptsipgetsigneddatamsg">CryptSIPGetSignedDataMsg</a>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszGetFuncName {
         get => NumGet(this, 40, "ptr")
@@ -69,7 +69,7 @@ class SIP_ADD_NEWPROVIDER extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the name of the function that stores the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Authenticode</a> signature in the target file. The signature for this function pointer is described in <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nf-mssip-cryptsipputsigneddatamsg">CryptSIPPutSignedDataMsg</a>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszPutFuncName {
         get => NumGet(this, 48, "ptr")
@@ -78,7 +78,7 @@ class SIP_ADD_NEWPROVIDER extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the name of the function that creates the hash. The signature for this function pointer is described in <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nf-mssip-cryptsipcreateindirectdata">CryptSIPCreateIndirectData</a>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszCreateFuncName {
         get => NumGet(this, 56, "ptr")
@@ -87,7 +87,7 @@ class SIP_ADD_NEWPROVIDER extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the name of the function that verifies the hash. The signature for this function pointer is described in <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nf-mssip-cryptsipverifyindirectdata">CryptSIPVerifyIndirectData</a>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszVerifyFuncName {
         get => NumGet(this, 64, "ptr")
@@ -96,7 +96,7 @@ class SIP_ADD_NEWPROVIDER extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the name of the function that removes the signed data. The signature for this function pointer is described in <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nf-mssip-cryptsipremovesigneddatamsg">CryptSIPRemoveSignedDataMsg</a>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszRemoveFuncName {
         get => NumGet(this, 72, "ptr")
@@ -105,7 +105,7 @@ class SIP_ADD_NEWPROVIDER extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the name of the function that determines whether the file name extension is supported by this SIP. This member can be <b>NULL</b>. The signature for this function pointer is described in <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nc-mssip-pfnisfilesupportedname">pfnIsFileSupportedName</a>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszIsFunctionNameFmt2 {
         get => NumGet(this, 80, "ptr")
@@ -116,7 +116,7 @@ class SIP_ADD_NEWPROVIDER extends Win32Struct
      * Pointer to a null-terminated string that contains the name  of the function that determines the capabilities of the SIP. If this parameter is set to <b>NULL</b>, multiple signatures are not available for this SIP. The signature for this function pointer is described in <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nc-mssip-pcryptsipgetcaps">pCryptSIPGetCaps</a>.
      * 
      * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This member is not available.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszGetCapFuncName {
         get => NumGet(this, 88, "ptr")

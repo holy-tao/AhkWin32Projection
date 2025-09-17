@@ -12,7 +12,7 @@ class DedupStream extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     Path {
         get => NumGet(this, 0, "ptr")

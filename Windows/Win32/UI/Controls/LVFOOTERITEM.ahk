@@ -39,7 +39,7 @@ class LVFOOTERITEM extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a></b>
      * 
      * A pointer to a null-terminated, Unicode buffer. The calling process is responsible for allocating the buffer.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszText {
         get => NumGet(this, 8, "ptr")

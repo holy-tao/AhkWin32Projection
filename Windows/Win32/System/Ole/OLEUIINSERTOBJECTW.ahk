@@ -189,7 +189,7 @@ class OLEUIINSERTOBJECTW extends Win32Struct
 
     /**
      * The window that owns the dialog box. This member should not be <b>NULL</b>.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hWndOwner {
         get => NumGet(this, 8, "ptr")
@@ -198,7 +198,7 @@ class OLEUIINSERTOBJECTW extends Win32Struct
 
     /**
      * Pointer to a string to be used as the title of the dialog box. If <b>NULL</b>, then the library uses <b>Insert Object</b>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpszCaption {
         get => NumGet(this, 16, "ptr")
@@ -225,7 +225,7 @@ class OLEUIINSERTOBJECTW extends Win32Struct
 
     /**
      * Instance that contains a dialog box template specified by the <b>lpTemplateName</b> member.
-     * @type {Pointer<HINSTANCE>}
+     * @type {Pointer<Void>}
      */
     hInstance {
         get => NumGet(this, 40, "ptr")
@@ -234,7 +234,7 @@ class OLEUIINSERTOBJECTW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of the resource file for the dialog box template that is to be substituted for the library's <b>Insert Object</b> dialog box template.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpszTemplate {
         get => NumGet(this, 48, "ptr")
@@ -243,7 +243,7 @@ class OLEUIINSERTOBJECTW extends Win32Struct
 
     /**
      * Customized template handle.
-     * @type {Pointer<HRSRC>}
+     * @type {Pointer<Void>}
      */
     hResource {
         get => NumGet(this, 56, "ptr")
@@ -261,7 +261,7 @@ class OLEUIINSERTOBJECTW extends Win32Struct
 
     /**
      * Pointer to the name of the file to be linked or embedded. Filled on output.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpszFile {
         get => NumGet(this, 72, "ptr")
@@ -360,7 +360,7 @@ class OLEUIINSERTOBJECTW extends Win32Struct
 
     /**
      * MetafilePict structure containing the iconic aspect, if it wasn't placed in the object's cache.
-     * @type {Pointer<HGLOBAL>}
+     * @type {Pointer<Void>}
      */
     hMetaPict {
         get => NumGet(this, 152, "ptr")

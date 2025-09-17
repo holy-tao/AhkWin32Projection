@@ -46,7 +46,7 @@ class OBJECTS_AND_NAME_A extends Win32Struct
      * A pointer to a null-terminated string that identifies the type of object to which the ACE applies.
      * 
      * This string must be a valid <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">LDAP</a> display name in the Active Directory schema.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     ObjectTypeName {
         get => NumGet(this, 8, "ptr")
@@ -62,7 +62,7 @@ class OBJECTS_AND_NAME_A extends Win32Struct
      * This string must be a valid <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">LDAP</a> display name in the Active Directory schema.
      * 
      * If the ACE_INHERITED_OBJECT_TYPE_PRESENT bit is not set in the <b>ObjectsPresent</b> member, the <b>InheritedObjectTypeName</b> member is ignored, and all types of child objects can inherit the ACE. Otherwise, only the specified object type can inherit the ACE. In either case, inheritance is also controlled by the inheritance flags in the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure as well as by any protection against inheritance placed on the child objects.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     InheritedObjectTypeName {
         get => NumGet(this, 16, "ptr")
@@ -71,7 +71,7 @@ class OBJECTS_AND_NAME_A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the name of the trustee.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     ptstrName {
         get => NumGet(this, 24, "ptr")

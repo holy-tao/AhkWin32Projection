@@ -45,7 +45,7 @@ class COSERVERINFO extends Win32Struct
 
     /**
      * The name of the computer.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszName {
         get => NumGet(this, 8, "ptr")

@@ -44,7 +44,7 @@ class PROPSHEETUI_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hComPropSheet {
         get => NumGet(this, 8, "ptr")

@@ -20,7 +20,7 @@ class OEMFONTINSTPARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hPrinter {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class OEMFONTINSTPARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hModule {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class OEMFONTINSTPARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hHeap {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +52,7 @@ class OEMFONTINSTPARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pFontInstallerName {
         get => NumGet(this, 40, "ptr")

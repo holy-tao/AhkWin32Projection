@@ -44,7 +44,7 @@ class WIAS_CHANGED_VALUE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     bstrVal {
         get => NumGet(this, 8, "ptr")

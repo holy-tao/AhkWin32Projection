@@ -38,7 +38,7 @@ class RPC_ENDPOINT_TEMPLATEA extends Win32Struct
 
     /**
      * Pointer to a string identifier of the protocol sequence to register with the RPC run-time library.  Only <a href="https://docs.microsoft.com/windows/desktop/Rpc/protocol-sequence-constants">ncalrpc</a>, ncacn_ip_tcp, and ncacn_np are supported.  This value must not be <b>NULL</b>.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     ProtSeq {
         get => NumGet(this, 8, "ptr")
@@ -47,7 +47,7 @@ class RPC_ENDPOINT_TEMPLATEA extends Win32Struct
 
     /**
      * Optional pointer to the endpoint-address information to use in creating a binding for the protocol sequence specified in the <i>Protseq</i> parameter.  Specify <b>NULL</b> to use dynamic endpoints.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     Endpoint {
         get => NumGet(this, 16, "ptr")

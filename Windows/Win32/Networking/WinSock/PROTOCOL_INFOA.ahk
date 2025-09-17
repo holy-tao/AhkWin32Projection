@@ -292,7 +292,7 @@ class PROTOCOL_INFOA extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * Pointer to a zero-terminated string that supplies a name for the protocol; for example, "SPX2."
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpProtocol {
         get => NumGet(this, 32, "ptr")

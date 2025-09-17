@@ -28,7 +28,7 @@ class DSBITEMA extends Win32Struct
 
     /**
      * Pointer to a  null-terminated Unicode string that contains the ADsPath of the item.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszADsPath {
         get => NumGet(this, 8, "ptr")
@@ -37,7 +37,7 @@ class DSBITEMA extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the object class name of the item.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszClass {
         get => NumGet(this, 16, "ptr")

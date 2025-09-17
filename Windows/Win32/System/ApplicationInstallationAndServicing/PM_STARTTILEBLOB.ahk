@@ -29,7 +29,7 @@ class PM_STARTTILEBLOB extends Win32Struct
     }
 
     /**
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     TileID {
         get => NumGet(this, 16, "ptr")

@@ -26,7 +26,7 @@ class CRYPT_XML_SIGNED_INFO extends Win32Struct
 
     /**
      * Optional.  A pointer to a null-terminated Unicode string that contains the <b>Id</b> attribute.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     wszId {
         get => NumGet(this, 8, "ptr")

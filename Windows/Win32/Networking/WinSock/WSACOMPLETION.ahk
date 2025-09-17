@@ -57,7 +57,7 @@ class WSACOMPLETION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hWnd {
         get => NumGet(this, 8, "ptr")
@@ -81,7 +81,7 @@ class WSACOMPLETION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<_Event_e__Struct>}
+     * @type {Pointer<TypeHandle>}
      */
     Event {
         get => NumGet(this, 8, "ptr")
@@ -105,7 +105,7 @@ class WSACOMPLETION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hPort {
         get => NumGet(this, 16, "ptr")

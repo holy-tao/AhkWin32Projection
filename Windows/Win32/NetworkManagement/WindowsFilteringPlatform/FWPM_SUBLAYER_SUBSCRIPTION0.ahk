@@ -24,7 +24,7 @@ class FWPM_SUBLAYER_SUBSCRIPTION0 extends Win32Struct
      * Enumeration template for limiting the subscription.
      * 
      * See [FWPM_SUBLAYER_ENUM_TEMPLATE0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_sublayer_enum_template0) for more information.
-     * @type {Pointer<FWPM_SUBLAYER_ENUM_TEMPLATE0>}
+     * @type {Pointer<TypeHandle>}
      */
     enumTemplate {
         get => NumGet(this, 0, "ptr")

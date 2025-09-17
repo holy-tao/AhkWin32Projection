@@ -21,7 +21,7 @@ class TBSAVEPARAMSA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HKEY</a></b>
      * 
      * Handle to the registry key.
-     * @type {Pointer<HKEY>}
+     * @type {Pointer<Void>}
      */
     hkr {
         get => NumGet(this, 0, "ptr")
@@ -32,7 +32,7 @@ class TBSAVEPARAMSA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCTSTR</a></b>
      * 
      * Subkey name.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszSubKey {
         get => NumGet(this, 8, "ptr")
@@ -43,7 +43,7 @@ class TBSAVEPARAMSA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCTSTR</a></b>
      * 
      * Value name.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszValueName {
         get => NumGet(this, 16, "ptr")

@@ -26,7 +26,7 @@ class DRM_ACTSERV_INFO extends Win32Struct
 
     /**
      * This member is reserved and must be set to <b>NULL</b>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     wszPubKey {
         get => NumGet(this, 8, "ptr")
@@ -35,7 +35,7 @@ class DRM_ACTSERV_INFO extends Win32Struct
 
     /**
      * URL for a service that performs activation. Use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmgetservicelocation">DRMGetServiceLocation</a> to find a service location if none is known, or pass in <b>NULL</b> to use Passport service discovery. The URL should have the form <b>http://</b><i>CompanyName</i><b>/_wmcs/certification</b>, for example, http://blueyonderairlines/_wmcs/certification. The parameter defaults to <b>NULL</b> in C++.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     wszURL {
         get => NumGet(this, 16, "ptr")

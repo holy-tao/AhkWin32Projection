@@ -21,7 +21,7 @@ class MCI_OVLY_WINDOW_PARMSA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hWnd {
         get => NumGet(this, 8, "ptr")
@@ -37,7 +37,7 @@ class MCI_OVLY_WINDOW_PARMSA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpstrText {
         get => NumGet(this, 24, "ptr")

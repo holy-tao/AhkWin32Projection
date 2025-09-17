@@ -15,7 +15,7 @@ class WMDMMetadataView extends Win32Struct
 
     /**
      * Pointer to a wide-character null-terminated string containing the name of the view. This is used as the name of the root node under which this view is presented.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszViewName {
         get => NumGet(this, 0, "ptr")

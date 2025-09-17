@@ -20,7 +20,7 @@ class CABSTR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     pElems {
         get => NumGet(this, 8, "ptr")

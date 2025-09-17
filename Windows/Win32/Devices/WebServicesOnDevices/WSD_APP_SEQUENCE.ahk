@@ -59,7 +59,7 @@ class WSD_APP_SEQUENCE extends Win32Struct
 
     /**
      * The sequence identifier.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     SequenceId {
         get => NumGet(this, 8, "ptr")

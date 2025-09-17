@@ -12,7 +12,7 @@ class WIN_SPUB_TRUSTED_PUBLISHER_DATA extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hClientToken {
         get => NumGet(this, 0, "ptr")

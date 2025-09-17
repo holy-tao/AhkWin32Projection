@@ -28,7 +28,7 @@ class IKEEXT_CERT_NAME0 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * The string to be used for matching the "subject" criteria.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     certName {
         get => NumGet(this, 8, "ptr")

@@ -24,7 +24,7 @@ class VDS_ISCSI_INITIATOR_ADAPTER_PROP extends Win32Struct
 
     /**
      * A null-terminated, human-readable string that is the name of the initiator adapter.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszName {
         get => NumGet(this, 8, "ptr")

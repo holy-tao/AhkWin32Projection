@@ -24,7 +24,7 @@ class SERVICE_TABLE_ENTRYA extends Win32Struct
      * 
      * If the service is installed with the SERVICE_WIN32_SHARE_PROCESS service type, this member specifies the name of the service that uses the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nc-winsvc-lpservice_main_functiona">ServiceMain</a> function pointed to by the <b>lpServiceProc</b> member.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpServiceName {
         get => NumGet(this, 0, "ptr")

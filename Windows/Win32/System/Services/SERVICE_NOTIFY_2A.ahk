@@ -94,7 +94,7 @@ class SERVICE_NOTIFY_2A extends Win32Struct
      * If <b>dwNotificationStatus</b> is <b>ERROR_SUCCESS</b> and the notification is <b>SERVICE_NOTIFY_CREATED</b> or <b>SERVICE_NOTIFY_DELETED</b>, this member is valid and it is a <b>MULTI_SZ</b> string that contains one or more service names. The names of the created services will have a '/' prefix so you can distinguish them from the names of the deleted services.
      * 
      * If this member is valid, the notification callback function must free the string using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszServiceNames {
         get => NumGet(this, 72, "ptr")

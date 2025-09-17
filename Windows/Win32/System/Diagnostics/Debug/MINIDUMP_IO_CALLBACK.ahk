@@ -15,7 +15,7 @@ class MINIDUMP_IO_CALLBACK extends Win32Struct
 
     /**
      * The file handle passed to the <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/nf-minidumpapiset-minidumpwritedump">MiniDumpWriteDump</a> function.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     Handle {
         get => NumGet(this, 0, "ptr")

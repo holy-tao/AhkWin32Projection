@@ -28,7 +28,7 @@ class MMC_EXT_VIEW_DATA extends Win32Struct
 
     /**
      * URL to the HTML used in the result pane; this typically points to an HTML resource in the snap-in's DLL.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszURL {
         get => NumGet(this, 8, "ptr")
@@ -37,7 +37,7 @@ class MMC_EXT_VIEW_DATA extends Win32Struct
 
     /**
      * Title of the view extension.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszViewTitle {
         get => NumGet(this, 16, "ptr")
@@ -46,7 +46,7 @@ class MMC_EXT_VIEW_DATA extends Win32Struct
 
     /**
      * This value is reserved for future use.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszTooltipText {
         get => NumGet(this, 24, "ptr")

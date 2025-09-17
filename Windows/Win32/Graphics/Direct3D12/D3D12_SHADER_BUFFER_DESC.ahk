@@ -17,7 +17,7 @@ class D3D12_SHADER_BUFFER_DESC extends Win32Struct
 
     /**
      * The name of the buffer.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     Name {
         get => NumGet(this, 0, "ptr")

@@ -45,12 +45,13 @@ class Kernel {
      * @remarks
      * Calls to the <a href="https://docs.microsoft.com/windows/desktop/api/interlockedapi/nf-interlockedapi-initializeslisthead">InitializeSListHead</a> function are forwarded to the <b>RtlInitializeSListHead</b> function. Applications should call <b>InitializeSListHead</b> instead of calling this function directly.
      * @param {Pointer<SLIST_HEADER>} ListHead A pointer to an <b>SLIST_HEADER</b> structure that represents the head of a singly linked list. This structure is for system use only.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} This function does not return a value.
      * @see https://learn.microsoft.com/windows/win32/api/winnt/nf-winnt-rtlinitializeslisthead
      * @since windows5.1.2600
      */
     static RtlInitializeSListHead(ListHead) {
-        DllCall("ntdll.dll\RtlInitializeSListHead", "ptr", ListHead)
+        result := DllCall("ntdll.dll\RtlInitializeSListHead", "ptr", ListHead)
+        return result
     }
 
     /**
@@ -58,7 +59,7 @@ class Kernel {
      * @param {Pointer<SLIST_HEADER>} ListHead A pointer to an <b>SLIST_HEADER</b> structure that represents the head of a singly linked list. This structure is for system use only. 
      * 
      * The list must  be previously initialized with the <a href="https://docs.microsoft.com/windows/desktop/api/interlockedapi/nf-interlockedapi-initializeslisthead">InitializeSListHead</a> function.
-     * @returns {Pointer<SLIST_ENTRY>} The return value is a pointer to the first entry in the list. If the list is empty, the return value is <b>NULL</b>.
+     * @returns {Pointer<TypeHandle>} The return value is a pointer to the first entry in the list. If the list is empty, the return value is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winnt/nf-winnt-rtlfirstentryslist
      * @since windows5.1.2600
      */
@@ -72,7 +73,7 @@ class Kernel {
      * @remarks
      * Calls to the <a href="https://docs.microsoft.com/windows/desktop/api/interlockedapi/nf-interlockedapi-interlockedpopentryslist">InterlockedPopEntrySList</a> function are forwarded to the <b>RtlInterlockedPopEntrySList</b> function. Applications should call <b>InterlockedPopEntrySList</b> instead of calling this function directly.
      * @param {Pointer<SLIST_HEADER>} ListHead A pointer to an <b>SLIST_HEADER</b> structure that represents the head of a singly linked list.
-     * @returns {Pointer<SLIST_ENTRY>} The return value is a pointer to the item removed from the list. If the list is empty, the return value is <b>NULL</b>.
+     * @returns {Pointer<TypeHandle>} The return value is a pointer to the item removed from the list. If the list is empty, the return value is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winnt/nf-winnt-rtlinterlockedpopentryslist
      * @since windows5.1.2600
      */
@@ -86,9 +87,9 @@ class Kernel {
      * @remarks
      * Calls to the <a href="https://docs.microsoft.com/windows/desktop/api/interlockedapi/nf-interlockedapi-interlockedpushentryslist">InterlockedPushEntrySList</a> function are forwarded to the <b>RtlInterlockedPushEntrySList</b> function. Applications should call <b>InterlockedPushEntrySList</b> instead of calling this function directly.
      * @param {Pointer<SLIST_HEADER>} ListHead A pointer to an <b>SLIST_HEADER</b> structure that represents the head of a singly linked list.
-     * @param {Pointer<SLIST_ENTRY>} ListEntry A pointer to an 
+     * @param {Pointer<TypeHandle>} ListEntry A pointer to an 
      * [SLIST_ENTRY](./ns-winnt-slist_entry.md) structure that represents an item in a singly linked list.
-     * @returns {Pointer<SLIST_ENTRY>} The return value is the previous first item in the list. If the list was previously empty, the return value is <b>NULL</b>.
+     * @returns {Pointer<TypeHandle>} The return value is the previous first item in the list. If the list was previously empty, the return value is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winnt/nf-winnt-rtlinterlockedpushentryslist
      * @since windows5.1.2600
      */
@@ -100,10 +101,10 @@ class Kernel {
     /**
      * 
      * @param {Pointer<SLIST_HEADER>} ListHead 
-     * @param {Pointer<SLIST_ENTRY>} List 
-     * @param {Pointer<SLIST_ENTRY>} ListEnd 
+     * @param {Pointer<TypeHandle>} List 
+     * @param {Pointer<TypeHandle>} ListEnd 
      * @param {Integer} Count 
-     * @returns {Pointer<SLIST_ENTRY>} 
+     * @returns {Pointer<TypeHandle>} 
      */
     static RtlInterlockedPushListSListEx(ListHead, List, ListEnd, Count) {
         result := DllCall("ntdll.dll\RtlInterlockedPushListSListEx", "ptr", ListHead, "ptr", List, "ptr", ListEnd, "uint", Count, "ptr")
@@ -115,7 +116,7 @@ class Kernel {
      * @remarks
      * Calls to the <a href="https://docs.microsoft.com/windows/desktop/api/interlockedapi/nf-interlockedapi-interlockedflushslist">InterlockedFlushSList</a> function are forwarded to the <b>RtlInterlockedFlushSList</b> function. Applications should call <b>InterlockedFlushSList</b> instead of calling this function directly.
      * @param {Pointer<SLIST_HEADER>} ListHead A pointer to an <b>SLIST_HEADER</b> structure that represents the head of the singly linked list. This structure is for system use only.
-     * @returns {Pointer<SLIST_ENTRY>} The return value is a pointer to the items removed from the list. If the list is empty, the return value is <b>NULL</b>.
+     * @returns {Pointer<TypeHandle>} The return value is a pointer to the items removed from the list. If the list is empty, the return value is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winnt/nf-winnt-rtlinterlockedflushslist
      * @since windows5.1.2600
      */

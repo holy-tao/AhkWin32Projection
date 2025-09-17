@@ -40,7 +40,7 @@ class RPC_EE_INFO_PARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     AnsiString {
         get => NumGet(this, 4, "ptr")
@@ -48,7 +48,7 @@ class RPC_EE_INFO_PARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     UnicodeString {
         get => NumGet(this, 4, "ptr")

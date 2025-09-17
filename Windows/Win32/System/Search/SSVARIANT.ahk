@@ -115,7 +115,7 @@ class SSVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwchNCharVal {
         get => NumGet(this, 20, "ptr")
@@ -142,7 +142,7 @@ class SSVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwchReserved {
         get => NumGet(this, 44, "ptr")
@@ -150,7 +150,7 @@ class SSVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pchCharVal {
         get => NumGet(this, 20, "ptr")

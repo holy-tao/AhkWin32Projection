@@ -145,7 +145,7 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
      * An array of characters that contains the name of the adapter with which these addresses are associated. 
      *       Unlike an adapter's friendly name, the adapter name specified in <b>AdapterName</b> is 
      *       permanent and cannot be modified by the user.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     AdapterName {
         get => NumGet(this, 16, "ptr")
@@ -208,7 +208,7 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
      * Type: <b>PWCHAR</b>
      * 
      * The Domain Name System (DNS) suffix associated with this adapter.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     DnsSuffix {
         get => NumGet(this, 56, "ptr")
@@ -219,7 +219,7 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
      * Type: <b>PWCHAR</b>
      * 
      * A description for the adapter. This member is read-only.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     Description {
         get => NumGet(this, 64, "ptr")
@@ -238,7 +238,7 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
      *        <a href="https://www.ietf.org/rfc/rfc2863.txt">RFC 2863</a>. The ifAlias field can be set by an 
      *        NDIS interface provider when the NDIS driver is installed. For NDIS miniport drivers, this field is set by 
      *        NDIS.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     FriendlyName {
         get => NumGet(this, 72, "ptr")

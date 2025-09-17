@@ -51,7 +51,7 @@ class ComponentSummary extends Win32Struct
 
     /**
      * The name of the component. Usually, this is the component's ProgID (or the string representation of the component's CLSID if the component does not have a ProgID). For SWC contexts, this is the context name property configured for the context. Space for this string is allocated by the method called and freed by the caller (for more information, see <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>). This member is not returned by default. To return this member, specify the GATD_INCLUDE_CLASS_NAME flag when you call a method that returns a <b>ComponentSummary</b> structure.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ClassName {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +60,7 @@ class ComponentSummary extends Win32Struct
 
     /**
      * The name of the COM+ application, or the application name property configured for an SWC context. Space for this string is allocated by the method called and freed by the caller (for more information, see <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>). This member is not returned by default. To return this member, specify the GATD_INCLUDE_APPLICATION_NAME flag when you call a method that returns a <b>ComponentSummary</b> structure.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ApplicationName {
         get => NumGet(this, 40, "ptr")

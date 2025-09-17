@@ -28,7 +28,7 @@ class DEBUG_TRIAGE_FOLLOWUP_INFO_2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     OwnerName {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +44,7 @@ class DEBUG_TRIAGE_FOLLOWUP_INFO_2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     FeaturePath {
         get => NumGet(this, 24, "ptr")

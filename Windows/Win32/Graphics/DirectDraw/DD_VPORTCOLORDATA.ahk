@@ -15,7 +15,7 @@ class DD_VPORTCOLORDATA extends Win32Struct
 
     /**
      * Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_directdraw_local">DD_DIRECTDRAW_LOCAL</a> structure that is relevant to the current Microsoft DirectDraw process only.
-     * @type {Pointer<DD_DIRECTDRAW_LOCAL>}
+     * @type {Pointer<TypeHandle>}
      */
     lpDD {
         get => NumGet(this, 0, "ptr")

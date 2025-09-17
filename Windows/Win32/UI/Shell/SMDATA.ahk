@@ -37,7 +37,7 @@ class SMDATA extends Win32Struct
      * Type: <b>HMENU</b>
      * 
      * The static menu portion of the menu band.
-     * @type {Pointer<HMENU>}
+     * @type {Pointer<Void>}
      */
     hmenu {
         get => NumGet(this, 8, "ptr")
@@ -48,7 +48,7 @@ class SMDATA extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * The HWND value of the owner window.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwnd {
         get => NumGet(this, 16, "ptr")

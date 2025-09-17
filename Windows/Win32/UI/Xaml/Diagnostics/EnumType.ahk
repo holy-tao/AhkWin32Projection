@@ -15,7 +15,7 @@ class EnumType extends Win32Struct
 
     /**
      * The name of the enumeration.
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     Name {
         get => NumGet(this, 0, "ptr")

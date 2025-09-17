@@ -63,7 +63,7 @@ class EVENTMSG extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window to which the message was posted.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwnd {
         get => NumGet(this, 16, "ptr")

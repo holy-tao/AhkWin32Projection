@@ -19,7 +19,7 @@ class OPENASINFO extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * A pointer to the file name.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pcszFile {
         get => NumGet(this, 0, "ptr")
@@ -30,7 +30,7 @@ class OPENASINFO extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * A pointer to the file type description. Set this parameter to <b>NULL</b> to use the file name extension of <b>pcszFile</b>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pcszClass {
         get => NumGet(this, 8, "ptr")

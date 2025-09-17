@@ -31,7 +31,7 @@ class LVFINDINFOW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCTSTR</a></b>
      * 
      * Address of a null-terminated string to compare with the item text. It is valid only if LVFI_STRING or LVFI_PARTIAL is set in the <b>flags</b> member.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     psz {
         get => NumGet(this, 8, "ptr")

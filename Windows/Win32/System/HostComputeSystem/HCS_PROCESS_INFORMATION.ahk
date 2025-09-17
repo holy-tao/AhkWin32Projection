@@ -33,7 +33,7 @@ class HCS_PROCESS_INFORMATION extends Win32Struct
 
     /**
      * If created, standard input handle of the process.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     StdInput {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class HCS_PROCESS_INFORMATION extends Win32Struct
 
     /**
      * If created, standard output handle of the process.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     StdOutput {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +51,7 @@ class HCS_PROCESS_INFORMATION extends Win32Struct
 
     /**
      * If created, standard error handle of the process.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     StdError {
         get => NumGet(this, 24, "ptr")

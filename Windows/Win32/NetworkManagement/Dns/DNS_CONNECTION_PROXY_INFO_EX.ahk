@@ -32,7 +32,7 @@ class DNS_CONNECTION_PROXY_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszConnectionName {
         get => NumGet(this, 56, "ptr")
@@ -48,7 +48,7 @@ class DNS_CONNECTION_PROXY_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hConnection {
         get => NumGet(this, 72, "ptr")

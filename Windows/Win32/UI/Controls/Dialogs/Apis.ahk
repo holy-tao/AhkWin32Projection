@@ -631,15 +631,21 @@ class Dialogs {
      * 
      * > [!NOTE]
      * > The commdlg.h header defines GetFileTitle as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} param0 
-     * @param {Pointer<PSTR>} Buf Type: <b>LPTSTR</b>
+     * @param {Pointer<Byte>} param0 
+     * @param {Pointer<Byte>} Buf Type: <b>LPTSTR</b>
      * 
      * The buffer that receives the name of the file.
      * @param {Integer} cchSize Type: <b>WORD</b>
      * 
      * The length, in 
      * 					characters, of the buffer pointed to by the <i>lpszTitle</i> parameter.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} Type: <b>short</b>
+     * 
+     * If the function succeeds, the return value is zero.
+     * 
+     * If the file name is invalid, the return value is unknown. If there is an error, the return value is a negative number.
+     * 
+     * If the buffer pointed to by the <i>lpszTitle</i> parameter is too small, the return value is a positive integer that specifies the required buffer size, in characters. The required buffer size includes the terminating null character.
      * @see https://learn.microsoft.com/windows/win32/api/commdlg/nf-commdlg-getfiletitlea
      * @since windows5.0
      */
@@ -647,7 +653,8 @@ class Dialogs {
         param0 := param0 is String? StrPtr(param0) : param0
         Buf := Buf is String? StrPtr(Buf) : Buf
 
-        DllCall("COMDLG32.dll\GetFileTitleA", "ptr", param0, "ptr", Buf, "ushort", cchSize)
+        result := DllCall("COMDLG32.dll\GetFileTitleA", "ptr", param0, "ptr", Buf, "ushort", cchSize)
+        return result
     }
 
     /**
@@ -667,15 +674,21 @@ class Dialogs {
      * 
      * > [!NOTE]
      * > The commdlg.h header defines GetFileTitle as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} param0 
-     * @param {Pointer<PWSTR>} Buf Type: <b>LPTSTR</b>
+     * @param {Pointer<Char>} param0 
+     * @param {Pointer<Char>} Buf Type: <b>LPTSTR</b>
      * 
      * The buffer that receives the name of the file.
      * @param {Integer} cchSize Type: <b>WORD</b>
      * 
      * The length, in 
      * 					characters, of the buffer pointed to by the <i>lpszTitle</i> parameter.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} Type: <b>short</b>
+     * 
+     * If the function succeeds, the return value is zero.
+     * 
+     * If the file name is invalid, the return value is unknown. If there is an error, the return value is a negative number.
+     * 
+     * If the buffer pointed to by the <i>lpszTitle</i> parameter is too small, the return value is a positive integer that specifies the required buffer size, in characters. The required buffer size includes the terminating null character.
      * @see https://learn.microsoft.com/windows/win32/api/commdlg/nf-commdlg-getfiletitlew
      * @since windows5.0
      */
@@ -683,7 +696,8 @@ class Dialogs {
         param0 := param0 is String? StrPtr(param0) : param0
         Buf := Buf is String? StrPtr(Buf) : Buf
 
-        DllCall("COMDLG32.dll\GetFileTitleW", "ptr", param0, "ptr", Buf, "ushort", cchSize)
+        result := DllCall("COMDLG32.dll\GetFileTitleW", "ptr", param0, "ptr", Buf, "ushort", cchSize)
+        return result
     }
 
     /**
@@ -718,7 +732,7 @@ class Dialogs {
      * 
      * You can provide an <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nc-commdlg-lpfrhookproc">FRHookProc</a> hook procedure for a <b>Find</b> dialog box. The hook procedure can process messages sent to the dialog box. To enable a hook procedure, set the <b>FR_ENABLEHOOK</b> flag in the  <b>Flags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/ns-commdlg-findreplacea">FINDREPLACE</a> structure and specify the address of the hook procedure in the  <b>lpfnHook</b> member.
      * @param {Pointer<FINDREPLACEA>} param0 
-     * @returns {Pointer<HWND>} Type: <b>HWND</b>
+     * @returns {Pointer<Void>} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is the window handle to the dialog box. You can use the window handle to communicate with or to close the dialog box.
      * 
@@ -727,7 +741,7 @@ class Dialogs {
      * @since windows5.0
      */
     static FindTextA(param0) {
-        result := DllCall("COMDLG32.dll\FindTextA", "ptr", param0, "ptr")
+        result := DllCall("COMDLG32.dll\FindTextA", "ptr", param0)
         return result
     }
 
@@ -742,7 +756,7 @@ class Dialogs {
      * 
      * You can provide an <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nc-commdlg-lpfrhookproc">FRHookProc</a> hook procedure for a <b>Find</b> dialog box. The hook procedure can process messages sent to the dialog box. To enable a hook procedure, set the <b>FR_ENABLEHOOK</b> flag in the  <b>Flags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/ns-commdlg-findreplacea">FINDREPLACE</a> structure and specify the address of the hook procedure in the  <b>lpfnHook</b> member.
      * @param {Pointer<FINDREPLACEW>} param0 
-     * @returns {Pointer<HWND>} Type: <b>HWND</b>
+     * @returns {Pointer<Void>} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is the window handle to the dialog box. You can use the window handle to communicate with or to close the dialog box.
      * 
@@ -751,7 +765,7 @@ class Dialogs {
      * @since windows5.0
      */
     static FindTextW(param0) {
-        result := DllCall("COMDLG32.dll\FindTextW", "ptr", param0, "ptr")
+        result := DllCall("COMDLG32.dll\FindTextW", "ptr", param0)
         return result
     }
 
@@ -773,7 +787,7 @@ class Dialogs {
      * > [!NOTE]
      * > The commdlg.h header defines ReplaceText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<FINDREPLACEA>} param0 
-     * @returns {Pointer<HWND>} Type: <b>HWND</b>
+     * @returns {Pointer<Void>} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is the window handle to the dialog box. You can use the window handle to communicate with the dialog box or close it.
      * 
@@ -782,7 +796,7 @@ class Dialogs {
      * @since windows5.0
      */
     static ReplaceTextA(param0) {
-        result := DllCall("COMDLG32.dll\ReplaceTextA", "ptr", param0, "ptr")
+        result := DllCall("COMDLG32.dll\ReplaceTextA", "ptr", param0)
         return result
     }
 
@@ -804,7 +818,7 @@ class Dialogs {
      * > [!NOTE]
      * > The commdlg.h header defines ReplaceText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<FINDREPLACEW>} param0 
-     * @returns {Pointer<HWND>} Type: <b>HWND</b>
+     * @returns {Pointer<Void>} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is the window handle to the dialog box. You can use the window handle to communicate with the dialog box or close it.
      * 
@@ -813,7 +827,7 @@ class Dialogs {
      * @since windows5.0
      */
     static ReplaceTextW(param0) {
-        result := DllCall("COMDLG32.dll\ReplaceTextW", "ptr", param0, "ptr")
+        result := DllCall("COMDLG32.dll\ReplaceTextW", "ptr", param0)
         return result
     }
 

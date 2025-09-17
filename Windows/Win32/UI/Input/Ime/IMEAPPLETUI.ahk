@@ -15,7 +15,7 @@ class IMEAPPLETUI extends Win32Struct
 
     /**
      * Window handle created by applet window.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwnd {
         get => NumGet(this, 0, "ptr")

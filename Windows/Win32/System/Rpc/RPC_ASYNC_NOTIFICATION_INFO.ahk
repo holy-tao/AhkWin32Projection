@@ -24,7 +24,7 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hThread {
         get => NumGet(this, 8, "ptr")
@@ -32,7 +32,7 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hIOPort {
         get => NumGet(this, 0, "ptr")
@@ -64,7 +64,7 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hWnd {
         get => NumGet(this, 0, "ptr")
@@ -81,7 +81,7 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
 
     /**
      * Handle used for notification by an event.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hEvent {
         get => NumGet(this, 0, "ptr")

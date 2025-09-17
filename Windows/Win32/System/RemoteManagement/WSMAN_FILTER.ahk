@@ -15,7 +15,7 @@ class WSMAN_FILTER extends Win32Struct
 
     /**
      * Reserved for future use. This parameter must be <b>NULL</b>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     filter {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class WSMAN_FILTER extends Win32Struct
 
     /**
      * Reserved for future use. This parameter must be <b>NULL</b>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     dialect {
         get => NumGet(this, 8, "ptr")

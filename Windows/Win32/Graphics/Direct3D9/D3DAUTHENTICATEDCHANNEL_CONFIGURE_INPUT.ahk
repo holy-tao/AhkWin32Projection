@@ -37,7 +37,7 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT extends Win32Struct
 
     /**
      * A handle to the authenticated channel. To get the handle, call [**IDirect3DDevice9Video::CreateAuthenticatedChannel**](/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9video-createauthenticatedchannel).
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hChannel {
         get => NumGet(this, 24, "ptr")

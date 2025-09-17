@@ -28,7 +28,7 @@ class USERDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pKeyWordName {
         get => NumGet(this, 16, "ptr")

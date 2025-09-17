@@ -36,7 +36,7 @@ class GLOBALENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hBlock {
         get => NumGet(this, 16, "ptr")
@@ -76,7 +76,7 @@ class GLOBALENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hOwner {
         get => NumGet(this, 40, "ptr")

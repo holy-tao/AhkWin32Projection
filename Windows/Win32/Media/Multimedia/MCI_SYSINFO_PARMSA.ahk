@@ -21,7 +21,7 @@ class MCI_SYSINFO_PARMSA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpstrReturn {
         get => NumGet(this, 8, "ptr")

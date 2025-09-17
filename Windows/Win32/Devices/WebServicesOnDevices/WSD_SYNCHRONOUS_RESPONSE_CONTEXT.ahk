@@ -24,7 +24,7 @@ class WSD_SYNCHRONOUS_RESPONSE_CONTEXT extends Win32Struct
 
     /**
      * The event handle to be signaled when the response is ready.
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     eventHandle {
         get => NumGet(this, 8, "ptr")

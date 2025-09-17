@@ -20,7 +20,7 @@ class VM_PATCH_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pVmNames {
         get => NumGet(this, 8, "ptr")

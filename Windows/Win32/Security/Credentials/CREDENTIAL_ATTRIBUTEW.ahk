@@ -24,7 +24,7 @@ class CREDENTIAL_ATTRIBUTEW extends Win32Struct
      * 
      * 
      * This member cannot be longer than CRED_MAX_STRING_LENGTH (256) characters.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     Keyword {
         get => NumGet(this, 0, "ptr")

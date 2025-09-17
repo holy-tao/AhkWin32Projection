@@ -36,7 +36,7 @@ class CDDDXGK_REDIRBITMAPPRESENTINFO extends Win32Struct
     }
 
     /**
-     * @type {Array<HANDLE>}
+     * @type {Array<Void>}
      */
     hContext{
         get {

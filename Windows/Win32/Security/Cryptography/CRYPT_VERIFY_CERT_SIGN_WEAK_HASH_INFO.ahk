@@ -20,7 +20,7 @@ class CRYPT_VERIFY_CERT_SIGN_WEAK_HASH_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     rgpwszCNGHashAlgid {
         get => NumGet(this, 8, "ptr")

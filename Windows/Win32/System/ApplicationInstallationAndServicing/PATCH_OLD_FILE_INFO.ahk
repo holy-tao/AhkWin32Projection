@@ -20,7 +20,7 @@ class PATCH_OLD_FILE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     OldFileNameA {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class PATCH_OLD_FILE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     OldFileNameW {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class PATCH_OLD_FILE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     OldFileHandle {
         get => NumGet(this, 8, "ptr")

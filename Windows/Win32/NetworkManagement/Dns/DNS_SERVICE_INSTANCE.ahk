@@ -24,7 +24,7 @@ class DNS_SERVICE_INSTANCE extends Win32Struct
 
     /**
      * A string that represents the service name. This is a fully qualified domain name that begins with a service name, and ends with ".local". It takes the generalized form "\<ServiceName\>.\_\<ServiceType\>.\_\<TransportProtocol\>.local". For example, "MyMusicServer._http._tcp.local".
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszInstanceName {
         get => NumGet(this, 0, "ptr")
@@ -33,7 +33,7 @@ class DNS_SERVICE_INSTANCE extends Win32Struct
 
     /**
      * A string that represents the name of the host of the service.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszHostName {
         get => NumGet(this, 8, "ptr")
@@ -95,7 +95,7 @@ class DNS_SERVICE_INSTANCE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     keys {
         get => NumGet(this, 48, "ptr")
@@ -103,7 +103,7 @@ class DNS_SERVICE_INSTANCE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     values {
         get => NumGet(this, 56, "ptr")

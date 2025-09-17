@@ -84,7 +84,7 @@ class OCSP_BASIC_RESPONSE_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<_Anonymous_e__Union>}
+     * @type {Pointer<TypeHandle>}
      */
     Anonymous {
         get => NumGet(this, 80, "ptr")

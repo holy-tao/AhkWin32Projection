@@ -44,7 +44,7 @@ class SPWORD extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszWord {
         get => NumGet(this, 16, "ptr")

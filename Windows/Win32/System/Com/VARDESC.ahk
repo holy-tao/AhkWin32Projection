@@ -28,7 +28,7 @@ class VARDESC extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpstrSchema {
         get => NumGet(this, 8, "ptr")

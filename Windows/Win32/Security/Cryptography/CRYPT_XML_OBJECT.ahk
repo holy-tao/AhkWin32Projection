@@ -35,7 +35,7 @@ class CRYPT_XML_OBJECT extends Win32Struct
 
     /**
      * Optional. A pointer to a null-terminated wide character string that contains the value of the unique identifier attribute of the <b>Object</b> element.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     wszId {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class CRYPT_XML_OBJECT extends Win32Struct
 
     /**
      * Optional. A pointer to a null-terminated wide character string that contains the value of the MIME-type attribute of the <b>Object</b> element.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     wszMimeType {
         get => NumGet(this, 24, "ptr")
@@ -53,7 +53,7 @@ class CRYPT_XML_OBJECT extends Win32Struct
 
     /**
      * Optional. A pointer to a null-terminated wide character string that contains the value of the encoding method attribute of the <b>Object</b> element.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     wszEncoding {
         get => NumGet(this, 32, "ptr")

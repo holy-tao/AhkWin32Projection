@@ -36,7 +36,7 @@ class STISUBSCRIBE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hWndNotify {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class STISUBSCRIBE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hEvent {
         get => NumGet(this, 24, "ptr")

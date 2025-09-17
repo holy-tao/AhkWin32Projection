@@ -981,10 +981,10 @@ class Power {
      *         
      * 
      * The <i>lpOutputBuffer</i> buffer receives a <b>ULONG</b> value
-     * @param {Pointer<Void>} InputBuffer A pointer to an optional input buffer. The data type of this buffer depends on the information level 
+     * @param {Pointer} InputBuffer A pointer to an optional input buffer. The data type of this buffer depends on the information level 
      *       requested in the <i>InformationLevel</i> parameter.
      * @param {Integer} InputBufferLength The size of the input buffer, in bytes.
-     * @param {Pointer<Void>} OutputBuffer A pointer to an optional output buffer. The data type of this buffer depends on the information level 
+     * @param {Pointer} OutputBuffer A pointer to an optional output buffer. The data type of this buffer depends on the information level 
      *       requested in the <i>InformationLevel</i> parameter. If the buffer is too small to contain the 
      *       information, the function returns STATUS_BUFFER_TOO_SMALL.
      * @param {Integer} OutputBufferLength The size of the output buffer, in bytes. Depending on the information level requested, this may be a 
@@ -1066,18 +1066,20 @@ class Power {
      * 
      * If the OEM preferred computer role is not supported on the platform specified by the caller, the function returns the closest supported value.  For example, calling the <b>PowerDeterminePlatformRoleEx</b> function with a <i>Version</i> of <b>POWER_PLATFORM_ROLE_V1</b> on a tablet device returns <b>PlatformRoleMobile</b>.
      * @param {Integer} Version 
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The return value is one of the values from the 
+     *       specified version of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-power_platform_role">POWER_PLATFORM_ROLE</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/powerbase/nf-powerbase-powerdetermineplatformroleex
      * @since windows8.0
      */
     static PowerDeterminePlatformRoleEx(Version) {
-        DllCall("POWRPROF.dll\PowerDeterminePlatformRoleEx", "uint", Version)
+        result := DllCall("POWRPROF.dll\PowerDeterminePlatformRoleEx", "uint", Version)
+        return result
     }
 
     /**
      * Registers to receive notification when the system is suspended or resumed.
      * @param {Integer} Flags This parameter must be <b>DEVICE_NOTIFY_CALLBACK</b>.
-     * @param {Pointer<HANDLE>} Recipient This parameter is a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/powrprof/ns-powrprof-device_notify_subscribe_parameters">DEVICE_NOTIFY_SUBSCRIBE_PARAMETERS</a> structure. In this case, the callback function is <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nc-powrprof-device_notify_callback_routine">DeviceNotifyCallbackRoutine</a>. When the <b>Callback</b> function executes, the  <i>Type</i> parameter is set indicating the type of event that occurred. Possible values include <b>PBT_APMSUSPEND</b>, <b>PBT_APMRESUMESUSPEND</b>, and <b>PBT_APMRESUMEAUTOMATIC</b> - see  <a href="https://docs.microsoft.com/windows/desktop/Power/power-management-events">Power Management Events</a> for more info. The <i>Setting</i> parameter is not used with suspend/resume notifications.
+     * @param {Pointer<Void>} Recipient This parameter is a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/powrprof/ns-powrprof-device_notify_subscribe_parameters">DEVICE_NOTIFY_SUBSCRIBE_PARAMETERS</a> structure. In this case, the callback function is <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nc-powrprof-device_notify_callback_routine">DeviceNotifyCallbackRoutine</a>. When the <b>Callback</b> function executes, the  <i>Type</i> parameter is set indicating the type of event that occurred. Possible values include <b>PBT_APMSUSPEND</b>, <b>PBT_APMRESUMESUSPEND</b>, and <b>PBT_APMRESUMEAUTOMATIC</b> - see  <a href="https://docs.microsoft.com/windows/desktop/Power/power-management-events">Power Management Events</a> for more info. The <i>Setting</i> parameter is not used with suspend/resume notifications.
      * @param {Pointer<Void>} RegistrationHandle A handle to the registration. Use this handle to unregister for notifications.
      * @returns {Integer} Returns ERROR_SUCCESS (zero) if the call was successful, and a nonzero value if the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powerbase/nf-powerbase-powerregistersuspendresumenotification
@@ -1102,14 +1104,14 @@ class Power {
 
     /**
      * Retrieves the AC power value for the specified power setting.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
      * @param {Pointer<UInt32>} Type A pointer to a variable that receives the type of data for the value. The 
      *      possible values are listed in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">Registry Value Types</a>. 
      *      This parameter can be <b>NULL</b> and the type of data is not returned.
-     * @param {Pointer<Byte>} Buffer A pointer to a buffer that receives the data value. If this parameter is <b>NULL</b>, 
+     * @param {Pointer} Buffer A pointer to a buffer that receives the data value. If this parameter is <b>NULL</b>, 
      *      the <i>BufferSize</i> 
      *      parameter receives the required buffer size.
      * @param {Pointer<UInt32>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
@@ -1127,20 +1129,20 @@ class Power {
      * @since windows6.0.6000
      */
     static PowerReadACValue(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Type, Buffer, BufferSize) {
-        result := DllCall("POWRPROF.dll\PowerReadACValue", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Type, "ptr", Buffer, "ptr", BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadACValue", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint*", Type, "ptr", Buffer, "uint*", BufferSize, "uint")
         return result
     }
 
     /**
      * Retrieves the DC power value for the specified power setting.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
      * @param {Pointer<UInt32>} Type A pointer to a variable that receives the type of data for the value. The 
      *      possible values are listed in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">Registry Value Types</a>. 
      *      This parameter can be <b>NULL</b> and the type of data is not returned.
-     * @param {Pointer<Byte>} Buffer A pointer to a variable that receives the data value. If this parameter is <b>NULL</b>, 
+     * @param {Pointer} Buffer A pointer to a variable that receives the data value. If this parameter is <b>NULL</b>, 
      *      the <i>BufferSize</i> 
      *      parameter receives the required buffer size.
      * @param {Pointer<UInt32>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
@@ -1158,7 +1160,7 @@ class Power {
      * @since windows6.0.6000
      */
     static PowerReadDCValue(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Type, Buffer, BufferSize) {
-        result := DllCall("POWRPROF.dll\PowerReadDCValue", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Type, "ptr", Buffer, "ptr", BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadDCValue", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint*", Type, "ptr", Buffer, "uint*", BufferSize, "uint")
         return result
     }
 
@@ -1167,7 +1169,7 @@ class Power {
      * @remarks
      * Changes to the settings for the active power scheme do not take effect until you call the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
@@ -1187,7 +1189,7 @@ class Power {
      * @remarks
      * Changes to the settings for the active power scheme do not take effect until you call the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
@@ -1204,7 +1206,7 @@ class Power {
 
     /**
      * Retrieves the active power scheme and returns a GUID that identifies the scheme.
-     * @param {Pointer<HKEY>} UserRootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} UserRootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} ActivePolicyGuid A pointer that receives a pointer to a <b>GUID</b> structure. 
      *       Use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function to free this memory.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
@@ -1219,7 +1221,7 @@ class Power {
 
     /**
      * Sets the active power scheme for the current user.
-     * @param {Pointer<HKEY>} UserRootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} UserRootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
@@ -1237,7 +1239,7 @@ class Power {
      * Immediately after registration, the callback will be invoked with the current value of the power setting. If the registration occurs while the power setting is changing, you may receive multiple callbacks; the last callback is the most recent update.
      * @param {Pointer<Guid>} SettingGuid A GUID that represents the power setting.
      * @param {Integer} Flags 
-     * @param {Pointer<HANDLE>} Recipient A handle to the recipient of the notifications.
+     * @param {Pointer<Void>} Recipient A handle to the recipient of the notifications.
      * @param {Pointer<Void>} RegistrationHandle A handle to the registration. Use this handle to unregister for notifications.
      * @returns {Integer} Returns ERROR_SUCCESS (zero) if the call was successful, and a nonzero value if the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powersetting/nf-powersetting-powersettingregisternotification
@@ -1313,7 +1315,7 @@ class Power {
     static GetPwrDiskSpindownRange(puiMax, puiMin) {
         A_LastError := 0
 
-        result := DllCall("POWRPROF.dll\GetPwrDiskSpindownRange", "ptr", puiMax, "ptr", puiMin, "char")
+        result := DllCall("POWRPROF.dll\GetPwrDiskSpindownRange", "uint*", puiMax, "uint*", puiMin, "char")
         if(A_LastError)
             throw OSError()
 
@@ -1434,8 +1436,8 @@ class Power {
      * 
      * For more information about using PowrProf.h, see <a href="https://docs.microsoft.com/windows/desktop/Power/power-schemes">Power Schemes</a>.
      * @param {Pointer<UInt32>} puiID The index of the power scheme to be written. If a power scheme with the same index already exists, it is replaced. Otherwise, a new power scheme is created.
-     * @param {Pointer<PWSTR>} lpszSchemeName The name of the power scheme.
-     * @param {Pointer<PWSTR>} lpszDescription The description of the power scheme.
+     * @param {Pointer<Char>} lpszSchemeName The name of the power scheme.
+     * @param {Pointer<Char>} lpszDescription The description of the power scheme.
      * @param {Pointer<POWER_POLICY>} lpScheme A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/ns-powrprof-power_policy">POWER_POLICY</a> structure that contains the power policy settings to be written.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -1451,7 +1453,7 @@ class Power {
 
         A_LastError := 0
 
-        result := DllCall("POWRPROF.dll\WritePwrScheme", "ptr", puiID, "ptr", lpszSchemeName, "ptr", lpszDescription, "ptr", lpScheme, "char")
+        result := DllCall("POWRPROF.dll\WritePwrScheme", "uint*", puiID, "ptr", lpszSchemeName, "ptr", lpszDescription, "ptr", lpScheme, "char")
         if(A_LastError)
             throw OSError()
 
@@ -1528,7 +1530,7 @@ class Power {
     static GetActivePwrScheme(puiID) {
         A_LastError := 0
 
-        result := DllCall("POWRPROF.dll\GetActivePwrScheme", "ptr", puiID, "char")
+        result := DllCall("POWRPROF.dll\GetActivePwrScheme", "uint*", puiID, "char")
         if(A_LastError)
             throw OSError()
 
@@ -2066,7 +2068,7 @@ class Power {
 
     /**
      * Retrieves the AC index of the specified power setting.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
@@ -2077,13 +2079,13 @@ class Power {
      * @since windows6.0.6000
      */
     static PowerReadACValueIndex(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, AcValueIndex) {
-        result := DllCall("POWRPROF.dll\PowerReadACValueIndex", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", AcValueIndex, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadACValueIndex", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint*", AcValueIndex, "uint")
         return result
     }
 
     /**
      * Retrieves the DC value index of the specified power setting.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid The identifier of the subgroup of power settings. Use <b>NO_SUBGROUP_GUID</b> to refer to the 
      *       default power scheme.
@@ -2195,13 +2197,13 @@ class Power {
      * @since windows6.0.6000
      */
     static PowerReadDCValueIndex(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, DcValueIndex) {
-        result := DllCall("POWRPROF.dll\PowerReadDCValueIndex", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", DcValueIndex, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadDCValueIndex", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint*", DcValueIndex, "uint")
         return result
     }
 
     /**
      * Retrieves the friendly name for the specified power setting, subgroup, or scheme.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid The subgroup of power settings. Use <b>NO_SUBGROUP_GUID</b> to refer to the 
      *       default power scheme.
@@ -2301,7 +2303,7 @@ class Power {
      * </tr>
      * </table>
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
-     * @param {Pointer<Byte>} Buffer A pointer to a buffer that receives the friendly name. If this parameter is <b>NULL</b>, 
+     * @param {Pointer} Buffer A pointer to a buffer that receives the friendly name. If this parameter is <b>NULL</b>, 
      *      the <i>BufferSize</i> 
      *      parameter receives the required buffer size. The strings returned are all wide (Unicode) strings.
      * @param {Pointer<UInt32>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
@@ -2319,17 +2321,17 @@ class Power {
      * @since windows6.0.6000
      */
     static PowerReadFriendlyName(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Buffer, BufferSize) {
-        result := DllCall("POWRPROF.dll\PowerReadFriendlyName", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer, "ptr", BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadFriendlyName", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer, "uint*", BufferSize, "uint")
         return result
     }
 
     /**
      * Retrieves the description for the specified power setting, subgroup, or scheme.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
-     * @param {Pointer<Byte>} Buffer A pointer to a buffer that receives the description. If this parameter is <b>NULL</b>, 
+     * @param {Pointer} Buffer A pointer to a buffer that receives the description. If this parameter is <b>NULL</b>, 
      *      the <i>BufferSize</i> 
      *      parameter receives the required buffer size. The strings returned are all wide (Unicode) strings.
      * @param {Pointer<UInt32>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
@@ -2348,13 +2350,13 @@ class Power {
      * @since windows6.0.6000
      */
     static PowerReadDescription(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Buffer, BufferSize) {
-        result := DllCall("POWRPROF.dll\PowerReadDescription", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer, "ptr", BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadDescription", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer, "uint*", BufferSize, "uint")
         return result
     }
 
     /**
      * Retrieves the value for a possible value of a power setting.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to 
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to 
      *      <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
@@ -2362,7 +2364,7 @@ class Power {
      *      possible values are listed in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">Registry Value Types</a>. 
      *      This parameter can be <b>NULL</b> and the type of data is not returned.
      * @param {Integer} PossibleSettingIndex The zero-based index of the possible setting.
-     * @param {Pointer<Byte>} Buffer A pointer to a buffer that receives the value. If this parameter is <b>NULL</b>, the <i>BufferSize</i> parameter receives the required buffer size.
+     * @param {Pointer} Buffer A pointer to a buffer that receives the value. If this parameter is <b>NULL</b>, the <i>BufferSize</i> parameter receives the required buffer size.
      * @param {Pointer<UInt32>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the  <i>Buffer</i> parameter. 
      * 
      * If the <i>Buffer</i> parameter is <b>NULL</b>, the function returns ERROR_SUCCESS and the variable receives the required buffer size. 
@@ -2375,17 +2377,17 @@ class Power {
      * @since windows6.0.6000
      */
     static PowerReadPossibleValue(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Type, PossibleSettingIndex, Buffer, BufferSize) {
-        result := DllCall("POWRPROF.dll\PowerReadPossibleValue", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Type, "uint", PossibleSettingIndex, "ptr", Buffer, "ptr", BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadPossibleValue", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint*", Type, "uint", PossibleSettingIndex, "ptr", Buffer, "uint*", BufferSize, "uint")
         return result
     }
 
     /**
      * Retrieves the friendly name for one of the possible choices of a power setting value.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
      * @param {Integer} PossibleSettingIndex The zero-based index for the possible setting.
-     * @param {Pointer<Byte>} Buffer A pointer to a buffer that receives the friendly name. If this parameter is <b>NULL</b>, the <i>BufferSize</i> 
+     * @param {Pointer} Buffer A pointer to a buffer that receives the friendly name. If this parameter is <b>NULL</b>, the <i>BufferSize</i> 
      * parameter receives the required buffer size. The strings returned are all wide (Unicode) strings.
      * @param {Pointer<UInt32>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
      * <i>Buffer</i> parameter. 
@@ -2400,17 +2402,17 @@ class Power {
      * @since windows6.0.6000
      */
     static PowerReadPossibleFriendlyName(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, PossibleSettingIndex, Buffer, BufferSize) {
-        result := DllCall("POWRPROF.dll\PowerReadPossibleFriendlyName", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint", PossibleSettingIndex, "ptr", Buffer, "ptr", BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadPossibleFriendlyName", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint", PossibleSettingIndex, "ptr", Buffer, "uint*", BufferSize, "uint")
         return result
     }
 
     /**
      * Retrieves the description for one of the possible choices of a power setting value.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
      * @param {Integer} PossibleSettingIndex The zero-based index for the possible setting.
-     * @param {Pointer<Byte>} Buffer A pointer to a buffer that receives the description. If this parameter is <b>NULL</b>, the <i>BufferSize</i>  parameter receives the required buffer size. The strings returned are all wide (Unicode) strings.
+     * @param {Pointer} Buffer A pointer to a buffer that receives the description. If this parameter is <b>NULL</b>, the <i>BufferSize</i>  parameter receives the required buffer size. The strings returned are all wide (Unicode) strings.
      * @param {Pointer<UInt32>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the <i>Buffer</i> parameter. 
      * 
      * If the <i>Buffer</i> parameter is <b>NULL</b>, the function returns ERROR_SUCCESS and the variable receives the required buffer size. 
@@ -2423,13 +2425,13 @@ class Power {
      * @since windows6.0.6000
      */
     static PowerReadPossibleDescription(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, PossibleSettingIndex, Buffer, BufferSize) {
-        result := DllCall("POWRPROF.dll\PowerReadPossibleDescription", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint", PossibleSettingIndex, "ptr", Buffer, "ptr", BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadPossibleDescription", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint", PossibleSettingIndex, "ptr", Buffer, "uint*", BufferSize, "uint")
         return result
     }
 
     /**
      * Retrieves the minimum value for the specified power setting.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
      * @param {Pointer<UInt32>} ValueMinimum A pointer to a variable that receives the minimum value for the specified power 
@@ -2440,13 +2442,13 @@ class Power {
      * @since windows6.0.6000
      */
     static PowerReadValueMin(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, ValueMinimum) {
-        result := DllCall("POWRPROF.dll\PowerReadValueMin", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", ValueMinimum, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadValueMin", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint*", ValueMinimum, "uint")
         return result
     }
 
     /**
      * Retrieves the maximum value for the specified power setting.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
      * @param {Pointer<UInt32>} ValueMaximum A pointer to a variable that receives the maximum for the specified power 
@@ -2457,13 +2459,13 @@ class Power {
      * @since windows6.0.6000
      */
     static PowerReadValueMax(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, ValueMaximum) {
-        result := DllCall("POWRPROF.dll\PowerReadValueMax", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", ValueMaximum, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadValueMax", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint*", ValueMaximum, "uint")
         return result
     }
 
     /**
      * Retrieves the increment for valid values between the power settings minimum and maximum.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
      * @param {Pointer<UInt32>} ValueIncrement A pointer to a variable that receives the increment for the specified power setting.
@@ -2473,16 +2475,16 @@ class Power {
      * @since windows6.0.6000
      */
     static PowerReadValueIncrement(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, ValueIncrement) {
-        result := DllCall("POWRPROF.dll\PowerReadValueIncrement", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", ValueIncrement, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadValueIncrement", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint*", ValueIncrement, "uint")
         return result
     }
 
     /**
      * Reads the string used to describe the units of a power setting that supports a range of values.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
-     * @param {Pointer<Byte>} Buffer A pointer to a buffer that receives the string. If this parameter is <b>NULL</b>, the <i>BufferSize</i> parameter receives the required buffer size. The strings returned are all wide (Unicode) strings.
+     * @param {Pointer} Buffer A pointer to a buffer that receives the string. If this parameter is <b>NULL</b>, the <i>BufferSize</i> parameter receives the required buffer size. The strings returned are all wide (Unicode) strings.
      * @param {Pointer<UInt32>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the <i>Buffer</i> parameter. 
      * 
      * If the <i>Buffer</i> parameter is <b>NULL</b>, the function returns ERROR_SUCCESS and the variable receives the required buffer size. 
@@ -2495,13 +2497,13 @@ class Power {
      * @since windows6.0.6000
      */
     static PowerReadValueUnitsSpecifier(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Buffer, BufferSize) {
-        result := DllCall("POWRPROF.dll\PowerReadValueUnitsSpecifier", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer, "ptr", BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadValueUnitsSpecifier", "ptr", RootPowerKey, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer, "uint*", BufferSize, "uint")
         return result
     }
 
     /**
      * Retrieves the default AC index of the specified power setting.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SchemePersonalityGuid The identifier for the scheme personality for this power setting. A power setting can have different default 
      *       values depending on the power scheme personality.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
@@ -2513,13 +2515,13 @@ class Power {
      * @since windows6.0.6000
      */
     static PowerReadACDefaultIndex(RootPowerKey, SchemePersonalityGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, AcDefaultIndex) {
-        result := DllCall("POWRPROF.dll\PowerReadACDefaultIndex", "ptr", RootPowerKey, "ptr", SchemePersonalityGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", AcDefaultIndex, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadACDefaultIndex", "ptr", RootPowerKey, "ptr", SchemePersonalityGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint*", AcDefaultIndex, "uint")
         return result
     }
 
     /**
      * Retrieves the default DC index of the specified power setting.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SchemePersonalityGuid The identifier of the scheme personality for this power setting. A power setting can have different default 
      *      values depending on the power scheme personality.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
@@ -2531,17 +2533,17 @@ class Power {
      * @since windows6.0.6000
      */
     static PowerReadDCDefaultIndex(RootPowerKey, SchemePersonalityGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, DcDefaultIndex) {
-        result := DllCall("POWRPROF.dll\PowerReadDCDefaultIndex", "ptr", RootPowerKey, "ptr", SchemePersonalityGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", DcDefaultIndex, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadDCDefaultIndex", "ptr", RootPowerKey, "ptr", SchemePersonalityGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "uint*", DcDefaultIndex, "uint")
         return result
     }
 
     /**
      * Retrieves the icon resource for the specified power setting, subgroup, or scheme.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
-     * @param {Pointer<Byte>} Buffer A pointer to a buffer that receives the icon resource. If this parameter is <b>NULL</b>, 
+     * @param {Pointer} Buffer A pointer to a buffer that receives the icon resource. If this parameter is <b>NULL</b>, 
      *      the <i>BufferSize</i> 
      *      parameter receives the required buffer size.
      * @param {Pointer<UInt32>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
@@ -2559,7 +2561,7 @@ class Power {
      * @since windows6.0.6000
      */
     static PowerReadIconResourceSpecifier(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Buffer, BufferSize) {
-        result := DllCall("POWRPROF.dll\PowerReadIconResourceSpecifier", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer, "ptr", BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerReadIconResourceSpecifier", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "ptr", PowerSettingGuid, "ptr", Buffer, "uint*", BufferSize, "uint")
         return result
     }
 
@@ -2601,11 +2603,11 @@ class Power {
      * @remarks
      * Changes to the settings for the active power scheme do not take effect until you call the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
-     * @param {Pointer<Byte>} Buffer The friendly name, in wide (Unicode) characters.
+     * @param {Pointer} Buffer The friendly name, in wide (Unicode) characters.
      * @param {Integer} BufferSize The size of the friendly name specified by the <i>Buffer</i> parameter, including the terminating <b>NULL</b> character.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
@@ -2633,11 +2635,11 @@ class Power {
      * 
      * Changes to the settings for the active power scheme do not take effect until you call the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
-     * @param {Pointer<Byte>} Buffer The description, in wide (Unicode) characters.
+     * @param {Pointer} Buffer The description, in wide (Unicode) characters.
      * @param {Integer} BufferSize The size of the buffer pointed to by the <i>Buffer</i> parameter.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *        the call failed.
@@ -2654,13 +2656,13 @@ class Power {
      * @remarks
      * Changes to the settings for the active power scheme do not take effect until you call the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
      * @param {Integer} Type The type of data for the value. The possible values are listed in 
      *       <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">Registry Value Types</a>.
      * @param {Integer} PossibleSettingIndex The zero-based index for the possible setting.
-     * @param {Pointer<Byte>} Buffer The value for the possible setting.
+     * @param {Pointer} Buffer The value for the possible setting.
      * @param {Integer} BufferSize The size of the buffer pointed to by the <i>Buffer</i> parameter.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *      the call failed.
@@ -2677,11 +2679,11 @@ class Power {
      * @remarks
      * Changes to the settings for the active power scheme do not take effect until you call the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
      * @param {Integer} PossibleSettingIndex The zero-based index for the possible setting.
-     * @param {Pointer<Byte>} Buffer The friendly name, in wide (Unicode) characters.
+     * @param {Pointer} Buffer The friendly name, in wide (Unicode) characters.
      * @param {Integer} BufferSize The size of the buffer pointed to by the <i>Buffer</i> parameter.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
@@ -2698,11 +2700,11 @@ class Power {
      * @remarks
      * Changes to the settings for the active power scheme do not take effect until you call the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
      * @param {Integer} PossibleSettingIndex The zero-based index for the possible setting.
-     * @param {Pointer<Byte>} Buffer The description, in wide (Unicode) characters.
+     * @param {Pointer} Buffer The description, in wide (Unicode) characters.
      * @param {Integer} BufferSize The size of the buffer pointed to by the <i>Buffer</i> parameter.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
@@ -2719,7 +2721,7 @@ class Power {
      * @remarks
      * Changes to the settings for the active power scheme do not take effect until you call the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
      * @param {Integer} ValueMinimum The minimum value to be set.
@@ -2738,7 +2740,7 @@ class Power {
      * @remarks
      * Changes to the settings for the active power scheme do not take effect until you call the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
      * @param {Integer} ValueMaximum The maximum value to be set.
@@ -2757,7 +2759,7 @@ class Power {
      * @remarks
      * Changes to the settings for the active power scheme do not take effect until you call the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
      * @param {Integer} ValueIncrement The increment to be set.
@@ -2776,10 +2778,10 @@ class Power {
      * @remarks
      * Changes to the settings for the active power scheme do not take effect until you call the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
-     * @param {Pointer<Byte>} Buffer The units specifier, in wide (Unicode) characters.
+     * @param {Pointer} Buffer The units specifier, in wide (Unicode) characters.
      * @param {Integer} BufferSize The size of the buffer pointed to by the <i>Buffer</i> parameter.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
@@ -2796,7 +2798,7 @@ class Power {
      * @remarks
      * Changes to the settings for the active power scheme do not take effect until you call the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
-     * @param {Pointer<HKEY>} RootSystemPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootSystemPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SchemePersonalityGuid The identifier of the scheme personality for this power setting. A power setting can have different default 
      *      values depending on the power scheme personality.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
@@ -2817,7 +2819,7 @@ class Power {
      * @remarks
      * Changes to the settings for the active power scheme do not take effect until you call the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
-     * @param {Pointer<HKEY>} RootSystemPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootSystemPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SchemePersonalityGuid The identifier of the scheme personality for this power setting. A power setting can have different default 
      * 	     values depending on the power scheme personality.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
@@ -2849,11 +2851,11 @@ class Power {
      * 
      * Changes to the settings for the active power scheme do not take effect until you call the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersetactivescheme">PowerSetActiveScheme</a> function.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
-     * @param {Pointer<Byte>} Buffer The icon resource.
+     * @param {Pointer} Buffer The icon resource.
      * @param {Integer} BufferSize The size of the buffer pointed to by the <i>Buffer</i> parameter.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
@@ -2903,7 +2905,7 @@ class Power {
 
     /**
      * Duplicates an existing power scheme.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SourceSchemeGuid The identifier of the power scheme that is to be duplicated.
      * @param {Pointer<Guid>} DestinationSchemeGuid The address of a pointer to a <b>GUID</b>. If the pointer contains 
      *       <b>NULL</b>, the function allocates memory for a new 
@@ -2966,8 +2968,8 @@ class Power {
 
     /**
      * Imports a power scheme from a file.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
-     * @param {Pointer<PWSTR>} ImportFileNamePath The path to a power scheme backup file created by <b>PowerCfg.Exe /Export</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Char>} ImportFileNamePath The path to a power scheme backup file created by <b>PowerCfg.Exe /Export</b>.
      * @param {Pointer<Guid>} DestinationSchemeGuid A pointer to a pointer to a <b>GUID</b>. If the pointer contains 
      *       <b>NULL</b>, the function allocates memory for a new 
      *       <b>GUID</b> and puts the address of this memory in the pointer. The caller can free this 
@@ -2986,7 +2988,7 @@ class Power {
 
     /**
      * Deletes the specified power scheme from the database.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
@@ -3014,7 +3016,7 @@ class Power {
 
     /**
      * Creates a setting value for a specified power setting.
-     * @param {Pointer<HKEY>} RootSystemPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootSystemPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being created.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
@@ -3029,7 +3031,7 @@ class Power {
 
     /**
      * Creates a possible setting value for a specified power setting.
-     * @param {Pointer<HKEY>} RootSystemPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootSystemPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being created.
      * @param {Integer} PossibleSettingIndex The zero-based index for the possible setting being created.
@@ -3045,7 +3047,7 @@ class Power {
 
     /**
      * Enumerates the specified elements in a power scheme.
-     * @param {Pointer<HKEY>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
+     * @param {Pointer<Void>} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme. If this parameter is <b>NULL</b>, 
      *       an enumeration of the power policies is returned.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid The subgroup of power settings.  If this parameter is <b>NULL</b>, an 
@@ -3193,7 +3195,7 @@ class Power {
      * </tr>
      * </table>
      * @param {Integer} Index The zero-based index of the scheme, subgroup, or setting that is being enumerated.
-     * @param {Pointer<Byte>} Buffer A pointer to a variable to receive the elements. If this parameter is <b>NULL</b>, the function retrieves the size of the buffer required.
+     * @param {Pointer} Buffer A pointer to a variable to receive the elements. If this parameter is <b>NULL</b>, the function retrieves the size of the buffer required.
      * @param {Pointer<UInt32>} BufferSize A pointer to a variable that on input contains the size of the buffer pointed to by 
      *       the <i>Buffer</i> parameter. If the  <i>Buffer</i> parameter is 
      *       <b>NULL</b> or if the <i>BufferSize</i> is not large enough, the function 
@@ -3207,13 +3209,13 @@ class Power {
      * @since windows6.0.6000
      */
     static PowerEnumerate(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, AccessFlags, Index, Buffer, BufferSize) {
-        result := DllCall("POWRPROF.dll\PowerEnumerate", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "int", AccessFlags, "uint", Index, "ptr", Buffer, "ptr", BufferSize, "uint")
+        result := DllCall("POWRPROF.dll\PowerEnumerate", "ptr", RootPowerKey, "ptr", SchemeGuid, "ptr", SubGroupOfPowerSettingsGuid, "int", AccessFlags, "uint", Index, "ptr", Buffer, "uint*", BufferSize, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<HKEY>} phUserPowerKey 
+     * @param {Pointer<Void>} phUserPowerKey 
      * @param {Integer} Access 
      * @param {Integer} OpenExisting 
      * @returns {Integer} 
@@ -3225,7 +3227,7 @@ class Power {
 
     /**
      * 
-     * @param {Pointer<HKEY>} phSystemPowerKey 
+     * @param {Pointer<Void>} phSystemPowerKey 
      * @param {Integer} Access 
      * @param {Integer} OpenExisting 
      * @returns {Integer} 
@@ -3298,12 +3300,14 @@ class Power {
      * 
      * <div class="alert"><b>Note</b>  This API has a newer version. To query additional power platform roles defined after Windows 7 and Windows Server 2008 R2, use <a href="https://docs.microsoft.com/windows/desktop/api/powerbase/nf-powerbase-powerdetermineplatformroleex">PowerDeterminePlatformRoleEx</a>.</div>
      * <div> </div>
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} The return value is one of the values from the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-power_platform_role">POWER_PLATFORM_ROLE</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerdetermineplatformrole
      * @since windows6.0.6000
      */
     static PowerDeterminePlatformRole() {
-        DllCall("POWRPROF.dll\PowerDeterminePlatformRole")
+        result := DllCall("POWRPROF.dll\PowerDeterminePlatformRole")
+        return result
     }
 
     /**
@@ -3603,7 +3607,7 @@ class Power {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} pReturnBuffer Pointer to a buffer that receives the requested information.
+     * @param {Pointer} pReturnBuffer Pointer to a buffer that receives the requested information.
      * @param {Pointer<UInt32>} pBufferSize The size, in bytes, of the return buffer.
      *       
      * 
@@ -3617,13 +3621,13 @@ class Power {
      * @since windows6.0.6000
      */
     static DevicePowerEnumDevices(QueryIndex, QueryInterpretationFlags, QueryFlags, pReturnBuffer, pBufferSize) {
-        result := DllCall("POWRPROF.dll\DevicePowerEnumDevices", "uint", QueryIndex, "uint", QueryInterpretationFlags, "uint", QueryFlags, "ptr", pReturnBuffer, "ptr", pBufferSize, "char")
+        result := DllCall("POWRPROF.dll\DevicePowerEnumDevices", "uint", QueryIndex, "uint", QueryInterpretationFlags, "uint", QueryFlags, "ptr", pReturnBuffer, "uint*", pBufferSize, "char")
         return result
     }
 
     /**
      * Modifies the specified data on the specified device.
-     * @param {Pointer<PWSTR>} DeviceDescription The name or hardware identifier string of the device to be modified.
+     * @param {Pointer<Char>} DeviceDescription The name or hardware identifier string of the device to be modified.
      * @param {Integer} SetFlags The properties of the device that are to be modified.
      * 
      * <table>
@@ -3721,7 +3725,7 @@ class Power {
 
     /**
      * Registers the application to receive power setting notifications for the specific power setting event.
-     * @param {Pointer<HANDLE>} hRecipient Handle indicating where the power setting notifications are to be sent. For interactive applications, the 
+     * @param {Pointer<Void>} hRecipient Handle indicating where the power setting notifications are to be sent. For interactive applications, the 
      *      <i>Flags</i> parameter should be zero, and the <i>hRecipient</i> parameter 
      *      should be a window handle. For services, the <i>Flags</i> parameter should be one, and the 
      *      <i>hRecipient</i> parameter should be a <b>SERVICE_STATUS_HANDLE</b> 
@@ -3799,7 +3803,7 @@ class Power {
 
     /**
      * Registers to receive notification when the system is suspended or resumed. Similar to PowerRegisterSuspendResumeNotification, but operates in user mode and can take a window handle.
-     * @param {Pointer<HANDLE>} hRecipient This parameter contains parameters for subscribing to a power notification or a window handle representing the subscribing process. 
+     * @param {Pointer<Void>} hRecipient This parameter contains parameters for subscribing to a power notification or a window handle representing the subscribing process. 
      * 
      * If <i>Flags</i> is <b>DEVICE_NOTIFY_CALLBACK</b>, <i>hRecipient</i> is interpreted as a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/powrprof/ns-powrprof-device_notify_subscribe_parameters">DEVICE_NOTIFY_SUBSCRIBE_PARAMETERS</a> structure. In this case, the callback function is <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nc-powrprof-device_notify_callback_routine">DeviceNotifyCallbackRoutine</a>. When the <b>Callback</b> function executes, the  <i>Type</i> parameter is set indicating the type of event that occurred. Possible values include <b>PBT_APMSUSPEND</b>, <b>PBT_APMRESUMESUSPEND</b>, and <b>PBT_APMRESUMEAUTOMATIC</b> - see  <a href="https://docs.microsoft.com/windows/desktop/Power/power-management-events">Power Management Events</a> for more info. The <i>Setting</i> parameter is not used with suspend/resume notifications.
      * 
@@ -3944,7 +3948,7 @@ class Power {
      * @remarks
      * When the power request object is no longer needed, use the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function to free the handle and clean up the object.
      * @param {Pointer<REASON_CONTEXT>} Context Points to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-reason_context">REASON_CONTEXT</a> structure that contains information about the power request.
-     * @returns {Pointer<HANDLE>} If the function succeeds, the return value is a handle to the power request object.
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the power request object.
      * 
      * If the function fails, the return value is INVALID_HANDLE_VALUE. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3954,7 +3958,7 @@ class Power {
     static PowerCreateRequest(Context) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\PowerCreateRequest", "ptr", Context, "ptr")
+        result := DllCall("KERNEL32.dll\PowerCreateRequest", "ptr", Context)
         if(A_LastError)
             throw OSError()
 
@@ -3974,7 +3978,7 @@ class Power {
      * * Call <b>PowerSetRequest</b> immediately before the scenario that requires the request.
      * * Call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-powerclearrequest">PowerClearRequest</a> to decrement the reference count for the request as soon as the scenario is finished.
      * * Clean up all request objects and associated handles before the process exits or the service stops.
-     * @param {Pointer<HANDLE>} PowerRequest A handle to a power request object.
+     * @param {Pointer<Void>} PowerRequest A handle to a power request object.
      * @param {Integer} RequestType 
      * @returns {Integer} If the function succeeds, it returns a nonzero value.
      * 
@@ -3994,7 +3998,7 @@ class Power {
 
     /**
      * Decrements the count of power requests of the specified type for a power request object.
-     * @param {Pointer<HANDLE>} PowerRequest A handle to a power request object.
+     * @param {Pointer<Void>} PowerRequest A handle to a power request object.
      * @param {Integer} RequestType 
      * @returns {Integer} If the function succeeds, it returns a nonzero value.
      * 
@@ -4024,7 +4028,7 @@ class Power {
      * 
      * Applications should defer or limit access to devices wherever possible while the system is running on battery power. To determine whether the system is running on battery power, and the remaining battery life, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getsystempowerstatus">GetSystemPowerStatus</a> function.
-     * @param {Pointer<HANDLE>} hDevice A handle to an object on the device, such as a file or socket, or a handle to the device itself.
+     * @param {Pointer<Void>} hDevice A handle to an object on the device, such as a file or socket, or a handle to the device itself.
      * @param {Pointer<Int32>} pfOn A pointer to the variable that receives the 
      * <a href="https://docs.microsoft.com/windows/desktop/Power/system-power-states">power state</a>. This value is <b>TRUE</b> if the device is in the working state. Otherwise, it is <b>FALSE</b>.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -4034,7 +4038,7 @@ class Power {
      * @since windows5.1.2600
      */
     static GetDevicePowerState(hDevice, pfOn) {
-        result := DllCall("KERNEL32.dll\GetDevicePowerState", "ptr", hDevice, "ptr", pfOn, "int")
+        result := DllCall("KERNEL32.dll\GetDevicePowerState", "ptr", hDevice, "int*", pfOn, "int")
         return result
     }
 

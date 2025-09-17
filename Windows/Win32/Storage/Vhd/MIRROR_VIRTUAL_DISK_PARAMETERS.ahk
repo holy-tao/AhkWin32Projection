@@ -24,7 +24,7 @@ class MIRROR_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     Anonymous {
         get => NumGet(this, 8, "ptr")

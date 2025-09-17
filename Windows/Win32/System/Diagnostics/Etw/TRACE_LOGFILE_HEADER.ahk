@@ -190,7 +190,7 @@ class TRACE_LOGFILE_HEADER extends Win32Struct
      * 
      * The name of the event tracing session is the first null-terminated string
      * following this structure in memory.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     LoggerName {
         get => NumGet(this, 48, "ptr")
@@ -202,7 +202,7 @@ class TRACE_LOGFILE_HEADER extends Win32Struct
      * 
      * The name of the event tracing log file is the second null-terminated string
      * following this structure in memory. The first string is the name of the session.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     LogFileName {
         get => NumGet(this, 56, "ptr")

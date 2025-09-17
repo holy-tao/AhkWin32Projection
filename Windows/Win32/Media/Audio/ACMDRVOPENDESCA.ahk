@@ -61,7 +61,7 @@ class ACMDRVOPENDESCA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszSectionName {
         get => NumGet(this, 24, "ptr")
@@ -69,7 +69,7 @@ class ACMDRVOPENDESCA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszAliasName {
         get => NumGet(this, 32, "ptr")

@@ -134,7 +134,7 @@ class IMEAPPLETCFG extends Win32Struct
 
     /**
      * The icon handle for the ImePad applet's menu.
-     * @type {Pointer<HICON>}
+     * @type {Pointer<Void>}
      */
     hIcon {
         get => NumGet(this, 208, "ptr")

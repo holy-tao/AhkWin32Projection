@@ -36,7 +36,7 @@ class CERT_SERVER_OCSP_RESPONSE_OPEN_PARA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pwszOcspDirectory {
         get => NumGet(this, 16, "ptr")

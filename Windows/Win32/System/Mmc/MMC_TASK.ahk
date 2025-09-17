@@ -36,7 +36,7 @@ class MMC_TASK extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the text placed directly to the right of the mouse-over image. This text serves as the label for the task. This text should be an action in the imperative such as "Add a new user."
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     szText {
         get => NumGet(this, 24, "ptr")
@@ -45,7 +45,7 @@ class MMC_TASK extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the descriptive text placed in the upper-right corner when the user moves the mouse over the mouse-over image or the label text for the task. This text serves as the description for the task such as "Creates a new account, creates a mailbox, and sets up everything a user must access the network."
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     szHelpString {
         get => NumGet(this, 32, "ptr")
@@ -73,7 +73,7 @@ class MMC_TASK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     szActionURL {
         get => NumGet(this, 48, "ptr")
@@ -81,7 +81,7 @@ class MMC_TASK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     szScript {
         get => NumGet(this, 48, "ptr")

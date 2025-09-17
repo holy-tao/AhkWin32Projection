@@ -17,7 +17,7 @@ class DOMAINDESC extends Win32Struct
 
     /**
      * Pointer to a Unicode string that contains the domain name.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszName {
         get => NumGet(this, 0, "ptr")
@@ -26,7 +26,7 @@ class DOMAINDESC extends Win32Struct
 
     /**
      * Pointer to a Unicode string that contains the path of the domain. Reserved.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszPath {
         get => NumGet(this, 8, "ptr")
@@ -35,7 +35,7 @@ class DOMAINDESC extends Win32Struct
 
     /**
      * Pointer to a Unicode string that contains the fully qualified name of the domain in the form "DC=myDom, DC=Fabrikam, DC=com". This member is  blank if the <b>DBDTF_RETURNFQDN</b> flag is not set in the <i>dwFlags</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/api/dsclient/nf-dsclient-idsbrowsedomaintree-getdomains">IDsBrowseDomainTree::GetDomains</a>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszNCName {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class DOMAINDESC extends Win32Struct
 
     /**
      * Pointer to a Unicode string that contains the name of the parent domain. This member is <b>NULL</b> if the domain has no parent.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszTrustParent {
         get => NumGet(this, 24, "ptr")
@@ -53,7 +53,7 @@ class DOMAINDESC extends Win32Struct
 
     /**
      * Pointer to a Unicode string that contains the object class name of the domain.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszObjectClass {
         get => NumGet(this, 32, "ptr")

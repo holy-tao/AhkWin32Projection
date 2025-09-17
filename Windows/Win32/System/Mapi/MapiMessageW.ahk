@@ -31,7 +31,7 @@ class MapiMessageW extends Win32Struct
      * Pointer to the text string describing the message subject, typically limited to 256 characters or less.
      * 
      * If this member is empty or <b>NULL</b>, there is no subject text.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpszSubject {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +44,7 @@ class MapiMessageW extends Win32Struct
      * Pointer to a string containing the message text.
      * 
      * If this member is empty or <b>NULL</b>, there is no message text.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpszNoteText {
         get => NumGet(this, 16, "ptr")
@@ -57,7 +57,7 @@ class MapiMessageW extends Win32Struct
      * Pointer to a string that indicates the message type of when the message is not an IPM.
      * 
      * If your Client supports Interpersonal Messages (IPMs) exclusively, set the <b>lpszMessageType</b> member to empty or <b>NULL</b> when sending messages and ignore the member when reading messages.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpszMessageType {
         get => NumGet(this, 24, "ptr")
@@ -68,7 +68,7 @@ class MapiMessageW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * Pointer to a string indicating the date when the message was received. The format is <i>YYYY</i>/<i>MM</i>/<i>DD</i><i>HH</i>:<i>MM</i>, using a 24-hour clock.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpszDateReceived {
         get => NumGet(this, 32, "ptr")
@@ -79,7 +79,7 @@ class MapiMessageW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * Pointer to a string identifying the conversation thread to which the message belongs. Some messaging systems ignore this member.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpszConversationID {
         get => NumGet(this, 40, "ptr")

@@ -33,7 +33,7 @@ class COMEVENTSYSCHANGEINFO extends Win32Struct
 
     /**
      * The EventClass ID or subscription ID from which the change impacts.
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     objectId {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class COMEVENTSYSCHANGEINFO extends Win32Struct
 
     /**
      * The EventClass partition ID or the subscriber partition ID affected.
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     partitionId {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +51,7 @@ class COMEVENTSYSCHANGEINFO extends Win32Struct
 
     /**
      * The EventClass application ID or subscriber application ID affected.
-     * @type {Pointer<BSTR>}
+     * @type {Pointer<Char>}
      */
     applicationId {
         get => NumGet(this, 24, "ptr")

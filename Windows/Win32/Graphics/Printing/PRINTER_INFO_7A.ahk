@@ -22,7 +22,7 @@ class PRINTER_INFO_7A extends Win32Struct
      * A pointer to a null-terminated string containing the GUID of the directory service print queue object associated with a published printer. Use the [**GetPrinter**](getprinter.md) function to retrieve this GUID.
      * 
      * Before calling [**SetPrinter**](setprinter.md), set **pszObjectGUID** to **NULL**.
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszObjectGUID {
         get => NumGet(this, 0, "ptr")

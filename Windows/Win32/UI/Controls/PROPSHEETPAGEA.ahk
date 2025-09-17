@@ -29,7 +29,7 @@ class PROPSHEETPAGEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HINSTANCE>}
+     * @type {Pointer<Void>}
      */
     hInstance {
         get => NumGet(this, 8, "ptr")
@@ -37,7 +37,7 @@ class PROPSHEETPAGEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszTemplate {
         get => NumGet(this, 16, "ptr")
@@ -53,7 +53,7 @@ class PROPSHEETPAGEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HICON>}
+     * @type {Pointer<Void>}
      */
     hIcon {
         get => NumGet(this, 24, "ptr")
@@ -61,7 +61,7 @@ class PROPSHEETPAGEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszIcon {
         get => NumGet(this, 24, "ptr")
@@ -69,7 +69,7 @@ class PROPSHEETPAGEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszTitle {
         get => NumGet(this, 32, "ptr")
@@ -109,7 +109,7 @@ class PROPSHEETPAGEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszHeaderTitle {
         get => NumGet(this, 72, "ptr")
@@ -117,7 +117,7 @@ class PROPSHEETPAGEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszHeaderSubTitle {
         get => NumGet(this, 80, "ptr")
@@ -125,7 +125,7 @@ class PROPSHEETPAGEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     hActCtx {
         get => NumGet(this, 88, "ptr")
@@ -133,7 +133,7 @@ class PROPSHEETPAGEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HBITMAP>}
+     * @type {Pointer<Void>}
      */
     hbmHeader {
         get => NumGet(this, 96, "ptr")
@@ -141,7 +141,7 @@ class PROPSHEETPAGEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     pszbmHeader {
         get => NumGet(this, 96, "ptr")

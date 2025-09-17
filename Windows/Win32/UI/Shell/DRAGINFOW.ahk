@@ -41,7 +41,7 @@ class DRAGINFOW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     lpFileList {
         get => NumGet(this, 24, "ptr")

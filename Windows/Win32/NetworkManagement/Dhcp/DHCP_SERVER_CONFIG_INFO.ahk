@@ -64,7 +64,7 @@ class DHCP_SERVER_CONFIG_INFO extends Win32Struct
 
     /**
      * Unicode string that specifies the  file name of the client lease JET database.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     DatabaseName {
         get => NumGet(this, 8, "ptr")
@@ -73,7 +73,7 @@ class DHCP_SERVER_CONFIG_INFO extends Win32Struct
 
     /**
      * Unicode string that specifies the absolute path to <b>DatabaseName</b>.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     DatabasePath {
         get => NumGet(this, 16, "ptr")
@@ -82,7 +82,7 @@ class DHCP_SERVER_CONFIG_INFO extends Win32Struct
 
     /**
      * Unicode string that specifies the absolute path and file name of the backup client lease JET database.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     BackupPath {
         get => NumGet(this, 24, "ptr")

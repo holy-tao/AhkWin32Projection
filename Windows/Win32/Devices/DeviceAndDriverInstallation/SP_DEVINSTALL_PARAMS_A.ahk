@@ -46,7 +46,7 @@ class SP_DEVINSTALL_PARAMS_A extends Win32Struct
 
     /**
      * Window handle that will own the user interface dialogs related to this device.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwndParent {
         get => NumGet(this, 16, "ptr")

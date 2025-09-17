@@ -20,7 +20,7 @@ class MESSAGEBOX_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pTitle {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class MESSAGEBOX_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pMessage {
         get => NumGet(this, 16, "ptr")

@@ -81,7 +81,7 @@ class DXGI_SWAP_CHAIN_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a> handle to the output window. This member must not be <b>NULL</b>.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     OutputWindow {
         get => NumGet(this, 48, "ptr")

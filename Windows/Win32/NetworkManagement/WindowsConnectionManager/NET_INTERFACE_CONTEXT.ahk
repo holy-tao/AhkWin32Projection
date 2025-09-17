@@ -24,7 +24,7 @@ class NET_INTERFACE_CONTEXT extends Win32Struct
 
     /**
      * The configuration name.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     ConfigurationName {
         get => NumGet(this, 8, "ptr")

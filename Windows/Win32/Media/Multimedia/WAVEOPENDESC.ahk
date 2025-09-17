@@ -12,7 +12,7 @@ class WAVEOPENDESC extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<HWAVE>}
+     * @type {Pointer<Void>}
      */
     hWave {
         get => NumGet(this, 0, "ptr")

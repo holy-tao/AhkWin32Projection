@@ -32,7 +32,7 @@ class MOUSEHOOKSTRUCT extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window that will receive the mouse message corresponding to the mouse event.
-     * @type {Pointer<HWND>}
+     * @type {Pointer<Void>}
      */
     hwnd {
         get => NumGet(this, 8, "ptr")

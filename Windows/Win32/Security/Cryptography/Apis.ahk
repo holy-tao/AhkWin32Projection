@@ -15537,7 +15537,7 @@ class Cryptography {
 ;@region Methods
     /**
      * Retrieves a specified number of random bytes from the system random number generator.
-     * @param {Pointer<Byte>} pbRandomData A pointer to a buffer that receives the retrieved bytes.
+     * @param {Pointer} pbRandomData A pointer to a buffer that receives the retrieved bytes.
      * @param {Pointer} cbRandomData The number of bytes to retrieve.
      * @returns {Integer} Always returns **TRUE**.
      * @see https://learn.microsoft.com/windows/win32/SecCNG/systemprng
@@ -15549,7 +15549,7 @@ class Cryptography {
 
     /**
      * Retrieves a specified number of random bytes from the user-mode per-processor random number generator.
-     * @param {Pointer<Byte>} pbData A pointer to a buffer that receives the retrieved bytes.
+     * @param {Pointer} pbData A pointer to a buffer that receives the retrieved bytes.
      * @param {Pointer} cbData The number of bytes to retrieve.
      * @returns {Integer} Always returns **TRUE**.
      * @see https://learn.microsoft.com/windows/win32/SecCNG/processprng
@@ -15588,10 +15588,10 @@ class Cryptography {
      * </ul>
      * If you plan to perform private key operations, the best way to acquire a context is to try to open the container. If this attempt fails with NTE_BAD_KEYSET, then create the container by using the <b>CRYPT_NEWKEYSET</b> flag.
      * @param {Pointer<UIntPtr>} phProv A pointer to a handle of a CSP. When you have finished using the CSP, release the handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptreleasecontext">CryptReleaseContext</a> function.
-     * @param {Pointer<PSTR>} szContainer The key container name. This is a null-terminated string that identifies the key container to the CSP. This name is independent of the method used to store the keys. Some CSPs store their key containers internally (in hardware), some use the system registry, and others use the file system. In most cases, when <i>dwFlags</i> is set to CRYPT_VERIFYCONTEXT, <i>pszContainer</i> must be set to <b>NULL</b>. However, for hardware-based CSPs, such as a smart card CSP, can be access publicly available information in the specfied container.
+     * @param {Pointer<Byte>} szContainer The key container name. This is a null-terminated string that identifies the key container to the CSP. This name is independent of the method used to store the keys. Some CSPs store their key containers internally (in hardware), some use the system registry, and others use the file system. In most cases, when <i>dwFlags</i> is set to CRYPT_VERIFYCONTEXT, <i>pszContainer</i> must be set to <b>NULL</b>. However, for hardware-based CSPs, such as a smart card CSP, can be access publicly available information in the specfied container.
      * 
      * For more information about the usage of the <i>pszContainer</i> parameter, see Remarks.
-     * @param {Pointer<PSTR>} szProvider A null-terminated string that contains the name of the CSP to be used. 
+     * @param {Pointer<Byte>} szProvider A null-terminated string that contains the name of the CSP to be used. 
      * 
      * 
      * 
@@ -15978,7 +15978,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptAcquireContextA", "ptr", phProv, "ptr", szContainer, "ptr", szProvider, "uint", dwProvType, "uint", dwFlags, "int")
+        result := DllCall("ADVAPI32.dll\CryptAcquireContextA", "ptr*", phProv, "ptr", szContainer, "ptr", szProvider, "uint", dwProvType, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -16014,10 +16014,10 @@ class Cryptography {
      * </ul>
      * If you plan to perform private key operations, the best way to acquire a context is to try to open the container. If this attempt fails with NTE_BAD_KEYSET, then create the container by using the <b>CRYPT_NEWKEYSET</b> flag.
      * @param {Pointer<UIntPtr>} phProv A pointer to a handle of a CSP. When you have finished using the CSP, release the handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptreleasecontext">CryptReleaseContext</a> function.
-     * @param {Pointer<PWSTR>} szContainer The key container name. This is a null-terminated string that identifies the key container to the CSP. This name is independent of the method used to store the keys. Some CSPs store their key containers internally (in hardware), some use the system registry, and others use the file system. In most cases, when <i>dwFlags</i> is set to CRYPT_VERIFYCONTEXT, <i>pszContainer</i> must be set to <b>NULL</b>. However, for hardware-based CSPs, such as a smart card CSP, can be access publicly available information in the specfied container.
+     * @param {Pointer<Char>} szContainer The key container name. This is a null-terminated string that identifies the key container to the CSP. This name is independent of the method used to store the keys. Some CSPs store their key containers internally (in hardware), some use the system registry, and others use the file system. In most cases, when <i>dwFlags</i> is set to CRYPT_VERIFYCONTEXT, <i>pszContainer</i> must be set to <b>NULL</b>. However, for hardware-based CSPs, such as a smart card CSP, can be access publicly available information in the specfied container.
      * 
      * For more information about the usage of the <i>pszContainer</i> parameter, see Remarks.
-     * @param {Pointer<PWSTR>} szProvider A null-terminated string that contains the name of the CSP to be used. 
+     * @param {Pointer<Char>} szProvider A null-terminated string that contains the name of the CSP to be used. 
      * 
      * 
      * 
@@ -16404,7 +16404,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptAcquireContextW", "ptr", phProv, "ptr", szContainer, "ptr", szProvider, "uint", dwProvType, "uint", dwFlags, "int")
+        result := DllCall("ADVAPI32.dll\CryptAcquireContextW", "ptr*", phProv, "ptr", szContainer, "ptr", szProvider, "uint", dwProvType, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -16803,7 +16803,7 @@ class Cryptography {
     static CryptGenKey(hProv, Algid, dwFlags, phKey) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptGenKey", "ptr", hProv, "uint", Algid, "uint", dwFlags, "ptr", phKey, "int")
+        result := DllCall("ADVAPI32.dll\CryptGenKey", "ptr", hProv, "uint", Algid, "uint", dwFlags, "ptr*", phKey, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17192,7 +17192,7 @@ class Cryptography {
     static CryptDeriveKey(hProv, Algid, hBaseData, dwFlags, phKey) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptDeriveKey", "ptr", hProv, "uint", Algid, "ptr", hBaseData, "uint", dwFlags, "ptr", phKey, "int")
+        result := DllCall("ADVAPI32.dll\CryptDeriveKey", "ptr", hProv, "uint", Algid, "ptr", hBaseData, "uint", dwFlags, "ptr*", phKey, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17403,7 +17403,7 @@ class Cryptography {
     static CryptSetKeyParam(hKey, dwParam, pbData, dwFlags) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptSetKeyParam", "ptr", hKey, "uint", dwParam, "ptr", pbData, "uint", dwFlags, "int")
+        result := DllCall("ADVAPI32.dll\CryptSetKeyParam", "ptr", hKey, "uint", dwParam, "char*", pbData, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17414,7 +17414,7 @@ class Cryptography {
      * Retrieves data that governs the operations of a key.
      * @param {Pointer} hKey The handle of the key being queried.
      * @param {Integer} dwParam Specifies the type of query being made.
-     * @param {Pointer<Byte>} pbData A pointer to a buffer that receives the data. The form of this data depends on the value of <i>dwParam</i>.
+     * @param {Pointer} pbData A pointer to a buffer that receives the data. The form of this data depends on the value of <i>dwParam</i>.
      * 
      * If the size of  this buffer is not known, the required size can be retrieved at run time by passing <b>NULL</b> for this parameter and setting the value pointed to by <i>pdwDataLen</i> to zero. This function will place the required size of the buffer, in bytes, in the value pointed to by <i>pdwDataLen</i>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -17519,7 +17519,7 @@ class Cryptography {
     static CryptGetKeyParam(hKey, dwParam, pbData, pdwDataLen, dwFlags) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptGetKeyParam", "ptr", hKey, "uint", dwParam, "ptr", pbData, "ptr", pdwDataLen, "uint", dwFlags, "int")
+        result := DllCall("ADVAPI32.dll\CryptGetKeyParam", "ptr", hKey, "uint", dwParam, "ptr", pbData, "uint*", pdwDataLen, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17651,7 +17651,7 @@ class Cryptography {
     static CryptSetHashParam(hHash, dwParam, pbData, dwFlags) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptSetHashParam", "ptr", hHash, "uint", dwParam, "ptr", pbData, "uint", dwFlags, "int")
+        result := DllCall("ADVAPI32.dll\CryptSetHashParam", "ptr", hHash, "uint", dwParam, "char*", pbData, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17714,7 +17714,7 @@ class Cryptography {
      * 
      * <div class="alert"><b>Note</b>  CSPs can add more values that this function can query.</div>
      * <div> </div>
-     * @param {Pointer<Byte>} pbData A pointer to a buffer that receives the specified value data. The form of this data varies, depending on the value number. 
+     * @param {Pointer} pbData A pointer to a buffer that receives the specified value data. The form of this data varies, depending on the value number. 
      * 
      * 
      * This parameter can be <b>NULL</b> to determine the memory size required.
@@ -17822,7 +17822,7 @@ class Cryptography {
     static CryptGetHashParam(hHash, dwParam, pbData, pdwDataLen, dwFlags) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptGetHashParam", "ptr", hHash, "uint", dwParam, "ptr", pbData, "ptr", pdwDataLen, "uint", dwFlags, "int")
+        result := DllCall("ADVAPI32.dll\CryptGetHashParam", "ptr", hHash, "uint", dwParam, "ptr", pbData, "uint*", pdwDataLen, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17939,7 +17939,7 @@ class Cryptography {
     static CryptSetProvParam(hProv, dwParam, pbData, dwFlags) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptSetProvParam", "ptr", hProv, "uint", dwParam, "ptr", pbData, "uint", dwFlags, "int")
+        result := DllCall("ADVAPI32.dll\CryptSetProvParam", "ptr", hProv, "uint", dwParam, "char*", pbData, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -18500,7 +18500,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} pbData A pointer to a buffer to receive the data. The form of this data varies depending on the value of <i>dwParam</i>. When <i>dwParam</i> is set to PP_USE_HARDWARE_RNG, <i>pbData</i> must be set to <b>NULL</b>.
+     * @param {Pointer} pbData A pointer to a buffer to receive the data. The form of this data varies depending on the value of <i>dwParam</i>. When <i>dwParam</i> is set to PP_USE_HARDWARE_RNG, <i>pbData</i> must be set to <b>NULL</b>.
      * 
      * This parameter can be <b>NULL</b> to set the size of this information for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -18731,7 +18731,7 @@ class Cryptography {
     static CryptGetProvParam(hProv, dwParam, pbData, pdwDataLen, dwFlags) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptGetProvParam", "ptr", hProv, "uint", dwParam, "ptr", pbData, "ptr", pdwDataLen, "uint", dwFlags, "int")
+        result := DllCall("ADVAPI32.dll\CryptGetProvParam", "ptr", hProv, "uint", dwParam, "ptr", pbData, "uint*", pdwDataLen, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -18751,7 +18751,7 @@ class Cryptography {
      * @param {Pointer} hProv Handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP) created by a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a>.
      * @param {Integer} dwLen Number of bytes of random data to be generated.
-     * @param {Pointer<Byte>} pbBuffer Buffer to receive the returned data. This buffer must be at least <i>dwLen</i> bytes in length. 
+     * @param {Pointer} pbBuffer Buffer to receive the returned data. This buffer must be at least <i>dwLen</i> bytes in length. 
      * 
      * 
      * 
@@ -18913,7 +18913,7 @@ class Cryptography {
     static CryptGetUserKey(hProv, dwKeySpec, phUserKey) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptGetUserKey", "ptr", hProv, "uint", dwKeySpec, "ptr", phUserKey, "int")
+        result := DllCall("ADVAPI32.dll\CryptGetUserKey", "ptr", hProv, "uint", dwKeySpec, "ptr*", phUserKey, "int")
         if(A_LastError)
             throw OSError()
 
@@ -19028,7 +19028,7 @@ class Cryptography {
      * </tr>
      * </table>
      * @param {Integer} dwFlags 
-     * @param {Pointer<Byte>} pbData A pointer to a buffer that receives the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">key BLOB</a> data. The format of this BLOB varies depending on the BLOB type requested in the <i>dwBlobType</i> parameter. For the format for PRIVATEKEYBLOBs, PUBLICKEYBLOBs, and SIMPLEBLOBs, see 
+     * @param {Pointer} pbData A pointer to a buffer that receives the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">key BLOB</a> data. The format of this BLOB varies depending on the BLOB type requested in the <i>dwBlobType</i> parameter. For the format for PRIVATEKEYBLOBs, PUBLICKEYBLOBs, and SIMPLEBLOBs, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/base-provider-key-blobs">Base Provider Key BLOBs</a>.
      * 
      * If this parameter is <b>NULL</b>, the required buffer size is placed in the value pointed to by the <i>pdwDataLen</i> parameter. For more information, see 
@@ -19178,7 +19178,7 @@ class Cryptography {
     static CryptExportKey(hKey, hExpKey, dwBlobType, dwFlags, pbData, pdwDataLen) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptExportKey", "ptr", hKey, "ptr", hExpKey, "uint", dwBlobType, "uint", dwFlags, "ptr", pbData, "ptr", pdwDataLen, "int")
+        result := DllCall("ADVAPI32.dll\CryptExportKey", "ptr", hKey, "ptr", hExpKey, "uint", dwBlobType, "uint", dwFlags, "ptr", pbData, "uint*", pdwDataLen, "int")
         if(A_LastError)
             throw OSError()
 
@@ -19236,7 +19236,7 @@ class Cryptography {
      * </tr>
      * </table>
      * @param {Pointer} hProv The handle of a CSP obtained with the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a> function.
-     * @param {Pointer<Byte>} pbData A <b>BYTE</b> array that contains a 
+     * @param {Pointer} pbData A <b>BYTE</b> array that contains a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-publickeystruc">PUBLICKEYSTRUC</a> BLOB header followed by the encrypted key. This key BLOB is created by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptexportkey">CryptExportKey</a> function, either in this application or by another application possibly running on a different computer.
      * @param {Integer} dwDataLen Contains the length, in bytes, of the key BLOB.
@@ -19370,7 +19370,7 @@ class Cryptography {
     static CryptImportKey(hProv, pbData, dwDataLen, hPubKey, dwFlags, phKey) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptImportKey", "ptr", hProv, "ptr", pbData, "uint", dwDataLen, "ptr", hPubKey, "uint", dwFlags, "ptr", phKey, "int")
+        result := DllCall("ADVAPI32.dll\CryptImportKey", "ptr", hProv, "ptr", pbData, "uint", dwDataLen, "ptr", hPubKey, "uint", dwFlags, "ptr*", phKey, "int")
         if(A_LastError)
             throw OSError()
 
@@ -19450,7 +19450,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} pbData A pointer to a buffer that contains the plaintext to be encrypted.  The plaintext in this buffer is overwritten with the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">ciphertext</a> created by this function.
+     * @param {Pointer} pbData A pointer to a buffer that contains the plaintext to be encrypted.  The plaintext in this buffer is overwritten with the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">ciphertext</a> created by this function.
      * 
      * The <i>pdwDataLen</i> parameter points to a variable that contains the length, in bytes, of the plaintext. The <i>dwBufLen</i> parameter contains the total size, in bytes, of this buffer.
      * 
@@ -19631,7 +19631,7 @@ class Cryptography {
     static CryptEncrypt(hKey, hHash, Final, dwFlags, pbData, pdwDataLen, dwBufLen) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptEncrypt", "ptr", hKey, "ptr", hHash, "int", Final, "uint", dwFlags, "ptr", pbData, "ptr", pdwDataLen, "uint", dwBufLen, "int")
+        result := DllCall("ADVAPI32.dll\CryptEncrypt", "ptr", hKey, "ptr", hHash, "int", Final, "uint", dwFlags, "ptr", pbData, "uint*", pdwDataLen, "uint", dwBufLen, "int")
         if(A_LastError)
             throw OSError()
 
@@ -19730,7 +19730,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} pbData A pointer to a buffer that contains the data to be decrypted. After the decryption has been performed, the plaintext is placed back into this same buffer. 
+     * @param {Pointer} pbData A pointer to a buffer that contains the data to be decrypted. After the decryption has been performed, the plaintext is placed back into this same buffer. 
      * 
      * 
      * 
@@ -19883,7 +19883,7 @@ class Cryptography {
     static CryptDecrypt(hKey, hHash, Final, dwFlags, pbData, pdwDataLen) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptDecrypt", "ptr", hKey, "ptr", hHash, "int", Final, "uint", dwFlags, "ptr", pbData, "ptr", pdwDataLen, "int")
+        result := DllCall("ADVAPI32.dll\CryptDecrypt", "ptr", hKey, "ptr", hHash, "int", Final, "uint", dwFlags, "ptr", pbData, "uint*", pdwDataLen, "int")
         if(A_LastError)
             throw OSError()
 
@@ -20036,7 +20036,7 @@ class Cryptography {
     static CryptCreateHash(hProv, Algid, hKey, dwFlags, phHash) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptCreateHash", "ptr", hProv, "uint", Algid, "ptr", hKey, "uint", dwFlags, "ptr", phHash, "int")
+        result := DllCall("ADVAPI32.dll\CryptCreateHash", "ptr", hProv, "uint", Algid, "ptr", hKey, "uint", dwFlags, "ptr*", phHash, "int")
         if(A_LastError)
             throw OSError()
 
@@ -20046,7 +20046,7 @@ class Cryptography {
     /**
      * Adds data to a specified hash object.
      * @param {Pointer} hHash Handle of the hash object.
-     * @param {Pointer<Byte>} pbData A pointer to a buffer that contains the data to be added to the hash object.
+     * @param {Pointer} pbData A pointer to a buffer that contains the data to be added to the hash object.
      * @param {Integer} dwDataLen Number of bytes of data to be added. This must be zero if the CRYPT_USERDATA flag is set.
      * @param {Integer} dwFlags The following flag values are defined.
      * 
@@ -20517,7 +20517,7 @@ class Cryptography {
      * The signature algorithm used is specified when the key pair is originally created.
      * 
      * The only signature algorithm that the Microsoft Base Cryptographic Provider supports is the RSA Public Key algorithm.
-     * @param {Pointer<PSTR>} szDescription This parameter is no longer used and must be set to <b>NULL</b> to prevent security vulnerabilities. However, it is still supported for backward compatibility in the Microsoft Base Cryptographic Provider.
+     * @param {Pointer<Byte>} szDescription This parameter is no longer used and must be set to <b>NULL</b> to prevent security vulnerabilities. However, it is still supported for backward compatibility in the Microsoft Base Cryptographic Provider.
      * @param {Integer} dwFlags The following flag values are defined. 
      * 
      * 
@@ -20568,7 +20568,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} pbSignature A pointer to a buffer receiving the signature data. 
+     * @param {Pointer} pbSignature A pointer to a buffer receiving the signature data. 
      * 
      * 
      * 
@@ -20702,7 +20702,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptSignHashA", "ptr", hHash, "uint", dwKeySpec, "ptr", szDescription, "uint", dwFlags, "ptr", pbSignature, "ptr", pdwSigLen, "int")
+        result := DllCall("ADVAPI32.dll\CryptSignHashA", "ptr", hHash, "uint", dwKeySpec, "ptr", szDescription, "uint", dwFlags, "ptr", pbSignature, "uint*", pdwSigLen, "int")
         if(A_LastError)
             throw OSError()
 
@@ -20746,7 +20746,7 @@ class Cryptography {
      * The signature algorithm used is specified when the key pair is originally created.
      * 
      * The only signature algorithm that the Microsoft Base Cryptographic Provider supports is the RSA Public Key algorithm.
-     * @param {Pointer<PWSTR>} szDescription This parameter is no longer used and must be set to <b>NULL</b> to prevent security vulnerabilities. However, it is still supported for backward compatibility in the Microsoft Base Cryptographic Provider.
+     * @param {Pointer<Char>} szDescription This parameter is no longer used and must be set to <b>NULL</b> to prevent security vulnerabilities. However, it is still supported for backward compatibility in the Microsoft Base Cryptographic Provider.
      * @param {Integer} dwFlags The following flag values are defined. 
      * 
      * 
@@ -20797,7 +20797,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} pbSignature A pointer to a buffer receiving the signature data. 
+     * @param {Pointer} pbSignature A pointer to a buffer receiving the signature data. 
      * 
      * 
      * 
@@ -20931,7 +20931,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptSignHashW", "ptr", hHash, "uint", dwKeySpec, "ptr", szDescription, "uint", dwFlags, "ptr", pbSignature, "ptr", pdwSigLen, "int")
+        result := DllCall("ADVAPI32.dll\CryptSignHashW", "ptr", hHash, "uint", dwKeySpec, "ptr", szDescription, "uint", dwFlags, "ptr", pbSignature, "uint*", pdwSigLen, "int")
         if(A_LastError)
             throw OSError()
 
@@ -20950,10 +20950,10 @@ class Cryptography {
      * 
      * The native cryptography API uses little-endian byte order while the .NET Framework API uses big-endian byte order. If you are verifying a  signature generated by using a .NET Framework API, you must swap the order of signature bytes before calling the <b>CryptVerifySignature</b> function to verify the signature.
      * @param {Pointer} hHash A handle to the hash object to verify.
-     * @param {Pointer<Byte>} pbSignature The address of the signature data to be verified.
+     * @param {Pointer} pbSignature The address of the signature data to be verified.
      * @param {Integer} dwSigLen The number of bytes in the <i>pbSignature</i> signature data.
      * @param {Pointer} hPubKey A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public key</a> to use to authenticate the signature. This public key must belong to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">key pair</a> that was originally used to create the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">digital signature</a>.
-     * @param {Pointer<PSTR>} szDescription This parameter should no longer be used and must be set to <b>NULL</b> to prevent security vulnerabilities. However, it is still supported for backward compatibility in the Microsoft Base Cryptographic Provider.
+     * @param {Pointer<Byte>} szDescription This parameter should no longer be used and must be set to <b>NULL</b> to prevent security vulnerabilities. However, it is still supported for backward compatibility in the Microsoft Base Cryptographic Provider.
      * @param {Integer} dwFlags The following flag values are defined. 
      * 
      * 
@@ -21134,10 +21134,10 @@ class Cryptography {
      * 
      * The native cryptography API uses little-endian byte order while the .NET Framework API uses big-endian byte order. If you are verifying a  signature generated by using a .NET Framework API, you must swap the order of signature bytes before calling the <b>CryptVerifySignature</b> function to verify the signature.
      * @param {Pointer} hHash A handle to the hash object to verify.
-     * @param {Pointer<Byte>} pbSignature The address of the signature data to be verified.
+     * @param {Pointer} pbSignature The address of the signature data to be verified.
      * @param {Integer} dwSigLen The number of bytes in the <i>pbSignature</i> signature data.
      * @param {Pointer} hPubKey A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public key</a> to use to authenticate the signature. This public key must belong to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">key pair</a> that was originally used to create the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">digital signature</a>.
-     * @param {Pointer<PWSTR>} szDescription This parameter should no longer be used and must be set to <b>NULL</b> to prevent security vulnerabilities. However, it is still supported for backward compatibility in the Microsoft Base Cryptographic Provider.
+     * @param {Pointer<Char>} szDescription This parameter should no longer be used and must be set to <b>NULL</b> to prevent security vulnerabilities. However, it is still supported for backward compatibility in the Microsoft Base Cryptographic Provider.
      * @param {Integer} dwFlags The following flag values are defined. 
      * 
      * 
@@ -21320,7 +21320,7 @@ class Cryptography {
      * 
      * > [!NOTE]
      * > The wincrypt.h header defines CryptSetProvider as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} pszProvName Name of the new default CSP. The named CSP must be installed on the computer. For a list of available cryptographic providers, see 
+     * @param {Pointer<Byte>} pszProvName Name of the new default CSP. The named CSP must be installed on the computer. For a list of available cryptographic providers, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/cryptographic-provider-names">Cryptographic Provider Names</a>.
      * @param {Integer} dwProvType Provider type of the CSP specified by <i>pszProvName</i>.
      * @returns {Integer} If the function succeeds, the return value is nonzero (TRUE).
@@ -21399,7 +21399,7 @@ class Cryptography {
      * 
      * > [!NOTE]
      * > The wincrypt.h header defines CryptSetProvider as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} pszProvName Name of the new default CSP. The named CSP must be installed on the computer. For a list of available cryptographic providers, see 
+     * @param {Pointer<Char>} pszProvName Name of the new default CSP. The named CSP must be installed on the computer. For a list of available cryptographic providers, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/cryptographic-provider-names">Cryptographic Provider Names</a>.
      * @param {Integer} dwProvType Provider type of the CSP specified by <i>pszProvName</i>.
      * @returns {Integer} If the function succeeds, the return value is nonzero (TRUE).
@@ -21476,7 +21476,7 @@ class Cryptography {
      * 
      * > [!NOTE]
      * > The wincrypt.h header defines CryptSetProviderEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} pszProvName The name of the new default CSP. This must be a CSP installed on the computer. For a list of available cryptographic providers, see 
+     * @param {Pointer<Byte>} pszProvName The name of the new default CSP. This must be a CSP installed on the computer. For a list of available cryptographic providers, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/cryptographic-provider-names">Cryptographic Provider Names</a>.
      * @param {Integer} dwProvType The provider type of the CSP specified by <i>pszProvName</i>.
      * @param {Integer} dwFlags The following flag values are defined.
@@ -21563,7 +21563,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptSetProviderExA", "ptr", pszProvName, "uint", dwProvType, "ptr", pdwReserved, "uint", dwFlags, "int")
+        result := DllCall("ADVAPI32.dll\CryptSetProviderExA", "ptr", pszProvName, "uint", dwProvType, "uint*", pdwReserved, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -21582,7 +21582,7 @@ class Cryptography {
      * 
      * > [!NOTE]
      * > The wincrypt.h header defines CryptSetProviderEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} pszProvName The name of the new default CSP. This must be a CSP installed on the computer. For a list of available cryptographic providers, see 
+     * @param {Pointer<Char>} pszProvName The name of the new default CSP. This must be a CSP installed on the computer. For a list of available cryptographic providers, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/cryptographic-provider-names">Cryptographic Provider Names</a>.
      * @param {Integer} dwProvType The provider type of the CSP specified by <i>pszProvName</i>.
      * @param {Integer} dwFlags The following flag values are defined.
@@ -21669,7 +21669,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptSetProviderExW", "ptr", pszProvName, "uint", dwProvType, "ptr", pdwReserved, "uint", dwFlags, "int")
+        result := DllCall("ADVAPI32.dll\CryptSetProviderExW", "ptr", pszProvName, "uint", dwProvType, "uint*", pdwReserved, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -21743,7 +21743,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PSTR>} pszProvName A pointer to a null-terminated character string buffer to receive the name of the default CSP.
+     * @param {Pointer} pszProvName A pointer to a null-terminated character string buffer to receive the name of the default CSP.
      * 
      * To find the size of the buffer for memory allocation purposes, this parameter can be <b>NULL</b>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -21815,11 +21815,9 @@ class Cryptography {
     static CryptGetDefaultProviderA(dwProvType, dwFlags, pszProvName, pcbProvName) {
         static pdwReserved := 0 ;Reserved parameters must always be NULL
 
-        pszProvName := pszProvName is String? StrPtr(pszProvName) : pszProvName
-
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptGetDefaultProviderA", "uint", dwProvType, "ptr", pdwReserved, "uint", dwFlags, "ptr", pszProvName, "ptr", pcbProvName, "int")
+        result := DllCall("ADVAPI32.dll\CryptGetDefaultProviderA", "uint", dwProvType, "uint*", pdwReserved, "uint", dwFlags, "ptr", pszProvName, "uint*", pcbProvName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -21893,7 +21891,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PWSTR>} pszProvName A pointer to a null-terminated character string buffer to receive the name of the default CSP.
+     * @param {Pointer} pszProvName A pointer to a null-terminated character string buffer to receive the name of the default CSP.
      * 
      * To find the size of the buffer for memory allocation purposes, this parameter can be <b>NULL</b>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -21965,11 +21963,9 @@ class Cryptography {
     static CryptGetDefaultProviderW(dwProvType, dwFlags, pszProvName, pcbProvName) {
         static pdwReserved := 0 ;Reserved parameters must always be NULL
 
-        pszProvName := pszProvName is String? StrPtr(pszProvName) : pszProvName
-
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptGetDefaultProviderW", "uint", dwProvType, "ptr", pdwReserved, "uint", dwFlags, "ptr", pszProvName, "ptr", pcbProvName, "int")
+        result := DllCall("ADVAPI32.dll\CryptGetDefaultProviderW", "uint", dwProvType, "uint*", pdwReserved, "uint", dwFlags, "ptr", pszProvName, "uint*", pcbProvName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -21984,7 +21980,7 @@ class Cryptography {
      * @param {Integer} dwIndex Index of the next provider type to be enumerated.
      * @param {Integer} dwFlags Reserved for future use and must be zero.
      * @param {Pointer<UInt32>} pdwProvType Address of the <b>DWORD</b> value designating the enumerated provider type.
-     * @param {Pointer<PSTR>} szTypeName A pointer to a buffer that receives the data from the enumerated provider type. This is a string including the terminating <b>NULL</b> character. Some provider types do not have display names, and in this case no name is returned and the returned value pointed to by <i>pcbTypeName</i> is zero. 
+     * @param {Pointer} szTypeName A pointer to a buffer that receives the data from the enumerated provider type. This is a string including the terminating <b>NULL</b> character. Some provider types do not have display names, and in this case no name is returned and the returned value pointed to by <i>pcbTypeName</i> is zero. 
      * 
      * 
      * 
@@ -22061,11 +22057,9 @@ class Cryptography {
     static CryptEnumProviderTypesA(dwIndex, dwFlags, pdwProvType, szTypeName, pcbTypeName) {
         static pdwReserved := 0 ;Reserved parameters must always be NULL
 
-        szTypeName := szTypeName is String? StrPtr(szTypeName) : szTypeName
-
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptEnumProviderTypesA", "uint", dwIndex, "ptr", pdwReserved, "uint", dwFlags, "ptr", pdwProvType, "ptr", szTypeName, "ptr", pcbTypeName, "int")
+        result := DllCall("ADVAPI32.dll\CryptEnumProviderTypesA", "uint", dwIndex, "uint*", pdwReserved, "uint", dwFlags, "uint*", pdwProvType, "ptr", szTypeName, "uint*", pcbTypeName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -22080,7 +22074,7 @@ class Cryptography {
      * @param {Integer} dwIndex Index of the next provider type to be enumerated.
      * @param {Integer} dwFlags Reserved for future use and must be zero.
      * @param {Pointer<UInt32>} pdwProvType Address of the <b>DWORD</b> value designating the enumerated provider type.
-     * @param {Pointer<PWSTR>} szTypeName A pointer to a buffer that receives the data from the enumerated provider type. This is a string including the terminating <b>NULL</b> character. Some provider types do not have display names, and in this case no name is returned and the returned value pointed to by <i>pcbTypeName</i> is zero. 
+     * @param {Pointer} szTypeName A pointer to a buffer that receives the data from the enumerated provider type. This is a string including the terminating <b>NULL</b> character. Some provider types do not have display names, and in this case no name is returned and the returned value pointed to by <i>pcbTypeName</i> is zero. 
      * 
      * 
      * 
@@ -22157,11 +22151,9 @@ class Cryptography {
     static CryptEnumProviderTypesW(dwIndex, dwFlags, pdwProvType, szTypeName, pcbTypeName) {
         static pdwReserved := 0 ;Reserved parameters must always be NULL
 
-        szTypeName := szTypeName is String? StrPtr(szTypeName) : szTypeName
-
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptEnumProviderTypesW", "uint", dwIndex, "ptr", pdwReserved, "uint", dwFlags, "ptr", pdwProvType, "ptr", szTypeName, "ptr", pcbTypeName, "int")
+        result := DllCall("ADVAPI32.dll\CryptEnumProviderTypesW", "uint", dwIndex, "uint*", pdwReserved, "uint", dwFlags, "uint*", pdwProvType, "ptr", szTypeName, "uint*", pcbTypeName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -22176,7 +22168,7 @@ class Cryptography {
      * @param {Integer} dwIndex Index of the next provider to be enumerated.
      * @param {Integer} dwFlags Reserved for future use and must be zero.
      * @param {Pointer<UInt32>} pdwProvType Address of the <b>DWORD</b> value designating the type of the enumerated provider.
-     * @param {Pointer<PSTR>} szProvName A pointer to a buffer that receives the data from the enumerated provider. This is a string including the terminating null character.
+     * @param {Pointer} szProvName A pointer to a buffer that receives the data from the enumerated provider. This is a string including the terminating null character.
      * 
      * This parameter can be <b>NULL</b> to set the size of the name for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -22258,11 +22250,9 @@ class Cryptography {
     static CryptEnumProvidersA(dwIndex, dwFlags, pdwProvType, szProvName, pcbProvName) {
         static pdwReserved := 0 ;Reserved parameters must always be NULL
 
-        szProvName := szProvName is String? StrPtr(szProvName) : szProvName
-
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptEnumProvidersA", "uint", dwIndex, "ptr", pdwReserved, "uint", dwFlags, "ptr", pdwProvType, "ptr", szProvName, "ptr", pcbProvName, "int")
+        result := DllCall("ADVAPI32.dll\CryptEnumProvidersA", "uint", dwIndex, "uint*", pdwReserved, "uint", dwFlags, "uint*", pdwProvType, "ptr", szProvName, "uint*", pcbProvName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -22277,7 +22267,7 @@ class Cryptography {
      * @param {Integer} dwIndex Index of the next provider to be enumerated.
      * @param {Integer} dwFlags Reserved for future use and must be zero.
      * @param {Pointer<UInt32>} pdwProvType Address of the <b>DWORD</b> value designating the type of the enumerated provider.
-     * @param {Pointer<PWSTR>} szProvName A pointer to a buffer that receives the data from the enumerated provider. This is a string including the terminating null character.
+     * @param {Pointer} szProvName A pointer to a buffer that receives the data from the enumerated provider. This is a string including the terminating null character.
      * 
      * This parameter can be <b>NULL</b> to set the size of the name for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -22359,11 +22349,9 @@ class Cryptography {
     static CryptEnumProvidersW(dwIndex, dwFlags, pdwProvType, szProvName, pcbProvName) {
         static pdwReserved := 0 ;Reserved parameters must always be NULL
 
-        szProvName := szProvName is String? StrPtr(szProvName) : szProvName
-
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptEnumProvidersW", "uint", dwIndex, "ptr", pdwReserved, "uint", dwFlags, "ptr", pdwProvType, "ptr", szProvName, "ptr", pcbProvName, "int")
+        result := DllCall("ADVAPI32.dll\CryptEnumProvidersW", "uint", dwIndex, "uint*", pdwReserved, "uint", dwFlags, "uint*", pdwProvType, "ptr", szProvName, "uint*", pcbProvName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -22409,7 +22397,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptContextAddRef", "ptr", hProv, "ptr", pdwReserved, "uint", dwFlags, "int")
+        result := DllCall("ADVAPI32.dll\CryptContextAddRef", "ptr", hProv, "uint*", pdwReserved, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -22481,7 +22469,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptDuplicateKey", "ptr", hKey, "ptr", pdwReserved, "uint", dwFlags, "ptr", phKey, "int")
+        result := DllCall("ADVAPI32.dll\CryptDuplicateKey", "ptr", hKey, "uint*", pdwReserved, "uint", dwFlags, "ptr*", phKey, "int")
         if(A_LastError)
             throw OSError()
 
@@ -22551,7 +22539,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptDuplicateHash", "ptr", hHash, "ptr", pdwReserved, "uint", dwFlags, "ptr", phHash, "int")
+        result := DllCall("ADVAPI32.dll\CryptDuplicateHash", "ptr", hHash, "uint*", pdwReserved, "uint", dwFlags, "ptr*", phHash, "int")
         if(A_LastError)
             throw OSError()
 
@@ -22570,9 +22558,9 @@ class Cryptography {
      * 
      * 
      * Starting in Windows 10, CNG no longer follows every update to the cryptography configuration. Certain changes, like adding a new default provider or changing the preference order of algorithm providers, may require a reboot. Because of this, you should reboot before calling <b>BCryptOpenAlgorithmProvider</b>    with any newly configured provider.
-     * @param {Pointer<BCRYPT_ALG_HANDLE>} phAlgorithm A pointer to a <b>BCRYPT_ALG_HANDLE</b> variable that receives the CNG provider handle. When you have finished using this handle, release it by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptclosealgorithmprovider">BCryptCloseAlgorithmProvider</a> function.
-     * @param {Pointer<PWSTR>} pszAlgId A pointer to a null-terminated Unicode string that identifies the requested cryptographic algorithm. This can be one of the standard <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-algorithm-identifiers">CNG Algorithm Identifiers</a> or the identifier for another registered algorithm.
-     * @param {Pointer<PWSTR>} pszImplementation A pointer to a null-terminated Unicode string that identifies the specific provider to load. This is the registered alias of the cryptographic primitive provider. This parameter is optional and can be <b>NULL</b> if it is not needed. If this parameter is <b>NULL</b>, the default provider for the specified algorithm will be loaded.
+     * @param {Pointer<Void>} phAlgorithm A pointer to a <b>BCRYPT_ALG_HANDLE</b> variable that receives the CNG provider handle. When you have finished using this handle, release it by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptclosealgorithmprovider">BCryptCloseAlgorithmProvider</a> function.
+     * @param {Pointer<Char>} pszAlgId A pointer to a null-terminated Unicode string that identifies the requested cryptographic algorithm. This can be one of the standard <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-algorithm-identifiers">CNG Algorithm Identifiers</a> or the identifier for another registered algorithm.
+     * @param {Pointer<Char>} pszImplementation A pointer to a null-terminated Unicode string that identifies the specific provider to load. This is the registered alias of the cryptographic primitive provider. This parameter is optional and can be <b>NULL</b> if it is not needed. If this parameter is <b>NULL</b>, the default provider for the specified algorithm will be loaded.
      * 
      * 
      * <div class="alert"><b>Note</b>  If the <i>pszImplementation</i> parameter value  is <b>NULL</b>, CNG attempts to open each registered provider, in order of priority, for the algorithm specified by the <i>pszAlgId</i> parameter and returns the handle of the first  provider that is successfully opened. For the lifetime of the handle, any BCrypt*** cryptographic APIs will use the provider that was successfully opened.</div>
@@ -22741,7 +22729,7 @@ class Cryptography {
      * @since windows6.0.6000
      */
     static BCryptEnumAlgorithms(dwAlgOperations, pAlgCount, ppAlgList, dwFlags) {
-        result := DllCall("bcrypt.dll\BCryptEnumAlgorithms", "uint", dwAlgOperations, "ptr", pAlgCount, "ptr", ppAlgList, "uint", dwFlags, "int")
+        result := DllCall("bcrypt.dll\BCryptEnumAlgorithms", "uint", dwAlgOperations, "uint*", pAlgCount, "ptr", ppAlgList, "uint", dwFlags, "int")
         return result
     }
 
@@ -22749,9 +22737,9 @@ class Cryptography {
      * Obtains all of the CNG providers that support a specified algorithm.
      * @remarks
      * <b>BCryptEnumProviders</b> can be called either from user mode or kernel mode. Kernel mode callers must be executing at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a>.
-     * @param {Pointer<PWSTR>} pszAlgId A pointer to a null-terminated Unicode string that identifies the algorithm to obtain the providers for. This can be one of the predefined <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-algorithm-identifiers">CNG Algorithm Identifiers</a> or another algorithm identifier.
+     * @param {Pointer<Char>} pszAlgId A pointer to a null-terminated Unicode string that identifies the algorithm to obtain the providers for. This can be one of the predefined <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-algorithm-identifiers">CNG Algorithm Identifiers</a> or another algorithm identifier.
      * @param {Pointer<UInt32>} pImplCount A pointer to a <b>ULONG</b> variable to receive the number of elements in the <i>ppImplList</i> array.
-     * @param {Pointer<PWSTR>} ppImplList The address of an array of <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/ns-bcrypt-bcrypt_provider_name">BCRYPT_PROVIDER_NAME</a> structures to receive the collection of providers that support the specified algorithm. The <i>pImplCount</i> parameter receives the number of elements in this array. This memory must be freed when it is no longer needed by passing this pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptfreebuffer">BCryptFreeBuffer</a> function.
+     * @param {Pointer<Char>} ppImplList The address of an array of <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/ns-bcrypt-bcrypt_provider_name">BCRYPT_PROVIDER_NAME</a> structures to receive the collection of providers that support the specified algorithm. The <i>pImplCount</i> parameter receives the number of elements in this array. This memory must be freed when it is no longer needed by passing this pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptfreebuffer">BCryptFreeBuffer</a> function.
      * @param {Integer} dwFlags A set of flags that modifies the behavior of this function. There are currently no flags defined, so this parameter must be zero.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function.
      * 
@@ -22804,9 +22792,8 @@ class Cryptography {
      */
     static BCryptEnumProviders(pszAlgId, pImplCount, ppImplList, dwFlags) {
         pszAlgId := pszAlgId is String? StrPtr(pszAlgId) : pszAlgId
-        ppImplList := ppImplList is String? StrPtr(ppImplList) : ppImplList
 
-        result := DllCall("bcrypt.dll\BCryptEnumProviders", "ptr", pszAlgId, "ptr", pImplCount, "ptr", ppImplList, "uint", dwFlags, "int")
+        result := DllCall("bcrypt.dll\BCryptEnumProviders", "ptr", pszAlgId, "uint*", pImplCount, "ptr", ppImplList, "uint", dwFlags, "int")
         return result
     }
 
@@ -22818,9 +22805,9 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptGetProperty</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, any pointers passed to the <b>BCryptGetProperty</b> function must refer to nonpaged (or locked) memory. If the object specified in the <i>hObject</i> parameter is a handle, it must have been opened by using the <b>BCRYPT_PROV_DISPATCH</b> flag.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {Pointer<BCRYPT_HANDLE>} hObject A handle that represents the CNG object to obtain the property value for.
-     * @param {Pointer<PWSTR>} pszProperty A pointer to a null-terminated Unicode string that contains the name of the property to retrieve. This can be one of the predefined <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-property-identifiers">Cryptography Primitive Property Identifiers</a> or a custom property identifier.
-     * @param {Pointer<Byte>} pbOutput The address of a buffer that receives the property value. The <i>cbOutput</i> parameter contains the size of this buffer.
+     * @param {Pointer<Void>} hObject A handle that represents the CNG object to obtain the property value for.
+     * @param {Pointer<Char>} pszProperty A pointer to a null-terminated Unicode string that contains the name of the property to retrieve. This can be one of the predefined <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-property-identifiers">Cryptography Primitive Property Identifiers</a> or a custom property identifier.
+     * @param {Pointer} pbOutput The address of a buffer that receives the property value. The <i>cbOutput</i> parameter contains the size of this buffer.
      * @param {Integer} cbOutput The size, in bytes, of the <i>pbOutput</i> buffer.
      * @param {Pointer<UInt32>} pcbResult A pointer to a <b>ULONG</b> variable that receives the number of bytes that were copied to the <i>pbOutput</i> buffer. If the <i>pbOutput</i> parameter is <b>NULL</b>, this function will place the required size, in bytes, in the location pointed to by this parameter.
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. No flags are defined for this function.
@@ -22898,7 +22885,7 @@ class Cryptography {
     static BCryptGetProperty(hObject, pszProperty, pbOutput, cbOutput, pcbResult, dwFlags) {
         pszProperty := pszProperty is String? StrPtr(pszProperty) : pszProperty
 
-        result := DllCall("bcrypt.dll\BCryptGetProperty", "ptr", hObject, "ptr", pszProperty, "ptr", pbOutput, "uint", cbOutput, "ptr", pcbResult, "uint", dwFlags, "int")
+        result := DllCall("bcrypt.dll\BCryptGetProperty", "ptr", hObject, "ptr", pszProperty, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -22908,9 +22895,9 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptSetProperty</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, any pointers passed to <b>BCryptSetProperty</b> must refer to nonpaged (or locked) memory. If the object specified in the <i>hObject</i> parameter is a handle, it must have been opened by using the <b>BCRYPT_PROV_DISPATCH</b> flag.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {Pointer<BCRYPT_HANDLE>} hObject A handle that represents the CNG object to set the property value for.
-     * @param {Pointer<PWSTR>} pszProperty A pointer to a null-terminated Unicode string that contains the name of the property to set. This can be one of the predefined <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-property-identifiers">Cryptography Primitive Property Identifiers</a> or a custom property identifier.
-     * @param {Pointer<Byte>} pbInput The address of a buffer that contains the new property value. The <i>cbInput</i> parameter contains the size of this buffer.
+     * @param {Pointer<Void>} hObject A handle that represents the CNG object to set the property value for.
+     * @param {Pointer<Char>} pszProperty A pointer to a null-terminated Unicode string that contains the name of the property to set. This can be one of the predefined <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-property-identifiers">Cryptography Primitive Property Identifiers</a> or a custom property identifier.
+     * @param {Pointer} pbInput The address of a buffer that contains the new property value. The <i>cbInput</i> parameter contains the size of this buffer.
      * @param {Integer} cbInput The size, in bytes, of the <i>pbInput</i> buffer.
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. No flags are defined for this function.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function.
@@ -22986,7 +22973,7 @@ class Cryptography {
      * <b>BCryptCloseAlgorithmProvider</b> can be called either from user mode or kernel mode. Kernel mode callers must be executing at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a>.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). For more information, see <a href="https://www.microsoft.com/?ref=go">WDK and Developer Tools</a>.<b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {Pointer<BCRYPT_ALG_HANDLE>} hAlgorithm A handle that represents the algorithm provider to close. This handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function.
+     * @param {Pointer<Void>} hAlgorithm A handle that represents the algorithm provider to close. This handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function.
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. No flags are defined for this function.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function.
      * 
@@ -23038,12 +23025,13 @@ class Cryptography {
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
      * @param {Pointer<Void>} pvBuffer A pointer to the memory buffer to be freed.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptfreebuffer
      * @since windows6.0.6000
      */
     static BCryptFreeBuffer(pvBuffer) {
-        DllCall("bcrypt.dll\BCryptFreeBuffer", "ptr", pvBuffer)
+        result := DllCall("bcrypt.dll\BCryptFreeBuffer", "ptr", pvBuffer)
+        return result
     }
 
     /**
@@ -23052,9 +23040,9 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptGenerateSymmetricKey</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hAlgorithm</i> parameter must have been opened by using the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptGenerateSymmetricKey</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {Pointer<BCRYPT_ALG_HANDLE>} hAlgorithm The handle of an algorithm provider created with the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function. The algorithm specified when the provider was created must support symmetric key encryption.
-     * @param {Pointer<BCRYPT_KEY_HANDLE>} phKey A pointer to a <b>BCRYPT_KEY_HANDLE</b> that receives the handle of the key. This handle is used in subsequent functions that require a key, such as <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptencrypt">BCryptEncrypt</a>. This handle must be released when it is no longer needed by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroykey">BCryptDestroyKey</a> function.
-     * @param {Pointer<Byte>} pbKeyObject A pointer to a buffer that receives the key object. The <i>cbKeyObject</i> parameter contains the size of this buffer. The required size of this buffer can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_OBJECT_LENGTH</b> property. This will provide the size of the key object for the specified algorithm.
+     * @param {Pointer<Void>} hAlgorithm The handle of an algorithm provider created with the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function. The algorithm specified when the provider was created must support symmetric key encryption.
+     * @param {Pointer<Void>} phKey A pointer to a <b>BCRYPT_KEY_HANDLE</b> that receives the handle of the key. This handle is used in subsequent functions that require a key, such as <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptencrypt">BCryptEncrypt</a>. This handle must be released when it is no longer needed by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroykey">BCryptDestroyKey</a> function.
+     * @param {Pointer} pbKeyObject A pointer to a buffer that receives the key object. The <i>cbKeyObject</i> parameter contains the size of this buffer. The required size of this buffer can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_OBJECT_LENGTH</b> property. This will provide the size of the key object for the specified algorithm.
      * 
      * This memory can only be freed after the <i>phKey</i> key handle is destroyed.
      * 
@@ -23062,7 +23050,7 @@ class Cryptography {
      * @param {Integer} cbKeyObject The size, in bytes, of the <i>pbKeyObject</i> buffer.
      * 
      * If the value of this parameter is zero and the value of the <i>pbKeyObject</i> parameter is <b>NULL</b>, the memory for the key object is allocated and freed by this function.<b>Windows 7:  </b>This memory management functionality is available beginning with Windows 7.
-     * @param {Pointer<Byte>} pbSecret Pointer to a buffer that contains the key from which to create the key object. The <i>cbSecret</i> parameter contains the size of this buffer. This is normally a hash of a password or some other reproducible data. If the data passed in exceeds the target key size, the data will be truncated and the excess will be ignored.
+     * @param {Pointer} pbSecret Pointer to a buffer that contains the key from which to create the key object. The <i>cbSecret</i> parameter contains the size of this buffer. This is normally a hash of a password or some other reproducible data. If the data passed in exceeds the target key size, the data will be truncated and the excess will be ignored.
      * 
      * <div class="alert"><b>Note</b>  We strongly recommended that applications pass in the exact number of bytes required by the target key.</div>
      * <div> </div>
@@ -23139,8 +23127,8 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptGenerateKeyPair</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hAlgorithm</i> parameter must have been opened by using the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptGenerateKeyPair</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {Pointer<BCRYPT_ALG_HANDLE>} hAlgorithm Handle of an algorithm provider that supports signing, asymmetric encryption, or key agreement. This handle must have been created by using the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function.
-     * @param {Pointer<BCRYPT_KEY_HANDLE>} phKey A pointer to a <b>BCRYPT_KEY_HANDLE</b> that receives the handle of the key. This handle is used in subsequent functions that require a key, such as <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptencrypt">BCryptEncrypt</a>. This handle must be released when it is no longer needed by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroykey">BCryptDestroyKey</a> function.
+     * @param {Pointer<Void>} hAlgorithm Handle of an algorithm provider that supports signing, asymmetric encryption, or key agreement. This handle must have been created by using the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function.
+     * @param {Pointer<Void>} phKey A pointer to a <b>BCRYPT_KEY_HANDLE</b> that receives the handle of the key. This handle is used in subsequent functions that require a key, such as <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptencrypt">BCryptEncrypt</a>. This handle must be released when it is no longer needed by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroykey">BCryptDestroyKey</a> function.
      * @param {Integer} dwLength The length, in bits, of the key. Algorithm providers have different key size restrictions for each standard asymmetric algorithm.
      * 
      * <table>
@@ -23315,17 +23303,17 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptEncrypt</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened with the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptEncrypt</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {Pointer<BCRYPT_KEY_HANDLE>} hKey The handle of the key to use to encrypt the data. This handle is obtained from one of the key creation functions, such as <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratesymmetrickey">BCryptGenerateSymmetricKey</a>, <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratekeypair">BCryptGenerateKeyPair</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptimportkey">BCryptImportKey</a>.
-     * @param {Pointer<Byte>} pbInput The address of a buffer that contains the plaintext to be encrypted. The <i>cbInput</i> parameter contains the size of the plaintext to encrypt. For more information, see Remarks.
+     * @param {Pointer<Void>} hKey The handle of the key to use to encrypt the data. This handle is obtained from one of the key creation functions, such as <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratesymmetrickey">BCryptGenerateSymmetricKey</a>, <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratekeypair">BCryptGenerateKeyPair</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptimportkey">BCryptImportKey</a>.
+     * @param {Pointer} pbInput The address of a buffer that contains the plaintext to be encrypted. The <i>cbInput</i> parameter contains the size of the plaintext to encrypt. For more information, see Remarks.
      * @param {Integer} cbInput The number of bytes in the <i>pbInput</i> buffer to encrypt.
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. This parameter is only used with asymmetric keys and authenticated encryption modes. If an  authenticated encryption mode is used, this parameter must point to a <a href="https://docs.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_authenticated_cipher_mode_info">BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO</a> structure. If asymmetric keys are used, the type of structure this parameter points to is determined by the value of the <i>dwFlags</i> parameter. Otherwise, the parameter  must be set to <b>NULL</b>.
-     * @param {Pointer<Byte>} pbIV The address of a buffer that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">initialization vector</a> (IV) to use during encryption. The <i>cbIV</i> parameter contains the size of this buffer. This function will modify the contents of this buffer. If you need to reuse the IV later, make sure you make a copy of this buffer before calling this function.
+     * @param {Pointer} pbIV The address of a buffer that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">initialization vector</a> (IV) to use during encryption. The <i>cbIV</i> parameter contains the size of this buffer. This function will modify the contents of this buffer. If you need to reuse the IV later, make sure you make a copy of this buffer before calling this function.
      * 
      * This parameter is optional and can be <b>NULL</b> if no IV is used.
      * 
      *  The required size of the IV can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_BLOCK_LENGTH</b> property. This will provide the size of a block for the algorithm, which is also the size of the IV.
      * @param {Integer} cbIV The size, in bytes, of the <i>pbIV</i> buffer.
-     * @param {Pointer<Byte>} pbOutput The address of the buffer that receives the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">ciphertext</a> produced by this function. The <i>cbOutput</i> parameter contains the size of this buffer. For more information, see Remarks.
+     * @param {Pointer} pbOutput The address of the buffer that receives the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">ciphertext</a> produced by this function. The <i>cbOutput</i> parameter contains the size of this buffer. For more information, see Remarks.
      * 
      * If this parameter is <b>NULL</b>, the <b>BCryptEncrypt</b> function calculates the size needed for the ciphertext of the data passed in the <i>pbInput</i> parameter. In this case, the location pointed to by the <i>pcbResult</i> parameter contains this size, and the  function returns <b>STATUS_SUCCESS</b>. The <i>pPaddingInfo</i> parameter is not modified.
      * 
@@ -23442,7 +23430,7 @@ class Cryptography {
      * @since windows6.0.6000
      */
     static BCryptEncrypt(hKey, pbInput, cbInput, pPaddingInfo, pbIV, cbIV, pbOutput, cbOutput, pcbResult, dwFlags) {
-        result := DllCall("bcrypt.dll\BCryptEncrypt", "ptr", hKey, "ptr", pbInput, "uint", cbInput, "ptr", pPaddingInfo, "ptr", pbIV, "uint", cbIV, "ptr", pbOutput, "uint", cbOutput, "ptr", pcbResult, "uint", dwFlags, "int")
+        result := DllCall("bcrypt.dll\BCryptEncrypt", "ptr", hKey, "ptr", pbInput, "uint", cbInput, "ptr", pPaddingInfo, "ptr", pbIV, "uint", cbIV, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -23454,17 +23442,17 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptDecrypt</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened with the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptDecrypt</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {Pointer<BCRYPT_KEY_HANDLE>} hKey The handle of the key to use to decrypt the data. This handle is obtained from one of the key creation functions, such as <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratesymmetrickey">BCryptGenerateSymmetricKey</a>, <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratekeypair">BCryptGenerateKeyPair</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptimportkey">BCryptImportKey</a>.
-     * @param {Pointer<Byte>} pbInput The address of a buffer that contains the ciphertext to be decrypted. The <i>cbInput</i> parameter contains the size of the ciphertext to decrypt. For more information, see Remarks.
+     * @param {Pointer<Void>} hKey The handle of the key to use to decrypt the data. This handle is obtained from one of the key creation functions, such as <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratesymmetrickey">BCryptGenerateSymmetricKey</a>, <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratekeypair">BCryptGenerateKeyPair</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptimportkey">BCryptImportKey</a>.
+     * @param {Pointer} pbInput The address of a buffer that contains the ciphertext to be decrypted. The <i>cbInput</i> parameter contains the size of the ciphertext to decrypt. For more information, see Remarks.
      * @param {Integer} cbInput The number of bytes in the <i>pbInput</i> buffer to decrypt.
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. This parameter is only used with asymmetric keys and authenticated encryption modes. If an  authenticated encryption mode is used, this parameter must point to a <a href="https://docs.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_authenticated_cipher_mode_info">BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO</a> structure. If asymmetric keys are used, the type of structure this parameter points to is determined by the value of the <i>dwFlags</i> parameter. Otherwise, the parameter  must be set to <b>NULL</b>.
-     * @param {Pointer<Byte>} pbIV The address of a buffer that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">initialization vector</a> (IV) to use during decryption. The <i>cbIV</i> parameter contains the size of this buffer. This function will modify the contents of this buffer. If you need to reuse the IV later, make sure you make a copy of this buffer before calling this function.
+     * @param {Pointer} pbIV The address of a buffer that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">initialization vector</a> (IV) to use during decryption. The <i>cbIV</i> parameter contains the size of this buffer. This function will modify the contents of this buffer. If you need to reuse the IV later, make sure you make a copy of this buffer before calling this function.
      * 
      * This parameter is optional and can be <b>NULL</b> if no IV is used.
      * 
      *  The required size of the IV can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_BLOCK_LENGTH</b> property. This will provide the size of a block for the algorithm, which is also the size of the IV.
      * @param {Integer} cbIV The size, in bytes, of the <i>pbIV</i> buffer.
-     * @param {Pointer<Byte>} pbOutput The address of a buffer to receive the plaintext produced by this function. The <i>cbOutput</i> parameter contains the size of this buffer. For more information, see Remarks.
+     * @param {Pointer} pbOutput The address of a buffer to receive the plaintext produced by this function. The <i>cbOutput</i> parameter contains the size of this buffer. For more information, see Remarks.
      * 
      * If this parameter is <b>NULL</b>, the <b>BCryptDecrypt</b>  function calculates the size required for the plaintext of the encrypted data passed in the <i>pbInput</i> parameter. In this case, the location pointed to by the <i>pcbResult</i> parameter contains this size, and the function returns <b>STATUS_SUCCESS</b>.
      * 
@@ -23588,7 +23576,7 @@ class Cryptography {
      * @since windows6.0.6000
      */
     static BCryptDecrypt(hKey, pbInput, cbInput, pPaddingInfo, pbIV, cbIV, pbOutput, cbOutput, pcbResult, dwFlags) {
-        result := DllCall("bcrypt.dll\BCryptDecrypt", "ptr", hKey, "ptr", pbInput, "uint", cbInput, "ptr", pPaddingInfo, "ptr", pbIV, "uint", cbIV, "ptr", pbOutput, "uint", cbOutput, "ptr", pcbResult, "uint", dwFlags, "int")
+        result := DllCall("bcrypt.dll\BCryptDecrypt", "ptr", hKey, "ptr", pbInput, "uint", cbInput, "ptr", pPaddingInfo, "ptr", pbIV, "uint", cbIV, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -23598,14 +23586,14 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptExportKey</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened with the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptExportKey</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {Pointer<BCRYPT_KEY_HANDLE>} hKey The handle of the key to export.
-     * @param {Pointer<BCRYPT_KEY_HANDLE>} hExportKey The handle of the key with which to wrap the exported key. Use this parameter when exporting BLOBs of type <b>BCRYPT_AES_WRAP_KEY_BLOB</b>; otherwise, set it to <b>NULL</b>.<div class="alert"><b>Note</b>  The <i>hExportKey</i> handle must be supplied by the same provider that supplied the <i>hKey</i> handle, and <i>hExportKey</i> must be a handle to a symmetric key that can be used in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Advanced Encryption Standard</a> (AES) key wrap algorithm. When the <i>hKey</i> handle is from the Microsoft provider, <i>hExportKey</i> must be an AES key handle.</div>
+     * @param {Pointer<Void>} hKey The handle of the key to export.
+     * @param {Pointer<Void>} hExportKey The handle of the key with which to wrap the exported key. Use this parameter when exporting BLOBs of type <b>BCRYPT_AES_WRAP_KEY_BLOB</b>; otherwise, set it to <b>NULL</b>.<div class="alert"><b>Note</b>  The <i>hExportKey</i> handle must be supplied by the same provider that supplied the <i>hKey</i> handle, and <i>hExportKey</i> must be a handle to a symmetric key that can be used in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Advanced Encryption Standard</a> (AES) key wrap algorithm. When the <i>hKey</i> handle is from the Microsoft provider, <i>hExportKey</i> must be an AES key handle.</div>
      * <div> </div>
      * 
      * 
      * <b>Windows Server 2008 and Windows Vista:  </b>This parameter is not used and should be set to <b>NULL</b>.
-     * @param {Pointer<PWSTR>} pszBlobType 
-     * @param {Pointer<Byte>} pbOutput The address of a buffer that receives the key BLOB. The <i>cbOutput</i> parameter contains the size of this buffer. If this parameter is <b>NULL</b>, this function will place the required size, in bytes, in the <b>ULONG</b> pointed to by the <i>pcbResult</i> parameter.
+     * @param {Pointer<Char>} pszBlobType 
+     * @param {Pointer} pbOutput The address of a buffer that receives the key BLOB. The <i>cbOutput</i> parameter contains the size of this buffer. If this parameter is <b>NULL</b>, this function will place the required size, in bytes, in the <b>ULONG</b> pointed to by the <i>pcbResult</i> parameter.
      * @param {Integer} cbOutput Contains the size, in bytes, of the <i>pbOutput</i> buffer.
      * @param {Pointer<UInt32>} pcbResult A pointer to a <b>ULONG</b> that receives the number of bytes that were copied to the <i>pbOutput</i> buffer. If the <i>pbOutput</i> parameter is <b>NULL</b>, this function will place the required size, in bytes, in the <b>ULONG</b> pointed to by this parameter.
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. No flags are defined for this function.
@@ -23683,7 +23671,7 @@ class Cryptography {
     static BCryptExportKey(hKey, hExportKey, pszBlobType, pbOutput, cbOutput, pcbResult, dwFlags) {
         pszBlobType := pszBlobType is String? StrPtr(pszBlobType) : pszBlobType
 
-        result := DllCall("bcrypt.dll\BCryptExportKey", "ptr", hKey, "ptr", hExportKey, "ptr", pszBlobType, "ptr", pbOutput, "uint", cbOutput, "ptr", pcbResult, "uint", dwFlags, "int")
+        result := DllCall("bcrypt.dll\BCryptExportKey", "ptr", hKey, "ptr", hExportKey, "ptr", pszBlobType, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -23693,19 +23681,19 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptImportKey</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hAlgorithm</i> parameter must have been opened by using the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptImportKey</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {Pointer<BCRYPT_ALG_HANDLE>} hAlgorithm The handle of the algorithm provider to import the key. This handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function.
-     * @param {Pointer<BCRYPT_KEY_HANDLE>} hImportKey The handle of the key encryption key needed to unwrap the key BLOB in the <i>pbInput</i> parameter.<div class="alert"><b>Note</b>  The handle must be supplied by the same provider that supplied the key that is being imported.</div>
+     * @param {Pointer<Void>} hAlgorithm The handle of the algorithm provider to import the key. This handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function.
+     * @param {Pointer<Void>} hImportKey The handle of the key encryption key needed to unwrap the key BLOB in the <i>pbInput</i> parameter.<div class="alert"><b>Note</b>  The handle must be supplied by the same provider that supplied the key that is being imported.</div>
      * <div> </div>
      * 
      * 
      * <b>Windows Server 2008 and Windows Vista:  </b>This parameter is not used and should be set to <b>NULL</b>.
-     * @param {Pointer<PWSTR>} pszBlobType 
-     * @param {Pointer<BCRYPT_KEY_HANDLE>} phKey A pointer to a <b>BCRYPT_KEY_HANDLE</b> that receives the handle of the imported key. This handle is used in subsequent functions that require a key, such as <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptencrypt">BCryptEncrypt</a>. This handle must be released when it is no longer needed by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroykey">BCryptDestroyKey</a> function.
-     * @param {Pointer<Byte>} pbKeyObject A pointer to a buffer that receives the imported key object. The <i>cbKeyObject</i> parameter contains the size of this buffer. The required size of this buffer can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_OBJECT_LENGTH</b> property. This will provide the size of the key object for the specified algorithm.
+     * @param {Pointer<Char>} pszBlobType 
+     * @param {Pointer<Void>} phKey A pointer to a <b>BCRYPT_KEY_HANDLE</b> that receives the handle of the imported key. This handle is used in subsequent functions that require a key, such as <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptencrypt">BCryptEncrypt</a>. This handle must be released when it is no longer needed by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroykey">BCryptDestroyKey</a> function.
+     * @param {Pointer} pbKeyObject A pointer to a buffer that receives the imported key object. The <i>cbKeyObject</i> parameter contains the size of this buffer. The required size of this buffer can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_OBJECT_LENGTH</b> property. This will provide the size of the key object for the specified algorithm.
      * 
      * This memory can only be freed after the <i>phKey</i> key handle is destroyed.
      * @param {Integer} cbKeyObject The size, in bytes, of the <i>pbKeyObject</i> buffer.
-     * @param {Pointer<Byte>} pbInput The address of a buffer that contains the key BLOB to import. The <i>cbInput</i> parameter contains the size of this buffer. The <i>pszBlobType</i> parameter specifies the type of key BLOB this buffer contains.
+     * @param {Pointer} pbInput The address of a buffer that contains the key BLOB to import. The <i>cbInput</i> parameter contains the size of this buffer. The <i>pszBlobType</i> parameter specifies the type of key BLOB this buffer contains.
      * @param {Integer} cbInput The size, in bytes, of the <i>pbInput</i> buffer.
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. No flags are currently defined, so this parameter should be zero.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function.
@@ -23792,11 +23780,11 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptImportKeyPair</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hAlgorithm</i> parameter must have been opened by using the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptImportKeyPair</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {Pointer<BCRYPT_ALG_HANDLE>} hAlgorithm The handle of the algorithm provider to import the key. This handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function.
-     * @param {Pointer<BCRYPT_KEY_HANDLE>} hImportKey This parameter is not currently used and should be <b>NULL</b>.
-     * @param {Pointer<PWSTR>} pszBlobType 
-     * @param {Pointer<BCRYPT_KEY_HANDLE>} phKey A pointer to a <b>BCRYPT_KEY_HANDLE</b> that receives the handle of the imported key. This handle is used in subsequent functions that require a key, such as <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptsignhash">BCryptSignHash</a>. This handle must be released when it is no longer needed by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroykey">BCryptDestroyKey</a> function.
-     * @param {Pointer<Byte>} pbInput The address of a buffer that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">key BLOB</a> to import. The <i>cbInput</i> parameter contains the size of this buffer. The <i>pszBlobType</i> parameter specifies the type of key BLOB this buffer contains.
+     * @param {Pointer<Void>} hAlgorithm The handle of the algorithm provider to import the key. This handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function.
+     * @param {Pointer<Void>} hImportKey This parameter is not currently used and should be <b>NULL</b>.
+     * @param {Pointer<Char>} pszBlobType 
+     * @param {Pointer<Void>} phKey A pointer to a <b>BCRYPT_KEY_HANDLE</b> that receives the handle of the imported key. This handle is used in subsequent functions that require a key, such as <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptsignhash">BCryptSignHash</a>. This handle must be released when it is no longer needed by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroykey">BCryptDestroyKey</a> function.
+     * @param {Pointer} pbInput The address of a buffer that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">key BLOB</a> to import. The <i>cbInput</i> parameter contains the size of this buffer. The <i>pszBlobType</i> parameter specifies the type of key BLOB this buffer contains.
      * @param {Integer} cbInput The size, in bytes, of the <i>pbInput</i> buffer.
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. This can be zero or the following value.
      * 
@@ -23889,9 +23877,9 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptDuplicateKey</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened with the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptDuplicateKey</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {Pointer<BCRYPT_KEY_HANDLE>} hKey The handle of the key to duplicate. This must be a handle to a symmetric key.
-     * @param {Pointer<BCRYPT_KEY_HANDLE>} phNewKey A pointer to a <b>BCRYPT_KEY_HANDLE</b> variable that receives the handle of the duplicate key. This handle is used in subsequent functions that require a key, such as <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptencrypt">BCryptEncrypt</a>. This handle must be released when it is no longer needed by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroykey">BCryptDestroyKey</a> function.
-     * @param {Pointer<Byte>} pbKeyObject A pointer to a buffer that receives the duplicate key object. The <i>cbKeyObject</i> parameter contains the size of this buffer. The required size of this buffer can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_OBJECT_LENGTH</b> property. This will provide the size of the key object for the specified algorithm.
+     * @param {Pointer<Void>} hKey The handle of the key to duplicate. This must be a handle to a symmetric key.
+     * @param {Pointer<Void>} phNewKey A pointer to a <b>BCRYPT_KEY_HANDLE</b> variable that receives the handle of the duplicate key. This handle is used in subsequent functions that require a key, such as <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptencrypt">BCryptEncrypt</a>. This handle must be released when it is no longer needed by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroykey">BCryptDestroyKey</a> function.
+     * @param {Pointer} pbKeyObject A pointer to a buffer that receives the duplicate key object. The <i>cbKeyObject</i> parameter contains the size of this buffer. The required size of this buffer can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_OBJECT_LENGTH</b> property. This will provide the size of the key object for the specified algorithm.
      * 
      * This memory can only be freed after the <i>phNewKey</i> key handle is destroyed.
      * @param {Integer} cbKeyObject The size, in bytes, of the <i>pbKeyObject</i> buffer.
@@ -23967,7 +23955,7 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptFinalizeKeyPair</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened with the <b>BCRYPT_PROV_DISPATCH</b> flag.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {Pointer<BCRYPT_KEY_HANDLE>} hKey The handle of the key to complete. This handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratekeypair">BCryptGenerateKeyPair</a> function.
+     * @param {Pointer<Void>} hKey The handle of the key to complete. This handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratekeypair">BCryptGenerateKeyPair</a> function.
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. No flags are currently defined, so this parameter should be zero.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function.
      * 
@@ -24040,7 +24028,7 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptDestroyKey</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened with the <b>BCRYPT_PROV_DISPATCH</b> flag.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {Pointer<BCRYPT_KEY_HANDLE>} hKey The handle of the key to destroy.
+     * @param {Pointer<Void>} hKey The handle of the key to destroy.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function.
      * 
      * 
@@ -24090,7 +24078,7 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptDestroySecret</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hSecret</i> parameter must be derived from an algorithm handle returned by a provider that was opened by using the <b>BCRYPT_PROV_DISPATCH</b> flag.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {Pointer<BCRYPT_SECRET_HANDLE>} hSecret The <b>BCRYPT_SECRET_HANDLE</b> to be destroyed.
+     * @param {Pointer<Void>} hSecret The <b>BCRYPT_SECRET_HANDLE</b> to be destroyed.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function.
      * 
      * 
@@ -24144,11 +24132,11 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptSignHash</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened with the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptSignHash</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {Pointer<BCRYPT_KEY_HANDLE>} hKey The handle of the key to use to sign the hash.
+     * @param {Pointer<Void>} hKey The handle of the key to use to sign the hash.
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <i>dwFlags</i> parameter. This parameter is only used with asymmetric keys and must be <b>NULL</b> otherwise.
-     * @param {Pointer<Byte>} pbInput A pointer to a buffer that contains the hash value to sign. The <i>cbInput</i> parameter contains the size of this buffer.
+     * @param {Pointer} pbInput A pointer to a buffer that contains the hash value to sign. The <i>cbInput</i> parameter contains the size of this buffer.
      * @param {Integer} cbInput The number of bytes in the <i>pbInput</i> buffer to sign.
-     * @param {Pointer<Byte>} pbOutput The address of a buffer to receive the signature produced by this function. The <i>cbOutput</i> parameter contains the size of this buffer.
+     * @param {Pointer} pbOutput The address of a buffer to receive the signature produced by this function. The <i>cbOutput</i> parameter contains the size of this buffer.
      * 
      * If this parameter is <b>NULL</b>, this function will calculate the size required for the signature and return the size in the location pointed to by the <i>pcbResult</i> parameter.
      * @param {Integer} cbOutput The size, in bytes, of the <i>pbOutput</i> buffer. This parameter is ignored if the <i>pbOutput</i> parameter is <b>NULL</b>.
@@ -24228,7 +24216,7 @@ class Cryptography {
      * @since windows6.0.6000
      */
     static BCryptSignHash(hKey, pPaddingInfo, pbInput, cbInput, pbOutput, cbOutput, pcbResult, dwFlags) {
-        result := DllCall("bcrypt.dll\BCryptSignHash", "ptr", hKey, "ptr", pPaddingInfo, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, "ptr", pcbResult, "uint", dwFlags, "int")
+        result := DllCall("bcrypt.dll\BCryptSignHash", "ptr", hKey, "ptr", pPaddingInfo, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -24242,11 +24230,11 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptVerifySignature</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened by using the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptVerifySignature</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {Pointer<BCRYPT_KEY_HANDLE>} hKey The handle of the key to use to decrypt the signature. This must be an identical key or the public key portion of the key pair used to sign the data with the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptsignhash">BCryptSignHash</a> function.
+     * @param {Pointer<Void>} hKey The handle of the key to use to decrypt the signature. This must be an identical key or the public key portion of the key pair used to sign the data with the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptsignhash">BCryptSignHash</a> function.
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <i>dwFlags</i> parameter. This parameter is only used with asymmetric keys and must be <b>NULL</b> otherwise.
-     * @param {Pointer<Byte>} pbHash The address of a buffer that contains the hash of the data. The <i>cbHash</i> parameter contains the size of this buffer.
+     * @param {Pointer} pbHash The address of a buffer that contains the hash of the data. The <i>cbHash</i> parameter contains the size of this buffer.
      * @param {Integer} cbHash The size, in bytes, of the <i>pbHash</i> buffer.
-     * @param {Pointer<Byte>} pbSignature The address of a buffer that contains the signed hash of the data. The <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptsignhash">BCryptSignHash</a> function is used to create the signature. The <i>cbSignature</i> parameter contains the size of this buffer.
+     * @param {Pointer} pbSignature The address of a buffer that contains the signed hash of the data. The <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptsignhash">BCryptSignHash</a> function is used to create the signature. The <i>cbSignature</i> parameter contains the size of this buffer.
      * @param {Integer} cbSignature The size, in bytes, of the <i>pbSignature</i> buffer. The <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptsignhash">BCryptSignHash</a> function is used to create the signature.
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. The allowed set of flags depends on the type of key specified by the <i>hKey</i> parameter.
      * 
@@ -24344,9 +24332,9 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptSecretAgreement</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handles provided in the <i>hPrivKey</i> and <i>hPubKey</i>  parameters must be derived from an algorithm handle returned by a provider that was opened by using the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptSecretAgreement</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {Pointer<BCRYPT_KEY_HANDLE>} hPrivKey The handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private key</a> to use to create the secret agreement value. This key and the <i>hPubKey</i> key must come from the same CNG cryptographic algorithm provider.
-     * @param {Pointer<BCRYPT_KEY_HANDLE>} hPubKey The handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public key</a> to use to create the secret agreement value. This key and the <i>hPrivKey</i> key must come from the same CNG cryptographic algorithm provider.
-     * @param {Pointer<BCRYPT_SECRET_HANDLE>} phAgreedSecret A pointer to a <b>BCRYPT_SECRET_HANDLE</b> that receives a handle that represents the secret agreement value. This handle must be released by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroysecret">BCryptDestroySecret</a> function when it is no longer needed.
+     * @param {Pointer<Void>} hPrivKey The handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private key</a> to use to create the secret agreement value. This key and the <i>hPubKey</i> key must come from the same CNG cryptographic algorithm provider.
+     * @param {Pointer<Void>} hPubKey The handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public key</a> to use to create the secret agreement value. This key and the <i>hPrivKey</i> key must come from the same CNG cryptographic algorithm provider.
+     * @param {Pointer<Void>} phAgreedSecret A pointer to a <b>BCRYPT_SECRET_HANDLE</b> that receives a handle that represents the secret agreement value. This handle must be released by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroysecret">BCryptDestroySecret</a> function when it is no longer needed.
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. No flags are defined for this function.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function.
      * 
@@ -24460,10 +24448,10 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptDeriveKey</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hSharedSecret</i> parameter must be located in nonpaged (or locked) memory and must be derived from an algorithm handle returned by a provider that was opened by using the <b>BCRYPT_PROV_DISPATCH</b> flag.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {Pointer<BCRYPT_SECRET_HANDLE>} hSharedSecret The secret agreement handle to create the key from. This handle is obtained from the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptsecretagreement">BCryptSecretAgreement</a> function.
-     * @param {Pointer<PWSTR>} pwszKDF A pointer to a null-terminated Unicode string that identifies the <i>key derivation function</i> (KDF) to use to derive the key. This can be one of the following strings.
+     * @param {Pointer<Void>} hSharedSecret The secret agreement handle to create the key from. This handle is obtained from the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptsecretagreement">BCryptSecretAgreement</a> function.
+     * @param {Pointer<Char>} pwszKDF A pointer to a null-terminated Unicode string that identifies the <i>key derivation function</i> (KDF) to use to derive the key. This can be one of the following strings.
      * @param {Pointer<BCryptBufferDesc>} pParameterList The address of a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa375370(v=vs.85)">BCryptBufferDesc</a> structure that contains the KDF parameters. This parameter is optional and can be <b>NULL</b> if it is not needed.
-     * @param {Pointer<Byte>} pbDerivedKey The address of a buffer that receives the key. The <i>cbDerivedKey</i> parameter contains the size of this buffer. If this parameter is <b>NULL</b>, this function will place the required size, in bytes, in the <b>ULONG</b> pointed to by the <i>pcbResult</i> parameter.
+     * @param {Pointer} pbDerivedKey The address of a buffer that receives the key. The <i>cbDerivedKey</i> parameter contains the size of this buffer. If this parameter is <b>NULL</b>, this function will place the required size, in bytes, in the <b>ULONG</b> pointed to by the <i>pcbResult</i> parameter.
      * @param {Integer} cbDerivedKey The size, in bytes, of the <i>pbDerivedKey</i> buffer.
      * @param {Pointer<UInt32>} pcbResult A pointer to a <b>ULONG</b> that receives the number of bytes that were copied to the <i>pbDerivedKey</i> buffer. If the <i>pbDerivedKey</i> parameter is <b>NULL</b>, this function will place the required size, in bytes, in the <b>ULONG</b> pointed to by this parameter.
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. This can be zero or the following value.
@@ -24547,7 +24535,7 @@ class Cryptography {
     static BCryptDeriveKey(hSharedSecret, pwszKDF, pParameterList, pbDerivedKey, cbDerivedKey, pcbResult, dwFlags) {
         pwszKDF := pwszKDF is String? StrPtr(pwszKDF) : pwszKDF
 
-        result := DllCall("bcrypt.dll\BCryptDeriveKey", "ptr", hSharedSecret, "ptr", pwszKDF, "ptr", pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, "ptr", pcbResult, "uint", dwFlags, "int")
+        result := DllCall("bcrypt.dll\BCryptDeriveKey", "ptr", hSharedSecret, "ptr", pwszKDF, "ptr", pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, "uint*", pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -24563,7 +24551,7 @@ class Cryptography {
      * <li><b>BCRYPT_PBKDF2_ALGORITHM</b></li>
      * </ul>
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {Pointer<BCRYPT_KEY_HANDLE>} hKey Handle of the input key.
+     * @param {Pointer<Void>} hKey Handle of the input key.
      * @param {Pointer<BCryptBufferDesc>} pParameterList Pointer to a  <b>BCryptBufferDesc</b> structure that contains the KDF parameters. This parameter is optional and can be <b>NULL</b> if it is not needed. 
      * The parameters can be specific to a key derivation function (KDF) or generic. The following table shows the required and optional parameters for specific KDFs implemented by the Microsoft Primitive provider.
      * 
@@ -24664,7 +24652,7 @@ class Cryptography {
      * CAPI_KDF<ul>
      * <li>KDF_GENERIC_PARAMETER = Not Used </li>
      * </ul>
-     * @param {Pointer<Byte>} pbDerivedKey Address of a buffer that receives the key. The <i>cbDerivedKey</i> parameter contains the size of this buffer.
+     * @param {Pointer} pbDerivedKey Address of a buffer that receives the key. The <i>cbDerivedKey</i> parameter contains the size of this buffer.
      * @param {Integer} cbDerivedKey Size, in bytes, of the buffer pointed to by the <i>pbDerivedKey</i> parameter.
      * @param {Pointer<UInt32>} pcbResult Pointer to a variable that receives the number of bytes that were copied to the buffer pointed to by the <i>pbDerivedKey</i> parameter.
      * @param {Integer} dwFlags Flags that modify the behavior of this function. The following value can be used with the Microsoft Primitive provider.
@@ -24692,7 +24680,7 @@ class Cryptography {
      * @since windows8.0
      */
     static BCryptKeyDerivation(hKey, pParameterList, pbDerivedKey, cbDerivedKey, pcbResult, dwFlags) {
-        result := DllCall("bcrypt.dll\BCryptKeyDerivation", "ptr", hKey, "ptr", pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, "ptr", pcbResult, "uint", dwFlags, "int")
+        result := DllCall("bcrypt.dll\BCryptKeyDerivation", "ptr", hKey, "ptr", pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, "uint*", pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -24702,9 +24690,9 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptCreateHash</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hAlgorithm</i> parameter must have been opened by using the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptCreateHash</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). For more information, see <a href="https://www.microsoft.com/?ref=go">WDK and Developer Tools</a>.<b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {Pointer<BCRYPT_ALG_HANDLE>} hAlgorithm The handle of an algorithm provider created by using the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function. The algorithm that was specified when the provider was created must support the hash interface.
-     * @param {Pointer<BCRYPT_HASH_HANDLE>} phHash A pointer to a <b>BCRYPT_HASH_HANDLE</b> value that receives a handle that represents the hash or MAC object. This handle is used in subsequent hashing or MAC functions, such as the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcrypthashdata">BCryptHashData</a> function. When you have finished using this handle, release it by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroyhash">BCryptDestroyHash</a> function.
-     * @param {Pointer<Byte>} pbHashObject A pointer to a buffer that receives the hash or MAC object. The <i>cbHashObject</i> parameter contains the size of this buffer. The required size of this buffer can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_OBJECT_LENGTH</b> property. This will provide the size of the hash or MAC object for the specified algorithm.
+     * @param {Pointer<Void>} hAlgorithm The handle of an algorithm provider created by using the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function. The algorithm that was specified when the provider was created must support the hash interface.
+     * @param {Pointer<Void>} phHash A pointer to a <b>BCRYPT_HASH_HANDLE</b> value that receives a handle that represents the hash or MAC object. This handle is used in subsequent hashing or MAC functions, such as the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcrypthashdata">BCryptHashData</a> function. When you have finished using this handle, release it by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroyhash">BCryptDestroyHash</a> function.
+     * @param {Pointer} pbHashObject A pointer to a buffer that receives the hash or MAC object. The <i>cbHashObject</i> parameter contains the size of this buffer. The required size of this buffer can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_OBJECT_LENGTH</b> property. This will provide the size of the hash or MAC object for the specified algorithm.
      * 
      * This memory can only be freed after the handle pointed to by the <i>phHash</i> parameter is destroyed.
      * 
@@ -24712,7 +24700,7 @@ class Cryptography {
      * @param {Integer} cbHashObject The size, in bytes, of the <i>pbHashObject</i> buffer.
      * 
      * If the value of this parameter is zero and the value of the <i>pbHashObject</i> parameter is <b>NULL</b>, the memory for the key object is allocated and freed by this function. <b>Windows 7:</b> This memory management functionality is available beginning with Windows 7.</p>
-     * @param {Pointer<Byte>} pbSecret A pointer to a buffer that contains the key to use for the hash or MAC. The <i>cbSecret</i> parameter contains the size of this buffer. This key only applies to hash algorithms opened by the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function by using the <b>BCRYPT_ALG_HANDLE_HMAC</b> flag.  Otherwise, set this parameter to <b>NULL</b>.
+     * @param {Pointer} pbSecret A pointer to a buffer that contains the key to use for the hash or MAC. The <i>cbSecret</i> parameter contains the size of this buffer. This key only applies to hash algorithms opened by the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function by using the <b>BCRYPT_ALG_HANDLE_HMAC</b> flag.  Otherwise, set this parameter to <b>NULL</b>.
      * @param {Integer} cbSecret The size, in bytes, of the <i>pbSecret</i> buffer. If no key is used, set this parameter to zero.
      * @param {Integer} dwFlags Flags that modify the behavior of the function. This can be zero or the following value.
      * 
@@ -24818,8 +24806,8 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptHashData</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hHash</i> parameter must be derived from an algorithm handle returned by a provider that was opened by using the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptHashData</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {Pointer<BCRYPT_HASH_HANDLE>} hHash The handle of the hash or MAC object to use to perform the operation. This handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptcreatehash">BCryptCreateHash</a> function.
-     * @param {Pointer<Byte>} pbInput A pointer to a buffer that contains the data to process. The <i>cbInput</i> parameter contains the number of bytes in this buffer. This function does not modify the contents of this buffer.
+     * @param {Pointer<Void>} hHash The handle of the hash or MAC object to use to perform the operation. This handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptcreatehash">BCryptCreateHash</a> function.
+     * @param {Pointer} pbInput A pointer to a buffer that contains the data to process. The <i>cbInput</i> parameter contains the number of bytes in this buffer. This function does not modify the contents of this buffer.
      * @param {Integer} cbInput The number of bytes in the <i>pbInput</i> buffer.
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. No flags are currently defined, so this parameter should be zero.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function.
@@ -24882,8 +24870,8 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptFinishHash</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hHash</i> parameter must be derived from an algorithm handle returned by a provider that was opened by using the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptFinishHash</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {Pointer<BCRYPT_HASH_HANDLE>} hHash The handle of the hash or MAC object to use to compute the hash or MAC. This handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptcreatehash">BCryptCreateHash</a> function. After this function has been called, the hash handle passed to this function cannot be used again except in a call to <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroyhash">BCryptDestroyHash</a>.
-     * @param {Pointer<Byte>} pbOutput A pointer to a buffer that receives the hash or MAC value. The <i>cbOutput</i> parameter contains the size of this buffer.
+     * @param {Pointer<Void>} hHash The handle of the hash or MAC object to use to compute the hash or MAC. This handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptcreatehash">BCryptCreateHash</a> function. After this function has been called, the hash handle passed to this function cannot be used again except in a call to <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroyhash">BCryptDestroyHash</a>.
+     * @param {Pointer} pbOutput A pointer to a buffer that receives the hash or MAC value. The <i>cbOutput</i> parameter contains the size of this buffer.
      * @param {Integer} cbOutput The size, in bytes, of the <i>pbOutput</i> buffer. This size must exactly match the size of the hash or MAC value.
      * 
      * The size can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_HASH_LENGTH</b> property. This will provide the size of the hash or MAC value for the specified algorithm.
@@ -24950,16 +24938,16 @@ class Cryptography {
      * For computations of unequal length, providing more computations in parallel allows the implementation to schedule the computations better across the CPU registers. This can provide a throughput benefit. For optimal throughput, we recommend that the caller provide between eight and 100 computations. Select a lower value in that range only if all the hash computations are the same length.
      * 
      * Multi-hashing is not supported for HMAC-MD2, HMAC-MD4, and GMAC.
-     * @param {Pointer<BCRYPT_ALG_HANDLE>} hAlgorithm *BCRYPT_ALG_HANDLE* `[in, out]`
+     * @param {Pointer<Void>} hAlgorithm *BCRYPT_ALG_HANDLE* `[in, out]`
      * 
      * The algorithm handle used for all of the hash states in the multi-hash array. The algorithm handle must have been opened with the **BCYRPT_MULTI_FLAG** passed to the [BCryptOpenAlgorithmProvider](nf-bcrypt-bcryptopenalgorithmprovider.md) function. Alternatively, the caller can use the pseudo-handles.
-     * @param {Pointer<BCRYPT_HASH_HANDLE>} phHash *BCRYPT_HASH_HANDLE** `[out]`
+     * @param {Pointer<Void>} phHash *BCRYPT_HASH_HANDLE** `[out]`
      * 
      * A pointer to a **BCRYPT_HASH_HANDLE** value that receives a handle that represents the multi-hash state. This handle is used in subsequent operations such as [BCryptProcessMultiOperations](nf-bcrypt-bcryptprocessmultioperations.md). When you have finished using this handle, release it by passing it to the [BCryptDestroyHash](nf-bcrypt-bcryptdestroyhash.md) function.
      * @param {Integer} nHashes *ULONG* `[in]`
      * 
      * The number of elements in the array. The multi-hash state that this function creates is able to perform parallel computations on *nHashes* different hash states.
-     * @param {Pointer<Byte>} pbHashObject *PUCHAR* `[out]`
+     * @param {Pointer} pbHashObject *PUCHAR* `[out]`
      * 
      * A pointer to a buffer that receives the multi-hash state.
      * 
@@ -24969,7 +24957,7 @@ class Cryptography {
      * @param {Integer} cbHashObject *ULONG* `[in]`
      * 
      * The size of the *pbHashObject* buffer, or zero (`0`) if *pbHashObject* is `NULL`.
-     * @param {Pointer<Byte>} pbSecret *PUCHAR* `[in]`
+     * @param {Pointer} pbSecret *PUCHAR* `[in]`
      * 
      * A pointer to a buffer that contains the key to use for the hash or MAC. The *cbSecret* parameter contains the size of this buffer. This key only applies to hash algorithms opened by the [BCryptOpenAlgorithmProvider](nf-bcrypt-bcryptopenalgorithmprovider.md) function by using the **BCRYPT_ALG_HANDLE_HMAC** flag. Otherwise, set this parameter to `NULL`.
      * 
@@ -24999,13 +24987,13 @@ class Cryptography {
      * Each element of the *pOperations* array contains instructions for a particular computation to be performed on a single element of the multi-object state. The functional behavior of **BCryptProcessMultiOperations** is equivalent to performing, for each element in the multi-object state, the computations specified in the operations array for that element, one at a time, in order.
      * 
      * The relative order of two operations that operate on different elements of the array is not guaranteed. If an output buffer overlaps an input or output buffer the result is not deterministic.
-     * @param {Pointer<BCRYPT_HANDLE>} hObject *BCRYPT_HANDLE* `[in, out]`
+     * @param {Pointer<Void>} hObject *BCRYPT_HANDLE* `[in, out]`
      * 
      * A handle to a multi-object state, such as one created by the [BCryptCreateMultiHash](nf-bcrypt-bcryptcreatemultihash.md) function.
      * @param {Integer} operationType *BCRYPT_MULTI_OPERATION_TYPE* `[in]`
      * 
      * One of the **BCRYPT_OPERATION_TYPE_**\* values. Currently the only defined value is **BCRYPT_OPERATION_TYPE_HASH**. This value identifies the *hObject* parameter as a multi-hash object and the *pOperations* pointer as pointing to an array of [BCRYPT_MULTI_HASH_OPERATION](ns-bcrypt-bcrypt_multi_hash_operation.md) elements.
-     * @param {Pointer<Void>} pOperations *PVOID* `[in]`
+     * @param {Pointer} pOperations *PVOID* `[in]`
      * 
      * A pointer to an array of operation command structures. For hashing, it is a pointer to an array of [BCRYPT_MULTI_HASH_OPERATION](ns-bcrypt-bcrypt_multi_hash_operation.md) structures.
      * @param {Integer} cbOperations *ULONG* `[in]`
@@ -25031,9 +25019,9 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptDuplicateHash</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hHash</i> parameter must be derived from an algorithm handle returned by a provider that was opened by using the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroykey">BCryptDestroyKey</a> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {Pointer<BCRYPT_HASH_HANDLE>} hHash The handle of the hash or MAC object to duplicate.
-     * @param {Pointer<BCRYPT_HASH_HANDLE>} phNewHash A pointer to a <b>BCRYPT_HASH_HANDLE</b> value that receives the handle that represents the duplicate hash or MAC object.
-     * @param {Pointer<Byte>} pbHashObject A pointer to a buffer that receives the duplicate hash or MAC object. The <i>cbHashObject</i> parameter contains the size of this buffer. The required size of this buffer can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_OBJECT_LENGTH</b> property. This will provide the size of the hash object for the specified algorithm.
+     * @param {Pointer<Void>} hHash The handle of the hash or MAC object to duplicate.
+     * @param {Pointer<Void>} phNewHash A pointer to a <b>BCRYPT_HASH_HANDLE</b> value that receives the handle that represents the duplicate hash or MAC object.
+     * @param {Pointer} pbHashObject A pointer to a buffer that receives the duplicate hash or MAC object. The <i>cbHashObject</i> parameter contains the size of this buffer. The required size of this buffer can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_OBJECT_LENGTH</b> property. This will provide the size of the hash object for the specified algorithm.
      * 
      * When the duplicate hash handle is released, free this memory.
      * @param {Integer} cbHashObject The size, in bytes, of the <i>pbHashObject</i> buffer.
@@ -25109,7 +25097,7 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptDestroyHash</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hHash</i> parameter must be derived from an algorithm handle returned by a provider that was opened by using the <b>BCRYPT_PROV_DISPATCH</b> flag.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {Pointer<BCRYPT_HASH_HANDLE>} hHash The handle of the hash or MAC object to destroy. This handle is obtained by using the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptcreatehash">BCryptCreateHash</a> function.
+     * @param {Pointer<Void>} hHash The handle of the hash or MAC object to destroy. This handle is obtained by using the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptcreatehash">BCryptCreateHash</a> function.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function.
      * 
      * 
@@ -25155,12 +25143,12 @@ class Cryptography {
 
     /**
      * Performs a single hash computation. This is a convenience function that wraps calls to BCryptCreateHash, BCryptHashData, BCryptFinishHash, and BCryptDestroyHash.
-     * @param {Pointer<BCRYPT_ALG_HANDLE>} hAlgorithm The handle of an algorithm provider created by using the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function. The algorithm that was specified when the provider was created must support the hash interface.
-     * @param {Pointer<Byte>} pbSecret A pointer to a buffer that contains the key to use for the hash or MAC. The <i>cbSecret</i> parameter contains the size of this buffer. This key only applies to hash algorithms opened by the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function by using the <b>BCRYPT_ALG_HANDLE_HMAC</b> flag.  Otherwise, set this parameter to <b>NULL</b>
+     * @param {Pointer<Void>} hAlgorithm The handle of an algorithm provider created by using the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function. The algorithm that was specified when the provider was created must support the hash interface.
+     * @param {Pointer} pbSecret A pointer to a buffer that contains the key to use for the hash or MAC. The <i>cbSecret</i> parameter contains the size of this buffer. This key only applies to hash algorithms opened by the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function by using the <b>BCRYPT_ALG_HANDLE_HMAC</b> flag.  Otherwise, set this parameter to <b>NULL</b>
      * @param {Integer} cbSecret The size, in bytes, of the <i>pbSecret</i> buffer. If no key is used, set this parameter to zero.
-     * @param {Pointer<Byte>} pbInput A pointer to a buffer that contains the data to process. The <i>cbInput</i> parameter contains the number of bytes in this buffer. This function does not modify the contents of this buffer.
+     * @param {Pointer} pbInput A pointer to a buffer that contains the data to process. The <i>cbInput</i> parameter contains the number of bytes in this buffer. This function does not modify the contents of this buffer.
      * @param {Integer} cbInput The number of bytes in the <i>pbInput</i> buffer.
-     * @param {Pointer<Byte>} pbOutput A pointer to a buffer that receives the hash or MAC value. The <i>cbOutput</i> parameter contains the size of this buffer.
+     * @param {Pointer} pbOutput A pointer to a buffer that receives the hash or MAC value. The <i>cbOutput</i> parameter contains the size of this buffer.
      * @param {Integer} cbOutput The size, in bytes, of the <i>pbOutput</i> buffer. This size must exactly match the size of the hash or MAC value.
      * 
      * The size can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_HASH_LENGTH</b> property. This will provide the size of the hash or MAC value for the specified algorithm.
@@ -25185,8 +25173,8 @@ class Cryptography {
      * 
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {Pointer<BCRYPT_ALG_HANDLE>} hAlgorithm The handle of an algorithm provider created by using the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function. The algorithm that was specified when the provider was created must support the random number generator interface.
-     * @param {Pointer<Byte>} pbBuffer The address of a buffer that receives the random number. The size of this buffer is specified by the <i>cbBuffer</i> parameter.
+     * @param {Pointer<Void>} hAlgorithm The handle of an algorithm provider created by using the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider">BCryptOpenAlgorithmProvider</a> function. The algorithm that was specified when the provider was created must support the random number generator interface.
+     * @param {Pointer} pbBuffer The address of a buffer that receives the random number. The size of this buffer is specified by the <i>cbBuffer</i> parameter.
      * @param {Integer} cbBuffer The size, in bytes, of the <i>pbBuffer</i> buffer.
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. This parameter can be zero or the following value.
      * 
@@ -25282,12 +25270,12 @@ class Cryptography {
      * Derives a key from a hash value.
      * @remarks
      * This function does not support the PK salt functionality of the CAPI <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptderivekey">CryptDeriveKey</a> function.
-     * @param {Pointer<BCRYPT_HASH_HANDLE>} hHash The handle of the hash object. The handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptcreatehash">BCryptCreateHash</a> function. When you have finished using the handle, you must free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroyhash">BCryptDestroyHash</a> function.
-     * @param {Pointer<BCRYPT_ALG_HANDLE>} hTargetAlg The handle of the algorithm object.  This can be an <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/alg-id">ALG_ID</a> value that is compatible with the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptderivekey">CryptDeriveKey</a> function.
+     * @param {Pointer<Void>} hHash The handle of the hash object. The handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptcreatehash">BCryptCreateHash</a> function. When you have finished using the handle, you must free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroyhash">BCryptDestroyHash</a> function.
+     * @param {Pointer<Void>} hTargetAlg The handle of the algorithm object.  This can be an <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/alg-id">ALG_ID</a> value that is compatible with the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptderivekey">CryptDeriveKey</a> function.
      * 
      * <div class="alert"><b>Note</b>  Limitations in CAPI and key expansion prevent the use of any hash algorithm that generates an output that is larger than 512 bits.</div>
      * <div> </div>
-     * @param {Pointer<Byte>} pbDerivedKey A pointer to the buffer that receives the derived key.
+     * @param {Pointer} pbDerivedKey A pointer to the buffer that receives the derived key.
      * @param {Integer} cbDerivedKey The size, in characters, of the derived key pointed to by the <i>pbDerivedKey</i> parameter.
      * @param {Integer} dwFlags This parameter is reserved and must be set to zero.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function.
@@ -25358,20 +25346,20 @@ class Cryptography {
 
     /**
      * Derives a key from a hash value by using the PBKDF2 key derivation algorithm as defined by RFC 2898.
-     * @param {Pointer<BCRYPT_ALG_HANDLE>} hPrf The handle of an algorithm provider that provides the pseudo-random function. This should be an algorithm provider that performs a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">Message Authentication Code</a> computation. When you use the default Microsoft algorithm provider, any <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hashing algorithm</a> opened by using the  <b>BCRYPT_ALG_HANDLE_HMAC_FLAG</b> flag can be used.
+     * @param {Pointer<Void>} hPrf The handle of an algorithm provider that provides the pseudo-random function. This should be an algorithm provider that performs a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">Message Authentication Code</a> computation. When you use the default Microsoft algorithm provider, any <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hashing algorithm</a> opened by using the  <b>BCRYPT_ALG_HANDLE_HMAC_FLAG</b> flag can be used.
      * 
      * <div class="alert"><b>Note</b>  Only algorithms that implement the BCRYPT_IS_KEYED_HASH  property can be used to populate this parameter.</div>
      * <div> </div>
-     * @param {Pointer<Byte>} pbPassword A pointer to a buffer that contains the password parameter for the PBKDF2 key derivation algorithm. <div class="alert"><b>Note</b>  Any secret information used in the key derivation should be passed in this buffer.</div>
+     * @param {Pointer} pbPassword A pointer to a buffer that contains the password parameter for the PBKDF2 key derivation algorithm. <div class="alert"><b>Note</b>  Any secret information used in the key derivation should be passed in this buffer.</div>
      * <div> </div>
      * @param {Integer} cbPassword The length, in bytes, of the data in the buffer pointed to by the <i>pbPassword</i> parameter.
-     * @param {Pointer<Byte>} pbSalt A pointer to a buffer that contains the salt argument  for the PBKDF2 key derivation algorithm.
+     * @param {Pointer} pbSalt A pointer to a buffer that contains the salt argument  for the PBKDF2 key derivation algorithm.
      * 
      * <div class="alert"><b>Note</b>  Any information that is not secret and that is used in the key derivation should be passed in this buffer.</div>
      * <div> </div>
      * @param {Integer} cbSalt The length, in bytes, of the salt argument pointed to by the <i>pbSalt</i> parameter.
      * @param {Integer} cIterations The iteration count for the PBKDF2 key derivation algorithm.
-     * @param {Pointer<Byte>} pbDerivedKey A pointer to a buffer that receives the derived key.
+     * @param {Pointer} pbDerivedKey A pointer to a buffer that receives the derived key.
      * @param {Integer} cbDerivedKey The length, in bytes, of the derived key returned in the buffer pointed to by the <i>pbDerivedKey</i> parameter.
      * @param {Integer} dwFlags This parameter is reserved and must be set to zero.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function.
@@ -25444,7 +25432,7 @@ class Cryptography {
      * Retrieves information about a CNG provider.
      * @remarks
      * <b>BCryptQueryProviderRegistration</b> can be called only in user mode.
-     * @param {Pointer<PWSTR>} pszProvider A pointer to a null-terminated Unicode string that contains the name of the provider to obtain information about.
+     * @param {Pointer<Char>} pszProvider A pointer to a null-terminated Unicode string that contains the name of the provider to obtain information about.
      * @param {Integer} dwMode 
      * @param {Integer} dwInterface 
      * @param {Pointer<UInt32>} pcbBuffer A pointer to a <b>ULONG</b> value that, on entry, contains the size, in bytes, of the buffer pointed to by the <i>ppBuffer</i> parameter. On exit, this value receives either the number of bytes copied to the buffer or the required size, in bytes, of the buffer.
@@ -25522,7 +25510,7 @@ class Cryptography {
     static BCryptQueryProviderRegistration(pszProvider, dwMode, dwInterface, pcbBuffer, ppBuffer) {
         pszProvider := pszProvider is String? StrPtr(pszProvider) : pszProvider
 
-        result := DllCall("bcrypt.dll\BCryptQueryProviderRegistration", "ptr", pszProvider, "uint", dwMode, "uint", dwInterface, "ptr", pcbBuffer, "ptr", ppBuffer, "int")
+        result := DllCall("bcrypt.dll\BCryptQueryProviderRegistration", "ptr", pszProvider, "uint", dwMode, "uint", dwInterface, "uint*", pcbBuffer, "ptr", ppBuffer, "int")
         return result
     }
 
@@ -25615,7 +25603,7 @@ class Cryptography {
      * @since windows6.0.6000
      */
     static BCryptEnumRegisteredProviders(pcbBuffer, ppBuffer) {
-        result := DllCall("bcrypt.dll\BCryptEnumRegisteredProviders", "ptr", pcbBuffer, "ptr", ppBuffer, "int")
+        result := DllCall("bcrypt.dll\BCryptEnumRegisteredProviders", "uint*", pcbBuffer, "ptr", ppBuffer, "int")
         return result
     }
 
@@ -25624,7 +25612,7 @@ class Cryptography {
      * @remarks
      * <b>BCryptCreateContext</b> can be called only in user mode.
      * @param {Integer} dwTable 
-     * @param {Pointer<PWSTR>} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to create.
+     * @param {Pointer<Char>} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to create.
      * @param {Pointer<CRYPT_CONTEXT_CONFIG>} pConfig A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/ns-bcrypt-crypt_context_config">CRYPT_CONTEXT_CONFIG</a> structure that contains additional configuration data for the new context. This parameter can be <b>NULL</b> if it is not needed.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function.
      * 
@@ -25687,7 +25675,7 @@ class Cryptography {
      * @remarks
      * <b>BCryptDeleteContext</b> can be called only in user mode.
      * @param {Integer} dwTable 
-     * @param {Pointer<PWSTR>} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to delete.
+     * @param {Pointer<Char>} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to delete.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function.
      * 
      * 
@@ -25818,7 +25806,7 @@ class Cryptography {
      * @since windows6.0.6000
      */
     static BCryptEnumContexts(dwTable, pcbBuffer, ppBuffer) {
-        result := DllCall("bcrypt.dll\BCryptEnumContexts", "uint", dwTable, "ptr", pcbBuffer, "ptr", ppBuffer, "int")
+        result := DllCall("bcrypt.dll\BCryptEnumContexts", "uint", dwTable, "uint*", pcbBuffer, "ptr", ppBuffer, "int")
         return result
     }
 
@@ -25827,7 +25815,7 @@ class Cryptography {
      * @remarks
      * <b>BCryptConfigureContext</b> can be called only in user mode.
      * @param {Integer} dwTable 
-     * @param {Pointer<PWSTR>} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to set the configuration information for.
+     * @param {Pointer<Char>} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to set the configuration information for.
      * @param {Pointer<CRYPT_CONTEXT_CONFIG>} pConfig The address of a <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/ns-bcrypt-crypt_context_config">CRYPT_CONTEXT_CONFIG</a> structure that contains the new context configuration information.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function.
      * 
@@ -25907,7 +25895,7 @@ class Cryptography {
      * 
      * <b>BCryptQueryContextConfiguration</b> can be called only in user mode.
      * @param {Integer} dwTable 
-     * @param {Pointer<PWSTR>} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to obtain the configuration information for.
+     * @param {Pointer<Char>} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to obtain the configuration information for.
      * @param {Pointer<UInt32>} pcbBuffer The address of a <b>ULONG</b> variable that, on entry, contains the size, in bytes, of the buffer pointed to by <i>ppBuffer</i>. If this size is not large enough to hold the context information, this function will fail with <b>STATUS_BUFFER_TOO_SMALL</b>.
      * 
      * After this function returns, this variable contains the number of bytes that were copied to the <i>ppBuffer</i> buffer.
@@ -25992,7 +25980,7 @@ class Cryptography {
     static BCryptQueryContextConfiguration(dwTable, pszContext, pcbBuffer, ppBuffer) {
         pszContext := pszContext is String? StrPtr(pszContext) : pszContext
 
-        result := DllCall("bcrypt.dll\BCryptQueryContextConfiguration", "uint", dwTable, "ptr", pszContext, "ptr", pcbBuffer, "ptr", ppBuffer, "int")
+        result := DllCall("bcrypt.dll\BCryptQueryContextConfiguration", "uint", dwTable, "ptr", pszContext, "uint*", pcbBuffer, "ptr", ppBuffer, "int")
         return result
     }
 
@@ -26003,9 +25991,9 @@ class Cryptography {
      * 
      * <b>BCryptAddContextFunction</b> can be called only in user mode.
      * @param {Integer} dwTable 
-     * @param {Pointer<PWSTR>} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to add the function to.
+     * @param {Pointer<Char>} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to add the function to.
      * @param {Integer} dwInterface 
-     * @param {Pointer<PWSTR>} pszFunction A pointer to a null-terminated Unicode string that contains the identifier of the cryptographic function to add.
+     * @param {Pointer<Char>} pszFunction A pointer to a null-terminated Unicode string that contains the identifier of the cryptographic function to add.
      * @param {Integer} dwPosition Specifies the position in the list at which to insert this function. The function is inserted at this position ahead of any existing functions. The <b>CRYPT_PRIORITY_TOP</b> value is used to insert the function at the top of the list. The <b>CRYPT_PRIORITY_BOTTOM</b> value is used to insert the function at the end of the list.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function.
      * 
@@ -26080,9 +26068,9 @@ class Cryptography {
      * @remarks
      * <b>BCryptRemoveContextFunction</b> can be called only in user mode.
      * @param {Integer} dwTable 
-     * @param {Pointer<PWSTR>} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to remove the function from.
+     * @param {Pointer<Char>} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to remove the function from.
      * @param {Integer} dwInterface 
-     * @param {Pointer<PWSTR>} pszFunction A pointer to a null-terminated Unicode string that contains the identifier of the cryptographic function to remove.
+     * @param {Pointer<Char>} pszFunction A pointer to a null-terminated Unicode string that contains the identifier of the cryptographic function to remove.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function.
      * 
      * 
@@ -26145,7 +26133,7 @@ class Cryptography {
      * @remarks
      * <b>BCryptEnumContextFunctions</b> can be called only in user mode.
      * @param {Integer} dwTable 
-     * @param {Pointer<PWSTR>} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to enumerate the functions for.
+     * @param {Pointer<Char>} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to enumerate the functions for.
      * @param {Integer} dwInterface 
      * @param {Pointer<UInt32>} pcbBuffer The address of a <b>ULONG</b> variable that, on entry, contains the size, in bytes, of the buffer pointed to by <i>ppBuffer</i>. If this size is not large enough to hold the set of context identifiers, this function will fail with <b>STATUS_BUFFER_TOO_SMALL</b>.
      * 
@@ -26229,7 +26217,7 @@ class Cryptography {
     static BCryptEnumContextFunctions(dwTable, pszContext, dwInterface, pcbBuffer, ppBuffer) {
         pszContext := pszContext is String? StrPtr(pszContext) : pszContext
 
-        result := DllCall("bcrypt.dll\BCryptEnumContextFunctions", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pcbBuffer, "ptr", ppBuffer, "int")
+        result := DllCall("bcrypt.dll\BCryptEnumContextFunctions", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "uint*", pcbBuffer, "ptr", ppBuffer, "int")
         return result
     }
 
@@ -26238,9 +26226,9 @@ class Cryptography {
      * @remarks
      * <b>BCryptConfigureContextFunction</b> can be called only in user mode.
      * @param {Integer} dwTable 
-     * @param {Pointer<PWSTR>} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to set the cryptographic function configuration information for.
+     * @param {Pointer<Char>} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to set the cryptographic function configuration information for.
      * @param {Integer} dwInterface 
-     * @param {Pointer<PWSTR>} pszFunction A pointer to a null-terminated Unicode string that contains the identifier of the cryptographic function to set the configuration information for.
+     * @param {Pointer<Char>} pszFunction A pointer to a null-terminated Unicode string that contains the identifier of the cryptographic function to set the configuration information for.
      * @param {Pointer<CRYPT_CONTEXT_FUNCTION_CONFIG>} pConfig The address of a <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/ns-bcrypt-crypt_context_function_config">CRYPT_CONTEXT_FUNCTION_CONFIG</a> structure that contains the new function configuration information.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function.
      * 
@@ -26323,9 +26311,9 @@ class Cryptography {
      * 
      * <b>BCryptQueryContextFunctionConfiguration</b> can be called only in user mode.
      * @param {Integer} dwTable 
-     * @param {Pointer<PWSTR>} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to obtain the function configuration information for.
+     * @param {Pointer<Char>} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to obtain the function configuration information for.
      * @param {Integer} dwInterface 
-     * @param {Pointer<PWSTR>} pszFunction A pointer to a null-terminated Unicode string that contains the identifier of the cryptographic function to obtain the configuration information for.
+     * @param {Pointer<Char>} pszFunction A pointer to a null-terminated Unicode string that contains the identifier of the cryptographic function to obtain the configuration information for.
      * @param {Pointer<UInt32>} pcbBuffer The address of a <b>ULONG</b> variable that, on entry, contains the size, in bytes, of the buffer pointed to by <i>ppBuffer</i>. If this size is not large enough to hold the context information, this function will fail with <b>STATUS_BUFFER_TOO_SMALL</b>.
      * 
      * After this function returns, this variable contains the number of bytes that were copied to the <i>ppBuffer</i> buffer.
@@ -26411,7 +26399,7 @@ class Cryptography {
         pszContext := pszContext is String? StrPtr(pszContext) : pszContext
         pszFunction := pszFunction is String? StrPtr(pszFunction) : pszFunction
 
-        result := DllCall("bcrypt.dll\BCryptQueryContextFunctionConfiguration", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "ptr", pcbBuffer, "ptr", ppBuffer, "int")
+        result := DllCall("bcrypt.dll\BCryptQueryContextFunctionConfiguration", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "uint*", pcbBuffer, "ptr", ppBuffer, "int")
         return result
     }
 
@@ -26420,9 +26408,9 @@ class Cryptography {
      * @remarks
      * <b>BCryptEnumContextFunctionProviders</b> can be called only in user mode.
      * @param {Integer} dwTable 
-     * @param {Pointer<PWSTR>} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to enumerate the function providers for.
+     * @param {Pointer<Char>} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to enumerate the function providers for.
      * @param {Integer} dwInterface 
-     * @param {Pointer<PWSTR>} pszFunction A pointer to a null-terminated Unicode string that contains the identifier of the function to enumerate the providers for.
+     * @param {Pointer<Char>} pszFunction A pointer to a null-terminated Unicode string that contains the identifier of the function to enumerate the providers for.
      * @param {Pointer<UInt32>} pcbBuffer The address of a <b>ULONG</b> variable that, on entry, contains the size, in bytes, of the buffer pointed to by <i>ppBuffer</i>. If this size is not large enough to hold the set of context identifiers, this function will fail with <b>STATUS_BUFFER_TOO_SMALL</b>.
      * 
      * After this function returns, this value contains the number of bytes that were copied to the <i>ppBuffer</i> buffer.
@@ -26506,7 +26494,7 @@ class Cryptography {
         pszContext := pszContext is String? StrPtr(pszContext) : pszContext
         pszFunction := pszFunction is String? StrPtr(pszFunction) : pszFunction
 
-        result := DllCall("bcrypt.dll\BCryptEnumContextFunctionProviders", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "ptr", pcbBuffer, "ptr", ppBuffer, "int")
+        result := DllCall("bcrypt.dll\BCryptEnumContextFunctionProviders", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "uint*", pcbBuffer, "ptr", ppBuffer, "int")
         return result
     }
 
@@ -26515,12 +26503,12 @@ class Cryptography {
      * @remarks
      * <b>BCryptSetContextFunctionProperty</b> can be called only in user mode.
      * @param {Integer} dwTable 
-     * @param {Pointer<PWSTR>} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to set the function property in.
+     * @param {Pointer<Char>} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to set the function property in.
      * @param {Integer} dwInterface 
-     * @param {Pointer<PWSTR>} pszFunction A pointer to a null-terminated Unicode string that contains the identifier of the cryptographic function to set the property for.
-     * @param {Pointer<PWSTR>} pszProperty A pointer to a null-terminated Unicode string that contains the identifier of the property to set.
+     * @param {Pointer<Char>} pszFunction A pointer to a null-terminated Unicode string that contains the identifier of the cryptographic function to set the property for.
+     * @param {Pointer<Char>} pszProperty A pointer to a null-terminated Unicode string that contains the identifier of the property to set.
      * @param {Integer} cbValue Contains the size, in bytes, of the <i>pbValue</i> buffer. This is the exact number of bytes that will be stored. If the property value is a string, you should add the size of one character to also store the terminating null character, if needed.
-     * @param {Pointer<Byte>} pbValue The address of a buffer that contains the new property value.
+     * @param {Pointer} pbValue The address of a buffer that contains the new property value.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function.
      * 
      * 
@@ -26606,10 +26594,10 @@ class Cryptography {
      * @remarks
      * <b>BCryptQueryContextFunctionProperty</b> can be called only in user mode.
      * @param {Integer} dwTable 
-     * @param {Pointer<PWSTR>} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to obtain the function property from.
+     * @param {Pointer<Char>} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context to obtain the function property from.
      * @param {Integer} dwInterface 
-     * @param {Pointer<PWSTR>} pszFunction A pointer to a null-terminated Unicode string that contains the identifier of the cryptographic function to obtain the property for.
-     * @param {Pointer<PWSTR>} pszProperty A pointer to a null-terminated Unicode string that contains the identifier of the property to obtain.
+     * @param {Pointer<Char>} pszFunction A pointer to a null-terminated Unicode string that contains the identifier of the cryptographic function to obtain the property for.
+     * @param {Pointer<Char>} pszProperty A pointer to a null-terminated Unicode string that contains the identifier of the property to obtain.
      * @param {Pointer<UInt32>} pcbValue The address of a <b>ULONG</b> variable that, on entry, contains the size, in bytes, of the buffer pointed to by <i>ppbValue</i>. If this size is not large enough to hold the property value, this function will fail with <b>STATUS_BUFFER_TOO_SMALL</b>.
      * 
      * After this function returns, this variable contains the number of bytes that were copied to the <i>ppbValue</i> buffer.
@@ -26694,7 +26682,7 @@ class Cryptography {
         pszFunction := pszFunction is String? StrPtr(pszFunction) : pszFunction
         pszProperty := pszProperty is String? StrPtr(pszProperty) : pszProperty
 
-        result := DllCall("bcrypt.dll\BCryptQueryContextFunctionProperty", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "ptr", pszProperty, "ptr", pcbValue, "ptr", ppbValue, "int")
+        result := DllCall("bcrypt.dll\BCryptQueryContextFunctionProperty", "uint", dwTable, "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "ptr", pszProperty, "uint*", pcbValue, "ptr", ppbValue, "int")
         return result
     }
 
@@ -26704,7 +26692,7 @@ class Cryptography {
      * The handle returned in the variable pointed to by the <i>phEvent</i> parameter will be signaled when a change to the CNG configuration occurs.
      * 
      * <b>BCryptRegisterConfigChangeNotify(HANDLE*)</b> can be called only in user mode. Code executing in kernel mode must call <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptregisterconfigchangenotify">BCryptRegisterConfigChangeNotify(PRKEVENT)</a>.
-     * @param {Pointer<HANDLE>} phEvent 
+     * @param {Pointer<Void>} phEvent 
      * @returns {Integer} Returns a status code that indicates the success or failure of the function.
      * 
      * 
@@ -26763,7 +26751,7 @@ class Cryptography {
      * Removes a user mode CNG configuration change event handler that was created by using the BCryptRegisterConfigChangeNotify(HANDLE*) function.
      * @remarks
      * <b>BCryptUnregisterConfigChangeNotify(HANDLE)</b> can be called only in user mode. Code executing in kernel mode must call <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptunregisterconfigchangenotify">BCryptUnregisterConfigChangeNotify(PRKEVENT)</a>.
-     * @param {Pointer<HANDLE>} hEvent 
+     * @param {Pointer<Void>} hEvent 
      * @returns {Integer} Returns a status code that indicates the success or failure of the function.
      * 
      * 
@@ -26822,10 +26810,10 @@ class Cryptography {
      * Obtains a collection of all of the providers that meet the specified criteria.
      * @remarks
      * <b>BCryptResolveProviders</b> can be called either from user mode or kernel mode. Kernel mode callers must be executing at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a>.
-     * @param {Pointer<PWSTR>} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context for which to obtain the providers.  If this is set to <b>NULL</b> or to an empty string, the default context is assumed.
+     * @param {Pointer<Char>} pszContext A pointer to a null-terminated Unicode string that contains the identifier of the context for which to obtain the providers.  If this is set to <b>NULL</b> or to an empty string, the default context is assumed.
      * @param {Integer} dwInterface The identifier of an interface that the provider must support. This must be one of the <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-interface-identifiers">CNG Interface Identifiers</a>. If the <i>pszFunction</i> parameter is not <b>NULL</b> or an empty string, you can set <i>dwInterface</i> to zero to force the function to infer the interface.
-     * @param {Pointer<PWSTR>} pszFunction A pointer to a null-terminated Unicode string that contains the algorithm or function identifier that the provider must support. This can be one of the standard <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-algorithm-identifiers">CNG Algorithm Identifiers</a> or the identifier for another registered algorithm.  If <i>dwInterface</i> is set to a nonzero value, then <i>pszFunction</i> can be <b>NULL</b> to include all algorithms and functions.
-     * @param {Pointer<PWSTR>} pszProvider A pointer to a null-terminated Unicode string that contains the name of the provider to retrieve. If this parameter is <b>NULL</b>, then all providers will be included.
+     * @param {Pointer<Char>} pszFunction A pointer to a null-terminated Unicode string that contains the algorithm or function identifier that the provider must support. This can be one of the standard <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-algorithm-identifiers">CNG Algorithm Identifiers</a> or the identifier for another registered algorithm.  If <i>dwInterface</i> is set to a nonzero value, then <i>pszFunction</i> can be <b>NULL</b> to include all algorithms and functions.
+     * @param {Pointer<Char>} pszProvider A pointer to a null-terminated Unicode string that contains the name of the provider to retrieve. If this parameter is <b>NULL</b>, then all providers will be included.
      * 
      * This parameter allows you to specify a specific provider to retrieve in the event that more than one provider meets the other criteria.
      * @param {Integer} dwMode 
@@ -26903,7 +26891,7 @@ class Cryptography {
         pszFunction := pszFunction is String? StrPtr(pszFunction) : pszFunction
         pszProvider := pszProvider is String? StrPtr(pszProvider) : pszProvider
 
-        result := DllCall("bcrypt.dll\BCryptResolveProviders", "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "ptr", pszProvider, "uint", dwMode, "uint", dwFlags, "ptr", pcbBuffer, "ptr", ppBuffer, "int")
+        result := DllCall("bcrypt.dll\BCryptResolveProviders", "ptr", pszContext, "uint", dwInterface, "ptr", pszFunction, "ptr", pszProvider, "uint", dwMode, "uint", dwFlags, "uint*", pcbBuffer, "ptr", ppBuffer, "int")
         return result
     }
 
@@ -26951,7 +26939,7 @@ class Cryptography {
      * @since windows6.0.6000
      */
     static BCryptGetFipsAlgorithmMode(pfEnabled) {
-        result := DllCall("bcrypt.dll\BCryptGetFipsAlgorithmMode", "ptr", pfEnabled, "int")
+        result := DllCall("bcrypt.dll\BCryptGetFipsAlgorithmMode", "char*", pfEnabled, "int")
         return result
     }
 
@@ -26962,7 +26950,7 @@ class Cryptography {
      * 
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
      * @param {Pointer<UIntPtr>} phProvider A pointer to a <b>NCRYPT_PROV_HANDLE</b> variable that receives the provider handle. When you have finished using this handle, release it by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfreeobject">NCryptFreeObject</a> function.
-     * @param {Pointer<PWSTR>} pszProviderName A pointer to a null-terminated Unicode string that identifies the key storage provider to load. This is the registered alias of the key storage provider. This parameter is optional and can be <b>NULL</b>. If this parameter is <b>NULL</b>, the default key storage provider is loaded. The following values identify the built-in key storage providers.
+     * @param {Pointer<Char>} pszProviderName A pointer to a null-terminated Unicode string that identifies the key storage provider to load. This is the registered alias of the key storage provider. This parameter is optional and can be <b>NULL</b>. If this parameter is <b>NULL</b>, the default key storage provider is loaded. The following values identify the built-in key storage providers.
      * 
      * <table>
      * <tr>
@@ -27067,7 +27055,7 @@ class Cryptography {
     static NCryptOpenStorageProvider(phProvider, pszProviderName, dwFlags) {
         pszProviderName := pszProviderName is String? StrPtr(pszProviderName) : pszProviderName
 
-        result := DllCall("ncrypt.dll\NCryptOpenStorageProvider", "ptr", phProvider, "ptr", pszProviderName, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptOpenStorageProvider", "ptr*", phProvider, "ptr", pszProviderName, "uint", dwFlags, "int")
         return result
     }
 
@@ -27171,7 +27159,7 @@ class Cryptography {
      * @since windows6.0.6000
      */
     static NCryptEnumAlgorithms(hProvider, dwAlgOperations, pdwAlgCount, ppAlgList, dwFlags) {
-        result := DllCall("ncrypt.dll\NCryptEnumAlgorithms", "ptr", hProvider, "uint", dwAlgOperations, "ptr", pdwAlgCount, "ptr", ppAlgList, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptEnumAlgorithms", "ptr", hProvider, "uint", dwAlgOperations, "uint*", pdwAlgCount, "ptr", ppAlgList, "uint", dwFlags, "int")
         return result
     }
 
@@ -27182,7 +27170,7 @@ class Cryptography {
      * 
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
      * @param {Pointer} hProvider The handle of the key storage provider. This handle is obtained with the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider">NCryptOpenStorageProvider</a> function.
-     * @param {Pointer<PWSTR>} pszAlgId A pointer to a null-terminated Unicode string that identifies the cryptographic algorithm in question. This can be one of the standard <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-algorithm-identifiers">CNG Algorithm Identifiers</a> or the identifier for another registered algorithm.
+     * @param {Pointer<Char>} pszAlgId A pointer to a null-terminated Unicode string that identifies the cryptographic algorithm in question. This can be one of the standard <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-algorithm-identifiers">CNG Algorithm Identifiers</a> or the identifier for another registered algorithm.
      * @param {Integer} dwFlags Flags that modify function behavior. This can be zero (0) or the following value.
      * 
      * <table>
@@ -27286,7 +27274,7 @@ class Cryptography {
      * 
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
      * @param {Pointer} hProvider The handle of the key storage provider to enumerate the keys for. This handle is obtained with the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider">NCryptOpenStorageProvider</a> function.
-     * @param {Pointer<PWSTR>} pszScope This parameter is not currently used and must be <b>NULL</b>.
+     * @param {Pointer<Char>} pszScope This parameter is not currently used and must be <b>NULL</b>.
      * @param {Pointer<NCryptKeyName>} ppKeyName The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/ns-ncrypt-ncryptkeyname">NCryptKeyName</a> structure that receives the name of the retrieved key. When the application has finished using this memory, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfreebuffer">NCryptFreeBuffer</a> function.
      * @param {Pointer<Void>} ppEnumState The address of a <b>VOID</b> pointer that receives enumeration state information that is used in subsequent calls to this function. This information only has meaning to the key storage provider and is opaque to the caller. The key storage provider uses this information to determine which item is next in the enumeration. If the variable pointed to by this parameter contains <b>NULL</b>, the enumeration is started from the beginning.
      * 
@@ -27479,7 +27467,7 @@ class Cryptography {
      * @since windows6.0.6000
      */
     static NCryptEnumStorageProviders(pdwProviderCount, ppProviderList, dwFlags) {
-        result := DllCall("ncrypt.dll\NCryptEnumStorageProviders", "ptr", pdwProviderCount, "ptr", ppProviderList, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptEnumStorageProviders", "uint*", pdwProviderCount, "ptr", ppProviderList, "uint", dwFlags, "int")
         return result
     }
 
@@ -27539,7 +27527,7 @@ class Cryptography {
      * For performance reasons, Microsoft software-based KSPs cache private key material in the Local Security Authority (LSA) for as long as a handle to the key is open. The LSA is a privileged system process. Therefore, other users cannot access this cached copy of the key unless the user possesses administrator privileges on the system. This behavior cannot be altered through configuration.
      * @param {Pointer} hProvider The handle of the key storage provider to open the key from.
      * @param {Pointer<UIntPtr>} phKey A pointer to a <b>NCRYPT_KEY_HANDLE</b> variable that receives the key handle. When you have finished using this handle, release it by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfreeobject">NCryptFreeObject</a> function.
-     * @param {Pointer<PWSTR>} pszKeyName A pointer to a null-terminated Unicode string that contains the name of the key to retrieve.
+     * @param {Pointer<Char>} pszKeyName A pointer to a null-terminated Unicode string that contains the name of the key to retrieve.
      * @param {Integer} dwLegacyKeySpec 
      * @param {Integer} dwFlags 
      * @returns {Integer} Returns a status code that indicates the success or failure of the function.
@@ -27627,7 +27615,7 @@ class Cryptography {
     static NCryptOpenKey(hProvider, phKey, pszKeyName, dwLegacyKeySpec, dwFlags) {
         pszKeyName := pszKeyName is String? StrPtr(pszKeyName) : pszKeyName
 
-        result := DllCall("ncrypt.dll\NCryptOpenKey", "ptr", hProvider, "ptr", phKey, "ptr", pszKeyName, "uint", dwLegacyKeySpec, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptOpenKey", "ptr", hProvider, "ptr*", phKey, "ptr", pszKeyName, "uint", dwLegacyKeySpec, "uint", dwFlags, "int")
         return result
     }
 
@@ -27639,8 +27627,8 @@ class Cryptography {
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
      * @param {Pointer} hProvider The handle of the key storage provider to create the key in. This handle is obtained by using the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider">NCryptOpenStorageProvider</a> function.
      * @param {Pointer<UIntPtr>} phKey The address of an <b>NCRYPT_KEY_HANDLE</b> variable that receives the handle of the key. When you have finished using this handle, release it by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfreeobject">NCryptFreeObject</a> function. To delete the key file on disk, pass the handle to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptdeletekey">NCryptDeleteKey</a> function. This will also release the handle. So applications may pass the handle to either <b>NCryptFreeObject</b> or <b>NCryptDeleteKey</b>, but not both.
-     * @param {Pointer<PWSTR>} pszAlgId A pointer to a null-terminated Unicode string that contains the identifier of the cryptographic algorithm to create the key. This can be one of the standard <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-algorithm-identifiers">CNG Algorithm Identifiers</a> or the identifier for another registered algorithm.
-     * @param {Pointer<PWSTR>} pszKeyName A pointer to a null-terminated Unicode string that contains the name of the key. If this parameter is <b>NULL</b>, this function will create an ephemeral key that is not persisted.
+     * @param {Pointer<Char>} pszAlgId A pointer to a null-terminated Unicode string that contains the identifier of the cryptographic algorithm to create the key. This can be one of the standard <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-algorithm-identifiers">CNG Algorithm Identifiers</a> or the identifier for another registered algorithm.
+     * @param {Pointer<Char>} pszKeyName A pointer to a null-terminated Unicode string that contains the name of the key. If this parameter is <b>NULL</b>, this function will create an ephemeral key that is not persisted.
      * @param {Integer} dwLegacyKeySpec 
      * @param {Integer} dwFlags 
      * @returns {Integer} Returns a status code that indicates the success or failure of the function.
@@ -27729,7 +27717,7 @@ class Cryptography {
         pszAlgId := pszAlgId is String? StrPtr(pszAlgId) : pszAlgId
         pszKeyName := pszKeyName is String? StrPtr(pszKeyName) : pszKeyName
 
-        result := DllCall("ncrypt.dll\NCryptCreatePersistedKey", "ptr", hProvider, "ptr", phKey, "ptr", pszAlgId, "ptr", pszKeyName, "uint", dwLegacyKeySpec, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptCreatePersistedKey", "ptr", hProvider, "ptr*", phKey, "ptr", pszAlgId, "ptr", pszKeyName, "uint", dwLegacyKeySpec, "uint", dwFlags, "int")
         return result
     }
 
@@ -27738,8 +27726,8 @@ class Cryptography {
      * @remarks
      * A service must not call this function from its [StartService](/windows/win32/api/winsvc/nf-winsvc-startservicea) function. If a service calls this function from its `StartService` function, a deadlock can occur, and the service may stop responding.
      * @param {Pointer} hObject The handle of the object to get the property for. This can be a provider handle (**NCRYPT_PROV_HANDLE**) or a key handle (**NCRYPT_KEY_HANDLE**).
-     * @param {Pointer<PWSTR>} pszProperty A pointer to a null-terminated Unicode string that contains the name of the property to retrieve. This can be one of the predefined [Key Storage Property Identifiers](/windows/win32/SecCNG/key-storage-property-identifiers) or a custom property identifier.
-     * @param {Pointer<Byte>} pbOutput The address of a buffer that receives the property value. The _cbOutput_ parameter contains the size of this buffer.
+     * @param {Pointer<Char>} pszProperty A pointer to a null-terminated Unicode string that contains the name of the property to retrieve. This can be one of the predefined [Key Storage Property Identifiers](/windows/win32/SecCNG/key-storage-property-identifiers) or a custom property identifier.
+     * @param {Pointer} pbOutput The address of a buffer that receives the property value. The _cbOutput_ parameter contains the size of this buffer.
      * 
      *  To calculate the size required for the buffer, set this parameter to **NULL**. The size, in bytes, required is returned in the location pointed to by the _pcbResult_ parameter.
      * @param {Integer} cbOutput The size, in bytes, of the _pbOutput_ buffer.
@@ -27790,7 +27778,7 @@ class Cryptography {
     static NCryptGetProperty(hObject, pszProperty, pbOutput, cbOutput, pcbResult, dwFlags) {
         pszProperty := pszProperty is String? StrPtr(pszProperty) : pszProperty
 
-        result := DllCall("ncrypt.dll\NCryptGetProperty", "ptr", hObject, "ptr", pszProperty, "ptr", pbOutput, "uint", cbOutput, "ptr", pcbResult, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptGetProperty", "ptr", hObject, "ptr", pszProperty, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -27799,8 +27787,8 @@ class Cryptography {
      * @remarks
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
      * @param {Pointer} hObject The handle of the key storage object to set the property for.
-     * @param {Pointer<PWSTR>} pszProperty A pointer to a null-terminated Unicode string that contains the name of the property to set. This can be one of the predefined <a href="https://docs.microsoft.com/windows/desktop/SecCNG/key-storage-property-identifiers">Key Storage Property Identifiers</a> or a custom property identifier.
-     * @param {Pointer<Byte>} pbInput The address of a buffer that contains the new property value. The <i>cbInput</i> parameter contains the size of this buffer.
+     * @param {Pointer<Char>} pszProperty A pointer to a null-terminated Unicode string that contains the name of the property to set. This can be one of the predefined <a href="https://docs.microsoft.com/windows/desktop/SecCNG/key-storage-property-identifiers">Key Storage Property Identifiers</a> or a custom property identifier.
+     * @param {Pointer} pbInput The address of a buffer that contains the new property value. The <i>cbInput</i> parameter contains the size of this buffer.
      * @param {Integer} cbInput The size, in bytes, of the <i>pbInput</i> buffer.
      * @param {Integer} dwFlags 
      * @returns {Integer} Returns a status code that indicates the success or failure of the function.
@@ -27959,10 +27947,10 @@ class Cryptography {
      * 
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
      * @param {Pointer} hKey The handle of the key to use to encrypt the data.
-     * @param {Pointer<Byte>} pbInput The address of a buffer that contains the data to be encrypted. The <i>cbInput</i> parameter contains the size of the data to encrypt. For more information, see Remarks.
+     * @param {Pointer} pbInput The address of a buffer that contains the data to be encrypted. The <i>cbInput</i> parameter contains the size of the data to encrypt. For more information, see Remarks.
      * @param {Integer} cbInput The number of bytes in the <i>pbInput</i> buffer to encrypt.
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <i>dwFlags</i> parameter. This parameter is only used with asymmetric keys and must be <b>NULL</b> otherwise.
-     * @param {Pointer<Byte>} pbOutput The address of a buffer that will receive the encrypted data produced by this function. The <i>cbOutput</i> parameter contains the size of this buffer. For more information, see Remarks.
+     * @param {Pointer} pbOutput The address of a buffer that will receive the encrypted data produced by this function. The <i>cbOutput</i> parameter contains the size of this buffer. For more information, see Remarks.
      * 
      * If this parameter is <b>NULL</b>, this function will calculate the size needed for the encrypted data and return the size in the location pointed to by the <i>pcbResult</i> parameter.
      * @param {Integer} cbOutput The size, in bytes, of the <i>pbOutput</i> buffer. This parameter is ignored if the <i>pbOutput</i> parameter is <b>NULL</b>.
@@ -28051,7 +28039,7 @@ class Cryptography {
      * @since windows6.0.6000
      */
     static NCryptEncrypt(hKey, pbInput, cbInput, pPaddingInfo, pbOutput, cbOutput, pcbResult, dwFlags) {
-        result := DllCall("ncrypt.dll\NCryptEncrypt", "ptr", hKey, "ptr", pbInput, "uint", cbInput, "ptr", pPaddingInfo, "ptr", pbOutput, "uint", cbOutput, "ptr", pcbResult, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptEncrypt", "ptr", hKey, "ptr", pbInput, "uint", cbInput, "ptr", pPaddingInfo, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -28062,10 +28050,10 @@ class Cryptography {
      * 
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
      * @param {Pointer} hKey The handle of the key to use to decrypt the data.
-     * @param {Pointer<Byte>} pbInput The address of a buffer that contains the data to be decrypted. The <i>cbInput</i> parameter contains the size of the data to decrypt. For more information, see Remarks.
+     * @param {Pointer} pbInput The address of a buffer that contains the data to be decrypted. The <i>cbInput</i> parameter contains the size of the data to decrypt. For more information, see Remarks.
      * @param {Integer} cbInput The number of bytes in the <i>pbInput</i> buffer to decrypt.
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <i>dwFlags</i> parameter. This parameter is only used with asymmetric keys and must be <b>NULL</b> otherwise.
-     * @param {Pointer<Byte>} pbOutput The address of a buffer that will receive the decrypted data produced by this function. The <i>cbOutput</i> parameter contains the size of this buffer. For more information, see Remarks.
+     * @param {Pointer} pbOutput The address of a buffer that will receive the decrypted data produced by this function. The <i>cbOutput</i> parameter contains the size of this buffer. For more information, see Remarks.
      * 
      * If this parameter is <b>NULL</b>, this function will calculate the size needed for the decrypted data and return the size in the location pointed to by the <i>pcbResult</i> parameter.
      * @param {Integer} cbOutput The size, in bytes, of the <i>pbOutput</i> buffer. This parameter is ignored if the <i>pbOutput</i> parameter is <b>NULL</b>.
@@ -28154,7 +28142,7 @@ class Cryptography {
      * @since windows6.0.6000
      */
     static NCryptDecrypt(hKey, pbInput, cbInput, pPaddingInfo, pbOutput, cbOutput, pcbResult, dwFlags) {
-        result := DllCall("ncrypt.dll\NCryptDecrypt", "ptr", hKey, "ptr", pbInput, "uint", cbInput, "ptr", pPaddingInfo, "ptr", pbOutput, "uint", cbOutput, "ptr", pcbResult, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptDecrypt", "ptr", hKey, "ptr", pbInput, "uint", cbInput, "ptr", pPaddingInfo, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -28169,10 +28157,10 @@ class Cryptography {
      * - **Microsoft Smart Card KSP**
      * @param {Pointer} hProvider The handle of the key storage provider.
      * @param {Pointer} hImportKey The handle of the [cryptographic key](/windows/win32/SecGloss/c-gly) with which the key data within the imported [key BLOB](/windows/win32/SecGloss/k-gly) was encrypted. This must be a handle to the same key that was passed in the _hExportKey_ parameter of the [NCryptExportKey](/windows/win32/api/ncrypt/nf-ncrypt-ncryptexportkey) function. If this parameter is **NULL**, the key BLOB is assumed to not be encrypted.
-     * @param {Pointer<PWSTR>} pszBlobType A null-terminated Unicode string that contains an identifier that specifies the format of the key BLOB. These formats are specific to a particular key storage provider. For the BLOB formats supported by Microsoft providers, see Remarks.
+     * @param {Pointer<Char>} pszBlobType A null-terminated Unicode string that contains an identifier that specifies the format of the key BLOB. These formats are specific to a particular key storage provider. For the BLOB formats supported by Microsoft providers, see Remarks.
      * @param {Pointer<BCryptBufferDesc>} pParameterList The address of an [NCryptBufferDesc](/windows/win32/api/bcrypt/ns-bcrypt-bcryptbufferdesc) structure that points to an array of buffers that contain parameter information for the key.
      * @param {Pointer<UIntPtr>} phKey The address of an **NCRYPT_KEY_HANDLE** variable that receives the handle of the key. When you have finished using this handle, release it by passing it to the [NCryptFreeObject](/windows/win32/api/ncrypt/nf-ncrypt-ncryptfreeobject) function.
-     * @param {Pointer<Byte>} pbData The address of a buffer that contains the key BLOB to be imported. The _cbData_ parameter contains the size of this buffer.
+     * @param {Pointer} pbData The address of a buffer that contains the key BLOB to be imported. The _cbData_ parameter contains the size of this buffer.
      * @param {Integer} cbData The size, in bytes, of the _pbData_ buffer.
      * @param {Integer} dwFlags 
      * @returns {Integer} Returns a status code that indicates the success or failure of the function.
@@ -28193,7 +28181,7 @@ class Cryptography {
     static NCryptImportKey(hProvider, hImportKey, pszBlobType, pParameterList, phKey, pbData, cbData, dwFlags) {
         pszBlobType := pszBlobType is String? StrPtr(pszBlobType) : pszBlobType
 
-        result := DllCall("ncrypt.dll\NCryptImportKey", "ptr", hProvider, "ptr", hImportKey, "ptr", pszBlobType, "ptr", pParameterList, "ptr", phKey, "ptr", pbData, "uint", cbData, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptImportKey", "ptr", hProvider, "ptr", hImportKey, "ptr", pszBlobType, "ptr", pParameterList, "ptr*", phKey, "ptr", pbData, "uint", cbData, "uint", dwFlags, "int")
         return result
     }
 
@@ -28203,9 +28191,9 @@ class Cryptography {
      * A service must not call this function from its [StartService Function](/windows/win32/api/winsvc/nf-winsvc-startservicea). If a service calls this function from its **StartService** function, a deadlock can occur, and the service may stop responding.
      * @param {Pointer} hKey A handle of the key to export.
      * @param {Pointer} hExportKey A handle to a cryptographic key of the destination user. The key data within the exported key BLOB is encrypted by using this key. This ensures that only the destination user is able to make use of the key BLOB.
-     * @param {Pointer<PWSTR>} pszBlobType 
+     * @param {Pointer<Char>} pszBlobType 
      * @param {Pointer<BCryptBufferDesc>} pParameterList The address of an [NCryptBufferDesc](/windows/win32/api/bcrypt/ns-bcrypt-bcryptbufferdesc) structure that receives parameter information for the key. This parameter can be **NULL** if this information is not needed.
-     * @param {Pointer<Byte>} pbOutput The address of a buffer that receives the key BLOB. The _cbOutput_ parameter contains the size of this buffer. If this parameter is **NULL**, this function will place the required size, in bytes, in the **DWORD** pointed to by the _pcbResult_ parameter.
+     * @param {Pointer} pbOutput The address of a buffer that receives the key BLOB. The _cbOutput_ parameter contains the size of this buffer. If this parameter is **NULL**, this function will place the required size, in bytes, in the **DWORD** pointed to by the _pcbResult_ parameter.
      * @param {Integer} cbOutput The size, in bytes, of the _pbOutput_ buffer.
      * @param {Pointer<UInt32>} pcbResult The address of a **DWORD** variable that receives the number of bytes copied to the _pbOutput_ buffer. If the _pbOutput_ parameter is **NULL**, this function will place the required size, in bytes, in the **DWORD** pointed to by this parameter.
      * @param {Integer} dwFlags 
@@ -28227,7 +28215,7 @@ class Cryptography {
     static NCryptExportKey(hKey, hExportKey, pszBlobType, pParameterList, pbOutput, cbOutput, pcbResult, dwFlags) {
         pszBlobType := pszBlobType is String? StrPtr(pszBlobType) : pszBlobType
 
-        result := DllCall("ncrypt.dll\NCryptExportKey", "ptr", hKey, "ptr", hExportKey, "ptr", pszBlobType, "ptr", pParameterList, "ptr", pbOutput, "uint", cbOutput, "ptr", pcbResult, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptExportKey", "ptr", hKey, "ptr", hExportKey, "ptr", pszBlobType, "ptr", pParameterList, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -28237,9 +28225,9 @@ class Cryptography {
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
      * @param {Pointer} hKey The handle of the key to use to sign the hash.
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <i>dwFlags</i> parameter. This parameter is only used with asymmetric keys and must be <b>NULL</b> otherwise.
-     * @param {Pointer<Byte>} pbHashValue A pointer to a buffer that contains the hash value to sign. The <i>cbInput</i> parameter contains the size of this buffer.
+     * @param {Pointer} pbHashValue A pointer to a buffer that contains the hash value to sign. The <i>cbInput</i> parameter contains the size of this buffer.
      * @param {Integer} cbHashValue The number of bytes in the <i>pbHashValue</i> buffer to sign.
-     * @param {Pointer<Byte>} pbSignature The address of a buffer to receive the signature produced by this function. The <i>cbSignature</i> parameter contains the size of this buffer.
+     * @param {Pointer} pbSignature The address of a buffer to receive the signature produced by this function. The <i>cbSignature</i> parameter contains the size of this buffer.
      * 
      * If this parameter is <b>NULL</b>, this function will calculate the size required for the signature and return the size in the location pointed to by the <i>pcbResult</i> parameter.
      * @param {Integer} cbSignature The size, in bytes, of the <i>pbSignature</i> buffer. This parameter is ignored if the <i>pbSignature</i> parameter is <b>NULL</b>.
@@ -28332,7 +28320,7 @@ class Cryptography {
      * @since windows6.0.6000
      */
     static NCryptSignHash(hKey, pPaddingInfo, pbHashValue, cbHashValue, pbSignature, cbSignature, pcbResult, dwFlags) {
-        result := DllCall("ncrypt.dll\NCryptSignHash", "ptr", hKey, "ptr", pPaddingInfo, "ptr", pbHashValue, "uint", cbHashValue, "ptr", pbSignature, "uint", cbSignature, "ptr", pcbResult, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptSignHash", "ptr", hKey, "ptr", pPaddingInfo, "ptr", pbHashValue, "uint", cbHashValue, "ptr", pbSignature, "uint", cbSignature, "uint*", pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -28342,9 +28330,9 @@ class Cryptography {
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
      * @param {Pointer} hKey The handle of the key to use to decrypt the signature. This must be an identical key or the public key portion of the key pair used to sign the data with the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptsignhash">NCryptSignHash</a> function.
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <i>dwFlags</i> parameter. This parameter is only used with asymmetric keys and must be <b>NULL</b> otherwise.
-     * @param {Pointer<Byte>} pbHashValue The address of a buffer that contains the hash of the data. The <i>cbHash</i> parameter contains the size of this buffer.
+     * @param {Pointer} pbHashValue The address of a buffer that contains the hash of the data. The <i>cbHash</i> parameter contains the size of this buffer.
      * @param {Integer} cbHashValue The size, in bytes, of the <i>pbHash</i> buffer.
-     * @param {Pointer<Byte>} pbSignature The address of a buffer that contains the signed hash of the data. The <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptsignhash">NCryptSignHash</a> function is used to create the signature. The <i>cbSignature</i> parameter contains the size of this buffer.
+     * @param {Pointer} pbSignature The address of a buffer that contains the signed hash of the data. The <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptsignhash">NCryptSignHash</a> function is used to create the signature. The <i>cbSignature</i> parameter contains the size of this buffer.
      * @param {Integer} cbSignature The size, in bytes, of the <i>pbSignature</i> buffer. The <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptsignhash">NCryptSignHash</a> function is used to create the signature.
      * @param {Integer} dwFlags Flags that modify function behavior. The allowed set of flags depends on the type of key specified by the <i>hKey</i> parameter.
      * 
@@ -28652,7 +28640,7 @@ class Cryptography {
      * @since windows6.0.6000
      */
     static NCryptTranslateHandle(phProvider, phKey, hLegacyProv, hLegacyKey, dwLegacyKeySpec, dwFlags) {
-        result := DllCall("ncrypt.dll\NCryptTranslateHandle", "ptr", phProvider, "ptr", phKey, "ptr", hLegacyProv, "ptr", hLegacyKey, "uint", dwLegacyKeySpec, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptTranslateHandle", "ptr*", phProvider, "ptr*", phKey, "ptr", hLegacyProv, "ptr", hLegacyKey, "uint", dwLegacyKeySpec, "uint", dwFlags, "int")
         return result
     }
 
@@ -28661,7 +28649,7 @@ class Cryptography {
      * @remarks
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
      * @param {Pointer} hProvider The handle of the key storage provider. This handle is obtained by using the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider">NCryptOpenStorageProvider</a> function.
-     * @param {Pointer<HANDLE>} phEvent The address of a <b>HANDLE</b> variable that either receives or contains the key change notification event handle. This is the same handle that is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstchangenotificationa">FindFirstChangeNotification</a> function. For more information, see the <i>dwFlags</i> parameter description.
+     * @param {Pointer<Void>} phEvent The address of a <b>HANDLE</b> variable that either receives or contains the key change notification event handle. This is the same handle that is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstchangenotificationa">FindFirstChangeNotification</a> function. For more information, see the <i>dwFlags</i> parameter description.
      * @param {Integer} dwFlags 
      * @returns {Integer} Returns a status code that indicates the success or failure of the function.
      * 
@@ -28797,7 +28785,7 @@ class Cryptography {
      * @since windows6.0.6000
      */
     static NCryptSecretAgreement(hPrivKey, hPubKey, phAgreedSecret, dwFlags) {
-        result := DllCall("ncrypt.dll\NCryptSecretAgreement", "ptr", hPrivKey, "ptr", hPubKey, "ptr", phAgreedSecret, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptSecretAgreement", "ptr", hPrivKey, "ptr", hPubKey, "ptr*", phAgreedSecret, "uint", dwFlags, "int")
         return result
     }
 
@@ -28843,9 +28831,9 @@ class Cryptography {
      * 
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
      * @param {Pointer} hSharedSecret The secret agreement handle to create the key from. This handle is obtained from the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptsecretagreement">NCryptSecretAgreement</a> function.
-     * @param {Pointer<PWSTR>} pwszKDF A pointer to a null-terminated Unicode string that identifies the <i>key derivation function</i> (KDF) to use to derive the key. This can be one of the following strings.
+     * @param {Pointer<Char>} pwszKDF A pointer to a null-terminated Unicode string that identifies the <i>key derivation function</i> (KDF) to use to derive the key. This can be one of the following strings.
      * @param {Pointer<BCryptBufferDesc>} pParameterList The address of a <a href="https://docs.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcryptbufferdesc">NCryptBufferDesc</a> structure that contains the KDF parameters. This parameter is optional and can be <b>NULL</b> if it is not needed.
-     * @param {Pointer<Byte>} pbDerivedKey The address of a buffer that receives the key. The <i>cbDerivedKey</i> parameter contains the size of this buffer. If this parameter is <b>NULL</b>, this function will place the required size, in bytes, in the <b>DWORD</b> pointed to by the <i>pcbResult</i> parameter.
+     * @param {Pointer} pbDerivedKey The address of a buffer that receives the key. The <i>cbDerivedKey</i> parameter contains the size of this buffer. If this parameter is <b>NULL</b>, this function will place the required size, in bytes, in the <b>DWORD</b> pointed to by the <i>pcbResult</i> parameter.
      * @param {Integer} cbDerivedKey The size, in bytes, of the <i>pbDerivedKey</i> buffer.
      * @param {Pointer<UInt32>} pcbResult A pointer to a <b>DWORD</b> that receives the number of bytes that were copied to the <i>pbDerivedKey</i> buffer. If the <i>pbDerivedKey</i> parameter is <b>NULL</b>, this function will place the required size, in bytes, in the <b>DWORD</b> pointed to by this parameter.
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. This can be zero or the following value.
@@ -28918,7 +28906,7 @@ class Cryptography {
     static NCryptDeriveKey(hSharedSecret, pwszKDF, pParameterList, pbDerivedKey, cbDerivedKey, pcbResult, dwFlags) {
         pwszKDF := pwszKDF is String? StrPtr(pwszKDF) : pwszKDF
 
-        result := DllCall("ncrypt.dll\NCryptDeriveKey", "ptr", hSharedSecret, "ptr", pwszKDF, "ptr", pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, "ptr", pcbResult, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptDeriveKey", "ptr", hSharedSecret, "ptr", pwszKDF, "ptr", pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, "uint*", pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -29033,7 +29021,7 @@ class Cryptography {
      * CAPI_KDF<ul>
      * <li>KDF_GENERIC_PARAMETER = Not Used </li>
      * </ul>
-     * @param {Pointer<Byte>} pbDerivedKey Address of a buffer that receives the key. The <i>cbDerivedKey</i> parameter contains the size, in bytes, of the key buffer.
+     * @param {Pointer} pbDerivedKey Address of a buffer that receives the key. The <i>cbDerivedKey</i> parameter contains the size, in bytes, of the key buffer.
      * @param {Integer} cbDerivedKey Size, in bytes, of the buffer pointed to by the <i>pbDerivedKey</i> parameter.
      * @param {Pointer<UInt32>} pcbResult Pointer to a <b>DWORD</b> that receives the number of bytes copied to the buffer pointed to by the <i>pbDerivedKey</i> parameter.
      * @param {Integer} dwFlags Flags that modify function behavior. The following value can be used with the Microsoft software key storage provider.
@@ -29137,7 +29125,7 @@ class Cryptography {
      * @since windows8.0
      */
     static NCryptKeyDerivation(hKey, pParameterList, pbDerivedKey, cbDerivedKey, pcbResult, dwFlags) {
-        result := DllCall("ncrypt.dll\NCryptKeyDerivation", "ptr", hKey, "ptr", pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, "ptr", pcbResult, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptKeyDerivation", "ptr", hKey, "ptr", pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, "uint*", pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -29147,7 +29135,7 @@ class Cryptography {
      * @param {Pointer} hAuthorityKey The authority key handle that the claim is based on.
      * @param {Integer} dwClaimType The type of claim.
      * @param {Pointer<BCryptBufferDesc>} pParameterList An optional parameter list.
-     * @param {Pointer<Byte>} pbClaimBlob Output of the created claim blob.
+     * @param {Pointer} pbClaimBlob Output of the created claim blob.
      * @param {Integer} cbClaimBlob 
      * @param {Pointer<UInt32>} pcbResult The output of the created claim blob.
      * @param {Integer} dwFlags As of Windows 10, no  flags are defined. This parameter should be set to 0.
@@ -29156,7 +29144,7 @@ class Cryptography {
      * @since windows10.0.10240
      */
     static NCryptCreateClaim(hSubjectKey, hAuthorityKey, dwClaimType, pParameterList, pbClaimBlob, cbClaimBlob, pcbResult, dwFlags) {
-        result := DllCall("ncrypt.dll\NCryptCreateClaim", "ptr", hSubjectKey, "ptr", hAuthorityKey, "uint", dwClaimType, "ptr", pParameterList, "ptr", pbClaimBlob, "uint", cbClaimBlob, "ptr", pcbResult, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptCreateClaim", "ptr", hSubjectKey, "ptr", hAuthorityKey, "uint", dwClaimType, "ptr", pParameterList, "ptr", pbClaimBlob, "uint", cbClaimBlob, "uint*", pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -29166,7 +29154,7 @@ class Cryptography {
      * @param {Pointer} hAuthorityKey The authority key handle to use when verifying the claim. This parameter is optional because the authority key is self-contained for certain claim types.
      * @param {Integer} dwClaimType The type of claim.
      * @param {Pointer<BCryptBufferDesc>} pParameterList An optional parameter list.
-     * @param {Pointer<Byte>} pbClaimBlob The input claim blob.
+     * @param {Pointer} pbClaimBlob The input claim blob.
      * @param {Integer} cbClaimBlob 
      * @param {Pointer<BCryptBufferDesc>} pOutput The output blob.
      * @param {Integer} dwFlags As of Windows 10, no  flags are defined. This parameter should be set to 0.
@@ -29230,7 +29218,7 @@ class Cryptography {
      * </tr>
      * </table>
      * @param {Pointer<Void>} pFormatStruct A pointer to the format of the structure. Not used. Set to <b>NULL</b>.
-     * @param {Pointer<PSTR>} lpszStructType A pointer to an OID that defines the encoded data. If the high-order word of the <i>lpszStructType</i> parameter is zero, the low-order word specifies the integer identifier for the type of the given structure. Otherwise, this parameter is a long pointer to a <b>null</b>-terminated string. 
+     * @param {Pointer<Byte>} lpszStructType A pointer to an OID that defines the encoded data. If the high-order word of the <i>lpszStructType</i> parameter is zero, the low-order word specifies the integer identifier for the type of the given structure. Otherwise, this parameter is a long pointer to a <b>null</b>-terminated string. 
      * 
      * 
      * 
@@ -29413,9 +29401,9 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} pbEncoded A pointer to the encoded data to be formatted. If <i>lpszStructType</i> is one of the OIDs listed above, the <i>pbEncoded</i> is the encoded extension.
+     * @param {Pointer} pbEncoded A pointer to the encoded data to be formatted. If <i>lpszStructType</i> is one of the OIDs listed above, the <i>pbEncoded</i> is the encoded extension.
      * @param {Integer} cbEncoded The size, in bytes, of the <i>pbEncoded</i> structure.
-     * @param {Pointer<Void>} pbFormat A pointer to a buffer that receives the formatted string. When the buffer that is specified is not large enough to receive the decoded structure, the function sets ERROR_MORE_DATA and stores the required buffer size, in bytes, into the variable pointed to by <i>pcbFormat</i>. This parameter can be <b>NULL</b> to set the size of this information for memory allocation purposes. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
+     * @param {Pointer} pbFormat A pointer to a buffer that receives the formatted string. When the buffer that is specified is not large enough to receive the decoded structure, the function sets ERROR_MORE_DATA and stores the required buffer size, in bytes, into the variable pointed to by <i>pcbFormat</i>. This parameter can be <b>NULL</b> to set the size of this information for memory allocation purposes. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
      * @param {Pointer<UInt32>} pcbFormat A pointer to a variable that specifies the size, in bytes, of the buffer pointed to by the <i>pbFormat</i> parameter. When the function returns, the variable pointed to by the <i>pcbFormat</i> parameter contains the number of bytes stored in the buffer. This parameter can be <b>NULL</b>, only if <i>pbFormat</i> is <b>NULL</b>. 
      * 
      * 
@@ -29432,7 +29420,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptFormatObject", "uint", dwCertEncodingType, "uint", dwFormatType, "uint", dwFormatStrType, "ptr", pFormatStruct, "ptr", lpszStructType, "ptr", pbEncoded, "uint", cbEncoded, "ptr", pbFormat, "ptr", pcbFormat, "int")
+        result := DllCall("CRYPT32.dll\CryptFormatObject", "uint", dwCertEncodingType, "uint", dwFormatType, "uint", dwFormatStrType, "ptr", pFormatStruct, "ptr", lpszStructType, "ptr", pbEncoded, "uint", cbEncoded, "ptr", pbFormat, "uint*", pcbFormat, "int")
         if(A_LastError)
             throw OSError()
 
@@ -29531,7 +29519,7 @@ class Cryptography {
      * 
      * In all cases, the Punycode encoding of the host name is performed on a label-by-label basis.
      * @param {Integer} dwCertEncodingType 
-     * @param {Pointer<PSTR>} lpszStructType A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) that defines the structure type. If the high-order word of the <i>lpszStructType</i> parameter is zero, the low-order word specifies an integer identifier for the type of the specified structure. Otherwise, this parameter is a pointer to a null-terminated string that contains the string representation of the OID.
+     * @param {Pointer<Byte>} lpszStructType A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) that defines the structure type. If the high-order word of the <i>lpszStructType</i> parameter is zero, the low-order word specifies an integer identifier for the type of the specified structure. Otherwise, this parameter is a pointer to a null-terminated string that contains the string representation of the OID.
      * 
      * For more information about object identifier strings, their predefined constants and corresponding structures, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/constants-for-cryptencodeobject-and-cryptdecodeobject">Constants for CryptEncodeObject and CryptDecodeObject</a>.
@@ -29611,7 +29599,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptEncodeObjectEx", "uint", dwCertEncodingType, "ptr", lpszStructType, "ptr", pvStructInfo, "uint", dwFlags, "ptr", pEncodePara, "ptr", pvEncoded, "ptr", pcbEncoded, "int")
+        result := DllCall("CRYPT32.dll\CryptEncodeObjectEx", "uint", dwCertEncodingType, "ptr", lpszStructType, "ptr", pvStructInfo, "uint", dwFlags, "ptr", pEncodePara, "ptr", pvEncoded, "uint*", pcbEncoded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -29634,12 +29622,12 @@ class Cryptography {
      * </ul>
      * <div class="alert"><b>Note</b>  Either a certificate or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a> is required. X509_ASN_ENCODING is the default. If that type is indicated, it is used. Otherwise, if the PKCS7_ASN_ENCODING type is indicated, it is used.</div>
      * <div> </div>
-     * @param {Pointer<PSTR>} lpszStructType A pointer to an OID defining the structure type. If the high-order word of the <i>lpszStructType</i> parameter is zero, the low-order word specifies the integer identifier for the type of the specified structure. Otherwise, this parameter is a long pointer to a null-terminated string.
+     * @param {Pointer<Byte>} lpszStructType A pointer to an OID defining the structure type. If the high-order word of the <i>lpszStructType</i> parameter is zero, the low-order word specifies the integer identifier for the type of the specified structure. Otherwise, this parameter is a long pointer to a null-terminated string.
      * 
      * For more information about object identifier strings, their predefined constants and corresponding structures, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/constants-for-cryptencodeobject-and-cryptdecodeobject">Constants for CryptEncodeObject and CryptDecodeObject</a>.
      * @param {Pointer<Void>} pvStructInfo A pointer to the structure to be encoded. The structure must be of a type specified by <i>lpszStructType</i>.
-     * @param {Pointer<Byte>} pbEncoded A pointer to a buffer to receive the encoded structure. When the buffer that is specified is not large enough to receive the decoded structure, the function sets the ERROR_MORE_DATA code and stores the required buffer size, in bytes, in the variable pointed to by <i>pcbEncoded</i>.
+     * @param {Pointer} pbEncoded A pointer to a buffer to receive the encoded structure. When the buffer that is specified is not large enough to receive the decoded structure, the function sets the ERROR_MORE_DATA code and stores the required buffer size, in bytes, in the variable pointed to by <i>pcbEncoded</i>.
      * 
      * This parameter can be <b>NULL</b> to retrieve the size of this information for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -29704,7 +29692,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptEncodeObject", "uint", dwCertEncodingType, "ptr", lpszStructType, "ptr", pvStructInfo, "ptr", pbEncoded, "ptr", pcbEncoded, "int")
+        result := DllCall("CRYPT32.dll\CryptEncodeObject", "uint", dwCertEncodingType, "ptr", lpszStructType, "ptr", pvStructInfo, "ptr", pbEncoded, "uint*", pcbEncoded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -29808,11 +29796,11 @@ class Cryptography {
      * </ul>
      * <div class="alert"><b>Note</b>  Either a certificate or message encoding type is required. X509_ASN_ENCODING is the default. If that type is indicated, it is used. Otherwise, if the PKCS7_ASN_ENCODING type is indicated, it is used.</div>
      * <div> </div>
-     * @param {Pointer<PSTR>} lpszStructType A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) that defines the structure type. If the high-order word of the <i>lpszStructType</i> parameter is zero, the low-order word specifies the integer identifier for the type of the specified structure. Otherwise, this parameter is a long pointer to a null-terminated string.
+     * @param {Pointer<Byte>} lpszStructType A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) that defines the structure type. If the high-order word of the <i>lpszStructType</i> parameter is zero, the low-order word specifies the integer identifier for the type of the specified structure. Otherwise, this parameter is a long pointer to a null-terminated string.
      * 
      * For more information about object identifier strings, their predefined constants, and corresponding structures, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/constants-for-cryptencodeobject-and-cryptdecodeobject">Constants for CryptEncodeObject and CryptDecodeObject</a>.
-     * @param {Pointer<Byte>} pbEncoded A pointer to the data to be decoded. The structure must be of the type specified by <i>lpszStructType</i>.
+     * @param {Pointer} pbEncoded A pointer to the data to be decoded. The structure must be of the type specified by <i>lpszStructType</i>.
      * @param {Integer} cbEncoded The number of bytes pointed to by <i>pbEncoded</i>. This is the number of bytes to be decoded.
      * @param {Integer} dwFlags This parameter can be one or more of the following flags. The flags can be combined by using a bitwise-<b>OR</b> operation.
      * 
@@ -29969,7 +29957,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptDecodeObjectEx", "uint", dwCertEncodingType, "ptr", lpszStructType, "ptr", pbEncoded, "uint", cbEncoded, "uint", dwFlags, "ptr", pDecodePara, "ptr", pvStructInfo, "ptr", pcbStructInfo, "int")
+        result := DllCall("CRYPT32.dll\CryptDecodeObjectEx", "uint", dwCertEncodingType, "ptr", lpszStructType, "ptr", pbEncoded, "uint", cbEncoded, "uint", dwFlags, "ptr", pDecodePara, "ptr", pvStructInfo, "uint*", pcbStructInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -29992,11 +29980,11 @@ class Cryptography {
      * </ul>
      * <div class="alert"><b>Note</b>  Either a certificate or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a> is required. X509_ASN_ENCODING is the default. If that type is indicated, it is used. Otherwise, if the PKCS7_ASN_ENCODING type is indicated, it is used.</div>
      * <div> </div>
-     * @param {Pointer<PSTR>} lpszStructType A pointer to an OID defining the structure type. If the high-order word of the <i>lpszStructType</i> parameter is zero, the low-order word specifies the integer identifier for the type of the specified structure. Otherwise, this parameter is a long pointer to a null-terminated string.
+     * @param {Pointer<Byte>} lpszStructType A pointer to an OID defining the structure type. If the high-order word of the <i>lpszStructType</i> parameter is zero, the low-order word specifies the integer identifier for the type of the specified structure. Otherwise, this parameter is a long pointer to a null-terminated string.
      * 
      * For more information about object identifier strings, their predefined constants and corresponding structures, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/constants-for-cryptencodeobject-and-cryptdecodeobject">Constants for CryptEncodeObject and CryptDecodeObject</a>.
-     * @param {Pointer<Byte>} pbEncoded A pointer to the encoded structure to be decoded.
+     * @param {Pointer} pbEncoded A pointer to the encoded structure to be decoded.
      * @param {Integer} cbEncoded Number of bytes pointed to by <i>pbEncoded</i>.
      * @param {Integer} dwFlags The following flags are defined. They can be combined with a bitwise-<b>OR</b> operation.
      * 
@@ -30056,7 +30044,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} pvStructInfo A pointer to a buffer to receive the decoded structure. When the buffer that is specified is not large enough to receive the decoded structure, the function sets the ERROR_MORE_DATA code and stores the required buffer size, in bytes, in the variable pointed to by <i>pcbStructInfo</i>.
+     * @param {Pointer} pvStructInfo A pointer to a buffer to receive the decoded structure. When the buffer that is specified is not large enough to receive the decoded structure, the function sets the ERROR_MORE_DATA code and stores the required buffer size, in bytes, in the variable pointed to by <i>pcbStructInfo</i>.
      * 
      * This parameter can be <b>NULL</b> to retrieve the size of this information for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -30123,7 +30111,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptDecodeObject", "uint", dwCertEncodingType, "ptr", lpszStructType, "ptr", pbEncoded, "uint", cbEncoded, "uint", dwFlags, "ptr", pvStructInfo, "ptr", pcbStructInfo, "int")
+        result := DllCall("CRYPT32.dll\CryptDecodeObject", "uint", dwCertEncodingType, "ptr", lpszStructType, "ptr", pbEncoded, "uint", cbEncoded, "uint", dwFlags, "ptr", pvStructInfo, "uint*", pcbStructInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -30132,14 +30120,14 @@ class Cryptography {
 
     /**
      * The CryptInstallOIDFunctionAddress function installs a set of callable object identifier (OID) function addresses.
-     * @param {Pointer<HMODULE>} hModule This parameter is updated with the <i>hModule</i> parameter passed to <b>DllMain</b> to prevent the DLL that contains the function addresses from being unloaded by 
+     * @param {Pointer<Void>} hModule This parameter is updated with the <i>hModule</i> parameter passed to <b>DllMain</b> to prevent the DLL that contains the function addresses from being unloaded by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptgetoidfunctionaddress">CryptGetOIDFunctionAddress</a> or
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptfreeoidfunctionaddress">CryptFreeOIDFunctionAddress</a>. This would be the case when the DLL has also registered OID functions through 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptregisteroidfunction">CryptRegisterOIDFunction</a>.
      * @param {Integer} dwEncodingType Specifies the encoding type to be matched. Currently, only X509_ASN_ENCODING and PKCS_7_ASN_ENCODING are being used; however, additional encoding types may be added in the future. To match both current encoding types, use:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING
-     * @param {Pointer<PSTR>} pszFuncName Name of the function set being installed.
+     * @param {Pointer<Byte>} pszFuncName Name of the function set being installed.
      * @param {Integer} cFuncEntry Number of array elements in <i>rgFuncEntry</i>[].
      * @param {Pointer<CRYPT_OID_FUNC_ENTRY>} rgFuncEntry Array of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_oid_func_entry">CRYPT_OID_FUNC_ENTRY</a> structures, each containing an OID and the starting address of its correlated routine. 
      * 					
@@ -30161,16 +30149,17 @@ class Cryptography {
 
     /**
      * The CryptInitOIDFunctionSet initializes and returns the handle of the OID function set identified by a supplied function set name.
-     * @param {Pointer<PSTR>} pszFuncName Name of the OID function set.
+     * @param {Pointer<Byte>} pszFuncName Name of the OID function set.
      * @param {Integer} dwFlags Reserved for future use and must be zero.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} Returns the handle of the OID function set identified by <i>pszFuncName</i>, or <b>NULL</b> if the function fails.
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptinitoidfunctionset
      * @since windows5.1.2600
      */
     static CryptInitOIDFunctionSet(pszFuncName, dwFlags) {
         pszFuncName := pszFuncName is String? StrPtr(pszFuncName) : pszFuncName
 
-        DllCall("CRYPT32.dll\CryptInitOIDFunctionSet", "ptr", pszFuncName, "uint", dwFlags)
+        result := DllCall("CRYPT32.dll\CryptInitOIDFunctionSet", "ptr", pszFuncName, "uint", dwFlags)
+        return result
     }
 
     /**
@@ -30189,7 +30178,7 @@ class Cryptography {
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING
      * 
      * For functions that do not use an encoding type, set this parameter to zero.
-     * @param {Pointer<PSTR>} pszOID If the high-order word of the OID is nonzero, <i>pszOID</i> is a pointer to either an OID string such as "2.5.29.1" or an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ASCII</a> string such as "file". If the high-order word of the OID is zero, the low-order word specifies the numeric identifier to be used as the object identifier. This resulting OID maps to the function that was either installed or registered with the same OID.
+     * @param {Pointer<Byte>} pszOID If the high-order word of the OID is nonzero, <i>pszOID</i> is a pointer to either an OID string such as "2.5.29.1" or an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ASCII</a> string such as "file". If the high-order word of the OID is zero, the low-order word specifies the numeric identifier to be used as the object identifier. This resulting OID maps to the function that was either installed or registered with the same OID.
      * @param {Integer} dwFlags This parameter can be the following value.
      * 
      * <table>
@@ -30246,7 +30235,7 @@ class Cryptography {
      * 
      * <div class="alert"><b>Note</b>  Either a certificate or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a> is required. X509_ASN_ENCODING is the default. If that type is indicated, it is used; otherwise, if the PKCS7_ASN_ENCODING type is indicated, it is used.</div>
      * <div> </div>
-     * @param {Pointer<PWSTR>} pwszDllList A pointer to a buffer to receive the list of zero or more null-terminated file names. The returned list is terminated with a terminating <b>NULL</b> character. For example, a list of two names could be: 
+     * @param {Pointer<Char>} pwszDllList A pointer to a buffer to receive the list of zero or more null-terminated file names. The returned list is terminated with a terminating <b>NULL</b> character. For example, a list of two names could be: 
      * 
      * 
      * 
@@ -30293,7 +30282,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptGetDefaultOIDDllList", "ptr", hFuncSet, "uint", dwEncodingType, "ptr", pwszDllList, "ptr", pcchDllList, "int")
+        result := DllCall("CRYPT32.dll\CryptGetDefaultOIDDllList", "ptr", hFuncSet, "uint", dwEncodingType, "ptr", pwszDllList, "uint*", pcchDllList, "int")
         if(A_LastError)
             throw OSError()
 
@@ -30307,7 +30296,7 @@ class Cryptography {
      * @param {Integer} dwEncodingType Encoding type to be matched. Currently, only X509_ASN_ENCODING and PKCS_7_ASN_ENCODING are being used; however, additional encoding types may be added in the future. To match both current encoding types, use:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING
-     * @param {Pointer<PWSTR>} pwszDll Name of the DLL to load. Normally, the DLL name is obtained from the list returned by 
+     * @param {Pointer<Char>} pwszDll Name of the DLL to load. Normally, the DLL name is obtained from the list returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptgetdefaultoiddlllist">CryptGetDefaultOIDDllList</a>. If <i>pwszDll</i> is <b>NULL</b>, a search is performed on the list of installed default functions.
      * @param {Integer} dwFlags Reserved for future use and must be zero.
      * @param {Pointer<Void>} ppvFuncAddr A pointer to the address of the return function. If the function fails, a <b>NULL</b> is returned in <i>ppvFuncAddr</i>.
@@ -30365,10 +30354,10 @@ class Cryptography {
      * 
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING.
-     * @param {Pointer<PSTR>} pszFuncName Name of the function being registered.
-     * @param {Pointer<PSTR>} pszOID OID of the function to be registered. If the high-order word of the OID is nonzero, <i>pszOID</i> is a pointer to either an OID string such as "2.5.29.1" or an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ASCII</a> string such as "file." If the high-order word of the OID is zero, the low-order word specifies the numeric identifier to be used as the object identifier.
-     * @param {Pointer<PWSTR>} pwszDll Name of the DLL file to be registered. It can contain environment-variable strings to be expanded by using the <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">ExpandEnvironmentStrings</a> function before loading the DLL.
-     * @param {Pointer<PSTR>} pszOverrideFuncName String that specifies a name for the function exported in the DLL. If <i>pszOverrideFuncName</i> is <b>NULL</b>, the function name specified by <i>pszFuncName</i> is used.
+     * @param {Pointer<Byte>} pszFuncName Name of the function being registered.
+     * @param {Pointer<Byte>} pszOID OID of the function to be registered. If the high-order word of the OID is nonzero, <i>pszOID</i> is a pointer to either an OID string such as "2.5.29.1" or an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ASCII</a> string such as "file." If the high-order word of the OID is zero, the low-order word specifies the numeric identifier to be used as the object identifier.
+     * @param {Pointer<Char>} pwszDll Name of the DLL file to be registered. It can contain environment-variable strings to be expanded by using the <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">ExpandEnvironmentStrings</a> function before loading the DLL.
+     * @param {Pointer<Byte>} pszOverrideFuncName String that specifies a name for the function exported in the DLL. If <i>pszOverrideFuncName</i> is <b>NULL</b>, the function name specified by <i>pszFuncName</i> is used.
      * @returns {Integer} If the function succeeds, the return value is nonzero (<b>TRUE</b>).
      * 
      * If the function fails, the return value is zero (<b>FALSE</b>).
@@ -30394,8 +30383,8 @@ class Cryptography {
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING
      * 
      * For functions that do not use an encoding type, set this parameter to zero.
-     * @param {Pointer<PSTR>} pszFuncName Name of the function being unregistered.
-     * @param {Pointer<PSTR>} pszOID A pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) that corresponds to the name of the function being unregistered. If the high order word of the OID is nonzero, <i>pszOID</i> is a pointer to either an OID string such as "2.5.29.1" or an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ASCII</a> string such as "file." If the high order word of the OID is zero, the low order word specifies the integer identifier to be used as the object identifier.
+     * @param {Pointer<Byte>} pszFuncName Name of the function being unregistered.
+     * @param {Pointer<Byte>} pszOID A pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) that corresponds to the name of the function being unregistered. If the high order word of the OID is nonzero, <i>pszOID</i> is a pointer to either an OID string such as "2.5.29.1" or an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ASCII</a> string such as "file." If the high order word of the OID is zero, the low order word specifies the integer identifier to be used as the object identifier.
      * @returns {Integer} If the function succeeds, the return value is nonzero (<b>TRUE</b>).
      * 
      * If the function fails, the return value is zero (<b>FALSE</b>).
@@ -30416,9 +30405,9 @@ class Cryptography {
      * 
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING.
-     * @param {Pointer<PSTR>} pszFuncName Name of the function being registered.
+     * @param {Pointer<Byte>} pszFuncName Name of the function being registered.
      * @param {Integer} dwIndex Index location for the insertion of the DLL in the list of DLLs. If <i>dwIndex</i> is zero, the DLL is inserted at the beginning of the list. If it is CRYPT_REGISTER_LAST_INDEX, the DLL is appended at the end of the list.
-     * @param {Pointer<PWSTR>} pwszDll Optional environment-variable string to be expanded using <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">ExpandEnvironmentStrings</a> function before loading the DLL.
+     * @param {Pointer<Char>} pwszDll Optional environment-variable string to be expanded using <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">ExpandEnvironmentStrings</a> function before loading the DLL.
      * @returns {Integer} If the function succeeds, the return value is nonzero (<b>TRUE</b>).
      * 
      * If the function fails, the return value is zero (<b>FALSE</b>).
@@ -30439,8 +30428,8 @@ class Cryptography {
      * 
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING.
-     * @param {Pointer<PSTR>} pszFuncName Name of the function being unregistered.
-     * @param {Pointer<PWSTR>} pwszDll Name of the DLL where the function is located.
+     * @param {Pointer<Byte>} pszFuncName Name of the function being unregistered.
+     * @param {Pointer<Char>} pwszDll Name of the DLL where the function is located.
      * @returns {Integer} If the function succeeds, the return value is nonzero (<b>TRUE</b>).
      * 
      * If the function fails, the return value is zero (<b>FALSE</b>).
@@ -30461,11 +30450,11 @@ class Cryptography {
      * 
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING.
-     * @param {Pointer<PSTR>} pszFuncName Name of the function for which the encoding type, OID, and value name is being updated.
-     * @param {Pointer<PSTR>} pszOID If the high-order word of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) is nonzero, <i>pszOID</i> is a pointer to either an OID string such as "2.5.29.1" or an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ASCII</a> string such as "file". If the high-order word of the OID is zero, the low-order word specifies the integer identifier to be used as the object identifier.
-     * @param {Pointer<PWSTR>} pwszValueName A pointer to a Unicode string containing the name of the value to set. If a value with this name is not already present, the function creates it.
+     * @param {Pointer<Byte>} pszFuncName Name of the function for which the encoding type, OID, and value name is being updated.
+     * @param {Pointer<Byte>} pszOID If the high-order word of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) is nonzero, <i>pszOID</i> is a pointer to either an OID string such as "2.5.29.1" or an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ASCII</a> string such as "file". If the high-order word of the OID is zero, the low-order word specifies the integer identifier to be used as the object identifier.
+     * @param {Pointer<Char>} pwszValueName A pointer to a Unicode string containing the name of the value to set. If a value with this name is not already present, the function creates it.
      * @param {Integer} dwValueType 
-     * @param {Pointer<Byte>} pbValueData Points to a buffer containing the data to be stored for the specified value name.
+     * @param {Pointer} pbValueData Points to a buffer containing the data to be stored for the specified value name.
      * @param {Integer} cbValueData Specifies the size, in bytes, of the information pointed to by the <i>pbValueData</i> parameter. If the data is of type REG_SZ, REG_EXPAND_SZ, or REG_MULTI_SZ, the size must include the terminating <b>NULL</b> wide character.
      * @returns {Integer} If the function succeeds, the return value is nonzero (<b>TRUE</b>).
      * 
@@ -30485,9 +30474,9 @@ class Cryptography {
     /**
      * The CryptGetOIDFunctionValue function queries a value associated with an OID.
      * @param {Integer} dwEncodingType Specifies the encoding type to be matched. Currently, only X509_ASN_ENCODING and PKCS_7_ASN_ENCODING are being used; however, additional encoding types may be added in the future. To match both current encoding types, use    X509_ASN_ENCODING | PKCS_7_ASN_ENCODING.
-     * @param {Pointer<PSTR>} pszFuncName A pointer to the null-terminated string that contains the name of the OID function set.
-     * @param {Pointer<PSTR>} pszOID If the high-order word of the OID is nonzero, <i>pszOID</i> is a pointer to either a  null-terminated OID string such as "2.5.29.1" or a null-terminated <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ASCII</a> string such as "file." If the high-order word of the OID is zero, the low-order word specifies the numeric identifier to be used as the object identifier.
-     * @param {Pointer<PWSTR>} pwszValueName A pointer to a null-terminated Unicode string that contains the name of the value to be queried.
+     * @param {Pointer<Byte>} pszFuncName A pointer to the null-terminated string that contains the name of the OID function set.
+     * @param {Pointer<Byte>} pszOID If the high-order word of the OID is nonzero, <i>pszOID</i> is a pointer to either a  null-terminated OID string such as "2.5.29.1" or a null-terminated <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ASCII</a> string such as "file." If the high-order word of the OID is zero, the low-order word specifies the numeric identifier to be used as the object identifier.
+     * @param {Pointer<Char>} pwszValueName A pointer to a null-terminated Unicode string that contains the name of the value to be queried.
      * @param {Pointer<UInt32>} pdwValueType A pointer to a variable to receive the value's type. The type returned through this parameter will be one of the following.
      * 
      * <table>
@@ -30539,7 +30528,7 @@ class Cryptography {
      *  
      * 
      * The <i>pdwValueType</i> parameter can be <b>NULL</b> if a returned type is not required.
-     * @param {Pointer<Byte>} pbValueData A pointer to a buffer to receive the value associated with the <i>pwszValueName</i> parameter. The buffer must be big enough to contain the terminating <b>NULL</b> character. This parameter can be <b>NULL</b> if returned data is not required.
+     * @param {Pointer} pbValueData A pointer to a buffer to receive the value associated with the <i>pwszValueName</i> parameter. The buffer must be big enough to contain the terminating <b>NULL</b> character. This parameter can be <b>NULL</b> if returned data is not required.
      * 
      * This parameter can also be <b>NULL</b> to find the size of the buffer for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -30583,7 +30572,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptGetOIDFunctionValue", "uint", dwEncodingType, "ptr", pszFuncName, "ptr", pszOID, "ptr", pwszValueName, "ptr", pdwValueType, "ptr", pbValueData, "ptr", pcbValueData, "int")
+        result := DllCall("CRYPT32.dll\CryptGetOIDFunctionValue", "uint", dwEncodingType, "ptr", pszFuncName, "ptr", pszOID, "ptr", pwszValueName, "uint*", pdwValueType, "ptr", pbValueData, "uint*", pcbValueData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -30605,8 +30594,8 @@ class Cryptography {
      * <li>PKCS_7_ASN_ENCODING</li>
      * <li>CRYPT_MATCH_ANY_ENCODING_TYPE</li>
      * </ul>
-     * @param {Pointer<PSTR>} pszFuncName Name of a function for which a case insensitive match search is performed. Setting this parameter to <b>NULL</b> results in a match being found for any function name.
-     * @param {Pointer<PSTR>} pszOID If the high-order word of <i>pszOID</i> is nonzero, <i>pszOID</i> specifies the object identifier for which a case insensitive match search is performed. If the high-order word of <i>pszOID</i> is zero, <i>pszOID</i> is used to match a numeric object identifier. Setting this parameter to <b>NULL</b> matches any object identifier. Setting this parameter to CRYPT_DEFAULT_OID restricts the enumeration to only the default functions.
+     * @param {Pointer<Byte>} pszFuncName Name of a function for which a case insensitive match search is performed. Setting this parameter to <b>NULL</b> results in a match being found for any function name.
+     * @param {Pointer<Byte>} pszOID If the high-order word of <i>pszOID</i> is nonzero, <i>pszOID</i> specifies the object identifier for which a case insensitive match search is performed. If the high-order word of <i>pszOID</i> is zero, <i>pszOID</i> is used to match a numeric object identifier. Setting this parameter to <b>NULL</b> matches any object identifier. Setting this parameter to CRYPT_DEFAULT_OID restricts the enumeration to only the default functions.
      * @param {Integer} dwFlags Reserved for future use and must be zero.
      * @param {Pointer<Void>} pvArg A pointer to arguments to be passed through to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_crypt_enum_oid_func">CRYPT_ENUM_OID_FUNCTION</a> callback function.
      * @param {Pointer<PFN_CRYPT_ENUM_OID_FUNC>} pfnEnumOIDFunc A pointer to the callback function that is executed for each OID function that matches the input parameters. For details, see <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_crypt_enum_oid_func">CRYPT_ENUM_OID_FUNCTION</a>.
@@ -30826,14 +30815,14 @@ class Cryptography {
      * <td>"CryptDLLFindLocalizedName"</td>
      * </tr>
      * </table>
-     * @param {Pointer<PWSTR>} pwszCryptName A pointer to a specified name. An internal table is searched to compare a predefined localized name to the specified name. The search matches the localized name by using a case insensitive string comparison. 
+     * @param {Pointer<Char>} pwszCryptName A pointer to a specified name. An internal table is searched to compare a predefined localized name to the specified name. The search matches the localized name by using a case insensitive string comparison. 
      * 
      * 
      * 
      * 
      * <div class="alert"><b>Note</b>  Localized names for the predefined system stores ("Root", "My") and predefined physical stores (".Default", ".LocalMachine") are preinstalled as resource strings in Crypt32.dll.</div>
      * <div> </div>
-     * @returns {Pointer<PWSTR>} If the specified name is found, a pointer to the localized name is returned. The returned pointer must not be freed.
+     * @returns {Pointer<Char>} If the specified name is found, a pointer to the localized name is returned. The returned pointer must not be freed.
      * 						
      * 
      * If the specified name is not found, <b>NULL</b> is returned.
@@ -30843,7 +30832,7 @@ class Cryptography {
     static CryptFindLocalizedName(pwszCryptName) {
         pwszCryptName := pwszCryptName is String? StrPtr(pwszCryptName) : pwszCryptName
 
-        result := DllCall("CRYPT32.dll\CryptFindLocalizedName", "ptr", pwszCryptName, "ptr")
+        result := DllCall("CRYPT32.dll\CryptFindLocalizedName", "ptr", pwszCryptName, "char*")
         return result
     }
 
@@ -30953,7 +30942,7 @@ class Cryptography {
      * </table>
      * @param {Integer} dwMsgType 
      * @param {Pointer<Void>} pvMsgEncodeInfo The address of a structure that contains the encoding information. The type of data depends on the value of the <i>dwMsgType</i> parameter. For details, see <i>dwMsgType</i>.
-     * @param {Pointer<PSTR>} pszInnerContentObjID If <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgcalculateencodedlength">CryptMsgCalculateEncodedLength</a> is called and the data for 
+     * @param {Pointer<Byte>} pszInnerContentObjID If <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgcalculateencodedlength">CryptMsgCalculateEncodedLength</a> is called and the data for 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgupdate">CryptMsgUpdate</a> has already been message encoded, the appropriate <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) is passed in <i>pszInnerContentObjID</i>. If <i>pszInnerContentObjID</i> is <b>NULL</b>, then the inner content type is assumed not to have been previously encoded and is therefore encoded as an octet string and given the type CMSG_DATA.
      * 
      * <div class="alert"><b>Note</b>  When streaming is being used, <i>pszInnerContentObjID</i> must be either <b>NULL</b> or szOID_RSA_data.</div>
@@ -30981,7 +30970,88 @@ class Cryptography {
      * Streaming is not used with the <b>CMSG_HASHED</b> message type. When dealing with hashed data, this parameter must be set to <b>NULL</b>.
      * 
      * Consider the case of a signed message being enclosed in an enveloped message. The encoded output from the streamed encoding of the signed message feeds into another streaming encoding of the enveloped message. The callback for the streaming encoding calls <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgupdate">CryptMsgUpdate</a> to encode the enveloped message. The callback for the enveloped message receives the encoded bytes of the nested signed message.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} If the function succeeds, it returns a handle to the opened message. This handle must be closed when it is no longer needed by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgclose">CryptMsgClose</a> function.
+     * 
+     * If this function fails, <b>NULL</b> is returned.
+     * 
+     * To retrieve extended error information, use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * 
+     * The following table lists the error codes most commonly returned by the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>CRYPT_E_INVALID_MSG_TYPE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The message type is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>CRYPT_E_OID_FORMAT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The OID is badly formatted.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>CRYPT_E_UNKNOWN_ALGO</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The cryptographic algorithm is unknown.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more arguments are not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is not enough memory.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * In addition, if <i>dwMsgType</i> is CMSG_SIGNED, errors can be propagated from 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptcreatehash">CryptCreateHash</a>.
+     * 
+     * If <i>dwMsgType</i> is CMSG_ENVELOPED, errors can be propagated from 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptgenkey">CryptGenKey</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptimportkey">CryptImportKey</a>, and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptexportkey">CryptExportKey</a>.
+     * 
+     * If <i>dwMsgType</i> is CMSG_HASHED, errors can be propagated from 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptcreatehash">CryptCreateHash</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptmsgopentoencode
      * @since windows5.1.2600
      */
@@ -30990,10 +31060,11 @@ class Cryptography {
 
         A_LastError := 0
 
-        DllCall("CRYPT32.dll\CryptMsgOpenToEncode", "uint", dwMsgEncodingType, "uint", dwFlags, "uint", dwMsgType, "ptr", pvMsgEncodeInfo, "ptr", pszInnerContentObjID, "ptr", pStreamInfo)
+        result := DllCall("CRYPT32.dll\CryptMsgOpenToEncode", "uint", dwMsgEncodingType, "uint", dwFlags, "uint", dwMsgType, "ptr", pvMsgEncodeInfo, "ptr", pszInnerContentObjID, "ptr", pStreamInfo)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -31132,7 +31203,7 @@ class Cryptography {
      * </tr>
      * </table>
      * @param {Pointer<Void>} pvMsgEncodeInfo A pointer to the data to be encoded. The type of data pointed to depends on the value of <i>dwMsgType</i>. For details, see the <i>dwMsgType</i> table.
-     * @param {Pointer<PSTR>} pszInnerContentObjID When calling <b>CryptMsgCalculateEncodedLength</b> with data provided to 
+     * @param {Pointer<Byte>} pszInnerContentObjID When calling <b>CryptMsgCalculateEncodedLength</b> with data provided to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgupdate">CryptMsgUpdate</a> already encoded, the appropriate object identifier is passed in <i>pszInnerContentObjID</i>. If <i>pszInnerContentObjID</i> is <b>NULL</b>, the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">inner content</a> type is assumed not to have been previously encoded, and is encoded as an octet string and given the type CMSG_DATA. 
      * 
      * 
@@ -31353,7 +31424,41 @@ class Cryptography {
      * 
      * 
      * In the case of a signed message enclosed in an enveloped message, the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">plaintext</a> output from the streaming decode of the enveloped message can be fed into another streaming decode to process the signed message.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} If the function succeeds, the function returns the handle of the opened message.
+     * 
+     * If the function fails, it returns <b>NULL</b>. For extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * 
+     * The following table lists the error codes most commonly returned by the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more arguments are not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A memory allocation failure occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptmsgopentodecode
      * @since windows5.1.2600
      */
@@ -31362,10 +31467,11 @@ class Cryptography {
 
         A_LastError := 0
 
-        DllCall("CRYPT32.dll\CryptMsgOpenToDecode", "uint", dwMsgEncodingType, "uint", dwFlags, "uint", dwMsgType, "ptr", hCryptProv, "ptr", pRecipientInfo, "ptr", pStreamInfo)
+        result := DllCall("CRYPT32.dll\CryptMsgOpenToDecode", "uint", dwMsgEncodingType, "uint", dwFlags, "uint", dwMsgType, "ptr", hCryptProv, "ptr", pRecipientInfo, "ptr", pStreamInfo)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -31374,12 +31480,13 @@ class Cryptography {
      * <b>CryptMsgDuplicate</b> is used to increase the reference count on an <b>HCRYPTMSG</b> handle so that multiple calls to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgclose">CryptMsgClose</a> are required to actually release the handle.
      * @param {Pointer<Void>} hCryptMsg Handle of the cryptographic message to be duplicated. Duplication is done by incrementing the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">reference count</a> of the message. A copy of the message is not made.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} The returned handle is the same as the handle input. A copy of the message is not created. When you have finished using the duplicated message handle, decrease the reference count by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgclose">CryptMsgClose</a> function.
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptmsgduplicate
      * @since windows5.1.2600
      */
     static CryptMsgDuplicate(hCryptMsg) {
-        DllCall("CRYPT32.dll\CryptMsgDuplicate", "ptr", hCryptMsg)
+        result := DllCall("CRYPT32.dll\CryptMsgDuplicate", "ptr", hCryptMsg)
+        return result
     }
 
     /**
@@ -31405,7 +31512,7 @@ class Cryptography {
     /**
      * Adds contents to a cryptographic message.
      * @param {Pointer<Void>} hCryptMsg Cryptographic message handle of the message to be updated.
-     * @param {Pointer<Byte>} pbData A pointer to the buffer holding the data to be encoded or decoded.
+     * @param {Pointer} pbData A pointer to the buffer holding the data to be encoded or decoded.
      * @param {Integer} cbData Number of bytes of data in the <i>pbData</i> buffer.
      * @param {Integer} fFinal Indicates that the last block of data for encoding or decoding is being processed. Correct usage of this flag is dependent upon whether the message being processed has detached data. The inclusion of detached data in a message is indicated by setting <i>dwFlags</i> to CMSG_DETACHED_FLAG in the call to the function that opened the message. 
      * 
@@ -32041,7 +32148,7 @@ class Cryptography {
      * </tr>
      * </table>
      * @param {Integer} dwIndex Index for the parameter being retrieved, where applicable. When a parameter is not being retrieved, this parameter is ignored and is set to zero.
-     * @param {Pointer<Void>} pvData A pointer to a buffer that receives the data retrieved. The form of this data will vary depending on the value of the <i>dwParamType</i> parameter. 
+     * @param {Pointer} pvData A pointer to a buffer that receives the data retrieved. The form of this data will vary depending on the value of the <i>dwParamType</i> parameter. 
      * 
      * 
      * 
@@ -32165,7 +32272,7 @@ class Cryptography {
     static CryptMsgGetParam(hCryptMsg, dwParamType, dwIndex, pvData, pcbData) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptMsgGetParam", "ptr", hCryptMsg, "uint", dwParamType, "uint", dwIndex, "ptr", pvData, "ptr", pcbData, "int")
+        result := DllCall("CRYPT32.dll\CryptMsgGetParam", "ptr", hCryptMsg, "uint", dwParamType, "uint", dwIndex, "ptr", pvData, "uint*", pcbData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -32744,9 +32851,9 @@ class Cryptography {
      * 
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING.
-     * @param {Pointer<Byte>} pbSignerInfo A pointer to the encoded <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> that contains the signer of the contents of a message to be countersigned.
+     * @param {Pointer} pbSignerInfo A pointer to the encoded <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> that contains the signer of the contents of a message to be countersigned.
      * @param {Integer} cbSignerInfo Count, in bytes, of the encoded BLOB for the signer of the contents.
-     * @param {Pointer<Byte>} pbSignerInfoCountersignature A pointer to the encoded BLOB containing the countersigner information.
+     * @param {Pointer} pbSignerInfoCountersignature A pointer to the encoded BLOB containing the countersigner information.
      * @param {Integer} cbSignerInfoCountersignature Count, in bytes, of the encoded BLOB for the countersigner of the message.
      * @param {Pointer<CERT_INFO>} pciCountersigner A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_info">CERT_INFO</a> that includes with the issuer and serial number of the countersigner. For more information, see Remarks.
@@ -32880,9 +32987,9 @@ class Cryptography {
      * 
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING.
-     * @param {Pointer<Byte>} pbSignerInfo A pointer to the encoded <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> that contains the signer of the contents of a message to be countersigned.
+     * @param {Pointer} pbSignerInfo A pointer to the encoded <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> that contains the signer of the contents of a message to be countersigned.
      * @param {Integer} cbSignerInfo The count, in bytes, of the encoded BLOB for the signer of the contents.
-     * @param {Pointer<Byte>} pbSignerInfoCountersignature A pointer to the encoded BLOB containing the countersigner information.
+     * @param {Pointer} pbSignerInfoCountersignature A pointer to the encoded BLOB containing the countersigner information.
      * @param {Integer} cbSignerInfoCountersignature The count, in bytes, of the encoded BLOB for the countersigner of the message.
      * @param {Integer} dwSignerType The structure that contains the signer information. The following table shows the predefined values and the structures indicated.
      * 
@@ -33146,12 +33253,12 @@ class Cryptography {
      * 
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING.
-     * @param {Pointer<Byte>} pbSignerInfo A pointer to the encoded SignerInfo that is to be countersigned.
+     * @param {Pointer} pbSignerInfo A pointer to the encoded SignerInfo that is to be countersigned.
      * @param {Integer} cbSignerInfo Count, in bytes, of the encoded SignerInfo data.
      * @param {Integer} cCountersigners Number of countersigners in the <i>rgCountersigners</i> array.
      * @param {Pointer<CMSG_SIGNER_ENCODE_INFO>} rgCountersigners Array of countersigners' 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmsg_signer_encode_info">CMSG_SIGNER_ENCODE_INFO</a> structures.
-     * @param {Pointer<Byte>} pbCountersignature A pointer to a buffer to receive an encoded PKCS #9 <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">countersignature</a> attribute.
+     * @param {Pointer} pbCountersignature A pointer to a buffer to receive an encoded PKCS #9 <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">countersignature</a> attribute.
      * 
      * On input, this parameter can be <b>NULL</b> to set the size of this information for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -33237,7 +33344,7 @@ class Cryptography {
     static CryptMsgCountersignEncoded(dwEncodingType, pbSignerInfo, cbSignerInfo, cCountersigners, rgCountersigners, pbCountersignature, pcbCountersignature) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptMsgCountersignEncoded", "uint", dwEncodingType, "ptr", pbSignerInfo, "uint", cbSignerInfo, "uint", cCountersigners, "ptr", rgCountersigners, "ptr", pbCountersignature, "ptr", pcbCountersignature, "int")
+        result := DllCall("CRYPT32.dll\CryptMsgCountersignEncoded", "uint", dwEncodingType, "ptr", pbSignerInfo, "uint", cbSignerInfo, "uint", cCountersigners, "ptr", rgCountersigners, "ptr", pbCountersignature, "uint*", pcbCountersignature, "int")
         if(A_LastError)
             throw OSError()
 
@@ -33279,7 +33386,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/system-store-locations">System Store Locations</a>.
      * 
      * For more information about the stores that are automatically migrated, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/certificate-store-migration">Certificate Store Migration</a>.
-     * @param {Pointer<PSTR>} lpszStoreProvider A pointer to a null-terminated ANSI string that contains the store provider type.
+     * @param {Pointer<Byte>} lpszStoreProvider A pointer to a null-terminated ANSI string that contains the store provider type.
      * 
      * The following values  represent the predefined store types. The store provider type determines the contents of the <i>pvPara</i> parameter and the use and meaning of the high word of the <i>dwFlags</i> parameter. Additional store providers can be installed or registered by using 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptinstalloidfunctionaddress">CryptInstallOIDFunctionAddress</a> or 
@@ -33563,7 +33670,7 @@ class Cryptography {
      * This parameter is only applicable  when the <b>CERT_STORE_PROV_MSG</b>, <b>CERT_STORE_PROV_PKCS7</b>, or <b>CERT_STORE_PROV_FILENAME</b> provider type is specified in the <i>lpszStoreProvider</i> parameter. For all other provider types, this parameter is unused and should be set to zero.
      * @param {Integer} dwFlags These values consist of high-word and low-word values combined by using a bitwise-<b>OR</b> operation.
      * @param {Pointer<Void>} pvPara A 32-bit value that can contain additional information for this function. The contents of this parameter depends on the value of the <i>lpszStoreProvider</i> and other parameters.
-     * @returns {Pointer<HCERTSTORE>} If the function succeeds, the function returns a handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>. When you have finished using the store, release the handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certclosestore">CertCloseStore</a> function.
+     * @returns {Pointer<Void>} If the function succeeds, the function returns a handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>. When you have finished using the store, release the handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certclosestore">CertCloseStore</a> function.
      * 
      * If the function fails, it returns <b>NULL</b>. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -33581,7 +33688,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertOpenStore", "ptr", lpszStoreProvider, "uint", dwEncodingType, "ptr", hCryptProv, "uint", dwFlags, "ptr", pvPara, "ptr")
+        result := DllCall("CRYPT32.dll\CertOpenStore", "ptr", lpszStoreProvider, "uint", dwEncodingType, "ptr", hCryptProv, "uint", dwFlags, "ptr", pvPara)
         if(A_LastError)
             throw OSError()
 
@@ -33590,19 +33697,19 @@ class Cryptography {
 
     /**
      * Duplicates a store handle by incrementing the store's reference count.
-     * @param {Pointer<HCERTSTORE>} hCertStore A handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> for which the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">reference count</a> is being incremented.
-     * @returns {Pointer<HCERTSTORE>} Currently, a copy is not made of the handle, and the returned handle is the same as the handle that was input. If <b>NULL</b> is passed in, the called function will raise an access violation exception.
+     * @param {Pointer<Void>} hCertStore A handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> for which the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">reference count</a> is being incremented.
+     * @returns {Pointer<Void>} Currently, a copy is not made of the handle, and the returned handle is the same as the handle that was input. If <b>NULL</b> is passed in, the called function will raise an access violation exception.
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certduplicatestore
      * @since windows5.1.2600
      */
     static CertDuplicateStore(hCertStore) {
-        result := DllCall("CRYPT32.dll\CertDuplicateStore", "ptr", hCertStore, "ptr")
+        result := DllCall("CRYPT32.dll\CertDuplicateStore", "ptr", hCertStore)
         return result
     }
 
     /**
      * Saves the certificate store to a file or to a memory BLOB.
-     * @param {Pointer<HCERTSTORE>} hCertStore The handle of the certificate store to be saved.
+     * @param {Pointer<Void>} hCertStore The handle of the certificate store to be saved.
      * @param {Integer} dwEncodingType Specifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate encoding type</a> and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a>. Encoding is used only when <i>dwSaveAs</i> contains <b>CERT_STORE_SAVE_AS_PKCS7</b>. Otherwise, the <i>dwMsgAndCertEncodingType</i> parameter is not used.
      * @param {Integer} dwSaveAs Specifies how to save the certificate store.
      * @param {Integer} dwSaveTo Specifies where and how to save the certificate store. The contents of this parameter determines the format of the <i>pvSaveToPara</i> parameter.
@@ -33643,7 +33750,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns CRYPT_E_PENDING_CLOSE. Note that the store is still closed when <b>FALSE</b> is returned and the memory for any active contexts is not freed.
      * 
      * If CERT_STORE_NO_CRYPT_RELEASE_FLAG was not set when the store was opened, closing a store releases its CSP handle.
-     * @param {Pointer<HCERTSTORE>} hCertStore Handle of the certificate store to be closed.
+     * @param {Pointer<Void>} hCertStore Handle of the certificate store to be closed.
      * @param {Integer} dwFlags Typically, this parameter uses the default value zero. The default is to close the store with memory remaining allocated for contexts that have not been freed. In this case, no check is made to determine whether memory for contexts remains allocated. 
      * 
      * 
@@ -33705,7 +33812,7 @@ class Cryptography {
      * Returns from a certificate store a subject certificate context uniquely identified by its issuer and serial number.
      * @remarks
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecertificatecontext">CertDuplicateCertificateContext</a> can be called to make a duplicate certificate.
-     * @param {Pointer<HCERTSTORE>} hCertStore A handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
+     * @param {Pointer<Void>} hCertStore A handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
      * @param {Integer} dwCertEncodingType The type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
@@ -33763,7 +33870,7 @@ class Cryptography {
      * 
      * A duplicate of the currently enumerated certificate can be made by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecertificatecontext">CertDuplicateCertificateContext</a>.
-     * @param {Pointer<HCERTSTORE>} hCertStore A handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
+     * @param {Pointer<Void>} hCertStore A handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
      * @param {Pointer<CERT_CONTEXT>} pPrevCertContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> of the previous <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate context</a> found.
      * 
@@ -33847,7 +33954,7 @@ class Cryptography {
      * 
      * The returned pointer is freed when passed as the <i>pPrevCertContext</i> parameter on a subsequent call to the function. Otherwise, the pointer must be explicitly freed by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreecertificatecontext">CertFreeCertificateContext</a>. A <i>pPrevCertContext</i> that is not <b>NULL</b> is always freed by <b>CertFindCertificateInStore</b> using a call to <b>CertFreeCertificateContext</b>, even if there is an error in the function.
-     * @param {Pointer<HCERTSTORE>} hCertStore A handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> to be searched.
+     * @param {Pointer<Void>} hCertStore A handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> to be searched.
      * @param {Integer} dwCertEncodingType Specifies the type of encoding used. Both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> must be specified by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
@@ -33922,7 +34029,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecertificatecontext">CertDuplicateCertificateContext</a> can be called to make a duplicate of the issuer certificate.
      * 
      * The hexadecimal values for <i>dwFlags</i> can be combined using a bitwise-<b>OR</b> operation to enable multiple verifications. For example, to enable both signature and time validity, the value 0x00000003 is passed in <i>dwFlags</i> on input. In this case, if CERT_STORE_SIGNATURE_FLAG verification succeeds but CERT_STORE_TIME_VALIDITY_FLAG verification fails, <i>dwFlags</i> returns as 0x00000002 on output.
-     * @param {Pointer<HCERTSTORE>} hCertStore Handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
+     * @param {Pointer<Void>} hCertStore Handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
      * @param {Pointer<CERT_CONTEXT>} pSubjectContext A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure that contains the subject information. This parameter can be obtained from any certificate store or can be created by the calling application using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certcreatecertificatecontext">CertCreateCertificateContext</a> function.
@@ -34059,7 +34166,7 @@ class Cryptography {
     static CertGetIssuerCertificateFromStore(hCertStore, pSubjectContext, pPrevIssuerContext, pdwFlags) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertGetIssuerCertificateFromStore", "ptr", hCertStore, "ptr", pSubjectContext, "ptr", pPrevIssuerContext, "ptr", pdwFlags, "ptr")
+        result := DllCall("CRYPT32.dll\CertGetIssuerCertificateFromStore", "ptr", hCertStore, "ptr", pSubjectContext, "ptr", pPrevIssuerContext, "uint*", pdwFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -34156,7 +34263,7 @@ class Cryptography {
     static CertVerifySubjectCertificateContext(pSubject, pIssuer, pdwFlags) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertVerifySubjectCertificateContext", "ptr", pSubject, "ptr", pIssuer, "ptr", pdwFlags, "int")
+        result := DllCall("CRYPT32.dll\CertVerifySubjectCertificateContext", "ptr", pSubject, "ptr", pIssuer, "uint*", pdwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -34193,7 +34300,7 @@ class Cryptography {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @param {Pointer<Byte>} pbCertEncoded A pointer to a buffer that contains the encoded certificate from which the context is to be created.
+     * @param {Pointer} pbCertEncoded A pointer to a buffer that contains the encoded certificate from which the context is to be created.
      * @param {Integer} cbCertEncoded The size, in bytes, of the <i>pbCertEncoded</i> buffer.
      * @returns {Pointer<CERT_CONTEXT>} If the function succeeds, the function returns a pointer to a read-only 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a>. When you have finished using the certificate context, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreecertificatecontext">CertFreeCertificateContext</a> function.
@@ -34382,7 +34489,7 @@ class Cryptography {
      * 			 Currently defined identifiers and the data type to be 
      * 			 returned in <i>pvData</i> are listed in the 
      * 			 following table.
-     * @param {Pointer<Void>} pvData A pointer to a buffer to receive the data as determined by <i>dwPropId</i>. Structures pointed to by members of a structure returned are also returned following the base structure. Therefore, the size contained in <i>pcbData</i> often exceeds the size of the base structure.
+     * @param {Pointer} pvData A pointer to a buffer to receive the data as determined by <i>dwPropId</i>. Structures pointed to by members of a structure returned are also returned following the base structure. Therefore, the size contained in <i>pcbData</i> often exceeds the size of the base structure.
      * 
      * This parameter can be <b>NULL</b> to set the size of the information for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -34438,7 +34545,7 @@ class Cryptography {
     static CertGetCertificateContextProperty(pCertContext, dwPropId, pvData, pcbData) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertGetCertificateContextProperty", "ptr", pCertContext, "uint", dwPropId, "ptr", pvData, "ptr", pcbData, "int")
+        result := DllCall("CRYPT32.dll\CertGetCertificateContextProperty", "ptr", pCertContext, "uint", dwPropId, "ptr", pvData, "uint*", pcbData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -34473,7 +34580,7 @@ class Cryptography {
      * @param {Integer} cOptAttr A <b>DWORD</b> that specifies the number of additional attributes to be added.
      * @param {Pointer<CRYPT_ATTRIBUTE>} rgOptAttr A pointer to any array of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_attribute">CRYPT_ATTRIBUTE</a> attributes to be added to the CTL.
      * @param {Integer} dwFlags A <b>DWORD</b>. Can be set to CTL_ENTRY_FROM_PROP_CHAIN_FLAG to force the inclusion of the chain building hash properties as attributes.
-     * @param {Pointer<CTL_ENTRY>} pCtlEntry Address of a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_entry">CTL_ENTRY</a> structure. Call this function twice to retrieve a CTL entry. Set this parameter to <b>NULL</b> on the first call. When the function returns, use the number of bytes retrieved from the <i>pcbCtlEntry</i> parameter to allocate memory. Call the function again, setting this parameter to the address of the allocated memory.
+     * @param {Pointer} pCtlEntry Address of a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_entry">CTL_ENTRY</a> structure. Call this function twice to retrieve a CTL entry. Set this parameter to <b>NULL</b> on the first call. When the function returns, use the number of bytes retrieved from the <i>pcbCtlEntry</i> parameter to allocate memory. Call the function again, setting this parameter to the address of the allocated memory.
      * @param {Pointer<UInt32>} pcbCtlEntry Pointer to a <b>DWORD</b> that contains the number of bytes that must be allocated for the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_entry">CTL_ENTRY</a> structure.  Call this function twice to retrieve the number of bytes. For the first call, set this parameter to the address of a <b>DWORD</b> value that contains zero and set the <i>pCtlEntry</i> parameter to <b>NULL</b>. If the first call succeeds, the <b>DWORD</b> value will contain the number of bytes that you must allocate for the <b>CTL_ENTRY</b> structure. Allocate the required memory and call the function again, supplying the address of the memory in the <i>pCtlEntry</i> parameter.
      * @returns {Integer} If the function succeeds, the function returns nonzero (<b>TRUE</b>).
      * 
@@ -34487,7 +34594,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertCreateCTLEntryFromCertificateContextProperties", "ptr", pCertContext, "uint", cOptAttr, "ptr", rgOptAttr, "uint", dwFlags, "ptr", pvReserved, "ptr", pCtlEntry, "ptr", pcbCtlEntry, "int")
+        result := DllCall("CRYPT32.dll\CertCreateCTLEntryFromCertificateContextProperties", "ptr", pCertContext, "uint", cOptAttr, "ptr", rgOptAttr, "uint", dwFlags, "ptr", pvReserved, "ptr", pCtlEntry, "uint*", pcbCtlEntry, "int")
         if(A_LastError)
             throw OSError()
 
@@ -34522,7 +34629,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecrlcontext">CertDuplicateCRLContext</a> can be called to make a duplicate CRL.
      * 
      * The hexadecimal values of the flags can be combined using a bitwise-<b>OR</b> operation to enable both verifications. For example, to enable both verifications, the <b>DWORD</b> value pointed to by <i>pdwFlags</i> is set to value CERT_STORE_SIGNATURE_FLAG | CERT_STORE_TIME_VALIDITY_FLAG. If the CERT_STORE_SIGNATURE_FLAG verification succeeded, but CERT_STORE_TIME_VALIDITY_FLAG verification failed, the <b>DWORD</b> value pointed to by <i>pdwFlags</i> is set to CERT_STORE_TIME_VALIDITY_FLAG when the function returns.
-     * @param {Pointer<HCERTSTORE>} hCertStore Handle of a certificate store.
+     * @param {Pointer<Void>} hCertStore Handle of a certificate store.
      * @param {Pointer<CERT_CONTEXT>} pIssuerContext A pointer to an issuer 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a>. The <i>pIssuerContext</i> pointer can come from this store or another store, or could have been created by the calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certcreatecertificatecontext">CertCreateCertificateContext</a>. If <b>NULL</b> is passed for this parameter, all the CRLs in the store are found.
@@ -34637,7 +34744,7 @@ class Cryptography {
     static CertGetCRLFromStore(hCertStore, pIssuerContext, pPrevCrlContext, pdwFlags) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertGetCRLFromStore", "ptr", hCertStore, "ptr", pIssuerContext, "ptr", pPrevCrlContext, "ptr", pdwFlags, "ptr")
+        result := DllCall("CRYPT32.dll\CertGetCRLFromStore", "ptr", hCertStore, "ptr", pIssuerContext, "ptr", pPrevCrlContext, "uint*", pdwFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -34652,7 +34759,7 @@ class Cryptography {
      * 
      * A duplicate of the CRL <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">context</a> returned by this function can be made by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecrlcontext">CertDuplicateCRLContext</a>.
-     * @param {Pointer<HCERTSTORE>} hCertStore Handle of a certificate store.
+     * @param {Pointer<Void>} hCertStore Handle of a certificate store.
      * @param {Pointer<CRL_CONTEXT>} pPrevCrlContext A pointer to the previous 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crl_context">CRL_CONTEXT</a> structure found. The <i>pPrevCrlContext</i> parameter must be <b>NULL</b> to get the first CRL in the store. Successive CRLs are enumerated by setting <i>pPrevCrlContext</i> to the pointer returned by a previous call to the function.  This function frees the <b>CRL_CONTEXT</b> referenced by non-<b>NULL</b> values of this parameter. The enumeration skips any CRLs previously deleted by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certdeletecrlfromstore">CertDeleteCRLFromStore</a>.
@@ -34713,7 +34820,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecrlcontext">CertDuplicateCRLContext</a> can be called to make a duplicate of the returned context. The returned CRL context can be added to a different certificate store by using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certaddcrlcontexttostore">CertAddCRLContextToStore</a>, or a link to that CRL context can be added to a noncollection store by using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certaddcrllinktostore">CertAddCRLLinkToStore</a>.
-     * @param {Pointer<HCERTSTORE>} hCertStore A handle of the certificate store to be searched.
+     * @param {Pointer<Void>} hCertStore A handle of the certificate store to be searched.
      * @param {Integer} dwCertEncodingType This parameter is not currently used. It must be set to zero.
      * @param {Integer} dwFindFlags If <i>dwFindType</i> is CRL_FIND_ISSUED_BY, by default, only issuer name matching is done. The following flags can be used to do additional filtering.
      * 
@@ -34925,7 +35032,7 @@ class Cryptography {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @param {Pointer<Byte>} pbCrlEncoded A pointer to a buffer containing the encoded <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">CRL</a> from which the context is to be created.
+     * @param {Pointer} pbCrlEncoded A pointer to a buffer containing the encoded <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">CRL</a> from which the context is to be created.
      * @param {Integer} cbCrlEncoded The size, in bytes, of the <i>pbCrlEncoded</i> buffer.
      * @returns {Pointer<CRL_CONTEXT>} If the function succeeds, the return value is a pointer to a read-only 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crl_context">CRL_CONTEXT</a>.
@@ -35748,7 +35855,7 @@ class Cryptography {
      * 
      * For more information about each property identifier, see the documentation on the <i>dwPropId</i> parameter in 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certsetcertificatecontextproperty">CertSetCertificateContextProperty</a>.
-     * @param {Pointer<Void>} pvData A pointer to a buffer to receive the data as determined by <i>dwPropId</i>. Structures pointed to by members of a structure returned are also returned following the base structure. Therefore, the size contained in <i>pcbData</i> often exceed the size of the base structure. 
+     * @param {Pointer} pvData A pointer to a buffer to receive the data as determined by <i>dwPropId</i>. Structures pointed to by members of a structure returned are also returned following the base structure. Therefore, the size contained in <i>pcbData</i> often exceed the size of the base structure. 
      * 
      * 
      * 
@@ -35804,7 +35911,7 @@ class Cryptography {
     static CertGetCRLContextProperty(pCrlContext, dwPropId, pvData, pcbData) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertGetCRLContextProperty", "ptr", pCrlContext, "uint", dwPropId, "ptr", pvData, "ptr", pcbData, "int")
+        result := DllCall("CRYPT32.dll\CertGetCRLContextProperty", "ptr", pCrlContext, "uint", dwPropId, "ptr", pvData, "uint*", pcbData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -35870,7 +35977,7 @@ class Cryptography {
 
     /**
      * Creates a certificate context from an encoded certificate and adds it to the certificate store.
-     * @param {Pointer<HCERTSTORE>} hCertStore A handle to the certificate store.
+     * @param {Pointer<Void>} hCertStore A handle to the certificate store.
      * @param {Integer} dwCertEncodingType Specifies the type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
@@ -35879,7 +35986,7 @@ class Cryptography {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @param {Pointer<Byte>} pbCertEncoded A pointer to a buffer containing the encoded certificate that is to be added to the certificate store.
+     * @param {Pointer} pbCertEncoded A pointer to a buffer containing the encoded certificate that is to be added to the certificate store.
      * @param {Integer} cbCertEncoded The size, in bytes, of the <i>pbCertEncoded</i> buffer.
      * @param {Integer} dwAddDisposition Specifies the action to take if a matching certificate or link to a matching certificate exists in the store. Currently defined disposition values and their uses are as follows.
      * 
@@ -36006,7 +36113,7 @@ class Cryptography {
      * <div class="alert"><b>Note</b>  The order of the certificate context may not be preserved within the store. 
      * To access a specific certificate you must iterate across the certificates in the store.</div>
      * <div> </div>
-     * @param {Pointer<HCERTSTORE>} hCertStore Handle of a certificate store.
+     * @param {Pointer<Void>} hCertStore Handle of a certificate store.
      * @param {Pointer<CERT_CONTEXT>} pCertContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure to be added to the store.
      * @param {Integer} dwAddDisposition Specifies the action to take if a matching certificate or a link to a matching certificate already exists in the store. Currently defined disposition values and their uses are as follows. 
@@ -36174,8 +36281,8 @@ class Cryptography {
 
     /**
      * Adds a serialized certificate, certificate revocation list (CRL), or certificate trust list (CTL) element to the store.
-     * @param {Pointer<HCERTSTORE>} hCertStore The handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> where the created certificate will be stored. If <i>hCertStore</i> is <b>NULL</b>, the function creates a copy of a certificate, CRL, or CTL context with its extended properties, but the certificate, CRL, or CTL is not persisted in any store.
-     * @param {Pointer<Byte>} pbElement A pointer to a buffer that contains the certificate, CRL, or CTL information to be serialized and added to the certificate store.
+     * @param {Pointer<Void>} hCertStore The handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> where the created certificate will be stored. If <i>hCertStore</i> is <b>NULL</b>, the function creates a copy of a certificate, CRL, or CTL context with its extended properties, but the certificate, CRL, or CTL is not persisted in any store.
+     * @param {Pointer} pbElement A pointer to a buffer that contains the certificate, CRL, or CTL information to be serialized and added to the certificate store.
      * @param {Integer} cbElement The size, in bytes, of the <i>pbElement</i> buffer.
      * @param {Integer} dwAddDisposition Specifies the action to take if the certificate, CRL, or CTL already exists in the store. Currently defined disposition values are shown in the following table.
      * 
@@ -36404,7 +36511,7 @@ class Cryptography {
     static CertAddSerializedElementToStore(hCertStore, pbElement, cbElement, dwAddDisposition, dwFlags, dwContextTypeFlags, pdwContextType, ppvContext) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertAddSerializedElementToStore", "ptr", hCertStore, "ptr", pbElement, "uint", cbElement, "uint", dwAddDisposition, "uint", dwFlags, "uint", dwContextTypeFlags, "ptr", pdwContextType, "ptr", ppvContext, "int")
+        result := DllCall("CRYPT32.dll\CertAddSerializedElementToStore", "ptr", hCertStore, "ptr", pbElement, "uint", cbElement, "uint", dwAddDisposition, "uint", dwFlags, "uint", dwContextTypeFlags, "uint*", pdwContextType, "ptr", ppvContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -36457,7 +36564,7 @@ class Cryptography {
 
     /**
      * Creates a certificate revocation list (CRL) context from an encoded CRL and adds it to the certificate store.
-     * @param {Pointer<HCERTSTORE>} hCertStore Handle of a certificate store.
+     * @param {Pointer<Void>} hCertStore Handle of a certificate store.
      * @param {Integer} dwCertEncodingType Specifies the type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
@@ -36466,7 +36573,7 @@ class Cryptography {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @param {Pointer<Byte>} pbCrlEncoded A pointer to a buffer containing the encoded CRL to be added to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
+     * @param {Pointer} pbCrlEncoded A pointer to a buffer containing the encoded CRL to be added to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
      * @param {Integer} cbCrlEncoded The size, in bytes, of the <i>pbCrlEncoded</i> buffer.
      * @param {Integer} dwAddDisposition Specifies the action to take if a matching CRL or a link to a matching CRL already exists in the store. Currently defined disposition values and their uses are as follows.
      * 
@@ -36615,7 +36722,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecrlcontext">CertDuplicateCRLContext</a>. Instead, a new copy is created and added to the store. In addition to copying the encoded CRL, the function copies the context's properties.
      * 
      * To remove the CRL context from the certificate store, use the  <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certdeletecrlfromstore">CertDeleteCRLFromStore</a> function.
-     * @param {Pointer<HCERTSTORE>} hCertStore Handle of a certificate store.
+     * @param {Pointer<Void>} hCertStore Handle of a certificate store.
      * @param {Pointer<CRL_CONTEXT>} pCrlContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crl_context">CRL_CONTEXT</a> structure to be added.
      * @param {Integer} dwAddDisposition Specifies the action to take if a matching CRL or a link to a matching CRL already exists in the store. Currently defined disposition values and their uses are as follows.
@@ -36806,7 +36913,7 @@ class Cryptography {
      * @param {Pointer<CERT_CONTEXT>} pCertContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> to be serialized.
      * @param {Integer} dwFlags Reserved for future use and must be zero.
-     * @param {Pointer<Byte>} pbElement A pointer to a buffer that receives the serialized output, including the encoded certificate and possibly its properties. 
+     * @param {Pointer} pbElement A pointer to a buffer that receives the serialized output, including the encoded certificate and possibly its properties. 
      * 
      * 
      * 
@@ -36830,7 +36937,7 @@ class Cryptography {
     static CertSerializeCertificateStoreElement(pCertContext, dwFlags, pbElement, pcbElement) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertSerializeCertificateStoreElement", "ptr", pCertContext, "uint", dwFlags, "ptr", pbElement, "ptr", pcbElement, "int")
+        result := DllCall("CRYPT32.dll\CertSerializeCertificateStoreElement", "ptr", pCertContext, "uint", dwFlags, "ptr", pbElement, "uint*", pcbElement, "int")
         if(A_LastError)
             throw OSError()
 
@@ -36842,7 +36949,7 @@ class Cryptography {
      * @param {Pointer<CRL_CONTEXT>} pCrlContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crl_context">CRL_CONTEXT</a> structure being serialized.
      * @param {Integer} dwFlags Reserved for future use and must be zero.
-     * @param {Pointer<Byte>} pbElement A pointer to a buffer to receive the serialized output, including the encoded CRL, and possibly its properties. 
+     * @param {Pointer} pbElement A pointer to a buffer to receive the serialized output, including the encoded CRL, and possibly its properties. 
      * 
      * 
      * 
@@ -36866,7 +36973,7 @@ class Cryptography {
     static CertSerializeCRLStoreElement(pCrlContext, dwFlags, pbElement, pcbElement) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertSerializeCRLStoreElement", "ptr", pCrlContext, "uint", dwFlags, "ptr", pbElement, "ptr", pcbElement, "int")
+        result := DllCall("CRYPT32.dll\CertSerializeCRLStoreElement", "ptr", pCrlContext, "uint", dwFlags, "ptr", pbElement, "uint*", pcbElement, "int")
         if(A_LastError)
             throw OSError()
 
@@ -36903,7 +37010,7 @@ class Cryptography {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @param {Pointer<Byte>} pbCtlEncoded A pointer to a buffer containing the encoded CTL from which the context is to be created.
+     * @param {Pointer} pbCtlEncoded A pointer to a buffer containing the encoded CTL from which the context is to be created.
      * @param {Integer} cbCtlEncoded The size, in bytes, of the <i>pbCtlEncoded</i> buffer.
      * @returns {Pointer<CTL_CONTEXT>} If the function succeeds, the return value is a pointer to a read-only 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_context">CTL_CONTEXT</a>.
@@ -37517,7 +37624,7 @@ class Cryptography {
      * 
      * For more information about each property identifier, see the documentation on the <i>dwPropId</i> parameter in 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certsetcertificatecontextproperty">CertSetCertificateContextProperty</a>. CERT_SHA1_HASH_PROP_ID and CERT_NEXT_UPDATE_LOCATION_PROP_ID are the predefined properties of most interest.
-     * @param {Pointer<Void>} pvData A pointer to a buffer to receive the data as determined by <i>dwPropId</i>. Structures pointed to by members of a structure returned are also returned following the base structure. Therefore, the size contained in <i>pcbData</i> often exceed the size of the base structure. 
+     * @param {Pointer} pvData A pointer to a buffer to receive the data as determined by <i>dwPropId</i>. Structures pointed to by members of a structure returned are also returned following the base structure. Therefore, the size contained in <i>pcbData</i> often exceed the size of the base structure. 
      * 
      * 
      * 
@@ -37576,7 +37683,7 @@ class Cryptography {
     static CertGetCTLContextProperty(pCtlContext, dwPropId, pvData, pcbData) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertGetCTLContextProperty", "ptr", pCtlContext, "uint", dwPropId, "ptr", pvData, "ptr", pcbData, "int")
+        result := DllCall("CRYPT32.dll\CertGetCTLContextProperty", "ptr", pCtlContext, "uint", dwPropId, "ptr", pvData, "uint*", pcbData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -37611,7 +37718,7 @@ class Cryptography {
      * 
      * A duplicate can be made by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatectlcontext">CertDuplicateCTLContext</a>.
-     * @param {Pointer<HCERTSTORE>} hCertStore Handle of a certificate store.
+     * @param {Pointer<Void>} hCertStore Handle of a certificate store.
      * @param {Pointer<CTL_CONTEXT>} pPrevCtlContext A pointer to the previous 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_context">CTL_CONTEXT</a> structure found. It must be <b>NULL</b> to get the first CTL in the store. Successive CTLs are enumerated by setting <i>pPrevCtlContext</i> to the pointer returned by a previous call. This function frees the <b>CTL_CONTEXT</b> referenced by non-<b>NULL</b> values of this parameter. The enumeration skips any CTLs previously deleted by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certdeletectlfromstore">CertDeleteCTLFromStore</a>.
@@ -37781,7 +37888,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatectlcontext">CertDuplicateCTLContext</a> can be called to make a duplicate of the returned context. The returned CTL context can be added to a different certificate store using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certaddctlcontexttostore">CertAddCTLContextToStore</a>, or a link to that CTL context can be added to a noncollection store using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certaddctllinktostore">CertAddCTLLinkToStore</a>. If a CTL matching the search criteria is not found, <b>NULL</b> is returned.
-     * @param {Pointer<HCERTSTORE>} hCertStore Handle of the certificate store to be searched.
+     * @param {Pointer<Void>} hCertStore Handle of the certificate store to be searched.
      * @param {Integer} dwMsgAndCertEncodingType Specifies the type of encoding used on the CTL. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
@@ -37847,7 +37954,7 @@ class Cryptography {
 
     /**
      * Creates a certificate trust list (CTL) context from an encoded CTL and adds it to the certificate store.
-     * @param {Pointer<HCERTSTORE>} hCertStore Handle of a certificate store.
+     * @param {Pointer<Void>} hCertStore Handle of a certificate store.
      * @param {Integer} dwMsgAndCertEncodingType Specifies the type of encoding used. Both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> must be specified by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING
@@ -37856,7 +37963,7 @@ class Cryptography {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @param {Pointer<Byte>} pbCtlEncoded A pointer to a buffer containing the encoded CTL to be added to the certificate store.
+     * @param {Pointer} pbCtlEncoded A pointer to a buffer containing the encoded CTL to be added to the certificate store.
      * @param {Integer} cbCtlEncoded The size, in bytes, of the <i>pbCtlEncoded</i> buffer.
      * @param {Integer} dwAddDisposition Specifies the action to take if a matching CTL or a link to a matching CTL already exists in the store. Currently defined disposition values and their uses are as follows 
      * 
@@ -38017,7 +38124,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatectlcontext">CertDuplicateCTLContext</a>. Instead, a new copy is created and added to the store. In addition to the encoded CTL, the context's properties are copied.
      * 
      * To remove the CTL context from the certificate store, use the  <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certdeletectlfromstore">CertDeleteCTLFromStore</a> function.
-     * @param {Pointer<HCERTSTORE>} hCertStore Handle of a certificate store.
+     * @param {Pointer<Void>} hCertStore Handle of a certificate store.
      * @param {Pointer<CTL_CONTEXT>} pCtlContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_context">CTL_CONTEXT</a> structure to be added to the store.
      * @param {Integer} dwAddDisposition Specifies the action to take if a matching CTL or a link to a matching CTL already exists in the store. Currently defined disposition values and their uses are as follows.
@@ -38161,7 +38268,7 @@ class Cryptography {
      * @param {Pointer<CTL_CONTEXT>} pCtlContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_context">CTL_CONTEXT</a> structure being serialized.
      * @param {Integer} dwFlags Reserved for future use and must be zero.
-     * @param {Pointer<Byte>} pbElement A pointer to a buffer that receives the serialized output, including the encoded CTL and, possibly, its properties. 
+     * @param {Pointer} pbElement A pointer to a buffer that receives the serialized output, including the encoded CTL and, possibly, its properties. 
      * 
      * 
      * 
@@ -38185,7 +38292,7 @@ class Cryptography {
     static CertSerializeCTLStoreElement(pCtlContext, dwFlags, pbElement, pcbElement) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertSerializeCTLStoreElement", "ptr", pCtlContext, "uint", dwFlags, "ptr", pbElement, "ptr", pcbElement, "int")
+        result := DllCall("CRYPT32.dll\CertSerializeCTLStoreElement", "ptr", pCtlContext, "uint", dwFlags, "ptr", pbElement, "uint*", pcbElement, "int")
         if(A_LastError)
             throw OSError()
 
@@ -38250,7 +38357,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certclosestore">CertCloseStore</a> is called with CERT_CLOSE_STORE_FORCE_FLAG, the store that uses links must be closed before the store that contains the original contexts is closed. If CERT_CLOSE_STORE_FORCE_FLAG is not used, the two stores can be closed in either order.
      * 
      * To remove the certificate context link from the certificate store, use the  <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certdeletecertificatefromstore">CertDeleteCertificateFromStore</a> function.
-     * @param {Pointer<HCERTSTORE>} hCertStore A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> where the link is to be added.
+     * @param {Pointer<Void>} hCertStore A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> where the link is to be added.
      * @param {Pointer<CERT_CONTEXT>} pCertContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure to be linked.
      * @param {Integer} dwAddDisposition Specifies the action if a matching certificate or a link to a matching certificate already exists in the store. Currently defined disposition values and their uses are as follows. 
@@ -38369,7 +38476,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certclosestore">CertCloseStore</a> is called with CERT_CLOSE_STORE_FORCE_FLAG, the store using links must be closed before the store containing the original contexts can be closed. If CERT_CLOSE_STORE_FORCE_FLAG is not used, the two stores can be closed in either order.
      * 
      * To remove the CRL context link from the certificate store, use the  <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certdeletecrlfromstore">CertDeleteCRLFromStore</a> function.
-     * @param {Pointer<HCERTSTORE>} hCertStore Handle of a certificate store where the link is to be added.
+     * @param {Pointer<Void>} hCertStore Handle of a certificate store where the link is to be added.
      * @param {Pointer<CRL_CONTEXT>} pCrlContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crl_context">CRL_CONTEXT</a> structure to be linked.
      * @param {Integer} dwAddDisposition Specifies the action to take if a matching CRL or a link to a matching CRL exists in the store. Currently defined disposition values and their uses are as follows.
@@ -38499,7 +38606,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certclosestore">CertCloseStore</a> is called with CERT_CLOSE_STORE_FORCE_FLAG, the store using links must be closed before the store containing the original contexts is closed. If CERT_CLOSE_STORE_FORCE_FLAG is not used, the two stores can be closed in either order.
      * 
      * To remove the CTL context link from the certificate store, use the  <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certdeletectlfromstore">CertDeleteCTLFromStore</a> function.
-     * @param {Pointer<HCERTSTORE>} hCertStore Handle of the certificate store where the link is to be added.
+     * @param {Pointer<Void>} hCertStore Handle of the certificate store where the link is to be added.
      * @param {Pointer<CTL_CONTEXT>} pCtlContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_context">CTL_CONTEXT</a> structure to be linked.
      * @param {Integer} dwAddDisposition Specifies the action to take if a matching CTL or a link to a matching CTL already exists in the store. Currently defined disposition values and their uses are as follows.
@@ -38647,8 +38754,8 @@ class Cryptography {
      * 
      * When a collection store and its sibling stores are closed with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certclosestore">CertCloseStore</a> using CERT_CLOSE_STORE_FORCE_FLAG, the collection store must be closed before its sibling stores. If CERT_CLOSE_STORE_FORCE_FLAG is not used, the stores can be closed in any order.
-     * @param {Pointer<HCERTSTORE>} hCollectionStore Handle of a certificate store.
-     * @param {Pointer<HCERTSTORE>} hSiblingStore Handle of a sibling store to be added to the collection store. For more information, see  Remarks.
+     * @param {Pointer<Void>} hCollectionStore Handle of a certificate store.
+     * @param {Pointer<Void>} hSiblingStore Handle of a sibling store to be added to the collection store. For more information, see  Remarks.
      * @param {Integer} dwUpdateFlags Indicates whether <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificates</a>, CRLs, and CTLs can be added to the new sibling store member of the collection store. To enable addition, set <i>dwUpdateFlag</i> to CERT_PHYSICAL_STORE_ADD_ENABLE_FLAG.   To disable additions, set <i>dwUpdateFlag</i> to zero.
      * @param {Integer} dwPriority Sets a priority level of the new store in the collection, with zero being the lowest priority. If zero is passed for this parameter, the specified store is appended as the last store in the collection. The priority levels of the stores in a collection determine the order in which the stores are enumerated, and the search order of the stores when attempting to retrieve a certificate, CRL, or CTL. Priority levels also determine to which store of a collection a new certificate, CRL, or CTL is added. For more information, see  Remarks.
      * @returns {Integer} If the function succeeds, the function returns nonzero and a new store is added to the collection of stores.
@@ -38664,14 +38771,15 @@ class Cryptography {
 
     /**
      * Removes a sibling certificate store from a collection store.
-     * @param {Pointer<HCERTSTORE>} hCollectionStore A handle of the collection certificate store.
-     * @param {Pointer<HCERTSTORE>} hSiblingStore Handle of the sibling certificate store to be removed from the collection store.
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Void>} hCollectionStore A handle of the collection certificate store.
+     * @param {Pointer<Void>} hSiblingStore Handle of the sibling certificate store to be removed from the collection store.
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certremovestorefromcollection
      * @since windows5.1.2600
      */
     static CertRemoveStoreFromCollection(hCollectionStore, hSiblingStore) {
-        DllCall("CRYPT32.dll\CertRemoveStoreFromCollection", "ptr", hCollectionStore, "ptr", hSiblingStore)
+        result := DllCall("CRYPT32.dll\CertRemoveStoreFromCollection", "ptr", hCollectionStore, "ptr", hSiblingStore)
+        return result
     }
 
     /**
@@ -38682,7 +38790,7 @@ class Cryptography {
      * CERT_STORE_CTRL_NOTIFY_CHANGE is supported on registry-based store providers by using the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regnotifychangekeyvalue">RegNotifyChangeKeyValue</a> function.
      * 
      * <b>CertControlStore</b> using CERT_STORE_CTRL_NOTIFY_CHANGE is called once for each event handle to be passed with CERT_STORE_CTRL_RESYNC. These calls using CERT_STORE_CTRL_NOTIFY_CHANGE must be made after each event is created and not after an event has been signaled.
-     * @param {Pointer<HCERTSTORE>} hCertStore Handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
+     * @param {Pointer<Void>} hCertStore Handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
      * @param {Integer} dwFlags 
      * @param {Integer} dwCtrlType Control action to be taken by <b>CertControlStore</b>. The interpretations of <i>pvCtrlPara</i> and <i>dwFlags</i> depend on the value of <i>dwCtrlType</i>. Currently, the following  actions are defined.
      * 
@@ -38782,7 +38890,7 @@ class Cryptography {
      * The CertSetStoreProperty function sets a store property.
      * @remarks
      * Store property identifiers are properties applicable to an entire store. They are not properties for an individual <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate</a>, <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">CRL</a>, or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">CTL</a> context. Currently, no store properties are persisted.
-     * @param {Pointer<HCERTSTORE>} hCertStore Handle for the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
+     * @param {Pointer<Void>} hCertStore Handle for the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
      * @param {Integer} dwPropId Indicates one of a range of store properties. Values for user-defined properties must be outside the current range of predefined context property values. Currently, user-defined <i>dwPropId</i> values begin at 4,096. There is one predefined store property, CERT_STORE_LOCALIZED_NAME_PROP_ID, the localized name of the store.
      * @param {Integer} dwFlags Reserved for future use and must be zero.
      * @param {Pointer<Void>} pvData The type definition for <i>pvData</i> depends on the <i>dwPropId</i> value. If <i>dwPropId</i> is CERT_STORE_LOCALIZED_NAME_PROP_ID, <i>pvData</i> points to a 
@@ -38813,11 +38921,11 @@ class Cryptography {
      * Store property identifiers are properties applicable to an entire store. They are not properties on an individual <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate</a>, <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate revocation list</a> (CRL), or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate trust list</a> (CTL) context. Currently, no store properties are persisted.
      * 
      * To find the localized name of a store, you can also use the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptfindlocalizedname">CryptFindLocalizedName</a> function.
-     * @param {Pointer<HCERTSTORE>} hCertStore A handle of an open <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
+     * @param {Pointer<Void>} hCertStore A handle of an open <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
      * @param {Integer} dwPropId Indicates one of a range of store properties. There is one predefined store property, CERT_STORE_LOCALIZED_NAME_PROP_ID, the localized name of the store.
      * 
      * User defined properties must be outside the current range of values for predefined context properties. Currently, user defined <i>dwPropId</i> values begin at 4,096.
-     * @param {Pointer<Void>} pvData A pointer to a buffer that receives the data as determined by <i>dwPropId</i>. For CERT_STORE_LOCALIZED_NAME_PROP_ID, this is the localized name of the store, and <i>pvData</i> points to a null-terminated Unicode wide-character string. For other <i>dwPropId</i>s, <i>pvData</i> points to an array of bytes.
+     * @param {Pointer} pvData A pointer to a buffer that receives the data as determined by <i>dwPropId</i>. For CERT_STORE_LOCALIZED_NAME_PROP_ID, this is the localized name of the store, and <i>pvData</i> points to a null-terminated Unicode wide-character string. For other <i>dwPropId</i>s, <i>pvData</i> points to an array of bytes.
      * 
      * This parameter can be <b>NULL</b> to set the size of this information for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -38834,7 +38942,7 @@ class Cryptography {
     static CertGetStoreProperty(hCertStore, dwPropId, pvData, pcbData) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertGetStoreProperty", "ptr", hCertStore, "uint", dwPropId, "ptr", pvData, "ptr", pcbData, "int")
+        result := DllCall("CRYPT32.dll\CertGetStoreProperty", "ptr", hCertStore, "uint", dwPropId, "ptr", pvData, "uint*", pcbData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -38888,7 +38996,7 @@ class Cryptography {
      * 
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING.
-     * @param {Pointer<Byte>} pbEncoded A pointer to a buffer that contains the existing encoded context content to be copied.
+     * @param {Pointer} pbEncoded A pointer to a buffer that contains the existing encoded context content to be copied.
      * @param {Integer} cbEncoded The size, in bytes, of the <i>pbEncoded</i> buffer.
      * @param {Integer} dwFlags The following flag values are defined and can be combined by using a bitwise-<b>OR</b> operation.
      * 
@@ -38951,17 +39059,24 @@ class Cryptography {
      * If <i>pCreatePara</i> and its <b>pfnFree</b> member are both non-<b>NULL</b>, the <b>pfnFree</b> member is used to free the memory specified by the <b>pvFree</b> member. If the <b>pvFree</b> member is <b>NULL</b>, the <b>pfnFree</b> member is used to free the <i>pbEncoded</i> pointer.
      * 
      * If <i>pCreatePara</i> or its <b>pfnFree</b> member is <b>NULL</b>, no attempt is made to free <i>pbEncoded</i>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} If the function succeeds, the return value is a pointer to the newly created context. The <b>pvFree</b> member of <i>pCreatePara</i> must be called to free the created context.
+     * 						
+     * 
+     * If the function fails, the return value is <b>NULL</b>. For extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * 
+     * If <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_CANCELLED</b>, this means that the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_cert_create_context_sort_func">PFN_CERT_CREATE_CONTEXT_SORT_FUNC</a> callback function returned <b>FALSE</b> to stop the sort.
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certcreatecontext
      * @since windows5.1.2600
      */
     static CertCreateContext(dwContextType, dwEncodingType, pbEncoded, cbEncoded, dwFlags, pCreatePara) {
         A_LastError := 0
 
-        DllCall("CRYPT32.dll\CertCreateContext", "uint", dwContextType, "uint", dwEncodingType, "ptr", pbEncoded, "uint", cbEncoded, "uint", dwFlags, "ptr", pCreatePara)
+        result := DllCall("CRYPT32.dll\CertCreateContext", "uint", dwContextType, "uint", dwEncodingType, "ptr", pbEncoded, "uint", cbEncoded, "uint", dwFlags, "ptr", pCreatePara)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -39104,7 +39219,7 @@ class Cryptography {
     static CertRegisterSystemStore(pvSystemStore, dwFlags, pStoreInfo) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("CRYPT32.dll\CertRegisterSystemStore", "ptr", pvSystemStore, "uint", dwFlags, "ptr", pStoreInfo, "ptr", pvReserved, "int")
+        result := DllCall("CRYPT32.dll\CertRegisterSystemStore", "ptr", pvSystemStore, "uint", dwFlags, "uint*", pStoreInfo, "ptr", pvReserved, "int")
         return result
     }
 
@@ -39148,7 +39263,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PWSTR>} pwszStoreName A pointer to a Unicode string that names the physical store to be added to the system store collection. To remove a physical store from the system store collection, call the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certunregisterphysicalstore">CertUnregisterPhysicalStore</a> function.
+     * @param {Pointer<Char>} pwszStoreName A pointer to a Unicode string that names the physical store to be added to the system store collection. To remove a physical store from the system store collection, call the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certunregisterphysicalstore">CertUnregisterPhysicalStore</a> function.
      * @param {Pointer<CERT_PHYSICAL_STORE_INFO>} pStoreInfo A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_physical_store_info">CERT_PHYSICAL_STORE_INFO</a> structure that provides basic information about the physical store.
      * @returns {Integer} If the function succeeds, the function returns nonzero.
@@ -39262,7 +39377,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PWSTR>} pwszStoreName Null-terminated Unicode string that contains the name of the physical store.
+     * @param {Pointer<Char>} pwszStoreName Null-terminated Unicode string that contains the name of the physical store.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>.
@@ -39430,7 +39545,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<CTL_USAGE>} pUsage A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_usage">CERT_ENHKEY_USAGE</a> structure (<b>CERT_ENHKEY_USAGE</b> is an alternate typedef name for the <b>CTL_USAGE</b> structure) that receives the valid uses of the certificate. 
+     * @param {Pointer} pUsage A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_usage">CERT_ENHKEY_USAGE</a> structure (<b>CERT_ENHKEY_USAGE</b> is an alternate typedef name for the <b>CTL_USAGE</b> structure) that receives the valid uses of the certificate. 
      * 
      * 
      * 
@@ -39447,7 +39562,7 @@ class Cryptography {
     static CertGetEnhancedKeyUsage(pCertContext, dwFlags, pUsage, pcbUsage) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertGetEnhancedKeyUsage", "ptr", pCertContext, "uint", dwFlags, "ptr", pUsage, "ptr", pcbUsage, "int")
+        result := DllCall("CRYPT32.dll\CertGetEnhancedKeyUsage", "ptr", pCertContext, "uint", dwFlags, "ptr", pUsage, "uint*", pcbUsage, "int")
         if(A_LastError)
             throw OSError()
 
@@ -39481,7 +39596,7 @@ class Cryptography {
      * The CertAddEnhancedKeyUsageIdentifier function adds a usage identifier object identifier (OID) to the enhanced key usage (EKU) extended property of the certificate.
      * @param {Pointer<CERT_CONTEXT>} pCertContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> of the certificate for which the usage identifier is to be added.
-     * @param {Pointer<PSTR>} pszUsageIdentifier Specifies the usage identifier OID to add.
+     * @param {Pointer<Byte>} pszUsageIdentifier Specifies the usage identifier OID to add.
      * @returns {Integer} If the function succeeds, the function returns nonzero (<b>TRUE</b>).
      * 
      * If the function fails, it returns zero (<b>FALSE</b>). For extended error information, call 
@@ -39505,7 +39620,7 @@ class Cryptography {
      * The CertRemoveEnhancedKeyUsageIdentifier function removes a usage identifier object identifier (OID) from the enhanced key usage (EKU) extended property of the certificate.
      * @param {Pointer<CERT_CONTEXT>} pCertContext A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> of the certificate for which the usage identifier OID is to be removed.
-     * @param {Pointer<PSTR>} pszUsageIdentifier A pointer to the usage identifier OID to remove.
+     * @param {Pointer<Byte>} pszUsageIdentifier A pointer to the usage identifier OID to remove.
      * @returns {Integer} If the function succeeds, the function returns nonzero (<b>TRUE</b>).
      * 
      * If the function fails, it returns zero (<b>FALSE</b>). For extended error information, call 
@@ -39530,7 +39645,7 @@ class Cryptography {
      * @param {Integer} cCerts The number of certificates in the array to be checked.
      * @param {Pointer<CERT_CONTEXT>} rghCerts An array of certificates to be checked for valid usage.
      * @param {Pointer<Int32>} cNumOIDs The number of valid usages found as the intersection of the valid usages of all certificates in the array. If all of the certificates are valid for all usages, <i>cNumOIDs</i> is set to negative one (–1).
-     * @param {Pointer<PSTR>} rghOIDs An array of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifiers</a> (OIDs) of the valid usages that are shared by all of the certificates in the <i>rghCerts</i> array. This parameter can be <b>NULL</b> to set the size of this structure for memory allocation purposes. For more information, see 
+     * @param {Pointer} rghOIDs An array of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifiers</a> (OIDs) of the valid usages that are shared by all of the certificates in the <i>rghCerts</i> array. This parameter can be <b>NULL</b> to set the size of this structure for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
      * @param {Pointer<UInt32>} pcbOIDs A pointer to a <b>DWORD</b> value that specifies the size, in bytes, of the <i>rghOIDs</i> array and the strings pointed to. When the function returns, the <b>DWORD</b> value contains the number of bytes needed for the array.
      * @returns {Integer} If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. For extended error information, call 
@@ -39539,11 +39654,9 @@ class Cryptography {
      * @since windows5.1.2600
      */
     static CertGetValidUsages(cCerts, rghCerts, cNumOIDs, rghOIDs, pcbOIDs) {
-        rghOIDs := rghOIDs is String? StrPtr(rghOIDs) : rghOIDs
-
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertGetValidUsages", "uint", cCerts, "ptr", rghCerts, "ptr", cNumOIDs, "ptr", rghOIDs, "ptr", pcbOIDs, "int")
+        result := DllCall("CRYPT32.dll\CertGetValidUsages", "uint", cCerts, "ptr", rghCerts, "int*", cNumOIDs, "ptr", rghOIDs, "uint*", pcbOIDs, "int")
         if(A_LastError)
             throw OSError()
 
@@ -39554,7 +39667,7 @@ class Cryptography {
      * The CryptMsgGetAndVerifySigner function verifies a cryptographic message's signature.
      * @param {Pointer<Void>} hCryptMsg Handle of a cryptographic message.
      * @param {Integer} cSignerStore Number of stores in the <i>rghSignerStore</i> array.
-     * @param {Pointer<HCERTSTORE>} rghSignerStore Array of certificate store handles that can be searched for a signer's certificate.
+     * @param {Pointer<Void>} rghSignerStore Array of certificate store handles that can be searched for a signer's certificate.
      * @param {Integer} dwFlags Indicates particular use of the function. 
      * 
      * 
@@ -39610,7 +39723,7 @@ class Cryptography {
     static CryptMsgGetAndVerifySigner(hCryptMsg, cSignerStore, rghSignerStore, dwFlags, ppSigner, pdwSignerIndex) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptMsgGetAndVerifySigner", "ptr", hCryptMsg, "uint", cSignerStore, "ptr", rghSignerStore, "uint", dwFlags, "ptr", ppSigner, "ptr", pdwSignerIndex, "int")
+        result := DllCall("CRYPT32.dll\CryptMsgGetAndVerifySigner", "ptr", hCryptMsg, "uint", cSignerStore, "ptr", rghSignerStore, "uint", dwFlags, "ptr", ppSigner, "uint*", pdwSignerIndex, "int")
         if(A_LastError)
             throw OSError()
 
@@ -39629,7 +39742,7 @@ class Cryptography {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @param {Pointer<Byte>} pbCtlContent The encoded 
+     * @param {Pointer} pbCtlContent The encoded 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_info">CTL_INFO</a> that can be a member of a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_context">CTL_CONTEXT</a> structure or can be created using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptencodeobject">CryptEncodeObject</a> function.
@@ -39640,7 +39753,7 @@ class Cryptography {
      * 
      * The message can be encoded without signers if the <b>cbSize</b> member of the structure is set to the size of the structure and all of the other members are set to zero.
      * @param {Integer} dwFlags If CMS_PKCS7 is defined, can be set to CMSG_CMS_ENCAPSULATED_CTL_FLAG to encode a CMS compatible V3 SignedData message.
-     * @param {Pointer<Byte>} pbEncoded A pointer to a buffer to receives the encoded message.
+     * @param {Pointer} pbEncoded A pointer to a buffer to receives the encoded message.
      * 
      * This parameter can be <b>NULL</b> to get the size of this information for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -39657,7 +39770,7 @@ class Cryptography {
     static CryptMsgSignCTL(dwMsgEncodingType, pbCtlContent, cbCtlContent, pSignInfo, dwFlags, pbEncoded, pcbEncoded) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptMsgSignCTL", "uint", dwMsgEncodingType, "ptr", pbCtlContent, "uint", cbCtlContent, "ptr", pSignInfo, "uint", dwFlags, "ptr", pbEncoded, "ptr", pcbEncoded, "int")
+        result := DllCall("CRYPT32.dll\CryptMsgSignCTL", "uint", dwMsgEncodingType, "ptr", pbCtlContent, "uint", cbCtlContent, "ptr", pSignInfo, "uint", dwFlags, "ptr", pbEncoded, "uint*", pcbEncoded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -39689,7 +39802,7 @@ class Cryptography {
      * CMSG_ENCODE_HASHED_SUBJECT_IDENTIFIER_FLAG is set if CMSG_ENCODE_SORTED_CTL_FLAG is set, and the identifier for the TrustedSubjects is a hash, such as MD5 or SHA1.
      * 
      * If CMS_PKCS7 is defined, <i>dwFlags</i> can be set to CMSG_CMS_ENCAPSULATED_CTL_FLAG to encode a CMS compatible V3 SignedData message.
-     * @param {Pointer<Byte>} pbEncoded A pointer to a buffer that receives the encoded, signed message created.
+     * @param {Pointer} pbEncoded A pointer to a buffer that receives the encoded, signed message created.
      * 
      * This parameter can be <b>NULL</b> to set the size of this information for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -39706,7 +39819,7 @@ class Cryptography {
     static CryptMsgEncodeAndSignCTL(dwMsgEncodingType, pCtlInfo, pSignInfo, dwFlags, pbEncoded, pcbEncoded) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptMsgEncodeAndSignCTL", "uint", dwMsgEncodingType, "ptr", pCtlInfo, "ptr", pSignInfo, "uint", dwFlags, "ptr", pbEncoded, "ptr", pcbEncoded, "int")
+        result := DllCall("CRYPT32.dll\CryptMsgEncodeAndSignCTL", "uint", dwMsgEncodingType, "ptr", pCtlInfo, "ptr", pSignInfo, "uint", dwFlags, "ptr", pbEncoded, "uint*", pcbEncoded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -40324,7 +40437,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} pbEncoded A pointer to an encoded <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_signed_content_info">CERT_SIGNED_CONTENT_INFO</a> content on which the signature is to be verified.
+     * @param {Pointer} pbEncoded A pointer to an encoded <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_signed_content_info">CERT_SIGNED_CONTENT_INFO</a> content on which the signature is to be verified.
      * @param {Integer} cbEncoded The size, in bytes, of the encoded content in <i>pbEncoded</i>.
      * @param {Pointer<CERT_PUBLIC_KEY_INFO>} pPublicKey A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_public_key_info">CERT_PUBLIC_KEY_INFO</a> structure that contains the public key to use when verifying the signature.
@@ -40623,7 +40736,7 @@ class Cryptography {
     /**
      * Determines whether the specified hash algorithm and the public key in the signing certificate can be used to perform strong signing.
      * @param {Pointer<CERT_STRONG_SIGN_PARA>} pStrongSignPara Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_strong_sign_para">CERT_STRONG_SIGN_PARA</a> structure that contains information about supported signing and hashing algorithms.
-     * @param {Pointer<PWSTR>} pwszCNGHashAlgid Pointer to a Unicode string that contains the name of the hashing algorithm. The following algorithms are supported:
+     * @param {Pointer<Char>} pwszCNGHashAlgid Pointer to a Unicode string that contains the name of the hashing algorithm. The following algorithms are supported:
      * 
      * <ul>
      * <li>L"MD5" (BCRYPT_MD5_ALGORITHM)</li>
@@ -40706,10 +40819,10 @@ class Cryptography {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @param {Pointer<Byte>} pbEncoded Address of a buffer that contains the content to be hashed. This is the encoded form of a 
+     * @param {Pointer} pbEncoded Address of a buffer that contains the content to be hashed. This is the encoded form of a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_signed_content_info">CERT_SIGNED_CONTENT_INFO</a>.
      * @param {Integer} cbEncoded The size, in bytes, of the buffer.
-     * @param {Pointer<Byte>} pbComputedHash A pointer to a buffer to receive the computed hash.
+     * @param {Pointer} pbComputedHash A pointer to a buffer to receive the computed hash.
      * 
      * This parameter can be <b>NULL</b> to set the size of this information for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -40777,7 +40890,7 @@ class Cryptography {
     static CryptHashToBeSigned(hCryptProv, dwCertEncodingType, pbEncoded, cbEncoded, pbComputedHash, pcbComputedHash) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptHashToBeSigned", "ptr", hCryptProv, "uint", dwCertEncodingType, "ptr", pbEncoded, "uint", cbEncoded, "ptr", pbComputedHash, "ptr", pcbComputedHash, "int")
+        result := DllCall("CRYPT32.dll\CryptHashToBeSigned", "ptr", hCryptProv, "uint", dwCertEncodingType, "ptr", pbEncoded, "uint", cbEncoded, "ptr", pbComputedHash, "uint*", pcbComputedHash, "int")
         if(A_LastError)
             throw OSError()
 
@@ -40798,9 +40911,9 @@ class Cryptography {
      * 						<a href="https://docs.microsoft.com/windows/desktop/SecCrypto/alg-id">ALG_ID</a> structure that specifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hash algorithm</a> to use. If <i>Algid</i> is zero, the default hash algorithm, SHA1, is used.
      * @param {Integer} dwFlags Value to be passed to the hash API. For details, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptcreatehash">CryptCreateHash</a>.
-     * @param {Pointer<Byte>} pbEncoded Address of the encoded content to be hashed.
+     * @param {Pointer} pbEncoded Address of the encoded content to be hashed.
      * @param {Integer} cbEncoded The size, in bytes, of the encoded content.
-     * @param {Pointer<Byte>} pbComputedHash A pointer to a buffer to receive the computed hash. 
+     * @param {Pointer} pbComputedHash A pointer to a buffer to receive the computed hash. 
      * 
      * 
      * 
@@ -40830,7 +40943,7 @@ class Cryptography {
     static CryptHashCertificate(hCryptProv, Algid, dwFlags, pbEncoded, cbEncoded, pbComputedHash, pcbComputedHash) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptHashCertificate", "ptr", hCryptProv, "uint", Algid, "uint", dwFlags, "ptr", pbEncoded, "uint", cbEncoded, "ptr", pbComputedHash, "ptr", pcbComputedHash, "int")
+        result := DllCall("CRYPT32.dll\CryptHashCertificate", "ptr", hCryptProv, "uint", Algid, "uint", dwFlags, "ptr", pbEncoded, "uint", cbEncoded, "ptr", pbComputedHash, "uint*", pcbComputedHash, "int")
         if(A_LastError)
             throw OSError()
 
@@ -40839,11 +40952,11 @@ class Cryptography {
 
     /**
      * Hashes a block of data by using a CNG hash provider.
-     * @param {Pointer<PWSTR>} pwszCNGHashAlgid The address of a null-terminated Unicode string that contains the CNG hash algorithm identifier of the hash algorithm to use to hash the certificate. This can be one of the <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-algorithm-identifiers">CNG Algorithm Identifiers</a> that represents a hash algorithm or any other registered hash algorithm identifier.
+     * @param {Pointer<Char>} pwszCNGHashAlgid The address of a null-terminated Unicode string that contains the CNG hash algorithm identifier of the hash algorithm to use to hash the certificate. This can be one of the <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-algorithm-identifiers">CNG Algorithm Identifiers</a> that represents a hash algorithm or any other registered hash algorithm identifier.
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. No flags are defined for this function.
-     * @param {Pointer<Byte>} pbEncoded The address of an array of bytes to be hashed. The <i>cbEncoded</i> parameter contains the size of this array.
+     * @param {Pointer} pbEncoded The address of an array of bytes to be hashed. The <i>cbEncoded</i> parameter contains the size of this array.
      * @param {Integer} cbEncoded The number of elements in the <i>pbEncoded</i> array.
-     * @param {Pointer<Byte>} pbComputedHash The address of a buffer that receives the computed hash. The variable pointed to by the <i>pcbComputedHash</i> parameter contains the size of this buffer.
+     * @param {Pointer} pbComputedHash The address of a buffer that receives the computed hash. The variable pointed to by the <i>pcbComputedHash</i> parameter contains the size of this buffer.
      * @param {Pointer<UInt32>} pcbComputedHash The address of a <b>DWORD</b> variable that, on entry, contains the size, in bytes, of the  <i>pbComputedHash</i> buffer. After this function returns, this variable contains the number of bytes copied to the <i>pbComputedHash</i> buffer.
      * @returns {Integer} If the function succeeds, the function returns nonzero (<b>TRUE</b>).
      * 
@@ -40875,7 +40988,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptHashCertificate2", "ptr", pwszCNGHashAlgid, "uint", dwFlags, "ptr", pvReserved, "ptr", pbEncoded, "uint", cbEncoded, "ptr", pbComputedHash, "ptr", pcbComputedHash, "int")
+        result := DllCall("CRYPT32.dll\CryptHashCertificate2", "ptr", pwszCNGHashAlgid, "uint", dwFlags, "ptr", pvReserved, "ptr", pbEncoded, "uint", cbEncoded, "ptr", pbComputedHash, "uint*", pcbComputedHash, "int")
         if(A_LastError)
             throw OSError()
 
@@ -40896,7 +41009,7 @@ class Cryptography {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @param {Pointer<Byte>} pbEncodedToBeSigned A pointer to the encoded content to be signed.
+     * @param {Pointer} pbEncodedToBeSigned A pointer to the encoded content to be signed.
      * @param {Integer} cbEncodedToBeSigned The size, in bytes, of the encoded content, <i>pbEncodedToBeSigned</i>.
      * @param {Pointer<CRYPT_ALGORITHM_IDENTIFIER>} pSignatureAlgorithm A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure with a <b>pszObjId</b> member set to one of the following:
@@ -40910,7 +41023,7 @@ class Cryptography {
      * </ul>
      * If the signature algorithm is a hash algorithm, the signature contains only the un-encrypted hash octets. A private key is not used to encrypt the hash. <i>dwKeySpec</i> is not used and <i>hCryptProvOrNCryptKey</i> can be <b>NULL</b> if an appropriate default CSP can be used for hashing.
      * @param {Pointer<Void>} pvHashAuxInfo Not currently used. Must be <b>NULL</b>.
-     * @param {Pointer<Byte>} pbSignature A pointer to a buffer to receive the signed <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hash</a> of the content.
+     * @param {Pointer} pbSignature A pointer to a buffer to receive the signed <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hash</a> of the content.
      * 
      * This parameter can be <b>NULL</b> to set the size of this information for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -40964,7 +41077,7 @@ class Cryptography {
     static CryptSignCertificate(hCryptProvOrNCryptKey, dwKeySpec, dwCertEncodingType, pbEncodedToBeSigned, cbEncodedToBeSigned, pSignatureAlgorithm, pvHashAuxInfo, pbSignature, pcbSignature) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptSignCertificate", "ptr", hCryptProvOrNCryptKey, "uint", dwKeySpec, "uint", dwCertEncodingType, "ptr", pbEncodedToBeSigned, "uint", cbEncodedToBeSigned, "ptr", pSignatureAlgorithm, "ptr", pvHashAuxInfo, "ptr", pbSignature, "ptr", pcbSignature, "int")
+        result := DllCall("CRYPT32.dll\CryptSignCertificate", "ptr", hCryptProvOrNCryptKey, "uint", dwKeySpec, "uint", dwCertEncodingType, "ptr", pbEncodedToBeSigned, "uint", cbEncodedToBeSigned, "ptr", pSignatureAlgorithm, "ptr", pvHashAuxInfo, "ptr", pbSignature, "uint*", pcbSignature, "int")
         if(A_LastError)
             throw OSError()
 
@@ -40994,7 +41107,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PSTR>} lpszStructType A pointer to a null-terminated ANSI string that contains the type of data to be encoded and signed. The following predefined <i>lpszStructType</i> constants are used with encode operations.
+     * @param {Pointer<Byte>} lpszStructType A pointer to a null-terminated ANSI string that contains the type of data to be encoded and signed. The following predefined <i>lpszStructType</i> constants are used with encode operations.
      * 
      * <table>
      * <tr>
@@ -41053,7 +41166,7 @@ class Cryptography {
      * </ul>
      * If the signature algorithm is a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hash</a> algorithm, the signature contains only the unencrypted hash octets. A private key is not used to encrypt the hash. <i>dwKeySpec</i> is not used and <i>hCryptProvOrNCryptKey</i> can be <b>NULL</b> if an appropriate default CSP can be used for hashing.
      * @param {Pointer<Void>} pvHashAuxInfo Reserved. Must be <b>NULL</b>.
-     * @param {Pointer<Byte>} pbEncoded A pointer to a buffer to receive the signed and encoded output.
+     * @param {Pointer} pbEncoded A pointer to a buffer to receive the signed and encoded output.
      * 
      * This parameter can be <b>NULL</b> to set the size of this information for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -41138,7 +41251,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptSignAndEncodeCertificate", "ptr", hCryptProvOrNCryptKey, "uint", dwKeySpec, "uint", dwCertEncodingType, "ptr", lpszStructType, "ptr", pvStructInfo, "ptr", pSignatureAlgorithm, "ptr", pvHashAuxInfo, "ptr", pbEncoded, "ptr", pcbEncoded, "int")
+        result := DllCall("CRYPT32.dll\CryptSignAndEncodeCertificate", "ptr", hCryptProvOrNCryptKey, "uint", dwKeySpec, "uint", dwCertEncodingType, "ptr", lpszStructType, "ptr", pvStructInfo, "ptr", pSignatureAlgorithm, "ptr", pvHashAuxInfo, "ptr", pbEncoded, "uint*", pcbEncoded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -41220,20 +41333,20 @@ class Cryptography {
     /**
      * Converts a CryptoAPI algorithm identifier (ALG_ID) to an Abstract Syntax Notation One (ASN.1) object identifier (OID) string.
      * @param {Integer} dwAlgId Value to be converted to an OID.
-     * @returns {Pointer<PSTR>} If the function succeeds, the function returns the null-terminated OID string.
+     * @returns {Pointer<Byte>} If the function succeeds, the function returns the null-terminated OID string.
      * 
      * If no OID string corresponds to the algorithm identifier, the function returns <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certalgidtooid
      * @since windows5.1.2600
      */
     static CertAlgIdToOID(dwAlgId) {
-        result := DllCall("CRYPT32.dll\CertAlgIdToOID", "uint", dwAlgId, "ptr")
+        result := DllCall("CRYPT32.dll\CertAlgIdToOID", "uint", dwAlgId, "char*")
         return result
     }
 
     /**
      * Use the CryptFindOIDInfo function instead of this function because ALG_ID identifiers are no longer supported in CNG.
-     * @param {Pointer<PSTR>} pszObjId Pointer to the ASN.1 OID to be converted to an algorithm identifier.
+     * @param {Pointer<Byte>} pszObjId Pointer to the ASN.1 OID to be converted to an algorithm identifier.
      * @returns {Integer} Returns the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/alg-id">ALG_ID</a> that corresponds to the object identifier (OID) or zero if no <b>ALG_ID</b> corresponds to the OID.
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certoidtoalgid
@@ -41248,7 +41361,7 @@ class Cryptography {
 
     /**
      * The CertFindExtension function finds the first extension in the CERT_EXTENSION array, as identified by its object identifier (OID).
-     * @param {Pointer<PSTR>} pszObjId A pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) to use in the search.
+     * @param {Pointer<Byte>} pszObjId A pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) to use in the search.
      * @param {Integer} cExtensions Number of extensions in the <i>rgExtensions</i> array.
      * @param {Pointer<CERT_EXTENSION>} rgExtensions Array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_extension">CERT_EXTENSION</a> structures.
@@ -41265,7 +41378,7 @@ class Cryptography {
 
     /**
      * The CertFindAttribute function finds the first attribute in the CRYPT_ATTRIBUTE array, as identified by its object identifier (OID).
-     * @param {Pointer<PSTR>} pszObjId A pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) to use in the search.
+     * @param {Pointer<Byte>} pszObjId A pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) to use in the search.
      * @param {Integer} cAttr Number of attributes in the <i>rgAttr</i> array.
      * @param {Pointer<CRYPT_ATTRIBUTE>} rgAttr Array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_attribute">CRYPT_ATTRIBUTE</a> structures.
@@ -41282,7 +41395,7 @@ class Cryptography {
 
     /**
      * The CertFindRDNAttr function finds the first RDN attribute identified by its object identifier (OID) in a list of the Relative Distinguished Names (RDN).
-     * @param {Pointer<PSTR>} pszObjId A pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) to use In the search.
+     * @param {Pointer<Byte>} pszObjId A pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) to use In the search.
      * @param {Pointer<CERT_NAME_INFO>} pName A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_name_info">CERT_NAME_INFO</a> structure containing the list of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">Relative Distinguished Names</a> to be searched.
      * @returns {Pointer<CERT_RDN_ATTR>} Returns a pointer to the attribute, if one is found. Otherwise, <b>NULL</b> is returned.
@@ -41308,7 +41421,7 @@ class Cryptography {
      * </ul>
      * @param {Pointer<CERT_INFO>} pCertInfo A pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_info">CERT_INFO</a> structure of the specified certificate.
-     * @param {Pointer<Byte>} pbKeyUsage A pointer to a buffer to receive the intended key usage. The following list shows currently defined values. These can be combined by using bitwise-<b>OR</b> operations.
+     * @param {Pointer} pbKeyUsage A pointer to a buffer to receive the intended key usage. The following list shows currently defined values. These can be combined by using bitwise-<b>OR</b> operations.
      * 
      * <ul>
      * <li>CERT_DATA_ENCIPHERMENT_KEY_USAGE</li>
@@ -41405,7 +41518,7 @@ class Cryptography {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @param {Pointer<CERT_PUBLIC_KEY_INFO>} pInfo A pointer to a 
+     * @param {Pointer} pInfo A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_public_key_info">CERT_PUBLIC_KEY_INFO</a>  structure to receive the public key information to be exported.
      * 
      * To set the size of this information for memory allocation purposes, this parameter can be <b>NULL</b>. For more information, see 
@@ -41463,7 +41576,7 @@ class Cryptography {
     static CryptExportPublicKeyInfo(hCryptProvOrNCryptKey, dwKeySpec, dwCertEncodingType, pInfo, pcbInfo) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptExportPublicKeyInfo", "ptr", hCryptProvOrNCryptKey, "uint", dwKeySpec, "uint", dwCertEncodingType, "ptr", pInfo, "ptr", pcbInfo, "int")
+        result := DllCall("CRYPT32.dll\CryptExportPublicKeyInfo", "ptr", hCryptProvOrNCryptKey, "uint", dwKeySpec, "uint", dwCertEncodingType, "ptr", pInfo, "uint*", pcbInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -41485,7 +41598,7 @@ class Cryptography {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @param {Pointer<PSTR>} pszPublicKeyObjId Specifies the public key algorithm.
+     * @param {Pointer<Byte>} pszPublicKeyObjId Specifies the public key algorithm.
      * 
      * <div class="alert"><b>Note</b>  <i>pszPublicKeyObjId</i> and <i>dwCertEncodingType</i> are used together to determine the installable <b>CRYPT_OID_EXPORT_PUBLIC_KEY_INFO_FUNC</b> to call. If an installable function was not found for the <i>pszPublicKeyObjId</i> parameter, an attempt is made to export the key as an RSA Public Key (szOID_RSA_RSA).</div>
      * <div> </div>
@@ -41520,7 +41633,7 @@ class Cryptography {
      * </tr>
      * </table>
      * @param {Pointer<Void>} pvAuxInfo This parameter is reserved for future use and  must be set to <b>NULL</b>.
-     * @param {Pointer<CERT_PUBLIC_KEY_INFO>} pInfo A pointer to a 
+     * @param {Pointer} pInfo A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_public_key_info">CERT_PUBLIC_KEY_INFO</a>  structure to receive the public key information to be exported.
      * 
      * This parameter can be <b>NULL</b> to set the size of this information for memory allocation purposes. For more information, see 
@@ -41580,7 +41693,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptExportPublicKeyInfoEx", "ptr", hCryptProvOrNCryptKey, "uint", dwKeySpec, "uint", dwCertEncodingType, "ptr", pszPublicKeyObjId, "uint", dwFlags, "ptr", pvAuxInfo, "ptr", pInfo, "ptr", pcbInfo, "int")
+        result := DllCall("CRYPT32.dll\CryptExportPublicKeyInfoEx", "ptr", hCryptProvOrNCryptKey, "uint", dwKeySpec, "uint", dwCertEncodingType, "ptr", pszPublicKeyObjId, "uint", dwFlags, "ptr", pvAuxInfo, "ptr", pInfo, "uint*", pcbInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -41592,7 +41705,7 @@ class Cryptography {
      * @remarks
      * If the <b>CryptExportPublicKeyInfoFromBCryptKeyHandle</b> function is unable to find an installable OID function for the OID specified by the <i>pszPublicKeyObjId</i> parameter, it attempts to export the key as a RSA Public Key (<b>szOID_RSA_RSA</b>).
      *  If the key is exported as a RSA Public Key, the values of the <i>dwFlags</i> and <i>pvAuxInfo</i> parameters are not used.
-     * @param {Pointer<BCRYPT_KEY_HANDLE>} hBCryptKey The handle of the key from which to export the public key information.
+     * @param {Pointer<Void>} hBCryptKey The handle of the key from which to export the public key information.
      * @param {Integer} dwCertEncodingType Specifies the encoding type to be matched.  
      * 
      * 
@@ -41605,7 +41718,7 @@ class Cryptography {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @param {Pointer<PSTR>} pszPublicKeyObjId A pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) that identifies the installable function to  use to export the key. If the high-order word of the OID is nonzero, <i>pszPublicKeyObjId</i> is a pointer to either an OID string such as "2.5.29.1" or an ASCII string such as "file." If the high-order word of the OID is zero, the low-order word specifies the integer identifier to be used as the object identifier.
+     * @param {Pointer<Byte>} pszPublicKeyObjId A pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) that identifies the installable function to  use to export the key. If the high-order word of the OID is nonzero, <i>pszPublicKeyObjId</i> is a pointer to either an OID string such as "2.5.29.1" or an ASCII string such as "file." If the high-order word of the OID is zero, the low-order word specifies the integer identifier to be used as the object identifier.
      * @param {Integer} dwFlags A <b>DWORD</b> value that indicates how the public key information  is exported.
      * 
      * <table>
@@ -41639,7 +41752,7 @@ class Cryptography {
      * </tr>
      * </table>
      * @param {Pointer<Void>} pvAuxInfo This parameter is reserved for future use and  must be set to <b>NULL</b>.
-     * @param {Pointer<CERT_PUBLIC_KEY_INFO>} pInfo A pointer to a 
+     * @param {Pointer} pInfo A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_public_key_info">CERT_PUBLIC_KEY_INFO</a>  structure to receive the public key information to be exported.
      * 
      * This parameter can be <b>NULL</b> to set the size of this information for memory allocation purposes. For more information, see 
@@ -41652,7 +41765,7 @@ class Cryptography {
     static CryptExportPublicKeyInfoFromBCryptKeyHandle(hBCryptKey, dwCertEncodingType, pszPublicKeyObjId, dwFlags, pvAuxInfo, pInfo, pcbInfo) {
         pszPublicKeyObjId := pszPublicKeyObjId is String? StrPtr(pszPublicKeyObjId) : pszPublicKeyObjId
 
-        result := DllCall("CRYPT32.dll\CryptExportPublicKeyInfoFromBCryptKeyHandle", "ptr", hBCryptKey, "uint", dwCertEncodingType, "ptr", pszPublicKeyObjId, "uint", dwFlags, "ptr", pvAuxInfo, "ptr", pInfo, "ptr", pcbInfo, "int")
+        result := DllCall("CRYPT32.dll\CryptExportPublicKeyInfoFromBCryptKeyHandle", "ptr", hBCryptKey, "uint", dwCertEncodingType, "ptr", pszPublicKeyObjId, "uint", dwFlags, "ptr", pvAuxInfo, "ptr", pInfo, "uint*", pcbInfo, "int")
         return result
     }
 
@@ -41733,7 +41846,7 @@ class Cryptography {
     static CryptImportPublicKeyInfo(hCryptProv, dwCertEncodingType, pInfo, phKey) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptImportPublicKeyInfo", "ptr", hCryptProv, "uint", dwCertEncodingType, "ptr", pInfo, "ptr", phKey, "int")
+        result := DllCall("CRYPT32.dll\CryptImportPublicKeyInfo", "ptr", hCryptProv, "uint", dwCertEncodingType, "ptr", pInfo, "ptr*", phKey, "int")
         if(A_LastError)
             throw OSError()
 
@@ -41822,7 +41935,7 @@ class Cryptography {
     static CryptImportPublicKeyInfoEx(hCryptProv, dwCertEncodingType, pInfo, aiKeyAlg, dwFlags, pvAuxInfo, phKey) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptImportPublicKeyInfoEx", "ptr", hCryptProv, "uint", dwCertEncodingType, "ptr", pInfo, "uint", aiKeyAlg, "uint", dwFlags, "ptr", pvAuxInfo, "ptr", phKey, "int")
+        result := DllCall("CRYPT32.dll\CryptImportPublicKeyInfoEx", "ptr", hCryptProv, "uint", dwCertEncodingType, "ptr", pInfo, "uint", aiKeyAlg, "uint", dwFlags, "ptr", pvAuxInfo, "ptr*", phKey, "int")
         if(A_LastError)
             throw OSError()
 
@@ -41858,7 +41971,7 @@ class Cryptography {
      * @param {Pointer<CERT_PUBLIC_KEY_INFO>} pInfo The address of a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_public_key_info">CERT_PUBLIC_KEY_INFO</a> structure that contains the public key information to import into the provider.
      * @param {Integer} dwFlags 
      * @param {Pointer<Void>} pvAuxInfo This parameter is reserved for future use and must be set to <b>NULL</b>.
-     * @param {Pointer<BCRYPT_KEY_HANDLE>} phKey The address of a <b>BCRYPT_KEY_HANDLE</b> variable that receives the handle of the imported key.
+     * @param {Pointer<Void>} phKey The address of a <b>BCRYPT_KEY_HANDLE</b> variable that receives the handle of the imported key.
      * 
      * When this handle is no longer needed, you must release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroykey">BCryptDestroyKey</a> function.
      * @returns {Integer} If the function succeeds, the function returns nonzero (<b>TRUE</b>).
@@ -41971,7 +42084,7 @@ class Cryptography {
     static CryptAcquireCertificatePrivateKey(pCert, dwFlags, pvParameters, phCryptProvOrNCryptKey, pdwKeySpec, pfCallerFreeProvOrNCryptKey) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptAcquireCertificatePrivateKey", "ptr", pCert, "uint", dwFlags, "ptr", pvParameters, "ptr", phCryptProvOrNCryptKey, "ptr", pdwKeySpec, "ptr", pfCallerFreeProvOrNCryptKey, "int")
+        result := DllCall("CRYPT32.dll\CryptAcquireCertificatePrivateKey", "ptr", pCert, "uint", dwFlags, "ptr", pvParameters, "ptr*", phCryptProvOrNCryptKey, "uint*", pdwKeySpec, "int*", pfCallerFreeProvOrNCryptKey, "int")
         if(A_LastError)
             throw OSError()
 
@@ -42072,7 +42185,7 @@ class Cryptography {
     static CryptImportPKCS8(sPrivateKeyAndParams, dwFlags, phCryptProv, pvAuxInfo) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptImportPKCS8", "ptr", sPrivateKeyAndParams, "uint", dwFlags, "ptr", phCryptProv, "ptr", pvAuxInfo, "int")
+        result := DllCall("CRYPT32.dll\CryptImportPKCS8", "ptr", sPrivateKeyAndParams, "uint", dwFlags, "ptr*", phCryptProv, "ptr", pvAuxInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -42112,10 +42225,10 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PSTR>} pszPrivateKeyObjId An  <b>LPSTR</b>  variable that contains  the private key <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly"> object identifier</a> (OID).
+     * @param {Pointer<Byte>} pszPrivateKeyObjId An  <b>LPSTR</b>  variable that contains  the private key <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly"> object identifier</a> (OID).
      * @param {Integer} dwFlags This parameter should be zero if <i>pbPrivateKeyBlob</i> is <b>NULL</b> and 0x8000 otherwise.
      * @param {Pointer<Void>} pvAuxInfo This parameter must be set to <b>NULL</b>.
-     * @param {Pointer<Byte>} pbPrivateKeyBlob A pointer to an 
+     * @param {Pointer} pbPrivateKeyBlob A pointer to an 
      * array of <b>BYTE</b> structures to receive the private key  to be exported. 
      * 
      * 
@@ -42172,7 +42285,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptExportPKCS8", "ptr", hCryptProv, "uint", dwKeySpec, "ptr", pszPrivateKeyObjId, "uint", dwFlags, "ptr", pvAuxInfo, "ptr", pbPrivateKeyBlob, "ptr", pcbPrivateKeyBlob, "int")
+        result := DllCall("CRYPT32.dll\CryptExportPKCS8", "ptr", hCryptProv, "uint", dwKeySpec, "ptr", pszPrivateKeyObjId, "uint", dwFlags, "ptr", pvAuxInfo, "ptr", pbPrivateKeyBlob, "uint*", pcbPrivateKeyBlob, "int")
         if(A_LastError)
             throw OSError()
 
@@ -42201,7 +42314,7 @@ class Cryptography {
      * </ul>
      * @param {Pointer<CERT_PUBLIC_KEY_INFO>} pInfo A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_public_key_info">CERT_PUBLIC_KEY_INFO</a> structure that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public key</a> information to be encoded and hashed.
-     * @param {Pointer<Byte>} pbComputedHash A pointer to a buffer to receive the computed hash.
+     * @param {Pointer} pbComputedHash A pointer to a buffer to receive the computed hash.
      * 
      * To set the size of this information for memory allocation purposes, this parameter can be <b>NULL</b>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -42257,7 +42370,7 @@ class Cryptography {
     static CryptHashPublicKeyInfo(hCryptProv, Algid, dwFlags, dwCertEncodingType, pInfo, pbComputedHash, pcbComputedHash) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptHashPublicKeyInfo", "ptr", hCryptProv, "uint", Algid, "uint", dwFlags, "uint", dwCertEncodingType, "ptr", pInfo, "ptr", pbComputedHash, "ptr", pcbComputedHash, "int")
+        result := DllCall("CRYPT32.dll\CryptHashPublicKeyInfo", "ptr", hCryptProv, "uint", Algid, "uint", dwFlags, "uint", dwCertEncodingType, "ptr", pInfo, "ptr", pbComputedHash, "uint*", pcbComputedHash, "int")
         if(A_LastError)
             throw OSError()
 
@@ -42278,7 +42391,7 @@ class Cryptography {
      * @param {Integer} dwValueType Indicates the kind of RDN value to be converted.
      * @param {Pointer<CRYPT_INTEGER_BLOB>} pValue A pointer to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CERT_RDN_VALUE_BLOB</a> of a type appropriate for the <i>dwValueType</i>.
-     * @param {Pointer<PSTR>} psz A pointer to a buffer to receive the returned string.
+     * @param {Pointer<Byte>} psz A pointer to a buffer to receive the returned string.
      * @param {Integer} csz Size, in characters, allocated for the returned string. The size must include the terminating <b>NULL</b> character.
      * @returns {Integer} Returns the number of characters converted, including the terminating <b>NULL</b> character. If <i>psz</i> is <b>NULL</b> or <i>csz</i> is zero, returns the required size of the destination string.
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certrdnvaluetostra
@@ -42305,7 +42418,7 @@ class Cryptography {
      * @param {Integer} dwValueType Indicates the kind of RDN value to be converted.
      * @param {Pointer<CRYPT_INTEGER_BLOB>} pValue A pointer to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CERT_RDN_VALUE_BLOB</a> of a type appropriate for the <i>dwValueType</i>.
-     * @param {Pointer<PWSTR>} psz A pointer to a buffer to receive the returned string.
+     * @param {Pointer<Char>} psz A pointer to a buffer to receive the returned string.
      * @param {Integer} csz Size, in characters, allocated for the returned string. The size must include the terminating <b>NULL</b> character.
      * @returns {Integer} Returns the number of characters converted, including the terminating <b>NULL</b> character. If <i>psz</i> is <b>NULL</b> or <i>csz</i> is zero, returns the required size of the destination string.
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certrdnvaluetostrw
@@ -42432,7 +42545,7 @@ class Cryptography {
      * @param {Pointer<CRYPT_INTEGER_BLOB>} pName A pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CERT_NAME_BLOB</a> structure to be converted.
      * @param {Integer} dwStrType This parameter specifies the format of the output string. This parameter also specifies other options for the contents of the string.
-     * @param {Pointer<PSTR>} psz A pointer to a character buffer that receives the returned string. The size of this buffer is specified in the <i>csz</i> parameter.
+     * @param {Pointer<Byte>} psz A pointer to a character buffer that receives the returned string. The size of this buffer is specified in the <i>csz</i> parameter.
      * @param {Integer} csz The size, in characters, of the <i>psz</i> buffer. The size must include the terminating null character.
      * @returns {Integer} Returns the number of characters converted, including the terminating null character. 
      * 
@@ -42561,7 +42674,7 @@ class Cryptography {
      * @param {Pointer<CRYPT_INTEGER_BLOB>} pName A pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CERT_NAME_BLOB</a> structure to be converted.
      * @param {Integer} dwStrType This parameter specifies the format of the output string. This parameter also specifies other options for the contents of the string.
-     * @param {Pointer<PWSTR>} psz A pointer to a character buffer that receives the returned string. The size of this buffer is specified in the <i>csz</i> parameter.
+     * @param {Pointer<Char>} psz A pointer to a character buffer that receives the returned string. The size of this buffer is specified in the <i>csz</i> parameter.
      * @param {Integer} csz The size, in characters, of the <i>psz</i> buffer. The size must include the terminating null character.
      * @returns {Integer} Returns the number of characters converted, including the terminating null character. 
      * 
@@ -42893,7 +43006,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PSTR>} pszX500 A pointer to the null-terminated X.500 string to be converted. The format of this string is specified by the <i>dwStrType</i> parameter.
+     * @param {Pointer<Byte>} pszX500 A pointer to the null-terminated X.500 string to be converted. The format of this string is specified by the <i>dwStrType</i> parameter.
      * 
      * This string is expected to be formatted the same as the output from 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certnametostra">CertNameToStr</a> function.
@@ -42906,7 +43019,7 @@ class Cryptography {
      * A value that starts with a number sign (#) is treated as <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ASCII</a> hexadecimal and converted to a <b>CERT_RDN_OCTET_STRING</b>. Embedded white space is ignored. For example, 1.2.3 = # AB CD 01 is the same as 1.2.3=#ABCD01.
      * 
      * White space that surrounds the keys, object identifiers, and values is ignored.
-     * @param {Pointer<Byte>} pbEncoded A pointer to a buffer that receives the encoded structure. 
+     * @param {Pointer} pbEncoded A pointer to a buffer that receives the encoded structure. 
      * 
      * 
      * The size of this buffer is specified in the <i>pcbEncoded</i> parameter.
@@ -42916,7 +43029,7 @@ class Cryptography {
      * @param {Pointer<UInt32>} pcbEncoded A pointer to a <b>DWORD</b> that, before calling the function, contains the size, in bytes, of the buffer pointed to by the <i>pbEncoded</i> parameter. When the function returns, the <b>DWORD</b> contains the number of bytes stored in the buffer.
      * 
      * If <i>pbEncoded</i> is <b>NULL</b>, the <b>DWORD</b> receives the size, in bytes, required for the buffer.
-     * @param {Pointer<PSTR>} ppszError A pointer to a string pointer that receives additional error information about an input string that is not valid. 
+     * @param {Pointer<Byte>} ppszError A pointer to a string pointer that receives additional error information about an input string that is not valid. 
      * 
      * 
      * If the <i>pszX500</i> string is not valid, <i>ppszError</i> is updated by this function to point to the beginning of the character sequence that is not valid. If no errors are detected in the input string, <i>ppszError</i> is set to <b>NULL</b>.
@@ -42943,11 +43056,10 @@ class Cryptography {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
         pszX500 := pszX500 is String? StrPtr(pszX500) : pszX500
-        ppszError := ppszError is String? StrPtr(ppszError) : ppszError
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertStrToNameA", "uint", dwCertEncodingType, "ptr", pszX500, "uint", dwStrType, "ptr", pvReserved, "ptr", pbEncoded, "ptr", pcbEncoded, "ptr", ppszError, "int")
+        result := DllCall("CRYPT32.dll\CertStrToNameA", "uint", dwCertEncodingType, "ptr", pszX500, "uint", dwStrType, "ptr", pvReserved, "ptr", pbEncoded, "uint*", pcbEncoded, "ptr", ppszError, "int")
         if(A_LastError)
             throw OSError()
 
@@ -43271,7 +43383,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PWSTR>} pszX500 A pointer to the null-terminated X.500 string to be converted. The format of this string is specified by the <i>dwStrType</i> parameter.
+     * @param {Pointer<Char>} pszX500 A pointer to the null-terminated X.500 string to be converted. The format of this string is specified by the <i>dwStrType</i> parameter.
      * 
      * This string is expected to be formatted the same as the output from 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certnametostra">CertNameToStr</a> function.
@@ -43284,7 +43396,7 @@ class Cryptography {
      * A value that starts with a number sign (#) is treated as <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ASCII</a> hexadecimal and converted to a <b>CERT_RDN_OCTET_STRING</b>. Embedded white space is ignored. For example, 1.2.3 = # AB CD 01 is the same as 1.2.3=#ABCD01.
      * 
      * White space that surrounds the keys, object identifiers, and values is ignored.
-     * @param {Pointer<Byte>} pbEncoded A pointer to a buffer that receives the encoded structure. 
+     * @param {Pointer} pbEncoded A pointer to a buffer that receives the encoded structure. 
      * 
      * 
      * The size of this buffer is specified in the <i>pcbEncoded</i> parameter.
@@ -43294,7 +43406,7 @@ class Cryptography {
      * @param {Pointer<UInt32>} pcbEncoded A pointer to a <b>DWORD</b> that, before calling the function, contains the size, in bytes, of the buffer pointed to by the <i>pbEncoded</i> parameter. When the function returns, the <b>DWORD</b> contains the number of bytes stored in the buffer.
      * 
      * If <i>pbEncoded</i> is <b>NULL</b>, the <b>DWORD</b> receives the size, in bytes, required for the buffer.
-     * @param {Pointer<PWSTR>} ppszError A pointer to a string pointer that receives additional error information about an input string that is not valid. 
+     * @param {Pointer<Char>} ppszError A pointer to a string pointer that receives additional error information about an input string that is not valid. 
      * 
      * 
      * If the <i>pszX500</i> string is not valid, <i>ppszError</i> is updated by this function to point to the beginning of the character sequence that is not valid. If no errors are detected in the input string, <i>ppszError</i> is set to <b>NULL</b>.
@@ -43321,11 +43433,10 @@ class Cryptography {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
         pszX500 := pszX500 is String? StrPtr(pszX500) : pszX500
-        ppszError := ppszError is String? StrPtr(ppszError) : ppszError
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertStrToNameW", "uint", dwCertEncodingType, "ptr", pszX500, "uint", dwStrType, "ptr", pvReserved, "ptr", pbEncoded, "ptr", pcbEncoded, "ptr", ppszError, "int")
+        result := DllCall("CRYPT32.dll\CertStrToNameW", "uint", dwCertEncodingType, "ptr", pszX500, "uint", dwStrType, "ptr", pvReserved, "ptr", pbEncoded, "uint*", pcbEncoded, "ptr", ppszError, "int")
         if(A_LastError)
             throw OSError()
 
@@ -43522,7 +43633,7 @@ class Cryptography {
      * </tr>
      * </table>
      * @param {Pointer<Void>} pvTypePara A pointer to either a <b>DWORD</b> containing the <i>dwStrType</i> or an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) specifying the name attribute. The type pointed to is determined by the value of <i>dwType</i>.
-     * @param {Pointer<PSTR>} pszNameString A pointer to an allocated buffer to receive the returned string. If <i>pszNameString</i> is not <b>NULL</b> and <i>cchNameString</i> is not zero, <i>pszNameString</i> is a <b>null</b>-terminated string.
+     * @param {Pointer<Byte>} pszNameString A pointer to an allocated buffer to receive the returned string. If <i>pszNameString</i> is not <b>NULL</b> and <i>cchNameString</i> is not zero, <i>pszNameString</i> is a <b>null</b>-terminated string.
      * 
      * If <b>CERT_NAME_SEARCH_ALL_NAMES_FLAG</b> is specified in the <i>dwFlags</i> parameter and <b>CERT_NAME_DNS_TYPE</b> is set in the <i>dwType</i> parameter, the returned string will contain all of the DNS names that apply. Each string in the output string is null-terminated and the last string will be double null-terminated. If no DNS names are found, a single null-terminated empty string is returned.
      * @param {Integer} cchNameString Size, in characters, allocated for the returned string. The size must include the terminating <b>NULL</b> character.
@@ -43727,7 +43838,7 @@ class Cryptography {
      * </tr>
      * </table>
      * @param {Pointer<Void>} pvTypePara A pointer to either a <b>DWORD</b> containing the <i>dwStrType</i> or an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) specifying the name attribute. The type pointed to is determined by the value of <i>dwType</i>.
-     * @param {Pointer<PWSTR>} pszNameString A pointer to an allocated buffer to receive the returned string. If <i>pszNameString</i> is not <b>NULL</b> and <i>cchNameString</i> is not zero, <i>pszNameString</i> is a <b>null</b>-terminated string.
+     * @param {Pointer<Char>} pszNameString A pointer to an allocated buffer to receive the returned string. If <i>pszNameString</i> is not <b>NULL</b> and <i>cchNameString</i> is not zero, <i>pszNameString</i> is a <b>null</b>-terminated string.
      * 
      * If <b>CERT_NAME_SEARCH_ALL_NAMES_FLAG</b> is specified in the <i>dwFlags</i> parameter and <b>CERT_NAME_DNS_TYPE</b> is set in the <i>dwType</i> parameter, the returned string will contain all of the DNS names that apply. Each string in the output string is null-terminated and the last string will be double null-terminated. If no DNS names are found, a single null-terminated empty string is returned.
      * @param {Integer} cchNameString Size, in characters, allocated for the returned string. The size must include the terminating <b>NULL</b> character.
@@ -43750,7 +43861,7 @@ class Cryptography {
      * @param {Integer} cToBeSigned Count of the number of array elements in <i>rgpbToBeSigned</i> and <i>rgcbToBeSigned</i>. This parameter must be set to one unless <i>fDetachedSignature</i> is set to <b>TRUE</b>.
      * @param {Pointer<Byte>} rgpbToBeSigned Array of pointers to buffers that contain the contents to be signed.
      * @param {Pointer<UInt32>} rgcbToBeSigned Array of sizes, in bytes, of the content buffers pointed to in <i>rgpbToBeSigned</i>.
-     * @param {Pointer<Byte>} pbSignedBlob A pointer to a buffer to receive the encoded signed hash, if <i>fDetachedSignature</i> is <b>TRUE</b>, or to both the encoded content and signed hash if <i>fDetachedSignature</i> is <b>FALSE</b>. 
+     * @param {Pointer} pbSignedBlob A pointer to a buffer to receive the encoded signed hash, if <i>fDetachedSignature</i> is <b>TRUE</b>, or to both the encoded content and signed hash if <i>fDetachedSignature</i> is <b>FALSE</b>. 
      * 
      * 
      * 
@@ -43828,7 +43939,7 @@ class Cryptography {
     static CryptSignMessage(pSignPara, fDetachedSignature, cToBeSigned, rgpbToBeSigned, rgcbToBeSigned, pbSignedBlob, pcbSignedBlob) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptSignMessage", "ptr", pSignPara, "int", fDetachedSignature, "uint", cToBeSigned, "ptr", rgpbToBeSigned, "ptr", rgcbToBeSigned, "ptr", pbSignedBlob, "ptr", pcbSignedBlob, "int")
+        result := DllCall("CRYPT32.dll\CryptSignMessage", "ptr", pSignPara, "int", fDetachedSignature, "uint", cToBeSigned, "ptr", rgpbToBeSigned, "uint*", rgcbToBeSigned, "ptr", pbSignedBlob, "uint*", pcbSignedBlob, "int")
         if(A_LastError)
             throw OSError()
 
@@ -43846,9 +43957,9 @@ class Cryptography {
      * @param {Pointer<CRYPT_VERIFY_MESSAGE_PARA>} pVerifyPara A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_verify_message_para">CRYPT_VERIFY_MESSAGE_PARA</a> structure that contains verification parameters.
      * @param {Integer} dwSignerIndex The index of the desired signature. There can be more than one signature. <b>CryptVerifyMessageSignature</b> can be called repeatedly, incrementing <i>dwSignerIndex</i> each time. Set this parameter to zero for the first signer, or if there is only one signer. If the function returns <b>FALSE</b>, and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns CRYPT_E_NO_SIGNER, the previous call processed the last signer of the message.
-     * @param {Pointer<Byte>} pbSignedBlob A pointer to a buffer that contains the signed message.
+     * @param {Pointer} pbSignedBlob A pointer to a buffer that contains the signed message.
      * @param {Integer} cbSignedBlob The size, in bytes, of the signed message buffer.
-     * @param {Pointer<Byte>} pbDecoded A pointer to a buffer to receive the decoded message. 
+     * @param {Pointer} pbDecoded A pointer to a buffer to receive the decoded message. 
      * 
      * 
      * 
@@ -43960,7 +44071,7 @@ class Cryptography {
     static CryptVerifyMessageSignature(pVerifyPara, dwSignerIndex, pbSignedBlob, cbSignedBlob, pbDecoded, pcbDecoded, ppSignerCert) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptVerifyMessageSignature", "ptr", pVerifyPara, "uint", dwSignerIndex, "ptr", pbSignedBlob, "uint", cbSignedBlob, "ptr", pbDecoded, "ptr", pcbDecoded, "ptr", ppSignerCert, "int")
+        result := DllCall("CRYPT32.dll\CryptVerifyMessageSignature", "ptr", pVerifyPara, "uint", dwSignerIndex, "ptr", pbSignedBlob, "uint", cbSignedBlob, "ptr", pbDecoded, "uint*", pcbDecoded, "ptr", ppSignerCert, "int")
         if(A_LastError)
             throw OSError()
 
@@ -43979,7 +44090,7 @@ class Cryptography {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @param {Pointer<Byte>} pbSignedBlob A pointer to a buffer containing the signed message.
+     * @param {Pointer} pbSignedBlob A pointer to a buffer containing the signed message.
      * @param {Integer} cbSignedBlob The size, in bytes, of the signed message.
      * @returns {Integer} Returns the number of signers of a signed message, zero when there are no signers, and minus one (–1) for an error.
      * 
@@ -44044,10 +44155,10 @@ class Cryptography {
      * This parameter's data type is <b>HCRYPTPROV</b>.
      * @param {Integer} dwFlags Flags passed to <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certopenstore">CertOpenStore</a>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certopenstore">CertOpenStore</a>.
-     * @param {Pointer<Byte>} pbSignedBlob A pointer to a buffered 
+     * @param {Pointer} pbSignedBlob A pointer to a buffered 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_INTEGER_BLOB</a> structure that contains the signed message.
      * @param {Integer} cbSignedBlob The size, in bytes, of the signed message.
-     * @returns {Pointer<HCERTSTORE>} Returns the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> containing the message's certificates and CRLs. For an error, <b>NULL</b> is returned.
+     * @returns {Pointer<Void>} Returns the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> containing the message's certificates and CRLs. For an error, <b>NULL</b> is returned.
      * 
      * The following lists the error code most commonly returned by the 
      * 		       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -44079,7 +44190,7 @@ class Cryptography {
     static CryptGetMessageCertificates(dwMsgAndCertEncodingType, hCryptProv, dwFlags, pbSignedBlob, cbSignedBlob) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptGetMessageCertificates", "uint", dwMsgAndCertEncodingType, "ptr", hCryptProv, "uint", dwFlags, "ptr", pbSignedBlob, "uint", cbSignedBlob, "ptr")
+        result := DllCall("CRYPT32.dll\CryptGetMessageCertificates", "uint", dwMsgAndCertEncodingType, "ptr", hCryptProv, "uint", dwFlags, "ptr", pbSignedBlob, "uint", cbSignedBlob)
         if(A_LastError)
             throw OSError()
 
@@ -44091,7 +44202,7 @@ class Cryptography {
      * @param {Pointer<CRYPT_VERIFY_MESSAGE_PARA>} pVerifyPara A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_verify_message_para">CRYPT_VERIFY_MESSAGE_PARA</a> structure containing the verification parameters.
      * @param {Integer} dwSignerIndex Index of the signature to be verified. A message might have several signers and this function can be called repeatedly, changing <i>dwSignerIndex</i> to verify other signatures. If the function returns FALSE, and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns CRYPT_E_NO_SIGNER, the previous call received the last signer of the message.
-     * @param {Pointer<Byte>} pbDetachedSignBlob A pointer to a BLOB containing the encoded message signatures.
+     * @param {Pointer} pbDetachedSignBlob A pointer to a BLOB containing the encoded message signatures.
      * @param {Integer} cbDetachedSignBlob The size, in bytes, of the detached signature.
      * @param {Integer} cToBeSigned Number of array elements in <i>rgpbToBeSigned</i> and <i>rgcbToBeSigned</i>.
      * @param {Pointer<Byte>} rgpbToBeSigned Array of pointers to buffers containing the contents to be <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hashed</a>.
@@ -44186,7 +44297,7 @@ class Cryptography {
     static CryptVerifyDetachedMessageSignature(pVerifyPara, dwSignerIndex, pbDetachedSignBlob, cbDetachedSignBlob, cToBeSigned, rgpbToBeSigned, rgcbToBeSigned, ppSignerCert) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptVerifyDetachedMessageSignature", "ptr", pVerifyPara, "uint", dwSignerIndex, "ptr", pbDetachedSignBlob, "uint", cbDetachedSignBlob, "uint", cToBeSigned, "ptr", rgpbToBeSigned, "ptr", rgcbToBeSigned, "ptr", ppSignerCert, "int")
+        result := DllCall("CRYPT32.dll\CryptVerifyDetachedMessageSignature", "ptr", pVerifyPara, "uint", dwSignerIndex, "ptr", pbDetachedSignBlob, "uint", cbDetachedSignBlob, "uint", cToBeSigned, "ptr", rgpbToBeSigned, "uint*", rgcbToBeSigned, "ptr", ppSignerCert, "int")
         if(A_LastError)
             throw OSError()
 
@@ -44202,9 +44313,9 @@ class Cryptography {
      * @param {Integer} cRecipientCert Number of elements in the <i>rgpRecipientCert</i> array.
      * @param {Pointer<CERT_CONTEXT>} rgpRecipientCert Array of pointers to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structures that contain the certificates of intended recipients of the message.
-     * @param {Pointer<Byte>} pbToBeEncrypted A pointer to a buffer that contains the message that is to be encrypted.
+     * @param {Pointer} pbToBeEncrypted A pointer to a buffer that contains the message that is to be encrypted.
      * @param {Integer} cbToBeEncrypted The size, in bytes, of the message that is to be encrypted.
-     * @param {Pointer<Byte>} pbEncryptedBlob A pointer to <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> that contains a buffer that receives the encrypted and encoded message. 
+     * @param {Pointer} pbEncryptedBlob A pointer to <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> that contains a buffer that receives the encrypted and encoded message. 
      * 
      * 
      * 
@@ -44269,7 +44380,7 @@ class Cryptography {
     static CryptEncryptMessage(pEncryptPara, cRecipientCert, rgpRecipientCert, pbToBeEncrypted, cbToBeEncrypted, pbEncryptedBlob, pcbEncryptedBlob) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptEncryptMessage", "ptr", pEncryptPara, "uint", cRecipientCert, "ptr", rgpRecipientCert, "ptr", pbToBeEncrypted, "uint", cbToBeEncrypted, "ptr", pbEncryptedBlob, "ptr", pcbEncryptedBlob, "int")
+        result := DllCall("CRYPT32.dll\CryptEncryptMessage", "ptr", pEncryptPara, "uint", cRecipientCert, "ptr", rgpRecipientCert, "ptr", pbToBeEncrypted, "uint", cbToBeEncrypted, "ptr", pbEncryptedBlob, "uint*", pcbEncryptedBlob, "int")
         if(A_LastError)
             throw OSError()
 
@@ -44284,9 +44395,9 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreecertificatecontext">CertFreeCertificateContext</a>. If the function fails, the value at <i>ppXchgCert</i> is set to <b>NULL</b>.
      * @param {Pointer<CRYPT_DECRYPT_MESSAGE_PARA>} pDecryptPara A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_decrypt_message_para">CRYPT_DECRYPT_MESSAGE_PARA</a> structure that contains decryption parameters.
-     * @param {Pointer<Byte>} pbEncryptedBlob A pointer to a buffer that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/e-gly">encoded</a> and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/e-gly">encrypted</a> message to be decrypted.
+     * @param {Pointer} pbEncryptedBlob A pointer to a buffer that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/e-gly">encoded</a> and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/e-gly">encrypted</a> message to be decrypted.
      * @param {Integer} cbEncryptedBlob The size, in bytes, of the encoded and encrypted message.
-     * @param {Pointer<Byte>} pbDecrypted A pointer to a buffer that receives the decrypted message. 
+     * @param {Pointer} pbDecrypted A pointer to a buffer that receives the decrypted message. 
      * 
      * 
      * 
@@ -44382,7 +44493,7 @@ class Cryptography {
     static CryptDecryptMessage(pDecryptPara, pbEncryptedBlob, cbEncryptedBlob, pbDecrypted, pcbDecrypted, ppXchgCert) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptDecryptMessage", "ptr", pDecryptPara, "ptr", pbEncryptedBlob, "uint", cbEncryptedBlob, "ptr", pbDecrypted, "ptr", pcbDecrypted, "ptr", ppXchgCert, "int")
+        result := DllCall("CRYPT32.dll\CryptDecryptMessage", "ptr", pDecryptPara, "ptr", pbEncryptedBlob, "uint", cbEncryptedBlob, "ptr", pbDecrypted, "uint*", pcbDecrypted, "ptr", ppXchgCert, "int")
         if(A_LastError)
             throw OSError()
 
@@ -44398,9 +44509,9 @@ class Cryptography {
      * @param {Integer} cRecipientCert Number of array elements in <i>rgpRecipientCert</i>.
      * @param {Pointer<CERT_CONTEXT>} rgpRecipientCert Array of pointers to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structures. Each structure is the certificate of an intended recipients of the message.
-     * @param {Pointer<Byte>} pbToBeSignedAndEncrypted A pointer to a buffer containing the content to be signed and encrypted.
+     * @param {Pointer} pbToBeSignedAndEncrypted A pointer to a buffer containing the content to be signed and encrypted.
      * @param {Integer} cbToBeSignedAndEncrypted The size, in bytes, of the <i>pbToBeSignedAndEncrypted</i> buffer.
-     * @param {Pointer<Byte>} pbSignedAndEncryptedBlob A pointer to a buffer to receive the encrypted and encoded message. 
+     * @param {Pointer} pbSignedAndEncryptedBlob A pointer to a buffer to receive the encrypted and encoded message. 
      * 
      * 
      * 
@@ -44453,7 +44564,7 @@ class Cryptography {
     static CryptSignAndEncryptMessage(pSignPara, pEncryptPara, cRecipientCert, rgpRecipientCert, pbToBeSignedAndEncrypted, cbToBeSignedAndEncrypted, pbSignedAndEncryptedBlob, pcbSignedAndEncryptedBlob) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptSignAndEncryptMessage", "ptr", pSignPara, "ptr", pEncryptPara, "uint", cRecipientCert, "ptr", rgpRecipientCert, "ptr", pbToBeSignedAndEncrypted, "uint", cbToBeSignedAndEncrypted, "ptr", pbSignedAndEncryptedBlob, "ptr", pcbSignedAndEncryptedBlob, "int")
+        result := DllCall("CRYPT32.dll\CryptSignAndEncryptMessage", "ptr", pSignPara, "ptr", pEncryptPara, "uint", cRecipientCert, "ptr", rgpRecipientCert, "ptr", pbToBeSignedAndEncrypted, "uint", cbToBeSignedAndEncrypted, "ptr", pbSignedAndEncryptedBlob, "uint*", pcbSignedAndEncryptedBlob, "int")
         if(A_LastError)
             throw OSError()
 
@@ -44472,9 +44583,9 @@ class Cryptography {
      * @param {Pointer<CRYPT_VERIFY_MESSAGE_PARA>} pVerifyPara A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_verify_message_para">CRYPT_VERIFY_MESSAGE_PARA</a> structure that contains  verification parameters.
      * @param {Integer} dwSignerIndex Identifies a particular signer of the message. A message can be signed by more than one signer and this function can be called multiple times changing this parameter to check for several signers. It is set to zero for the first signer. If the function returns <b>FALSE</b>, and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns CRYPT_E_NO_SIGNER, the previous call received the last signer of the message.
-     * @param {Pointer<Byte>} pbEncryptedBlob A pointer to the signed, encoded, and encrypted message to be decrypted and verified.
+     * @param {Pointer} pbEncryptedBlob A pointer to the signed, encoded, and encrypted message to be decrypted and verified.
      * @param {Integer} cbEncryptedBlob The size, in bytes, of the encrypted message.
-     * @param {Pointer<Byte>} pbDecrypted A pointer to a buffer to receive the decrypted message. 
+     * @param {Pointer} pbDecrypted A pointer to a buffer to receive the decrypted message. 
      * 
      * 
      * 
@@ -44525,7 +44636,7 @@ class Cryptography {
     static CryptDecryptAndVerifyMessageSignature(pDecryptPara, pVerifyPara, dwSignerIndex, pbEncryptedBlob, cbEncryptedBlob, pbDecrypted, pcbDecrypted, ppXchgCert, ppSignerCert) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptDecryptAndVerifyMessageSignature", "ptr", pDecryptPara, "ptr", pVerifyPara, "uint", dwSignerIndex, "ptr", pbEncryptedBlob, "uint", cbEncryptedBlob, "ptr", pbDecrypted, "ptr", pcbDecrypted, "ptr", ppXchgCert, "ptr", ppSignerCert, "int")
+        result := DllCall("CRYPT32.dll\CryptDecryptAndVerifyMessageSignature", "ptr", pDecryptPara, "ptr", pVerifyPara, "uint", dwSignerIndex, "ptr", pbEncryptedBlob, "uint", cbEncryptedBlob, "ptr", pbDecrypted, "uint*", pcbDecrypted, "ptr", ppXchgCert, "ptr", ppSignerCert, "int")
         if(A_LastError)
             throw OSError()
 
@@ -44562,7 +44673,7 @@ class Cryptography {
      * 
      * 
      * <i>dwSignerIndex</i> is set to zero for the first signer. If the function returns <b>FALSE</b>, and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns CRYPT_E_NO_SIGNER, the previous call returned the last signer of the message. This parameter is used only with messages of types CMSG_SIGNED_AND_ENVELOPED or CMSG_SIGNED. For all other message types, it should be set to zero.
-     * @param {Pointer<Byte>} pbEncodedBlob A pointer to the encoded <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> that is to be decoded.
+     * @param {Pointer} pbEncodedBlob A pointer to the encoded <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> that is to be decoded.
      * @param {Integer} cbEncodedBlob The size, in bytes, of the encoded BLOB.
      * @param {Integer} dwPrevInnerContentType Only applicable when processing nested cryptographic messages. When processing an outer cryptographic message, it must be set to zero. When decoding a nested cryptographic message, it is set to the value returned at <i>pdwInnerContentType</i> by a previous calling of 
      * <b>CryptDecodeMessage</b> for the outer message. It can be any of the CMSG types listed in <i>pdwMsgType</i>. For backward compatibility, set <i>dwPrevInnerContentType</i> to zero.
@@ -44581,7 +44692,7 @@ class Cryptography {
      * 
      * 
      * If there is no cryptographic nesting, CMSG_DATA is returned.
-     * @param {Pointer<Byte>} pbDecoded A pointer to a buffer to receive the decoded message. 
+     * @param {Pointer} pbDecoded A pointer to a buffer to receive the decoded message. 
      * 
      * 
      * 
@@ -44634,7 +44745,7 @@ class Cryptography {
     static CryptDecodeMessage(dwMsgTypeFlags, pDecryptPara, pVerifyPara, dwSignerIndex, pbEncodedBlob, cbEncodedBlob, dwPrevInnerContentType, pdwMsgType, pdwInnerContentType, pbDecoded, pcbDecoded, ppXchgCert, ppSignerCert) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptDecodeMessage", "uint", dwMsgTypeFlags, "ptr", pDecryptPara, "ptr", pVerifyPara, "uint", dwSignerIndex, "ptr", pbEncodedBlob, "uint", cbEncodedBlob, "uint", dwPrevInnerContentType, "ptr", pdwMsgType, "ptr", pdwInnerContentType, "ptr", pbDecoded, "ptr", pcbDecoded, "ptr", ppXchgCert, "ptr", ppSignerCert, "int")
+        result := DllCall("CRYPT32.dll\CryptDecodeMessage", "uint", dwMsgTypeFlags, "ptr", pDecryptPara, "ptr", pVerifyPara, "uint", dwSignerIndex, "ptr", pbEncodedBlob, "uint", cbEncodedBlob, "uint", dwPrevInnerContentType, "uint*", pdwMsgType, "uint*", pdwInnerContentType, "ptr", pbDecoded, "uint*", pcbDecoded, "ptr", ppXchgCert, "ptr", ppSignerCert, "int")
         if(A_LastError)
             throw OSError()
 
@@ -44649,7 +44760,7 @@ class Cryptography {
      * @param {Integer} cToBeHashed The number of array elements in <i>rgpbToBeHashed</i> and <i>rgcbToBeHashed</i>. This parameter can only be one unless <i>fDetachedHash</i> is set to <b>TRUE</b>.
      * @param {Pointer<Byte>} rgpbToBeHashed An array of pointers to buffers that contain the contents to be hashed.
      * @param {Pointer<UInt32>} rgcbToBeHashed An array of sizes, in bytes, of the buffers pointed to by <i>rgpbToBeHashed</i>.
-     * @param {Pointer<Byte>} pbHashedBlob A pointer to a buffer to receive the hashed message encoded for transmission. 
+     * @param {Pointer} pbHashedBlob A pointer to a buffer to receive the hashed message encoded for transmission. 
      * 
      * 
      * 
@@ -44663,7 +44774,7 @@ class Cryptography {
      * 
      * <div class="alert"><b>Note</b>  When processing the data returned, applications must use the actual size of the data returned. The actual size can be slightly smaller than the size of the buffer specified on input. On input, buffer sizes are usually specified large enough to ensure that the largest possible output data will fit in the buffer. On output, the variable pointed to by this parameter is updated to reflect the actual size of the data copied to the buffer.</div>
      * <div> </div>
-     * @param {Pointer<Byte>} pbComputedHash A pointer to a buffer to receive the newly created hash value. This parameter can be <b>NULL</b> if the newly created hash is not needed for additional processing, or to set the size of the hash for memory allocation purposes. For more information, see 
+     * @param {Pointer} pbComputedHash A pointer to a buffer to receive the newly created hash value. This parameter can be <b>NULL</b> if the newly created hash is not needed for additional processing, or to set the size of the hash for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
      * @param {Pointer<UInt32>} pcbComputedHash A pointer to a <b>DWORD</b> that specifies the size, in bytes, of the buffer pointed to by the <i>pbComputedHash</i> parameter. When the function returns, this <b>DWORD</b> contains the size, in bytes, of the newly created hash that was copied to <i>pbComputedHash</i>. 
      * 
@@ -44722,7 +44833,7 @@ class Cryptography {
     static CryptHashMessage(pHashPara, fDetachedHash, cToBeHashed, rgpbToBeHashed, rgcbToBeHashed, pbHashedBlob, pcbHashedBlob, pbComputedHash, pcbComputedHash) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptHashMessage", "ptr", pHashPara, "int", fDetachedHash, "uint", cToBeHashed, "ptr", rgpbToBeHashed, "ptr", rgcbToBeHashed, "ptr", pbHashedBlob, "ptr", pcbHashedBlob, "ptr", pbComputedHash, "ptr", pcbComputedHash, "int")
+        result := DllCall("CRYPT32.dll\CryptHashMessage", "ptr", pHashPara, "int", fDetachedHash, "uint", cToBeHashed, "ptr", rgpbToBeHashed, "uint*", rgcbToBeHashed, "ptr", pbHashedBlob, "uint*", pcbHashedBlob, "ptr", pbComputedHash, "uint*", pcbComputedHash, "int")
         if(A_LastError)
             throw OSError()
 
@@ -44733,9 +44844,9 @@ class Cryptography {
      * The CryptVerifyMessageHash function verifies the hash of specified content.
      * @param {Pointer<CRYPT_HASH_MESSAGE_PARA>} pHashPara A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_hash_message_para">CRYPT_HASH_MESSAGE_PARA</a> structure containing hash parameters.
-     * @param {Pointer<Byte>} pbHashedBlob A pointer to a buffer containing original content and its hash.
+     * @param {Pointer} pbHashedBlob A pointer to a buffer containing original content and its hash.
      * @param {Integer} cbHashedBlob The size, in bytes, of the original hash buffer.
-     * @param {Pointer<Byte>} pbToBeHashed A pointer to a buffer to receive the original content that was hashed. 
+     * @param {Pointer} pbToBeHashed A pointer to a buffer to receive the original content that was hashed. 
      * 
      * 
      * 
@@ -44749,7 +44860,7 @@ class Cryptography {
      * 
      * <div class="alert"><b>Note</b>  When processing the data returned, applications must use the actual size of the data returned. The actual size can be slightly smaller than the size of the buffer specified on input. (On input, buffer sizes are usually specified large enough to ensure that the largest possible output data will fit in the buffer.) On output, the variable pointed to by this parameter is updated to reflect the actual size of the data copied to the buffer.</div>
      * <div> </div>
-     * @param {Pointer<Byte>} pbComputedHash A pointer to a buffer to receive the computed hash. This parameter can be <b>NULL</b> if the created hash is not needed for additional processing, or to set the size of the original content for memory allocation purposes. For more information, see 
+     * @param {Pointer} pbComputedHash A pointer to a buffer to receive the computed hash. This parameter can be <b>NULL</b> if the created hash is not needed for additional processing, or to set the size of the original content for memory allocation purposes. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
      * @param {Pointer<UInt32>} pcbComputedHash A pointer to a <b>DWORD</b> specifying the size, in bytes, of the <i>pbComputedHash</i> buffer. When the function returns, this variable contains the size, in bytes, of the created hash. The hash is not returned if this parameter is <b>NULL</b>. 
      * 
@@ -44823,7 +44934,7 @@ class Cryptography {
     static CryptVerifyMessageHash(pHashPara, pbHashedBlob, cbHashedBlob, pbToBeHashed, pcbToBeHashed, pbComputedHash, pcbComputedHash) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptVerifyMessageHash", "ptr", pHashPara, "ptr", pbHashedBlob, "uint", cbHashedBlob, "ptr", pbToBeHashed, "ptr", pcbToBeHashed, "ptr", pbComputedHash, "ptr", pcbComputedHash, "int")
+        result := DllCall("CRYPT32.dll\CryptVerifyMessageHash", "ptr", pHashPara, "ptr", pbHashedBlob, "uint", cbHashedBlob, "ptr", pbToBeHashed, "uint*", pcbToBeHashed, "ptr", pbComputedHash, "uint*", pcbComputedHash, "int")
         if(A_LastError)
             throw OSError()
 
@@ -44834,12 +44945,12 @@ class Cryptography {
      * The CryptVerifyDetachedMessageHash function verifies a detached hash.
      * @param {Pointer<CRYPT_HASH_MESSAGE_PARA>} pHashPara A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_hash_message_para">CRYPT_HASH_MESSAGE_PARA</a> structure containing the hash parameters.
-     * @param {Pointer<Byte>} pbDetachedHashBlob A pointer to the encoded, detached hash.
+     * @param {Pointer} pbDetachedHashBlob A pointer to the encoded, detached hash.
      * @param {Integer} cbDetachedHashBlob The size, in bytes, of the detached hash.
      * @param {Integer} cToBeHashed Number of elements in the <i>rgpbToBeHashed</i> and <i>rgcbToBeHashed</i> arrays.
      * @param {Pointer<Byte>} rgpbToBeHashed Array of pointers to content buffers to be hashed.
      * @param {Pointer<UInt32>} rgcbToBeHashed Array of sizes, in bytes, for the content buffers pointed to by the elements of the <i>rgcbToBeHashed</i> array.
-     * @param {Pointer<Byte>} pbComputedHash A pointer to a buffer to receive the computed hash. 
+     * @param {Pointer} pbComputedHash A pointer to a buffer to receive the computed hash. 
      * 
      * 
      * 
@@ -44918,7 +45029,7 @@ class Cryptography {
     static CryptVerifyDetachedMessageHash(pHashPara, pbDetachedHashBlob, cbDetachedHashBlob, cToBeHashed, rgpbToBeHashed, rgcbToBeHashed, pbComputedHash, pcbComputedHash) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptVerifyDetachedMessageHash", "ptr", pHashPara, "ptr", pbDetachedHashBlob, "uint", cbDetachedHashBlob, "uint", cToBeHashed, "ptr", rgpbToBeHashed, "ptr", rgcbToBeHashed, "ptr", pbComputedHash, "ptr", pcbComputedHash, "int")
+        result := DllCall("CRYPT32.dll\CryptVerifyDetachedMessageHash", "ptr", pHashPara, "ptr", pbDetachedHashBlob, "uint", cbDetachedHashBlob, "uint", cToBeHashed, "ptr", rgpbToBeHashed, "uint*", rgcbToBeHashed, "ptr", pbComputedHash, "uint*", pcbComputedHash, "int")
         if(A_LastError)
             throw OSError()
 
@@ -44929,9 +45040,9 @@ class Cryptography {
      * Signs a message by using a CSP's private key specified in the parameters.
      * @param {Pointer<CRYPT_KEY_SIGN_MESSAGE_PARA>} pSignPara A pointer to 
      * a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_key_sign_message_para">CRYPT_KEY_SIGN_MESSAGE_PARA</a> structure that contains the signature parameters.
-     * @param {Pointer<Byte>} pbToBeSigned A pointer to a buffer array that contains the message to be signed.
+     * @param {Pointer} pbToBeSigned A pointer to a buffer array that contains the message to be signed.
      * @param {Integer} cbToBeSigned The number of array elements in the <i>pbToBeSigned</i> buffer array.
-     * @param {Pointer<Byte>} pbSignedBlob A pointer to a buffer to receive the encoded signed message. 
+     * @param {Pointer} pbSignedBlob A pointer to a buffer to receive the encoded signed message. 
      * 
      * 
      * 
@@ -45000,7 +45111,7 @@ class Cryptography {
     static CryptSignMessageWithKey(pSignPara, pbToBeSigned, cbToBeSigned, pbSignedBlob, pcbSignedBlob) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptSignMessageWithKey", "ptr", pSignPara, "ptr", pbToBeSigned, "uint", cbToBeSigned, "ptr", pbSignedBlob, "ptr", pcbSignedBlob, "int")
+        result := DllCall("CRYPT32.dll\CryptSignMessageWithKey", "ptr", pSignPara, "ptr", pbToBeSigned, "uint", cbToBeSigned, "ptr", pbSignedBlob, "uint*", pcbSignedBlob, "int")
         if(A_LastError)
             throw OSError()
 
@@ -45013,9 +45124,9 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_key_verify_message_para">CRYPT_KEY_VERIFY_MESSAGE_PARA</a> structure that contains verification parameters.
      * @param {Pointer<CERT_PUBLIC_KEY_INFO>} pPublicKeyInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_public_key_info">CERT_PUBLIC_KEY_INFO</a> structure that contains the public key that is used to verify the signed
      * message. If <b>NULL</b>, the signature is not verified.
-     * @param {Pointer<Byte>} pbSignedBlob A pointer to a buffer that contains the signed message.
+     * @param {Pointer} pbSignedBlob A pointer to a buffer that contains the signed message.
      * @param {Integer} cbSignedBlob The size, in bytes, of the signed message buffer.
-     * @param {Pointer<Byte>} pbDecoded A pointer to a buffer to receive the decoded message. 
+     * @param {Pointer} pbDecoded A pointer to a buffer to receive the decoded message. 
      * 
      * 
      * 
@@ -45115,7 +45226,7 @@ class Cryptography {
     static CryptVerifyMessageSignatureWithKey(pVerifyPara, pPublicKeyInfo, pbSignedBlob, cbSignedBlob, pbDecoded, pcbDecoded) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptVerifyMessageSignatureWithKey", "ptr", pVerifyPara, "ptr", pPublicKeyInfo, "ptr", pbSignedBlob, "uint", cbSignedBlob, "ptr", pbDecoded, "ptr", pcbDecoded, "int")
+        result := DllCall("CRYPT32.dll\CryptVerifyMessageSignatureWithKey", "ptr", pVerifyPara, "ptr", pPublicKeyInfo, "ptr", pbSignedBlob, "uint", cbSignedBlob, "ptr", pbDecoded, "uint*", pcbDecoded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -45135,7 +45246,7 @@ class Cryptography {
      * @param {Pointer} hProv This parameter is not used and should be set to <b>0</b>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>A handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP). Set <i>hProv</i> to <b>0</b> to use the default CSP. If <i>hProv</i> is not <b>0</b>, it must be a CSP handle created by using the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a> function.This parameter's data type is <b>HCRYPTPROV</b>.
-     * @param {Pointer<PSTR>} szSubsystemProtocol A string that names a system store. If the system store name provided in this parameter is not the name of an existing system store, a new system store will be created and used. <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certenumsystemstore">CertEnumSystemStore</a> can be used to list the names of existing system stores. Some example system stores are listed in the following table.
+     * @param {Pointer<Byte>} szSubsystemProtocol A string that names a system store. If the system store name provided in this parameter is not the name of an existing system store, a new system store will be created and used. <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certenumsystemstore">CertEnumSystemStore</a> can be used to list the names of existing system stores. Some example system stores are listed in the following table.
      * 
      * <table>
      * <tr>
@@ -45183,7 +45294,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer<HCERTSTORE>} If the function succeeds, the function returns a handle to the certificate store.
+     * @returns {Pointer<Void>} If the function succeeds, the function returns a handle to the certificate store.
      * 
      * If the function fails, it returns <b>NULL</b>. For extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
@@ -45197,7 +45308,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertOpenSystemStoreA", "ptr", hProv, "ptr", szSubsystemProtocol, "ptr")
+        result := DllCall("CRYPT32.dll\CertOpenSystemStoreA", "ptr", hProv, "ptr", szSubsystemProtocol)
         if(A_LastError)
             throw OSError()
 
@@ -45217,7 +45328,7 @@ class Cryptography {
      * @param {Pointer} hProv This parameter is not used and should be set to <b>0</b>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>A handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP). Set <i>hProv</i> to <b>0</b> to use the default CSP. If <i>hProv</i> is not <b>0</b>, it must be a CSP handle created by using the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a> function.This parameter's data type is <b>HCRYPTPROV</b>.
-     * @param {Pointer<PWSTR>} szSubsystemProtocol A string that names a system store. If the system store name provided in this parameter is not the name of an existing system store, a new system store will be created and used. <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certenumsystemstore">CertEnumSystemStore</a> can be used to list the names of existing system stores. Some example system stores are listed in the following table.
+     * @param {Pointer<Char>} szSubsystemProtocol A string that names a system store. If the system store name provided in this parameter is not the name of an existing system store, a new system store will be created and used. <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certenumsystemstore">CertEnumSystemStore</a> can be used to list the names of existing system stores. Some example system stores are listed in the following table.
      * 
      * <table>
      * <tr>
@@ -45265,7 +45376,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer<HCERTSTORE>} If the function succeeds, the function returns a handle to the certificate store.
+     * @returns {Pointer<Void>} If the function succeeds, the function returns a handle to the certificate store.
      * 
      * If the function fails, it returns <b>NULL</b>. For extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
@@ -45279,7 +45390,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertOpenSystemStoreW", "ptr", hProv, "ptr", szSubsystemProtocol, "ptr")
+        result := DllCall("CRYPT32.dll\CertOpenSystemStoreW", "ptr", hProv, "ptr", szSubsystemProtocol)
         if(A_LastError)
             throw OSError()
 
@@ -45338,8 +45449,8 @@ class Cryptography {
      * 
      * > [!NOTE]
      * > The wincrypt.h header defines CertAddEncodedCertificateToSystemStore as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} szCertStoreName A null-terminated string that contains the name of the system store for the encoded certificate.
-     * @param {Pointer<Byte>} pbCertEncoded A pointer to a buffer that contains the encoded certificate to add.
+     * @param {Pointer<Byte>} szCertStoreName A null-terminated string that contains the name of the system store for the encoded certificate.
+     * @param {Pointer} pbCertEncoded A pointer to a buffer that contains the encoded certificate to add.
      * @param {Integer} cbCertEncoded The size, in bytes, of the <i>pbCertEncoded</i> buffer.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
      * 
@@ -45411,8 +45522,8 @@ class Cryptography {
      * 
      * > [!NOTE]
      * > The wincrypt.h header defines CertAddEncodedCertificateToSystemStore as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} szCertStoreName A null-terminated string that contains the name of the system store for the encoded certificate.
-     * @param {Pointer<Byte>} pbCertEncoded A pointer to a buffer that contains the encoded certificate to add.
+     * @param {Pointer<Char>} szCertStoreName A null-terminated string that contains the name of the system store for the encoded certificate.
+     * @param {Pointer} pbCertEncoded A pointer to a buffer that contains the encoded certificate to add.
      * @param {Integer} cbCertEncoded The size, in bytes, of the <i>pbCertEncoded</i> buffer.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
      * 
@@ -45434,19 +45545,19 @@ class Cryptography {
 
     /**
      * 
-     * @param {Pointer<CERT_CHAIN>} pCertChains 
+     * @param {Pointer} pCertChains 
      * @param {Pointer<UInt32>} pcbCertChains 
      * @param {Pointer<UInt32>} pcCertChains 
-     * @param {Pointer<Byte>} pbEncodedIssuerName 
+     * @param {Pointer} pbEncodedIssuerName 
      * @param {Integer} cbEncodedIssuerName 
-     * @param {Pointer<PWSTR>} pwszPurpose 
+     * @param {Pointer<Char>} pwszPurpose 
      * @param {Integer} dwKeySpec 
      * @returns {Integer} 
      */
     static FindCertsByIssuer(pCertChains, pcbCertChains, pcCertChains, pbEncodedIssuerName, cbEncodedIssuerName, pwszPurpose, dwKeySpec) {
         pwszPurpose := pwszPurpose is String? StrPtr(pwszPurpose) : pwszPurpose
 
-        result := DllCall("WINTRUST.dll\FindCertsByIssuer", "ptr", pCertChains, "ptr", pcbCertChains, "ptr", pcCertChains, "ptr", pbEncodedIssuerName, "uint", cbEncodedIssuerName, "ptr", pwszPurpose, "uint", dwKeySpec, "int")
+        result := DllCall("WINTRUST.dll\FindCertsByIssuer", "ptr", pCertChains, "uint*", pcbCertChains, "uint*", pcCertChains, "ptr", pbEncodedIssuerName, "uint", cbEncodedIssuerName, "ptr", pwszPurpose, "uint", dwKeySpec, "int")
         return result
     }
 
@@ -45488,7 +45599,7 @@ class Cryptography {
      * @param {Pointer<UInt32>} pdwMsgAndCertEncodingType A pointer to a <b>DWORD</b> value that receives the type of encoding used in the message. If this information is not needed, set this parameter to <b>NULL</b>.
      * @param {Pointer<UInt32>} pdwContentType 
      * @param {Pointer<UInt32>} pdwFormatType 
-     * @param {Pointer<HCERTSTORE>} phCertStore A pointer to an <b>HCERTSTORE</b> value that receives a handle to a certificate store that includes all of the certificates, CRLs, and CTLs in the object.
+     * @param {Pointer<Void>} phCertStore A pointer to an <b>HCERTSTORE</b> value that receives a handle to a certificate store that includes all of the certificates, CRLs, and CTLs in the object.
      * @param {Pointer<Void>} phMsg A pointer to an <b>HCRYPTMSG</b> value that receives the handle of an opened message.
      * @param {Pointer<Void>} ppvContext A pointer to a pointer that receives additional information about the object.
      * 
@@ -45576,7 +45687,7 @@ class Cryptography {
     static CryptQueryObject(dwObjectType, pvObject, dwExpectedContentTypeFlags, dwExpectedFormatTypeFlags, dwFlags, pdwMsgAndCertEncodingType, pdwContentType, pdwFormatType, phCertStore, phMsg, ppvContext) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptQueryObject", "uint", dwObjectType, "ptr", pvObject, "uint", dwExpectedContentTypeFlags, "uint", dwExpectedFormatTypeFlags, "uint", dwFlags, "ptr", pdwMsgAndCertEncodingType, "ptr", pdwContentType, "ptr", pdwFormatType, "ptr", phCertStore, "ptr", phMsg, "ptr", ppvContext, "int")
+        result := DllCall("CRYPT32.dll\CryptQueryObject", "uint", dwObjectType, "ptr", pvObject, "uint", dwExpectedContentTypeFlags, "uint", dwExpectedFormatTypeFlags, "uint", dwFlags, "uint*", pdwMsgAndCertEncodingType, "uint*", pdwContentType, "uint*", pdwFormatType, "ptr", phCertStore, "ptr", phMsg, "ptr", ppvContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -45586,35 +45697,38 @@ class Cryptography {
     /**
      * The CryptMemAlloc function allocates memory for a buffer. It is used by all Crypt32.lib functions that return allocated buffers.
      * @param {Integer} cbSize Number of bytes to be allocated.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} Returns a pointer to the buffer allocated. If the function fails, <b>NULL</b> is returned. When you have finished using the buffer, free the memory by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmemfree">CryptMemFree</a> function.
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptmemalloc
      * @since windows5.1.2600
      */
     static CryptMemAlloc(cbSize) {
-        DllCall("CRYPT32.dll\CryptMemAlloc", "uint", cbSize)
+        result := DllCall("CRYPT32.dll\CryptMemAlloc", "uint", cbSize)
+        return result
     }
 
     /**
      * The CryptMemRealloc function frees the memory currently allocated for a buffer and allocates memory for a new buffer.
      * @param {Pointer<Void>} pv A pointer to a currently allocated buffer.
      * @param {Integer} cbSize Number of bytes to be allocated.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} Returns a pointer to the buffer allocated. If the function fails, <b>NULL</b> is returned. When you have finished using the buffer, free the memory by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmemfree">CryptMemFree</a> function.
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptmemrealloc
      * @since windows5.1.2600
      */
     static CryptMemRealloc(pv, cbSize) {
-        DllCall("CRYPT32.dll\CryptMemRealloc", "ptr", pv, "uint", cbSize)
+        result := DllCall("CRYPT32.dll\CryptMemRealloc", "ptr", pv, "uint", cbSize)
+        return result
     }
 
     /**
      * The CryptMemFree function frees memory allocated by CryptMemAlloc or CryptMemRealloc.
      * @param {Pointer<Void>} pv A pointer to the buffer to be freed.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptmemfree
      * @since windows5.1.2600
      */
     static CryptMemFree(pv) {
-        DllCall("CRYPT32.dll\CryptMemFree", "ptr", pv)
+        result := DllCall("CRYPT32.dll\CryptMemFree", "ptr", pv)
+        return result
     }
 
     /**
@@ -45625,14 +45739,14 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptcreateasynchandle
      */
     static CryptCreateAsyncHandle(dwFlags, phAsync) {
-        result := DllCall("CRYPT32.dll\CryptCreateAsyncHandle", "uint", dwFlags, "ptr", phAsync, "int")
+        result := DllCall("CRYPT32.dll\CryptCreateAsyncHandle", "uint", dwFlags, "ptr*", phAsync, "int")
         return result
     }
 
     /**
      * The CryptSetAsyncParam function (wincrypt.h) sets an async parameter.
      * @param {Pointer} hAsync An async handle.
-     * @param {Pointer<PSTR>} pszParamOid The parameter ID.
+     * @param {Pointer<Byte>} pszParamOid The parameter ID.
      * @param {Pointer<Void>} pvParam The parameter value.
      * @param {Pointer<PFN_CRYPT_ASYNC_PARAM_FREE_FUNC>} pfnFree A callback function called when the parameter is freed.
      * @returns {Integer} S_OK on success.
@@ -45648,7 +45762,7 @@ class Cryptography {
     /**
      * The CryptGetAsyncParam function (wincrypt.h) sets an async parameter value.
      * @param {Pointer} hAsync An async handle.
-     * @param {Pointer<PSTR>} pszParamOid The parameter ID.
+     * @param {Pointer<Byte>} pszParamOid The parameter ID.
      * @param {Pointer<Void>} ppvParam Receives the parameter value.
      * @param {Pointer<PFN_CRYPT_ASYNC_PARAM_FREE_FUNC>} ppfnFree A callback function called when the parameter is freed.
      * @returns {Integer} S_OK on success.
@@ -45692,7 +45806,7 @@ class Cryptography {
      * 
      * > [!NOTE]
      * > The wincrypt.h header defines CryptRetrieveObjectByUrl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} pszUrl The address of a PKI object to be retrieved. The following schemes are supported:
+     * @param {Pointer<Byte>} pszUrl The address of a PKI object to be retrieved. The following schemes are supported:
      * 
      * <ul>
      * <li>ldap (<a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">Lightweight Directory Access Protocol</a>)</li>
@@ -45700,7 +45814,7 @@ class Cryptography {
      * <li>https (<a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate revocation list</a> (CRL) or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">online certificate status protocol</a> (OCSP) retrievals only)</li>
      * <li>file</li>
      * </ul>
-     * @param {Pointer<PSTR>} pszObjectOid 
+     * @param {Pointer<Byte>} pszObjectOid 
      * @param {Integer} dwRetrievalFlags Determines whether to use the cached URL or a URL retrieved from the wire URL. The form in which objects are returned is determined by the value of <i>pszObjectOid</i>.
      * 
      * <table>
@@ -45947,7 +46061,7 @@ class Cryptography {
      * 
      * > [!NOTE]
      * > The wincrypt.h header defines CryptRetrieveObjectByUrl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} pszUrl The address of a PKI object to be retrieved. The following schemes are supported:
+     * @param {Pointer<Char>} pszUrl The address of a PKI object to be retrieved. The following schemes are supported:
      * 
      * <ul>
      * <li>ldap (<a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">Lightweight Directory Access Protocol</a>)</li>
@@ -45955,7 +46069,7 @@ class Cryptography {
      * <li>https (<a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate revocation list</a> (CRL) or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">online certificate status protocol</a> (OCSP) retrievals only)</li>
      * <li>file</li>
      * </ul>
-     * @param {Pointer<PSTR>} pszObjectOid 
+     * @param {Pointer<Byte>} pszObjectOid 
      * @param {Integer} dwRetrievalFlags Determines whether to use the cached URL or a URL retrieved from the wire URL. The form in which objects are returned is determined by the value of <i>pszObjectOid</i>.
      * 
      * <table>
@@ -46209,16 +46323,16 @@ class Cryptography {
 
     /**
      * Acquires the URL of the remote object from a certificate, certificate trust list (CTL), or certificate revocation list (CRL).
-     * @param {Pointer<PSTR>} pszUrlOid A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) that identifies the URL being requested. If the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms632657(v=vs.85)">HIWORD</a> of the <i>pszUrlOid</i> parameter is zero, the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms632659(v=vs.85)">LOWORD</a> specifies the integer identifier for the type of the specified structure.
+     * @param {Pointer<Byte>} pszUrlOid A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) that identifies the URL being requested. If the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms632657(v=vs.85)">HIWORD</a> of the <i>pszUrlOid</i> parameter is zero, the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms632659(v=vs.85)">LOWORD</a> specifies the integer identifier for the type of the specified structure.
      * @param {Pointer<Void>} pvPara A structure determined by the value of <i>pszUrlOid</i>. For details, see the description for the <i>pszUrlOid</i> parameter.
      * @param {Integer} dwFlags 
-     * @param {Pointer<CRYPT_URL_ARRAY>} pUrlArray A pointer to a buffer to receive the data for the value entry. This parameter can be <b>NULL</b> to find the length of the buffer required to hold the data. 
+     * @param {Pointer} pUrlArray A pointer to a buffer to receive the data for the value entry. This parameter can be <b>NULL</b> to find the length of the buffer required to hold the data. 
      * 
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
      * @param {Pointer<UInt32>} pcbUrlArray A pointer to a <b>DWORD</b> that specifies the size, in bytes, of the buffer pointed to by the <i>pUrlArray</i> parameter. When the function returns, the <b>DWORD</b> contains the number of bytes stored in the buffer. This parameter can be <b>NULL</b> only if <i>pUrlArray</i> is <b>NULL</b>.
-     * @param {Pointer<CRYPT_URL_INFO>} pUrlInfo An optional pointer to a 
+     * @param {Pointer} pUrlInfo An optional pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_url_info">CRYPT_URL_INFO</a> structure that receives the data for the value entry.
      * @param {Pointer<UInt32>} pcbUrlInfo A pointer to a <b>DWORD</b> that specifies the size, in bytes, of the buffer pointed to by the <i>pUrlArray</i> parameter. When the function returns, the <b>DWORD</b> contains the number of bytes stored in the buffer. 
      * 
@@ -46241,7 +46355,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("CRYPTNET.dll\CryptGetObjectUrl", "ptr", pszUrlOid, "ptr", pvPara, "uint", dwFlags, "ptr", pUrlArray, "ptr", pcbUrlArray, "ptr", pUrlInfo, "ptr", pcbUrlInfo, "ptr", pvReserved, "int")
+        result := DllCall("CRYPTNET.dll\CryptGetObjectUrl", "ptr", pszUrlOid, "ptr", pvPara, "uint", dwFlags, "ptr", pUrlArray, "uint*", pcbUrlArray, "ptr", pUrlInfo, "uint*", pcbUrlInfo, "ptr", pvReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -46320,8 +46434,8 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PWSTR>} pwszComputerName A pointer to the name of a remote computer to be searched. If CRYPT_KEYID_MACHINE_FLAG flag is set, searches the remote computer for a list of key identifiers. If the local computer is to be searched and not a remote computer, set <i>pwszComputerName</i> to <b>NULL</b>.
-     * @param {Pointer<Void>} pvData A pointer to a buffer to receive the data as determined by <i>dwPropId</i>. Elements pointed to by fields in the <i>pvData</i> structure follow the structure. Therefore, the size contained in <i>pcbData</i> can exceed the size of the structure. 
+     * @param {Pointer<Char>} pwszComputerName A pointer to the name of a remote computer to be searched. If CRYPT_KEYID_MACHINE_FLAG flag is set, searches the remote computer for a list of key identifiers. If the local computer is to be searched and not a remote computer, set <i>pwszComputerName</i> to <b>NULL</b>.
+     * @param {Pointer} pvData A pointer to a buffer to receive the data as determined by <i>dwPropId</i>. Elements pointed to by fields in the <i>pvData</i> structure follow the structure. Therefore, the size contained in <i>pcbData</i> can exceed the size of the structure. 
      * 
      * 
      * 
@@ -46358,7 +46472,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptGetKeyIdentifierProperty", "ptr", pKeyIdentifier, "uint", dwPropId, "uint", dwFlags, "ptr", pwszComputerName, "ptr", pvReserved, "ptr", pvData, "ptr", pcbData, "int")
+        result := DllCall("CRYPT32.dll\CryptGetKeyIdentifierProperty", "ptr", pKeyIdentifier, "uint", dwPropId, "uint", dwFlags, "ptr", pwszComputerName, "ptr", pvReserved, "ptr", pvData, "uint*", pcbData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -46408,7 +46522,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PWSTR>} pwszComputerName A pointer to a <b>null</b>-terminated string that contains the name of a remote computer that has the key identifier where the properties are set. If CRYPT_KEYID_MACHINE_FLAG flag is set, searches the remote computer for a list of key identifiers. If the local computer is to be set and not a remote computer, set <i>pwszComputerName</i> to <b>NULL</b>.
+     * @param {Pointer<Char>} pwszComputerName A pointer to a <b>null</b>-terminated string that contains the name of a remote computer that has the key identifier where the properties are set. If CRYPT_KEYID_MACHINE_FLAG flag is set, searches the remote computer for a list of key identifiers. If the local computer is to be set and not a remote computer, set <i>pwszComputerName</i> to <b>NULL</b>.
      * @param {Pointer<Void>} pvData If <i>dwPropId</i> is CERT_KEY_PROV_INFO_PROP_ID, <i>pvData</i> points to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_key_prov_info">CRYPT_KEY_PROV_INFO</a> structure containing the property of the key identifier. 
      * 
@@ -46466,7 +46580,7 @@ class Cryptography {
      * 
      * Any certificate property identifier can be used.
      * @param {Integer} dwFlags By default, the list of key identifiers for the CurrentUser is searched. If CRYPT_KEYID_MACHINE_FLAG is set, the list of key identifiers of the LocalMachine (if <i>pwszComputerName</i> is <b>NULL</b>) or of a remote computer (if <i>pwszComputerName</i> is not <b>NULL</b>) is searched. For more information, see <i>pwszComputerName</i>.
-     * @param {Pointer<PWSTR>} pwszComputerName A pointer to the name of a remote computer to be searched. If CRYPT_KEYID_MACHINE_FLAG is set in <i>dwFlags</i>, the remote computer is searched for a list of key identifiers. If the local computer is to be searched and not a remote computer, <i>pwszComputerName</i> is set to <b>NULL</b>.
+     * @param {Pointer<Char>} pwszComputerName A pointer to the name of a remote computer to be searched. If CRYPT_KEYID_MACHINE_FLAG is set in <i>dwFlags</i>, the remote computer is searched for a list of key identifiers. If the local computer is to be searched and not a remote computer, <i>pwszComputerName</i> is set to <b>NULL</b>.
      * @param {Pointer<Void>} pvArg A pointer to data to be passed to the callback function. The type is a void that allows the application to declare, define, and initialize a structure or argument to hold any information.
      * @param {Pointer<PFN_CRYPT_ENUM_KEYID_PROP>} pfnEnum A pointer to an application-defined callback function that is executed for each key identifier entry that matches the input parameters. For details about the callback functions parameters, see <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_crypt_enum_keyid_prop">CRYPT_ENUM_KEYID_PROP</a>.
      * @returns {Integer} The <b>CryptEnumKeyIdentifierProperties</b> function repeatedly calls the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_crypt_enum_keyid_prop">CRYPT_ENUM_KEYID_PROP</a> callback function until the last key identifier is enumerated or the callback function returns <b>FALSE</b>.
@@ -46508,12 +46622,12 @@ class Cryptography {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @param {Pointer<PSTR>} pszPubKeyOID A pointer to the public key <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID). A value that is not <b>NULL</b> overrides the default OID obtained from the <b>aiKeyAlg</b> member of the structure pointed to by <i>pPubKeyStruc</i>. To use the default OID, set <i>pszPubKeyOID</i> to <b>NULL</b>.
-     * @param {Pointer<PUBLICKEYSTRUC>} pPubKeyStruc A pointer to a 
+     * @param {Pointer<Byte>} pszPubKeyOID A pointer to the public key <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID). A value that is not <b>NULL</b> overrides the default OID obtained from the <b>aiKeyAlg</b> member of the structure pointed to by <i>pPubKeyStruc</i>. To use the default OID, set <i>pszPubKeyOID</i> to <b>NULL</b>.
+     * @param {Pointer} pPubKeyStruc A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-publickeystruc">PUBLICKEYSTRUC</a> structure. In the default case, the <b>aiKeyAlg</b> member of the structure pointed to by <i>pPubKeyStruc</i> is used to find the public key OID. When the value of <i>pszPubKeyOID</i> is not <b>NULL</b>, it overrides the default.
      * @param {Integer} cbPubKeyStruc The size, in bytes, of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-publickeystruc">PUBLICKEYSTRUC</a>.
      * @param {Integer} dwFlags Reserved for future use and must be zero.
-     * @param {Pointer<Byte>} pbHash A pointer to a buffer to receive the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hash</a> of the public key and the key identifier.
+     * @param {Pointer} pbHash A pointer to a buffer to receive the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hash</a> of the public key and the key identifier.
      * 
      * To get the size of this information for memory allocation purposes, set this parameter to <b>NULL</b>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -46533,7 +46647,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptCreateKeyIdentifierFromCSP", "uint", dwCertEncodingType, "ptr", pszPubKeyOID, "ptr", pPubKeyStruc, "uint", cbPubKeyStruc, "uint", dwFlags, "ptr", pvReserved, "ptr", pbHash, "ptr", pcbHash, "int")
+        result := DllCall("CRYPT32.dll\CryptCreateKeyIdentifierFromCSP", "uint", dwCertEncodingType, "ptr", pszPubKeyOID, "ptr", pPubKeyStruc, "uint", cbPubKeyStruc, "uint", dwFlags, "ptr", pvReserved, "ptr", pbHash, "uint*", pcbHash, "int")
         if(A_LastError)
             throw OSError()
 
@@ -46544,7 +46658,7 @@ class Cryptography {
      * The CertCreateCertificateChainEngine function creates a new, nondefault chain engine for an application.
      * @param {Pointer<CERT_CHAIN_ENGINE_CONFIG>} pConfig A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_chain_engine_config">CERT_CHAIN_ENGINE_CONFIG</a> data structure that specifies the parameters for the chain engine.
-     * @param {Pointer<HCERTCHAINENGINE>} phChainEngine A pointer to the handle of the chain engine created. When you have finished using the chain engine, release the chain engine by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreecertificatechainengine">CertFreeCertificateChainEngine</a> function.
+     * @param {Pointer<Void>} phChainEngine A pointer to the handle of the chain engine created. When you have finished using the chain engine, release the chain engine by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreecertificatechainengine">CertFreeCertificateChainEngine</a> function.
      * @returns {Integer} If the function succeeds, the function returns nonzero (<b>TRUE</b>).
      * 
      * If the function fails, it returns zero (<b>FALSE</b>). For extended error information, call 
@@ -46566,18 +46680,19 @@ class Cryptography {
 
     /**
      * The CertFreeCertificateChainEngine function frees a certificate trust engine.
-     * @param {Pointer<HCERTCHAINENGINE>} hChainEngine Handle of the chain engine to be freed.
-     * @returns {String} Nothing - always returns an empty string
+     * @param {Pointer<Void>} hChainEngine Handle of the chain engine to be freed.
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certfreecertificatechainengine
      * @since windows5.1.2600
      */
     static CertFreeCertificateChainEngine(hChainEngine) {
-        DllCall("CRYPT32.dll\CertFreeCertificateChainEngine", "ptr", hChainEngine)
+        result := DllCall("CRYPT32.dll\CertFreeCertificateChainEngine", "ptr", hChainEngine)
+        return result
     }
 
     /**
      * Resyncs the certificate chain engine, which resynchronizes the stores the store's engine and updates the engine caches.
-     * @param {Pointer<HCERTCHAINENGINE>} hChainEngine The chain engine to resynchronize.
+     * @param {Pointer<Void>} hChainEngine The chain engine to resynchronize.
      * @returns {Integer} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. For extended error information, call 
@@ -46620,11 +46735,11 @@ class Cryptography {
      * 
      * </li>
      * </ul>
-     * @param {Pointer<HCERTCHAINENGINE>} hChainEngine A handle of the chain engine (namespace and cache) to be used. If <i>hChainEngine</i> is <b>NULL</b>, the default chain engine, HCCE_CURRENT_USER, is used. This parameter can be set to HCCE_LOCAL_MACHINE.
+     * @param {Pointer<Void>} hChainEngine A handle of the chain engine (namespace and cache) to be used. If <i>hChainEngine</i> is <b>NULL</b>, the default chain engine, HCCE_CURRENT_USER, is used. This parameter can be set to HCCE_LOCAL_MACHINE.
      * @param {Pointer<CERT_CONTEXT>} pCertContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> of the end certificate, the certificate for which a chain is being built. This certificate context will be the zero-index element in the first simple chain.
      * @param {Pointer<FILETIME>} pTime A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> variable that indicates the time for which the chain is to be validated. Note that the time does not affect trust list, revocation, or root store checking. The current system time is used if <b>NULL</b> is passed to this parameter. Trust in a particular certificate being a trusted root is based on the current <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">state</a> of the root store and not the state of the root store at a time passed in by this parameter. For revocation, a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate revocation list</a> (CRL), itself, must be valid at the current time. The value of this parameter is used to determine whether a certificate listed in a CRL has been revoked.
-     * @param {Pointer<HCERTSTORE>} hAdditionalStore A handle to any additional store to search for supporting certificates and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate trust lists</a> (CTLs). This parameter can be <b>NULL</b> if no additional store is to be searched.
+     * @param {Pointer<Void>} hAdditionalStore A handle to any additional store to search for supporting certificates and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate trust lists</a> (CTLs). This parameter can be <b>NULL</b> if no additional store is to be searched.
      * @param {Pointer<CERT_CHAIN_PARA>} pChainPara A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_chain_para">CERT_CHAIN_PARA</a> structure that includes chain-building parameters.
      * @param {Integer} dwFlags Flag values that indicate special processing. This parameter can be a combination of one or more of the  following flags.
@@ -46864,12 +46979,13 @@ class Cryptography {
      * The CertFreeCertificateChain function frees a certificate chain by reducing its reference count. If the reference count becomes zero, memory allocated for the chain is released.
      * @param {Pointer<CERT_CHAIN_CONTEXT>} pChainContext A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_chain_context">CERT_CHAIN_CONTEXT</a> certificate chain context to be freed. If the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">reference count</a> on the context reaches zero, the storage allocated for the context is freed.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certfreecertificatechain
      * @since windows5.1.2600
      */
     static CertFreeCertificateChain(pChainContext) {
-        DllCall("CRYPT32.dll\CertFreeCertificateChain", "ptr", pChainContext)
+        result := DllCall("CRYPT32.dll\CertFreeCertificateChain", "ptr", pChainContext)
+        return result
     }
 
     /**
@@ -46891,7 +47007,7 @@ class Cryptography {
      * Finds the first or next certificate in a store that meets the specified criteria.
      * @remarks
      * The <i>pPrevChainContext</i> parameter must be <b>NULL</b> on the first call to build the chain context. To build the next chain context, the <i>pPrevChainContext</i> is set to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_chain_context">CERT_CHAIN_CONTEXT</a> structure returned by a previous call. If <i>pPrevChainContext</i> is not <b>NULL</b>, the structure is always freed by this function by using the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreecertificatechain">CertFreeCertificateChain</a> function, even if an error occurs.
-     * @param {Pointer<HCERTSTORE>} hCertStore The handle of the store to be searched for a certificate upon which a chain is built. This handle is passed as an additional store to 
+     * @param {Pointer<Void>} hCertStore The handle of the store to be searched for a certificate upon which a chain is built. This handle is passed as an additional store to 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certgetcertificatechain">CertGetCertificateChain</a> function as the chain is built.
      * @param {Integer} dwCertEncodingType The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate encoding type</a>   that was used to encode the store. The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a> identifier, contained in the high <b>WORD</b> of this value, is ignored by this function.
      * 
@@ -46946,7 +47062,7 @@ class Cryptography {
      * <c>pChainContext-&gt;rgpChain[lChainIndex]-&gt;rgpElement[lElementIndex];</c>
      * 
      * Use the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certgetcertificatechain">CertGetCertificateChain</a> function to enable and perform certificate revocation checking.  The <b>CertVerifyCertificateChainPolicy</b> function does not check if certificates in the certificate chain are revoked.
-     * @param {Pointer<PSTR>} pszPolicyOID Current predefined verify chain policy structures are listed in the following table.
+     * @param {Pointer<Byte>} pszPolicyOID Current predefined verify chain policy structures are listed in the following table.
      * 
      * <table>
      * <tr>
@@ -47141,10 +47257,10 @@ class Cryptography {
      * 
      * > [!NOTE]
      * > The wincrypt.h header defines CryptStringToBinary as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PSTR>} pszString A pointer to a string that contains the formatted string to be converted.
+     * @param {Pointer<Byte>} pszString A pointer to a string that contains the formatted string to be converted.
      * @param {Integer} cchString The number of characters of the formatted string to be converted, not including the terminating <b>NULL</b> character. If this parameter is zero,  <i>pszString</i> is considered to be a null-terminated string.
      * @param {Integer} dwFlags 
-     * @param {Pointer<Byte>} pbBinary A pointer to a buffer that receives the returned sequence of bytes. If this parameter is <b>NULL</b>, the function calculates the length of the buffer needed and returns the size, in bytes, of required memory in the <b>DWORD</b> pointed to by <i>pcbBinary</i>.
+     * @param {Pointer} pbBinary A pointer to a buffer that receives the returned sequence of bytes. If this parameter is <b>NULL</b>, the function calculates the length of the buffer needed and returns the size, in bytes, of required memory in the <b>DWORD</b> pointed to by <i>pcbBinary</i>.
      * @param {Pointer<UInt32>} pcbBinary A pointer to a <b>DWORD</b> variable that, on entry, contains the size, in bytes, of the <i>pbBinary</i> buffer. After the function returns, this variable contains the number of bytes copied to the buffer. If this value is not large enough to contain all of the data, the function fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_MORE_DATA</b>.
      * 
      * If <i>pbBinary</i> is <b>NULL</b>, the <b>DWORD</b> pointed to by <i>pcbBinary</i> is ignored.
@@ -47176,7 +47292,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptStringToBinaryA", "ptr", pszString, "uint", cchString, "uint", dwFlags, "ptr", pbBinary, "ptr", pcbBinary, "ptr", pdwSkip, "ptr", pdwFlags, "int")
+        result := DllCall("CRYPT32.dll\CryptStringToBinaryA", "ptr", pszString, "uint", cchString, "uint", dwFlags, "ptr", pbBinary, "uint*", pcbBinary, "uint*", pdwSkip, "uint*", pdwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -47209,10 +47325,10 @@ class Cryptography {
      * 
      * > [!NOTE]
      * > The wincrypt.h header defines CryptStringToBinary as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<PWSTR>} pszString A pointer to a string that contains the formatted string to be converted.
+     * @param {Pointer<Char>} pszString A pointer to a string that contains the formatted string to be converted.
      * @param {Integer} cchString The number of characters of the formatted string to be converted, not including the terminating <b>NULL</b> character. If this parameter is zero,  <i>pszString</i> is considered to be a null-terminated string.
      * @param {Integer} dwFlags 
-     * @param {Pointer<Byte>} pbBinary A pointer to a buffer that receives the returned sequence of bytes. If this parameter is <b>NULL</b>, the function calculates the length of the buffer needed and returns the size, in bytes, of required memory in the <b>DWORD</b> pointed to by <i>pcbBinary</i>.
+     * @param {Pointer} pbBinary A pointer to a buffer that receives the returned sequence of bytes. If this parameter is <b>NULL</b>, the function calculates the length of the buffer needed and returns the size, in bytes, of required memory in the <b>DWORD</b> pointed to by <i>pcbBinary</i>.
      * @param {Pointer<UInt32>} pcbBinary A pointer to a <b>DWORD</b> variable that, on entry, contains the size, in bytes, of the <i>pbBinary</i> buffer. After the function returns, this variable contains the number of bytes copied to the buffer. If this value is not large enough to contain all of the data, the function fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_MORE_DATA</b>.
      * 
      * If <i>pbBinary</i> is <b>NULL</b>, the <b>DWORD</b> pointed to by <i>pcbBinary</i> is ignored.
@@ -47244,7 +47360,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptStringToBinaryW", "ptr", pszString, "uint", cchString, "uint", dwFlags, "ptr", pbBinary, "ptr", pcbBinary, "ptr", pdwSkip, "ptr", pdwFlags, "int")
+        result := DllCall("CRYPT32.dll\CryptStringToBinaryW", "ptr", pszString, "uint", cchString, "uint", dwFlags, "ptr", pbBinary, "uint*", pcbBinary, "uint*", pdwSkip, "uint*", pdwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -47262,10 +47378,10 @@ class Cryptography {
      * 
      * > [!NOTE]
      * > The wincrypt.h header defines CryptBinaryToString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Byte>} pbBinary A pointer to the array of bytes to be converted into a string.
+     * @param {Pointer} pbBinary A pointer to the array of bytes to be converted into a string.
      * @param {Integer} cbBinary The number of elements in the <i>pbBinary</i> array.
      * @param {Integer} dwFlags 
-     * @param {Pointer<PSTR>} pszString A pointer to a buffer that receives the converted string. To calculate the number of characters that must be allocated to hold the returned string, set this parameter to <b>NULL</b>. The function will place the required number of characters, including the terminating <b>NULL</b> character, in the value pointed to by <i>pcchString</i>.
+     * @param {Pointer<Byte>} pszString A pointer to a buffer that receives the converted string. To calculate the number of characters that must be allocated to hold the returned string, set this parameter to <b>NULL</b>. The function will place the required number of characters, including the terminating <b>NULL</b> character, in the value pointed to by <i>pcchString</i>.
      * @param {Pointer<UInt32>} pcchString A pointer to a <b>DWORD</b> variable that contains the size, in <b>TCHAR</b>s, of the <i>pszString</i> buffer. If <i>pszString</i> is <b>NULL</b>, the function calculates the length of the return string (including the terminating null character) in <b>TCHAR</b>s and returns it in this parameter. If <i>pszString</i> is not <b>NULL</b> and big enough, the function converts the binary data into a specified string format including the terminating null character, but <i>pcchString</i> receives the length in <b>TCHAR</b>s, not including the terminating null character.
      * @returns {Integer} If the function succeeds, the function returns nonzero (<b>TRUE</b>).
      * 
@@ -47276,7 +47392,7 @@ class Cryptography {
     static CryptBinaryToStringA(pbBinary, cbBinary, dwFlags, pszString, pcchString) {
         pszString := pszString is String? StrPtr(pszString) : pszString
 
-        result := DllCall("CRYPT32.dll\CryptBinaryToStringA", "ptr", pbBinary, "uint", cbBinary, "uint", dwFlags, "ptr", pszString, "ptr", pcchString, "int")
+        result := DllCall("CRYPT32.dll\CryptBinaryToStringA", "ptr", pbBinary, "uint", cbBinary, "uint", dwFlags, "ptr", pszString, "uint*", pcchString, "int")
         return result
     }
 
@@ -47291,10 +47407,10 @@ class Cryptography {
      * 
      * > [!NOTE]
      * > The wincrypt.h header defines CryptBinaryToString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<Byte>} pbBinary A pointer to the array of bytes to be converted into a string.
+     * @param {Pointer} pbBinary A pointer to the array of bytes to be converted into a string.
      * @param {Integer} cbBinary The number of elements in the <i>pbBinary</i> array.
      * @param {Integer} dwFlags 
-     * @param {Pointer<PWSTR>} pszString A pointer to a buffer that receives the converted string. To calculate the number of characters that must be allocated to hold the returned string, set this parameter to <b>NULL</b>. The function will place the required number of characters, including the terminating <b>NULL</b> character, in the value pointed to by <i>pcchString</i>.
+     * @param {Pointer<Char>} pszString A pointer to a buffer that receives the converted string. To calculate the number of characters that must be allocated to hold the returned string, set this parameter to <b>NULL</b>. The function will place the required number of characters, including the terminating <b>NULL</b> character, in the value pointed to by <i>pcchString</i>.
      * @param {Pointer<UInt32>} pcchString A pointer to a <b>DWORD</b> variable that contains the size, in <b>TCHAR</b>s, of the <i>pszString</i> buffer. If <i>pszString</i> is <b>NULL</b>, the function calculates the length of the return string (including the terminating null character) in <b>TCHAR</b>s and returns it in this parameter. If <i>pszString</i> is not <b>NULL</b> and big enough, the function converts the binary data into a specified string format including the terminating null character, but <i>pcchString</i> receives the length in <b>TCHAR</b>s, not including the terminating null character.
      * @returns {Integer} If the function succeeds, the function returns nonzero (<b>TRUE</b>).
      * 
@@ -47305,7 +47421,7 @@ class Cryptography {
     static CryptBinaryToStringW(pbBinary, cbBinary, dwFlags, pszString, pcchString) {
         pszString := pszString is String? StrPtr(pszString) : pszString
 
-        result := DllCall("CRYPT32.dll\CryptBinaryToStringW", "ptr", pbBinary, "uint", cbBinary, "uint", dwFlags, "ptr", pszString, "ptr", pcchString, "int")
+        result := DllCall("CRYPT32.dll\CryptBinaryToStringW", "ptr", pbBinary, "uint", cbBinary, "uint", dwFlags, "ptr", pszString, "uint*", pcchString, "int")
         return result
     }
 
@@ -47375,13 +47491,13 @@ class Cryptography {
      * * `openssl pkcs12 -keypbe PBE-SHA1-3DES -certpbe NONE -in in.pem -export -out out.pfx -password file:password.txt -passin file:password.txt`
      * * `openssl pkcs12 -keypbe AES-256-CBC -certpbe NONE -macalg sha256 -in in.pem -export -out out.pfx -password file:password.txt -passin file:password.txt`
      * @param {Pointer<CRYPT_INTEGER_BLOB>} pPFX A pointer to a [CRYPT_DATA_BLOB](/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)) structure that contains a PFX packet with the exported and encrypted certificates and keys.
-     * @param {Pointer<PWSTR>} szPassword A string password used to decrypt and verify the PFX packet. Whether set to a string of length greater than zero or set to an empty string or to **NULL**,  this value must be exactly the same as the value that was used to encrypt the packet.
+     * @param {Pointer<Char>} szPassword A string password used to decrypt and verify the PFX packet. Whether set to a string of length greater than zero or set to an empty string or to **NULL**,  this value must be exactly the same as the value that was used to encrypt the packet.
      * 
      * Beginning with Windows 8 and Windows Server 2012, if the PFX packet was created in the [PFXExportCertStoreEx](nf-wincrypt-pfxexportcertstoreex.md) function by using the **PKCS12_PROTECT_TO_DOMAIN_SIDS** flag, the **PFXImportCertStore** function attempts to decrypt the password by using the Active Directory (AD) principal that was used to encrypt it. The AD principal is specified in the *pvPara* parameter. If the *szPassword* parameter in the **PFXExportCertStoreEx** function was an empty string or **NULL** and the *dwFlags* parameter was set to **PKCS12_PROTECT_TO_DOMAIN_SIDS**, that function randomly generated a password and encrypted it to the AD principal specified in the *pvPara* parameter. In that case you should set the password to the value, empty string or **NULL**, that was used when the PFX packet was created. The **PFXImportCertStore** function will use the AD principal to decrypt the random password, and the randomly generated password will be used to decrypt the PFX certificate.
      * 
      * When you have finished using the password, clear it from memory by calling the [SecureZeroMemory](/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)) function. For more information about protecting passwords, see [Handling Passwords](/windows/win32/SecBP/handling-passwords).
      * @param {Integer} dwFlags 
-     * @returns {Pointer<HCERTSTORE>} If the function succeeds, the function returns a handle to a certificate store that contains the imported certificates, including available private keys.
+     * @returns {Pointer<Void>} If the function succeeds, the function returns a handle to a certificate store that contains the imported certificates, including available private keys.
      * 
      * If the function fails, that is, if the password parameter does not contain an exact match with the password used to encrypt the exported packet or if there were any other problems decoding the PFX BLOB, the function returns **NULL**, and an error code can be found by calling the [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) function.
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-pfximportcertstore
@@ -47392,7 +47508,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\PFXImportCertStore", "ptr", pPFX, "ptr", szPassword, "uint", dwFlags, "ptr")
+        result := DllCall("CRYPT32.dll\PFXImportCertStore", "ptr", pPFX, "ptr", szPassword, "uint", dwFlags)
         if(A_LastError)
             throw OSError()
 
@@ -47414,7 +47530,7 @@ class Cryptography {
     /**
      * The PFXVerifyPassword function attempts to decode the outer layer of a BLOB as a Personal Information Exchange (PFX) packet and to decrypt it with the given password. No data from the BLOB is imported.
      * @param {Pointer<CRYPT_INTEGER_BLOB>} pPFX A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DATA_BLOB</a> structure that the function will attempt to decode as a PFX packet.
-     * @param {Pointer<PWSTR>} szPassword String password to be checked. For this function to succeed, this password must be exactly the same as the password used to encrypt the packet.
+     * @param {Pointer<Char>} szPassword String password to be checked. For this function to succeed, this password must be exactly the same as the password used to encrypt the packet.
      * 
      * If you set this value to an empty string or <b>NULL</b>, this function typically attempts to decrypt the password embedded in the PFX BLOB by using the empty string or <b>NULL</b>.
      * 
@@ -47441,9 +47557,9 @@ class Cryptography {
      * Beginning with Windows 10 1709 (Fall Creators update) and Windows Server 2019, you can control the number of iterations of the hash function over the password done by the <b>PFXExportCertStoreEx</b> function using the following registry key. The value in this key is of type <b>REG_DWORD</b>.
      * 
      * <b>HKEY_LOCAL_MACHINE</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>Windows</b>&#92;<b>CurrentVersion</b>&#92;<b>PFX</b>&#92;<b>PasswordIterationCount</b>
-     * @param {Pointer<HCERTSTORE>} hStore Handle of the certificate store containing the certificates to be exported.
+     * @param {Pointer<Void>} hStore Handle of the certificate store containing the certificates to be exported.
      * @param {Pointer<CRYPT_INTEGER_BLOB>} pPFX A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DATA_BLOB</a> structure to contain the PFX packet with the exported certificates and keys. If <i>pPFX</i>-&gt;<i>pbData</i> is <b>NULL</b>, the function calculates the number of bytes needed for the encoded BLOB and returns this in <i>pPFX</i>-&gt;<i>cbData</i>. When the function is called with <i>pPFX</i>-&gt;<i>pbData</i> pointing to an allocated buffer of the needed size, the function copies the encoded bytes into the buffer and updates <i>pPFX</i>-&gt;<i>cbData</i> with the encode byte length.
-     * @param {Pointer<PWSTR>} szPassword String password used to encrypt and verify the PFX packet. When you have finished using the password, clear the password from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function. For more information about protecting passwords, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
+     * @param {Pointer<Char>} szPassword String password used to encrypt and verify the PFX packet. When you have finished using the password, clear the password from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function. For more information about protecting passwords, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
      * @param {Pointer<Void>} pvPara This parameter must be <b>NULL</b> if the <i>dwFlags</i> parameter does not contain <b>PKCS12_PROTECT_TO_DOMAIN_SIDS</b> or <b>PKCS12_EXPORT_PBES2_PARAMS</b>. Prior to Windows 8 and Windows Server 2012, therefore, this parameter must be <b>NULL</b>.
      * 
      * Beginning with Windows 8 and Windows Server 2012, if the <i>dwFlags</i> parameter contains <b>PKCS12_PROTECT_TO_DOMAIN_SIDS</b>, you can set the <i>pvPara</i> parameter to point to an <b>NCRYPT_DESCRIPTOR_HANDLE</b> value to identify which Active Directory principal the PFX password will be protected to inside of the PFX BLOB. Currently, the password can be protected to an Active Directory user, computer, or group. For more information about protection descriptors, see <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptcreateprotectiondescriptor">NCryptCreateProtectionDescriptor</a>.
@@ -47555,9 +47671,9 @@ class Cryptography {
 
     /**
      * Exports the certificates and, if available, the associated private keys from the referenced certificate store.
-     * @param {Pointer<HCERTSTORE>} hStore Handle of the certificate store containing the certificates to be exported.
+     * @param {Pointer<Void>} hStore Handle of the certificate store containing the certificates to be exported.
      * @param {Pointer<CRYPT_INTEGER_BLOB>} pPFX A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DATA_BLOB</a> structure to contain the PFX packet with the exported certificates and keys. If <i>pPFX</i>-&gt;<i>pbData</i> is <b>NULL</b>, the function calculates the number of bytes needed for the encoded BLOB and returns this in <i>pPFX</i>-&gt;<i>cbData</i>. When the function is called with <i>pPFX</i>-&gt;<i>pbData</i> pointing to an allocated buffer of the needed size, the function copies the encoded bytes into the buffer and updates <i>pPFX</i>-&gt;<i>cbData</i> with the encode byte length.
-     * @param {Pointer<PWSTR>} szPassword String password used to encrypt and verify the PFX packet. When you have finished using the password, clear the password from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function. For more information about protecting passwords, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
+     * @param {Pointer<Char>} szPassword String password used to encrypt and verify the PFX packet. When you have finished using the password, clear the password from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function. For more information about protecting passwords, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
      * @param {Integer} dwFlags Flag values can be set to any combination of the following.
      * 
      * <table>
@@ -47735,17 +47851,51 @@ class Cryptography {
      * @param {Pointer<CERT_CHAIN_CONTEXT>} pChainContext The address of a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_chain_context">CERT_CHAIN_CONTEXT</a> structure that contains the certificate chain.
      * @param {Integer} dwFlags This parameter is not used and must be zero.
      * @param {Pointer<CERT_SERVER_OCSP_RESPONSE_OPEN_PARA>} pOpenPara This parameter is not used and must be <b>NULL</b>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer<Void>} Returns a handle to the OCSP response associated with a server certificate chain if successful; otherwise, <b>NULL</b>. This handle must be passed to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certcloseserverocspresponse">CertCloseServerOcspResponse</a> function when it is no longer needed.
+     * 
+     * For extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes returned by the 
+     * 		       <b>GetLastError</b> function include, but are not limited to, the following.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INVALID_PARAMETER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more parameters are not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>CRYPT_E_NOT_IN_REVOCATION_DATABASE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The end certificate does not contain an OCSP authority information access (AIA) URL.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certopenserverocspresponse
      * @since windows6.0.6000
      */
     static CertOpenServerOcspResponse(pChainContext, dwFlags, pOpenPara) {
         A_LastError := 0
 
-        DllCall("CRYPT32.dll\CertOpenServerOcspResponse", "ptr", pChainContext, "uint", dwFlags, "ptr", pOpenPara)
+        result := DllCall("CRYPT32.dll\CertOpenServerOcspResponse", "ptr", pChainContext, "uint", dwFlags, "ptr", pOpenPara)
         if(A_LastError)
             throw OSError()
 
+        return result
     }
 
     /**
@@ -47753,12 +47903,13 @@ class Cryptography {
      * @remarks
      * Each <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certopenserverocspresponse">CertOpenServerOcspResponse</a> and <b>CertAddRefServerOcspResponse</b> requires a corresponding <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certcloseserverocspresponse">CertCloseServerOcspResponse</a>.
      * @param {Pointer<Void>} hServerOcspResponse A handle to an <b>HCERT_SERVER_OCSP_RESPONSE</b> returned by <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certopenserverocspresponse">CertOpenServerOcspResponse</a>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certaddrefserverocspresponse
      * @since windows6.0.6000
      */
     static CertAddRefServerOcspResponse(hServerOcspResponse) {
-        DllCall("CRYPT32.dll\CertAddRefServerOcspResponse", "ptr", hServerOcspResponse)
+        result := DllCall("CRYPT32.dll\CertAddRefServerOcspResponse", "ptr", hServerOcspResponse)
+        return result
     }
 
     /**
@@ -47767,12 +47918,13 @@ class Cryptography {
      * The <b>CertCloseServerOcspResponse</b> function closes a handle returned by either the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certopenserverocspresponse">CertOpenServerOcspResponse</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certaddrefserverocspresponse">CertAddRefServerOcspResponse</a> function.
      * @param {Pointer<Void>} hServerOcspResponse The handle to close for an OCSP server response.
      * @param {Integer} dwFlags This parameter is not used and must be zero.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certcloseserverocspresponse
      * @since windows6.0.6000
      */
     static CertCloseServerOcspResponse(hServerOcspResponse, dwFlags) {
-        DllCall("CRYPT32.dll\CertCloseServerOcspResponse", "ptr", hServerOcspResponse, "uint", dwFlags)
+        result := DllCall("CRYPT32.dll\CertCloseServerOcspResponse", "ptr", hServerOcspResponse, "uint", dwFlags)
+        return result
     }
 
     /**
@@ -47803,29 +47955,31 @@ class Cryptography {
      * @remarks
      * Each call to <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certgetserverocspresponsecontext">CertGetServerOcspResponseContext</a> and <b>CertAddRefServerOcspResponseContext</b> requires a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreeserverocspresponsecontext">CertFreeServerOcspResponseContext</a>.
      * @param {Pointer<CERT_SERVER_OCSP_RESPONSE_CONTEXT>} pServerOcspResponseContext A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_server_ocsp_response_context">CERT_SERVER_OCSP_RESPONSE_CONTEXT</a> returned by <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certgetserverocspresponsecontext">CertGetServerOcspResponseContext</a>.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certaddrefserverocspresponsecontext
      * @since windows6.0.6000
      */
     static CertAddRefServerOcspResponseContext(pServerOcspResponseContext) {
-        DllCall("CRYPT32.dll\CertAddRefServerOcspResponseContext", "ptr", pServerOcspResponseContext)
+        result := DllCall("CRYPT32.dll\CertAddRefServerOcspResponseContext", "ptr", pServerOcspResponseContext)
+        return result
     }
 
     /**
      * Decrements the reference count for a CERT_SERVER_OCSP_RESPONSE_CONTEXT structure.
      * @param {Pointer<CERT_SERVER_OCSP_RESPONSE_CONTEXT>} pServerOcspResponseContext A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_server_ocsp_response_context">CERT_SERVER_OCSP_RESPONSE_CONTEXT</a> structure that contains a value returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certgetserverocspresponsecontext">CertGetServerOcspResponseContext</a> function.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certfreeserverocspresponsecontext
      * @since windows6.0.6000
      */
     static CertFreeServerOcspResponseContext(pServerOcspResponseContext) {
-        DllCall("CRYPT32.dll\CertFreeServerOcspResponseContext", "ptr", pServerOcspResponseContext)
+        result := DllCall("CRYPT32.dll\CertFreeServerOcspResponseContext", "ptr", pServerOcspResponseContext)
+        return result
     }
 
     /**
      * Performs a URL retrieval of logo or biometric information specified in either the szOID_LOGOTYPE_EXT or szOID_BIOMETRIC_EXT certificate extension.
      * @param {Pointer<CERT_CONTEXT>} pCertContext The address of a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure that contains the certificate.
-     * @param {Pointer<PSTR>} lpszLogoOrBiometricType The address of a null-terminated ANSI string that contains an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) string that identifies the type of information to retrieve.
+     * @param {Pointer<Byte>} lpszLogoOrBiometricType The address of a null-terminated ANSI string that contains an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) string that identifies the type of information to retrieve.
      * 
      * 
      * This parameter may also contain one of the following predefined values.
@@ -47893,7 +48047,7 @@ class Cryptography {
      * @param {Integer} dwFlags This parameter is not used and must be zero.
      * @param {Pointer<Byte>} ppbData The address of a <b>BYTE</b> pointer that receives the logotype or biometric data. This memory must be freed when it is no longer needed by passing this pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmemfree">CryptMemFree</a> function.
      * @param {Pointer<UInt32>} pcbData The address of a <b>DWORD</b> variable that receives the number of bytes in the <i>ppbData</i> buffer.
-     * @param {Pointer<PWSTR>} ppwszMimeType The address of a pointer to a null-terminated Unicode string that receives the Multipurpose Internet Mail Extensions (MIME) type of the data. This parameter can be <b>NULL</b> if this information is not needed. This memory must be freed when it is no longer needed by passing this pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmemfree">CryptMemFree</a> function.
+     * @param {Pointer<Char>} ppwszMimeType The address of a pointer to a null-terminated Unicode string that receives the Multipurpose Internet Mail Extensions (MIME) type of the data. This parameter can be <b>NULL</b> if this information is not needed. This memory must be freed when it is no longer needed by passing this pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmemfree">CryptMemFree</a> function.
      * 
      * This address always receives <b>NULL</b> for biometric types. You must always ensure that this parameter contains a valid memory address before attempting to access the memory.
      * @returns {Integer} Returns nonzero if successful or zero otherwise.
@@ -47981,11 +48135,10 @@ class Cryptography {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
         lpszLogoOrBiometricType := lpszLogoOrBiometricType is String? StrPtr(lpszLogoOrBiometricType) : lpszLogoOrBiometricType
-        ppwszMimeType := ppwszMimeType is String? StrPtr(ppwszMimeType) : ppwszMimeType
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertRetrieveLogoOrBiometricInfo", "ptr", pCertContext, "ptr", lpszLogoOrBiometricType, "uint", dwRetrievalFlags, "uint", dwTimeout, "uint", dwFlags, "ptr", pvReserved, "ptr", ppbData, "ptr", pcbData, "ptr", ppwszMimeType, "int")
+        result := DllCall("CRYPT32.dll\CertRetrieveLogoOrBiometricInfo", "ptr", pCertContext, "ptr", lpszLogoOrBiometricType, "uint", dwRetrievalFlags, "uint", dwTimeout, "uint", dwFlags, "ptr", pvReserved, "ptr", ppbData, "uint*", pcbData, "ptr", ppwszMimeType, "int")
         if(A_LastError)
             throw OSError()
 
@@ -48128,7 +48281,7 @@ class Cryptography {
      * The <b>pChainPara</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_select_chain_para">CERT_SELECT_CHAIN_PARA</a> structure points to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_chain_para">CERT_CHAIN_PARA</a> structure that can be used to enable strong signing.
      * @param {Integer} cCriteria The number of elements in the array pointed to by the <i>rgpCriteria</i> array.
      * @param {Pointer<CERT_SELECT_CRITERIA>} rgpCriteria A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_select_criteria">CERT_SELECT_CRITERIA</a> structures that define the selection criteria. If this parameter is set to <b>NULL</b>, the value of the <i>cCriteria</i> parameter must be zero.
-     * @param {Pointer<HCERTSTORE>} hStore The handle to a store from which to select the certificates.
+     * @param {Pointer<Void>} hStore The handle to a store from which to select the certificates.
      * @param {Pointer<UInt32>} pcSelection A pointer to a <b>DWORD</b> value to receive the number of elements in the array pointed to by the <i>pprgpSelection</i> parameter.
      * @param {Pointer<CERT_CHAIN_CONTEXT>} pprgpSelection A pointer to a pointer to a location to receive an array of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_chain_context">CERT_CHAIN_CONTEXT</a> structure. The <b>CertSelectCertificateChains</b> function only returns certificate chains that match all the selection criteria. The entries in the array are ordered by quality, i.e. the chain with the highest quality is the first entry. 
      * 
@@ -48147,7 +48300,7 @@ class Cryptography {
     static CertSelectCertificateChains(pSelectionContext, dwFlags, pChainParameters, cCriteria, rgpCriteria, hStore, pcSelection, pprgpSelection) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertSelectCertificateChains", "ptr", pSelectionContext, "uint", dwFlags, "ptr", pChainParameters, "uint", cCriteria, "ptr", rgpCriteria, "ptr", hStore, "ptr", pcSelection, "ptr", pprgpSelection, "int")
+        result := DllCall("CRYPT32.dll\CertSelectCertificateChains", "ptr", pSelectionContext, "uint", dwFlags, "ptr", pChainParameters, "uint", cCriteria, "ptr", rgpCriteria, "ptr", hStore, "uint*", pcSelection, "ptr", pprgpSelection, "int")
         if(A_LastError)
             throw OSError()
 
@@ -48159,17 +48312,18 @@ class Cryptography {
      * @remarks
      * Before calling the <b>CertFreeCertificateChainList</b> function, you must call the  <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreecertificatechain">CertFreeCertificateChain</a> function on each chain context within the array pointed to by the <i>prgpSelection</i> parameter.
      * @param {Pointer<CERT_CHAIN_CONTEXT>} prgpSelection A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_chain_context">PCCERT_CHAIN_CONTEXT</a> structure returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certselectcertificatechains">CertSelectCertificateChains</a> function.
-     * @returns {String} Nothing - always returns an empty string
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certfreecertificatechainlist
      * @since windows6.1
      */
     static CertFreeCertificateChainList(prgpSelection) {
-        DllCall("CRYPT32.dll\CertFreeCertificateChainList", "ptr", prgpSelection)
+        result := DllCall("CRYPT32.dll\CertFreeCertificateChainList", "ptr", prgpSelection)
+        return result
     }
 
     /**
      * Encodes a time stamp request and retrieves the time stamp token from a location specified by a URL to a Time Stamping Authority (TSA).
-     * @param {Pointer<PWSTR>} wszUrl A pointer to a null-terminated wide character string that contains the URL of the TSA to which to send the request.
+     * @param {Pointer<Char>} wszUrl A pointer to a null-terminated wide character string that contains the URL of the TSA to which to send the request.
      * @param {Integer} dwRetrievalFlags A set of flags that specify how the time stamp is retrieved.
      * 
      * <table>
@@ -48217,9 +48371,9 @@ class Cryptography {
      * </tr>
      * </table>
      * @param {Integer} dwTimeout A <b>DWORD</b> value that specifies the maximum number of milliseconds to wait for retrieval. If this parameter is set to zero, this function does not time out.
-     * @param {Pointer<PSTR>} pszHashId A pointer to a null-terminated character string that contains the hash algorithm <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID).
+     * @param {Pointer<Byte>} pszHashId A pointer to a null-terminated character string that contains the hash algorithm <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID).
      * @param {Pointer<CRYPT_TIMESTAMP_PARA>} pPara A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_timestamp_para">CRYPT_TIMESTAMP_PARA</a> structure that contains additional parameters for the request.
-     * @param {Pointer<Byte>} pbData A pointer to an array of bytes to be time stamped.
+     * @param {Pointer} pbData A pointer to an array of bytes to be time stamped.
      * @param {Integer} cbData The size, in bytes, of the array pointed to by the <i>pbData</i> parameter.
      * @param {Pointer<CRYPT_TIMESTAMP_CONTEXT>} ppTsContext A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_timestamp_context">PCRYPT_TIMESTAMP_CONTEXT</a> structure. When you have finished using the context, you must free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmemfree">CryptMemFree</a> function.
      * @param {Pointer<CERT_CONTEXT>} ppTsSigner A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">PCERT_CONTEXT</a> that
@@ -48229,7 +48383,7 @@ class Cryptography {
      * 
      * 
      * Set this parameter to <b>NULL</b> if the TSA signer's certificate is not needed.
-     * @param {Pointer<HCERTSTORE>} phStore The handle of a certificate store initialized with certificates from the time stamp response. This store can be used for validating the signer certificate of the time stamp response.
+     * @param {Pointer<Void>} phStore The handle of a certificate store initialized with certificates from the time stamp response. This store can be used for validating the signer certificate of the time stamp response.
      * 
      * This parameter can be <b>NULL</b> if the TSA supporting certificates are not needed. When you have finished using this handle,  release it by passing it to  the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certclosestore">CertCloseStore</a> function.
      * @returns {Integer} If the function is unable to retrieve, decode, and validate the time stamp context, it returns <b>FALSE</b>. For extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -48254,11 +48408,11 @@ class Cryptography {
      * @remarks
      * The caller should validate the <b>pszTSAPolicyId</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_timestamp_info">CRYPT_TIMESTAMP_INFO</a> structure when it is returned by the   <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptretrievetimestamp">CryptRetrieveTimeStamp</a> function. If a TSA policy was specified in the request 
      *      and the <b>ftTime</b> member contains a valid value, the caller should build a certificate context chain with which to populate the <i>ppTsSigner</i> parameter and validate the trust.
-     * @param {Pointer<Byte>} pbTSContentInfo A pointer to a buffer that contains time stamp content.
+     * @param {Pointer} pbTSContentInfo A pointer to a buffer that contains time stamp content.
      * @param {Integer} cbTSContentInfo The size, in bytes, of the buffer pointed to by the <i>pbTSContentInfo</i> parameter.
-     * @param {Pointer<Byte>} pbData A pointer to an array of bytes on which to validate the time stamp signature.
+     * @param {Pointer} pbData A pointer to an array of bytes on which to validate the time stamp signature.
      * @param {Integer} cbData The size, in bytes, of the array pointed to by the <i>pbData</i> parameter.
-     * @param {Pointer<HCERTSTORE>} hAdditionalStore The handle of an additional store to search for supporting
+     * @param {Pointer<Void>} hAdditionalStore The handle of an additional store to search for supporting
      * Time Stamping Authority (TSA) signing certificates and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate trust lists</a> (CTLs).
      *     This parameter can be <b>NULL</b> if no additional store is to be searched.
      * @param {Pointer<CRYPT_TIMESTAMP_CONTEXT>} ppTsContext A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_timestamp_context">PCRYPT_TIMESTAMP_CONTEXT</a> structure. When you have finished using the context, you must free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmemfree">CryptMemFree</a> function.
@@ -48268,7 +48422,7 @@ class Cryptography {
      * pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreecertificatecontext">CertFreeCertificateContext</a> function.
      * 
      * Set this parameter to <b>NULL</b> if the TSA signer's certificate is not needed.
-     * @param {Pointer<HCERTSTORE>} phStore A pointer to a handle that receives the certificate store opened  on CMS to search for supporting certificates.
+     * @param {Pointer<Void>} phStore A pointer to a handle that receives the certificate store opened  on CMS to search for supporting certificates.
      * 
      * This parameter can be <b>NULL</b> if the TSA supporting certificates are not needed. When you have finished using this handle,  you  must release it by passing it to  the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certclosestore">CertCloseStore</a> function.
      * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>. For extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -48288,11 +48442,11 @@ class Cryptography {
     /**
      * 
      * @param {Integer} dwHashUseType 
-     * @param {Pointer<PWSTR>} pwszCNGHashAlgid 
+     * @param {Pointer<Char>} pwszCNGHashAlgid 
      * @param {Integer} dwChainFlags 
      * @param {Pointer<CERT_CHAIN_CONTEXT>} pSignerChainContext 
      * @param {Pointer<FILETIME>} pTimeStamp 
-     * @param {Pointer<PWSTR>} pwszFileName 
+     * @param {Pointer<Char>} pwszFileName 
      * @returns {Integer} 
      */
     static CertIsWeakHash(dwHashUseType, pwszCNGHashAlgid, dwChainFlags, pSignerChainContext, pTimeStamp, pwszFileName) {
@@ -48317,7 +48471,7 @@ class Cryptography {
      * To encrypt memory for temporary use in the same process or across processes, call the <a href="https://docs.microsoft.com/windows/desktop/api/dpapi/nf-dpapi-cryptprotectmemory">CryptProtectMemory</a> function.
      * @param {Pointer<CRYPT_INTEGER_BLOB>} pDataIn A pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">DATA_BLOB</a> structure that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">plaintext</a> to be encrypted.
-     * @param {Pointer<PWSTR>} szDataDescr A string with a readable description of the data to be encrypted. This description string is included with the encrypted data. This parameter is optional and can be set to <b>NULL</b>.
+     * @param {Pointer<Char>} szDataDescr A string with a readable description of the data to be encrypted. This description string is included with the encrypted data. This parameter is optional and can be set to <b>NULL</b>.
      * @param {Pointer<CRYPT_INTEGER_BLOB>} pOptionalEntropy A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">DATA_BLOB</a> structure that contains a password or other additional entropy used to encrypt the data. The <b>DATA_BLOB</b> structure used in the encryption phase must also be used in the decryption phase. This parameter can be set to <b>NULL</b> for no additional entropy. For information about protecting passwords, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
      * @param {Pointer<CRYPTPROTECT_PROMPTSTRUCT>} pPromptStruct A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dpapi/ns-dpapi-cryptprotect_promptstruct">CRYPTPROTECT_PROMPTSTRUCT</a> structure that provides information about where and when prompts are to be displayed and what the content of those prompts should be. This parameter can be set to <b>NULL</b> in both the encryption and decryption phases.
@@ -48398,7 +48552,7 @@ class Cryptography {
      *  When you have finished using sensitive information, clear it from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function.
      * @param {Pointer<CRYPT_INTEGER_BLOB>} pDataIn A pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">DATA_BLOB</a> structure that holds the encrypted data. The <b>DATA_BLOB</b> structure's <b>cbData</b> member holds the length of the <b>pbData</b> member's byte string that contains the text to be encrypted.
-     * @param {Pointer<PWSTR>} ppszDataDescr A pointer to a string-readable description of the encrypted data included with the encrypted data. This parameter can be set to <b>NULL</b>.  When you have finished using <i>ppszDataDescr</i>, free it by calling the  <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
+     * @param {Pointer<Char>} ppszDataDescr A pointer to a string-readable description of the encrypted data included with the encrypted data. This parameter can be set to <b>NULL</b>.  When you have finished using <i>ppszDataDescr</i>, free it by calling the  <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
      * @param {Pointer<CRYPT_INTEGER_BLOB>} pOptionalEntropy A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">DATA_BLOB</a> structure that contains a password or other additional entropy used when the data was encrypted. This parameter can be set to <b>NULL</b>; however, if an optional entropy <b>DATA_BLOB</b> structure was used in the encryption phase, that same <b>DATA_BLOB</b> structure must be used for the decryption phase. For information about protecting passwords, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
      * @param {Pointer<CRYPTPROTECT_PROMPTSTRUCT>} pPromptStruct A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dpapi/ns-dpapi-cryptprotect_promptstruct">CRYPTPROTECT_PROMPTSTRUCT</a> structure that provides information about where and when prompts are to be displayed and what the content of those prompts should be. This parameter can be set to <b>NULL</b>.
@@ -48441,8 +48595,6 @@ class Cryptography {
     static CryptUnprotectData(pDataIn, ppszDataDescr, pOptionalEntropy, pPromptStruct, dwFlags, pDataOut) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
-        ppszDataDescr := ppszDataDescr is String? StrPtr(ppszDataDescr) : ppszDataDescr
-
         A_LastError := 0
 
         result := DllCall("CRYPT32.dll\CryptUnprotectData", "ptr", pDataIn, "ptr", ppszDataDescr, "ptr", pOptionalEntropy, "ptr", pvReserved, "ptr", pPromptStruct, "uint", dwFlags, "ptr", pDataOut, "int")
@@ -48461,10 +48613,10 @@ class Cryptography {
      * 
      * If this function is able to successfully migrate an old master key, it will automatically delete the old master key. 
      * Master keys that cannot be decrypted are not deleted.
-     * @param {Pointer<PSID>} pOldSid The address of a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that contains the user's previous SID. This SID is used to locate the old master keys. If this parameter is <b>NULL</b>, the master keys for the current user SID are migrated.
+     * @param {Pointer<Void>} pOldSid The address of a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that contains the user's previous SID. This SID is used to locate the old master keys. If this parameter is <b>NULL</b>, the master keys for the current user SID are migrated.
      * 
      * Either this parameter or the <i>pwszOldPassword</i> parameter may be <b>NULL</b>, but not both.
-     * @param {Pointer<PWSTR>} pwszOldPassword A pointer to a null-terminated Unicode string that contains the user's password before the SID was changed. This password is used to decrypt the old master keys. If this parameter is <b>NULL</b>, the password of the current user will be used.
+     * @param {Pointer<Char>} pwszOldPassword A pointer to a null-terminated Unicode string that contains the user's password before the SID was changed. This password is used to decrypt the old master keys. If this parameter is <b>NULL</b>, the password of the current user will be used.
      * 
      * Either this parameter or the <i>pOldSid</i> parameter may be <b>NULL</b>, but not both.
      * @param {Integer} dwFlags Not used. Must be zero.
@@ -48524,7 +48676,7 @@ class Cryptography {
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptUpdateProtectedState", "ptr", pOldSid, "ptr", pwszOldPassword, "uint", dwFlags, "ptr", pdwSuccessCount, "ptr", pdwFailureCount, "int")
+        result := DllCall("CRYPT32.dll\CryptUpdateProtectedState", "ptr", pOldSid, "ptr", pwszOldPassword, "uint", dwFlags, "uint*", pdwSuccessCount, "uint*", pdwFailureCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -48669,8 +48821,8 @@ class Cryptography {
      * Registers the display name and the associated rule string for a protection descriptor.
      * @remarks
      * The registry key created by using this function is not volatile. The information is stored in a file and preserved when the computer shuts down.
-     * @param {Pointer<PWSTR>} pwszName Pointer to a null-terminated Unicode string that contains the display name of the descriptor to be registered.
-     * @param {Pointer<PWSTR>} pwszDescriptorString Pointer to a null-terminated Unicode string that contains a protection descriptor rule. If this parameter is <b>NULL</b> or the string is empty, the registry value previously created for the <i>pwszName</i> parameter will be deleted.
+     * @param {Pointer<Char>} pwszName Pointer to a null-terminated Unicode string that contains the display name of the descriptor to be registered.
+     * @param {Pointer<Char>} pwszDescriptorString Pointer to a null-terminated Unicode string that contains a protection descriptor rule. If this parameter is <b>NULL</b> or the string is empty, the registry value previously created for the <i>pwszName</i> parameter will be deleted.
      * @param {Integer} dwFlags A constant that indicates the registry hive under which to register the new entry. If this value is zero (0), the registry root is <b>HKEY_CURRENT_USER</b>. If this value is <b>NCRYPT_MACHINE_KEY_FLAG</b>, the root is <b>HKEY_LOCAL_MACHINE</b>.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function. Possible return codes include, but are not limited to, the following.
      * 
@@ -48728,8 +48880,8 @@ class Cryptography {
      * Retrieves the protection descriptor rule string associated with a registered descriptor display name.
      * @remarks
      * To retrieve a protection descriptor rule string, you must call this function twice. The first time you call, set the <i>pwszDescriptorString</i> argument to <b>NULL</b> and the value pointed to by the <i>pcDescriptorString</i> argument to zero. Your first call retrieves the number of characters in the descriptor string. Use this number to allocate memory for the string and retrieve a pointer to the allocated buffer. To retrieve the string, call the function again using the pointer.
-     * @param {Pointer<PWSTR>} pwszName The registered display name for the protection descriptor. Register a name by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptregisterprotectiondescriptorname">NCryptRegisterProtectionDescriptorName</a> function.
-     * @param {Pointer<PWSTR>} pwszDescriptorString A null-terminated Unicode string that contains the protection descriptor rule. Set this value to <b>NULL</b> and set the size of the descriptor string pointed to by <i>pcDescriptorString</i> argument to zero on your initial call to this function. For more information, see Remarks.
+     * @param {Pointer<Char>} pwszName The registered display name for the protection descriptor. Register a name by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptregisterprotectiondescriptorname">NCryptRegisterProtectionDescriptorName</a> function.
+     * @param {Pointer<Char>} pwszDescriptorString A null-terminated Unicode string that contains the protection descriptor rule. Set this value to <b>NULL</b> and set the size of the descriptor string pointed to by <i>pcDescriptorString</i> argument to zero on your initial call to this function. For more information, see Remarks.
      * @param {Pointer<UIntPtr>} pcDescriptorString Pointer to a variable that contains the number  of characters in the string retrieved in the <i>pwszDescriptorString</i> parameter. Set the variable to zero on your initial call to this function. For more information, see Remarks.
      * @param {Integer} dwFlags Flag that specifies which registry hive to query for the registered name. This can be zero to look in the <b>HKEY_CURRENT_USER</b> hive or you can specify <b>NCRYPT_MACHINE_KEY_FLAG</b> to query the <b>HKEY_LOCAL_MACHINE</b> hive.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function. Possible return codes include, but are not limited to, the following.
@@ -48780,7 +48932,7 @@ class Cryptography {
         pwszName := pwszName is String? StrPtr(pwszName) : pwszName
         pwszDescriptorString := pwszDescriptorString is String? StrPtr(pwszDescriptorString) : pwszDescriptorString
 
-        result := DllCall("ncrypt.dll\NCryptQueryProtectionDescriptorName", "ptr", pwszName, "ptr", pwszDescriptorString, "ptr", pcDescriptorString, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptQueryProtectionDescriptorName", "ptr", pwszName, "ptr", pwszDescriptorString, "ptr*", pcDescriptorString, "uint", dwFlags, "int")
         return result
     }
 
@@ -48820,7 +48972,7 @@ class Cryptography {
      * <li>"WEBCREDENTIALS=MyPasswordName,myweb.com"</li>
      * </ul>
      * You can use the <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptregisterprotectiondescriptorname">NCryptRegisterProtectionDescriptorName</a> function to associate a display name with a rule string and save both in the registry.
-     * @param {Pointer<PWSTR>} pwszDescriptorString Null-terminated Unicode string that contains a protection descriptor rule string or a registered display name for the rule.
+     * @param {Pointer<Char>} pwszDescriptorString Null-terminated Unicode string that contains a protection descriptor rule string or a registered display name for the rule.
      * 
      * If you specify the display name and you want this function to look in the registry for the associated protection descriptor rule string, you must set the <i>dwFlags</i> parameter to <b>NCRYPT_NAMED_DESCRIPTOR_FLAG</b>.
      * @param {Integer} dwFlags Flag that specifies whether the string in <i>pwszDescriptorString</i> represents the display name of a  protection descriptor and, if so, where in the registry the function should search for the associated protection rule string. The following value combinations can be set:
@@ -48832,7 +48984,7 @@ class Cryptography {
      * </ul>
      * <div class="alert"><b>Note</b>  To associate a descriptor rule with a display name and save both in the registry, call the <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptregisterprotectiondescriptorname">NCryptRegisterProtectionDescriptorName</a> function.</div>
      * <div> </div>
-     * @param {Pointer<NCRYPT_DESCRIPTOR_HANDLE>} phDescriptor Pointer to a protection descriptor object handle.
+     * @param {Pointer<Void>} phDescriptor Pointer to a protection descriptor object handle.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function. Possible return codes include, but are not limited to, the following.
      * 
      * <table>
@@ -48910,7 +49062,7 @@ class Cryptography {
 
     /**
      * Zeros and frees a protection descriptor object and releases its handle.
-     * @param {Pointer<NCRYPT_DESCRIPTOR_HANDLE>} hDescriptor Handle of a protection descriptor created by calling <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptcreateprotectiondescriptor">NCryptCreateProtectionDescriptor</a>.
+     * @param {Pointer<Void>} hDescriptor Handle of a protection descriptor created by calling <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptcreateprotectiondescriptor">NCryptCreateProtectionDescriptor</a>.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function. Possible return codes include, but are not limited to, the following.
      * 
      * <table>
@@ -48951,7 +49103,7 @@ class Cryptography {
 
     /**
      * Retrieves a protection descriptor rule string.
-     * @param {Pointer<NCRYPT_DESCRIPTOR_HANDLE>} hDescriptor Protection descriptor handle created by calling <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptcreateprotectiondescriptor">NCryptCreateProtectionDescriptor</a>.
+     * @param {Pointer<Void>} hDescriptor Protection descriptor handle created by calling <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptcreateprotectiondescriptor">NCryptCreateProtectionDescriptor</a>.
      * @param {Pointer<NCRYPT_ALLOC_PARA>} pMemPara Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/ns-ncrypt-ncrypt_alloc_para">NCRYPT_ALLOC_PARA</a> structure that you can use to specify custom memory management functions. If you set this argument to <b>NULL</b>, the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> function is used internally to allocate memory and your application must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> to release memory pointed to by the <i>ppvInfo</i> parameter.
      * @param {Integer} dwInfoType Specifies how to return descriptor information to the  <i>ppvInfo</i> parameter. This can be the following value:
      * 
@@ -49036,7 +49188,7 @@ class Cryptography {
      * Encrypts data to a specified protection descriptor.
      * @remarks
      * Use the <b>NCryptProtectSecret</b> function to protect keys, key material, and passwords. Use the <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptstreamopentoprotect">NCryptStreamOpenToProtect</a> and the <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptstreamupdate">NCryptStreamUpdate</a> functions to encrypt larger messages.
-     * @param {Pointer<NCRYPT_DESCRIPTOR_HANDLE>} hDescriptor Handle of the protection descriptor object. Create the handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptcreateprotectiondescriptor">NCryptCreateProtectionDescriptor</a>.
+     * @param {Pointer<Void>} hDescriptor Handle of the protection descriptor object. Create the handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptcreateprotectiondescriptor">NCryptCreateProtectionDescriptor</a>.
      * @param {Integer} dwFlags The flag can be zero or the following value.
      * 
      * <table>
@@ -49055,10 +49207,10 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} pbData Pointer to the byte array to be protected.
+     * @param {Pointer} pbData Pointer to the byte array to be protected.
      * @param {Integer} cbData Number of bytes in the binary array specified by the <i>pbData</i> parameter.
      * @param {Pointer<NCRYPT_ALLOC_PARA>} pMemPara Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/ns-ncrypt-ncrypt_alloc_para">NCRYPT_ALLOC_PARA</a> structure that you can use to specify custom memory management functions. If you set this argument to <b>NULL</b>, the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> function is used internally to allocate memory and your application must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> to release memory pointed to by the <i>ppbProtectedBlob</i> parameter.
-     * @param {Pointer<HWND>} hWnd Handle to the parent window of the user interface, if any, to be displayed.
+     * @param {Pointer<Void>} hWnd Handle to the parent window of the user interface, if any, to be displayed.
      * @param {Pointer<Byte>} ppbProtectedBlob Address of a variable that receives a pointer to the encrypted data.
      * @param {Pointer<UInt32>} pcbProtectedBlob Pointer to a <b>ULONG</b> variable that contains the size, in bytes, of the encrypted data pointed to by the <i>ppbProtectedBlob</i> variable.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function. Possible return codes include, but are not limited to, the following.
@@ -49119,7 +49271,7 @@ class Cryptography {
      * @since windows8.0
      */
     static NCryptProtectSecret(hDescriptor, dwFlags, pbData, cbData, pMemPara, hWnd, ppbProtectedBlob, pcbProtectedBlob) {
-        result := DllCall("ncrypt.dll\NCryptProtectSecret", "ptr", hDescriptor, "uint", dwFlags, "ptr", pbData, "uint", cbData, "ptr", pMemPara, "ptr", hWnd, "ptr", ppbProtectedBlob, "ptr", pcbProtectedBlob, "int")
+        result := DllCall("ncrypt.dll\NCryptProtectSecret", "ptr", hDescriptor, "uint", dwFlags, "ptr", pbData, "uint", cbData, "ptr", pMemPara, "ptr", hWnd, "ptr", ppbProtectedBlob, "uint*", pcbProtectedBlob, "int")
         return result
     }
 
@@ -49127,12 +49279,12 @@ class Cryptography {
      * Decrypts data to a specified protection descriptor.
      * @remarks
      * Use the <b>NCryptUnprotectSecret</b> function to decrypt keys, key material, and passwords. Use the <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptstreamopentounprotect">NCryptStreamOpenToUnprotect</a>  and the <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptstreamupdate">NCryptStreamUpdate</a> functions to decrypt larger messages.
-     * @param {Pointer<NCRYPT_DESCRIPTOR_HANDLE>} phDescriptor Pointer to the protection descriptor handle.
+     * @param {Pointer<Void>} phDescriptor Pointer to the protection descriptor handle.
      * @param {Integer} dwFlags 
-     * @param {Pointer<Byte>} pbProtectedBlob Pointer to an array of bytes that contains the data to decrypt.
+     * @param {Pointer} pbProtectedBlob Pointer to an array of bytes that contains the data to decrypt.
      * @param {Integer} cbProtectedBlob The number of bytes in the array pointed to by the <i>pbProtectedBlob</i> parameter.
      * @param {Pointer<NCRYPT_ALLOC_PARA>} pMemPara Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/ns-ncrypt-ncrypt_alloc_para">NCRYPT_ALLOC_PARA</a> structure that you can use to specify custom memory management functions. If you set this argument to <b>NULL</b>, the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> function is used internally to allocate memory and your application must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> to release memory pointed to by the <i>ppbData</i> parameter.
-     * @param {Pointer<HWND>} hWnd Handle to the parent window of the user interface, if any, to be displayed.
+     * @param {Pointer<Void>} hWnd Handle to the parent window of the user interface, if any, to be displayed.
      * @param {Pointer<Byte>} ppbData Address of a variable that receives a pointer to the decrypted data.
      * @param {Pointer<UInt32>} pcbData Pointer to a <b>ULONG</b> variable that contains the size, in bytes, of the decrypted data pointed to by the <i>ppbData</i> variable.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function. Possible return codes include, but are not limited to, the following.
@@ -49182,7 +49334,7 @@ class Cryptography {
      * @since windows8.0
      */
     static NCryptUnprotectSecret(phDescriptor, dwFlags, pbProtectedBlob, cbProtectedBlob, pMemPara, hWnd, ppbData, pcbData) {
-        result := DllCall("ncrypt.dll\NCryptUnprotectSecret", "ptr", phDescriptor, "uint", dwFlags, "ptr", pbProtectedBlob, "uint", cbProtectedBlob, "ptr", pMemPara, "ptr", hWnd, "ptr", ppbData, "ptr", pcbData, "int")
+        result := DllCall("ncrypt.dll\NCryptUnprotectSecret", "ptr", phDescriptor, "uint", dwFlags, "ptr", pbProtectedBlob, "uint", cbProtectedBlob, "ptr", pMemPara, "ptr", hWnd, "ptr", ppbData, "uint*", pcbData, "int")
         return result
     }
 
@@ -49194,7 +49346,7 @@ class Cryptography {
      * Call this function before calling the <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptstreamupdate">NCryptStreamUpdate</a> function. If you are encrypting a large file, use <b>NCryptStreamUpdate</b> in a loop that advances through the file block by block, encrypting each block as it advances and notifying your callback when each block is finished. For more information, see <b>NCryptStreamUpdate</b>.
      * 
      * The <b>NCryptStreamOpenToProtect</b> function writes the unencrypted protection descriptor rule string to the stream object header so that <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptstreamopentounprotect">NCryptStreamOpenToUnprotect</a> will be able to start the decrypting the stream by using the same protector used during encryption.
-     * @param {Pointer<NCRYPT_DESCRIPTOR_HANDLE>} hDescriptor Handle of the protection descriptor. Create the handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptcreateprotectiondescriptor">NCryptCreateProtectionDescriptor</a>.
+     * @param {Pointer<Void>} hDescriptor Handle of the protection descriptor. Create the handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptcreateprotectiondescriptor">NCryptCreateProtectionDescriptor</a>.
      * @param {Integer} dwFlags The flag can be zero or the following value.
      * 
      * <table>
@@ -49213,9 +49365,9 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<HWND>} hWnd Handle to the parent window of the user interface, if any, to be displayed.
+     * @param {Pointer<Void>} hWnd Handle to the parent window of the user interface, if any, to be displayed.
      * @param {Pointer<NCRYPT_PROTECT_STREAM_INFO>} pStreamInfo Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/ns-ncryptprotect-ncrypt_protect_stream_info">NCRYPT_PROTECT_STREAM_INFO</a> structure that contains the address of a user defined callback function to receive the encrypted data and a pointer to user-defined context data.
-     * @param {Pointer<NCRYPT_STREAM_HANDLE>} phStream Pointer to the stream object handle.
+     * @param {Pointer<Void>} phStream Pointer to the stream object handle.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function. Possible return codes include, but are not limited to, the following.
      * 
      * <table>
@@ -49316,8 +49468,8 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<HWND>} hWnd Handle to the parent window of the user interface, if any, to be displayed.
-     * @param {Pointer<NCRYPT_STREAM_HANDLE>} phStream Pointer to the handle of the decrypted stream of data.
+     * @param {Pointer<Void>} hWnd Handle to the parent window of the user interface, if any, to be displayed.
+     * @param {Pointer<Void>} phStream Pointer to the handle of the decrypted stream of data.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function. Possible return codes include, but are not limited to, the following.
      * 
      * <table>
@@ -49384,9 +49536,9 @@ class Cryptography {
      * Opens a stream object that can be used to decrypt large amounts of data to the same protection descriptor used for encryption. (NCryptStreamOpenToUnprotectEx)
      * @param {Pointer<NCRYPT_PROTECT_STREAM_INFO_EX>} pStreamInfo A pointer to NCRYPT_PROTECT_STREAM_INFO_EX.
      * @param {Integer} dwFlags Only the NCRYPT_SILENT_FLAG is supported.
-     * @param {Pointer<HWND>} hWnd A window handle to be used as the parent of any user
+     * @param {Pointer<Void>} hWnd A window handle to be used as the parent of any user
      *         interface that is displayed.
-     * @param {Pointer<NCRYPT_STREAM_HANDLE>} phStream Receives a pointer to a stream handle.
+     * @param {Pointer<Void>} phStream Receives a pointer to a stream handle.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function.
      *         Possible return codes include, but are not limited to:
      * 
@@ -49472,8 +49624,8 @@ class Cryptography {
      *         pbBuf = NULL;
      *     }
      * ```
-     * @param {Pointer<NCRYPT_STREAM_HANDLE>} hStream Handle to the stream object created by calling <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptstreamopentoprotect">NCryptStreamOpenToProtect</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptstreamopentounprotect">NCryptStreamOpenToUnprotect</a>.
-     * @param {Pointer<Byte>} pbData Pointer to the byte array to be processed.
+     * @param {Pointer<Void>} hStream Handle to the stream object created by calling <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptstreamopentoprotect">NCryptStreamOpenToProtect</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptstreamopentounprotect">NCryptStreamOpenToUnprotect</a>.
+     * @param {Pointer} pbData Pointer to the byte array to be processed.
      * @param {Pointer} cbData Number of bytes in the binary array specified by the <i>pbData</i> parameter.
      * @param {Integer} fFinal A Boolean value that specifies whether the last block of data has been processed.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function. Possible return codes include, but are not limited to, the following.
@@ -49538,7 +49690,7 @@ class Cryptography {
 
     /**
      * Closes a data protection stream object opened by using the NCryptStreamOpenToProtect or NCryptStreamOpenToUnprotect functions.
-     * @param {Pointer<NCRYPT_STREAM_HANDLE>} hStream Data stream handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptstreamopentoprotect">NCryptStreamOpenToProtect</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptstreamopentounprotect">NCryptStreamOpenToUnprotect</a>.
+     * @param {Pointer<Void>} hStream Data stream handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptstreamopentoprotect">NCryptStreamOpenToProtect</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptstreamopentounprotect">NCryptStreamOpenToUnprotect</a>.
      * @returns {Integer} Returns a status code that indicates the success or failure of the function. Possible return codes include, but are not limited to, the following.
      * 
      * <table>
@@ -49613,7 +49765,7 @@ class Cryptography {
      * @param {Pointer<SIGNER_PROVIDER_INFO>} pProviderInfo A pointer to a [**SIGNER\_PROVIDER\_INFO**](signer-provider-info.md) structure that specifies the [*cryptographic service provider*](../secgloss/c-gly.md) (CSP) and [*private key*](../secgloss/p-gly.md) information used to create the digital signature.
      * 
      * If the value of this parameter is **NULL**, the value of the *pSignerCert* parameter must specify a certificate that is associated with a CSP.
-     * @param {Pointer<PWSTR>} pwszHttpTimeStamp The URL of a time stamp server.
+     * @param {Pointer<Char>} pwszHttpTimeStamp The URL of a time stamp server.
      * @param {Pointer<CRYPT_ATTRIBUTES>} psRequest A pointer to an array of [**CRYPT\_ATTRIBUTE**](/windows/desktop/api/Wincrypt/ns-wincrypt-crypt_attribute) structures that are added to a sign request. This parameter is ignored if the *pwszHttpTimeStamp* parameter does not contain a valid value that is not **NULL**.
      * @param {Pointer<Void>} pSipData A 32-bit value that is passed as additional data to SIP functions. The format and content of this is defined by the SIP provider.
      * @returns {Integer} If the function succeeds, the function returns S\_OK.
@@ -49649,7 +49801,7 @@ class Cryptography {
      * @param {Pointer<SIGNER_PROVIDER_INFO>} pProviderInfo A pointer to a [**SIGNER\_PROVIDER\_INFO**](signer-provider-info.md) structure that specifies the [*cryptographic service provider*](../secgloss/c-gly.md) (CSP) and private key information used to create the digital signature.
      * 
      * If the value of this parameter is **NULL**, the value of the *pSignerCert* parameter must specify a certificate that is associated with a CSP.
-     * @param {Pointer<PWSTR>} pwszHttpTimeStamp The URL of a time stamp server.
+     * @param {Pointer<Char>} pwszHttpTimeStamp The URL of a time stamp server.
      * @param {Pointer<CRYPT_ATTRIBUTES>} psRequest A pointer to an array of [**CRYPT\_ATTRIBUTE**](/windows/desktop/api/Wincrypt/ns-wincrypt-crypt_attribute) structures that are added to a sign request. This parameter is ignored if the *pwszHttpTimeStamp* parameter does not contain a valid value that is not **NULL**.
      * @param {Pointer<Void>} pSipData A 32-bit value that is passed as additional data to SIP functions. The format and content of this is defined by the SIP provider.
      * @param {Pointer<SIGNER_CONTEXT>} ppSignerContext The address of a pointer to the [**SIGNER\_CONTEXT**](signer-context.md) structure that contains the signed [*BLOB*](../secgloss/b-gly.md). When you have finished using the **SIGNER\_CONTEXT** structure, free the **SIGNER\_CONTEXT** structure by calling the [**SignerFreeSignerContext**](signerfreesignercontext.md) function.
@@ -49701,8 +49853,8 @@ class Cryptography {
      *  
      * 
      * This parameter is ignored if the *pwszHttpTimeStamp* parameter is **NULL**.
-     * @param {Pointer<PSTR>} pszTimestampAlgorithmOid Object identifier of the algorithm to be used for creating an RFC 3161 timestamp. This parameter is ignored for Authenticode time stamps.
-     * @param {Pointer<PWSTR>} pwszHttpTimeStamp URL of the time stamp server.
+     * @param {Pointer<Byte>} pszTimestampAlgorithmOid Object identifier of the algorithm to be used for creating an RFC 3161 timestamp. This parameter is ignored for Authenticode time stamps.
+     * @param {Pointer<Char>} pwszHttpTimeStamp URL of the time stamp server.
      * @param {Pointer<CRYPT_ATTRIBUTES>} psRequest Pointer to an array of [**CRYPT\_ATTRIBUTE**](/windows/desktop/api/Wincrypt/ns-wincrypt-crypt_attribute) structures that are added to a sign request. This parameter is ignored if the *pwszHttpTimeStamp* parameter does not contain a valid value or is **NULL**.
      * @param {Pointer<Void>} pSipData A 32-bit value that is passed as additional data to SIP functions. The format and content of this is defined by the SIP provider.
      * @param {Pointer<SIGNER_CONTEXT>} ppSignerContext The address of a pointer to the [**SIGNER\_CONTEXT**](signer-context.md) structure that contains the signed [*BLOB*](../secgloss/b-gly.md). When you have finished using the **SIGNER\_CONTEXT** structure, free the **SIGNER\_CONTEXT** structure by calling the [**SignerFreeSignerContext**](signerfreesignercontext.md) function.
@@ -49758,8 +49910,8 @@ class Cryptography {
      * | <span id="SIGNER_TIMESTAMP_RFC3161"></span><span id="signer_timestamp_rfc3161"></span><dl> <dt>**SIGNER\_TIMESTAMP\_RFC3161**</dt> </dl>                | Specifies an RFC 3161 timestamp.<br/>                    |
      * 
      * This parameter is ignored if the *pwszHttpTimeStamp* parameter is **NULL**.
-     * @param {Pointer<PSTR>} pszTimestampAlgorithmOid Object identifier of the algorithm to be used for creating an RFC 3161 timestamp. This parameter is ignored for Authenticode time stamps.
-     * @param {Pointer<PWSTR>} pwszHttpTimeStamp URL of the time stamp server.
+     * @param {Pointer<Byte>} pszTimestampAlgorithmOid Object identifier of the algorithm to be used for creating an RFC 3161 timestamp. This parameter is ignored for Authenticode time stamps.
+     * @param {Pointer<Char>} pwszHttpTimeStamp URL of the time stamp server.
      * @param {Pointer<CRYPT_ATTRIBUTES>} psRequest Pointer to an array of [**CRYPT\_ATTRIBUTE**](/windows/desktop/api/Wincrypt/ns-wincrypt-crypt_attribute) structures that are added to a sign request. This parameter is ignored if the *pwszHttpTimeStamp* parameter does not contain a valid value or is **NULL**.
      * @param {Pointer<Void>} pSipData A 32-bit value that is passed as additional data to SIP functions. The format and content of this is defined by the SIP provider.
      * @param {Pointer<SIGNER_CONTEXT>} ppSignerContext The address of a pointer to the [**SIGNER\_CONTEXT**](signer-context.md) structure that contains the signed [*BLOB*](../secgloss/b-gly.md). When you have finished using the **SIGNER\_CONTEXT** structure, free the **SIGNER\_CONTEXT** structure by calling the [**SignerFreeSignerContext**](signerfreesignercontext.md) function.
@@ -49791,7 +49943,7 @@ class Cryptography {
     /**
      * Time stamps the specified subject. This function supports Authenticode time stamping. To perform X.509 Public Key Infrastructure (RFC 3161) time stamping, use the SignerTimeStampEx2 function.
      * @param {Pointer<SIGNER_SUBJECT_INFO>} pSubjectInfo The address of a [**SIGNER\_SUBJECT\_INFO**](signer-subject-info.md) structure that represents the subject to be time stamped.
-     * @param {Pointer<PWSTR>} pwszHttpTimeStamp The address of a null-terminated Unicode string that contains the URL of a time stamp server.
+     * @param {Pointer<Char>} pwszHttpTimeStamp The address of a null-terminated Unicode string that contains the URL of a time stamp server.
      * @param {Pointer<CRYPT_ATTRIBUTES>} psRequest The address of a [**CRYPT\_ATTRIBUTES**](/windows/desktop/api/Wincrypt/ns-wincrypt-crypt_attributes) structure that contains additional attributes that are added to the time stamp request.
      * 
      * This parameter is optional and can be **NULL** if it is not included.
@@ -49813,7 +49965,7 @@ class Cryptography {
     /**
      * Time stamps the specified subject and optionally returns a pointer to a SIGNER\_CONTEXT structure that contains a pointer to a BLOB.
      * @param {Pointer<SIGNER_SUBJECT_INFO>} pSubjectInfo The address of a [**SIGNER\_SUBJECT\_INFO**](signer-subject-info.md) structure that represents the subject to be time stamped.
-     * @param {Pointer<PWSTR>} pwszHttpTimeStamp The address of a null-terminated Unicode string that contains the URL of a time stamp server.
+     * @param {Pointer<Char>} pwszHttpTimeStamp The address of a null-terminated Unicode string that contains the URL of a time stamp server.
      * @param {Pointer<CRYPT_ATTRIBUTES>} psRequest Optional. The address of a [**CRYPT\_ATTRIBUTES**](/windows/desktop/api/Wincrypt/ns-wincrypt-crypt_attributes) structure that contains additional attributes that are added to the time stamp request.
      * 
      * This parameter is optional and can be **NULL** if it is not included.
@@ -49838,7 +49990,7 @@ class Cryptography {
     /**
      * Time stamps the specified subject and optionally returns a pointer to a SIGNER\_CONTEXT structure that contains a pointer to a BLOB. This function can be used to perform X.509 Public Key Infrastructure, RFC 3161&\#8211;compliant, time stamps.
      * @param {Pointer<SIGNER_SUBJECT_INFO>} pSubjectInfo The address of a [**SIGNER\_SUBJECT\_INFO**](signer-subject-info.md) structure that represents the subject to be time stamped.
-     * @param {Pointer<PWSTR>} pwszHttpTimeStamp The address of a null-terminated Unicode string that contains the URL of a time stamp server.
+     * @param {Pointer<Char>} pwszHttpTimeStamp The address of a null-terminated Unicode string that contains the URL of a time stamp server.
      * @param {Integer} dwAlgId Specifies a hash algorithm to be used for performing RFC 3161–compliant time stamps. This parameter is ignored for Authenticode time stamps.
      * @param {Pointer<CRYPT_ATTRIBUTES>} psRequest Optional. The address of a [**CRYPT\_ATTRIBUTES**](/windows/desktop/api/Wincrypt/ns-wincrypt-crypt_attributes) structure that contains additional attributes that are added to the time stamp request.
      * 
@@ -49874,8 +50026,8 @@ class Cryptography {
      * | <span id="SIGNER_TIMESTAMP_RFC3161"></span><span id="signer_timestamp_rfc3161"></span><dl><dt><strong>SIGNER_TIMESTAMP_RFC3161</strong></dt></dl> | Specifies an RFC 3161–compliant time stamp.<br /> |
      * @param {Integer} dwIndex Specifies the sequence number of the signature to which the timestamp will be added. If this value is zero (0), the outer signature will be time stamped.
      * @param {Pointer<SIGNER_SUBJECT_INFO>} pSubjectInfo The address of a [**SIGNER\_SUBJECT\_INFO**](signer-subject-info.md) structure that represents the subject to be time stamped.
-     * @param {Pointer<PWSTR>} pwszHttpTimeStamp The address of a null-terminated Unicode string that contains the URL of a time stamp server.
-     * @param {Pointer<PWSTR>} pszAlgorithmOid A hash algorithm to be used for performing RFC 3161–compliant time stamps. This parameter is ignored for Authenticode time stamps.
+     * @param {Pointer<Char>} pwszHttpTimeStamp The address of a null-terminated Unicode string that contains the URL of a time stamp server.
+     * @param {Pointer<Char>} pszAlgorithmOid A hash algorithm to be used for performing RFC 3161–compliant time stamps. This parameter is ignored for Authenticode time stamps.
      * @param {Pointer<CRYPT_ATTRIBUTES>} psRequest Optional. The address of a [**CRYPT\_ATTRIBUTES**](/windows/desktop/api/Wincrypt/ns-wincrypt-crypt_attributes) structure that contains additional attributes that are added to the time stamp request.
      * 
      * This parameter is optional and can be **NULL** if it is not included.
@@ -49940,7 +50092,7 @@ class Cryptography {
      * Opens an XML digital signature to encode and returns a handle of the opened Signature element. The handle encapsulates a document context with a single CRYPT_XML_SIGNATURE structure and remains open until the CryptXmlClose function is called.
      * @param {Pointer<CRYPT_XML_TRANSFORM_CHAIN_CONFIG>} pConfig The handle of the transform chain engine. If this parameter is <b>NULL</b>, then a default engine is used to apply transforms.
      * @param {Integer} dwFlags 
-     * @param {Pointer<PWSTR>} wszId A pointer to a null-terminated Unicode string that contains the <b>Id</b> attribute of the <b>Signature</b> element.
+     * @param {Pointer<Char>} wszId A pointer to a null-terminated Unicode string that contains the <b>Id</b> attribute of the <b>Signature</b> element.
      * If this parameter is <b>NULL</b>, then a new GUID is generated. If this parameter is an empty string, then no <b>Id</b> attribute is produced.
      * @param {Pointer<CRYPT_XML_PROPERTY>} rgProperty A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_property">CRYPT_XML_PROPERTY</a> structures that specify additional properties.
      * @param {Integer} cProperty The number of elements in the array pointed to by the <i>rgProperty</i> parameter.
@@ -50058,14 +50210,14 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PWSTR>} wszId A pointer to a <b>null</b>-terminated Unicode string that contains the value of the ID attribute of the <b>Reference</b> element of the signature.
+     * @param {Pointer<Char>} wszId A pointer to a <b>null</b>-terminated Unicode string that contains the value of the ID attribute of the <b>Reference</b> element of the signature.
      * 	If this parameter is <b>NULL</b>, then the <b>ID</b> attribute is not created.
      * 	If this parameter is an empty string, then the <b>ID</b> attribute with empty
      *         value is created.
-     * @param {Pointer<PWSTR>} wszURI A pointer to a <b>null</b>-terminated Unicode string that contains the value of the URI attribute of the <b>Reference</b> element of the signature.
+     * @param {Pointer<Char>} wszURI A pointer to a <b>null</b>-terminated Unicode string that contains the value of the URI attribute of the <b>Reference</b> element of the signature.
      *     If this parameter is an empty string,
      *     then the URI attribute with an empty value is created.
-     * @param {Pointer<PWSTR>} wszType A pointer to a <b>null</b>-terminated Unicode string that contains the value of the Type attribute of the <b>Reference</b> element of the signature.
+     * @param {Pointer<Char>} wszType A pointer to a <b>null</b>-terminated Unicode string that contains the value of the Type attribute of the <b>Reference</b> element of the signature.
      *     The processing engine does not check or use this attribute.
      * @param {Pointer<CRYPT_XML_ALGORITHM>} pDigestMethod A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_algorithm">CRYPT_XML_ALGORITHM</a> structure that contains the digest method.
      * @param {Integer} cTransform The number of elements in the array pointed to by the <i>rgTransform</i> parameter.
@@ -50137,7 +50289,7 @@ class Cryptography {
     /**
      * Sets the HMAC secret on the handle before calling the CryptXmlSign or CryptXmlVerify function.
      * @param {Pointer<Void>} hSignature The handle of the XML <b>Signature</b> element.
-     * @param {Pointer<Byte>} pbSecret A pointer to a buffer that contains a block of bytes. 
+     * @param {Pointer} pbSecret A pointer to a buffer that contains a block of bytes. 
      *     The pointer must be valid during the call to the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nf-cryptxml-cryptxmlsign">CryptXmlSign</a> or <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nf-cryptxml-cryptxmlverifysignature">CryptXmlVerify</a> function.
      * @param {Integer} cbSecret The size, in bytes, of the buffer pointed to by the <i>pbSecret</i> parameter.
      * @returns {Integer} If the function succeeds, the function returns zero.
@@ -50216,7 +50368,7 @@ class Cryptography {
      * Imports the public key specified by the supplied handle.
      * @param {Integer} dwFlags 
      * @param {Pointer<CRYPT_XML_KEY_VALUE>} pKeyValue A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_key_value">CRYPT_XML_KEY_VALUE</a> structure to receive the imported key.
-     * @param {Pointer<BCRYPT_KEY_HANDLE>} phKey A pointer to the handle of the key to import.
+     * @param {Pointer<Void>} phKey A pointer to the handle of the key to import.
      * @returns {Integer} If the function succeeds, the function returns zero.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error.
@@ -50231,7 +50383,7 @@ class Cryptography {
     /**
      * Performs a cryptographic signature validation of a SignedInfo element.
      * @param {Pointer<Void>} hSignature The handle of a <b>Signature</b> element.
-     * @param {Pointer<BCRYPT_KEY_HANDLE>} hKey The handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public key</a> to use to verify the signature value on 
+     * @param {Pointer<Void>} hKey The handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public key</a> to use to verify the signature value on 
      *     the <b>SignedInfo</b> element.
      *     This parameter must be <b>NULL</b> for HMAC-based signature algorithms.
      * @param {Integer} dwFlags 
@@ -50392,7 +50544,7 @@ class Cryptography {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} fileName 
+     * @param {Pointer<Char>} fileName 
      * @returns {Integer} 
      */
     static ImportInformationCard(fileName) {
@@ -50415,9 +50567,9 @@ class Cryptography {
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hCrypto 
      * @param {Integer} fOAEP 
      * @param {Integer} cbInData 
-     * @param {Pointer<Byte>} pInData 
+     * @param {Pointer} pInData 
      * @param {Pointer<UInt32>} pcbOutData 
-     * @param {Pointer<Byte>} ppOutData 
+     * @param {Pointer} ppOutData 
      * @returns {Integer} Type: **uint32**
      * 
      * This method returns one of the following codes or another error code if it fails.
@@ -50439,7 +50591,7 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/SecProv/encrypt-win32-encryptablevolume
      */
     static Encrypt(hCrypto, fOAEP, cbInData, pInData, pcbOutData, ppOutData) {
-        result := DllCall("infocardapi.dll\Encrypt", "ptr", hCrypto, "int", fOAEP, "uint", cbInData, "ptr", pInData, "ptr", pcbOutData, "ptr", ppOutData, "int")
+        result := DllCall("infocardapi.dll\Encrypt", "ptr", hCrypto, "int", fOAEP, "uint", cbInData, "ptr", pInData, "uint*", pcbOutData, "ptr", ppOutData, "int")
         return result
     }
 
@@ -50456,9 +50608,9 @@ class Cryptography {
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hCrypto 
      * @param {Integer} fOAEP 
      * @param {Integer} cbInData 
-     * @param {Pointer<Byte>} pInData 
+     * @param {Pointer} pInData 
      * @param {Pointer<UInt32>} pcbOutData 
-     * @param {Pointer<Byte>} ppOutData 
+     * @param {Pointer} ppOutData 
      * @returns {Integer} This method has no parameters.
      * 
      * 
@@ -50478,7 +50630,7 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/SecProv/decrypt-win32-encryptablevolume
      */
     static Decrypt(hCrypto, fOAEP, cbInData, pInData, pcbOutData, ppOutData) {
-        result := DllCall("infocardapi.dll\Decrypt", "ptr", hCrypto, "int", fOAEP, "uint", cbInData, "ptr", pInData, "ptr", pcbOutData, "ptr", ppOutData, "int")
+        result := DllCall("infocardapi.dll\Decrypt", "ptr", hCrypto, "int", fOAEP, "uint", cbInData, "ptr", pInData, "uint*", pcbOutData, "ptr", ppOutData, "int")
         return result
     }
 
@@ -50486,16 +50638,16 @@ class Cryptography {
      * 
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hCrypto 
      * @param {Integer} cbHash 
-     * @param {Pointer<Byte>} pHash 
-     * @param {Pointer<PWSTR>} hashAlgOid 
+     * @param {Pointer} pHash 
+     * @param {Pointer<Char>} hashAlgOid 
      * @param {Pointer<UInt32>} pcbSig 
-     * @param {Pointer<Byte>} ppSig 
+     * @param {Pointer} ppSig 
      * @returns {Integer} 
      */
     static SignHash(hCrypto, cbHash, pHash, hashAlgOid, pcbSig, ppSig) {
         hashAlgOid := hashAlgOid is String? StrPtr(hashAlgOid) : hashAlgOid
 
-        result := DllCall("infocardapi.dll\SignHash", "ptr", hCrypto, "uint", cbHash, "ptr", pHash, "ptr", hashAlgOid, "ptr", pcbSig, "ptr", ppSig, "int")
+        result := DllCall("infocardapi.dll\SignHash", "ptr", hCrypto, "uint", cbHash, "ptr", pHash, "ptr", hashAlgOid, "uint*", pcbSig, "ptr", ppSig, "int")
         return result
     }
 
@@ -50503,17 +50655,17 @@ class Cryptography {
      * 
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hCrypto 
      * @param {Integer} cbHash 
-     * @param {Pointer<Byte>} pHash 
-     * @param {Pointer<PWSTR>} hashAlgOid 
+     * @param {Pointer} pHash 
+     * @param {Pointer<Char>} hashAlgOid 
      * @param {Integer} cbSig 
-     * @param {Pointer<Byte>} pSig 
+     * @param {Pointer} pSig 
      * @param {Pointer<Int32>} pfVerified 
      * @returns {Integer} 
      */
     static VerifyHash(hCrypto, cbHash, pHash, hashAlgOid, cbSig, pSig, pfVerified) {
         hashAlgOid := hashAlgOid is String? StrPtr(hashAlgOid) : hashAlgOid
 
-        result := DllCall("infocardapi.dll\VerifyHash", "ptr", hCrypto, "uint", cbHash, "ptr", pHash, "ptr", hashAlgOid, "uint", cbSig, "ptr", pSig, "ptr", pfVerified, "int")
+        result := DllCall("infocardapi.dll\VerifyHash", "ptr", hCrypto, "uint", cbHash, "ptr", pHash, "ptr", hashAlgOid, "uint", cbSig, "ptr", pSig, "int*", pfVerified, "int")
         return result
     }
 
@@ -50525,7 +50677,7 @@ class Cryptography {
      * @param {Integer} feedbackSize 
      * @param {Integer} direction 
      * @param {Integer} cbIV 
-     * @param {Pointer<Byte>} pIV 
+     * @param {Pointer} pIV 
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} pphTransform 
      * @returns {Integer} 
      */
@@ -50549,13 +50701,13 @@ class Cryptography {
      * 
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hCrypto 
      * @param {Integer} cbInData 
-     * @param {Pointer<Byte>} pInData 
+     * @param {Pointer} pInData 
      * @param {Pointer<UInt32>} pcbOutData 
-     * @param {Pointer<Byte>} ppOutData 
+     * @param {Pointer} ppOutData 
      * @returns {Integer} 
      */
     static TransformBlock(hCrypto, cbInData, pInData, pcbOutData, ppOutData) {
-        result := DllCall("infocardapi.dll\TransformBlock", "ptr", hCrypto, "uint", cbInData, "ptr", pInData, "ptr", pcbOutData, "ptr", ppOutData, "int")
+        result := DllCall("infocardapi.dll\TransformBlock", "ptr", hCrypto, "uint", cbInData, "ptr", pInData, "uint*", pcbOutData, "ptr", ppOutData, "int")
         return result
     }
 
@@ -50563,13 +50715,13 @@ class Cryptography {
      * 
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hCrypto 
      * @param {Integer} cbInData 
-     * @param {Pointer<Byte>} pInData 
+     * @param {Pointer} pInData 
      * @param {Pointer<UInt32>} pcbOutData 
-     * @param {Pointer<Byte>} ppOutData 
+     * @param {Pointer} ppOutData 
      * @returns {Integer} 
      */
     static TransformFinalBlock(hCrypto, cbInData, pInData, pcbOutData, ppOutData) {
-        result := DllCall("infocardapi.dll\TransformFinalBlock", "ptr", hCrypto, "uint", cbInData, "ptr", pInData, "ptr", pcbOutData, "ptr", ppOutData, "int")
+        result := DllCall("infocardapi.dll\TransformFinalBlock", "ptr", hCrypto, "uint", cbInData, "ptr", pInData, "uint*", pcbOutData, "ptr", ppOutData, "int")
         return result
     }
 
@@ -50577,7 +50729,7 @@ class Cryptography {
      * 
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hCrypto 
      * @param {Integer} cbInData 
-     * @param {Pointer<Byte>} pInData 
+     * @param {Pointer} pInData 
      * @returns {Integer} 
      */
     static HashCore(hCrypto, cbInData, pInData) {
@@ -50589,13 +50741,13 @@ class Cryptography {
      * 
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hCrypto 
      * @param {Integer} cbInData 
-     * @param {Pointer<Byte>} pInData 
+     * @param {Pointer} pInData 
      * @param {Pointer<UInt32>} pcbOutData 
-     * @param {Pointer<Byte>} ppOutData 
+     * @param {Pointer} ppOutData 
      * @returns {Integer} 
      */
     static HashFinal(hCrypto, cbInData, pInData, pcbOutData, ppOutData) {
-        result := DllCall("infocardapi.dll\HashFinal", "ptr", hCrypto, "uint", cbInData, "ptr", pInData, "ptr", pcbOutData, "ptr", ppOutData, "int")
+        result := DllCall("infocardapi.dll\HashFinal", "ptr", hCrypto, "uint", cbInData, "ptr", pInData, "uint*", pcbOutData, "ptr", ppOutData, "int")
         return result
     }
 
@@ -50623,20 +50775,20 @@ class Cryptography {
      * 
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hCrypto 
      * @param {Integer} cbLabel 
-     * @param {Pointer<Byte>} pLabel 
+     * @param {Pointer} pLabel 
      * @param {Integer} cbNonce 
-     * @param {Pointer<Byte>} pNonce 
+     * @param {Pointer} pNonce 
      * @param {Integer} derivedKeyLength 
      * @param {Integer} offset 
-     * @param {Pointer<PWSTR>} algId 
+     * @param {Pointer<Char>} algId 
      * @param {Pointer<UInt32>} pcbKey 
-     * @param {Pointer<Byte>} ppKey 
+     * @param {Pointer} ppKey 
      * @returns {Integer} 
      */
     static GenerateDerivedKey(hCrypto, cbLabel, pLabel, cbNonce, pNonce, derivedKeyLength, offset, algId, pcbKey, ppKey) {
         algId := algId is String? StrPtr(algId) : algId
 
-        result := DllCall("infocardapi.dll\GenerateDerivedKey", "ptr", hCrypto, "uint", cbLabel, "ptr", pLabel, "uint", cbNonce, "ptr", pNonce, "uint", derivedKeyLength, "uint", offset, "ptr", algId, "ptr", pcbKey, "ptr", ppKey, "int")
+        result := DllCall("infocardapi.dll\GenerateDerivedKey", "ptr", hCrypto, "uint", cbLabel, "ptr", pLabel, "uint", cbNonce, "ptr", pNonce, "uint", derivedKeyLength, "uint", offset, "ptr", algId, "uint*", pcbKey, "ptr", ppKey, "int")
         return result
     }
 
@@ -50645,18 +50797,18 @@ class Cryptography {
      * @param {Integer} dwParamType 
      * @param {Pointer<Void>} pParam 
      * @param {Pointer<UInt32>} pcbToken 
-     * @param {Pointer<Byte>} ppToken 
+     * @param {Pointer} ppToken 
      * @returns {Integer} 
      */
     static GetBrowserToken(dwParamType, pParam, pcbToken, ppToken) {
-        result := DllCall("infocardapi.dll\GetBrowserToken", "uint", dwParamType, "ptr", pParam, "ptr", pcbToken, "ptr", ppToken, "int")
+        result := DllCall("infocardapi.dll\GetBrowserToken", "uint", dwParamType, "ptr", pParam, "uint*", pcbToken, "ptr", ppToken, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pszProviderName 
-     * @param {Pointer<PWSTR>} pszAlgId 
+     * @param {Pointer<Char>} pszProviderName 
+     * @param {Pointer<Char>} pszAlgId 
      * @param {Pointer<BCRYPT_CIPHER_FUNCTION_TABLE>} ppFunctionTable 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
@@ -50671,8 +50823,8 @@ class Cryptography {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pszProviderName 
-     * @param {Pointer<PWSTR>} pszAlgId 
+     * @param {Pointer<Char>} pszProviderName 
+     * @param {Pointer<Char>} pszAlgId 
      * @param {Pointer<BCRYPT_HASH_FUNCTION_TABLE>} ppFunctionTable 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
@@ -50687,8 +50839,8 @@ class Cryptography {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pszProviderName 
-     * @param {Pointer<PWSTR>} pszAlgId 
+     * @param {Pointer<Char>} pszProviderName 
+     * @param {Pointer<Char>} pszAlgId 
      * @param {Pointer<BCRYPT_ASYMMETRIC_ENCRYPTION_FUNCTION_TABLE>} ppFunctionTable 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
@@ -50703,8 +50855,8 @@ class Cryptography {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pszProviderName 
-     * @param {Pointer<PWSTR>} pszAlgId 
+     * @param {Pointer<Char>} pszProviderName 
+     * @param {Pointer<Char>} pszAlgId 
      * @param {Pointer<BCRYPT_SECRET_AGREEMENT_FUNCTION_TABLE>} ppFunctionTable 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
@@ -50719,8 +50871,8 @@ class Cryptography {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pszProviderName 
-     * @param {Pointer<PWSTR>} pszAlgId 
+     * @param {Pointer<Char>} pszProviderName 
+     * @param {Pointer<Char>} pszAlgId 
      * @param {Pointer<BCRYPT_SIGNATURE_FUNCTION_TABLE>} ppFunctionTable 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
@@ -50735,7 +50887,7 @@ class Cryptography {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pszProviderName 
+     * @param {Pointer<Char>} pszProviderName 
      * @param {Pointer<BCRYPT_RNG_FUNCTION_TABLE>} ppFunctionTable 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
@@ -50749,8 +50901,8 @@ class Cryptography {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pszProviderName 
-     * @param {Pointer<PWSTR>} pszAlgId 
+     * @param {Pointer<Char>} pszProviderName 
+     * @param {Pointer<Char>} pszAlgId 
      * @param {Pointer<BCRYPT_KEY_DERIVATION_FUNCTION_TABLE>} ppFunctionTable 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
@@ -50765,7 +50917,7 @@ class Cryptography {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pszProvider 
+     * @param {Pointer<Char>} pszProvider 
      * @param {Integer} dwFlags 
      * @param {Pointer<CRYPT_PROVIDER_REG>} pReg 
      * @returns {Integer} 
@@ -50779,7 +50931,7 @@ class Cryptography {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pszProvider 
+     * @param {Pointer<Char>} pszProvider 
      * @returns {Integer} 
      */
     static BCryptUnregisterProvider(pszProvider) {
@@ -50792,10 +50944,10 @@ class Cryptography {
     /**
      * 
      * @param {Integer} dwTable 
-     * @param {Pointer<PWSTR>} pszContext 
+     * @param {Pointer<Char>} pszContext 
      * @param {Integer} dwInterface 
-     * @param {Pointer<PWSTR>} pszFunction 
-     * @param {Pointer<PWSTR>} pszProvider 
+     * @param {Pointer<Char>} pszFunction 
+     * @param {Pointer<Char>} pszProvider 
      * @param {Integer} dwPosition 
      * @returns {Integer} 
      */
@@ -50811,10 +50963,10 @@ class Cryptography {
     /**
      * 
      * @param {Integer} dwTable 
-     * @param {Pointer<PWSTR>} pszContext 
+     * @param {Pointer<Char>} pszContext 
      * @param {Integer} dwInterface 
-     * @param {Pointer<PWSTR>} pszFunction 
-     * @param {Pointer<PWSTR>} pszProvider 
+     * @param {Pointer<Char>} pszFunction 
+     * @param {Pointer<Char>} pszProvider 
      * @returns {Integer} 
      */
     static BCryptRemoveContextFunctionProvider(dwTable, pszContext, dwInterface, pszFunction, pszProvider) {
@@ -50830,7 +50982,7 @@ class Cryptography {
      * Retrieves the key storage interface for the specified provider.
      * @remarks
      * **GetKeyStorageInterface** isn't associated with a header file. You can call it by first using the [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibraryw) function (to load `Ncrypt.dll`), and then by calling the [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) function to retrieve the address of **GetKeyStorageInterface**.
-     * @param {Pointer<PWSTR>} pszProviderName The provider name.
+     * @param {Pointer<Char>} pszProviderName The provider name.
      * @param {Pointer<NCRYPT_KEY_STORAGE_FUNCTION_TABLE>} ppFunctionTable Used to retrieve the key storage interface.
      * @param {Integer} dwFlags Flags.
      * @returns {Integer} Type: **[HRESULT](/windows/win32/com/structure-of-com-error-codes)**
@@ -50847,7 +50999,7 @@ class Cryptography {
 
     /**
      * Not implemented and cannot be used.
-     * @param {Pointer<HANDLE>} hEvent This parameter is reserved for future use.
+     * @param {Pointer<Void>} hEvent This parameter is reserved for future use.
      * @param {Integer} dwFlags This parameter is reserved for future use.
      * @returns {Integer} Returns **NTE\_NOT\_SUPPORTED**.
      * @see https://learn.microsoft.com/windows/win32/SecCNG/sslchangenotify
@@ -50866,8 +51018,8 @@ class Cryptography {
      * @param {Pointer} hSslProvider The handle of the [*Secure Sockets Layer protocol*](/windows/desktop/SecGloss/s-gly) (SSL) protocol provider instance.
      * @param {Pointer} hMasterKey The handle of the [*master key*](/windows/desktop/SecGloss/m-gly) object.
      * @param {Pointer} hHandshakeHash The handle of the hash of the handshake computed so far.
-     * @param {Pointer<PWSTR>} pszAlgId A pointer to a null-terminated Unicode string that identifies the requested [*cryptographic algorithm*](/windows/desktop/SecGloss/c-gly). This can be one of the standard [**CNG Algorithm Identifiers**](cng-algorithm-identifiers.md) or the identifier for another registered algorithm.
-     * @param {Pointer<Byte>} pbOutput The address of a buffer that receives the [*key BLOB*](/windows/desktop/SecGloss/k-gly). The *cbOutput* parameter contains the size of this buffer. If this parameter is **NULL**, this function will place the required size, in bytes, in the **DWORD** pointed to by the *pcbResult* parameter.
+     * @param {Pointer<Char>} pszAlgId A pointer to a null-terminated Unicode string that identifies the requested [*cryptographic algorithm*](/windows/desktop/SecGloss/c-gly). This can be one of the standard [**CNG Algorithm Identifiers**](cng-algorithm-identifiers.md) or the identifier for another registered algorithm.
+     * @param {Pointer} pbOutput The address of a buffer that receives the [*key BLOB*](/windows/desktop/SecGloss/k-gly). The *cbOutput* parameter contains the size of this buffer. If this parameter is **NULL**, this function will place the required size, in bytes, in the **DWORD** pointed to by the *pcbResult* parameter.
      * @param {Integer} cbOutput The length, in bytes, of the *pbOutput* buffer.
      * @param {Pointer<UInt32>} pcbResult A pointer to a **DWORD** value that specifies the length, in bytes, of the hash written to the *pbOutput* buffer.
      * @param {Integer} dwFlags This parameter is reserved for future use.
@@ -50887,7 +51039,7 @@ class Cryptography {
     static SslComputeClientAuthHash(hSslProvider, hMasterKey, hHandshakeHash, pszAlgId, pbOutput, cbOutput, pcbResult, dwFlags) {
         pszAlgId := pszAlgId is String? StrPtr(pszAlgId) : pszAlgId
 
-        result := DllCall("ncrypt.dll\SslComputeClientAuthHash", "ptr", hSslProvider, "ptr", hMasterKey, "ptr", hHandshakeHash, "ptr", pszAlgId, "ptr", pbOutput, "uint", cbOutput, "ptr", pcbResult, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslComputeClientAuthHash", "ptr", hSslProvider, "ptr", hMasterKey, "ptr", hHandshakeHash, "ptr", pszAlgId, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -50895,9 +51047,9 @@ class Cryptography {
      * Computes the key block used by the Extensible Authentication Protocol (EAP).
      * @param {Pointer} hSslProvider The handle of the [*Secure Sockets Layer protocol*](/windows/desktop/SecGloss/s-gly) (SSL) protocol provider instance.
      * @param {Pointer} hMasterKey The handle of the [*master key*](/windows/desktop/SecGloss/m-gly) object.
-     * @param {Pointer<Byte>} pbRandoms A pointer to a buffer that contains a concatenation of the client\_random and server\_random values of the SSL session.
+     * @param {Pointer} pbRandoms A pointer to a buffer that contains a concatenation of the client\_random and server\_random values of the SSL session.
      * @param {Integer} cbRandoms The length, in bytes, of the *pbRandoms* buffer.
-     * @param {Pointer<Byte>} pbOutput The address of a buffer that receives the key BLOB. The *cbOutput* parameter contains the size of this buffer. If this parameter is **NULL**, this function will place the required size, in bytes, in the **DWORD** pointed to by the *pcbResult* parameter.
+     * @param {Pointer} pbOutput The address of a buffer that receives the key BLOB. The *cbOutput* parameter contains the size of this buffer. If this parameter is **NULL**, this function will place the required size, in bytes, in the **DWORD** pointed to by the *pcbResult* parameter.
      * @param {Integer} cbOutput The length, in bytes, of the *pbOutput* buffer.
      * @param {Pointer<UInt32>} pcbResult A pointer to a **DWORD** value that specifies the length, in bytes, of the hash written to the *pbOutput* buffer.
      * @param {Integer} dwFlags Set to **NCRYPT\_SSL\_SERVER\_FLAG** to indicate that this is a server call.
@@ -50913,7 +51065,7 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/SecCNG/sslcomputeeapkeyblock
      */
     static SslComputeEapKeyBlock(hSslProvider, hMasterKey, pbRandoms, cbRandoms, pbOutput, cbOutput, pcbResult, dwFlags) {
-        result := DllCall("ncrypt.dll\SslComputeEapKeyBlock", "ptr", hSslProvider, "ptr", hMasterKey, "ptr", pbRandoms, "uint", cbRandoms, "ptr", pbOutput, "uint", cbOutput, "ptr", pcbResult, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslComputeEapKeyBlock", "ptr", hSslProvider, "ptr", hMasterKey, "ptr", pbRandoms, "uint", cbRandoms, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -50932,7 +51084,7 @@ class Cryptography {
      * @param {Pointer} hSslProvider The handle of the SSL protocol provider instance.
      * @param {Pointer} hMasterKey The handle of the [*master key*](/windows/desktop/SecGloss/m-gly) object.
      * @param {Pointer} hHandshakeHash The handle of the hash of the handshake messages.
-     * @param {Pointer<Byte>} pbOutput A pointer to a buffer that receives the hash for the finish message.
+     * @param {Pointer} pbOutput A pointer to a buffer that receives the hash for the finish message.
      * @param {Integer} cbOutput The length, in bytes, of the *pbOutput* buffer.
      * @param {Integer} dwFlags One of the following constants.
      * 
@@ -50970,7 +51122,7 @@ class Cryptography {
      * @param {Integer} dwCipherSuite One of the [**CNG SSL Provider Cipher Suite Identifier**](https://msdn.microsoft.com/library/Hh971253(v=VS.85).aspx) values.
      * @param {Integer} dwKeyType One of the [**CNG SSL Provider Key Type Identifier**](https://msdn.microsoft.com/library/Hh971256(v=VS.85).aspx) values. Set this parameter to zero for key types that are not [*elliptic curve cryptography*](/windows/desktop/SecGloss/e-gly) (ECC).
      * @param {Integer} dwKeyBitLen The length, in bits, of the key.
-     * @param {Pointer<Byte>} pbParams A pointer to a buffer to contain parameters for the key that is to be created. If a [*Diffie-Hellman (ephemeral) key-exchange algorithm*](/windows/desktop/SecGloss/d-gly) (DHE) cipher suite is not used, set the *pbParams* parameter to **NULL** and the *cbParams* parameter to zero.
+     * @param {Pointer} pbParams A pointer to a buffer to contain parameters for the key that is to be created. If a [*Diffie-Hellman (ephemeral) key-exchange algorithm*](/windows/desktop/SecGloss/d-gly) (DHE) cipher suite is not used, set the *pbParams* parameter to **NULL** and the *cbParams* parameter to zero.
      * @param {Integer} cbParams The length, in bytes, of the data in the *pbParams* buffer.
      * @param {Integer} dwFlags This parameter is reserved for future use.
      * @returns {Integer} If the function succeeds, it returns zero.
@@ -50987,7 +51139,7 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/SecCNG/sslcreateephemeralkey
      */
     static SslCreateEphemeralKey(hSslProvider, phEphemeralKey, dwProtocol, dwCipherSuite, dwKeyType, dwKeyBitLen, pbParams, cbParams, dwFlags) {
-        result := DllCall("ncrypt.dll\SslCreateEphemeralKey", "ptr", hSslProvider, "ptr", phEphemeralKey, "uint", dwProtocol, "uint", dwCipherSuite, "uint", dwKeyType, "uint", dwKeyBitLen, "ptr", pbParams, "uint", cbParams, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslCreateEphemeralKey", "ptr", hSslProvider, "ptr*", phEphemeralKey, "uint", dwProtocol, "uint", dwCipherSuite, "uint", dwKeyType, "uint", dwKeyBitLen, "ptr", pbParams, "uint", cbParams, "uint", dwFlags, "int")
         return result
     }
 
@@ -51023,7 +51175,7 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/SecCNG/sslcreatehandshakehash
      */
     static SslCreateHandshakeHash(hSslProvider, phHandshakeHash, dwProtocol, dwCipherSuite, dwFlags) {
-        result := DllCall("ncrypt.dll\SslCreateHandshakeHash", "ptr", hSslProvider, "ptr", phHandshakeHash, "uint", dwProtocol, "uint", dwCipherSuite, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslCreateHandshakeHash", "ptr", hSslProvider, "ptr*", phHandshakeHash, "uint", dwProtocol, "uint", dwCipherSuite, "uint", dwFlags, "int")
         return result
     }
 
@@ -51033,9 +51185,9 @@ class Cryptography {
      * The length of the packet can be zero, such as when a "HelloRequest" message is decrypted.
      * @param {Pointer} hSslProvider The handle of the SSL protocol provider instance.
      * @param {Pointer} hKey The handle to the key that is used to decrypt the packet.
-     * @param {Pointer<Byte>} pbInput A pointer to the buffer that contains the packet to be decrypted.
+     * @param {Pointer} pbInput A pointer to the buffer that contains the packet to be decrypted.
      * @param {Integer} cbInput The length, in bytes, of the *pbInput* buffer.
-     * @param {Pointer<Byte>} pbOutput A pointer to a buffer to contain the decrypted packet.
+     * @param {Pointer} pbOutput A pointer to a buffer to contain the decrypted packet.
      * @param {Integer} cbOutput The length, bytes, of the *pbOutput* buffer.
      * @param {Pointer<UInt32>} pcbResult The number of bytes written to the *pbOutput* buffer.
      * @param {Integer} SequenceNumber The sequence number that corresponds to this packet.
@@ -51054,7 +51206,7 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/SecCNG/ssldecryptpacket
      */
     static SslDecryptPacket(hSslProvider, hKey, pbInput, cbInput, pbOutput, cbOutput, pcbResult, SequenceNumber, dwFlags) {
-        result := DllCall("ncrypt.dll\SslDecryptPacket", "ptr", hSslProvider, "ptr", hKey, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, "ptr", pcbResult, "uint", SequenceNumber, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslDecryptPacket", "ptr", hSslProvider, "ptr", hKey, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", SequenceNumber, "uint", dwFlags, "int")
         return result
     }
 
@@ -51062,9 +51214,9 @@ class Cryptography {
      * Encrypts a single Secure Sockets Layer protocol (SSL) packet.
      * @param {Pointer} hSslProvider The handle of the SSL protocol provider instance.
      * @param {Pointer} hKey The handle to the key that is used to encrypt the packet.
-     * @param {Pointer<Byte>} pbInput A pointer to the buffer that contains the packet to be encrypted.
+     * @param {Pointer} pbInput A pointer to the buffer that contains the packet to be encrypted.
      * @param {Integer} cbInput The length, in bytes, of the *pbInput* buffer.
-     * @param {Pointer<Byte>} pbOutput A pointer to a buffer to receive the encrypted packet.
+     * @param {Pointer} pbOutput A pointer to a buffer to receive the encrypted packet.
      * @param {Integer} cbOutput The length, bytes, of the *pbOutput* buffer.
      * @param {Pointer<UInt32>} pcbResult The number of bytes written to the *pbOutput* buffer.
      * @param {Integer} SequenceNumber The sequence number that corresponds to this packet.
@@ -51093,7 +51245,7 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/SecCNG/sslencryptpacket
      */
     static SslEncryptPacket(hSslProvider, hKey, pbInput, cbInput, pbOutput, cbOutput, pcbResult, SequenceNumber, dwContentType, dwFlags) {
-        result := DllCall("ncrypt.dll\SslEncryptPacket", "ptr", hSslProvider, "ptr", hKey, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, "ptr", pcbResult, "uint", SequenceNumber, "uint", dwContentType, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslEncryptPacket", "ptr", hSslProvider, "ptr", hKey, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", SequenceNumber, "uint", dwContentType, "uint", dwFlags, "int")
         return result
     }
 
@@ -51158,7 +51310,7 @@ class Cryptography {
      * @returns {Integer} 
      */
     static SslEnumEccCurves(hSslProvider, pEccCurveCount, ppEccCurve, dwFlags) {
-        result := DllCall("ncrypt.dll\SslEnumEccCurves", "ptr", hSslProvider, "ptr", pEccCurveCount, "ptr", ppEccCurve, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslEnumEccCurves", "ptr", hSslProvider, "uint*", pEccCurveCount, "ptr", ppEccCurve, "uint", dwFlags, "int")
         return result
     }
 
@@ -51185,7 +51337,7 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/SecCNG/sslenumprotocolproviders
      */
     static SslEnumProtocolProviders(pdwProviderCount, ppProviderList, dwFlags) {
-        result := DllCall("ncrypt.dll\SslEnumProtocolProviders", "ptr", pdwProviderCount, "ptr", ppProviderList, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslEnumProtocolProviders", "uint*", pdwProviderCount, "ptr", ppProviderList, "uint", dwFlags, "int")
         return result
     }
 
@@ -51204,7 +51356,7 @@ class Cryptography {
      * 
      * > [!Note]  
      * > A *hKey* handle is obtained by calling the [**SslOpenPrivateKey**](sslopenprivatekey.md) function. Handles obtained from the [**NCryptOpenKey**](/windows/desktop/api/Ncrypt/nf-ncrypt-ncryptopenkey) function are not supported.
-     * @param {Pointer<PWSTR>} pszBlobType A null-terminated Unicode string that contains an identifier that specifies the type of BLOB to export. This can be one of the following values.
+     * @param {Pointer<Char>} pszBlobType A null-terminated Unicode string that contains an identifier that specifies the type of BLOB to export. This can be one of the following values.
      * 
      * 
      * 
@@ -51214,7 +51366,7 @@ class Cryptography {
      * | <span id="BCRYPT_ECCPUBLIC_BLOB"></span><span id="bcrypt_eccpublic_blob"></span><dl> <dt>**BCRYPT\_ECCPUBLIC\_BLOB**</dt> </dl>     | Export an [*elliptic curve cryptography*](/windows/desktop/SecGloss/e-gly) (ECC) public key. The *pbOutput* buffer receives a [**BCRYPT\_ECCKEY\_BLOB**](/windows/desktop/api/Bcrypt/ns-bcrypt-bcrypt_ecckey_blob) structure immediately followed by the key data.<br/>                                                          |
      * | <span id="BCRYPT_OPAQUE_KEY_BLOB"></span><span id="bcrypt_opaque_key_blob"></span><dl> <dt>**BCRYPT\_OPAQUE\_KEY\_BLOB**</dt> </dl> | Export a symmetric key in a format that is specific to a single [*cryptographic service provider*](/windows/desktop/SecGloss/c-gly) (CSP). Opaque BLOBs are not transferable and must be imported by using the same *cryptographic service provider* (CSP) that generated the BLOB.<br/> |
      * | <span id="BCRYPT_RSAPUBLIC_BLOB"></span><span id="bcrypt_rsapublic_blob"></span><dl> <dt>**BCRYPT\_RSAPUBLIC\_BLOB**</dt> </dl>     | Export an RSA public key. The *pbOutput* buffer receives a [**BCRYPT\_RSAKEY\_BLOB**](/windows/desktop/api/Bcrypt/ns-bcrypt-bcrypt_rsakey_blob) structure immediately followed by the key data.<br/>                                                                                                                                                                                                |
-     * @param {Pointer<Byte>} pbOutput The address of a buffer that receives the [*key BLOB*](/windows/desktop/SecGloss/k-gly). The *cbOutput* parameter contains the size of this buffer. If this parameter is **NULL**, this function will place the required size, in bytes, in the **DWORD** pointed to by the *pcbResult* parameter.
+     * @param {Pointer} pbOutput The address of a buffer that receives the [*key BLOB*](/windows/desktop/SecGloss/k-gly). The *cbOutput* parameter contains the size of this buffer. If this parameter is **NULL**, this function will place the required size, in bytes, in the **DWORD** pointed to by the *pcbResult* parameter.
      * @param {Integer} cbOutput The size, in bytes, of the *pbOutput* buffer.
      * @param {Pointer<UInt32>} pcbResult The address of a **DWORD** variable that receives the number of bytes copied to the *pbOutput* buffer. If the *pbOutput* parameter is set to **NULL** when the function is called, the required size for the *pbOutput* buffer, in bytes, is returned in the **DWORD** pointed to by this parameter.
      * @param {Integer} dwFlags Reserved for future use.
@@ -51234,7 +51386,7 @@ class Cryptography {
     static SslExportKey(hSslProvider, hKey, pszBlobType, pbOutput, cbOutput, pcbResult, dwFlags) {
         pszBlobType := pszBlobType is String? StrPtr(pszBlobType) : pszBlobType
 
-        result := DllCall("ncrypt.dll\SslExportKey", "ptr", hSslProvider, "ptr", hKey, "ptr", pszBlobType, "ptr", pbOutput, "uint", cbOutput, "ptr", pcbResult, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslExportKey", "ptr", hSslProvider, "ptr", hKey, "ptr", pszBlobType, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -51291,7 +51443,7 @@ class Cryptography {
      * @param {Integer} dwProtocol One of the [**CNG SSL Provider Protocol Identifier**](https://msdn.microsoft.com/library/Hh971257(v=VS.85).aspx) values.
      * @param {Integer} dwCipherSuite One of the [**CNG SSL Provider Cipher Suite Identifier**](https://msdn.microsoft.com/library/Hh971253(v=VS.85).aspx) values.
      * @param {Pointer<BCryptBufferDesc>} pParameterList A pointer to an array of **NCryptBuffer** buffers that contain information used as part of the key exchange operation. The precise set of buffers is dependent on the protocol and cipher suite that is used. At the minimum, the list will contain buffers that contain the client and server supplied random values.
-     * @param {Pointer<Byte>} pbOutput The address of a buffer that receives the premaster secret encrypted with the public key of the server. The *cbOutput* parameter contains the size of this buffer. If this parameter is **NULL**, this function returns the required size, in bytes, in the **DWORD** pointed to by the *pcbResult* parameter.
+     * @param {Pointer} pbOutput The address of a buffer that receives the premaster secret encrypted with the public key of the server. The *cbOutput* parameter contains the size of this buffer. If this parameter is **NULL**, this function returns the required size, in bytes, in the **DWORD** pointed to by the *pcbResult* parameter.
      * 
      * > [!Note]  
      * > This buffer is used when performing a RSA key exchange.
@@ -51321,7 +51473,7 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/SecCNG/sslgeneratemasterkey
      */
     static SslGenerateMasterKey(hSslProvider, hPrivateKey, hPublicKey, phMasterKey, dwProtocol, dwCipherSuite, pParameterList, pbOutput, cbOutput, pcbResult, dwFlags) {
-        result := DllCall("ncrypt.dll\SslGenerateMasterKey", "ptr", hSslProvider, "ptr", hPrivateKey, "ptr", hPublicKey, "ptr", phMasterKey, "uint", dwProtocol, "uint", dwCipherSuite, "ptr", pParameterList, "ptr", pbOutput, "uint", cbOutput, "ptr", pcbResult, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslGenerateMasterKey", "ptr", hSslProvider, "ptr", hPrivateKey, "ptr", hPublicKey, "ptr*", phMasterKey, "uint", dwProtocol, "uint", dwCipherSuite, "ptr", pParameterList, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -51349,14 +51501,14 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/SecCNG/sslgeneratesessionkeys
      */
     static SslGenerateSessionKeys(hSslProvider, hMasterKey, phReadKey, phWriteKey, pParameterList, dwFlags) {
-        result := DllCall("ncrypt.dll\SslGenerateSessionKeys", "ptr", hSslProvider, "ptr", hMasterKey, "ptr", phReadKey, "ptr", phWriteKey, "ptr", pParameterList, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslGenerateSessionKeys", "ptr", hSslProvider, "ptr", hMasterKey, "ptr*", phReadKey, "ptr*", phWriteKey, "ptr", pParameterList, "uint", dwFlags, "int")
         return result
     }
 
     /**
      * Retrieves the value of a named property for a Secure Sockets Layer protocol (SSL) provider key object.
      * @param {Pointer} hKey The handle of the SSL provider.
-     * @param {Pointer<PWSTR>} pszProperty A pointer to a null-terminated Unicode string that contains the name of the property to retrieve. This can be one of the predefined [**Key Storage Property Identifiers**](key-storage-property-identifiers.md) or a custom property identifier.
+     * @param {Pointer<Char>} pszProperty A pointer to a null-terminated Unicode string that contains the name of the property to retrieve. This can be one of the predefined [**Key Storage Property Identifiers**](key-storage-property-identifiers.md) or a custom property identifier.
      * @param {Pointer<Byte>} ppbOutput A pointer to a buffer that receives the property value. The caller of the function must free this buffer by calling the [**SslFreeBuffer**](sslfreebuffer.md) function.
      * @param {Pointer<UInt32>} pcbOutput The size, in bytes, of the *pbOutput* buffer.
      * @param {Integer} dwFlags This parameter is reserved for future use.
@@ -51377,14 +51529,14 @@ class Cryptography {
     static SslGetKeyProperty(hKey, pszProperty, ppbOutput, pcbOutput, dwFlags) {
         pszProperty := pszProperty is String? StrPtr(pszProperty) : pszProperty
 
-        result := DllCall("ncrypt.dll\SslGetKeyProperty", "ptr", hKey, "ptr", pszProperty, "ptr", ppbOutput, "ptr", pcbOutput, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslGetKeyProperty", "ptr", hKey, "ptr", pszProperty, "ptr", ppbOutput, "uint*", pcbOutput, "uint", dwFlags, "int")
         return result
     }
 
     /**
      * Retrieves the value of a specified provider property.
      * @param {Pointer} hSslProvider The handle of the [*Secure Sockets Layer protocol*](/windows/desktop/SecGloss/s-gly) (SSL) provider for which to retrieve the property.
-     * @param {Pointer<PWSTR>} pszProperty A pointer to a null-terminated Unicode string that contains the name of the property to retrieve.
+     * @param {Pointer<Char>} pszProperty A pointer to a null-terminated Unicode string that contains the name of the property to retrieve.
      * @param {Pointer<Byte>} ppbOutput The address of a buffer that receives the property value.
      * 
      * The caller of the function must free this buffer by calling the [**SslFreeBuffer**](sslfreebuffer.md) function.
@@ -51411,7 +51563,7 @@ class Cryptography {
     static SslGetProviderProperty(hSslProvider, pszProperty, ppbOutput, pcbOutput, ppEnumState, dwFlags) {
         pszProperty := pszProperty is String? StrPtr(pszProperty) : pszProperty
 
-        result := DllCall("ncrypt.dll\SslGetProviderProperty", "ptr", hSslProvider, "ptr", pszProperty, "ptr", ppbOutput, "ptr", pcbOutput, "ptr", ppEnumState, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslGetProviderProperty", "ptr", hSslProvider, "ptr", pszProperty, "ptr", ppbOutput, "uint*", pcbOutput, "ptr", ppEnumState, "uint", dwFlags, "int")
         return result
     }
 
@@ -51425,7 +51577,7 @@ class Cryptography {
      * 3.  The [**SslComputeFinishedHash**](sslcomputefinishedhash.md) function is called with the hash handle to obtain the digest of the hashed data.
      * @param {Pointer} hSslProvider The handle to the [*Secure Sockets Layer protocol*](/windows/desktop/SecGloss/s-gly) (SSL) protocol provider instance.
      * @param {Pointer} hHandshakeHash The handle to the hash object.
-     * @param {Pointer<Byte>} pbInput The address of a buffer that contains the data to be hashed.
+     * @param {Pointer} pbInput The address of a buffer that contains the data to be hashed.
      * @param {Integer} cbInput The size, in bytes, of the *pbInput* buffer.
      * @param {Integer} dwFlags This parameter is reserved for future use.
      * @returns {Integer} If the function succeeds, it returns zero.
@@ -51442,7 +51594,7 @@ class Cryptography {
      * You can use the **SslImportKey** function to import session keys as a part of the process of transferring session keys from one process to another.
      * @param {Pointer} hSslProvider The handle to the SSL protocol provider instance.
      * @param {Pointer<UIntPtr>} phKey A pointer to the handle of the [*cryptographic key*](/windows/desktop/SecGloss/c-gly) to receive the imported key.
-     * @param {Pointer<PWSTR>} pszBlobType A null-terminated Unicode string that contains an identifier that specifies the type of [*BLOB*](/windows/desktop/SecGloss/b-gly) that is contained in the *pbInput* buffer. This can be one of the following values.
+     * @param {Pointer<Char>} pszBlobType A null-terminated Unicode string that contains an identifier that specifies the type of [*BLOB*](/windows/desktop/SecGloss/b-gly) that is contained in the *pbInput* buffer. This can be one of the following values.
      * 
      * 
      * 
@@ -51452,7 +51604,7 @@ class Cryptography {
      * | <span id="BCRYPT_ECCPUBLIC_BLOB"></span><span id="bcrypt_eccpublic_blob"></span><dl> <dt>**BCRYPT\_ECCPUBLIC\_BLOB**</dt> </dl>     | Export an [*elliptic curve cryptography*](/windows/desktop/SecGloss/e-gly) (ECC) [*public key*](/windows/desktop/SecGloss/p-gly). The *pbOutput* buffer receives a [**BCRYPT\_ECCKEY\_BLOB**](/windows/desktop/api/Bcrypt/ns-bcrypt-bcrypt_ecckey_blob) structure immediately followed by the key data.<br/>                             |
      * | <span id="BCRYPT_OPAQUE_KEY_BLOB"></span><span id="bcrypt_opaque_key_blob"></span><dl> <dt>**BCRYPT\_OPAQUE\_KEY\_BLOB**</dt> </dl> | Export a [*symmetric key*](/windows/desktop/SecGloss/s-gly) in a format that is specific to a single [*cryptographic service provider*](/windows/desktop/SecGloss/c-gly) (CSP). Opaque BLOBs are not transferable and must be imported by using the same CSP that generated the BLOB.<br/> |
      * | <span id="BCRYPT_RSAPUBLIC_BLOB"></span><span id="bcrypt_rsapublic_blob"></span><dl> <dt>**BCRYPT\_RSAPUBLIC\_BLOB**</dt> </dl>     | Export an [*RSA*](/windows/desktop/SecGloss/r-gly) public key. The *pbOutput* buffer receives a [**BCRYPT\_RSAKEY\_BLOB**](/windows/desktop/api/Bcrypt/ns-bcrypt-bcrypt_rsakey_blob) structure immediately followed by the key data.<br/>                                                                                                                                                                                 |
-     * @param {Pointer<Byte>} pbKeyBlob A pointer to the buffer that contains the [*key BLOB*](/windows/desktop/SecGloss/k-gly).
+     * @param {Pointer} pbKeyBlob A pointer to the buffer that contains the [*key BLOB*](/windows/desktop/SecGloss/k-gly).
      * @param {Integer} cbKeyBlob The size, in bytes, of the *pbKeyBlob* buffer.
      * @param {Integer} dwFlags This parameter is reserved for future use.
      * @returns {Integer} If the function succeeds, it returns zero.
@@ -51473,7 +51625,7 @@ class Cryptography {
     static SslImportKey(hSslProvider, phKey, pszBlobType, pbKeyBlob, cbKeyBlob, dwFlags) {
         pszBlobType := pszBlobType is String? StrPtr(pszBlobType) : pszBlobType
 
-        result := DllCall("ncrypt.dll\SslImportKey", "ptr", hSslProvider, "ptr", phKey, "ptr", pszBlobType, "ptr", pbKeyBlob, "uint", cbKeyBlob, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslImportKey", "ptr", hSslProvider, "ptr*", phKey, "ptr", pszBlobType, "ptr", pbKeyBlob, "uint", cbKeyBlob, "uint", dwFlags, "int")
         return result
     }
 
@@ -51490,7 +51642,7 @@ class Cryptography {
      * @param {Integer} dwProtocol One of the [**CNG SSL Provider Protocol Identifier**](https://msdn.microsoft.com/library/Hh971257(v=VS.85).aspx) values.
      * @param {Integer} dwCipherSuite One of the [**CNG SSL Provider Cipher Suite Identifiers**](https://msdn.microsoft.com/library/Hh971253(v=VS.85).aspx) values.
      * @param {Pointer<BCryptBufferDesc>} pParameterList A pointer to an array of **NCryptBuffer** buffers that contain information used as part of the key exchange operation. The precise set of buffers is dependent on the protocol and cipher suite that is used. At the minimum, the list will contain buffers that contain the client and server supplied random values.
-     * @param {Pointer<Byte>} pbEncryptedKey A pointer to a buffer that contains the encrypted premaster secret key encrypted with the [*public key*](/windows/desktop/SecGloss/p-gly) of the server.
+     * @param {Pointer} pbEncryptedKey A pointer to a buffer that contains the encrypted premaster secret key encrypted with the [*public key*](/windows/desktop/SecGloss/p-gly) of the server.
      * @param {Integer} cbEncryptedKey The size, in bytes, of the *pbEncryptedKey* buffer.
      * @param {Integer} dwFlags Set this parameter to **NCRYPT\_SSL\_SERVER\_FLAG** to indicate that this is a server call.
      * @returns {Integer} If the function succeeds, it returns zero.
@@ -51509,7 +51661,7 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/SecCNG/sslimportmasterkey
      */
     static SslImportMasterKey(hSslProvider, hPrivateKey, phMasterKey, dwProtocol, dwCipherSuite, pParameterList, pbEncryptedKey, cbEncryptedKey, dwFlags) {
-        result := DllCall("ncrypt.dll\SslImportMasterKey", "ptr", hSslProvider, "ptr", hPrivateKey, "ptr", phMasterKey, "uint", dwProtocol, "uint", dwCipherSuite, "ptr", pParameterList, "ptr", pbEncryptedKey, "uint", cbEncryptedKey, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslImportMasterKey", "ptr", hSslProvider, "ptr", hPrivateKey, "ptr*", phMasterKey, "uint", dwProtocol, "uint", dwCipherSuite, "ptr", pParameterList, "ptr", pbEncryptedKey, "uint", cbEncryptedKey, "uint", dwFlags, "int")
         return result
     }
 
@@ -51565,7 +51717,7 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/SecCNG/sslopenprivatekey
      */
     static SslOpenPrivateKey(hSslProvider, phPrivateKey, pCertContext, dwFlags) {
-        result := DllCall("ncrypt.dll\SslOpenPrivateKey", "ptr", hSslProvider, "ptr", phPrivateKey, "ptr", pCertContext, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslOpenPrivateKey", "ptr", hSslProvider, "ptr*", phPrivateKey, "ptr", pCertContext, "uint", dwFlags, "int")
         return result
     }
 
@@ -51574,7 +51726,7 @@ class Cryptography {
      * @param {Pointer<UIntPtr>} phSslProvider The address of an **NCRYPT\_PROV\_HANDLE** in which to write the provider handle.
      * 
      * When you have finished using the handle, you should free it by calling the [**SslFreeObject**](sslfreeobject.md) function.
-     * @param {Pointer<PWSTR>} pszProviderName A pointer to a Unicode string that contains the provider name. If the value of this parameter is **NULL**, a handle to the **MS\_SCHANNEL\_PROVIDER** is returned.
+     * @param {Pointer<Char>} pszProviderName A pointer to a Unicode string that contains the provider name. If the value of this parameter is **NULL**, a handle to the **MS\_SCHANNEL\_PROVIDER** is returned.
      * @param {Integer} dwFlags This parameter is reserved for future use, and it must be set to zero.
      * @returns {Integer} If the function succeeds, it returns zero.
      * 
@@ -51594,7 +51746,7 @@ class Cryptography {
     static SslOpenProvider(phSslProvider, pszProviderName, dwFlags) {
         pszProviderName := pszProviderName is String? StrPtr(pszProviderName) : pszProviderName
 
-        result := DllCall("ncrypt.dll\SslOpenProvider", "ptr", phSslProvider, "ptr", pszProviderName, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslOpenProvider", "ptr*", phSslProvider, "ptr", pszProviderName, "uint", dwFlags, "int")
         return result
     }
 
@@ -51602,9 +51754,9 @@ class Cryptography {
      * Signs a hash by using the specified private key.
      * @param {Pointer} hSslProvider The handle to the [*Secure Sockets Layer protocol*](/windows/desktop/SecGloss/s-gly) (SSL) protocol provider instance.
      * @param {Pointer} hPrivateKey The handle to the private key to use to sign the hash.
-     * @param {Pointer<Byte>} pbHashValue A pointer to a buffer that contains the hash to sign.
+     * @param {Pointer} pbHashValue A pointer to a buffer that contains the hash to sign.
      * @param {Integer} cbHashValue The size, in bytes, of the *pbHashValue* buffer.
-     * @param {Pointer<Byte>} pbSignature The address of a buffer that receives the signature of the hash. The *cbSignature* parameter contains the size of this buffer. To determine the required sized size of the buffer, set the *pbSignature* parameter to **NULL**. The required size of the buffer will be returned in the *pcbResult* parameter.
+     * @param {Pointer} pbSignature The address of a buffer that receives the signature of the hash. The *cbSignature* parameter contains the size of this buffer. To determine the required sized size of the buffer, set the *pbSignature* parameter to **NULL**. The required size of the buffer will be returned in the *pcbResult* parameter.
      * @param {Integer} cbSignature The size, in bytes, of the *pbSignature* buffer.
      * @param {Pointer<UInt32>} pcbResult A pointer to a value that, upon completion, contains the actual number of bytes written to the *pbSignature* buffer.
      * @param {Integer} dwFlags This parameter is reserved for future use.
@@ -51622,7 +51774,7 @@ class Cryptography {
      * @see https://learn.microsoft.com/windows/win32/SecCNG/sslsignhash
      */
     static SslSignHash(hSslProvider, hPrivateKey, pbHashValue, cbHashValue, pbSignature, cbSignature, pcbResult, dwFlags) {
-        result := DllCall("ncrypt.dll\SslSignHash", "ptr", hSslProvider, "ptr", hPrivateKey, "ptr", pbHashValue, "uint", cbHashValue, "ptr", pbSignature, "uint", cbSignature, "ptr", pcbResult, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslSignHash", "ptr", hSslProvider, "ptr", hPrivateKey, "ptr", pbHashValue, "uint", cbHashValue, "ptr", pbSignature, "uint", cbSignature, "uint*", pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -51634,9 +51786,9 @@ class Cryptography {
      * Current implementations of the server side of the [*Transport Layer Security protocol*](/windows/desktop/SecGloss/t-gly) (TLS) connection call the [**NCryptVerifySignature**](/windows/desktop/api/Ncrypt/nf-ncrypt-ncryptverifysignature) function during the client authentication to process the certificate verify message.
      * @param {Pointer} hSslProvider The handle to the [*Secure Sockets Layer protocol*](/windows/desktop/SecGloss/s-gly) (SSL) protocol provider instance.
      * @param {Pointer} hPublicKey The handle to the public key.
-     * @param {Pointer<Byte>} pbHashValue A pointer to a buffer that contains the hash to use to verify the signature.
+     * @param {Pointer} pbHashValue A pointer to a buffer that contains the hash to use to verify the signature.
      * @param {Integer} cbHashValue The size, in bytes, of the *pbHashValue* buffer.
-     * @param {Pointer<Byte>} pbSignature A pointer to a buffer that contains the signature to verify.
+     * @param {Pointer} pbSignature A pointer to a buffer that contains the signature to verify.
      * @param {Integer} cbSignature The size, in bytes, of the *pbSignature* buffer.
      * @param {Integer} dwFlags This parameter is reserved for future use.
      * @returns {Integer} If the function succeeds, it returns zero.
@@ -51665,7 +51817,7 @@ class Cryptography {
      * @param {Integer} dwProtocol One of the [**CNG SSL Provider Protocol Identifier**](https://msdn.microsoft.com/library/Hh971257(v=VS.85).aspx) values.
      * @param {Integer} dwCipherSuite One of the [**CNG SSL Provider Cipher Suite Identifier**](https://msdn.microsoft.com/library/Hh971253(v=VS.85).aspx) values.
      * @param {Integer} dwKeyType One of the [**CNG SSL Provider Key Type Identifier**](https://msdn.microsoft.com/library/Hh971256(v=VS.85).aspx) values. For key types that are not [*elliptic curve cryptography*](/windows/desktop/SecGloss/e-gly) (ECC), set this parameter to zero.
-     * @param {Pointer<NCRYPT_SSL_CIPHER_LENGTHS>} pCipherLengths A pointer to a buffer to receive the [**NCRYPT\_SSL\_CIPHER\_LENGTHS**](https://www.bing.com/search?q=**NCRYPT\_SSL\_CIPHER\_LENGTHS**) structure.
+     * @param {Pointer} pCipherLengths A pointer to a buffer to receive the [**NCRYPT\_SSL\_CIPHER\_LENGTHS**](https://www.bing.com/search?q=**NCRYPT\_SSL\_CIPHER\_LENGTHS**) structure.
      * @param {Integer} cbCipherLengths The length, in bytes, of the buffer pointed to by the *pCipherLengths* parameter.
      * @param {Integer} dwFlags This parameter is reserved for future use and must be set to zero.
      * @returns {Integer} If the function succeeds, it returns zero.
@@ -51696,7 +51848,7 @@ class Cryptography {
      * @param {Pointer<UIntPtr>} phHandshakeHash A pointer to an **NCRYPT\_HASH\_HANDLE** variable to receive the hash handle.
      * @param {Integer} dwProtocol One of the [**CNG SSL Provider Protocol Identifier**](https://msdn.microsoft.com/library/Hh971257(v=VS.85).aspx) values.
      * @param {Integer} dwCipherSuite One of the [**CNG SSL Provider Cipher Suite Identifier**](https://msdn.microsoft.com/library/Hh971253(v=VS.85).aspx) values.
-     * @param {Pointer<PWSTR>} pszHashAlgId One of the [**CNG Algorithm Identifiers**](cng-algorithm-identifiers.md) values.
+     * @param {Pointer<Char>} pszHashAlgId One of the [**CNG Algorithm Identifiers**](cng-algorithm-identifiers.md) values.
      * @param {Integer} dwFlags This parameter is reserved for future use and must be set to zero.
      * @returns {Integer} If the function succeeds, it returns zero.
      * 
@@ -51718,7 +51870,7 @@ class Cryptography {
     static SslCreateClientAuthHash(hSslProvider, phHandshakeHash, dwProtocol, dwCipherSuite, pszHashAlgId, dwFlags) {
         pszHashAlgId := pszHashAlgId is String? StrPtr(pszHashAlgId) : pszHashAlgId
 
-        result := DllCall("ncrypt.dll\SslCreateClientAuthHash", "ptr", hSslProvider, "ptr", phHandshakeHash, "uint", dwProtocol, "uint", dwCipherSuite, "ptr", pszHashAlgId, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslCreateClientAuthHash", "ptr", hSslProvider, "ptr*", phHandshakeHash, "uint", dwProtocol, "uint", dwCipherSuite, "ptr", pszHashAlgId, "uint", dwFlags, "int")
         return result
     }
 
@@ -51730,7 +51882,7 @@ class Cryptography {
      * @param {Integer} dwProtocol One of the [**CNG SSL Provider Protocol Identifier**](https://msdn.microsoft.com/library/Hh971257(v=VS.85).aspx) values.
      * @param {Integer} dwCipherSuite One of the [**CNG SSL Provider Cipher Suite Identifier**](https://msdn.microsoft.com/library/Hh971253(v=VS.85).aspx) values.
      * @param {Integer} dwKeyType One of the [**CNG SSL Provider Key Type Identifier**](https://msdn.microsoft.com/library/Hh971256(v=VS.85).aspx) values. For key types that are not [*elliptic curve cryptography*](/windows/desktop/SecGloss/e-gly) (ECC), set this parameter to zero.
-     * @param {Pointer<PWSTR>} szPRFHash One of the [**CNG Algorithm Identifiers**](cng-algorithm-identifiers.md) for the hash that will be used for the TLS PRF.
+     * @param {Pointer<Char>} szPRFHash One of the [**CNG Algorithm Identifiers**](cng-algorithm-identifiers.md) for the hash that will be used for the TLS PRF.
      * @param {Integer} dwFlags This parameter is reserved for future use and must be set to zero.
      * @returns {Integer} If the function succeeds, it returns zero.
      * 
@@ -51760,14 +51912,14 @@ class Cryptography {
      * @param {Pointer} hSslProvider 
      * @param {Pointer} hHandshakeHash 
      * @param {Integer} dwProtocol 
-     * @param {Pointer<Byte>} pbOutput 
+     * @param {Pointer} pbOutput 
      * @param {Integer} cbOutput 
      * @param {Pointer<UInt32>} pcbResult 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
      */
     static SslComputeSessionHash(hSslProvider, hHandshakeHash, dwProtocol, pbOutput, cbOutput, pcbResult, dwFlags) {
-        result := DllCall("ncrypt.dll\SslComputeSessionHash", "ptr", hSslProvider, "ptr", hHandshakeHash, "uint", dwProtocol, "ptr", pbOutput, "uint", cbOutput, "ptr", pcbResult, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslComputeSessionHash", "ptr", hSslProvider, "ptr", hHandshakeHash, "uint", dwProtocol, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -51779,14 +51931,14 @@ class Cryptography {
      * @param {Integer} dwProtocol 
      * @param {Integer} dwCipherSuite 
      * @param {Pointer<BCryptBufferDesc>} pParameterList 
-     * @param {Pointer<Byte>} pbOutput 
+     * @param {Pointer} pbOutput 
      * @param {Integer} cbOutput 
      * @param {Pointer<UInt32>} pcbResult 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
      */
     static SslGeneratePreMasterKey(hSslProvider, hPublicKey, phPreMasterKey, dwProtocol, dwCipherSuite, pParameterList, pbOutput, cbOutput, pcbResult, dwFlags) {
-        result := DllCall("ncrypt.dll\SslGeneratePreMasterKey", "ptr", hSslProvider, "ptr", hPublicKey, "ptr", phPreMasterKey, "uint", dwProtocol, "uint", dwCipherSuite, "ptr", pParameterList, "ptr", pbOutput, "uint", cbOutput, "ptr", pcbResult, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslGeneratePreMasterKey", "ptr", hSslProvider, "ptr", hPublicKey, "ptr*", phPreMasterKey, "uint", dwProtocol, "uint", dwCipherSuite, "ptr", pParameterList, "ptr", pbOutput, "uint", cbOutput, "uint*", pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -51794,12 +51946,12 @@ class Cryptography {
      * Exports keying material per the RFC 5705 standard.
      * @param {Pointer} hSslProvider The handle of the TLS protocol provider instance.
      * @param {Pointer} hMasterKey The handle of the master key object that will be used to create the keying material to br exported.
-     * @param {Pointer<PSTR>} sLabel a NUL-terminated ASCII label string. Schannel will remove the terminating NUL character before passing it to the pseudorandom function.
-     * @param {Pointer<Byte>} pbRandoms A pointer to a buffer that contains a concatenation of the *client\_random* and *server\_random* values of the TLS connection.
+     * @param {Pointer<Byte>} sLabel a NUL-terminated ASCII label string. Schannel will remove the terminating NUL character before passing it to the pseudorandom function.
+     * @param {Pointer} pbRandoms A pointer to a buffer that contains a concatenation of the *client\_random* and *server\_random* values of the TLS connection.
      * @param {Integer} cbRandoms The length, in bytes, of the *pbRandoms* buffer.
-     * @param {Pointer<Byte>} pbContextValue A pointer to a buffer that contains the application context. If *pbContextValue* is **NULL**, *cbContextValue* must be zero.
+     * @param {Pointer} pbContextValue A pointer to a buffer that contains the application context. If *pbContextValue* is **NULL**, *cbContextValue* must be zero.
      * @param {Integer} cbContextValue The length, in bytes, of the *pbContextValue* buffer.
-     * @param {Pointer<Byte>} pbOutput The address of a buffer that receives the exported keying material. The *cbOutput* parameter contains the size of this buffer. This value cannot be **NULL**.
+     * @param {Pointer} pbOutput The address of a buffer that receives the exported keying material. The *cbOutput* parameter contains the size of this buffer. This value cannot be **NULL**.
      * @param {Integer} cbOutput The length, in bytes, of the *pbOutput* buffer. Must be greater than zero.
      * @param {Integer} dwFlags Not used. Must be set to zero.
      * @returns {Integer} If the function succeeds, it returns zero.
@@ -51834,7 +51986,7 @@ class Cryptography {
      * @returns {Integer} 
      */
     static SslExtractEarlyKey(hSslProvider, hPreSharedKey, phEarlyKey, dwProtocol, dwCipherSuite, pParameterList, dwFlags) {
-        result := DllCall("ncrypt.dll\SslExtractEarlyKey", "ptr", hSslProvider, "ptr", hPreSharedKey, "ptr", phEarlyKey, "uint", dwProtocol, "uint", dwCipherSuite, "ptr", pParameterList, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslExtractEarlyKey", "ptr", hSslProvider, "ptr", hPreSharedKey, "ptr*", phEarlyKey, "uint", dwProtocol, "uint", dwCipherSuite, "ptr", pParameterList, "uint", dwFlags, "int")
         return result
     }
 
@@ -51850,7 +52002,7 @@ class Cryptography {
      * @returns {Integer} 
      */
     static SslExtractHandshakeKey(hSslProvider, hPrivateKey, hPublicKey, hEarlyKey, phHandshakeKey, pParameterList, dwFlags) {
-        result := DllCall("ncrypt.dll\SslExtractHandshakeKey", "ptr", hSslProvider, "ptr", hPrivateKey, "ptr", hPublicKey, "ptr", hEarlyKey, "ptr", phHandshakeKey, "ptr", pParameterList, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslExtractHandshakeKey", "ptr", hSslProvider, "ptr", hPrivateKey, "ptr", hPublicKey, "ptr", hEarlyKey, "ptr*", phHandshakeKey, "ptr", pParameterList, "uint", dwFlags, "int")
         return result
     }
 
@@ -51864,7 +52016,7 @@ class Cryptography {
      * @returns {Integer} 
      */
     static SslExtractMasterKey(hSslProvider, hHandshakeKey, phMasterKey, pParameterList, dwFlags) {
-        result := DllCall("ncrypt.dll\SslExtractMasterKey", "ptr", hSslProvider, "ptr", hHandshakeKey, "ptr", phMasterKey, "ptr", pParameterList, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslExtractMasterKey", "ptr", hSslProvider, "ptr", hHandshakeKey, "ptr*", phMasterKey, "ptr", pParameterList, "uint", dwFlags, "int")
         return result
     }
 
@@ -51880,7 +52032,7 @@ class Cryptography {
      * @returns {Integer} 
      */
     static SslExpandTrafficKeys(hSslProvider, hBaseKey, hHashValue, phClientTrafficKey, phServerTrafficKey, pParameterList, dwFlags) {
-        result := DllCall("ncrypt.dll\SslExpandTrafficKeys", "ptr", hSslProvider, "ptr", hBaseKey, "ptr", hHashValue, "ptr", phClientTrafficKey, "ptr", phServerTrafficKey, "ptr", pParameterList, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslExpandTrafficKeys", "ptr", hSslProvider, "ptr", hBaseKey, "ptr", hHashValue, "ptr*", phClientTrafficKey, "ptr*", phServerTrafficKey, "ptr", pParameterList, "uint", dwFlags, "int")
         return result
     }
 
@@ -51894,7 +52046,7 @@ class Cryptography {
      * @returns {Integer} 
      */
     static SslExpandWriteKey(hSslProvider, hBaseTrafficKey, phWriteKey, pParameterList, dwFlags) {
-        result := DllCall("ncrypt.dll\SslExpandWriteKey", "ptr", hSslProvider, "ptr", hBaseTrafficKey, "ptr", phWriteKey, "ptr", pParameterList, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslExpandWriteKey", "ptr", hSslProvider, "ptr", hBaseTrafficKey, "ptr*", phWriteKey, "ptr", pParameterList, "uint", dwFlags, "int")
         return result
     }
 
@@ -51909,7 +52061,7 @@ class Cryptography {
      * @returns {Integer} 
      */
     static SslExpandExporterMasterKey(hSslProvider, hBaseKey, hHashValue, phExporterMasterKey, pParameterList, dwFlags) {
-        result := DllCall("ncrypt.dll\SslExpandExporterMasterKey", "ptr", hSslProvider, "ptr", hBaseKey, "ptr", hHashValue, "ptr", phExporterMasterKey, "ptr", pParameterList, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslExpandExporterMasterKey", "ptr", hSslProvider, "ptr", hBaseKey, "ptr", hHashValue, "ptr*", phExporterMasterKey, "ptr", pParameterList, "uint", dwFlags, "int")
         return result
     }
 
@@ -51924,7 +52076,7 @@ class Cryptography {
      * @returns {Integer} 
      */
     static SslExpandResumptionMasterKey(hSslProvider, hMasterKey, hHashValue, phResumptionMasterKey, pParameterList, dwFlags) {
-        result := DllCall("ncrypt.dll\SslExpandResumptionMasterKey", "ptr", hSslProvider, "ptr", hMasterKey, "ptr", hHashValue, "ptr", phResumptionMasterKey, "ptr", pParameterList, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslExpandResumptionMasterKey", "ptr", hSslProvider, "ptr", hMasterKey, "ptr", hHashValue, "ptr*", phResumptionMasterKey, "ptr", pParameterList, "uint", dwFlags, "int")
         return result
     }
 
@@ -51937,7 +52089,7 @@ class Cryptography {
      * @returns {Integer} 
      */
     static SslDuplicateTranscriptHash(hSslProvider, hTranscriptHash, phTranscriptHash, dwFlags) {
-        result := DllCall("ncrypt.dll\SslDuplicateTranscriptHash", "ptr", hSslProvider, "ptr", hTranscriptHash, "ptr", phTranscriptHash, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslDuplicateTranscriptHash", "ptr", hSslProvider, "ptr", hTranscriptHash, "ptr*", phTranscriptHash, "uint", dwFlags, "int")
         return result
     }
 
@@ -51951,7 +52103,7 @@ class Cryptography {
      * @returns {Integer} 
      */
     static SslExpandBinderKey(hSslProvider, hEarlyKey, phBinderKey, pParameterList, dwFlags) {
-        result := DllCall("ncrypt.dll\SslExpandBinderKey", "ptr", hSslProvider, "ptr", hEarlyKey, "ptr", phBinderKey, "ptr", pParameterList, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslExpandBinderKey", "ptr", hSslProvider, "ptr", hEarlyKey, "ptr*", phBinderKey, "ptr", pParameterList, "uint", dwFlags, "int")
         return result
     }
 
@@ -51959,7 +52111,7 @@ class Cryptography {
      * 
      * @param {Pointer} hSslProvider 
      * @param {Pointer} hResumptionMasterKey 
-     * @param {Pointer<Byte>} pbTicketNonce 
+     * @param {Pointer} pbTicketNonce 
      * @param {Integer} cbTicketNonce 
      * @param {Pointer<UIntPtr>} phPreSharedKey 
      * @param {Pointer<BCryptBufferDesc>} pParameterList 
@@ -51967,13 +52119,13 @@ class Cryptography {
      * @returns {Integer} 
      */
     static SslExpandPreSharedKey(hSslProvider, hResumptionMasterKey, pbTicketNonce, cbTicketNonce, phPreSharedKey, pParameterList, dwFlags) {
-        result := DllCall("ncrypt.dll\SslExpandPreSharedKey", "ptr", hSslProvider, "ptr", hResumptionMasterKey, "ptr", pbTicketNonce, "uint", cbTicketNonce, "ptr", phPreSharedKey, "ptr", pParameterList, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslExpandPreSharedKey", "ptr", hSslProvider, "ptr", hResumptionMasterKey, "ptr", pbTicketNonce, "uint", cbTicketNonce, "ptr*", phPreSharedKey, "ptr", pParameterList, "uint", dwFlags, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pszProviderName 
+     * @param {Pointer<Char>} pszProviderName 
      * @param {Pointer<NCRYPT_SSL_FUNCTION_TABLE>} ppFunctionTable 
      * @param {Integer} dwFlags 
      * @returns {Integer} 

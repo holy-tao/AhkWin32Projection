@@ -148,7 +148,7 @@ class WKSTA_INFO_302 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     wki302_wrk_heuristics {
         get => NumGet(this, 72, "ptr")

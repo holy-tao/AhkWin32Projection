@@ -20,7 +20,7 @@ class SECPKG_REDIRECTED_LOGON_BUFFER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<HANDLE>}
+     * @type {Pointer<Void>}
      */
     RedirectedLogonHandle {
         get => NumGet(this, 8, "ptr")

@@ -29,7 +29,7 @@ class MCI_WAVE_OPEN_PARMSA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpstrDeviceType {
         get => NumGet(this, 16, "ptr")
@@ -37,7 +37,7 @@ class MCI_WAVE_OPEN_PARMSA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpstrElementName {
         get => NumGet(this, 24, "ptr")
@@ -45,7 +45,7 @@ class MCI_WAVE_OPEN_PARMSA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PSTR>}
+     * @type {Pointer<Byte>}
      */
     lpstrAlias {
         get => NumGet(this, 32, "ptr")

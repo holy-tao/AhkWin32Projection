@@ -37,7 +37,7 @@ class NMTBGETINFOTIPW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * Address of a character buffer that receives the infotip text.
-     * @type {Pointer<PWSTR>}
+     * @type {Pointer<Char>}
      */
     pszText {
         get => NumGet(this, 24, "ptr")
