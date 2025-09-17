@@ -168,12 +168,12 @@ class Win32Struct extends Object{
      * Returns a formatted string representing the contents of the struct in hex, with the bytes' ASCII
      * representations (if printable) on the right. This dump is intended to be as human-readable as
      * possible
-     * @returns {String}
+     * @returns {String} A hex string representing the memory block of the struct, formatted for humans
      */
     HexDump(){
         dump := "", asciiBuffer := ""
-        dumpLength := this.size + Mod(8 - Mod(this.size, 8), 8)     ;Pad to 8 byte boundary
-        VarSetStrCapacity(&dump, 70 * (dumpLength / 8))             ;Every row is 69 chars + newline (nice)
+        dumpLength := this.size + Mod(16 - Mod(this.size, 16), 16)     ;Pad to 8 byte boundary
+        VarSetStrCapacity(&dump, 70 * (dumpLength / 16))             ;Every row is 69 chars + newline (nice)
 
         Loop(dumpLength){
             if(A_Index > 1){
