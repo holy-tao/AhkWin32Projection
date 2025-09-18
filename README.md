@@ -112,7 +112,7 @@ logfont := LOGFONTW()           ;Create a new LOGFONTW struct backed by a Buffer
 ```
 
 >[!CAUTION]
-> When a proxy object is created at an existing memory location, the script has no way to know whether or not the underlying memory is valid. You can easily produce cause fatal errors by keeping references to proxies after their underlying memory has been freed, or by creating proxies at invalid memory locations. 
+> When a proxy object is created at an existing memory location, the script has no way to know whether or not the underlying memory is valid. You can easily cause fatal errors by keeping references to proxies after their underlying memory has been freed, or by creating proxies at invalid memory locations. 
 > 
 > You can use `Win32Struct.Clone()` to create a clone of a struct backed by a `Buffer` if you need to hold on to struct values after the struct is freed.
 
