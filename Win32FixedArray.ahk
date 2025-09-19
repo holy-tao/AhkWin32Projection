@@ -14,7 +14,7 @@ class Win32FixedArray {
      * @type {Map<String, Integer>} 
      * @see https://www.autohotkey.com/docs/v2/lib/DllCall.htm#types
      */
-    static DllCallTypeWidths := Map(
+    static DllCallTypeWidths := (M := Map(), M.CaseSense := false, M.Set(
         "Int64",    8,
         "Int",      4,	
         "Short",    2,
@@ -39,7 +39,7 @@ class Win32FixedArray {
         "UPtr*",    A_PtrSize,
         "Double*",  A_PtrSize,
         "Float*",   A_PtrSize
-    )
+    ), M)
 
     /**
      * @readonly The memory address of the array's first element
@@ -181,9 +181,13 @@ class Win32FixedArray {
         if(!IsInteger(index))
             throw TypeError("Expected an Integer but got a(n) " . Type(index))
 
-        elementWidth := this.elementType == Primitive? 
-            Win32FixedArray.DllCallTypeWidths[this.dllCallType] :
-            this.elementType.packedSize
+        if (this.elementType == Primitive) {
+            elementWidth := Win32FixedArray.DllCallTypeWidths[this.dllCallType]
+        } else {
+            packingSize  := this.elementType.packingSize
+            sizeof       := this.elementType.sizeof
+            elementWidth := sizeof + Mod(packingSize - Mod(sizeof, packingSize), packingSize)
+        }
         offset := (index - 1) * (elementWidth)
         return offset
     }
