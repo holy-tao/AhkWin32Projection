@@ -89,7 +89,7 @@ Namespaces can be unintuitive and they aren't really mapped to headers, so a few
 GitHub's file search functionality is also great if you're looking for something specific. Namespaces come directly from the metadata, so they won't be changed unless Microsoft changes them.
 
 ## Structs
-All structs are represented with proxy objects extending [`Win32Struct`](./Win32FixedArray.ahk). The base class provides utilities for initializing structs, cloning, copying, and comparing memory blocks. Struct proxy objects have properties whose getters and setters invoke [`NumGet`](https://www.autohotkey.com/docs/v2/lib/NumGet.htm) and [`NumPut`](https://www.autohotkey.com/docs/v2/lib/NumPut.htm):
+All structs are represented with proxy objects extending [`Win32Struct`](./Win32Struct.ahk). The base class provides utilities for initializing structs, cloning, copying, and comparing memory blocks. Struct proxy objects have properties whose getters and setters invoke [`NumGet`](https://www.autohotkey.com/docs/v2/lib/NumGet.htm) and [`NumPut`](https://www.autohotkey.com/docs/v2/lib/NumPut.htm) (or occasionally [StrGet](https://www.autohotkey.com/docs/v2/lib/StrGet.htm) / [StrPut](https://www.autohotkey.com/docs/v2/lib/StrPut.htm)):
 ```autohotkey v2
 cchTextMax {
     get => NumGet(this, 24, "int")
@@ -102,7 +102,23 @@ Embedded structs are not flattened (though unions are). For example, to get the 
 hwnd := dispInfo.hdr.hwndFrom
 ``` 
 
-Struct proxies are [buffer-like](https://www.autohotkey.com/docs/v2/lib/Buffer.htm#like), so you can use them anywhere you would use a pointer.
+Struct proxies are [buffer-like](https://www.autohotkey.com/docs/v2/lib/Buffer.htm#like), so you can use them anywhere you would use a native Buffer. You can also access the `ptr` property directly. Unlike native AutoHotkey Buffers, struct proxies cannot be moved or resized.
+
+> [!IMPORTANT]
+> `Win32Struct` AutoHotkey objects are _proxy objects_ representing a "physical" struct somewhere in memory. The actual objects simply hold pointers to memory which may or may not be valid. It is perfectly legal to create multiple proxies for the same block of memory, but this is wasteful and can lead to somewhat confusing behavior:
+> ```autohotkey
+> header1 := NMHDR(lParam)
+> header2 := NMHDR(lParam)
+>
+> MsgBox(header1 == header2)                    ; False - these are two objects pointing to the same address
+> MsgBox(header1.ptr == header2.ptr)            ; True
+> MsgBox(header1.MemoryEquals(header2)          ; Also true
+> MsgBox(header1.Clone().ptr == header2.ptr)    ; False - Clone() copies the memory into a new Buffer
+> MsgBox(header1.Clone().MemoryEquals(header2)  ; True - the memory blocks are identical, just at different locations 
+> ```
+> To determine if two proxy objects point to the same location in memory, compare their `ptr` properties. To determine if their underlying memory blocks are equal, use the `MemoryEquals()` method.
+
+Support for [AHK V2.1 Structures](https://www.autohotkey.com/boards/viewtopic.php?f=37&t=136827) is forthcoming, but I will prioritize the current stable release. (2.1 support will also include reorganizing the generated scripts into [modules](https://www.autohotkey.com/boards/viewtopic.php?f=37&t=130056).
 
 ### Creating Structs
 The `Win32Struct.__New` takes a pointer as its only argument. If that pointer is 0, a new [`Buffer`](https://www.autohotkey.com/docs/v2/lib/Buffer.htm) is created to serve as the object's backing memory. This buffer is always cleared; every member of a new struct starts as 0 / `NULL`. If the pointer is not zero, the pointer is taken to be a pointer to the start of the struct proxy's memory block. Thus all you need to create a struct proxy is its pointer, as with the font enumeration example above:
@@ -111,8 +127,8 @@ logfont := LOGFONTW(lpelfe)     ;Create a LOGFONTW struct at the pointer lpelfe
 logfont := LOGFONTW()           ;Create a new LOGFONTW struct backed by a Buffer
 ```
 
->[!CAUTION]
-> When a proxy object is created at an existing memory location, the script has no way to know whether or not the underlying memory is valid. You can easily cause fatal errors by keeping references to proxies after their underlying memory has been freed, or by creating proxies at invalid memory locations. 
+> [!CAUTION]
+> When a proxy object is created at an existing memory location, the script has no way to know whether or not the underlying memory is valid. You can easily cause fatal errors by keeping references to proxies after their underlying memory has been freed, or by creating proxies at invalid memory locations.
 > 
 > You can use `Win32Struct.Clone()` to create a clone of a struct backed by a `Buffer` if you need to hold on to struct values after the struct is freed.
 
@@ -131,7 +147,7 @@ To create resizeable arrays in script-managed memory, use [`CStyleArray`](./CSty
 - Handles, pointers (including function pointers and COM interface pointers), and "pseudo-primitives" structs like `CHAR` and `HWND` (also known as NativeTypeDefs; these are wrapper structs with a single member) have no special handling in generated struct proxies, and are exposed as pure Integers.
   - For COM interfaces, use [`ComObjFromPtr`](https://www.autohotkey.com/docs/v2/lib/ComObjFromPtr.htm) and [`ComObjQuery`](https://www.autohotkey.com/docs/v2/lib/ComObjQuery.htm) to use native AutoHotkey COM functionality.
   - Use [`CallbackCreate`](https://www.autohotkey.com/docs/v2/lib/CallbackCreate.htm) to create function pointers
-- Unions, unlike embedded structs, are flattened. Struct proxies that contain union types will have multiple members at the same offset; in this case, only one can be valid at a time.
+- [Unions](https://www.w3schools.com/c/c_unions.php), unlike embedded structs, are flattened. Struct proxies that contain union types will have multiple members at the same offset; in this case, only one can be valid at a time.
 - When struct members have conflicting names, the second member has a number appended to it. Type names are not otherwise changed.
   - For example, [`YxyCOLOR`](./Windows/Win32/UI/ColorSystem/YxyCOLOR.ahk) has a member `Y` (uppercase) and `y` (lowercase):
       ```c++
@@ -170,6 +186,10 @@ Gdi.ReleaseDC(0, hDC)
 
 For methods that set the [last error](https://www.autohotkey.com/docs/v2/Variables.htm#LastError), the error value is cleared before `DllCall` is invoked and checked immediately afterwards. If it is nonzero (that is, if an error occurred), an [`OSError`](https://www.autohotkey.com/docs/v2/lib/Error.htm#OSError) is thrown.
 
+> [!TIP]
+> If your script uses many methods from non-core Dlls, peformance can be improved dramatically by loading the DLLs [explicitly](https://www.autohotkey.com/docs/v2/lib/DllCall.htm#load) either by calling [`LibraryLoader.LoadLibrary`](./Windows/Win32/System/LibraryLoader/Apis.ahk) or by using the [`#DllLoad`](https://www.autohotkey.com/docs/v2/lib/_DllLoad.htm) directive.
+> Otherwise, `DllCall` will load and unload the DLLs before and after every API call.
+
 ### Strings
 
 #### As Arguments
@@ -185,11 +205,11 @@ WindowsAndMessaging.RegisterWindowMessageW(Dialogs.HELPMSGSTRING)
 You can still pass a string pointer, buffer, or buffer-like object to string arguments; you might prefer this method for performance reasons. Strings passed as AHK variables are not encoded; they will always use UTF-16. As such, to use ANSI methods, you must encode the string yourself and pass a pointer to a buffer.
 
 #### As Return Values
-Methods which _return_ strings return their pointers, you can obtain the value with [`StrGet`](https://www.autohotkey.com/docs/v2/lib/StrGet.htm). This is because callers may be interested in the pointer to the returned string rather than its contents. For example, when using the return value of one function as an argument to another, it is pointless to copy the string into a new variable and then obtain its pointer.
+Methods which _return_ strings return their pointers, you can obtain the value with [`StrGet`](https://www.autohotkey.com/docs/v2/lib/StrGet.htm). This is because callers may be interested in the pointer to the returned string rather than its contents, and because copying long strings is slow. For example, when using the return value of one function as an argument to another, it is faster to pass a pointer to the string directly than it would be to create a copy of a string and obtain its pointer after.
 
 ### Notes
 - Wrapper function inputs apart from strings are not sanitized or type checked.
-- Reserved parameters are omitted from generated function signatures. As such, signatures may differ _slightly_ from the function signatures in Microsoft's documentation.
+- Reserved parameters, when marked in the metadata, are omitted from generated function signatures. As such, signatures may differ _slightly_ from the function signatures in Microsoft's documentation.
 - In cases where parameter names conflict with reserved words ("this", "in", etc), an underscore is appended to the parameter name.
 
 ## Limitations
