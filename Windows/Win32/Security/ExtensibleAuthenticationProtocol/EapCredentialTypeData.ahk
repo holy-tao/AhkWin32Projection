@@ -36,7 +36,7 @@ class EapCredentialTypeData extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     sim {
         get => NumGet(this, 0, "ptr")

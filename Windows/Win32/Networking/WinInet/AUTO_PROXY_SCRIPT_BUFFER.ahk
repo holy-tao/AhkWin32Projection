@@ -27,7 +27,7 @@ class AUTO_PROXY_SCRIPT_BUFFER extends Win32Struct
 
     /**
      * Pointer to the script buffer being passed using this structure.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     lpszScriptBuffer {
         get => NumGet(this, 8, "ptr")

@@ -28,7 +28,7 @@ class REARRANGE_FILE_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     SourceFileHandle {
         get => NumGet(this, 16, "ptr")

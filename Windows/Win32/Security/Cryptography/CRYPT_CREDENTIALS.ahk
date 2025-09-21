@@ -46,7 +46,7 @@ class CRYPT_CREDENTIALS extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszCredentialsOid {
         get => NumGet(this, 8, "ptr")

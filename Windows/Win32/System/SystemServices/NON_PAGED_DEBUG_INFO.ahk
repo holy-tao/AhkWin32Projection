@@ -9,7 +9,7 @@ class NON_PAGED_DEBUG_INFO extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}

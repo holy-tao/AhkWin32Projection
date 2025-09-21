@@ -24,7 +24,7 @@ class WINHTTP_CURRENT_USER_IE_PROXY_CONFIG extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the auto-configuration URL if the Internet Explorer proxy configuration for the current user specifies "Use automatic proxy configuration".
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpszAutoConfigUrl {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class WINHTTP_CURRENT_USER_IE_PROXY_CONFIG extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the proxy URL if the Internet Explorer proxy configuration for the current user specifies "use a proxy server".
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpszProxy {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class WINHTTP_CURRENT_USER_IE_PROXY_CONFIG extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the optional proxy by-pass server list.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpszProxyBypass {
         get => NumGet(this, 24, "ptr")

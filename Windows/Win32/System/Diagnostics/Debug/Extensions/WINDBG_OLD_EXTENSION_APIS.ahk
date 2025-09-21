@@ -20,7 +20,7 @@ class WINDBG_OLD_EXTENSION_APIS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWINDBG_OUTPUT_ROUTINE>}
      */
     lpOutputRoutine {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class WINDBG_OLD_EXTENSION_APIS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWINDBG_GET_EXPRESSION>}
      */
     lpGetExpressionRoutine {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class WINDBG_OLD_EXTENSION_APIS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWINDBG_GET_SYMBOL>}
      */
     lpGetSymbolRoutine {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class WINDBG_OLD_EXTENSION_APIS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWINDBG_DISASM>}
      */
     lpDisasmRoutine {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +52,7 @@ class WINDBG_OLD_EXTENSION_APIS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWINDBG_CHECK_CONTROL_C>}
      */
     lpCheckControlCRoutine {
         get => NumGet(this, 40, "ptr")

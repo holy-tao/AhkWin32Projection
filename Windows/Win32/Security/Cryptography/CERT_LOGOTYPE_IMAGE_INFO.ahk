@@ -76,7 +76,7 @@ class CERT_LOGOTYPE_IMAGE_INFO extends Win32Struct
 
     /**
      * The address of a null-terminated IA5 string that contains the RFC 3066 language identifier that specifies the language of the image. This member is optional and may be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszLanguage {
         get => NumGet(this, 24, "ptr")

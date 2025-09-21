@@ -15,7 +15,7 @@ class ADS_REPLICAPOINTER extends Win32Struct
 
     /**
      * The null-terminated Unicode string that contains the name of the name server that holds the replica.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ServerName {
         get => NumGet(this, 0, "ptr")

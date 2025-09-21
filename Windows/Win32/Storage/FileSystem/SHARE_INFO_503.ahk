@@ -18,7 +18,7 @@ class SHARE_INFO_503 extends Win32Struct
     /**
      * A pointer to a Unicode string specifying the name of a shared resource. Calls to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharesetinfo">NetShareSetInfo</a> function ignore this member.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     shi503_netname {
         get => NumGet(this, 0, "ptr")
@@ -37,7 +37,7 @@ class SHARE_INFO_503 extends Win32Struct
 
     /**
      * A pointer to a Unicode string specifying an optional comment about the shared resource.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     shi503_remark {
         get => NumGet(this, 16, "ptr")
@@ -83,7 +83,7 @@ class SHARE_INFO_503 extends Win32Struct
     /**
      * A pointer to a Unicode string that contains the local path for the shared resource. For disks, this member is the path being shared. For print queues, this member is the name of the print queue being shared. Calls to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharesetinfo">NetShareSetInfo</a> function ignore this member.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     shi503_path {
         get => NumGet(this, 40, "ptr")
@@ -98,7 +98,7 @@ class SHARE_INFO_503 extends Win32Struct
      * 
      * This member can be no longer than SHPWLEN+1 bytes (including a terminating null character). Calls to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharesetinfo">NetShareSetInfo</a> function ignore this member.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     shi503_passwd {
         get => NumGet(this, 48, "ptr")
@@ -107,7 +107,7 @@ class SHARE_INFO_503 extends Win32Struct
 
     /**
      * A pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the shared resource resides. A value of "*" indicates no configured server name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     shi503_servername {
         get => NumGet(this, 56, "ptr")
@@ -127,7 +127,7 @@ class SHARE_INFO_503 extends Win32Struct
     /**
      * Specifies the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> associated with this share.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     shi503_security_descriptor {
         get => NumGet(this, 72, "ptr")

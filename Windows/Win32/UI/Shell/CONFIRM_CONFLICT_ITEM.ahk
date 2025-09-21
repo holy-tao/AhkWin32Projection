@@ -28,7 +28,7 @@ class CONFIRM_CONFLICT_ITEM extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to the original name. If set to <b>NULL</b> then IShellItem's display name will be used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszOriginalName {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +39,7 @@ class CONFIRM_CONFLICT_ITEM extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to the alternate name. If multiple items are kept, then item must be renamed to this name. User may or may not have an ability to change the name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszAlternateName {
         get => NumGet(this, 16, "ptr")
@@ -50,7 +50,7 @@ class CONFIRM_CONFLICT_ITEM extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to the short location.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszLocationShort {
         get => NumGet(this, 24, "ptr")
@@ -61,7 +61,7 @@ class CONFIRM_CONFLICT_ITEM extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to the full location.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszLocationFull {
         get => NumGet(this, 32, "ptr")

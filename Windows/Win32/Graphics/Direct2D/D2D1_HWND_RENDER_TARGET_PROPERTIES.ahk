@@ -22,7 +22,7 @@ class D2D1_HWND_RENDER_TARGET_PROPERTIES extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * The HWND to which the render target issues the output from its drawing commands.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hwnd {
         get => NumGet(this, 0, "ptr")

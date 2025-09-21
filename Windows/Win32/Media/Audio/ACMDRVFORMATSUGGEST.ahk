@@ -7,9 +7,9 @@
  */
 class ACMDRVFORMATSUGGEST extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 40
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -47,15 +47,15 @@ class ACMDRVFORMATSUGGEST extends Win32Struct
      * @type {Pointer<WAVEFORMATEX>}
      */
     pwfxDst {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     cbwfxDst {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 }

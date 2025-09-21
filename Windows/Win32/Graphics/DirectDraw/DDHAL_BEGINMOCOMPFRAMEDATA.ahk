@@ -68,7 +68,7 @@ class DDHAL_BEGINMOCOMPFRAMEDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ddRVal {
         get => NumGet(this, 56, "int")
@@ -76,7 +76,7 @@ class DDHAL_BEGINMOCOMPFRAMEDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALMOCOMPCB_BEGINFRAME>}
      */
     BeginMoCompFrame {
         get => NumGet(this, 64, "ptr")

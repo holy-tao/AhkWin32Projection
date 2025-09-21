@@ -12,7 +12,7 @@ class alljoyn_sessionportlistener_callbacks extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_sessionportlistener_acceptsessionjoiner_ptr>}
      */
     accept_session_joiner {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class alljoyn_sessionportlistener_callbacks extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_sessionportlistener_sessionjoined_ptr>}
      */
     session_joined {
         get => NumGet(this, 8, "ptr")

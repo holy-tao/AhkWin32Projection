@@ -22,9 +22,9 @@
  */
 class NOTIFYICONDATAW extends Win32Struct
 {
-    static sizeof => 960
+    static sizeof => 968
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b>DWORD</b>
@@ -41,11 +41,11 @@ class NOTIFYICONDATAW extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window that receives notifications associated with an icon in the notification area.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hWnd {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -55,8 +55,8 @@ class NOTIFYICONDATAW extends Win32Struct
      * @type {Integer}
      */
     uID {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -64,8 +64,8 @@ class NOTIFYICONDATAW extends Win32Struct
      * @type {Integer}
      */
     uFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -92,8 +92,8 @@ class NOTIFYICONDATAW extends Win32Struct
      * @type {Integer}
      */
     uCallbackMessage {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -102,11 +102,11 @@ class NOTIFYICONDATAW extends Win32Struct
      * A handle to the icon to be added, modified, or deleted. Windows XP and later support icons of up to 32 BPP.
      * 
      * If only a 16x16 pixel icon is provided, it is scaled to a larger size in a system set to a high dpi value. This can lead to an unattractive result. It is recommended that you provide both a 16x16 pixel icon and a 32x32 icon in your resource file. Use <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-loadiconmetric">LoadIconMetric</a> to ensure that the correct icon is loaded and scaled appropriately. See Remarks for a code example.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hIcon {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -120,8 +120,8 @@ class NOTIFYICONDATAW extends Win32Struct
      * @type {String}
      */
     szTip {
-        get => StrGet(this.ptr + 32, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 32, 127, "UTF-16")
+        get => StrGet(this.ptr + 40, 127, "UTF-16")
+        set => StrPut(value, this.ptr + 40, 127, "UTF-16")
     }
 
     /**
@@ -129,8 +129,8 @@ class NOTIFYICONDATAW extends Win32Struct
      * @type {Integer}
      */
     dwState {
-        get => NumGet(this, 288, "uint")
-        set => NumPut("uint", value, this, 288)
+        get => NumGet(this, 296, "uint")
+        set => NumPut("uint", value, this, 296)
     }
 
     /**
@@ -140,8 +140,8 @@ class NOTIFYICONDATAW extends Win32Struct
      * @type {Integer}
      */
     dwStateMask {
-        get => NumGet(this, 292, "uint")
-        set => NumPut("uint", value, this, 292)
+        get => NumGet(this, 300, "uint")
+        set => NumPut("uint", value, this, 300)
     }
 
     /**
@@ -151,24 +151,24 @@ class NOTIFYICONDATAW extends Win32Struct
      * @type {String}
      */
     szInfo {
-        get => StrGet(this.ptr + 296, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 296, 255, "UTF-16")
+        get => StrGet(this.ptr + 304, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 304, 255, "UTF-16")
     }
 
     /**
      * @type {Integer}
      */
     uTimeout {
-        get => NumGet(this, 808, "uint")
-        set => NumPut("uint", value, this, 808)
+        get => NumGet(this, 816, "uint")
+        set => NumPut("uint", value, this, 816)
     }
 
     /**
      * @type {Integer}
      */
     uVersion {
-        get => NumGet(this, 808, "uint")
-        set => NumPut("uint", value, this, 808)
+        get => NumGet(this, 816, "uint")
+        set => NumPut("uint", value, this, 816)
     }
 
     /**
@@ -178,8 +178,8 @@ class NOTIFYICONDATAW extends Win32Struct
      * @type {String}
      */
     szInfoTitle {
-        get => StrGet(this.ptr + 812, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 812, 63, "UTF-16")
+        get => StrGet(this.ptr + 820, 63, "UTF-16")
+        set => StrPut(value, this.ptr + 820, 63, "UTF-16")
     }
 
     /**
@@ -189,8 +189,8 @@ class NOTIFYICONDATAW extends Win32Struct
      * @type {Integer}
      */
     dwInfoFlags {
-        get => NumGet(this, 940, "uint")
-        set => NumPut("uint", value, this, 940)
+        get => NumGet(this, 948, "uint")
+        set => NumPut("uint", value, this, 948)
     }
 
     /**
@@ -212,19 +212,19 @@ class NOTIFYICONDATAW extends Win32Struct
      * @type {Pointer<Guid>}
      */
     guidItem {
-        get => NumGet(this, 944, "ptr")
-        set => NumPut("ptr", value, this, 944)
+        get => NumGet(this, 952, "ptr")
+        set => NumPut("ptr", value, this, 952)
     }
 
     /**
      * Type: <b>HICON</b>
      * 
      * <b>Windows Vista and later</b>. The handle of a customized notification icon provided by the application that should be used independently of the notification area icon. If this member is non-NULL and the NIIF_USER flag is set in the <b>dwInfoFlags</b> member, this icon is used as the notification icon. If this member is <b>NULL</b>, the legacy behavior is carried out.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hBalloonIcon {
-        get => NumGet(this, 952, "ptr")
-        set => NumPut("ptr", value, this, 952)
+        get => NumGet(this, 960, "ptr")
+        set => NumPut("ptr", value, this, 960)
     }
 
     /**
@@ -233,6 +233,6 @@ class NOTIFYICONDATAW extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 960
+        this.cbSize := 968
     }
 }

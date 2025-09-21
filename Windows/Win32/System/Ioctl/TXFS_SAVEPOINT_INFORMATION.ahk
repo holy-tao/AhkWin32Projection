@@ -15,7 +15,7 @@ class TXFS_SAVEPOINT_INFORMATION extends Win32Struct
 
     /**
      * Handle to the transaction on which to perform the savepoint operation.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     KtmTransaction {
         get => NumGet(this, 0, "ptr")

@@ -37,7 +37,7 @@ class MLOperatorSchemaEdgeDescription extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     typeLabel {
         get => NumGet(this, 8, "ptr")

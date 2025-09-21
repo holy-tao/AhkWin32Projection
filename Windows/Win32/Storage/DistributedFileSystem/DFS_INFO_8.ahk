@@ -42,7 +42,7 @@ class DFS_INFO_8 extends Win32Struct
      * &#92;&#92;<i>DomainName</i>&#92;<i>DomDfsname</i>
      * 
      * where the values of the names are the same as those described previously.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     EntryPath {
         get => NumGet(this, 0, "ptr")
@@ -52,7 +52,7 @@ class DFS_INFO_8 extends Win32Struct
     /**
      * Pointer to a null-terminated Unicode string that contains a comment associated with the DFS root or 
      *       link.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     Comment {
         get => NumGet(this, 8, "ptr")
@@ -127,7 +127,7 @@ class DFS_INFO_8 extends Win32Struct
      * Pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> 
      *       structure that specifies a self-relative security descriptor to be associated with the DFS link's reparse point. 
      *       This field is valid for DFS links only.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     pSecurityDescriptor {
         get => NumGet(this, 48, "ptr")

@@ -63,7 +63,7 @@ class INET_FIREWALL_AC_CHANGE extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Friendly name of the app container.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     displayName {
         get => NumGet(this, 24, "ptr")

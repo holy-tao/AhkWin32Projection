@@ -11,9 +11,9 @@
  */
 class DSMCC_SECTION extends Win32Struct
 {
-    static sizeof => 21
+    static sizeof => 28
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Specifies the table identifier (TID) of the section.
@@ -28,16 +28,16 @@ class DSMCC_SECTION extends Win32Struct
      * @type {Integer}
      */
     S {
-        get => NumGet(this, 1, "ushort")
-        set => NumPut("ushort", value, this, 1)
+        get => NumGet(this, 2, "ushort")
+        set => NumPut("ushort", value, this, 2)
     }
 
     /**
      * @type {Integer}
      */
     W {
-        get => NumGet(this, 1, "ushort")
-        set => NumPut("ushort", value, this, 1)
+        get => NumGet(this, 2, "ushort")
+        set => NumPut("ushort", value, this, 2)
     }
 
     /**
@@ -45,16 +45,16 @@ class DSMCC_SECTION extends Win32Struct
      * @type {Integer}
      */
     TableIdExtension {
-        get => NumGet(this, 3, "ushort")
-        set => NumPut("ushort", value, this, 3)
+        get => NumGet(this, 4, "ushort")
+        set => NumPut("ushort", value, this, 4)
     }
 
     /**
      * @type {Integer}
      */
     B {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
+        get => NumGet(this, 6, "char")
+        set => NumPut("char", value, this, 6)
     }
 
     /**
@@ -62,8 +62,8 @@ class DSMCC_SECTION extends Win32Struct
      * @type {Integer}
      */
     SectionNumber {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
+        get => NumGet(this, 7, "char")
+        set => NumPut("char", value, this, 7)
     }
 
     /**
@@ -71,8 +71,8 @@ class DSMCC_SECTION extends Win32Struct
      * @type {Integer}
      */
     LastSectionNumber {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
+        get => NumGet(this, 8, "char")
+        set => NumPut("char", value, this, 8)
     }
 
     /**
@@ -80,8 +80,8 @@ class DSMCC_SECTION extends Win32Struct
      * @type {Integer}
      */
     ProtocolDiscriminator {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+        get => NumGet(this, 9, "char")
+        set => NumPut("char", value, this, 9)
     }
 
     /**
@@ -89,8 +89,8 @@ class DSMCC_SECTION extends Win32Struct
      * @type {Integer}
      */
     DsmccType {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
+        get => NumGet(this, 10, "char")
+        set => NumPut("char", value, this, 10)
     }
 
     /**
@@ -98,8 +98,8 @@ class DSMCC_SECTION extends Win32Struct
      * @type {Integer}
      */
     MessageId {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
+        get => NumGet(this, 12, "ushort")
+        set => NumPut("ushort", value, this, 12)
     }
 
     /**
@@ -107,8 +107,8 @@ class DSMCC_SECTION extends Win32Struct
      * @type {Integer}
      */
     TransactionId {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -116,8 +116,8 @@ class DSMCC_SECTION extends Win32Struct
      * @type {Integer}
      */
     Reserved {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+        get => NumGet(this, 20, "char")
+        set => NumPut("char", value, this, 20)
     }
 
     /**
@@ -125,8 +125,8 @@ class DSMCC_SECTION extends Win32Struct
      * @type {Integer}
      */
     AdaptationLength {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
+        get => NumGet(this, 21, "char")
+        set => NumPut("char", value, this, 21)
     }
 
     /**
@@ -134,8 +134,8 @@ class DSMCC_SECTION extends Win32Struct
      * @type {Integer}
      */
     MessageLength {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
+        get => NumGet(this, 22, "ushort")
+        set => NumPut("ushort", value, this, 22)
     }
 
     /**
@@ -145,7 +145,7 @@ class DSMCC_SECTION extends Win32Struct
     RemainingData{
         get {
             if(!this.HasProp("__RemainingDataProxyArray"))
-                this.__RemainingDataProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")
+                this.__RemainingDataProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
             return this.__RemainingDataProxyArray
         }
     }

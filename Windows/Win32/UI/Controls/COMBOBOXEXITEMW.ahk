@@ -42,7 +42,7 @@ class COMBOBOXEXITEMW extends Win32Struct
      * 
      * A pointer to a character buffer that contains or receives the item's text. If text information is being retrieved, this member must be set to the address of a character buffer that will receive the text. The size of this buffer must also be indicated in 
      * 					<b>cchTextMax</b>. If this member is set to LPSTR_TEXTCALLBACK, the control will request the information by using the <a href="https://docs.microsoft.com/windows/desktop/Controls/cben-getdispinfo">CBEN_GETDISPINFO</a> notification codes.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszText {
         get => NumGet(this, 16, "ptr")

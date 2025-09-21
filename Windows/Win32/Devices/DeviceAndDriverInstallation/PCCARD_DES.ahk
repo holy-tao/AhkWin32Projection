@@ -9,9 +9,9 @@
  */
 class PCCARD_DES extends Win32Struct
 {
-    static sizeof => 38
+    static sizeof => 40
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Must be 1.

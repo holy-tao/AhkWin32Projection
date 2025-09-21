@@ -37,7 +37,7 @@ class WSD_SECURITY_SIGNATURE_VALIDATION extends Win32Struct
 
     /**
      * A handle to a certificate store that contains certificates to be matched against a message.  Only one matching certificate is required for validation.  This parameter can be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hSigningCertStore {
         get => NumGet(this, 16, "ptr")

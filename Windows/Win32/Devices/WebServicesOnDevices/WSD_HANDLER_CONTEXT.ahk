@@ -15,7 +15,7 @@ class WSD_HANDLER_CONTEXT extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/nc-wsdtypes-pwsd_soap_message_handler">PSWD_SOAP_MESSAGE_HANDLER</a> function that specifies the incoming message handler.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PWSD_SOAP_MESSAGE_HANDLER>}
      */
     Handler {
         get => NumGet(this, 0, "ptr")

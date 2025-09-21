@@ -90,15 +90,15 @@
  */
 class SHFILEOPSTRUCTA extends Win32Struct
 {
-    static sizeof => 50
+    static sizeof => 56
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b>HWND</b>
      * 
      * A window handle to the dialog box to display information about the status of the file operation.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hwnd {
         get => NumGet(this, 0, "ptr")
@@ -127,8 +127,8 @@ class SHFILEOPSTRUCTA extends Win32Struct
      * @type {Pointer<SByte>}
      */
     pFrom {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -150,8 +150,8 @@ class SHFILEOPSTRUCTA extends Win32Struct
      * @type {Pointer<SByte>}
      */
     pTo {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -161,8 +161,8 @@ class SHFILEOPSTRUCTA extends Win32Struct
      * @type {Integer}
      */
     fFlags {
-        get => NumGet(this, 28, "ushort")
-        set => NumPut("ushort", value, this, 28)
+        get => NumGet(this, 32, "ushort")
+        set => NumPut("ushort", value, this, 32)
     }
 
     /**
@@ -172,8 +172,8 @@ class SHFILEOPSTRUCTA extends Win32Struct
      * @type {Integer}
      */
     fAnyOperationsAborted {
-        get => NumGet(this, 30, "int")
-        set => NumPut("int", value, this, 30)
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**
@@ -183,18 +183,18 @@ class SHFILEOPSTRUCTA extends Win32Struct
      * @type {Pointer<Void>}
      */
     hNameMappings {
-        get => NumGet(this, 34, "ptr")
-        set => NumPut("ptr", value, this, 34)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * Type: <b>PCTSTR</b>
      * 
      * A pointer to the title of a progress dialog box. This is a null-terminated string. This member is used only if <b>fFlags</b> includes the <b>FOF_SIMPLEPROGRESS</b> flag.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     lpszProgressTitle {
-        get => NumGet(this, 42, "ptr")
-        set => NumPut("ptr", value, this, 42)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

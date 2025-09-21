@@ -11,7 +11,7 @@ class WHEA_GENERIC_ERROR_DESCRIPTOR_V2 extends Win32Struct
 {
     static sizeof => 64
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}

@@ -19,9 +19,9 @@
  */
 class MCI_DGV_OPEN_PARMSA extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 56
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The low-order word specifies a window handle used for the MCI_NOTIFY flag.
@@ -43,29 +43,29 @@ class MCI_DGV_OPEN_PARMSA extends Win32Struct
 
     /**
      * Name or constant ID of device type.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     lpstrDeviceType {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Optional device alias.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     lpstrElementName {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Optional device alias.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     lpstrAlias {
-        get => NumGet(this, 28, "ptr")
-        set => NumPut("ptr", value, this, 28)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -73,16 +73,16 @@ class MCI_DGV_OPEN_PARMSA extends Win32Struct
      * @type {Integer}
      */
     dwStyle {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
      * Handle to parent window.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hWndParent {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

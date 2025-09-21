@@ -88,7 +88,7 @@ class DDHAL_BLTDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ddRVal {
         get => NumGet(this, 168, "int")
@@ -96,7 +96,7 @@ class DDHAL_BLTDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALSURFCB_BLT>}
      */
     Blt {
         get => NumGet(this, 176, "ptr")

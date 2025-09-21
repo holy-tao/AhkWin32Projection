@@ -14,9 +14,9 @@
  */
 class MTP_COMMAND_DATA_OUT extends Win32Struct
 {
-    static sizeof => 31
+    static sizeof => 36
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Response code.
@@ -32,8 +32,8 @@ class MTP_COMMAND_DATA_OUT extends Win32Struct
      * @type {Integer}
      */
     NumParams {
-        get => NumGet(this, 2, "uint")
-        set => NumPut("uint", value, this, 2)
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 
     /**
@@ -43,7 +43,7 @@ class MTP_COMMAND_DATA_OUT extends Win32Struct
     Params{
         get {
             if(!this.HasProp("__ParamsProxyArray"))
-                this.__ParamsProxyArray := Win32FixedArray(this.ptr + 6, 5, Primitive, "uint")
+                this.__ParamsProxyArray := Win32FixedArray(this.ptr + 8, 5, Primitive, "uint")
             return this.__ParamsProxyArray
         }
     }
@@ -53,8 +53,8 @@ class MTP_COMMAND_DATA_OUT extends Win32Struct
      * @type {Integer}
      */
     CommandReadDataSize {
-        get => NumGet(this, 26, "uint")
-        set => NumPut("uint", value, this, 26)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -64,7 +64,7 @@ class MTP_COMMAND_DATA_OUT extends Win32Struct
     CommandReadData{
         get {
             if(!this.HasProp("__CommandReadDataProxyArray"))
-                this.__CommandReadDataProxyArray := Win32FixedArray(this.ptr + 30, 1, Primitive, "char")
+                this.__CommandReadDataProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
             return this.__CommandReadDataProxyArray
         }
     }

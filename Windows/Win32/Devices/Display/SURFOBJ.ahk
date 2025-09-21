@@ -24,7 +24,7 @@ class SURFOBJ extends Win32Struct
 
     /**
      * Handle to a surface, provided that the surface is device-managed. Otherwise, this member is zero.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     dhsurf {
         get => NumGet(this, 0, "ptr")
@@ -33,7 +33,7 @@ class SURFOBJ extends Win32Struct
 
     /**
      * Handle to the surface.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hsurf {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class SURFOBJ extends Win32Struct
 
     /**
      * Identifies the device's <a href="https://docs.microsoft.com/windows-hardware/drivers/">PDEV</a> that is associated with the specified surface.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     dhpdev {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +51,7 @@ class SURFOBJ extends Win32Struct
 
     /**
      * GDI's logical handle to the PDEV associated with this device.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hdev {
         get => NumGet(this, 24, "ptr")

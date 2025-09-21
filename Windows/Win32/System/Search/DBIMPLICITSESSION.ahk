@@ -9,7 +9,7 @@ class DBIMPLICITSESSION extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
      * @type {Pointer<IUnknown>}

@@ -41,7 +41,7 @@ class DD_PALETTECALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_palcb_destroypalette">DdDestroyPalette</a> palette callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_PALCB_DESTROYPALETTE>}
      */
     DestroyPalette {
         get => NumGet(this, 8, "ptr")
@@ -50,7 +50,7 @@ class DD_PALETTECALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_palcb_setentries">DdSetEntries</a> palette callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_PALCB_SETENTRIES>}
      */
     SetEntries {
         get => NumGet(this, 16, "ptr")

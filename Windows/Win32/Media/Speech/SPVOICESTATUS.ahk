@@ -28,7 +28,7 @@ class SPVOICESTATUS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hrLastResult {
         get => NumGet(this, 8, "int")

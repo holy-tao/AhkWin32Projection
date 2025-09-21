@@ -10,7 +10,7 @@ class HWPROFILEINFO_A extends Win32Struct
 {
     static sizeof => 88
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * @type {Integer}

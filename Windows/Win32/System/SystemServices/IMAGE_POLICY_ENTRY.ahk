@@ -108,7 +108,7 @@ class IMAGE_POLICY_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     AnsiStringValue {
         get => NumGet(this, 8, "ptr")
@@ -116,7 +116,7 @@ class IMAGE_POLICY_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     UnicodeStringValue {
         get => NumGet(this, 8, "ptr")

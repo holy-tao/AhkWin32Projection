@@ -8,12 +8,12 @@
  */
 class DBCOLUMNDESC extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 80
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszTypeName {
         get => NumGet(this, 0, "ptr")
@@ -56,8 +56,8 @@ class DBCOLUMNDESC extends Win32Struct
      * @type {Pointer}
      */
     ulColumnSize {
-        get => NumGet(this, 36, "ptr")
-        set => NumPut("ptr", value, this, 36)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -66,7 +66,7 @@ class DBCOLUMNDESC extends Win32Struct
     dbcid{
         get {
             if(!this.HasProp("__dbcid"))
-                this.__dbcid := DBID(this.ptr + 44)
+                this.__dbcid := DBID(this.ptr + 48)
             return this.__dbcid
         }
     }
@@ -75,23 +75,23 @@ class DBCOLUMNDESC extends Win32Struct
      * @type {Integer}
      */
     wType {
-        get => NumGet(this, 68, "ushort")
-        set => NumPut("ushort", value, this, 68)
+        get => NumGet(this, 72, "ushort")
+        set => NumPut("ushort", value, this, 72)
     }
 
     /**
      * @type {Integer}
      */
     bPrecision {
-        get => NumGet(this, 70, "char")
-        set => NumPut("char", value, this, 70)
+        get => NumGet(this, 74, "char")
+        set => NumPut("char", value, this, 74)
     }
 
     /**
      * @type {Integer}
      */
     bScale {
-        get => NumGet(this, 71, "char")
-        set => NumPut("char", value, this, 71)
+        get => NumGet(this, 75, "char")
+        set => NumPut("char", value, this, 75)
     }
 }

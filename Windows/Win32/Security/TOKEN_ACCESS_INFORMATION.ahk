@@ -108,7 +108,7 @@ class TOKEN_ACCESS_INFORMATION extends Win32Struct
      * The app container SID or <b>NULL</b> if this is not an app container token.
      * 
      * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008 and Windows Vista:  </b>This member is not available.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     PackageSid {
         get => NumGet(this, 56, "ptr")
@@ -128,7 +128,7 @@ class TOKEN_ACCESS_INFORMATION extends Win32Struct
 
     /**
      * The protected process trust level of the token.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     TrustLevelSid {
         get => NumGet(this, 72, "ptr")

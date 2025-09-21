@@ -10,9 +10,9 @@
  */
 class PCMWAVEFORMAT extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-waveformatex">WAVEFORMAT</a> structure containing general information about the format of the data.
@@ -31,7 +31,7 @@ class PCMWAVEFORMAT extends Win32Struct
      * @type {Integer}
      */
     wBitsPerSample {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
+        get => NumGet(this, 16, "ushort")
+        set => NumPut("ushort", value, this, 16)
     }
 }

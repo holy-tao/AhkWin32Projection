@@ -7,9 +7,9 @@
  */
 class DBBINDING extends Win32Struct
 {
-    static sizeof => 84
+    static sizeof => 88
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
      * @type {Pointer}
@@ -95,39 +95,39 @@ class DBBINDING extends Win32Struct
      * @type {Pointer}
      */
     cbMaxLen {
-        get => NumGet(this, 68, "ptr")
-        set => NumPut("ptr", value, this, 68)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
      * @type {Integer}
      */
     dwFlags {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
     /**
      * @type {Integer}
      */
     wType {
-        get => NumGet(this, 80, "ushort")
-        set => NumPut("ushort", value, this, 80)
+        get => NumGet(this, 84, "ushort")
+        set => NumPut("ushort", value, this, 84)
     }
 
     /**
      * @type {Integer}
      */
     bPrecision {
-        get => NumGet(this, 82, "char")
-        set => NumPut("char", value, this, 82)
+        get => NumGet(this, 86, "char")
+        set => NumPut("char", value, this, 86)
     }
 
     /**
      * @type {Integer}
      */
     bScale {
-        get => NumGet(this, 83, "char")
-        set => NumPut("char", value, this, 83)
+        get => NumGet(this, 87, "char")
+        set => NumPut("char", value, this, 87)
     }
 }

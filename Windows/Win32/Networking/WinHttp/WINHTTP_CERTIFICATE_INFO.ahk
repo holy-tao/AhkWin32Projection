@@ -51,7 +51,7 @@ class WINHTTP_CERTIFICATE_INFO extends Win32Struct
 
     /**
      * A pointer to a buffer that contains the name of the organization, site, and server for which the certificate was issued.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpszSubjectInfo {
         get => NumGet(this, 16, "ptr")
@@ -60,7 +60,7 @@ class WINHTTP_CERTIFICATE_INFO extends Win32Struct
 
     /**
      * A pointer to a buffer that contains the name of the organization, site, and server that issued the certificate.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpszIssuerInfo {
         get => NumGet(this, 24, "ptr")
@@ -69,7 +69,7 @@ class WINHTTP_CERTIFICATE_INFO extends Win32Struct
 
     /**
      * A pointer to a buffer that contains the name of the protocol used to provide the secure connection. This member is not current used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpszProtocolName {
         get => NumGet(this, 32, "ptr")
@@ -78,7 +78,7 @@ class WINHTTP_CERTIFICATE_INFO extends Win32Struct
 
     /**
      * A pointer to a buffer that contains the name of the algorithm used to sign the certificate. This member is not current used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpszSignatureAlgName {
         get => NumGet(this, 40, "ptr")
@@ -87,7 +87,7 @@ class WINHTTP_CERTIFICATE_INFO extends Win32Struct
 
     /**
      * A pointer to a buffer that contains the name of the algorithm used to perform encryption over the secure channel (SSL/TLS) connection. This member is not current used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpszEncryptionAlgName {
         get => NumGet(this, 48, "ptr")

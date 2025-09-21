@@ -7,9 +7,9 @@
  */
 class CONNECTION_DES extends Win32Struct
 {
-    static sizeof => 20
+    static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -63,7 +63,7 @@ class CONNECTION_DES extends Win32Struct
      * @type {Integer}
      */
     COND_Id {
-        get => NumGet(this, 12, "int64")
-        set => NumPut("int64", value, this, 12)
+        get => NumGet(this, 16, "int64")
+        set => NumPut("int64", value, this, 16)
     }
 }

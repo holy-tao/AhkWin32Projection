@@ -11,7 +11,7 @@ class JET_OBJECTINFO extends Win32Struct
 {
     static sizeof => 40
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}

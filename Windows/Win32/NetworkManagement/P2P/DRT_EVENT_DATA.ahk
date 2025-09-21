@@ -25,7 +25,7 @@ class DRT_EVENT_DATA extends Win32Struct
 
     /**
      * The HRESULT of the operation for which the event was signaled that indicates if a result is the last result within a search.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hr {
         get => NumGet(this, 4, "int")

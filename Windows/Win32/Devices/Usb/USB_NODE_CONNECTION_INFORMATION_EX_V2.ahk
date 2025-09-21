@@ -11,7 +11,7 @@ class USB_NODE_CONNECTION_INFORMATION_EX_V2 extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}

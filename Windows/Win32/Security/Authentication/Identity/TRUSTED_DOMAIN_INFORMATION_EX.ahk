@@ -41,7 +41,7 @@ class TRUSTED_DOMAIN_INFORMATION_EX extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) of the trusted domain. For non-Microsoft trusted domains, this member can be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     Sid {
         get => NumGet(this, 32, "ptr")

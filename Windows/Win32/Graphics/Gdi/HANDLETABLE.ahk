@@ -15,7 +15,7 @@ class HANDLETABLE extends Win32Struct
 
     /**
      * An array of handles.
-     * @type {Array<Ptr>}
+     * @type {Array<Void>}
      */
     objectHandle{
         get {

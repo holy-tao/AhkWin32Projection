@@ -28,7 +28,7 @@ class WM_READER_CLIENTINFO extends Win32Struct
 
     /**
      * Two-letter or three-letter language code.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     wszLang {
         get => NumGet(this, 8, "ptr")
@@ -37,7 +37,7 @@ class WM_READER_CLIENTINFO extends Win32Struct
 
     /**
      * The browser's user-agent string.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     wszBrowserUserAgent {
         get => NumGet(this, 16, "ptr")
@@ -46,7 +46,7 @@ class WM_READER_CLIENTINFO extends Win32Struct
 
     /**
      * Web page that contains the <a href="https://docs.microsoft.com/windows/desktop/wmformat/wmformat-glossary">plug-in</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     wszBrowserWebPage {
         get => NumGet(this, 24, "ptr")
@@ -73,7 +73,7 @@ class WM_READER_CLIENTINFO extends Win32Struct
 
     /**
      * Host application's .exe file; for example, Iexplore.exe.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     wszHostExe {
         get => NumGet(this, 48, "ptr")
@@ -91,7 +91,7 @@ class WM_READER_CLIENTINFO extends Win32Struct
 
     /**
      * String identifying the player application. For example, "WMPlayer/9.0.0.0" identifies version 9 of the Windows Media Player.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     wszPlayerUserAgent {
         get => NumGet(this, 64, "ptr")

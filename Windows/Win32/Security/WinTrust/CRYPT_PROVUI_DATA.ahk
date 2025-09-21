@@ -33,7 +33,7 @@ class CRYPT_PROVUI_DATA extends Win32Struct
 
     /**
      * A pointer to a <b>null</b>-terminated string for the <b>Yes</b> button text. If this parameter is <b>NULL</b>, then "&amp;Yes" is used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pYesButtonText {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class CRYPT_PROVUI_DATA extends Win32Struct
 
     /**
      * A pointer to a <b>null</b>-terminated string for the <b>No</b> button text. If this parameter is <b>NULL</b>, then "&amp;No"  is used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pNoButtonText {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +51,7 @@ class CRYPT_PROVUI_DATA extends Win32Struct
 
     /**
      * A pointer to a <b>null</b>-terminated string for the <b>More Info</b> button text. If this parameter is <b>NULL</b>, then "&amp;More Info" is used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pMoreInfoButtonText {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +60,7 @@ class CRYPT_PROVUI_DATA extends Win32Struct
 
     /**
      * A pointer to a <b>null</b>-terminated string for the <b>Advanced</b>  button  text.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pAdvancedLinkText {
         get => NumGet(this, 32, "ptr")
@@ -69,7 +69,7 @@ class CRYPT_PROVUI_DATA extends Win32Struct
 
     /**
      * A pointer to a <b>null</b>-terminated string for the text used when the trust is valid and a time stamp is used. If this parameter is <b>NULL</b>, then "Do you want to install and run ""%1"" signed on %2 and distributed by:" is used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pCopyActionText {
         get => NumGet(this, 40, "ptr")
@@ -78,7 +78,7 @@ class CRYPT_PROVUI_DATA extends Win32Struct
 
     /**
      * A pointer to a <b>null</b>-terminated string for the text used when the trust is valid but a time stamp is not used. If this parameter is <b>NULL</b>, then "Do you want to install and run ""%1"" signed on an unknown date/time and distributed by:" is used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pCopyActionTextNoTS {
         get => NumGet(this, 48, "ptr")
@@ -87,7 +87,7 @@ class CRYPT_PROVUI_DATA extends Win32Struct
 
     /**
      * A pointer to a <b>null</b>-terminated string for the text used when a signature is not provided.  If this parameter is <b>NULL</b>, then "Do you want to install and run ""%1""?" is used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pCopyActionTextNotSigned {
         get => NumGet(this, 56, "ptr")

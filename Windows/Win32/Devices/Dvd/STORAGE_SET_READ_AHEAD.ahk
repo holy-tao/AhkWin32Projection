@@ -9,7 +9,7 @@ class STORAGE_SET_READ_AHEAD extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}

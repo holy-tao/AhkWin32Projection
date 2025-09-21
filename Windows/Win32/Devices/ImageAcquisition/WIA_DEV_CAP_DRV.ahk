@@ -28,7 +28,7 @@ class WIA_DEV_CAP_DRV extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     wszName {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class WIA_DEV_CAP_DRV extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     wszDescription {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class WIA_DEV_CAP_DRV extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     wszIcon {
         get => NumGet(this, 32, "ptr")

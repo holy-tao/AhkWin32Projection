@@ -18,7 +18,7 @@ class DIAGNOSTIC_DATA_SEARCH_CRITERIA extends Win32Struct
     /**
      * Type: **[LPCWSTR\*](/windows/desktop/winprog/windows-data-types)**
      * List of producer names to search for. A diagnostic data record that matches at least one of the producer names is included as a result in this search criteria. Use `nullptr` for this value to indicate no filter by producers.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     producerNames {
         get => NumGet(this, 0, "ptr")
@@ -38,7 +38,7 @@ class DIAGNOSTIC_DATA_SEARCH_CRITERIA extends Win32Struct
     /**
      * Type: **[LPCWSTR](/windows/desktop/winprog/windows-data-types)**
      * The sub-string to search for within diagnostic data records. This text is case insensitive.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     textToMatch {
         get => NumGet(this, 16, "ptr")

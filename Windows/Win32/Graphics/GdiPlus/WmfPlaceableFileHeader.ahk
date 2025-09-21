@@ -8,9 +8,9 @@
  */
 class WmfPlaceableFileHeader extends Win32Struct
 {
-    static sizeof => 22
+    static sizeof => 32
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -34,7 +34,7 @@ class WmfPlaceableFileHeader extends Win32Struct
     BoundingBox{
         get {
             if(!this.HasProp("__BoundingBox"))
-                this.__BoundingBox := PWMFRect16(this.ptr + 6)
+                this.__BoundingBox := PWMFRect16(this.ptr + 8)
             return this.__BoundingBox
         }
     }
@@ -43,23 +43,23 @@ class WmfPlaceableFileHeader extends Win32Struct
      * @type {Integer}
      */
     Inch {
-        get => NumGet(this, 14, "short")
-        set => NumPut("short", value, this, 14)
+        get => NumGet(this, 16, "short")
+        set => NumPut("short", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     Reserved {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
      * @type {Integer}
      */
     Checksum {
-        get => NumGet(this, 20, "short")
-        set => NumPut("short", value, this, 20)
+        get => NumGet(this, 24, "short")
+        set => NumPut("short", value, this, 24)
     }
 }

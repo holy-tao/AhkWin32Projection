@@ -20,7 +20,7 @@ class IMESTRINGINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpwstr {
         get => NumGet(this, 8, "ptr")

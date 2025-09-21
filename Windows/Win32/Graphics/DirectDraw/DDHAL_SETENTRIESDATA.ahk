@@ -52,7 +52,7 @@ class DDHAL_SETENTRIESDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ddRVal {
         get => NumGet(this, 32, "int")
@@ -60,7 +60,7 @@ class DDHAL_SETENTRIESDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALPALCB_SETENTRIES>}
      */
     SetEntries {
         get => NumGet(this, 40, "ptr")

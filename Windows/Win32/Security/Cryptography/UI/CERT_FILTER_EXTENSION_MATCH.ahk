@@ -12,7 +12,7 @@ class CERT_FILTER_EXTENSION_MATCH extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     szExtensionOID {
         get => NumGet(this, 0, "ptr")

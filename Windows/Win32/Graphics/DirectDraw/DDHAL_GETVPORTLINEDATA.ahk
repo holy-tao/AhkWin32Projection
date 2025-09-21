@@ -36,7 +36,7 @@ class DDHAL_GETVPORTLINEDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ddRVal {
         get => NumGet(this, 20, "int")
@@ -44,7 +44,7 @@ class DDHAL_GETVPORTLINEDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALVPORTCB_GETLINE>}
      */
     GetVideoPortLine {
         get => NumGet(this, 24, "ptr")

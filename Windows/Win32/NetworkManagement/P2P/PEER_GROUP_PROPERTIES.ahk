@@ -33,7 +33,7 @@ class PEER_GROUP_PROPERTIES extends Win32Struct
 
     /**
      * Specifies the name of the   Peer Name Resolution Protocol (PNRP) cloud that  a peer group participates in. The default value is "global", if this member is <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwzCloud {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class PEER_GROUP_PROPERTIES extends Win32Struct
 
     /**
      * Specifies the classifier used to  identify the authority of a peer group peer name for registration or resolution within a PNRP cloud. The maximum size of this field is 149 Unicode characters. This member can be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwzClassifier {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +51,7 @@ class PEER_GROUP_PROPERTIES extends Win32Struct
 
     /**
      * Specifies the name of a peer group that is registered with the PNRP service. The maximum size of this field is 137 Unicode characters.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwzGroupPeerName {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +60,7 @@ class PEER_GROUP_PROPERTIES extends Win32Struct
 
     /**
      * Specifies the  peer name associated with the Peer group creator. The maximum size of this field is 137 Unicode characters. If this structure member is <b>NULL</b>, the implementation uses the identity obtained from <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peeridentitygetdefault">PeerIdentityGetDefault</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwzCreatorPeerName {
         get => NumGet(this, 32, "ptr")
@@ -69,7 +69,7 @@ class PEER_GROUP_PROPERTIES extends Win32Struct
 
     /**
      * Specifies the friendly (display) name of a peer group. The maximum size of this field is 255 characters.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwzFriendlyName {
         get => NumGet(this, 40, "ptr")
@@ -78,7 +78,7 @@ class PEER_GROUP_PROPERTIES extends Win32Struct
 
     /**
      * Contains a comment used to describe a peer group. The maximum size of this field is 255 characters.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwzComment {
         get => NumGet(this, 48, "ptr")
@@ -116,7 +116,7 @@ class PEER_GROUP_PROPERTIES extends Win32Struct
 
     /**
      * <b>Windows Vista or later.</b> Pointer to a Unicode string that contains the password used to authenticate peers attempting to join the peer group.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwzGroupPassword {
         get => NumGet(this, 72, "ptr")

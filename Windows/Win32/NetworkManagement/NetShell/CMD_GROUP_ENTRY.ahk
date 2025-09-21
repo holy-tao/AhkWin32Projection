@@ -21,7 +21,7 @@ class CMD_GROUP_ENTRY extends Win32Struct
 
     /**
      * The token (name) for the command group
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszCmdGroupToken {
         get => NumGet(this, 0, "ptr")
@@ -68,7 +68,7 @@ class CMD_GROUP_ENTRY extends Win32Struct
     /**
      * An operating system version check function. This is the function used to determine whether the command can be run on the operating system running on the local and/or remote context before invoking or displaying commands. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netsh/nc-netsh-ns_osversioncheck">NS_OSVERSIONCHECK</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PNS_OSVERSIONCHECK>}
      */
     pOsVersionCheck {
         get => NumGet(this, 32, "ptr")

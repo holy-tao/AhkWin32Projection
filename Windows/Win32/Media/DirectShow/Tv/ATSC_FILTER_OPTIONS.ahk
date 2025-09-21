@@ -11,7 +11,7 @@ class ATSC_FILTER_OPTIONS extends Win32Struct
 {
     static sizeof => 8
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * If this flag is <b>TRUE</b>, the ETM_id field in the header must match the value of the <b>EtmId</b> structure member. Otherwise, the ETM_id field is ignored.

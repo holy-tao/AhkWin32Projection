@@ -28,7 +28,7 @@ class HHN_NOTIFY extends Win32Struct
 
     /**
      * A multi-byte, zero-terminated string that specifies the topic navigated to, or the name of the help window being created.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszUrl {
         get => NumGet(this, 24, "ptr")

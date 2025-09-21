@@ -7,9 +7,9 @@
  */
 class MORRSLT extends Win32Struct
 {
-    static sizeof => 78
+    static sizeof => 104
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -20,122 +20,122 @@ class MORRSLT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwchOutput {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     cchOutput {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
+        get => NumGet(this, 16, "ushort")
+        set => NumPut("ushort", value, this, 16)
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwchRead {
-        get => NumGet(this, 14, "ptr")
-        set => NumPut("ptr", value, this, 14)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwchComp {
-        get => NumGet(this, 14, "ptr")
-        set => NumPut("ptr", value, this, 14)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     cchRead {
-        get => NumGet(this, 22, "ushort")
-        set => NumPut("ushort", value, this, 22)
+        get => NumGet(this, 32, "ushort")
+        set => NumPut("ushort", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     cchComp {
-        get => NumGet(this, 22, "ushort")
-        set => NumPut("ushort", value, this, 22)
+        get => NumGet(this, 32, "ushort")
+        set => NumPut("ushort", value, this, 32)
     }
 
     /**
      * @type {Pointer<UInt16>}
      */
     pchInputPos {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * @type {Pointer<UInt16>}
      */
     pchOutputIdxWDD {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * @type {Pointer<UInt16>}
      */
     pchReadIdxWDD {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {Pointer<UInt16>}
      */
     pchCompIdxWDD {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {Pointer<UInt16>}
      */
     paMonoRubyPos {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * @type {Pointer<WDD>}
      */
     pWDD {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
      * @type {Integer}
      */
     cWDD {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
+        get => NumGet(this, 80, "int")
+        set => NumPut("int", value, this, 80)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     pPrivate {
-        get => NumGet(this, 68, "ptr")
-        set => NumPut("ptr", value, this, 68)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
      * @type {String}
      */
     BLKBuff {
-        get => StrGet(this.ptr + 76, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 76, 0, "UTF-16")
+        get => StrGet(this.ptr + 96, 0, "UTF-16")
+        set => StrPut(value, this.ptr + 96, 0, "UTF-16")
     }
 }

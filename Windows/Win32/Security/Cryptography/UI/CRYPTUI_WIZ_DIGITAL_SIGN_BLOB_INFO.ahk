@@ -51,7 +51,7 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_BLOB_INFO extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the display name of the BLOB to sign.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszDisplayName {
         get => NumGet(this, 32, "ptr")

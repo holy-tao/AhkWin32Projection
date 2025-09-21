@@ -157,7 +157,7 @@ class EAP_CONFIG_INPUT_FIELD_DATA extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszLabel {
         get => NumGet(this, 16, "ptr")
@@ -185,7 +185,7 @@ class EAP_CONFIG_INPUT_FIELD_DATA extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszData {
         get => NumGet(this, 24, "ptr")

@@ -26,7 +26,7 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * Handle of the users token.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     UserToken {
         get => NumGet(this, 8, "ptr")
@@ -59,7 +59,7 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * User's name as a string.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     UserName {
         get => NumGet(this, 72, "ptr")
@@ -68,7 +68,7 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * User's domain as a string.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     Domain {
         get => NumGet(this, 80, "ptr")
@@ -191,7 +191,7 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the relative path to the account's logon script.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     LogonScript {
         get => NumGet(this, 160, "ptr")
@@ -200,7 +200,7 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the home directory for the user.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     HomeDirectory {
         get => NumGet(this, 168, "ptr")
@@ -209,7 +209,7 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the full name of the user.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     FullName {
         get => NumGet(this, 176, "ptr")
@@ -218,7 +218,7 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> specifying the path to the user's roaming profile if the user has a roaming profile. For example: \\SomeServer\SomeShare\MyUserName
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ProfilePath {
         get => NumGet(this, 184, "ptr")
@@ -227,7 +227,7 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the drive letter (for example, C:\ or D:\) of the home directory.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     HomeDirectoryDrive {
         get => NumGet(this, 192, "ptr")
@@ -236,7 +236,7 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the name of the server that processed the logon request.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     LogonServer {
         get => NumGet(this, 200, "ptr")

@@ -10,9 +10,9 @@
  */
 class SHCOLUMNINFO extends Win32Struct
 {
-    static sizeof => 446
+    static sizeof => 448
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/shell/objects">SHCOLUMNID</a></b>
@@ -47,8 +47,8 @@ class SHCOLUMNINFO extends Win32Struct
      * @type {Integer}
      */
     fmt {
-        get => NumGet(this, 18, "uint")
-        set => NumPut("uint", value, this, 18)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -58,8 +58,8 @@ class SHCOLUMNINFO extends Win32Struct
      * @type {Integer}
      */
     cChars {
-        get => NumGet(this, 22, "uint")
-        set => NumPut("uint", value, this, 22)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -69,8 +69,8 @@ class SHCOLUMNINFO extends Win32Struct
      * @type {Integer}
      */
     csFlags {
-        get => NumGet(this, 26, "uint")
-        set => NumPut("uint", value, this, 26)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -80,8 +80,8 @@ class SHCOLUMNINFO extends Win32Struct
      * @type {String}
      */
     wszTitle {
-        get => StrGet(this.ptr + 30, 79, "UTF-16")
-        set => StrPut(value, this.ptr + 30, 79, "UTF-16")
+        get => StrGet(this.ptr + 32, 79, "UTF-16")
+        set => StrPut(value, this.ptr + 32, 79, "UTF-16")
     }
 
     /**
@@ -91,7 +91,7 @@ class SHCOLUMNINFO extends Win32Struct
      * @type {String}
      */
     wszDescription {
-        get => StrGet(this.ptr + 190, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 190, 127, "UTF-16")
+        get => StrGet(this.ptr + 192, 127, "UTF-16")
+        set => StrPut(value, this.ptr + 192, 127, "UTF-16")
     }
 }

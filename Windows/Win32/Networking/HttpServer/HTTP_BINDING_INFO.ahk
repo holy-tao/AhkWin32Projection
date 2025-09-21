@@ -24,7 +24,7 @@ class HTTP_BINDING_INFO extends Win32Struct
 
     /**
      * The request queue that is associated with the URL group. The structure can be used to remove an existing binding by setting this parameter to <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     RequestQueueHandle {
         get => NumGet(this, 8, "ptr")

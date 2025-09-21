@@ -24,7 +24,7 @@ class CERT_SELECT_CHAIN_PARA extends Win32Struct
 
     /**
      * The handle of the chain engine to use to build the chain. If the value of the <i>hChainEngine</i> parameter is <b>NULL</b>, the default chain engine, <b>HCCE_CURRENT_USER</b>, is used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hChainEngine {
         get => NumGet(this, 0, "ptr")
@@ -45,7 +45,7 @@ class CERT_SELECT_CHAIN_PARA extends Win32Struct
 
     /**
      * The handle of any additional store to search for supporting certificates and certificate trust lists (CTLs). This parameter can be <b>NULL</b> if no additional store is to be searched.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hAdditionalStore {
         get => NumGet(this, 16, "ptr")

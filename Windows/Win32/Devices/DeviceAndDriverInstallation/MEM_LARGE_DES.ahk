@@ -9,7 +9,7 @@ class MEM_LARGE_DES extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}

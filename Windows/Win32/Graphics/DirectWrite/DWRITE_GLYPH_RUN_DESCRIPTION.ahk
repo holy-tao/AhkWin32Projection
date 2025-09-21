@@ -17,7 +17,7 @@ class DWRITE_GLYPH_RUN_DESCRIPTION extends Win32Struct
      * Type: <b>const WCHAR*</b>
      * 
      * An array of characters containing the locale name associated with this run.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     localeName {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class DWRITE_GLYPH_RUN_DESCRIPTION extends Win32Struct
      * Type: <b>const WCHAR*</b>
      * 
      * An array of characters containing the text associated with the glyphs.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     string {
         get => NumGet(this, 8, "ptr")

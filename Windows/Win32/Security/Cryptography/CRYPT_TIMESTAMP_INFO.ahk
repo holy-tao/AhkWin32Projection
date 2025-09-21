@@ -45,7 +45,7 @@ class CRYPT_TIMESTAMP_INFO extends Win32Struct
 
     /**
      * Optional. A pointer to a null-terminated string that specifies the Time Stamping Authority (TSA) policy under which the time stamp token was provided. This value must correspond with the value passed  in the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_timestamp_request">CRYPT_TIMESTAMP_REQUEST</a> structure.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszTSAPolicyId {
         get => NumGet(this, 8, "ptr")

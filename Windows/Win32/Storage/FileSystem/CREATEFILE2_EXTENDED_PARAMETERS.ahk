@@ -436,7 +436,7 @@ class CREATEFILE2_EXTENDED_PARAMETERS extends Win32Struct
      * When opening an existing file, [CreateFile2](/windows/win32/api/fileapi/nf-fileapi-createfile2) ignores this parameter.
      * 
      * When opening a new encrypted file, the file inherits the discretionary access control list from its parent directory. For additional information, see [File Encryption](/windows/win32/FileIO/file-encryption).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hTemplateFile {
         get => NumGet(this, 24, "ptr")

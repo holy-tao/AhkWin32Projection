@@ -52,7 +52,7 @@ class XAUDIO2_FILTER_PARAMETERS extends Win32Struct
 {
     static sizeof => 12
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/xaudio2/ne-xaudio2-xaudio2_filter_type">XAUDIO2_FILTER_TYPE</a>.

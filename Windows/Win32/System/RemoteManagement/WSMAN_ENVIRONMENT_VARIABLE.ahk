@@ -15,7 +15,7 @@ class WSMAN_ENVIRONMENT_VARIABLE extends Win32Struct
 
     /**
      * Defines the environment variable name. This parameter cannot be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     name {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class WSMAN_ENVIRONMENT_VARIABLE extends Win32Struct
 
     /**
      * Defines the environment variable value. <b>NULL</b> or empty string values are permitted.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     value {
         get => NumGet(this, 8, "ptr")

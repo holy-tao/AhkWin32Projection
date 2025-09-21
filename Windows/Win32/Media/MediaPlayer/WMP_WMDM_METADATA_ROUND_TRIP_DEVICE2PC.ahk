@@ -11,9 +11,9 @@
  */
 class WMP_WMDM_METADATA_ROUND_TRIP_DEVICE2PC extends Win32Struct
 {
-    static sizeof => 22
+    static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * The current transaction ID for the device. Windows Media Player stores this value and uses it for future requests.

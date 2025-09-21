@@ -72,7 +72,7 @@ class VDS_FILE_SYSTEM_PROP extends Win32Struct
 
     /**
      * A string containing the file-system label.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszLabel {
         get => NumGet(this, 48, "ptr")

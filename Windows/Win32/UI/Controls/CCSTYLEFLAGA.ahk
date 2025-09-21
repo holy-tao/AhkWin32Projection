@@ -29,7 +29,7 @@ class CCSTYLEFLAGA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszStyle {
         get => NumGet(this, 8, "ptr")

@@ -32,7 +32,7 @@ class NMCUSTOMTEXT extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
      * 
      * The device context to draw to.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hDC {
         get => NumGet(this, 24, "ptr")
@@ -43,7 +43,7 @@ class NMCUSTOMTEXT extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
      * The string to draw.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpString {
         get => NumGet(this, 32, "ptr")

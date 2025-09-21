@@ -41,7 +41,7 @@ class WS_USERNAME_MESSAGE_SECURITY_BINDING_TEMPLATE extends Win32Struct
      * The validator to be used to check received username/password pairs.
      *           This needs to be specified when this security binding is used on the
      *           service.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_VALIDATE_PASSWORD_CALLBACK>}
      */
     passwordValidator {
         get => NumGet(this, 24, "ptr")

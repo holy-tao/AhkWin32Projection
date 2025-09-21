@@ -10,9 +10,9 @@
  */
 class LINEAGENTSESSIONINFO extends Win32Struct
 {
-    static sizeof => 84
+    static sizeof => 88
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Total size allocated to this structure, in bytes.
@@ -66,8 +66,8 @@ class LINEAGENTSESSIONINFO extends Win32Struct
      * @type {Float}
      */
     dateSessionStartTime {
-        get => NumGet(this, 20, "double")
-        set => NumPut("double", value, this, 20)
+        get => NumGet(this, 24, "double")
+        set => NumPut("double", value, this, 24)
     }
 
     /**
@@ -75,8 +75,8 @@ class LINEAGENTSESSIONINFO extends Win32Struct
      * @type {Integer}
      */
     dwSessionDuration {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -84,8 +84,8 @@ class LINEAGENTSESSIONINFO extends Win32Struct
      * @type {Integer}
      */
     dwNumberOfCalls {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -93,8 +93,8 @@ class LINEAGENTSESSIONINFO extends Win32Struct
      * @type {Integer}
      */
     dwTotalTalkTime {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -102,8 +102,8 @@ class LINEAGENTSESSIONINFO extends Win32Struct
      * @type {Integer}
      */
     dwAverageTalkTime {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -111,8 +111,8 @@ class LINEAGENTSESSIONINFO extends Win32Struct
      * @type {Integer}
      */
     dwTotalCallTime {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -120,8 +120,8 @@ class LINEAGENTSESSIONINFO extends Win32Struct
      * @type {Integer}
      */
     dwAverageCallTime {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
@@ -129,8 +129,8 @@ class LINEAGENTSESSIONINFO extends Win32Struct
      * @type {Integer}
      */
     dwTotalWrapUpTime {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -138,8 +138,8 @@ class LINEAGENTSESSIONINFO extends Win32Struct
      * @type {Integer}
      */
     dwAverageWrapUpTime {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 
     /**
@@ -149,7 +149,7 @@ class LINEAGENTSESSIONINFO extends Win32Struct
     cyACDCallRate{
         get {
             if(!this.HasProp("__cyACDCallRate"))
-                this.__cyACDCallRate := CY(this.ptr + 60)
+                this.__cyACDCallRate := CY(this.ptr + 64)
             return this.__cyACDCallRate
         }
     }
@@ -159,8 +159,8 @@ class LINEAGENTSESSIONINFO extends Win32Struct
      * @type {Integer}
      */
     dwLongestTimeToAnswer {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
     /**
@@ -168,7 +168,7 @@ class LINEAGENTSESSIONINFO extends Win32Struct
      * @type {Integer}
      */
     dwAverageTimeToAnswer {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 84, "uint")
+        set => NumPut("uint", value, this, 84)
     }
 }

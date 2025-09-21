@@ -139,7 +139,7 @@ class LDAP_REFERRAL_CALLBACK extends Win32Struct
 
     /**
      * A pointer to a callback function to determine whether there is a cached connection cached available. For more information, see Remarks.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<QUERYFORCONNECTION>}
      */
     QueryForConnection {
         get => NumGet(this, 8, "ptr")
@@ -148,7 +148,7 @@ class LDAP_REFERRAL_CALLBACK extends Win32Struct
 
     /**
      * A pointer to a callback function that determines whether a new connection will be cached or destroyed after the operation completes. For more information, see Remarks.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NOTIFYOFNEWCONNECTION>}
      */
     NotifyRoutine {
         get => NumGet(this, 16, "ptr")
@@ -157,7 +157,7 @@ class LDAP_REFERRAL_CALLBACK extends Win32Struct
 
     /**
      * A pointer to a callback function to dereference a connection that is not in use. For more information, see Remarks.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DEREFERENCECONNECTION>}
      */
     DereferenceRoutine {
         get => NumGet(this, 24, "ptr")

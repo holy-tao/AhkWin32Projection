@@ -37,7 +37,7 @@ class D3D11_AUTHENTICATED_CONFIGURE_OUTPUT extends Win32Struct
 
     /**
      * A handle to the authenticated channel.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hChannel {
         get => NumGet(this, 24, "ptr")
@@ -55,7 +55,7 @@ class D3D11_AUTHENTICATED_CONFIGURE_OUTPUT extends Win32Struct
 
     /**
      * The result code for the command.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ReturnCode {
         get => NumGet(this, 36, "int")

@@ -110,7 +110,7 @@ class CRYPTNET_URL_CACHE_RESPONSE_INFO extends Win32Struct
 
     /**
      * A pointer to a string that contains the <b>ETag</b> response-header field value of the cached HTTP response for the URL.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszETag {
         get => NumGet(this, 24, "ptr")

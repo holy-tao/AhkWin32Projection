@@ -23,7 +23,7 @@ class USER_INFO_2 extends Win32Struct
      * 
      * A pointer to a Unicode string that specifies the name of the user account. Calls to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> function ignore this member. For more information, see the following Remarks section.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     usri2_name {
         get => NumGet(this, 0, "ptr")
@@ -41,7 +41,7 @@ class USER_INFO_2 extends Win32Struct
      * 
      * 
      * By convention, the length of passwords is limited to LM20_PWLEN characters.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     usri2_password {
         get => NumGet(this, 8, "ptr")
@@ -79,7 +79,7 @@ class USER_INFO_2 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A  pointer to a Unicode string specifying the path of the home directory for the user specified by the <b>usri2_name</b> member. The string can be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     usri2_home_dir {
         get => NumGet(this, 24, "ptr")
@@ -90,7 +90,7 @@ class USER_INFO_2 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains a comment to associate with the user account. The string can be a <b>NULL</b> string, or it can have any number of characters before the terminating null character.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     usri2_comment {
         get => NumGet(this, 32, "ptr")
@@ -110,7 +110,7 @@ class USER_INFO_2 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string specifying the path for the user's logon script file. The script file can be a .CMD file, an .EXE file, or a .BAT file. The string can also be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     usri2_script_path {
         get => NumGet(this, 48, "ptr")
@@ -151,7 +151,7 @@ class USER_INFO_2 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains the full name of the user. This string can be a <b>NULL</b> string, or it can have any number of characters before the terminating null character.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     usri2_full_name {
         get => NumGet(this, 64, "ptr")
@@ -162,7 +162,7 @@ class USER_INFO_2 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      *  A pointer to a Unicode string that contains a user comment. This string can be a <b>NULL</b> string, or it can have any number of characters before the terminating null character.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     usri2_usr_comment {
         get => NumGet(this, 72, "ptr")
@@ -173,7 +173,7 @@ class USER_INFO_2 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that is reserved for use by applications. This string can be a <b>NULL</b> string, or it can have any number of characters before the terminating null character. Microsoft products use this member to store user configuration information. Do not modify this information.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     usri2_parms {
         get => NumGet(this, 80, "ptr")
@@ -187,7 +187,7 @@ class USER_INFO_2 extends Win32Struct
      * > You should no longer use **usri2_workstations**. Instead, you can control sign-in access to workstations by configuring the User Rights Assignment settings (**Allow log on locally** and **Deny log on locally**, or **Allow log on through Remote Desktop Services** and **Deny log on through Remote Desktop Services**).
      * 
      * A pointer to a Unicode string that contains the names of workstations from which the user can log on. As many as eight workstations can be specified; the names must be separated by commas. A <b>NULL</b> string indicates that there is no restriction. To disable logons from all workstations to this account, set the UF_ACCOUNTDISABLE value in the <b>usri2_flags</b> member.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     usri2_workstations {
         get => NumGet(this, 88, "ptr")
@@ -336,7 +336,7 @@ class USER_INFO_2 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuserenum">NetUserEnum</a> return \\*. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> functions ignore this member.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     usri2_logon_server {
         get => NumGet(this, 136, "ptr")

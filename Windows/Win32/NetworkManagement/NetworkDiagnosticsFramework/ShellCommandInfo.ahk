@@ -90,7 +90,7 @@ class ShellCommandInfo extends Win32Struct
      * Type: <b>[string] LPWSTR</b>
      * 
      * A pointer to a null-terminated string that contains the action to be performed. The set of available verbs that specifies the action depends on the particular file or folder. Generally, the actions available from an object's shortcut menu are available verbs. For more information, see the Remarks section.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszOperation {
         get => NumGet(this, 0, "ptr")
@@ -101,7 +101,7 @@ class ShellCommandInfo extends Win32Struct
      * Type: <b>[string] LPWSTR</b>
      * 
      * A pointer to a null-terminated string that specifies the file or object on which to execute the specified verb. To specify a Shell namespace object, pass the fully qualified parse name. Note that not all verbs are supported on all objects. For example, not all document types support the "print" verb.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszFile {
         get => NumGet(this, 8, "ptr")
@@ -112,7 +112,7 @@ class ShellCommandInfo extends Win32Struct
      * Type: <b>[string] LPWSTR</b>
      * 
      * A pointer to a null-terminated strings that specifies the parameters to be passed to the application, only if the <i>pwszFile</i> parameter specifies an executable file. The format of this string is determined by the verb that is to be invoked. If <i>pwszFile</i> specifies a document file, <i>pwszParameters</i> should be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszParameters {
         get => NumGet(this, 16, "ptr")
@@ -123,7 +123,7 @@ class ShellCommandInfo extends Win32Struct
      * Type: <b>[string] LPWSTR</b>
      * 
      * A pointer to a null-terminated string that specifies the default directory.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszDirectory {
         get => NumGet(this, 24, "ptr")

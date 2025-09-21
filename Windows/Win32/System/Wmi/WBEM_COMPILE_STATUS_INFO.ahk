@@ -20,7 +20,7 @@ class WBEM_COMPILE_STATUS_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hRes {
         get => NumGet(this, 4, "int")

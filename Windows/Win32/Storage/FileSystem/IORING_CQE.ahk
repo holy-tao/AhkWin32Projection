@@ -26,7 +26,7 @@ class IORING_CQE extends Win32Struct
 
     /**
      * A **HRESULT** indicating the result code of the associated I/O ring operation.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ResultCode {
         get => NumGet(this, 8, "int")

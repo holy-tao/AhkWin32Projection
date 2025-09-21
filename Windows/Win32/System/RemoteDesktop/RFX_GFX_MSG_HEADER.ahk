@@ -9,7 +9,7 @@ class RFX_GFX_MSG_HEADER extends Win32Struct
 {
     static sizeof => 4
 
-    static packingSize => 1
+    static packingSize => 2
 
     /**
      * @type {Integer}

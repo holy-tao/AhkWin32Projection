@@ -17,9 +17,9 @@
  */
 class FILEGROUPDESCRIPTORA extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b>UINT</b>
@@ -41,7 +41,7 @@ class FILEGROUPDESCRIPTORA extends Win32Struct
     fgd{
         get {
             if(!this.HasProp("__fgdProxyArray"))
-                this.__fgdProxyArray := Win32FixedArray(this.ptr + 4, 1, FILEDESCRIPTORA, "")
+                this.__fgdProxyArray := Win32FixedArray(this.ptr + 8, 1, FILEDESCRIPTORA, "")
             return this.__fgdProxyArray
         }
     }

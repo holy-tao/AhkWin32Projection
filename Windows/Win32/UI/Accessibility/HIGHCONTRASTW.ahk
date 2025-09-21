@@ -44,7 +44,7 @@ class HIGHCONTRASTW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * Points to a string that contains the name of the color scheme that will be set to the default scheme. The system allocates this buffer, free it with LocalFree.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpszDefaultScheme {
         get => NumGet(this, 8, "ptr")

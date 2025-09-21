@@ -56,7 +56,7 @@ class ADDRINFO_DNS_SERVER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     Anonymous {
         get => NumGet(this, 32, "ptr")

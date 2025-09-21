@@ -34,7 +34,7 @@ class PEER_CREDENTIAL_INFO extends Win32Struct
 
     /**
      * Pointer to a Unicode string that specifies the friendly (display) name of the issuer.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwzFriendlyName {
         get => NumGet(this, 8, "ptr")
@@ -52,7 +52,7 @@ class PEER_CREDENTIAL_INFO extends Win32Struct
 
     /**
      * Pointer to a Unicode string that specifies the membership issuer's PNRP name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwzIssuerPeerName {
         get => NumGet(this, 24, "ptr")
@@ -61,7 +61,7 @@ class PEER_CREDENTIAL_INFO extends Win32Struct
 
     /**
      * Pointer to a Unicode string that specifies the friendly (display) name of the issuer.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwzIssuerFriendlyName {
         get => NumGet(this, 32, "ptr")

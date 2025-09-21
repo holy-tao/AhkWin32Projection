@@ -33,7 +33,7 @@ class WKSTA_TRANSPORT_INFO_0 extends Win32Struct
 
     /**
      * Specifies the device name of the transport protocol.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     wkti0_transport_name {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +44,7 @@ class WKSTA_TRANSPORT_INFO_0 extends Win32Struct
      * Specifies the address of the server on this transport protocol.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     wkti0_transport_address {
         get => NumGet(this, 16, "ptr")

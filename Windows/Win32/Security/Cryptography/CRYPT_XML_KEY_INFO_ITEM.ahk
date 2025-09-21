@@ -30,7 +30,7 @@ class CRYPT_XML_KEY_INFO_ITEM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     wszKeyName {
         get => NumGet(this, 8, "ptr")

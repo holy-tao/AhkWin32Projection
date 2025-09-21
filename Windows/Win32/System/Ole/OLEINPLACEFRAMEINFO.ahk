@@ -35,7 +35,7 @@ class OLEINPLACEFRAMEINFO extends Win32Struct
 
     /**
      * A handle to the container's top-level frame window.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hwndFrame {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +44,7 @@ class OLEINPLACEFRAMEINFO extends Win32Struct
 
     /**
      * A handle to the accelerator table that the container wants to use during an in-place editing session.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     haccel {
         get => NumGet(this, 16, "ptr")

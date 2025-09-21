@@ -9,7 +9,7 @@ class AVITIMEDINDEX_ENTRY extends Win32Struct
 {
     static sizeof => 12
 
-    static packingSize => 2
+    static packingSize => 4
 
     /**
      * @type {Integer}

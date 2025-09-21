@@ -25,7 +25,7 @@ class SPPHRASE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pSML {
         get => NumGet(this, 152, "ptr")

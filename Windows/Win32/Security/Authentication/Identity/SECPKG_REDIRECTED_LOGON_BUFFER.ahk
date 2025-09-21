@@ -20,7 +20,7 @@ class SECPKG_REDIRECTED_LOGON_BUFFER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     RedirectedLogonHandle {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class SECPKG_REDIRECTED_LOGON_BUFFER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PLSA_REDIRECTED_LOGON_INIT>}
      */
     Init {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class SECPKG_REDIRECTED_LOGON_BUFFER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PLSA_REDIRECTED_LOGON_CALLBACK>}
      */
     Callback {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class SECPKG_REDIRECTED_LOGON_BUFFER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PLSA_REDIRECTED_LOGON_CLEANUP_CALLBACK>}
      */
     CleanupCallback {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +52,7 @@ class SECPKG_REDIRECTED_LOGON_BUFFER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PLSA_REDIRECTED_LOGON_GET_LOGON_CREDS>}
      */
     GetLogonCreds {
         get => NumGet(this, 40, "ptr")
@@ -60,7 +60,7 @@ class SECPKG_REDIRECTED_LOGON_BUFFER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PLSA_REDIRECTED_LOGON_GET_SUPP_CREDS>}
      */
     GetSupplementalCreds {
         get => NumGet(this, 48, "ptr")
@@ -68,7 +68,7 @@ class SECPKG_REDIRECTED_LOGON_BUFFER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PLSA_REDIRECTED_LOGON_GET_SID>}
      */
     GetRedirectedLogonSid {
         get => NumGet(this, 56, "ptr")

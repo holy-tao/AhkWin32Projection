@@ -14,7 +14,7 @@ class MCI_DGV_UPDATE_PARMS extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The low-order word specifies a window handle used for the MCI_NOTIFY flag.
@@ -39,7 +39,7 @@ class MCI_DGV_UPDATE_PARMS extends Win32Struct
 
     /**
      * Handle to display context.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hDC {
         get => NumGet(this, 24, "ptr")

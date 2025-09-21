@@ -7,9 +7,9 @@
  */
 class USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR extends Win32Struct
 {
-    static sizeof => 52
+    static sizeof => 56
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -98,23 +98,23 @@ class USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR extends Win32Struct
      * @type {Integer}
      */
     wSVID {
-        get => NumGet(this, 44, "ushort")
-        set => NumPut("ushort", value, this, 44)
+        get => NumGet(this, 48, "ushort")
+        set => NumPut("ushort", value, this, 48)
     }
 
     /**
      * @type {Integer}
      */
     bAlternateMode {
-        get => NumGet(this, 46, "char")
-        set => NumPut("char", value, this, 46)
+        get => NumGet(this, 50, "char")
+        set => NumPut("char", value, this, 50)
     }
 
     /**
      * @type {Integer}
      */
     iAlternateModeSetting {
-        get => NumGet(this, 47, "char")
-        set => NumPut("char", value, this, 47)
+        get => NumGet(this, 51, "char")
+        set => NumPut("char", value, this, 51)
     }
 }

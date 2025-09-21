@@ -23,7 +23,7 @@ class GROUP_INFO_2 extends Win32Struct
      * 
      * When you call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netgroupsetinfo">NetGroupSetInfo</a> function this member is ignored.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     grpi2_name {
         get => NumGet(this, 0, "ptr")
@@ -32,7 +32,7 @@ class GROUP_INFO_2 extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode character string that contains a remark associated with the global group. This member can be a null string. The comment can contain MAXCOMMENTSZ characters.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     grpi2_comment {
         get => NumGet(this, 8, "ptr")

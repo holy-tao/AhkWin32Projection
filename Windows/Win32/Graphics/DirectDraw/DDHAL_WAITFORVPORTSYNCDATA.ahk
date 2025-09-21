@@ -52,7 +52,7 @@ class DDHAL_WAITFORVPORTSYNCDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ddRVal {
         get => NumGet(this, 28, "int")
@@ -60,7 +60,7 @@ class DDHAL_WAITFORVPORTSYNCDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALVPORTCB_WAITFORSYNC>}
      */
     WaitForVideoPortSync {
         get => NumGet(this, 32, "ptr")

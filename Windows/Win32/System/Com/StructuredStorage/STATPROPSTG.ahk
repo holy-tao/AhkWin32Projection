@@ -16,7 +16,7 @@ class STATPROPSTG extends Win32Struct
     /**
      * A wide-character null-terminated Unicode string that contains the optional string name associated with the property. May be <b>NULL</b>. This member must be freed using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpwstrName {
         get => NumGet(this, 0, "ptr")

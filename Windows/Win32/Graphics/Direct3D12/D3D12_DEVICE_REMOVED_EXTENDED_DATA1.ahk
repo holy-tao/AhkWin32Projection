@@ -16,7 +16,7 @@ class D3D12_DEVICE_REMOVED_EXTENDED_DATA1 extends Win32Struct
 
     /**
      * An [HRESULT](/windows/desktop/com/structure-of-com-error-codes) containing the reason the device was removed (matches the return value of [GetDeviceRemovedReason](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-getdeviceremovedreason)). Also see [COM Error Codes (UI, Audio, DirectX, Codec)](/windows/desktop/com/com-error-codes-10).
-     * @type {Integer}
+     * @type {HRESULT}
      */
     DeviceRemovedReason {
         get => NumGet(this, 0, "int")
@@ -25,7 +25,7 @@ class D3D12_DEVICE_REMOVED_EXTENDED_DATA1 extends Win32Struct
 
     /**
      * A [D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT](ns-d3d12-d3d12_auto_breadcrumb_node.md) value that contains the auto-breadcrumb state prior to device removal.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<TypeHandle>}
      */
     AutoBreadcrumbsOutput {
         get => NumGet(this, 8, "ptr")

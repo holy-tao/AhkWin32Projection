@@ -20,7 +20,7 @@ class DXVA2SW_CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVA2SW_GETVIDEOPROCESSORRENDERTARGETCOUNT>}
      */
     GetVideoProcessorRenderTargetCount {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class DXVA2SW_CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVA2SW_GETVIDEOPROCESSORRENDERTARGETS>}
      */
     GetVideoProcessorRenderTargets {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class DXVA2SW_CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVA2SW_GETVIDEOPROCESSORCAPS>}
      */
     GetVideoProcessorCaps {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class DXVA2SW_CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVA2SW_GETVIDEOPROCESSORSUBSTREAMFORMATCOUNT>}
      */
     GetVideoProcessorSubStreamFormatCount {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +52,7 @@ class DXVA2SW_CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVA2SW_GETVIDEOPROCESSORSUBSTREAMFORMATS>}
      */
     GetVideoProcessorSubStreamFormats {
         get => NumGet(this, 40, "ptr")
@@ -60,7 +60,7 @@ class DXVA2SW_CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVA2SW_GETPROCAMPRANGE>}
      */
     GetProcAmpRange {
         get => NumGet(this, 48, "ptr")
@@ -68,7 +68,7 @@ class DXVA2SW_CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVA2SW_GETFILTERPROPERTYRANGE>}
      */
     GetFilterPropertyRange {
         get => NumGet(this, 56, "ptr")
@@ -76,7 +76,7 @@ class DXVA2SW_CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVA2SW_CREATEVIDEOPROCESSDEVICE>}
      */
     CreateVideoProcessDevice {
         get => NumGet(this, 64, "ptr")
@@ -84,7 +84,7 @@ class DXVA2SW_CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVA2SW_DESTROYVIDEOPROCESSDEVICE>}
      */
     DestroyVideoProcessDevice {
         get => NumGet(this, 72, "ptr")
@@ -92,7 +92,7 @@ class DXVA2SW_CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVA2SW_VIDEOPROCESSBEGINFRAME>}
      */
     VideoProcessBeginFrame {
         get => NumGet(this, 80, "ptr")
@@ -100,7 +100,7 @@ class DXVA2SW_CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVA2SW_VIDEOPROCESSENDFRAME>}
      */
     VideoProcessEndFrame {
         get => NumGet(this, 88, "ptr")
@@ -108,7 +108,7 @@ class DXVA2SW_CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVA2SW_VIDEOPROCESSSETRENDERTARGET>}
      */
     VideoProcessSetRenderTarget {
         get => NumGet(this, 96, "ptr")
@@ -116,7 +116,7 @@ class DXVA2SW_CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVA2SW_VIDEOPROCESSBLT>}
      */
     VideoProcessBlt {
         get => NumGet(this, 104, "ptr")

@@ -13,7 +13,7 @@ class WINUSB_SETUP_PACKET extends Win32Struct
 {
     static sizeof => 8
 
-    static packingSize => 1
+    static packingSize => 2
 
     /**
      * The request type. The values that are assigned to this member are defined in Table 9.2 of section 9.3 of the Universal Serial Bus (USB) specification (www.usb.org).

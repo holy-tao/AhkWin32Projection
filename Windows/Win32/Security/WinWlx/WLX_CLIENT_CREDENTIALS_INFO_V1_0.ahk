@@ -24,7 +24,7 @@ class WLX_CLIENT_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * A pointer to the name of the account logged onto.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszUserName {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class WLX_CLIENT_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * A pointer to the name of the domain used to log on.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszDomain {
         get => NumGet(this, 16, "ptr")
@@ -46,7 +46,7 @@ class WLX_CLIENT_CREDENTIALS_INFO_V1_0 extends Win32Struct
      * <b>Windows XP/2000:  </b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> is not supported. Overwrite the memory allocated for <i>pszPassword</i> to clear the sensitive information.
      * 
      * For more information about protecting passwords, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszPassword {
         get => NumGet(this, 24, "ptr")

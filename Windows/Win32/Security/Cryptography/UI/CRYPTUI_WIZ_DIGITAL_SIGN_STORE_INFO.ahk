@@ -33,7 +33,7 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_STORE_INFO extends Win32Struct
 
     /**
      * A pointer to a handle to the certificate store that will be used by the digital signature wizard.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     rghCertStore {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_STORE_INFO extends Win32Struct
 
     /**
      * Filter callback function used to display the certificate.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFNCFILTERPROC>}
      */
     pFilterCallback {
         get => NumGet(this, 16, "ptr")

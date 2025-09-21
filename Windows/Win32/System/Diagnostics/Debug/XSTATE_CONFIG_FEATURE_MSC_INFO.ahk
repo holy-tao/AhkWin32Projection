@@ -10,7 +10,7 @@ class XSTATE_CONFIG_FEATURE_MSC_INFO extends Win32Struct
 {
     static sizeof => 528
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}

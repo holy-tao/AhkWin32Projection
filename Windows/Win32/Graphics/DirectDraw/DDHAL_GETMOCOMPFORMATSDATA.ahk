@@ -44,7 +44,7 @@ class DDHAL_GETMOCOMPFORMATSDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ddRVal {
         get => NumGet(this, 32, "int")
@@ -52,7 +52,7 @@ class DDHAL_GETMOCOMPFORMATSDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALMOCOMPCB_GETFORMATS>}
      */
     GetMoCompFormats {
         get => NumGet(this, 40, "ptr")

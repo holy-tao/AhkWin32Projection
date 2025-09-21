@@ -9,7 +9,7 @@ class IMAGE_BDD_DYNAMIC_RELOCATION extends Win32Struct
 {
     static sizeof => 8
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * @type {Integer}

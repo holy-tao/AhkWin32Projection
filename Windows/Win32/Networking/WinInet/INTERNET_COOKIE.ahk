@@ -20,7 +20,7 @@ class INTERNET_COOKIE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszName {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class INTERNET_COOKIE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszData {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class INTERNET_COOKIE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszDomain {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class INTERNET_COOKIE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszPath {
         get => NumGet(this, 32, "ptr")
@@ -68,7 +68,7 @@ class INTERNET_COOKIE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszUrl {
         get => NumGet(this, 56, "ptr")
@@ -76,7 +76,7 @@ class INTERNET_COOKIE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszP3PPolicy {
         get => NumGet(this, 64, "ptr")

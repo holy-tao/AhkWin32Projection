@@ -11,7 +11,7 @@ class DNS_HEADER extends Win32Struct
 {
     static sizeof => 12
 
-    static packingSize => 1
+    static packingSize => 2
 
     /**
      * A value that specifies the unique DNS message identifier.

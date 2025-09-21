@@ -69,7 +69,7 @@ class SECPKG_PRIMARY_CRED_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     UserSid {
         get => NumGet(this, 72, "ptr")

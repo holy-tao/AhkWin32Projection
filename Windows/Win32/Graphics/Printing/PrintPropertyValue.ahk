@@ -28,7 +28,7 @@ class PrintPropertyValue extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     propertyString {
         get => NumGet(this, 4, "ptr")

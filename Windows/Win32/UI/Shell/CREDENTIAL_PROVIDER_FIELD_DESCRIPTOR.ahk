@@ -41,7 +41,7 @@ class CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a buffer containing the friendly name of the field as a null-terminated Unicode string. This is used for accessibility and queuing purposes. For example, some standard fields would have friend names of "Username", "Password", and "Log On To".
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszLabel {
         get => NumGet(this, 8, "ptr")

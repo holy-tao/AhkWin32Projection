@@ -43,7 +43,7 @@ class INET_FIREWALL_APP_CONTAINER extends Win32Struct
      * The app container's globally unique name.
      * 
      *  Also referred to as the  Package Family Name, for the app container of a Windows Store app.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     appContainerName {
         get => NumGet(this, 16, "ptr")
@@ -54,7 +54,7 @@ class INET_FIREWALL_APP_CONTAINER extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Friendly name of the app container
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     displayName {
         get => NumGet(this, 24, "ptr")
@@ -65,7 +65,7 @@ class INET_FIREWALL_APP_CONTAINER extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A description of the app container (its use, the objective of the application that uses it, etc.)
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     description {
         get => NumGet(this, 32, "ptr")
@@ -102,7 +102,7 @@ class INET_FIREWALL_APP_CONTAINER extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     workingDirectory {
         get => NumGet(this, 72, "ptr")
@@ -111,7 +111,7 @@ class INET_FIREWALL_APP_CONTAINER extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     packageFullName {
         get => NumGet(this, 80, "ptr")

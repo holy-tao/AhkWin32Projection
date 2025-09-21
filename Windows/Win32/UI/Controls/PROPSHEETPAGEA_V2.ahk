@@ -32,7 +32,7 @@ class PROPSHEETPAGEA_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hInstance {
         get => NumGet(this, 8, "ptr")
@@ -40,7 +40,7 @@ class PROPSHEETPAGEA_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszTemplate {
         get => NumGet(this, 16, "ptr")
@@ -56,7 +56,7 @@ class PROPSHEETPAGEA_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hIcon {
         get => NumGet(this, 24, "ptr")
@@ -64,7 +64,7 @@ class PROPSHEETPAGEA_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszIcon {
         get => NumGet(this, 24, "ptr")
@@ -72,7 +72,7 @@ class PROPSHEETPAGEA_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszTitle {
         get => NumGet(this, 32, "ptr")
@@ -80,7 +80,7 @@ class PROPSHEETPAGEA_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DLGPROC>}
      */
     pfnDlgProc {
         get => NumGet(this, 40, "ptr")
@@ -96,7 +96,7 @@ class PROPSHEETPAGEA_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPFNPSPCALLBACKA>}
      */
     pfnCallback {
         get => NumGet(this, 56, "ptr")
@@ -124,7 +124,7 @@ class PROPSHEETPAGEA_V2 extends Win32Struct
      * <li>Set the PSH_WIZARD97 flag in the <b>dwFlags</b> member of the page's <a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetheadera_v2">PROPSHEETHEADER</a> structure.</li>
      * <li>Make sure that the PSP_HIDEHEADER flag in the <b>dwFlags</b> member is not set.</li>
      * </ul>
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszHeaderTitle {
         get => NumGet(this, 72, "ptr")
@@ -146,7 +146,7 @@ class PROPSHEETPAGEA_V2 extends Win32Struct
      * </ul>
      * <div class="alert"><b>Note</b>  This member is ignored when using the Aero-style wizard (<a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetheadera_v2">PSH_AEROWIZARD</a>).</div>
      * <div> </div>
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszHeaderSubTitle {
         get => NumGet(this, 80, "ptr")

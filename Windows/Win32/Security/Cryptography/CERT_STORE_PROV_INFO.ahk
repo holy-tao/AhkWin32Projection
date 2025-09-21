@@ -348,7 +348,7 @@ class CERT_STORE_PROV_INFO extends Win32Struct
 
     /**
      * A 32-bit, application-defined value that is the first parameter passed to all callbacks. An application can specify the contents of this member as desired. Typically, this is a pointer to data that is specific to the application, such as provider state information for each store opened.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hStoreProv {
         get => NumGet(this, 16, "ptr")

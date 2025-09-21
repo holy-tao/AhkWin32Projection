@@ -36,7 +36,7 @@ class JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     VolumeName {
         get => NumGet(this, 24, "ptr")

@@ -36,7 +36,7 @@ class DDHAL_CANCREATESURFACEDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ddRVal {
         get => NumGet(this, 20, "int")
@@ -44,7 +44,7 @@ class DDHAL_CANCREATESURFACEDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_CANCREATESURFACE>}
      */
     CanCreateSurface {
         get => NumGet(this, 24, "ptr")

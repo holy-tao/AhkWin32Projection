@@ -42,7 +42,7 @@ class CONNECTDLGSTRUCTA extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * The handle to the owner window for the dialog box.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hwndOwner {
         get => NumGet(this, 8, "ptr")

@@ -11,9 +11,9 @@
  */
 class WM_STREAM_TYPE_INFO extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The major type of the stream.

@@ -18,7 +18,7 @@ class FXEQ_PARAMETERS extends Win32Struct
 {
     static sizeof => 48
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Center frequency in Hz for band 0. Must be between FXEQ_MIN_FREQUENCY_CENTER and FXEQ_MAX_FREQUENCY_CENTER.

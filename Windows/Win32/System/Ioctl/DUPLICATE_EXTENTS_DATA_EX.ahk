@@ -20,7 +20,7 @@ class DUPLICATE_EXTENTS_DATA_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     FileHandle {
         get => NumGet(this, 8, "ptr")

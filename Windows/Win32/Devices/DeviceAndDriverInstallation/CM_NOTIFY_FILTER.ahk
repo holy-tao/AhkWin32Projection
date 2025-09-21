@@ -60,7 +60,7 @@ class CM_NOTIFY_FILTER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     DeviceHandle {
         get => NumGet(this, 16, "ptr")

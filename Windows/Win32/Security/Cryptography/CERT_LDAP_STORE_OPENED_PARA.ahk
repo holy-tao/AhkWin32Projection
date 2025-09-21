@@ -24,7 +24,7 @@ class CERT_LDAP_STORE_OPENED_PARA extends Win32Struct
 
     /**
      * The address of a null-terminated Unicode string that contains the LDAP query string. For more information about LDAP query strings, see <a href="https://docs.microsoft.com/windows/desktop/ADSI/ldap-dialect">LDAP Dialect</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszLdapUrl {
         get => NumGet(this, 8, "ptr")

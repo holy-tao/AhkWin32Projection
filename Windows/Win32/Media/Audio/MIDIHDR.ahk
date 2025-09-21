@@ -9,13 +9,13 @@
  */
 class MIDIHDR extends Win32Struct
 {
-    static sizeof => 112
+    static sizeof => 120
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Pointer to MIDI data.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     lpData {
         get => NumGet(this, 0, "ptr")
@@ -110,8 +110,8 @@ class MIDIHDR extends Win32Struct
      * @type {Pointer<MIDIHDR>}
      */
     lpNext {
-        get => NumGet(this, 28, "ptr")
-        set => NumPut("ptr", value, this, 28)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -119,8 +119,8 @@ class MIDIHDR extends Win32Struct
      * @type {Pointer}
      */
     reserved {
-        get => NumGet(this, 36, "ptr")
-        set => NumPut("ptr", value, this, 36)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -128,8 +128,8 @@ class MIDIHDR extends Win32Struct
      * @type {Integer}
      */
     dwOffset {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -139,7 +139,7 @@ class MIDIHDR extends Win32Struct
     dwReserved{
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 48, 8, Primitive, "ptr")
+                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 56, 8, Primitive, "ptr")
             return this.__dwReservedProxyArray
         }
     }

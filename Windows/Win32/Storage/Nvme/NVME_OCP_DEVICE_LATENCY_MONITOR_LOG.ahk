@@ -12,9 +12,9 @@
  */
 class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
 {
-    static sizeof => 504
+    static sizeof => 512
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {LATENCY_MONITOR_FEATURE_STATUS}
@@ -303,40 +303,40 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
      * @type {Integer}
      */
     DebugLogLatencyStamp {
-        get => NumGet(this, 452, "uint")
-        set => NumPut("uint", value, this, 452)
+        get => NumGet(this, 456, "uint")
+        set => NumPut("uint", value, this, 456)
     }
 
     /**
      * @type {Integer}
      */
     DebugLogPointer {
-        get => NumGet(this, 460, "ushort")
-        set => NumPut("ushort", value, this, 460)
+        get => NumGet(this, 464, "ushort")
+        set => NumPut("ushort", value, this, 464)
     }
 
     /**
      * @type {Integer}
      */
     DebugCounterTriggerSource {
-        get => NumGet(this, 462, "ushort")
-        set => NumPut("ushort", value, this, 462)
+        get => NumGet(this, 466, "ushort")
+        set => NumPut("ushort", value, this, 466)
     }
 
     /**
      * @type {Integer}
      */
     Anonymous {
-        get => NumGet(this, 464, "char")
-        set => NumPut("char", value, this, 464)
+        get => NumGet(this, 468, "char")
+        set => NumPut("char", value, this, 468)
     }
 
     /**
      * @type {Integer}
      */
     AsUchar {
-        get => NumGet(this, 464, "char")
-        set => NumPut("char", value, this, 464)
+        get => NumGet(this, 468, "char")
+        set => NumPut("char", value, this, 468)
     }
 
     /**
@@ -345,7 +345,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     Reserved4{
         get {
             if(!this.HasProp("__Reserved4ProxyArray"))
-                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 465, 29, Primitive, "char")
+                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 469, 29, Primitive, "char")
             return this.__Reserved4ProxyArray
         }
     }
@@ -354,15 +354,15 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
      * @type {Integer}
      */
     LogPageVersionNumber {
-        get => NumGet(this, 494, "ushort")
-        set => NumPut("ushort", value, this, 494)
+        get => NumGet(this, 498, "ushort")
+        set => NumPut("ushort", value, this, 498)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     LogPageGUID {
-        get => NumGet(this, 496, "ptr")
-        set => NumPut("ptr", value, this, 496)
+        get => NumGet(this, 504, "ptr")
+        set => NumPut("ptr", value, this, 504)
     }
 }

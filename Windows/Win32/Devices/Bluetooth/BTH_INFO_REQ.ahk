@@ -7,9 +7,9 @@
  */
 class BTH_INFO_REQ extends Win32Struct
 {
-    static sizeof => 10
+    static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}

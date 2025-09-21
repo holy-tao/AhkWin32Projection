@@ -17,7 +17,7 @@ class BASEBROWSERDATALH extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * The handle of the browser's top-level window.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     _hwnd {
         get => NumGet(this, 0, "ptr")
@@ -169,7 +169,7 @@ class BASEBROWSERDATALH extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window returned by <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellview-createviewwindow">_psv->CreateViewWindow</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     _hwndView {
         get => NumGet(this, 104, "ptr")
@@ -180,7 +180,7 @@ class BASEBROWSERDATALH extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a buffer containing the Unicode title text for the current location.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     _pszTitleCur {
         get => NumGet(this, 112, "ptr")
@@ -224,7 +224,7 @@ class BASEBROWSERDATALH extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the pending target location's view window. Once navigation is complete, this value moves to <b>_hwndView</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     _hwndViewPending {
         get => NumGet(this, 144, "ptr")
@@ -235,7 +235,7 @@ class BASEBROWSERDATALH extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a buffer containing the Unicode title text for the pending target location. Once navigation is complete, this value moves to <b>_pszTitleCur</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     _pszTitlePending {
         get => NumGet(this, 152, "ptr")
@@ -284,7 +284,7 @@ class BASEBROWSERDATALH extends Win32Struct
 
     /**
      * Type: <b>HWND</b>
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     _hwndFrame {
         get => NumGet(this, 184, "ptr")

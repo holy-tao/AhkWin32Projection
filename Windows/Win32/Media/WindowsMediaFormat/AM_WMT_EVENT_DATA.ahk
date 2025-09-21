@@ -17,7 +17,7 @@ class AM_WMT_EVENT_DATA extends Win32Struct
 
     /**
      * The status code returned by the Windows Media Format SDK.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hrStatus {
         get => NumGet(this, 0, "int")

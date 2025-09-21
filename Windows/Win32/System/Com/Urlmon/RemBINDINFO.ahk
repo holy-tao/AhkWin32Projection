@@ -21,7 +21,7 @@ class RemBINDINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     szExtraInfo {
         get => NumGet(this, 8, "ptr")
@@ -45,7 +45,7 @@ class RemBINDINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     szCustomVerb {
         get => NumGet(this, 24, "ptr")

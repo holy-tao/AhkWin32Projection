@@ -12,7 +12,7 @@ class alljoyn_keystorelistener_with_synchronization_callbacks extends Win32Struc
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_keystorelistener_loadrequest_ptr>}
      */
     load_request {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class alljoyn_keystorelistener_with_synchronization_callbacks extends Win32Struc
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_keystorelistener_storerequest_ptr>}
      */
     store_request {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class alljoyn_keystorelistener_with_synchronization_callbacks extends Win32Struc
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_keystorelistener_acquireexclusivelock_ptr>}
      */
     acquire_exclusive_lock {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class alljoyn_keystorelistener_with_synchronization_callbacks extends Win32Struc
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_keystorelistener_releaseexclusivelock_ptr>}
      */
     release_exclusive_lock {
         get => NumGet(this, 24, "ptr")

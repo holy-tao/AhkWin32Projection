@@ -33,7 +33,7 @@ class DSREG_JOIN_INFO extends Win32Struct
 
     /**
      * The identifier of the device.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszDeviceId {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class DSREG_JOIN_INFO extends Win32Struct
 
     /**
      * A string that represents Azure Active Directory (Azure AD).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszIdpDomain {
         get => NumGet(this, 24, "ptr")
@@ -51,7 +51,7 @@ class DSREG_JOIN_INFO extends Win32Struct
 
     /**
      * The identifier of the joined Azure AD tenant.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszTenantId {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +60,7 @@ class DSREG_JOIN_INFO extends Win32Struct
 
     /**
      * The email address for the joined account.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszJoinUserEmail {
         get => NumGet(this, 40, "ptr")
@@ -69,7 +69,7 @@ class DSREG_JOIN_INFO extends Win32Struct
 
     /**
      * The display name for the joined account.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszTenantDisplayName {
         get => NumGet(this, 48, "ptr")
@@ -78,7 +78,7 @@ class DSREG_JOIN_INFO extends Win32Struct
 
     /**
      * The URL to use to enroll in the Mobile Device Management (MDM) service.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszMdmEnrollmentUrl {
         get => NumGet(this, 56, "ptr")
@@ -87,7 +87,7 @@ class DSREG_JOIN_INFO extends Win32Struct
 
     /**
      * The URL that provides information about the terms of use for the MDM service.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszMdmTermsOfUseUrl {
         get => NumGet(this, 64, "ptr")
@@ -96,7 +96,7 @@ class DSREG_JOIN_INFO extends Win32Struct
 
     /**
      * The URL that provides information about compliance for the MDM service.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszMdmComplianceUrl {
         get => NumGet(this, 72, "ptr")
@@ -105,7 +105,7 @@ class DSREG_JOIN_INFO extends Win32Struct
 
     /**
      * The URL for synchronizing user settings.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszUserSettingSyncUrl {
         get => NumGet(this, 80, "ptr")

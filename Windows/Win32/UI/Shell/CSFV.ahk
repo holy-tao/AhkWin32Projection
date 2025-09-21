@@ -70,7 +70,7 @@ class CSFV extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nc-shlobj_core-lpfnviewcallback">LPFNVIEWCALLBACK</a></b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nc-shlobj_core-lpfnviewcallback">LPFNVIEWCALLBACK</a> function used by this folder view to handle callback messages. This parameter can be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPFNVIEWCALLBACK>}
      */
     pfnCallback {
         get => NumGet(this, 40, "ptr")

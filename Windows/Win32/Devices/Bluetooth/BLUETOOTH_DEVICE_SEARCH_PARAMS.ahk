@@ -78,7 +78,7 @@ class BLUETOOTH_DEVICE_SEARCH_PARAMS extends Win32Struct
 
     /**
      * A handle for the radio on which to perform the inquiry. Set to <b>NULL</b> to perform the inquiry on all local Bluetooth radios.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hRadio {
         get => NumGet(this, 32, "ptr")

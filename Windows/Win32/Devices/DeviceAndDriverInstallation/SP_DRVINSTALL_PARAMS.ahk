@@ -31,9 +31,9 @@
  */
 class SP_DRVINSTALL_PARAMS extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The size, in bytes, of the SP_DRVINSTALL_PARAMS structure.
@@ -67,8 +67,8 @@ class SP_DRVINSTALL_PARAMS extends Win32Struct
      * @type {Pointer}
      */
     PrivateData {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -76,8 +76,8 @@ class SP_DRVINSTALL_PARAMS extends Win32Struct
      * @type {Integer}
      */
     Reserved {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -86,6 +86,6 @@ class SP_DRVINSTALL_PARAMS extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 24
+        this.cbSize := 32
     }
 }

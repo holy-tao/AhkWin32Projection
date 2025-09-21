@@ -12,7 +12,7 @@ class OEMUIPROCS extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_DrvGetDriverSetting>}
      */
     DrvGetDriverSetting {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class OEMUIPROCS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_DrvUpdateUISetting>}
      */
     DrvUpdateUISetting {
         get => NumGet(this, 8, "ptr")

@@ -13,7 +13,7 @@ class TRUSTEE_ACCESSA extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     lpProperty {
         get => NumGet(this, 0, "ptr")

@@ -26,7 +26,7 @@ class DHCP_HOST_INFO extends Win32Struct
 
     /**
      * Unicode string that contains the NetBIOS name of the DHCP server.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     NetBiosName {
         get => NumGet(this, 8, "ptr")
@@ -35,7 +35,7 @@ class DHCP_HOST_INFO extends Win32Struct
 
     /**
      * Unicode string that contains the network name of the DHCP server.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     HostName {
         get => NumGet(this, 16, "ptr")

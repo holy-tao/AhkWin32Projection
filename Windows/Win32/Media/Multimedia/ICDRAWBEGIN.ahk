@@ -130,7 +130,7 @@ class ICDRAWBEGIN extends Win32Struct
 
     /**
      * Handle to the palette used for drawing.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hpal {
         get => NumGet(this, 8, "ptr")
@@ -139,7 +139,7 @@ class ICDRAWBEGIN extends Win32Struct
 
     /**
      * Handle to the window used for drawing.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hwnd {
         get => NumGet(this, 16, "ptr")
@@ -148,7 +148,7 @@ class ICDRAWBEGIN extends Win32Struct
 
     /**
      * Handle to the DC used for drawing. Specify <b>NULL</b> to use a DC associated with the specified window.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hdc {
         get => NumGet(this, 24, "ptr")

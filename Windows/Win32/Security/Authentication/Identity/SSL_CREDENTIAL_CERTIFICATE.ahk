@@ -44,7 +44,7 @@ class SSL_CREDENTIAL_CERTIFICATE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszPassword {
         get => NumGet(this, 32, "ptr")

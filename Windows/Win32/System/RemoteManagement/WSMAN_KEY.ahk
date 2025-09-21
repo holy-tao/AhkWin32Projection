@@ -15,7 +15,7 @@ class WSMAN_KEY extends Win32Struct
 
     /**
      * Specifies the key name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     key {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class WSMAN_KEY extends Win32Struct
 
     /**
      * Defines the value associated with <i>key</i>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     value {
         get => NumGet(this, 8, "ptr")

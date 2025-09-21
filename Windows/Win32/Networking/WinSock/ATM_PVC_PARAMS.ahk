@@ -11,9 +11,9 @@
  */
 class ATM_PVC_PARAMS extends Win32Struct
 {
-    static sizeof => 92
+    static sizeof => 96
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {ATM_CONNECTION_ID}
@@ -32,7 +32,7 @@ class ATM_PVC_PARAMS extends Win32Struct
     PvcQos{
         get {
             if(!this.HasProp("__PvcQos"))
-                this.__PvcQos := QOS(this.ptr + 12)
+                this.__PvcQos := QOS(this.ptr + 16)
             return this.__PvcQos
         }
     }

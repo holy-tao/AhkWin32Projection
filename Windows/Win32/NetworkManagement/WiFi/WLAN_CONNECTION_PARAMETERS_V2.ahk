@@ -20,7 +20,7 @@ class WLAN_CONNECTION_PARAMETERS_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     strProfile {
         get => NumGet(this, 8, "ptr")

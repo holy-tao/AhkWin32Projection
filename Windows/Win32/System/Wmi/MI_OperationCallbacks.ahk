@@ -28,7 +28,7 @@ class MI_OperationCallbacks extends Win32Struct
 
     /**
      * Optional callback to handle prompt user requests from the server.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<MI_OperationCallback_PromptUser>}
      */
     promptUser {
         get => NumGet(this, 8, "ptr")
@@ -37,7 +37,7 @@ class MI_OperationCallbacks extends Win32Struct
 
     /**
      * Optional callback to receive write error messages from the server.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<MI_OperationCallback_WriteError>}
      */
     writeError {
         get => NumGet(this, 16, "ptr")
@@ -46,7 +46,7 @@ class MI_OperationCallbacks extends Win32Struct
 
     /**
      * Optional callback to receive write messages from the server.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<MI_OperationCallback_WriteMessage>}
      */
     writeMessage {
         get => NumGet(this, 24, "ptr")
@@ -55,7 +55,7 @@ class MI_OperationCallbacks extends Win32Struct
 
     /**
      * Optional callback to receive progress reports from the server.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<MI_OperationCallback_WriteProgress>}
      */
     writeProgress {
         get => NumGet(this, 32, "ptr")
@@ -64,7 +64,7 @@ class MI_OperationCallbacks extends Win32Struct
 
     /**
      * Optional instance callback to get asynchronous results from an operation.  If this is not specified and the operation is an instance operation, then the client will need to use the synchronous APIs to retrieve the results.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<MI_OperationCallback_Instance>}
      */
     instanceResult {
         get => NumGet(this, 40, "ptr")
@@ -73,7 +73,7 @@ class MI_OperationCallbacks extends Win32Struct
 
     /**
      * Optional instance callback to get indication (subscribe) results from an operation.  If this is not specified and the operation is an instance operation, then the client will need to use the synchronous APIs to retrieve the results.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<MI_OperationCallback_Indication>}
      */
     indicationResult {
         get => NumGet(this, 48, "ptr")
@@ -82,7 +82,7 @@ class MI_OperationCallbacks extends Win32Struct
 
     /**
      * Optional instance callback to get classes and class options from an operation.  If this is not specified and the operation is an instance operation, then the client will need to use the synchronous APIs to retrieve the results.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<MI_OperationCallback_Class>}
      */
     classResult {
         get => NumGet(this, 56, "ptr")
@@ -91,7 +91,7 @@ class MI_OperationCallbacks extends Win32Struct
 
     /**
      * Optional callback to get streamed parameter results from method invocation operations.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<MI_OperationCallback_StreamedParameter>}
      */
     streamedParameterResult {
         get => NumGet(this, 64, "ptr")

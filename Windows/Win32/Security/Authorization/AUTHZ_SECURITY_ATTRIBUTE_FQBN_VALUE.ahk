@@ -24,7 +24,7 @@ class AUTHZ_SECURITY_ATTRIBUTE_FQBN_VALUE extends Win32Struct
 
     /**
      * A pointer to strings that specify the names of the publisher, the product, and the original binary file of the value.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pName {
         get => NumGet(this, 8, "ptr")

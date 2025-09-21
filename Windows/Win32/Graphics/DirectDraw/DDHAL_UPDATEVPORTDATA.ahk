@@ -76,7 +76,7 @@ class DDHAL_UPDATEVPORTDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ddRVal {
         get => NumGet(this, 52, "int")
@@ -84,7 +84,7 @@ class DDHAL_UPDATEVPORTDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALVPORTCB_UPDATE>}
      */
     UpdateVideoPort {
         get => NumGet(this, 56, "ptr")

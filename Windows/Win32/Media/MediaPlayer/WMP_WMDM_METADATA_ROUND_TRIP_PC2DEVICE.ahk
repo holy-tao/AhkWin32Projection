@@ -11,7 +11,7 @@ class WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE extends Win32Struct
 {
     static sizeof => 8
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * The transaction identifier supplied by the device during the previous session. This value is zero for the first session ever.

@@ -9,7 +9,7 @@ class DEVPRIVATE_DES extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * @type {Integer}

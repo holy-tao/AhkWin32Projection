@@ -20,7 +20,7 @@ class VSC_LPWSTR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwsz {
         get => NumGet(this, 8, "ptr")

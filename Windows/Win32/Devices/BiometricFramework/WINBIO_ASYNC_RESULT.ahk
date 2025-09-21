@@ -185,7 +185,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
 
     /**
      * Error code returned by the operation.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ApiStatus {
         get => NumGet(this, 24, "int")

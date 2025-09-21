@@ -29,7 +29,7 @@ class HTTP_SERVICE_BINDING_W extends Win32Struct
 
     /**
      * A pointer to a buffer that represents the SPN.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     Buffer {
         get => NumGet(this, 8, "ptr")

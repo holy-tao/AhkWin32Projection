@@ -13,9 +13,9 @@
  */
 class USB_BUS_STATISTICS_0 extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 64
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The number of devices on the bus.
@@ -31,8 +31,8 @@ class USB_BUS_STATISTICS_0 extends Win32Struct
      * @type {Integer}
      */
     CurrentSystemTime {
-        get => NumGet(this, 4, "int64")
-        set => NumPut("int64", value, this, 4)
+        get => NumGet(this, 8, "int64")
+        set => NumPut("int64", value, this, 8)
     }
 
     /**
@@ -40,8 +40,8 @@ class USB_BUS_STATISTICS_0 extends Win32Struct
      * @type {Integer}
      */
     CurrentUsbFrame {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -49,8 +49,8 @@ class USB_BUS_STATISTICS_0 extends Win32Struct
      * @type {Integer}
      */
     BulkBytes {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -58,8 +58,8 @@ class USB_BUS_STATISTICS_0 extends Win32Struct
      * @type {Integer}
      */
     IsoBytes {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -67,8 +67,8 @@ class USB_BUS_STATISTICS_0 extends Win32Struct
      * @type {Integer}
      */
     InterruptBytes {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -76,8 +76,8 @@ class USB_BUS_STATISTICS_0 extends Win32Struct
      * @type {Integer}
      */
     ControlDataBytes {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -85,8 +85,8 @@ class USB_BUS_STATISTICS_0 extends Win32Struct
      * @type {Integer}
      */
     PciInterruptCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -94,8 +94,8 @@ class USB_BUS_STATISTICS_0 extends Win32Struct
      * @type {Integer}
      */
     HardResetCount {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -103,8 +103,8 @@ class USB_BUS_STATISTICS_0 extends Win32Struct
      * @type {Integer}
      */
     WorkerSignalCount {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -112,8 +112,8 @@ class USB_BUS_STATISTICS_0 extends Win32Struct
      * @type {Integer}
      */
     CommonBufferBytes {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -121,8 +121,8 @@ class USB_BUS_STATISTICS_0 extends Win32Struct
      * @type {Integer}
      */
     WorkerIdleTimeMs {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
@@ -130,8 +130,8 @@ class USB_BUS_STATISTICS_0 extends Win32Struct
      * @type {Integer}
      */
     RootHubEnabled {
-        get => NumGet(this, 52, "char")
-        set => NumPut("char", value, this, 52)
+        get => NumGet(this, 56, "char")
+        set => NumPut("char", value, this, 56)
     }
 
     /**
@@ -139,8 +139,8 @@ class USB_BUS_STATISTICS_0 extends Win32Struct
      * @type {Integer}
      */
     RootHubDevicePowerState {
-        get => NumGet(this, 53, "char")
-        set => NumPut("char", value, this, 53)
+        get => NumGet(this, 57, "char")
+        set => NumPut("char", value, this, 57)
     }
 
     /**
@@ -148,8 +148,8 @@ class USB_BUS_STATISTICS_0 extends Win32Struct
      * @type {Integer}
      */
     Unused {
-        get => NumGet(this, 54, "char")
-        set => NumPut("char", value, this, 54)
+        get => NumGet(this, 58, "char")
+        set => NumPut("char", value, this, 58)
     }
 
     /**
@@ -157,7 +157,7 @@ class USB_BUS_STATISTICS_0 extends Win32Struct
      * @type {Integer}
      */
     NameIndex {
-        get => NumGet(this, 55, "char")
-        set => NumPut("char", value, this, 55)
+        get => NumGet(this, 59, "char")
+        set => NumPut("char", value, this, 59)
     }
 }

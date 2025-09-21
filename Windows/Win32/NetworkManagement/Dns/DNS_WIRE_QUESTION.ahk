@@ -13,7 +13,7 @@ class DNS_WIRE_QUESTION extends Win32Struct
 {
     static sizeof => 4
 
-    static packingSize => 1
+    static packingSize => 2
 
     /**
      * A value that represents the question section's <a href="https://docs.microsoft.com/windows/desktop/DNS/dns-constants">DNS Question Type</a>.

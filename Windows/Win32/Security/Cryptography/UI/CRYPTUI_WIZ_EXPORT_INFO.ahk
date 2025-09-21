@@ -26,7 +26,7 @@ class CRYPTUI_WIZ_EXPORT_INFO extends Win32Struct
      * A pointer to a null-terminated Unicode string that contains the fully qualified file name to export to. If this member is
      * not <b>NULL</b> and the <b>CRYPTUI_WIZ_NO_UI</b> flag in the <i>dwFlags</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/cryptuiapi/nf-cryptuiapi-cryptuiwizexport">CryptUIWizExport</a> function is not set, this string is
      * displayed to the user as the default file name. This member is required if the <b>CRYPTUI_WIZ_NO_UI</b> flag is set.  This member is otherwise optional.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszExportFileName {
         get => NumGet(this, 8, "ptr")
@@ -67,7 +67,7 @@ class CRYPTUI_WIZ_EXPORT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hCertStore {
         get => NumGet(this, 24, "ptr")
@@ -86,7 +86,7 @@ class CRYPTUI_WIZ_EXPORT_INFO extends Win32Struct
     /**
      * An array of extra certificate stores to search for certificates in the trust chain if the chain is being exported with a certificate.
      * This member is ignored if <b>dwSubjectChoice</b> is anything other than the   <b>CRYPTUI_WIZ_EXPORT_CERT_CONTEXT</b> value. The <b>cStores</b> member contains the number of elements in this array.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     rghStores {
         get => NumGet(this, 40, "ptr")

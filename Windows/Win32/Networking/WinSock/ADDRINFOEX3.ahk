@@ -471,7 +471,7 @@ class ADDRINFOEX3 extends Win32Struct
 
     /**
      * The canonical name for the host.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ai_canonname {
         get => NumGet(this, 24, "ptr")
@@ -536,7 +536,7 @@ class ADDRINFOEX3 extends Win32Struct
 
     /**
      * The fully qualified domain name for the host.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ai_fqdn {
         get => NumGet(this, 80, "ptr")

@@ -36,7 +36,7 @@ class MQPRIVATEPROPS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<HRESULT>}
      */
     aStatus {
         get => NumGet(this, 24, "ptr")

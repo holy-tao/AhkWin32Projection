@@ -20,7 +20,7 @@ class alljoyn_busobject_methodentry extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_messagereceiver_methodhandler_ptr>}
      */
     method_handler {
         get => NumGet(this, 8, "ptr")

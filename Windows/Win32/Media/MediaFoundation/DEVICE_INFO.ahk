@@ -15,7 +15,7 @@ class DEVICE_INFO extends Win32Struct
 
     /**
      * The friendly name of the device.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pFriendlyDeviceName {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class DEVICE_INFO extends Win32Struct
 
     /**
      * A string that uniquely identifies the device.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pUniqueDeviceName {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class DEVICE_INFO extends Win32Struct
 
     /**
      * The manufacturer name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pManufacturerName {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class DEVICE_INFO extends Win32Struct
 
     /**
      * The model name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pModelName {
         get => NumGet(this, 24, "ptr")
@@ -51,7 +51,7 @@ class DEVICE_INFO extends Win32Struct
 
     /**
      * The URL of an icon for the device.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pIconURL {
         get => NumGet(this, 32, "ptr")

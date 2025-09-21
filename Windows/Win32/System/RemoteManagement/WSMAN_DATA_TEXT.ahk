@@ -24,7 +24,7 @@ class WSMAN_DATA_TEXT extends Win32Struct
 
     /**
      * Specifies the storage location for the textual data.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     buffer {
         get => NumGet(this, 8, "ptr")

@@ -59,7 +59,7 @@ class LSA_TOKEN_INFORMATION_V3 extends Win32Struct
      * The SID pointed to by this structure is expected to be in a separately allocated block of memory.
      * 
      * This member is mandatory and must be filled in.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     PrimaryGroup {
         get => NumGet(this, 32, "ptr")
@@ -89,7 +89,7 @@ class LSA_TOKEN_INFORMATION_V3 extends Win32Struct
      * 
      * 
      * The <b>Owner.Sid</b> member may be set to <b>NULL</b> to indicate there is no alternate default owner value.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     Owner {
         get => NumGet(this, 48, "ptr")
@@ -103,7 +103,7 @@ class LSA_TOKEN_INFORMATION_V3 extends Win32Struct
      * 
      * 
      * The <b>DefaultDacl.DefaultDacl</b> member may be set to <b>NULL</b> to indicate there is no default protection.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<TypeHandle>}
      */
     DefaultDacl {
         get => NumGet(this, 56, "ptr")
@@ -112,7 +112,7 @@ class LSA_TOKEN_INFORMATION_V3 extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_user_claims">TOKEN_USER_CLAIMS</a> structure. This member stores the opaque user claims BLOB for the token. The <b>UserClaims</b> member may be set to <b>NULL</b> to indicate there are no additional user claims in the token. Claims are allow-only entities so omitting claims may restrict access.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     UserClaims {
         get => NumGet(this, 64, "ptr")
@@ -121,7 +121,7 @@ class LSA_TOKEN_INFORMATION_V3 extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_device_claims">TOKEN_DEVICE_CLAIMS</a> structure. This member stores the opaque device claims BLOB for the token. The <b>DeviceClaims</b> member may be set to <b>NULL</b> to indicate there are no additional device claims in the token. Claims are allow-only entities so omitting claims may restrict access.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     DeviceClaims {
         get => NumGet(this, 72, "ptr")

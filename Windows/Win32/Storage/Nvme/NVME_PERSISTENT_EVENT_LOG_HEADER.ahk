@@ -7,9 +7,9 @@
  */
 class NVME_PERSISTENT_EVENT_LOG_HEADER extends Win32Struct
 {
-    static sizeof => 512
+    static sizeof => 520
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -74,8 +74,8 @@ class NVME_PERSISTENT_EVENT_LOG_HEADER extends Win32Struct
      * @type {Integer}
      */
     Timestamp {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -84,7 +84,7 @@ class NVME_PERSISTENT_EVENT_LOG_HEADER extends Win32Struct
     PowerOnHours{
         get {
             if(!this.HasProp("__PowerOnHoursProxyArray"))
-                this.__PowerOnHoursProxyArray := Win32FixedArray(this.ptr + 28, 16, Primitive, "char")
+                this.__PowerOnHoursProxyArray := Win32FixedArray(this.ptr + 32, 16, Primitive, "char")
             return this.__PowerOnHoursProxyArray
         }
     }
@@ -93,24 +93,24 @@ class NVME_PERSISTENT_EVENT_LOG_HEADER extends Win32Struct
      * @type {Integer}
      */
     PowerCycleCount {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
      * @type {Integer}
      */
     PciVendorId {
-        get => NumGet(this, 52, "ushort")
-        set => NumPut("ushort", value, this, 52)
+        get => NumGet(this, 56, "ushort")
+        set => NumPut("ushort", value, this, 56)
     }
 
     /**
      * @type {Integer}
      */
     PciSubsystemVendorId {
-        get => NumGet(this, 54, "ushort")
-        set => NumPut("ushort", value, this, 54)
+        get => NumGet(this, 58, "ushort")
+        set => NumPut("ushort", value, this, 58)
     }
 
     /**
@@ -119,7 +119,7 @@ class NVME_PERSISTENT_EVENT_LOG_HEADER extends Win32Struct
     SerialNumber{
         get {
             if(!this.HasProp("__SerialNumberProxyArray"))
-                this.__SerialNumberProxyArray := Win32FixedArray(this.ptr + 56, 20, Primitive, "char")
+                this.__SerialNumberProxyArray := Win32FixedArray(this.ptr + 60, 20, Primitive, "char")
             return this.__SerialNumberProxyArray
         }
     }
@@ -130,7 +130,7 @@ class NVME_PERSISTENT_EVENT_LOG_HEADER extends Win32Struct
     ModelNumber{
         get {
             if(!this.HasProp("__ModelNumberProxyArray"))
-                this.__ModelNumberProxyArray := Win32FixedArray(this.ptr + 76, 40, Primitive, "char")
+                this.__ModelNumberProxyArray := Win32FixedArray(this.ptr + 80, 40, Primitive, "char")
             return this.__ModelNumberProxyArray
         }
     }
@@ -141,7 +141,7 @@ class NVME_PERSISTENT_EVENT_LOG_HEADER extends Win32Struct
     NVMSubsystemNVMeQualifiedName{
         get {
             if(!this.HasProp("__NVMSubsystemNVMeQualifiedNameProxyArray"))
-                this.__NVMSubsystemNVMeQualifiedNameProxyArray := Win32FixedArray(this.ptr + 116, 256, Primitive, "char")
+                this.__NVMSubsystemNVMeQualifiedNameProxyArray := Win32FixedArray(this.ptr + 120, 256, Primitive, "char")
             return this.__NVMSubsystemNVMeQualifiedNameProxyArray
         }
     }
@@ -152,7 +152,7 @@ class NVME_PERSISTENT_EVENT_LOG_HEADER extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 372, 108, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 376, 108, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }
@@ -163,7 +163,7 @@ class NVME_PERSISTENT_EVENT_LOG_HEADER extends Win32Struct
     SupportedEventsBitmap{
         get {
             if(!this.HasProp("__SupportedEventsBitmapProxyArray"))
-                this.__SupportedEventsBitmapProxyArray := Win32FixedArray(this.ptr + 480, 32, Primitive, "char")
+                this.__SupportedEventsBitmapProxyArray := Win32FixedArray(this.ptr + 484, 32, Primitive, "char")
             return this.__SupportedEventsBitmapProxyArray
         }
     }

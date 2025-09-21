@@ -9,9 +9,9 @@
  */
 class MC_TIMING_REPORT extends Win32Struct
 {
-    static sizeof => 9
+    static sizeof => 12
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * The monitor's horizontal synchronization frequency in Hz.

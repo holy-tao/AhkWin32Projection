@@ -10,9 +10,9 @@
  */
 class PXE_DHCP_MESSAGE extends Win32Struct
 {
-    static sizeof => 243
+    static sizeof => 244
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Operation (op) field

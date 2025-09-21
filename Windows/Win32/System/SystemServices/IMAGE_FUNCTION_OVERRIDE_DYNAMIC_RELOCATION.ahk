@@ -9,7 +9,7 @@ class IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATION extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * @type {Integer}

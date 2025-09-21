@@ -40,7 +40,7 @@ class DD_MISCELLANEOUS2CALLBACKS extends Win32Struct
 
     /**
      * Unused and must be set to <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_ALPHABLT>}
      */
     AlphaBlt {
         get => NumGet(this, 8, "ptr")
@@ -49,7 +49,7 @@ class DD_MISCELLANEOUS2CALLBACKS extends Win32Struct
 
     /**
      * Points to the driver's <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_createsurfaceex">D3dCreateSurfaceEx</a> implementation. This callback creates an association between a DirectDraw surface and a small integer handle.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_CREATESURFACEEX>}
      */
     CreateSurfaceEx {
         get => NumGet(this, 16, "ptr")
@@ -58,7 +58,7 @@ class DD_MISCELLANEOUS2CALLBACKS extends Win32Struct
 
     /**
      * Points to the driver's <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_getdriverstate">D3dGetDriverState</a> implementation.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_GETDRIVERSTATE>}
      */
     GetDriverState {
         get => NumGet(this, 24, "ptr")
@@ -67,7 +67,7 @@ class DD_MISCELLANEOUS2CALLBACKS extends Win32Struct
 
     /**
      * Points to the driver's <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_destroyddlocal">D3dDestroyDDLocal</a> implementation. Used to destroy the local copy of the device context.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_DESTROYDDLOCAL>}
      */
     DestroyDDLocal {
         get => NumGet(this, 32, "ptr")

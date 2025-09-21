@@ -7,9 +7,9 @@
  */
 class WHEA_DRIVER_BUFFER_SET extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 48
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -23,30 +23,22 @@ class WHEA_DRIVER_BUFFER_SET extends Win32Struct
      * @type {Pointer<Byte>}
      */
     Data {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     DataSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     SectionTypeGuid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Byte>}
-     */
-    SectionFriendlyName {
         get => NumGet(this, 24, "ptr")
         set => NumPut("ptr", value, this, 24)
     }
@@ -54,8 +46,16 @@ class WHEA_DRIVER_BUFFER_SET extends Win32Struct
     /**
      * @type {Pointer<Byte>}
      */
-    Flags {
+    SectionFriendlyName {
         get => NumGet(this, 32, "ptr")
         set => NumPut("ptr", value, this, 32)
+    }
+
+    /**
+     * @type {Pointer<Byte>}
+     */
+    Flags {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

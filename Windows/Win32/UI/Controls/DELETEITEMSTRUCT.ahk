@@ -48,7 +48,7 @@ class DELETEITEMSTRUCT extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the control.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hwndItem {
         get => NumGet(this, 16, "ptr")

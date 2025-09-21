@@ -24,7 +24,7 @@ class DSA_NEWOBJ_DISPINFO extends Win32Struct
 
     /**
      * Contains the handle  of the class icon for the object created.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hObjClassIcon {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class DSA_NEWOBJ_DISPINFO extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the title of the wizard.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpszWizTitle {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class DSA_NEWOBJ_DISPINFO extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the display name, or canonical name,  of the container the object is created in.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpszContDisplayName {
         get => NumGet(this, 24, "ptr")

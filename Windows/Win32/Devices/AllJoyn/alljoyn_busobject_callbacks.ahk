@@ -12,7 +12,7 @@ class alljoyn_busobject_callbacks extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_busobject_prop_get_ptr>}
      */
     property_get {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class alljoyn_busobject_callbacks extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_busobject_prop_set_ptr>}
      */
     property_set {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class alljoyn_busobject_callbacks extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_busobject_object_registration_ptr>}
      */
     object_registered {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class alljoyn_busobject_callbacks extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_busobject_object_registration_ptr>}
      */
     object_unregistered {
         get => NumGet(this, 24, "ptr")

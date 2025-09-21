@@ -9,7 +9,7 @@ class NVME_OCP_DEVICE_CAPABILITIES_LOG extends Win32Struct
 {
     static sizeof => 4088
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}

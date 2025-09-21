@@ -28,7 +28,7 @@ class DHCP_FILTER_RECORD extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string which contains the comment associated with the address/pattern.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     Comment {
         get => NumGet(this, 272, "ptr")

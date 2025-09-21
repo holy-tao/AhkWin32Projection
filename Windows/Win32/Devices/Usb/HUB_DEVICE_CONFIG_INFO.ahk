@@ -10,9 +10,9 @@
  */
 class HUB_DEVICE_CONFIG_INFO extends Win32Struct
 {
-    static sizeof => 192
+    static sizeof => 200
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -91,7 +91,7 @@ class HUB_DEVICE_CONFIG_INFO extends Win32Struct
     UxdSettings{
         get {
             if(!this.HasProp("__UxdSettings"))
-                this.__UxdSettings := USB_HUB_DEVICE_UXD_SETTINGS(this.ptr + 140)
+                this.__UxdSettings := USB_HUB_DEVICE_UXD_SETTINGS(this.ptr + 144)
             return this.__UxdSettings
         }
     }

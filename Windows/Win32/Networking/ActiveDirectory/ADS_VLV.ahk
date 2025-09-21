@@ -53,7 +53,7 @@ class ADS_VLV extends Win32Struct
 
     /**
      * Optional. Null-terminated Unicode string that indicates the desired target entry requested by the client. If this parameter contains a non-<b>NULL</b> value, the server ignores the value specified in <b>dwOffset</b> and search for the first target entry whose value for the primary sort key is  greater than or equal to the specified string, based on the sort order of the list.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszTarget {
         get => NumGet(this, 16, "ptr")

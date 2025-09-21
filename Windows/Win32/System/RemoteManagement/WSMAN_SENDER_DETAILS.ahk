@@ -62,7 +62,7 @@ class WSMAN_SENDER_DETAILS extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     senderName {
         get => NumGet(this, 0, "ptr")
@@ -77,7 +77,7 @@ class WSMAN_SENDER_DETAILS extends Win32Struct
      * <li>ClientCertificate</li>
      * </ul>
      * All other types are queried directly from the security package.  For Internet Information Services (IIS) hosting, this string is retrieved from the IIS infrastructure.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     authenticationMechanism {
         get => NumGet(this, 8, "ptr")
@@ -98,7 +98,7 @@ class WSMAN_SENDER_DETAILS extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  Authorization plug-ins can change the user context and use a different impersonation token.</div>
      * <div> </div>
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     clientToken {
         get => NumGet(this, 24, "ptr")
@@ -107,7 +107,7 @@ class WSMAN_SENDER_DETAILS extends Win32Struct
 
     /**
      * Specifies the HTTP URL of the inbound request.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     httpURL {
         get => NumGet(this, 32, "ptr")

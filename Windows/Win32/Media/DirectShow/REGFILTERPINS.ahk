@@ -23,7 +23,7 @@ class REGFILTERPINS extends Win32Struct
 
     /**
      * Name of the pin. (Obsolete.)
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     strName {
         get => NumGet(this, 0, "ptr")
@@ -77,7 +77,7 @@ class REGFILTERPINS extends Win32Struct
 
     /**
      * Name of the pin to which this pin connects. (Obsolete.)
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     strConnectsToPin {
         get => NumGet(this, 32, "ptr")

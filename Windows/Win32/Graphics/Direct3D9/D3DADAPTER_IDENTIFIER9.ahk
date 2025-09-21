@@ -28,9 +28,9 @@
  */
 class D3DADAPTER_IDENTIFIER9 extends Win32Struct
 {
-    static sizeof => 2148
+    static sizeof => 2152
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * Type: **char**

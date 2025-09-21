@@ -20,7 +20,7 @@ class DNS_CONNECTION_PROXY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszFriendlyName {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +44,7 @@ class DNS_CONNECTION_PROXY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszServer {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +52,7 @@ class DNS_CONNECTION_PROXY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszUsername {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +60,7 @@ class DNS_CONNECTION_PROXY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszPassword {
         get => NumGet(this, 40, "ptr")
@@ -68,7 +68,7 @@ class DNS_CONNECTION_PROXY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszException {
         get => NumGet(this, 48, "ptr")
@@ -76,7 +76,7 @@ class DNS_CONNECTION_PROXY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszExtraInfo {
         get => NumGet(this, 56, "ptr")
@@ -92,7 +92,7 @@ class DNS_CONNECTION_PROXY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszScript {
         get => NumGet(this, 24, "ptr")

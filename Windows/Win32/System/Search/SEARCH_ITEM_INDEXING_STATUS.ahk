@@ -28,7 +28,7 @@ class SEARCH_ITEM_INDEXING_STATUS extends Win32Struct
      * Type: <b>HRESULT</b>
      * 
      * An <b>HRESULT</b> value that corresponds to a system error code or a Component Object Model (COM) error code. S_OK if successful, or an error value otherwise.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hrIndexingStatus {
         get => NumGet(this, 4, "int")

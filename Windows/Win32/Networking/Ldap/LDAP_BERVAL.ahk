@@ -26,7 +26,7 @@ class LDAP_BERVAL extends Win32Struct
 
     /**
      * Pointer to the binary data.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     bv_val {
         get => NumGet(this, 8, "ptr")

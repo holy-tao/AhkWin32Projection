@@ -9,13 +9,13 @@
  */
 class WM_PICTURE extends Win32Struct
 {
-    static sizeof => 29
+    static sizeof => 40
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Pointer to a wide-character null-terminated string containing the multipurpose Internet mail extension (MIME) type of the picture.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszMIMEType {
         get => NumGet(this, 0, "ptr")
@@ -33,11 +33,11 @@ class WM_PICTURE extends Win32Struct
 
     /**
      * Pointer to a wide-character null-terminated string containing a description of the picture.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszDescription {
-        get => NumGet(this, 9, "ptr")
-        set => NumPut("ptr", value, this, 9)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -45,8 +45,8 @@ class WM_PICTURE extends Win32Struct
      * @type {Integer}
      */
     dwDataLen {
-        get => NumGet(this, 17, "uint")
-        set => NumPut("uint", value, this, 17)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -54,7 +54,7 @@ class WM_PICTURE extends Win32Struct
      * @type {Pointer<Byte>}
      */
     pbData {
-        get => NumGet(this, 21, "ptr")
-        set => NumPut("ptr", value, this, 21)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

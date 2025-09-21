@@ -15,7 +15,7 @@ class SESSION_INFO_502 extends Win32Struct
 
     /**
      * Pointer to a Unicode string specifying the name of the computer that established the session. This string cannot contain a backslash (\\).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     sesi502_cname {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class SESSION_INFO_502 extends Win32Struct
 
     /**
      * Pointer to a Unicode string specifying the name of the user who established the session.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     sesi502_username {
         get => NumGet(this, 8, "ptr")
@@ -121,7 +121,7 @@ class SESSION_INFO_502 extends Win32Struct
      *  
      * 
      * Sessions from LAN Manager servers running UNIX also will appear as LAN Manager 2.0.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     sesi502_cltype_name {
         get => NumGet(this, 32, "ptr")
@@ -130,7 +130,7 @@ class SESSION_INFO_502 extends Win32Struct
 
     /**
      * Specifies the name of the transport that the client is using to communicate with the server.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     sesi502_transport {
         get => NumGet(this, 40, "ptr")

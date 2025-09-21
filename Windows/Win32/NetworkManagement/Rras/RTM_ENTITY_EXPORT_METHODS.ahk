@@ -24,7 +24,7 @@ class RTM_ENTITY_EXPORT_METHODS extends Win32Struct
 
     /**
      * Specifies which methods the client is exporting.
-     * @type {Array<Ptr>}
+     * @type {Array<RTM_ENTITY_EXPORT_METHOD>}
      */
     Methods{
         get {

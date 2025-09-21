@@ -38,7 +38,7 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURESHAREDRESOURCE extends Win32Struct
 
     /**
      * A process handle. If the **ProcessIdentifier** member equals **PROCESSTIDTYPE\_HANDLE**, the **ProcessHandle** member specifies a handle to a process. Otherwise, the value is ignored.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     ProcessHandle {
         get => NumGet(this, 48, "ptr")

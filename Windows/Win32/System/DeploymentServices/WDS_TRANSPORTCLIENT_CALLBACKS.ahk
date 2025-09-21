@@ -12,7 +12,7 @@ class WDS_TRANSPORTCLIENT_CALLBACKS extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_WdsTransportClientSessionStart>}
      */
     SessionStart {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class WDS_TRANSPORTCLIENT_CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_WdsTransportClientSessionStartEx>}
      */
     SessionStartEx {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class WDS_TRANSPORTCLIENT_CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_WdsTransportClientReceiveContents>}
      */
     ReceiveContents {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class WDS_TRANSPORTCLIENT_CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_WdsTransportClientReceiveMetadata>}
      */
     ReceiveMetadata {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class WDS_TRANSPORTCLIENT_CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_WdsTransportClientSessionComplete>}
      */
     SessionComplete {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +52,7 @@ class WDS_TRANSPORTCLIENT_CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_WdsTransportClientSessionNegotiate>}
      */
     SessionNegotiate {
         get => NumGet(this, 40, "ptr")

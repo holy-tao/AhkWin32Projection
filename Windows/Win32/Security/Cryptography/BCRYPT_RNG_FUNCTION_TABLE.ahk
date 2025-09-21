@@ -24,7 +24,7 @@ class BCRYPT_RNG_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BCryptOpenAlgorithmProviderFn>}
      */
     OpenAlgorithmProvider {
         get => NumGet(this, 8, "ptr")
@@ -32,7 +32,7 @@ class BCRYPT_RNG_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BCryptGetPropertyFn>}
      */
     GetProperty {
         get => NumGet(this, 16, "ptr")
@@ -40,7 +40,7 @@ class BCRYPT_RNG_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BCryptSetPropertyFn>}
      */
     SetProperty {
         get => NumGet(this, 24, "ptr")
@@ -48,7 +48,7 @@ class BCRYPT_RNG_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BCryptCloseAlgorithmProviderFn>}
      */
     CloseAlgorithmProvider {
         get => NumGet(this, 32, "ptr")
@@ -56,7 +56,7 @@ class BCRYPT_RNG_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BCryptGenRandomFn>}
      */
     GenRandom {
         get => NumGet(this, 40, "ptr")

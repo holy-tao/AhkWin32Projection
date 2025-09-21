@@ -32,7 +32,7 @@ class CRYPTUI_WIZ_IMPORT_SRC_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszFileName {
         get => NumGet(this, 8, "ptr")
@@ -64,7 +64,7 @@ class CRYPTUI_WIZ_IMPORT_SRC_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hCertStore {
         get => NumGet(this, 8, "ptr")
@@ -82,7 +82,7 @@ class CRYPTUI_WIZ_IMPORT_SRC_INFO extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the password used to access the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private key</a>.  A password is required if <b>pwszFileName</b> contains a PFX BLOB.  If a password is not required, the variable can be an empty string. This member cannot be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszPassword {
         get => NumGet(this, 24, "ptr")

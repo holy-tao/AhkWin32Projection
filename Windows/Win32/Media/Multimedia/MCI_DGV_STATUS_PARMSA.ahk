@@ -19,9 +19,9 @@
  */
 class MCI_DGV_STATUS_PARMSA extends Win32Struct
 {
-    static sizeof => 36
+    static sizeof => 40
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The low-order word specifies a window handle used for the MCI_NOTIFY flag.
@@ -61,7 +61,7 @@ class MCI_DGV_STATUS_PARMSA extends Win32Struct
 
     /**
      * Specifies the approximate amount of disk space that can be obtained by the <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mci-reserve">MCI_RESERVE</a> command.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     lpstrDrive {
         get => NumGet(this, 24, "ptr")

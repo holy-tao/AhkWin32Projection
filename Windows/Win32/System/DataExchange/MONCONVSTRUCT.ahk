@@ -54,7 +54,7 @@ class MONCONVSTRUCT extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * A handle to a task (application instance) that is a partner in the conversation.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hTask {
         get => NumGet(this, 16, "ptr")
@@ -65,7 +65,7 @@ class MONCONVSTRUCT extends Win32Struct
      * Type: <b>HSZ</b>
      * 
      * A handle to the service name on which the conversation is established.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hszSvc {
         get => NumGet(this, 24, "ptr")
@@ -76,7 +76,7 @@ class MONCONVSTRUCT extends Win32Struct
      * Type: <b>HSZ</b>
      * 
      * A handle to the topic name on which the conversation is established.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hszTopic {
         get => NumGet(this, 32, "ptr")
@@ -87,7 +87,7 @@ class MONCONVSTRUCT extends Win32Struct
      * Type: <b>HCONV</b>
      * 
      * A handle to the client conversation.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hConvClient {
         get => NumGet(this, 40, "ptr")
@@ -98,7 +98,7 @@ class MONCONVSTRUCT extends Win32Struct
      * Type: <b>HCONV</b>
      * 
      * A handle to the server conversation.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hConvServer {
         get => NumGet(this, 48, "ptr")

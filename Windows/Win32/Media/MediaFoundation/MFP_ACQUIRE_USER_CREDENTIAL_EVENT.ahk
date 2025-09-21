@@ -68,7 +68,7 @@ class MFP_ACQUIRE_USER_CREDENTIAL_EVENT extends Win32Struct
 
     /**
      * The response code of the authentication challenge.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hrAuthenticationStatus {
         get => NumGet(this, 44, "int")
@@ -77,7 +77,7 @@ class MFP_ACQUIRE_USER_CREDENTIAL_EVENT extends Win32Struct
 
     /**
      * The original URL that requires authentication.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszURL {
         get => NumGet(this, 48, "ptr")
@@ -86,7 +86,7 @@ class MFP_ACQUIRE_USER_CREDENTIAL_EVENT extends Win32Struct
 
     /**
      * The name of the site or proxy that requires authentication.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszSite {
         get => NumGet(this, 56, "ptr")
@@ -95,7 +95,7 @@ class MFP_ACQUIRE_USER_CREDENTIAL_EVENT extends Win32Struct
 
     /**
      * The name of the realm for this authentication.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszRealm {
         get => NumGet(this, 64, "ptr")
@@ -104,7 +104,7 @@ class MFP_ACQUIRE_USER_CREDENTIAL_EVENT extends Win32Struct
 
     /**
      * The name of the authentication package, such as "Digest" or "MBS_BASIC".
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszPackage {
         get => NumGet(this, 72, "ptr")

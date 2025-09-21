@@ -27,7 +27,7 @@ class DNS_TKEY_DATAW extends Win32Struct
 
     /**
      * A pointer to a string that represents the name of the key as defined in section 2.1 of <a href="https://www.ietf.org/rfc/rfc2930.txt">RFC 2930</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pNameAlgorithm {
         get => NumGet(this, 0, "ptr")

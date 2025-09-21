@@ -21,7 +21,7 @@ class WINBIO_PRIVATE_SENSOR_TYPE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     WinBioHresult {
         get => NumGet(this, 4, "int")

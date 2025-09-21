@@ -449,7 +449,7 @@ class DEVINFO extends Win32Struct
 
     /**
      * Handle to the default palette for the device. The driver should create the palette by calling <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engcreatepalette">EngCreatePalette</a>. The driver associates a palette with a device by returning this handle to GDI.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hpalDefault {
         get => NumGet(this, 304, "ptr")

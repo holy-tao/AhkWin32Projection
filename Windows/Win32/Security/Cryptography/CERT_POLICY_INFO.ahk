@@ -15,7 +15,7 @@ class CERT_POLICY_INFO extends Win32Struct
 
     /**
      * Object identifier (OID) string specifying the policy.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszPolicyIdentifier {
         get => NumGet(this, 0, "ptr")

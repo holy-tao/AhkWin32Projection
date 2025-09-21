@@ -19,7 +19,7 @@ class QCMINFO extends Win32Struct
      * Type: <b>HMENU</b>
      * 
      * [in] The handle of the menu where the new commands are to be added.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hmenu {
         get => NumGet(this, 0, "ptr")

@@ -12,7 +12,7 @@ class APP_CACHE_DOWNLOAD_ENTRY extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszUrl {
         get => NumGet(this, 0, "ptr")

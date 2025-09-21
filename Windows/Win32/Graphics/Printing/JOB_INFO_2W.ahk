@@ -28,7 +28,7 @@ class JOB_INFO_2W extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the name of the printer for which the job is spooled.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pPrinterName {
         get => NumGet(this, 8, "ptr")
@@ -37,7 +37,7 @@ class JOB_INFO_2W extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the name of the machine that created the print job.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pMachineName {
         get => NumGet(this, 16, "ptr")
@@ -46,7 +46,7 @@ class JOB_INFO_2W extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the name of the user who owns the print job.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pUserName {
         get => NumGet(this, 24, "ptr")
@@ -55,7 +55,7 @@ class JOB_INFO_2W extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the name of the print job (for example, "MS-WORD: Review.doc").
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pDocument {
         get => NumGet(this, 32, "ptr")
@@ -64,7 +64,7 @@ class JOB_INFO_2W extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the name of the user who should be notified when the job has been printed or when an error occurs while printing the job.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pNotifyName {
         get => NumGet(this, 40, "ptr")
@@ -73,7 +73,7 @@ class JOB_INFO_2W extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the type of data used to record the print job.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pDatatype {
         get => NumGet(this, 48, "ptr")
@@ -82,7 +82,7 @@ class JOB_INFO_2W extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the name of the print processor that should be used to print the job.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pPrintProcessor {
         get => NumGet(this, 56, "ptr")
@@ -91,7 +91,7 @@ class JOB_INFO_2W extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies print-processor parameters.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pParameters {
         get => NumGet(this, 64, "ptr")
@@ -100,7 +100,7 @@ class JOB_INFO_2W extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the name of the printer driver that should be used to process the print job.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pDriverName {
         get => NumGet(this, 72, "ptr")
@@ -118,7 +118,7 @@ class JOB_INFO_2W extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the status of the print job. This member should be checked prior to **Status** and, if **pStatus** is **NULL**, the status is defined by the contents of the Status member.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pStatus {
         get => NumGet(this, 88, "ptr")
@@ -127,7 +127,7 @@ class JOB_INFO_2W extends Win32Struct
 
     /**
      * The value of this member is **NULL**. Retrieval and setting of document security descriptors is not supported in this release.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     pSecurityDescriptor {
         get => NumGet(this, 96, "ptr")

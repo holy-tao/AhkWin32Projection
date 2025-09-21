@@ -12,7 +12,7 @@ class MONITOR extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PRINTING_ENUMPORTS>}
      */
     pfnEnumPorts {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class MONITOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PRINTING_OPENPORT>}
      */
     pfnOpenPort {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class MONITOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PRINTING_OPENPORTEX>}
      */
     pfnOpenPortEx {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class MONITOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PRINTING_STARTDOCPORT>}
      */
     pfnStartDocPort {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class MONITOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PRINTING_WRITEPORT>}
      */
     pfnWritePort {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +52,7 @@ class MONITOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PRINTING_READPORT>}
      */
     pfnReadPort {
         get => NumGet(this, 40, "ptr")
@@ -60,7 +60,7 @@ class MONITOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PRINTING_ENDDOCPORT>}
      */
     pfnEndDocPort {
         get => NumGet(this, 48, "ptr")
@@ -68,7 +68,7 @@ class MONITOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PRINTING_CLOSEPORT>}
      */
     pfnClosePort {
         get => NumGet(this, 56, "ptr")
@@ -76,7 +76,7 @@ class MONITOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PRINTING_ADDPORT>}
      */
     pfnAddPort {
         get => NumGet(this, 64, "ptr")
@@ -84,7 +84,7 @@ class MONITOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PRINTING_ADDPORTEX>}
      */
     pfnAddPortEx {
         get => NumGet(this, 72, "ptr")
@@ -92,7 +92,7 @@ class MONITOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PRINTING_CONFIGUREPORT>}
      */
     pfnConfigurePort {
         get => NumGet(this, 80, "ptr")
@@ -100,7 +100,7 @@ class MONITOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PRINTING_DELETEPORT>}
      */
     pfnDeletePort {
         get => NumGet(this, 88, "ptr")
@@ -108,7 +108,7 @@ class MONITOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PRINTING_GETPRINTERDATAFROMPORT>}
      */
     pfnGetPrinterDataFromPort {
         get => NumGet(this, 96, "ptr")
@@ -116,7 +116,7 @@ class MONITOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PRINTING_SETPORTTIMEOUTS>}
      */
     pfnSetPortTimeOuts {
         get => NumGet(this, 104, "ptr")
@@ -124,7 +124,7 @@ class MONITOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PRINTING_XCVOPENPORT>}
      */
     pfnXcvOpenPort {
         get => NumGet(this, 112, "ptr")
@@ -132,7 +132,7 @@ class MONITOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PRINTING_XCVDATAPORT>}
      */
     pfnXcvDataPort {
         get => NumGet(this, 120, "ptr")
@@ -140,7 +140,7 @@ class MONITOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PRINTING_XCVCLOSEPORT>}
      */
     pfnXcvClosePort {
         get => NumGet(this, 128, "ptr")

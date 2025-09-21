@@ -62,7 +62,7 @@ class THERMAL_EVENT extends Win32Struct
 
     /**
      * A pointer to a NULL-terminated, wide-character string that identifies the sensor whose threshold was crossed.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     Initiator {
         get => NumGet(this, 24, "ptr")

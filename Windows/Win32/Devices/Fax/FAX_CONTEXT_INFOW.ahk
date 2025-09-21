@@ -38,7 +38,7 @@ class FAX_CONTEXT_INFOW extends Win32Struct
      * Type: <b>HDC</b>
      * 
      * Handle to a fax printer device context. A call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxstartprintjoba">FaxStartPrintJob</a> function supplies the data for this member.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hDC {
         get => NumGet(this, 8, "ptr")

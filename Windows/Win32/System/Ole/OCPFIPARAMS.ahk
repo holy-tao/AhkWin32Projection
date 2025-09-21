@@ -24,7 +24,7 @@ class OCPFIPARAMS extends Win32Struct
 
     /**
      * Handle to the parent window of the resulting property sheet dialog box.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hWndOwner {
         get => NumGet(this, 8, "ptr")
@@ -51,7 +51,7 @@ class OCPFIPARAMS extends Win32Struct
 
     /**
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/nf-wtypesbase-olestr">OLESTR</a> that contains the caption of the dialog.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpszCaption {
         get => NumGet(this, 24, "ptr")

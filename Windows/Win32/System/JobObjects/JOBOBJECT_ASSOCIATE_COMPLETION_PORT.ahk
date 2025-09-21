@@ -186,7 +186,7 @@ class JOBOBJECT_ASSOCIATE_COMPLETION_PORT extends Win32Struct
      * The completion port to use in the <i>CompletionPort</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/FileIO/postqueuedcompletionstatus">PostQueuedCompletionStatus</a> function when messages are sent on behalf of the job.
      * 
      * <b>Windows 8, Windows Server 2012, Windows 8.1, Windows Server 2012 R2, Windows 10 and Windows Server 2016:  </b>Specify <b>NULL</b> to remove the association between the current completion port and the job.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     CompletionPort {
         get => NumGet(this, 8, "ptr")

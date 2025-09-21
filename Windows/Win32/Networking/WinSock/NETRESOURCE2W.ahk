@@ -46,7 +46,7 @@ class NETRESOURCE2W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpLocalName {
         get => NumGet(this, 16, "ptr")
@@ -54,7 +54,7 @@ class NETRESOURCE2W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpRemoteName {
         get => NumGet(this, 24, "ptr")
@@ -62,7 +62,7 @@ class NETRESOURCE2W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpComment {
         get => NumGet(this, 32, "ptr")

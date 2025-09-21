@@ -28,7 +28,7 @@ class CRYPT_PKCS8_IMPORT_PARAMS extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pcrypt_resolve_hcryptprov_func">PCRYPT_RESOLVE_HCRYPTPROV_FUNC</a> pointer  that points to data used by a user-defined function that retrieves a handle to a CSP.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PCRYPT_RESOLVE_HCRYPTPROV_FUNC>}
      */
     pResolvehCryptProvFunc {
         get => NumGet(this, 16, "ptr")
@@ -46,7 +46,7 @@ class CRYPT_PKCS8_IMPORT_PARAMS extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pcrypt_decrypt_private_key_func">PCRYPT_DECRYPT_PRIVATE_KEY_FUNC</a> pointer that points to  a callback function used to decrypt the private key.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PCRYPT_DECRYPT_PRIVATE_KEY_FUNC>}
      */
     pDecryptPrivateKeyFunc {
         get => NumGet(this, 32, "ptr")

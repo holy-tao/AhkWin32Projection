@@ -7,9 +7,9 @@
  */
 class WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER_V1 extends Win32Struct
 {
-    static sizeof => 36
+    static sizeof => 40
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -23,16 +23,16 @@ class WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER_V1 extends Win32Struct
      * @type {Pointer<Guid>}
      */
     SourceGuid {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     LogTag {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
+        get => NumGet(this, 16, "ushort")
+        set => NumPut("ushort", value, this, 16)
     }
 
     /**
@@ -41,24 +41,24 @@ class WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER_V1 extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 14, 6, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 18, 6, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WHEA_ERROR_SOURCE_INITIALIZE_DEVICE_DRIVER>}
      */
     Initialize {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WHEA_ERROR_SOURCE_UNINITIALIZE_DEVICE_DRIVER>}
      */
     Uninitialize {
-        get => NumGet(this, 28, "ptr")
-        set => NumPut("ptr", value, this, 28)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

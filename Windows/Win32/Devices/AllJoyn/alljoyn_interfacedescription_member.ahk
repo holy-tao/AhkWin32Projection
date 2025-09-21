@@ -28,7 +28,7 @@ class alljoyn_interfacedescription_member extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     name {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class alljoyn_interfacedescription_member extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     signature {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class alljoyn_interfacedescription_member extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     returnSignature {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +52,7 @@ class alljoyn_interfacedescription_member extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     argNames {
         get => NumGet(this, 40, "ptr")

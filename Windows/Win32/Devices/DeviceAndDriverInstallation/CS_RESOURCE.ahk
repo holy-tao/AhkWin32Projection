@@ -10,9 +10,9 @@
  */
 class CS_RESOURCE extends Win32Struct
 {
-    static sizeof => 25
+    static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * A [CS_DES](/windows/desktop/api/cfgmgr32/ns-cfgmgr32-cs_des) structure.

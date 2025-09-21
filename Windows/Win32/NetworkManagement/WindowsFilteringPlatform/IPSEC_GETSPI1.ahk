@@ -36,7 +36,7 @@ class IPSEC_GETSPI1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<TypeHandle>}
      */
     Anonymous {
         get => NumGet(this, 56, "ptr")

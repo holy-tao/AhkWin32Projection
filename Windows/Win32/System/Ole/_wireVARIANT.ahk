@@ -372,7 +372,7 @@ class _wireVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pcVal {
         get => NumGet(this, 16, "ptr")

@@ -139,7 +139,7 @@ class VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     bstrVal {
         get => NumGet(this, 8, "ptr")
@@ -259,7 +259,7 @@ class VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pbstrVal {
         get => NumGet(this, 8, "ptr")
@@ -363,7 +363,7 @@ class VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pcVal {
         get => NumGet(this, 8, "ptr")

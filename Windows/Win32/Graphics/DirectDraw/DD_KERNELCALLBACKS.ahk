@@ -41,7 +41,7 @@ class DD_KERNELCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_kernelcb_syncsurface">DdSyncSurfaceData</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_KERNELCB_SYNCSURFACE>}
      */
     SyncSurfaceData {
         get => NumGet(this, 8, "ptr")
@@ -50,7 +50,7 @@ class DD_KERNELCALLBACKS extends Win32Struct
 
     /**
      * Points to the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_kernelcb_syncvideoport">DdSyncVideoPortData</a> callback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDD_KERNELCB_SYNCVIDEOPORT>}
      */
     SyncVideoPortData {
         get => NumGet(this, 16, "ptr")

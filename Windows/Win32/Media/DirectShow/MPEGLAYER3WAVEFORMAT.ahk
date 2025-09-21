@@ -10,9 +10,9 @@
  */
 class MPEGLAYER3WAVEFORMAT extends Win32Struct
 {
-    static sizeof => 30
+    static sizeof => 40
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure that specifies the basic audio format. The <b>wFormatTag</b> member must be <b>WAVE_FORMAT_MPEGLAYER3</b>. The <b>cbSize</b> member must be at least 12. (For <b>cbSize</b>, you can use the constant <b>MPEGLAYER3_WFX_EXTRA_BYTES</b>, defined in the Mmreg.h.)
@@ -31,8 +31,8 @@ class MPEGLAYER3WAVEFORMAT extends Win32Struct
      * @type {Integer}
      */
     wID {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
+        get => NumGet(this, 20, "ushort")
+        set => NumPut("ushort", value, this, 20)
     }
 
     /**
@@ -40,8 +40,8 @@ class MPEGLAYER3WAVEFORMAT extends Win32Struct
      * @type {Integer}
      */
     fdwFlags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -49,8 +49,8 @@ class MPEGLAYER3WAVEFORMAT extends Win32Struct
      * @type {Integer}
      */
     nBlockSize {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
+        get => NumGet(this, 28, "ushort")
+        set => NumPut("ushort", value, this, 28)
     }
 
     /**
@@ -58,8 +58,8 @@ class MPEGLAYER3WAVEFORMAT extends Win32Struct
      * @type {Integer}
      */
     nFramesPerBlock {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
+        get => NumGet(this, 30, "ushort")
+        set => NumPut("ushort", value, this, 30)
     }
 
     /**
@@ -67,7 +67,7 @@ class MPEGLAYER3WAVEFORMAT extends Win32Struct
      * @type {Integer}
      */
     nCodecDelay {
-        get => NumGet(this, 28, "ushort")
-        set => NumPut("ushort", value, this, 28)
+        get => NumGet(this, 32, "ushort")
+        set => NumPut("ushort", value, this, 32)
     }
 }

@@ -34,7 +34,7 @@ class CHANNEL_ENTRY_POINTS extends Win32Struct
     /**
      * Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/cchannel/nc-cchannel-virtualchannelinit">VirtualChannelInit</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PVIRTUALCHANNELINIT>}
      */
     pVirtualChannelInit {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +44,7 @@ class CHANNEL_ENTRY_POINTS extends Win32Struct
     /**
      * Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/cchannel/nc-cchannel-virtualchannelopen">VirtualChannelOpen</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PVIRTUALCHANNELOPEN>}
      */
     pVirtualChannelOpen {
         get => NumGet(this, 16, "ptr")
@@ -54,7 +54,7 @@ class CHANNEL_ENTRY_POINTS extends Win32Struct
     /**
      * Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/cchannel/nc-cchannel-virtualchannelclose">VirtualChannelClose</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PVIRTUALCHANNELCLOSE>}
      */
     pVirtualChannelClose {
         get => NumGet(this, 24, "ptr")
@@ -64,7 +64,7 @@ class CHANNEL_ENTRY_POINTS extends Win32Struct
     /**
      * Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/cchannel/nc-cchannel-virtualchannelwrite">VirtualChannelWrite</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PVIRTUALCHANNELWRITE>}
      */
     pVirtualChannelWrite {
         get => NumGet(this, 32, "ptr")

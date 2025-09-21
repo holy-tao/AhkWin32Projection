@@ -11,9 +11,9 @@
  */
 class BITMAPFILEHEADER extends Win32Struct
 {
-    static sizeof => 14
+    static sizeof => 16
 
-    static packingSize => 2
+    static packingSize => 4
 
     /**
      * The file type; must be BM.
@@ -29,8 +29,8 @@ class BITMAPFILEHEADER extends Win32Struct
      * @type {Integer}
      */
     bfSize {
-        get => NumGet(this, 2, "uint")
-        set => NumPut("uint", value, this, 2)
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 
     /**
@@ -38,8 +38,8 @@ class BITMAPFILEHEADER extends Win32Struct
      * @type {Integer}
      */
     bfReserved1 {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
+        get => NumGet(this, 8, "ushort")
+        set => NumPut("ushort", value, this, 8)
     }
 
     /**
@@ -47,8 +47,8 @@ class BITMAPFILEHEADER extends Win32Struct
      * @type {Integer}
      */
     bfReserved2 {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
+        get => NumGet(this, 10, "ushort")
+        set => NumPut("ushort", value, this, 10)
     }
 
     /**
@@ -56,7 +56,7 @@ class BITMAPFILEHEADER extends Win32Struct
      * @type {Integer}
      */
     bfOffBits {
-        get => NumGet(this, 10, "uint")
-        set => NumPut("uint", value, this, 10)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 }

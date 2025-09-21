@@ -33,7 +33,7 @@ class DD_MAPMEMORYDATA extends Win32Struct
 
     /**
      * Handle to the process whose address space is affected.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hProcess {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +51,7 @@ class DD_MAPMEMORYDATA extends Win32Struct
 
     /**
      * Specifies the location in which the driver writes the return value of the <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_mapmemory">DdMapMemory</a> callback. A return code of DD_OK indicates success. For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/return-values-for-directdraw">Return Values for DirectDraw</a>.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ddRVal {
         get => NumGet(this, 32, "int")

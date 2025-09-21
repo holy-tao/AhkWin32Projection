@@ -15,7 +15,7 @@ class LINEGENERATETONE extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Frequency of this tone component, in hertz. A service provider may adjust (round up or down) the frequency specified by the application to fit its resolution.

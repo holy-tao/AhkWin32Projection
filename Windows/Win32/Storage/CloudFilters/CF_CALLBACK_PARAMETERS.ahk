@@ -111,7 +111,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     Pattern {
         get => NumGet(this, 12, "ptr")
@@ -127,7 +127,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     TargetPath {
         get => NumGet(this, 12, "ptr")
@@ -135,7 +135,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     SourcePath {
         get => NumGet(this, 12, "ptr")

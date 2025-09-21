@@ -21,7 +21,7 @@ class WSDXML_NAMESPACE extends Win32Struct
 
     /**
      * The URI that identifies the namespace.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     Uri {
         get => NumGet(this, 0, "ptr")
@@ -30,7 +30,7 @@ class WSDXML_NAMESPACE extends Win32Struct
 
     /**
      * The preferred prefix to be used in XML prefix mappings.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     PreferredPrefix {
         get => NumGet(this, 8, "ptr")

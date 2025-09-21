@@ -78,7 +78,7 @@ class CAPDRIVERCAPS extends Win32Struct
 
     /**
      * Not used in Win32 applications.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hVideoIn {
         get => NumGet(this, 32, "ptr")
@@ -87,7 +87,7 @@ class CAPDRIVERCAPS extends Win32Struct
 
     /**
      * Not used in Win32 applications.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hVideoOut {
         get => NumGet(this, 40, "ptr")
@@ -96,7 +96,7 @@ class CAPDRIVERCAPS extends Win32Struct
 
     /**
      * Not used in Win32 applications.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hVideoExtIn {
         get => NumGet(this, 48, "ptr")
@@ -105,7 +105,7 @@ class CAPDRIVERCAPS extends Win32Struct
 
     /**
      * Not used in Win32 applications.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hVideoExtOut {
         get => NumGet(this, 56, "ptr")

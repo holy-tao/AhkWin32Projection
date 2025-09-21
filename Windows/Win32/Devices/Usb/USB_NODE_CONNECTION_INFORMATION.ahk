@@ -10,9 +10,9 @@
  */
 class USB_NODE_CONNECTION_INFORMATION extends Win32Struct
 {
-    static sizeof => 43
+    static sizeof => 48
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -28,7 +28,7 @@ class USB_NODE_CONNECTION_INFORMATION extends Win32Struct
     DeviceDescriptor{
         get {
             if(!this.HasProp("__DeviceDescriptor"))
-                this.__DeviceDescriptor := USB_DEVICE_DESCRIPTOR(this.ptr + 4)
+                this.__DeviceDescriptor := USB_DEVICE_DESCRIPTOR(this.ptr + 8)
             return this.__DeviceDescriptor
         }
     }
@@ -37,48 +37,48 @@ class USB_NODE_CONNECTION_INFORMATION extends Win32Struct
      * @type {Integer}
      */
     CurrentConfigurationValue {
-        get => NumGet(this, 22, "char")
-        set => NumPut("char", value, this, 22)
+        get => NumGet(this, 26, "char")
+        set => NumPut("char", value, this, 26)
     }
 
     /**
      * @type {Integer}
      */
     LowSpeed {
-        get => NumGet(this, 23, "char")
-        set => NumPut("char", value, this, 23)
+        get => NumGet(this, 27, "char")
+        set => NumPut("char", value, this, 27)
     }
 
     /**
      * @type {Integer}
      */
     DeviceIsHub {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
+        get => NumGet(this, 28, "char")
+        set => NumPut("char", value, this, 28)
     }
 
     /**
      * @type {Integer}
      */
     DeviceAddress {
-        get => NumGet(this, 25, "ushort")
-        set => NumPut("ushort", value, this, 25)
+        get => NumGet(this, 30, "ushort")
+        set => NumPut("ushort", value, this, 30)
     }
 
     /**
      * @type {Integer}
      */
     NumberOfOpenPipes {
-        get => NumGet(this, 27, "uint")
-        set => NumPut("uint", value, this, 27)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     ConnectionStatus {
-        get => NumGet(this, 31, "int")
-        set => NumPut("int", value, this, 31)
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**
@@ -87,7 +87,7 @@ class USB_NODE_CONNECTION_INFORMATION extends Win32Struct
     PipeList{
         get {
             if(!this.HasProp("__PipeListProxyArray"))
-                this.__PipeListProxyArray := Win32FixedArray(this.ptr + 35, 1, USB_PIPE_INFO, "")
+                this.__PipeListProxyArray := Win32FixedArray(this.ptr + 40, 1, USB_PIPE_INFO, "")
             return this.__PipeListProxyArray
         }
     }

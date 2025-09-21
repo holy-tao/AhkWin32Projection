@@ -39,7 +39,7 @@ class SERVER_TRANSPORT_INFO_0 extends Win32Struct
      * ```
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     svti0_transportname {
         get => NumGet(this, 8, "ptr")
@@ -79,7 +79,7 @@ class SERVER_TRANSPORT_INFO_0 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/nf-lmserver-netservertransportaddex">NetServerTransportAddEx</a> function.)
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     svti0_networkaddress {
         get => NumGet(this, 32, "ptr")

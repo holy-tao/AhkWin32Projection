@@ -60,7 +60,7 @@ class DDRAWI_DDRAWPALETTE_GBL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hHELGDIPalette {
         get => NumGet(this, 32, "ptr")

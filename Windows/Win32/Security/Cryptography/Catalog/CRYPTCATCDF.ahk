@@ -26,7 +26,7 @@ class CRYPTCATCDF extends Win32Struct
 
     /**
      * A handle to the catalog definition file (.cdf).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hFile {
         get => NumGet(this, 8, "ptr")
@@ -62,7 +62,7 @@ class CRYPTCATCDF extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the name of a directory where the catalog file (.cat) will be written.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszResultDir {
         get => NumGet(this, 32, "ptr")
@@ -71,7 +71,7 @@ class CRYPTCATCDF extends Win32Struct
 
     /**
      * A handle to the catalog file (.cat).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hCATStore {
         get => NumGet(this, 40, "ptr")

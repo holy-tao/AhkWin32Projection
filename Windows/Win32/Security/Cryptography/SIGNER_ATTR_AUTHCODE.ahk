@@ -42,7 +42,7 @@ class SIGNER_ATTR_AUTHCODE extends Win32Struct
 
     /**
      * The display name of the file upon download.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszName {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +51,7 @@ class SIGNER_ATTR_AUTHCODE extends Win32Struct
 
     /**
      * The display name of the URL of the file upon download.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszInfo {
         get => NumGet(this, 24, "ptr")

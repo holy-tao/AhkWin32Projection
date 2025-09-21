@@ -55,7 +55,7 @@ class DIBSECTION extends Win32Struct
      * Contains a handle to the file mapping object that the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdibsection">CreateDIBSection</a> function used to create the DIB. 
      * 			 If <b>CreateDIBSection</b> was called with a <b>NULL</b> value for its <i>hSection</i> parameter, 
      * 			 causing the system to allocate memory for the bitmap, the <i>dshSection</i> member will be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     dshSection {
         get => NumGet(this, 88, "ptr")

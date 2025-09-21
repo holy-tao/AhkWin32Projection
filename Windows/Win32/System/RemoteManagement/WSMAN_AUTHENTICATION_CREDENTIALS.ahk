@@ -35,7 +35,7 @@ class WSMAN_AUTHENTICATION_CREDENTIALS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     certificateThumbprint {
         get => NumGet(this, 8, "ptr")

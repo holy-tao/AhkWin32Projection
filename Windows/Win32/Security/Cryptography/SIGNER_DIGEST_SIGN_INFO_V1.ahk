@@ -23,7 +23,7 @@ class SIGNER_DIGEST_SIGN_INFO_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_AUTHENTICODE_DIGEST_SIGN>}
      */
     pfnAuthenticodeDigestSign {
         get => NumGet(this, 8, "ptr")

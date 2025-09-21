@@ -24,7 +24,7 @@ class LOG_MANAGEMENT_CALLBACKS extends Win32Struct
 
     /**
      * Called when the management functionality determines that the client should advance the tail of its log.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PLOG_TAIL_ADVANCE_CALLBACK>}
      */
     AdvanceTailCallback {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class LOG_MANAGEMENT_CALLBACKS extends Win32Struct
 
     /**
      * Called when an asynchronous request is initiated when <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmtw32/nf-clfsmgmtw32-handlelogfull">HandleLogFull</a> completes.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PLOG_FULL_HANDLER_CALLBACK>}
      */
     LogFullHandlerCallback {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class LOG_MANAGEMENT_CALLBACKS extends Win32Struct
 
     /**
      * Called when a pinned log becomes unpinned.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PLOG_UNPINNED_CALLBACK>}
      */
     LogUnpinnedCallback {
         get => NumGet(this, 24, "ptr")

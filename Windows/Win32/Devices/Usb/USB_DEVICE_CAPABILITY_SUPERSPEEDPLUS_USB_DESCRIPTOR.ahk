@@ -8,9 +8,9 @@
  */
 class USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_USB_DESCRIPTOR extends Win32Struct
 {
-    static sizeof => 20
+    static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -82,7 +82,7 @@ class USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_USB_DESCRIPTOR extends Win32Struct
     bmSublinkSpeedAttr{
         get {
             if(!this.HasProp("__bmSublinkSpeedAttrProxyArray"))
-                this.__bmSublinkSpeedAttrProxyArray := Win32FixedArray(this.ptr + 12, 1, USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED, "")
+                this.__bmSublinkSpeedAttrProxyArray := Win32FixedArray(this.ptr + 16, 1, USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED, "")
             return this.__bmSublinkSpeedAttrProxyArray
         }
     }

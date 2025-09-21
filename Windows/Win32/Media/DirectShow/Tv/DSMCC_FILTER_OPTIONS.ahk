@@ -9,9 +9,9 @@
  */
 class DSMCC_FILTER_OPTIONS extends Win32Struct
 {
-    static sizeof => 45
+    static sizeof => 60
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * If this flag is <b>TRUE</b>, the protocolDiscriminator field in the header must match the value of the <b>Protocol</b> structure member. Otherwise, the protocolDiscriminator field is ignored.
@@ -36,8 +36,8 @@ class DSMCC_FILTER_OPTIONS extends Win32Struct
      * @type {Integer}
      */
     fSpecifyType {
-        get => NumGet(this, 5, "int")
-        set => NumPut("int", value, this, 5)
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
@@ -45,8 +45,8 @@ class DSMCC_FILTER_OPTIONS extends Win32Struct
      * @type {Integer}
      */
     Type {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
+        get => NumGet(this, 12, "char")
+        set => NumPut("char", value, this, 12)
     }
 
     /**
@@ -54,8 +54,8 @@ class DSMCC_FILTER_OPTIONS extends Win32Struct
      * @type {Integer}
      */
     fSpecifyMessageId {
-        get => NumGet(this, 10, "int")
-        set => NumPut("int", value, this, 10)
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
@@ -63,8 +63,8 @@ class DSMCC_FILTER_OPTIONS extends Win32Struct
      * @type {Integer}
      */
     MessageId {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
+        get => NumGet(this, 20, "ushort")
+        set => NumPut("ushort", value, this, 20)
     }
 
     /**
@@ -72,8 +72,8 @@ class DSMCC_FILTER_OPTIONS extends Win32Struct
      * @type {Integer}
      */
     fSpecifyTransactionId {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
@@ -97,8 +97,8 @@ class DSMCC_FILTER_OPTIONS extends Win32Struct
      * @type {Integer}
      */
     fUseTrxIdMessageIdMask {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -106,8 +106,8 @@ class DSMCC_FILTER_OPTIONS extends Win32Struct
      * @type {Integer}
      */
     TransactionId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -115,8 +115,8 @@ class DSMCC_FILTER_OPTIONS extends Win32Struct
      * @type {Integer}
      */
     fSpecifyModuleVersion {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**
@@ -124,8 +124,8 @@ class DSMCC_FILTER_OPTIONS extends Win32Struct
      * @type {Integer}
      */
     ModuleVersion {
-        get => NumGet(this, 32, "char")
-        set => NumPut("char", value, this, 32)
+        get => NumGet(this, 40, "char")
+        set => NumPut("char", value, this, 40)
     }
 
     /**
@@ -133,8 +133,8 @@ class DSMCC_FILTER_OPTIONS extends Win32Struct
      * @type {Integer}
      */
     fSpecifyBlockNumber {
-        get => NumGet(this, 33, "int")
-        set => NumPut("int", value, this, 33)
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 
     /**
@@ -142,8 +142,8 @@ class DSMCC_FILTER_OPTIONS extends Win32Struct
      * @type {Integer}
      */
     BlockNumber {
-        get => NumGet(this, 37, "ushort")
-        set => NumPut("ushort", value, this, 37)
+        get => NumGet(this, 48, "ushort")
+        set => NumPut("ushort", value, this, 48)
     }
 
     /**
@@ -151,8 +151,8 @@ class DSMCC_FILTER_OPTIONS extends Win32Struct
      * @type {Integer}
      */
     fGetModuleCall {
-        get => NumGet(this, 39, "int")
-        set => NumPut("int", value, this, 39)
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**
@@ -160,7 +160,7 @@ class DSMCC_FILTER_OPTIONS extends Win32Struct
      * @type {Integer}
      */
     NumberOfBlocksInModule {
-        get => NumGet(this, 43, "ushort")
-        set => NumPut("ushort", value, this, 43)
+        get => NumGet(this, 56, "ushort")
+        set => NumPut("ushort", value, this, 56)
     }
 }

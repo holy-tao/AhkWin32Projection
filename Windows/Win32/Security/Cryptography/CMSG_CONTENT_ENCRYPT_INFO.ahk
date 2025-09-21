@@ -142,7 +142,7 @@ class CMSG_CONTENT_ENCRYPT_INFO extends Win32Struct
 
     /**
      * A pointer to an installable function used to allocate memory for an updated member.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CMSG_ALLOC>}
      */
     pfnAlloc {
         get => NumGet(this, 64, "ptr")
@@ -151,7 +151,7 @@ class CMSG_CONTENT_ENCRYPT_INFO extends Win32Struct
 
     /**
      * A pointer to an installable function used to free memory allocated by <b>pfnAlloc</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CMSG_FREE>}
      */
     pfnFree {
         get => NumGet(this, 72, "ptr")
@@ -176,7 +176,7 @@ class CMSG_CONTENT_ENCRYPT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hCNGContentEncryptKey {
         get => NumGet(this, 88, "ptr")

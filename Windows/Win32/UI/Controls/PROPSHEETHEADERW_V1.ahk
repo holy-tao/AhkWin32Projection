@@ -28,7 +28,7 @@ class PROPSHEETHEADERW_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hwndParent {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class PROPSHEETHEADERW_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hInstance {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class PROPSHEETHEADERW_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hIcon {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +52,7 @@ class PROPSHEETHEADERW_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszIcon {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +60,7 @@ class PROPSHEETHEADERW_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszCaption {
         get => NumGet(this, 32, "ptr")
@@ -84,7 +84,7 @@ class PROPSHEETHEADERW_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pStartPage {
         get => NumGet(this, 44, "ptr")
@@ -100,7 +100,7 @@ class PROPSHEETHEADERW_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     phpage {
         get => NumGet(this, 48, "ptr")
@@ -108,7 +108,7 @@ class PROPSHEETHEADERW_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFNPROPSHEETCALLBACK>}
      */
     pfnCallback {
         get => NumGet(this, 56, "ptr")

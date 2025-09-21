@@ -64,7 +64,7 @@ class DDHAL_GETINTERNALMOCOMPDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ddRVal {
         get => NumGet(this, 60, "int")
@@ -72,7 +72,7 @@ class DDHAL_GETINTERNALMOCOMPDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALMOCOMPCB_GETINTERNALINFO>}
      */
     GetInternalMoCompInfo {
         get => NumGet(this, 64, "ptr")

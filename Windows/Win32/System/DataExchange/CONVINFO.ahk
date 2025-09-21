@@ -41,7 +41,7 @@ class CONVINFO extends Win32Struct
      * Type: <b>HCONV</b>
      * 
      * A handle to the partner application in the DDE conversation. This member is zero if the partner has not registered itself (using the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function) to make DDEML function calls. An application should not pass this member to any DDEML function except <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddequeryconvinfo">DdeQueryConvInfo</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hConvPartner {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +52,7 @@ class CONVINFO extends Win32Struct
      * Type: <b>HSZ</b>
      * 
      * A handle to the service name of the partner application.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hszSvcPartner {
         get => NumGet(this, 24, "ptr")
@@ -63,7 +63,7 @@ class CONVINFO extends Win32Struct
      * Type: <b>HSZ</b>
      * 
      * A handle to the service name of the server application that was requested for connection.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hszServiceReq {
         get => NumGet(this, 32, "ptr")
@@ -74,7 +74,7 @@ class CONVINFO extends Win32Struct
      * Type: <b>HSZ</b>
      * 
      * A handle to the name of the requested topic.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hszTopic {
         get => NumGet(this, 40, "ptr")
@@ -85,7 +85,7 @@ class CONVINFO extends Win32Struct
      * Type: <b>HSZ</b>
      * 
      * A handle to the name of the requested item. This member is transaction specific.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hszItem {
         get => NumGet(this, 48, "ptr")
@@ -145,7 +145,7 @@ class CONVINFO extends Win32Struct
      * Type: <b>HCONVLIST</b>
      * 
      * A handle to the conversation list if the handle to the current conversation is in a conversation list. This member is <b>NULL</b> if the conversation is not in a conversation list.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hConvList {
         get => NumGet(this, 80, "ptr")
@@ -170,7 +170,7 @@ class CONVINFO extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window of the calling application involved in the conversation.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hwnd {
         get => NumGet(this, 128, "ptr")
@@ -181,7 +181,7 @@ class CONVINFO extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window of the partner application involved in the current conversation.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hwndPartner {
         get => NumGet(this, 136, "ptr")

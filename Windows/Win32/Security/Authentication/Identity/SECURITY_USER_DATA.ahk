@@ -52,7 +52,7 @@ class SECURITY_USER_DATA extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) of the user.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     pSid {
         get => NumGet(this, 48, "ptr")

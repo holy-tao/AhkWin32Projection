@@ -28,7 +28,7 @@ class PROPSHEETPAGEA_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hInstance {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class PROPSHEETPAGEA_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszTemplate {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +52,7 @@ class PROPSHEETPAGEA_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hIcon {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +60,7 @@ class PROPSHEETPAGEA_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszIcon {
         get => NumGet(this, 24, "ptr")
@@ -68,7 +68,7 @@ class PROPSHEETPAGEA_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszTitle {
         get => NumGet(this, 32, "ptr")
@@ -76,7 +76,7 @@ class PROPSHEETPAGEA_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DLGPROC>}
      */
     pfnDlgProc {
         get => NumGet(this, 40, "ptr")
@@ -92,7 +92,7 @@ class PROPSHEETPAGEA_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPFNPSPCALLBACKA>}
      */
     pfnCallback {
         get => NumGet(this, 56, "ptr")

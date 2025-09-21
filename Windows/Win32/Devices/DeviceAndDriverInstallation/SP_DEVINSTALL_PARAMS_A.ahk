@@ -13,9 +13,9 @@
  */
 class SP_DEVINSTALL_PARAMS_A extends Win32Struct
 {
-    static sizeof => 316
+    static sizeof => 320
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The size, in bytes, of the SP_DEVINSTALL_PARAMS structure.
@@ -46,20 +46,20 @@ class SP_DEVINSTALL_PARAMS_A extends Win32Struct
 
     /**
      * Window handle that will own the user interface dialogs related to this device.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hwndParent {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Callback used to handle events during file copying. An installer can use a callback, for example, to perform special processing when committing a file queue.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PSP_FILE_CALLBACK_A>}
      */
     InstallMsgHandler {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -67,8 +67,8 @@ class SP_DEVINSTALL_PARAMS_A extends Win32Struct
      * @type {Pointer<Void>}
      */
     InstallMsgHandlerContext {
-        get => NumGet(this, 28, "ptr")
-        set => NumPut("ptr", value, this, 28)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -80,8 +80,8 @@ class SP_DEVINSTALL_PARAMS_A extends Win32Struct
      * @type {Pointer<Void>}
      */
     FileQueue {
-        get => NumGet(this, 36, "ptr")
-        set => NumPut("ptr", value, this, 36)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -89,8 +89,8 @@ class SP_DEVINSTALL_PARAMS_A extends Win32Struct
      * @type {Pointer}
      */
     ClassInstallReserved {
-        get => NumGet(this, 44, "ptr")
-        set => NumPut("ptr", value, this, 44)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -98,8 +98,8 @@ class SP_DEVINSTALL_PARAMS_A extends Win32Struct
      * @type {Integer}
      */
     Reserved {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -107,8 +107,8 @@ class SP_DEVINSTALL_PARAMS_A extends Win32Struct
      * @type {String}
      */
     DriverPath {
-        get => StrGet(this.ptr + 56, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 56, 259, "UTF-8")
+        get => StrGet(this.ptr + 60, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 60, 259, "UTF-8")
     }
 
     /**
@@ -117,6 +117,6 @@ class SP_DEVINSTALL_PARAMS_A extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 316
+        this.cbSize := 320
     }
 }

@@ -20,7 +20,7 @@ class PM_INSTALLINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     PackagePath {
         get => NumGet(this, 8, "ptr")
@@ -76,7 +76,7 @@ class PM_INSTALLINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     MarketplaceAppVersion {
         get => NumGet(this, 56, "ptr")

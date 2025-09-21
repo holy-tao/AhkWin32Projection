@@ -38,7 +38,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hChannel {
         get => NumGet(this, 24, "ptr")
@@ -55,7 +55,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT extends Win32Struct
 
     /**
      * The result code for the query.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ReturnCode {
         get => NumGet(this, 36, "int")

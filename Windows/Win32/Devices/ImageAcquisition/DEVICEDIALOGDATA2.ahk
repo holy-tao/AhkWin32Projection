@@ -62,7 +62,7 @@ class DEVICEDIALOGDATA2 extends Win32Struct
      * 
      * 
      * Specifies the handle to the parent window of the dialog.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hwndParent {
         get => NumGet(this, 24, "ptr")
@@ -74,7 +74,7 @@ class DEVICEDIALOGDATA2 extends Win32Struct
      * 
      * 
      * Specifies the folder name where the files are transferred.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     bstrFolderName {
         get => NumGet(this, 32, "ptr")
@@ -86,7 +86,7 @@ class DEVICEDIALOGDATA2 extends Win32Struct
      * 
      * 
      * Specifies the filename template to be used for files transferred from WIA items to the destination folder designated by **bstrFolderName**. An arbitrary number of unique file names can be created by appending additional characters to the file name template.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     bstrFilename {
         get => NumGet(this, 40, "ptr")
@@ -110,7 +110,7 @@ class DEVICEDIALOGDATA2 extends Win32Struct
      * 
      * 
      * Pointer to an array of BSTR pointers. Each array element points to a BSTR that contains the destination name of a file that was successfully transferred to the folder identified by bstrFolderName. The method must allocate the storage for this member.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pbstrFilePaths {
         get => NumGet(this, 56, "ptr")

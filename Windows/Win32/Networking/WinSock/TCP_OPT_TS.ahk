@@ -7,9 +7,9 @@
  */
 class TCP_OPT_TS extends Win32Struct
 {
-    static sizeof => 10
+    static sizeof => 12
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -31,15 +31,15 @@ class TCP_OPT_TS extends Win32Struct
      * @type {Integer}
      */
     Val {
-        get => NumGet(this, 2, "uint")
-        set => NumPut("uint", value, this, 2)
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 
     /**
      * @type {Integer}
      */
     EcR {
-        get => NumGet(this, 6, "uint")
-        set => NumPut("uint", value, this, 6)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 }

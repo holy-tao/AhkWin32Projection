@@ -36,7 +36,7 @@ class CERT_SERVER_OCSP_RESPONSE_OPEN_PARA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszOcspDirectory {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class CERT_SERVER_OCSP_RESPONSE_OPEN_PARA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CERT_SERVER_OCSP_RESPONSE_UPDATE_CALLBACK>}
      */
     pfnUpdateCallback {
         get => NumGet(this, 24, "ptr")

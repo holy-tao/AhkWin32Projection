@@ -15,7 +15,7 @@ class CRYPT_PROPERTY_REF extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the name of the property.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszProperty {
         get => NumGet(this, 0, "ptr")

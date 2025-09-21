@@ -128,7 +128,7 @@ class NETLOGON_INFO_2 extends Win32Struct
 
     /**
      * A marshaled pointer to a string that contains the name of the trusted domain controller.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     netlog2_trusted_dc_name {
         get => NumGet(this, 8, "ptr")

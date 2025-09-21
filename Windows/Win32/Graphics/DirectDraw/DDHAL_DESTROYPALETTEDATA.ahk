@@ -28,7 +28,7 @@ class DDHAL_DESTROYPALETTEDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ddRVal {
         get => NumGet(this, 16, "int")
@@ -36,7 +36,7 @@ class DDHAL_DESTROYPALETTEDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALPALCB_DESTROYPALETTE>}
      */
     DestroyPalette {
         get => NumGet(this, 24, "ptr")

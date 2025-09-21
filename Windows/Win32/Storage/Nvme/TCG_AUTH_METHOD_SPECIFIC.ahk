@@ -7,9 +7,9 @@
  */
 class TCG_AUTH_METHOD_SPECIFIC extends Win32Struct
 {
-    static sizeof => 9
+    static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}

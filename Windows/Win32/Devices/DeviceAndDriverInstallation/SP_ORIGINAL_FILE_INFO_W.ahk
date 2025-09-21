@@ -15,7 +15,7 @@ class SP_ORIGINAL_FILE_INFO_W extends Win32Struct
 {
     static sizeof => 1044
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Size of this structure, in bytes.

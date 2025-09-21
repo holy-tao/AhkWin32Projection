@@ -37,7 +37,7 @@ class WTD_GENERIC_CHAIN_POLICY_CREATE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hChainEngine {
         get => NumGet(this, 8, "ptr")

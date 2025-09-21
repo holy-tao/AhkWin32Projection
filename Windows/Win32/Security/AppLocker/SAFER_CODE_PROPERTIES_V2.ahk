@@ -111,7 +111,7 @@ class SAFER_CODE_PROPERTIES_V2 extends Win32Struct
 
     /**
      * A string specifying the fully qualified path and file name to be used for discrimination checks based on the path. The image path is also used to open and read the file to identify any other discrimination criteria not supplied in this structure. This member can be <b>NULL</b>; however, if the <b>dwCheckFlags</b> member includes <b>SAFER_CRITERIA_AUTHENTICODE</b>, either this member or the <b>hImageFileHandle</b> member must be set.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ImagePath {
         get => NumGet(this, 8, "ptr")
@@ -120,7 +120,7 @@ class SAFER_CODE_PROPERTIES_V2 extends Win32Struct
 
     /**
      * A file handle to a code image with at least GENERIC_READ access. The handle is used instead of explicitly reopening the file  to compute discrimination criteria not supplied in this structure. This member can be <b>NULL</b>; however, if <b>dwCheckFlags</b> includes <b>SAFER_CRITERIA_AUTHENTICODE</b>, either this member or the <b>ImagePath</b> member must be set.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hImageFileHandle {
         get => NumGet(this, 16, "ptr")
@@ -209,7 +209,7 @@ class SAFER_CODE_PROPERTIES_V2 extends Win32Struct
 
     /**
      * The arguments used for Authenticode signer certificate verification. These arguments are passed to the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-winverifytrust">WinVerifyTrust</a> function and control the user interface (UI) that prompts the user to accept or reject entrusted certificates.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hWndParent {
         get => NumGet(this, 120, "ptr")
@@ -281,7 +281,7 @@ class SAFER_CODE_PROPERTIES_V2 extends Win32Struct
      * The package moniker property. For use by Windows Store apps.
      * 
      * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This member is not available.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     PackageMoniker {
         get => NumGet(this, 136, "ptr")
@@ -292,7 +292,7 @@ class SAFER_CODE_PROPERTIES_V2 extends Win32Struct
      * The package publisher property. For use by Windows Store apps.
      * 
      * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This member is not available.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     PackagePublisher {
         get => NumGet(this, 144, "ptr")
@@ -303,7 +303,7 @@ class SAFER_CODE_PROPERTIES_V2 extends Win32Struct
      * The package name property. For use by Windows Store apps.
      * 
      * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This member is not available.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     PackageName {
         get => NumGet(this, 152, "ptr")

@@ -24,7 +24,7 @@ class WSMAN_COMMAND_ARG_SET extends Win32Struct
 
     /**
      * Defines an array of strings that specify the arguments.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     args {
         get => NumGet(this, 8, "ptr")

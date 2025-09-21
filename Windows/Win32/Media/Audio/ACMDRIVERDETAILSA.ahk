@@ -8,9 +8,9 @@
  */
 class ACMDRIVERDETAILSA extends Win32Struct
 {
-    static sizeof => 924
+    static sizeof => 928
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -93,50 +93,50 @@ class ACMDRIVERDETAILSA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hicon {
-        get => NumGet(this, 36, "ptr")
-        set => NumPut("ptr", value, this, 36)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * @type {String}
      */
     szShortName {
-        get => StrGet(this.ptr + 44, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 44, 31, "UTF-8")
+        get => StrGet(this.ptr + 48, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 48, 31, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     szLongName {
-        get => StrGet(this.ptr + 76, 127, "UTF-8")
-        set => StrPut(value, this.ptr + 76, 127, "UTF-8")
+        get => StrGet(this.ptr + 80, 127, "UTF-8")
+        set => StrPut(value, this.ptr + 80, 127, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     szCopyright {
-        get => StrGet(this.ptr + 204, 79, "UTF-8")
-        set => StrPut(value, this.ptr + 204, 79, "UTF-8")
+        get => StrGet(this.ptr + 208, 79, "UTF-8")
+        set => StrPut(value, this.ptr + 208, 79, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     szLicensing {
-        get => StrGet(this.ptr + 284, 127, "UTF-8")
-        set => StrPut(value, this.ptr + 284, 127, "UTF-8")
+        get => StrGet(this.ptr + 288, 127, "UTF-8")
+        set => StrPut(value, this.ptr + 288, 127, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     szFeatures {
-        get => StrGet(this.ptr + 412, 511, "UTF-8")
-        set => StrPut(value, this.ptr + 412, 511, "UTF-8")
+        get => StrGet(this.ptr + 416, 511, "UTF-8")
+        set => StrPut(value, this.ptr + 416, 511, "UTF-8")
     }
 }

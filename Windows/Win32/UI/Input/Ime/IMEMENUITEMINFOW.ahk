@@ -55,7 +55,7 @@ class IMEMENUITEMINFOW extends Win32Struct
 
     /**
      * Handle to the bitmap to display next to the item if it is checked. If this member is <b>NULL</b>, a default bitmap is used. If the IMFT_RADIOCHECK type value is specified, the default bitmap is a bullet. Otherwise, it is a check mark.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hbmpChecked {
         get => NumGet(this, 16, "ptr")
@@ -64,7 +64,7 @@ class IMEMENUITEMINFOW extends Win32Struct
 
     /**
      * Handle to the bitmap to display next to the item if it is not checked. If this member is <b>NULL</b>, no bitmap is used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hbmpUnchecked {
         get => NumGet(this, 24, "ptr")
@@ -91,7 +91,7 @@ class IMEMENUITEMINFOW extends Win32Struct
 
     /**
      * Handle to a bitmap to display.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hbmpItem {
         get => NumGet(this, 200, "ptr")

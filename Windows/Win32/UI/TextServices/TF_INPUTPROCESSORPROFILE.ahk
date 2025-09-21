@@ -75,7 +75,7 @@ class TF_INPUTPROCESSORPROFILE extends Win32Struct
 
     /**
      * The keyboard layout handle of the substitute for this text service. This can be <b>NULL</b> if the text service does not have a substitute or this profile is a keyboard layout.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hklSubstitute {
         get => NumGet(this, 32, "ptr")
@@ -128,7 +128,7 @@ class TF_INPUTPROCESSORPROFILE extends Win32Struct
 
     /**
      * The keyboard layout handle. This is <b>NULL</b> if this profile is a text service.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hkl {
         get => NumGet(this, 48, "ptr")

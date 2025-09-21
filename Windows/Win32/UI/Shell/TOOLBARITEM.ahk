@@ -43,7 +43,7 @@ class TOOLBARITEM extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a buffer that contains the name of the toolbar item as a Unicode string.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszItem {
         get => NumGet(this, 24, "ptr")
@@ -65,7 +65,7 @@ class TOOLBARITEM extends Win32Struct
      * Type: <b>HMONITOR</b>
      * 
      * The handle of the monitor on which the toolbar item appears.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hMon {
         get => NumGet(this, 40, "ptr")

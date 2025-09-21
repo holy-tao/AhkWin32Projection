@@ -20,7 +20,7 @@ class AssemblyBindInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpReferencedIdentity {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class AssemblyBindInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpPostPolicyIdentity {
         get => NumGet(this, 16, "ptr")

@@ -28,7 +28,7 @@ class userCLIPFORMAT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszName {
         get => NumGet(this, 8, "ptr")

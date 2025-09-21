@@ -17,7 +17,7 @@ class NMHDR extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A window handle to the control sending the message.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hwndFrom {
         get => NumGet(this, 0, "ptr")

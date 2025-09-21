@@ -24,7 +24,7 @@ class MIDL_STUB_DESC extends Win32Struct
 
     /**
      * Memory allocation function to be used by the stub. Set to <a href="https://msdn.microsoft.com/">midl_user_allocate</a> for nonobject interface and <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/nf-rpcndr-ndroleallocate"> NdrOleAllocate</a> for object interface.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_RPC_ALLOCATE>}
      */
     pfnAllocate {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class MIDL_STUB_DESC extends Win32Struct
 
     /**
      * Memory-free function to be used by the stub. Set to <a href="https://docs.microsoft.com/windows/desktop/Midl/midl-user-free-1">midl_user_free</a> for nonobject interface and <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/nf-rpcndr-ndrolefree"> NdrOleFree</a> for object interface.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_RPC_FREE>}
      */
     pfnFree {
         get => NumGet(this, 16, "ptr")
@@ -66,7 +66,7 @@ class MIDL_STUB_DESC extends Win32Struct
 
     /**
      * Array of context handle rundown functions.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NDR_RUNDOWN>}
      */
     apfnNdrRundownRoutines {
         get => NumGet(this, 32, "ptr")
@@ -84,7 +84,7 @@ class MIDL_STUB_DESC extends Win32Struct
 
     /**
      * Array of function pointers to expression evaluator functions used to evaluate MIDL complex conformance and varying descriptions. For example, <a href="https://docs.microsoft.com/windows/desktop/Midl/size-is">size_is</a>(param1 + param2).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<EXPR_EVAL>}
      */
     apfnExprEval {
         get => NumGet(this, 48, "ptr")
@@ -165,7 +165,7 @@ class MIDL_STUB_DESC extends Win32Struct
 
     /**
      * Array of notification function pointers for methods with the <a href="https://docs.microsoft.com/windows/desktop/Midl/notify">notify</a> or <a href="https://docs.microsoft.com/windows/desktop/Midl/notify-flag">notify_flag</a> attribute specified.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<NDR_NOTIFY_ROUTINE>}
      */
     NotifyRoutineTable {
         get => NumGet(this, 112, "ptr")

@@ -20,7 +20,7 @@ class MONITORINIT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hSpooler {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class MONITORINIT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hckRegistryRoot {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +52,7 @@ class MONITORINIT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszServerName {
         get => NumGet(this, 40, "ptr")

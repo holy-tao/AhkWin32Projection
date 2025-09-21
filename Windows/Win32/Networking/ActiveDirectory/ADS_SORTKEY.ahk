@@ -19,7 +19,7 @@ class ADS_SORTKEY extends Win32Struct
 
     /**
      * The null-terminated Unicode string that contains the attribute type.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszAttrType {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class ADS_SORTKEY extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszReserved {
         get => NumGet(this, 8, "ptr")

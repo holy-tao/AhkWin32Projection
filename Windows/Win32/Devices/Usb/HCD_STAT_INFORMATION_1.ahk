@@ -8,9 +8,9 @@
  */
 class HCD_STAT_INFORMATION_1 extends Win32Struct
 {
-    static sizeof => 44
+    static sizeof => 48
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -40,8 +40,8 @@ class HCD_STAT_INFORMATION_1 extends Win32Struct
      * @type {Integer}
      */
     TimeRead {
-        get => NumGet(this, 12, "int64")
-        set => NumPut("int64", value, this, 12)
+        get => NumGet(this, 16, "int64")
+        set => NumPut("int64", value, this, 16)
     }
 
     /**
@@ -50,7 +50,7 @@ class HCD_STAT_INFORMATION_1 extends Win32Struct
     Counters{
         get {
             if(!this.HasProp("__Counters"))
-                this.__Counters := HCD_STAT_COUNTERS(this.ptr + 20)
+                this.__Counters := HCD_STAT_COUNTERS(this.ptr + 24)
             return this.__Counters
         }
     }

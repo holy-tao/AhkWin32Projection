@@ -9,9 +9,9 @@
  */
 class IO_DES extends Win32Struct
 {
-    static sizeof => 28
+    static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * 

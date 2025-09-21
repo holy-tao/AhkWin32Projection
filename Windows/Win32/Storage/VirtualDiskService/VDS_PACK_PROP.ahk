@@ -26,7 +26,7 @@ class VDS_PACK_PROP extends Win32Struct
 
     /**
      * A string representing the pack name. Packs managed by the basic provider have no name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszName {
         get => NumGet(this, 8, "ptr")

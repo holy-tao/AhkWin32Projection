@@ -33,7 +33,7 @@ class DSROLE_PRIMARY_DOMAIN_INFO_BASIC extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the NetBIOS domain name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     DomainNameFlat {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class DSROLE_PRIMARY_DOMAIN_INFO_BASIC extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the DNS domain name. This member is optional and may be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     DomainNameDns {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +51,7 @@ class DSROLE_PRIMARY_DOMAIN_INFO_BASIC extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the forest name. This member is optional and may be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     DomainForestName {
         get => NumGet(this, 24, "ptr")

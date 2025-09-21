@@ -25,9 +25,9 @@
  */
 class LONG_SECTION extends Win32Struct
 {
-    static sizeof => 9
+    static sizeof => 10
 
-    static packingSize => 1
+    static packingSize => 2
 
     /**
      * Specifies the table identifier (TID) of the section.
@@ -42,16 +42,16 @@ class LONG_SECTION extends Win32Struct
      * @type {Integer}
      */
     S {
-        get => NumGet(this, 1, "ushort")
-        set => NumPut("ushort", value, this, 1)
+        get => NumGet(this, 2, "ushort")
+        set => NumPut("ushort", value, this, 2)
     }
 
     /**
      * @type {Integer}
      */
     W {
-        get => NumGet(this, 1, "ushort")
-        set => NumPut("ushort", value, this, 1)
+        get => NumGet(this, 2, "ushort")
+        set => NumPut("ushort", value, this, 2)
     }
 
     /**
@@ -59,16 +59,16 @@ class LONG_SECTION extends Win32Struct
      * @type {Integer}
      */
     TableIdExtension {
-        get => NumGet(this, 3, "ushort")
-        set => NumPut("ushort", value, this, 3)
+        get => NumGet(this, 4, "ushort")
+        set => NumPut("ushort", value, this, 4)
     }
 
     /**
      * @type {Integer}
      */
     B {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
+        get => NumGet(this, 6, "char")
+        set => NumPut("char", value, this, 6)
     }
 
     /**
@@ -76,8 +76,8 @@ class LONG_SECTION extends Win32Struct
      * @type {Integer}
      */
     SectionNumber {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
+        get => NumGet(this, 7, "char")
+        set => NumPut("char", value, this, 7)
     }
 
     /**
@@ -85,8 +85,8 @@ class LONG_SECTION extends Win32Struct
      * @type {Integer}
      */
     LastSectionNumber {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
+        get => NumGet(this, 8, "char")
+        set => NumPut("char", value, this, 8)
     }
 
     /**
@@ -96,7 +96,7 @@ class LONG_SECTION extends Win32Struct
     RemainingData{
         get {
             if(!this.HasProp("__RemainingDataProxyArray"))
-                this.__RemainingDataProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
+                this.__RemainingDataProxyArray := Win32FixedArray(this.ptr + 9, 1, Primitive, "char")
             return this.__RemainingDataProxyArray
         }
     }

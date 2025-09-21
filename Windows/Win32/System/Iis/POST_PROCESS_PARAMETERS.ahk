@@ -13,7 +13,7 @@ class POST_PROCESS_PARAMETERS extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszSessionId {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +21,7 @@ class POST_PROCESS_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszSiteName {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +29,7 @@ class POST_PROCESS_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszUserName {
         get => NumGet(this, 16, "ptr")
@@ -37,7 +37,7 @@ class POST_PROCESS_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszHostName {
         get => NumGet(this, 24, "ptr")
@@ -45,7 +45,7 @@ class POST_PROCESS_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszRemoteIpAddress {
         get => NumGet(this, 32, "ptr")
@@ -61,7 +61,7 @@ class POST_PROCESS_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszLocalIpAddress {
         get => NumGet(this, 48, "ptr")
@@ -93,7 +93,7 @@ class POST_PROCESS_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszCommand {
         get => NumGet(this, 80, "ptr")
@@ -101,7 +101,7 @@ class POST_PROCESS_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszCommandParameters {
         get => NumGet(this, 88, "ptr")
@@ -109,7 +109,7 @@ class POST_PROCESS_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszFullPath {
         get => NumGet(this, 96, "ptr")
@@ -117,7 +117,7 @@ class POST_PROCESS_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszPhysicalPath {
         get => NumGet(this, 104, "ptr")
@@ -141,7 +141,7 @@ class POST_PROCESS_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hrStatus {
         get => NumGet(this, 120, "int")

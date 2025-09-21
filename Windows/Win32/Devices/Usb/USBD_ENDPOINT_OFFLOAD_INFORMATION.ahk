@@ -7,9 +7,9 @@
  */
 class USBD_ENDPOINT_OFFLOAD_INFORMATION extends Win32Struct
 {
-    static sizeof => 82
+    static sizeof => 88
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -31,103 +31,103 @@ class USBD_ENDPOINT_OFFLOAD_INFORMATION extends Win32Struct
      * @type {Integer}
      */
     ResourceId {
-        get => NumGet(this, 6, "uint")
-        set => NumPut("uint", value, this, 6)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     Mode {
-        get => NumGet(this, 10, "int")
-        set => NumPut("int", value, this, 10)
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 
     /**
      * @type {Integer}
      */
     _bitfield1 {
-        get => NumGet(this, 14, "uint")
-        set => NumPut("uint", value, this, 14)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     _bitfield2 {
-        get => NumGet(this, 18, "uint")
-        set => NumPut("uint", value, this, 18)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
      * @type {Integer}
      */
     TransferSegmentLA {
-        get => NumGet(this, 22, "int64")
-        set => NumPut("int64", value, this, 22)
+        get => NumGet(this, 24, "int64")
+        set => NumPut("int64", value, this, 24)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     TransferSegmentVA {
-        get => NumGet(this, 30, "ptr")
-        set => NumPut("ptr", value, this, 30)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {Pointer}
      */
     TransferRingSize {
-        get => NumGet(this, 38, "ptr")
-        set => NumPut("ptr", value, this, 38)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * @type {Integer}
      */
     TransferRingInitialCycleBit {
-        get => NumGet(this, 46, "uint")
-        set => NumPut("uint", value, this, 46)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
      * @type {Integer}
      */
     MessageNumber {
-        get => NumGet(this, 50, "uint")
-        set => NumPut("uint", value, this, 50)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
      * @type {Integer}
      */
     EventRingSegmentLA {
-        get => NumGet(this, 54, "int64")
-        set => NumPut("int64", value, this, 54)
+        get => NumGet(this, 56, "int64")
+        set => NumPut("int64", value, this, 56)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     EventRingSegmentVA {
-        get => NumGet(this, 62, "ptr")
-        set => NumPut("ptr", value, this, 62)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * @type {Pointer}
      */
     EventRingSize {
-        get => NumGet(this, 70, "ptr")
-        set => NumPut("ptr", value, this, 70)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
      * @type {Integer}
      */
     EventRingInitialCycleBit {
-        get => NumGet(this, 78, "uint")
-        set => NumPut("uint", value, this, 78)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 }

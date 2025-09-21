@@ -145,7 +145,7 @@ class FAX_DEV_STATUS extends Win32Struct
      * 				
      * 
      * If the operation is sending a fax, the identifier specifies the CSID of the remote device; if the operation is receiving a fax, the identifier specifies the TSID of the remote device.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     CSI {
         get => NumGet(this, 16, "ptr")
@@ -156,7 +156,7 @@ class FAX_DEV_STATUS extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Pointer to a null-terminated Unicode character string that identifies the calling device that sent the received fax document. This string can include the telephone number of the calling device.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     CallerId {
         get => NumGet(this, 24, "ptr")
@@ -177,7 +177,7 @@ class FAX_DEV_STATUS extends Win32Struct
      * If there is additional routing information, for example, subaddressing or DTMF tones, separate it from the canonical telephone number by a vertical bar character as indicated in the TAPI specification. You can specify multiple recipients.
      * 
      * For more information, see the Dialable Address and Canonical Address subheadings in the Address topic of the TAPI documentation.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     RoutingInfo {
         get => NumGet(this, 32, "ptr")

@@ -33,7 +33,7 @@ class LSA_UNICODE_STRING extends Win32Struct
 
     /**
      * Pointer to a wide character string. Note that the strings returned by the various LSA functions might not be null-terminated.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     Buffer {
         get => NumGet(this, 8, "ptr")

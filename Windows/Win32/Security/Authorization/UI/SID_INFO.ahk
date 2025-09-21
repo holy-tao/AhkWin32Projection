@@ -16,7 +16,7 @@ class SID_INFO extends Win32Struct
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies one of the SIDs passed into 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nf-aclui-isecurityinformation2-lookupsids">ISecurityInformation2::LookupSids</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     pSid {
         get => NumGet(this, 0, "ptr")
@@ -26,7 +26,7 @@ class SID_INFO extends Win32Struct
     /**
      * A pointer to a string containing the common name corresponding to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure specified in <b>pSid</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwzCommonName {
         get => NumGet(this, 8, "ptr")
@@ -41,7 +41,7 @@ class SID_INFO extends Win32Struct
      * <p class="indent">"Group"
      * 
      * <p class="indent">"User"
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwzClass {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +51,7 @@ class SID_INFO extends Win32Struct
     /**
      * A pointer to the user principal name (UPN) corresponding to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure specified in <b>pSid</b>. If a UPN has not been designated for the <b>SID</b> structure, the value of this parameter is <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwzUPN {
         get => NumGet(this, 24, "ptr")

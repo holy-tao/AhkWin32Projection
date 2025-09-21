@@ -28,7 +28,7 @@ class DSBROWSEINFOA extends Win32Struct
 
     /**
      * Handle of the window used as the parent of the container browser dialog box.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hwndOwner {
         get => NumGet(this, 8, "ptr")
@@ -37,7 +37,7 @@ class DSBROWSEINFOA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the caption of the dialog box. If this member is <b>NULL</b>, a default caption is used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszCaption {
         get => NumGet(this, 16, "ptr")
@@ -46,7 +46,7 @@ class DSBROWSEINFOA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains additional text to be displayed in the dialog box above the tree control. If this member is <b>NULL</b>, no additional text is displayed.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszTitle {
         get => NumGet(this, 24, "ptr")
@@ -55,7 +55,7 @@ class DSBROWSEINFOA extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the ADsPath of the container placed at the root of the dialog box. The user cannot navigate above this level using the dialog box.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszRoot {
         get => NumGet(this, 32, "ptr")
@@ -64,7 +64,7 @@ class DSBROWSEINFOA extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that receives the ADsPath of the container selected in the dialog. This string will always be null-terminated even if <b>cchPath</b> is not large enough to hold the entire path. If <b>dwFlags</b> contains the <b>DSBI_EXPANDONOPEN</b> flag, this member contains the ADsPath of the container that should be initially selected in the dialog box.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszPath {
         get => NumGet(this, 40, "ptr")
@@ -91,7 +91,7 @@ class DSBROWSEINFOA extends Win32Struct
 
     /**
      * Pointer to an application-defined  <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nc-shlobj_core-bffcallback">BFFCallBack</a> callback function that receives notifications from the container browser dialog box. Set this member to <b>NULL</b> if it is not used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<BFFCALLBACK>}
      */
     pfnCallback {
         get => NumGet(this, 56, "ptr")
@@ -118,7 +118,7 @@ class DSBROWSEINFOA extends Win32Struct
 
     /**
      * Pointer to a Unicode string that contains the user name used for the credentials. This member is ignored if <b>dwFlags</b> does not have the <b>DSBI_HASCREDENTIALS</b> flag set. If this member is <b>NULL</b>, the currently logged on  user name is used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pUserName {
         get => NumGet(this, 80, "ptr")
@@ -127,7 +127,7 @@ class DSBROWSEINFOA extends Win32Struct
 
     /**
      * Pointer to a Unicode string that contains the password used for the credentials. This member is ignored if <b>dwFlags</b> does not have the <b>DSBI_HASCREDENTIALS</b> flag set. If this member is <b>NULL</b>, the password of the currently logged on user is used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pPassword {
         get => NumGet(this, 88, "ptr")
@@ -136,7 +136,7 @@ class DSBROWSEINFOA extends Win32Struct
 
     /**
      * Pointer to a Unicode string buffer that receives the class string of the selected. This member is ignored if <b>dwFlags</b> does not have the <b>DSBI_RETURNOBJECTCLASS</b> flag set.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszObjectClass {
         get => NumGet(this, 96, "ptr")

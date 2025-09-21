@@ -50,7 +50,7 @@ class MXDC_ESCAPE_HEADER_T extends Win32Struct
 {
     static sizeof => 12
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * The size of the input buffer that will be passed to the *lpszOutData* parameter of the [**ExtEscape**](/windows/desktop/api/Wingdi/nf-wingdi-extescape) function.

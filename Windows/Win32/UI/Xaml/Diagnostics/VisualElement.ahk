@@ -37,7 +37,7 @@ class VisualElement extends Win32Struct
 
     /**
      * The type of the object.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     Type {
         get => NumGet(this, 40, "ptr")
@@ -46,7 +46,7 @@ class VisualElement extends Win32Struct
 
     /**
      * The name of the XAML element, if it has an <a href="https://docs.microsoft.com/windows/uwp/xaml-platform/x-name-attribute">x:Name</a> defined in markup.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     Name {
         get => NumGet(this, 48, "ptr")

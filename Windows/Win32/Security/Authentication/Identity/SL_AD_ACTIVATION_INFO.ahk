@@ -30,7 +30,7 @@ class SL_AD_ACTIVATION_INFO extends Win32Struct
 
     /**
      * The product key.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszProductKey {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +39,7 @@ class SL_AD_ACTIVATION_INFO extends Win32Struct
 
     /**
      * The name of the activation object.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszActivationObjectName {
         get => NumGet(this, 16, "ptr")

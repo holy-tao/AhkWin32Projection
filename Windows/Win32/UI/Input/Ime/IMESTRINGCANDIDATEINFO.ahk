@@ -7,7 +7,7 @@
  */
 class IMESTRINGCANDIDATEINFO extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -52,13 +52,10 @@ class IMESTRINGCANDIDATEINFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Ptr>}
+     * @type {String}
      */
-    lpwstr{
-        get {
-            if(!this.HasProp("__lpwstrProxyArray"))
-                this.__lpwstrProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "ptr")
-            return this.__lpwstrProxyArray
-        }
+    lpwstr {
+        get => StrGet(this.ptr + 28, 0, "UTF-16")
+        set => StrPut(value, this.ptr + 28, 0, "UTF-16")
     }
 }

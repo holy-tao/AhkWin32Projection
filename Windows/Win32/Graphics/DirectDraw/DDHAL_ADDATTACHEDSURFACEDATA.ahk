@@ -36,7 +36,7 @@ class DDHAL_ADDATTACHEDSURFACEDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ddRVal {
         get => NumGet(this, 24, "int")
@@ -44,7 +44,7 @@ class DDHAL_ADDATTACHEDSURFACEDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALSURFCB_ADDATTACHEDSURFACE>}
      */
     AddAttachedSurface {
         get => NumGet(this, 32, "ptr")

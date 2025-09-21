@@ -24,7 +24,7 @@ class DD_CREATESURFACEEXDATA extends Win32Struct
 
     /**
      * Specifies a handle to the DirectDraw object created by the application. This is the scope within which the <b>lpDDSLcl</b> handles exist. A <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_directdraw_local">DD_DIRECTDRAW_LOCAL</a> structure describes the driver.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<TypeHandle>}
      */
     lpDDLcl {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class DD_CREATESURFACEEXDATA extends Win32Struct
 
     /**
      * Specifies the location where the driver writes the return value of the <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_createsurfaceex">D3dCreateSurfaceEx</a> callback. A return code of D3D_OK indicates success. For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/return-codes-for-direct3d-driver-callbacks">Return Codes for Direct3D Driver Callbacks</a>.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ddRVal {
         get => NumGet(this, 24, "int")

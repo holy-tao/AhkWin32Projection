@@ -17,7 +17,7 @@ class HelperAttributeInfo extends Win32Struct
      * Type: <b>[string] LPWSTR</b>
      * 
      * Pointer to a null-terminated string that contains the name of the helper attribute.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszName {
         get => NumGet(this, 0, "ptr")

@@ -7,9 +7,9 @@
  */
 class SIPAEVENT_SI_POLICY_PAYLOAD extends Win32Struct
 {
-    static sizeof => 17
+    static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}

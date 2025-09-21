@@ -13,9 +13,9 @@
  */
 class CS_DES extends Win32Struct
 {
-    static sizeof => 25
+    static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The number of elements in the byte array specified by <b>CSD_Signature</b>.

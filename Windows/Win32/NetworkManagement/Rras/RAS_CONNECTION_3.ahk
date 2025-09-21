@@ -40,7 +40,7 @@ class RAS_CONNECTION_3 extends Win32Struct
 
     /**
      * A handle to the connection.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hConnection {
         get => NumGet(this, 8, "ptr")

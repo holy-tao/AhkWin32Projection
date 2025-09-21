@@ -30,7 +30,7 @@ class NET_VALIDATE_PASSWORD_CHANGE_INPUT_ARG extends Win32Struct
 
     /**
      * Pointer to a Unicode string specifying the new password, in plaintext format.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ClearPassword {
         get => NumGet(this, 48, "ptr")
@@ -39,7 +39,7 @@ class NET_VALIDATE_PASSWORD_CHANGE_INPUT_ARG extends Win32Struct
 
     /**
      * Pointer to a Unicode string specifying the name of the user account.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     UserAccountName {
         get => NumGet(this, 56, "ptr")

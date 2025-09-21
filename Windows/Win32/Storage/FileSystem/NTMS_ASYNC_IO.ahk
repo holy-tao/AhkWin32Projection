@@ -52,7 +52,7 @@ class NTMS_ASYNC_IO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hEvent {
         get => NumGet(this, 32, "ptr")

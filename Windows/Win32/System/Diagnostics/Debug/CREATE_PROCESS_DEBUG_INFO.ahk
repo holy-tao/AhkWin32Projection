@@ -19,7 +19,7 @@ class CREATE_PROCESS_DEBUG_INFO extends Win32Struct
      * 
      * When the debugger is finished with this file, it should close the handle using the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hFile {
         get => NumGet(this, 0, "ptr")
@@ -29,7 +29,7 @@ class CREATE_PROCESS_DEBUG_INFO extends Win32Struct
     /**
      * A handle to the process. If this member is <b>NULL</b>, the handle is not valid. 
      *       Otherwise, the debugger can use the member to read from and write to the process's memory.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hProcess {
         get => NumGet(this, 8, "ptr")
@@ -43,7 +43,7 @@ class CREATE_PROCESS_DEBUG_INFO extends Win32Struct
      *       <b>THREAD_SET_CONTEXT</b>, and <b>THREAD_SUSPEND_RESUME</b> access to the 
      *       thread, allowing the debugger to read from and write to the registers of the thread and to control execution of 
      *       the thread.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hThread {
         get => NumGet(this, 16, "ptr")
@@ -95,7 +95,7 @@ class CREATE_PROCESS_DEBUG_INFO extends Win32Struct
      * A pointer to the starting address of the thread. This value may only be an approximation of the thread's 
      *       starting address, because any application with appropriate access to the thread can change the thread's context 
      *       by using the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-setthreadcontext">SetThreadContext</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPTHREAD_START_ROUTINE>}
      */
     lpStartAddress {
         get => NumGet(this, 48, "ptr")

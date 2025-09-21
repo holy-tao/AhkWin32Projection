@@ -20,7 +20,7 @@ class NEGOTIATE_CALLER_NAME_RESPONSE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     CallerName {
         get => NumGet(this, 8, "ptr")

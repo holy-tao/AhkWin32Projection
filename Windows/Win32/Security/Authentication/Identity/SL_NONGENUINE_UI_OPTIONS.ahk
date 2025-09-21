@@ -33,7 +33,7 @@ class SL_NONGENUINE_UI_OPTIONS extends Win32Struct
 
     /**
      * The return value that the <a href="https://docs.microsoft.com/windows/desktop/api/slpublic/nf-slpublic-slisgenuinelocal">SLIsGenuineLocal</a> function returns when an installation is not genuine.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hResultUI {
         get => NumGet(this, 16, "int")

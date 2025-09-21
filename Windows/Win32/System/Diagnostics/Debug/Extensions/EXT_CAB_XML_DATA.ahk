@@ -20,7 +20,7 @@ class EXT_CAB_XML_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     XmlObjectTag {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class EXT_CAB_XML_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     SubTag {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class EXT_CAB_XML_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     MatchPattern {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +52,7 @@ class EXT_CAB_XML_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ReturnText {
         get => NumGet(this, 40, "ptr")

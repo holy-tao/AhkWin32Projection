@@ -20,7 +20,7 @@ class TBREPLACEBITMAP extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HINSTANCE</a></b>
      * 
      * Module instance handle to the bitmap resource being replaced. Set this member to <b>NULL</b> to instead use a bitmap handle.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hInstOld {
         get => NumGet(this, 0, "ptr")
@@ -43,7 +43,7 @@ class TBREPLACEBITMAP extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HINSTANCE</a></b>
      * 
      * Module instance handle that contains the new bitmap resource. Set this member to <b>NULL</b> to instead use a bitmap handle.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hInstNew {
         get => NumGet(this, 16, "ptr")

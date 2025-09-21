@@ -60,7 +60,7 @@ class DSOP_SCOPE_INIT_INFO extends Win32Struct
      * Pointer to a null-terminated Unicode string that contains the name of a domain controller of the domain to which the target computer is joined. This member is used only if the <b>flType</b> member contains the <b>DSOP_SCOPE_TYPE_UPLEVEL_JOINED_DOMAIN</b> flag. If that flag is not set, <b>pwzDcName</b> must be <b>NULL</b>.
      * 
      * This member can be <b>NULL</b> even if the <b>DSOP_SCOPE_TYPE_UPLEVEL_JOINED_DOMAIN</b> flag is specified, in which case, the dialog box looks up the domain controller. This member enables you to name a specific domain controller in a multimaster domain. For example, an administrative application might make changes on a domain controller in a multimaster domain, and then open the object picker dialog box before the changes have been replicated on the other domain controllers.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwzDcName {
         get => NumGet(this, 32, "ptr")
@@ -69,7 +69,7 @@ class DSOP_SCOPE_INIT_INFO extends Win32Struct
 
     /**
      * Reserved; must be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwzADsPath {
         get => NumGet(this, 40, "ptr")
@@ -81,7 +81,7 @@ class DSOP_SCOPE_INIT_INFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/objsel/nf-objsel-idsobjectpicker-initialize">IDsObjectPicker::Initialize</a> method successfully creates the scope, or scopes, specified by this structure, <b>hr</b> contains <b>S_OK</b>. Otherwise, <b>hr</b> contains an error code.
      * 
      * If <a href="https://docs.microsoft.com/windows/desktop/api/objsel/nf-objsel-idsobjectpicker-initialize">IDsObjectPicker::Initialize</a> returns <b>S_OK</b>, the <b>hr</b> members of all the specified <b>DSOP_SCOPE_INIT_INFO</b> structures also contain <b>S_OK</b>.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hr {
         get => NumGet(this, 48, "int")

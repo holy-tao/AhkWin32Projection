@@ -61,7 +61,7 @@ class SHDRAGIMAGE extends Win32Struct
      * Type: <b>HBITMAP</b>
      * 
      * The drag image's bitmap handle.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hbmpDragImage {
         get => NumGet(this, 16, "ptr")

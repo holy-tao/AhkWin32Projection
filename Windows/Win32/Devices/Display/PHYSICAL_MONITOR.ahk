@@ -13,11 +13,11 @@ class PHYSICAL_MONITOR extends Win32Struct
 {
     static sizeof => 264
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Handle to the physical monitor.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hPhysicalMonitor {
         get => NumGet(this, 0, "ptr")

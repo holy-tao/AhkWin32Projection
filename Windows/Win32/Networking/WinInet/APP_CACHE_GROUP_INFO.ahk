@@ -13,7 +13,7 @@ class APP_CACHE_GROUP_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszManifestUrl {
         get => NumGet(this, 0, "ptr")

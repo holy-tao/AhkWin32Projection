@@ -28,7 +28,7 @@ class SSL_HPKP_HEADER_EXTRA_CERT_CHAIN_POLICY_PARA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszServerName {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class SSL_HPKP_HEADER_EXTRA_CERT_CHAIN_POLICY_PARA extends Win32Struct
     }
 
     /**
-     * @type {Array<Ptr>}
+     * @type {Array<Byte>}
      */
     rgpszHpkpValue{
         get {

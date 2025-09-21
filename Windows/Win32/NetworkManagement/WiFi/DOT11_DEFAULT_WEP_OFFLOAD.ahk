@@ -21,7 +21,7 @@ class DOT11_DEFAULT_WEP_OFFLOAD extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hOffloadContext {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +29,7 @@ class DOT11_DEFAULT_WEP_OFFLOAD extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hOffload {
         get => NumGet(this, 16, "ptr")

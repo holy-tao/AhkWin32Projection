@@ -71,7 +71,7 @@ class DS_REPL_OPW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the distinguished name of the naming context associated with this operation. For example, the naming context to be synchronized for <b>DS_REPL_OP_TYPE_SYNC</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszNamingContext {
         get => NumGet(this, 24, "ptr")
@@ -80,7 +80,7 @@ class DS_REPL_OPW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the distinguished name of the directory system agent object associated with the remote server corresponding to this operation. For example, the server from which to request changes for <b>DS_REPL_OP_TYPE_SYNC</b>. This can be  <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszDsaDN {
         get => NumGet(this, 32, "ptr")
@@ -89,7 +89,7 @@ class DS_REPL_OPW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the transport-specific network address of the remote server associated with this operation. For example, the DNS or SMTP address of the server from which to request changes for <b>DS_REPL_OP_TYPE_SYNC</b>. This can be  <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszDsaAddress {
         get => NumGet(this, 40, "ptr")

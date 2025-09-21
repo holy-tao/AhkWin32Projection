@@ -8,9 +8,9 @@
  */
 class ACMFORMATCHOOSEW extends Win32Struct
 {
-    static sizeof => 444
+    static sizeof => 448
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -29,7 +29,7 @@ class ACMFORMATCHOOSEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hwndOwner {
         get => NumGet(this, 8, "ptr")
@@ -53,90 +53,90 @@ class ACMFORMATCHOOSEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszTitle {
-        get => NumGet(this, 28, "ptr")
-        set => NumPut("ptr", value, this, 28)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {String}
      */
     szFormatTag {
-        get => StrGet(this.ptr + 36, 47, "UTF-16")
-        set => StrPut(value, this.ptr + 36, 47, "UTF-16")
+        get => StrGet(this.ptr + 40, 47, "UTF-16")
+        set => StrPut(value, this.ptr + 40, 47, "UTF-16")
     }
 
     /**
      * @type {String}
      */
     szFormat {
-        get => StrGet(this.ptr + 132, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 132, 127, "UTF-16")
+        get => StrGet(this.ptr + 136, 127, "UTF-16")
+        set => StrPut(value, this.ptr + 136, 127, "UTF-16")
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszName {
-        get => NumGet(this, 388, "ptr")
-        set => NumPut("ptr", value, this, 388)
+        get => NumGet(this, 392, "ptr")
+        set => NumPut("ptr", value, this, 392)
     }
 
     /**
      * @type {Integer}
      */
     cchName {
-        get => NumGet(this, 396, "uint")
-        set => NumPut("uint", value, this, 396)
+        get => NumGet(this, 400, "uint")
+        set => NumPut("uint", value, this, 400)
     }
 
     /**
      * @type {Integer}
      */
     fdwEnum {
-        get => NumGet(this, 400, "uint")
-        set => NumPut("uint", value, this, 400)
+        get => NumGet(this, 404, "uint")
+        set => NumPut("uint", value, this, 404)
     }
 
     /**
      * @type {Pointer<WAVEFORMATEX>}
      */
     pwfxEnum {
-        get => NumGet(this, 404, "ptr")
-        set => NumPut("ptr", value, this, 404)
+        get => NumGet(this, 408, "ptr")
+        set => NumPut("ptr", value, this, 408)
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hInstance {
-        get => NumGet(this, 412, "ptr")
-        set => NumPut("ptr", value, this, 412)
+        get => NumGet(this, 416, "ptr")
+        set => NumPut("ptr", value, this, 416)
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszTemplateName {
-        get => NumGet(this, 420, "ptr")
-        set => NumPut("ptr", value, this, 420)
+        get => NumGet(this, 424, "ptr")
+        set => NumPut("ptr", value, this, 424)
     }
 
     /**
      * @type {Pointer}
      */
     lCustData {
-        get => NumGet(this, 428, "ptr")
-        set => NumPut("ptr", value, this, 428)
+        get => NumGet(this, 432, "ptr")
+        set => NumPut("ptr", value, this, 432)
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<ACMFORMATCHOOSEHOOKPROCW>}
      */
     pfnHook {
-        get => NumGet(this, 436, "ptr")
-        set => NumPut("ptr", value, this, 436)
+        get => NumGet(this, 440, "ptr")
+        set => NumPut("ptr", value, this, 440)
     }
 }

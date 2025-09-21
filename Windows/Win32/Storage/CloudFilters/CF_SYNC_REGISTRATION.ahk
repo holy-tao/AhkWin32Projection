@@ -26,7 +26,7 @@ class CF_SYNC_REGISTRATION extends Win32Struct
 
     /**
      * The name of the sync provider. This is a user friendly string with a maximum length of 255 characters.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ProviderName {
         get => NumGet(this, 8, "ptr")
@@ -35,7 +35,7 @@ class CF_SYNC_REGISTRATION extends Win32Struct
 
     /**
      * The version of the sync provider. This is a user friendly string with a maximum length of 255 characters.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ProviderVersion {
         get => NumGet(this, 16, "ptr")

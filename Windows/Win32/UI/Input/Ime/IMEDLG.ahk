@@ -9,9 +9,9 @@
  */
 class IMEDLG extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The size of this structure. You must set this value before using the structure.
@@ -24,20 +24,20 @@ class IMEDLG extends Win32Struct
 
     /**
      * The parent window handle of the Register Word Dialog.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hwnd {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * <b>NULL</b>, or  the string to be registered. It shows in the Word Register Dialog's "Display" field.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpwstrWord {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -45,7 +45,7 @@ class IMEDLG extends Win32Struct
      * @type {Integer}
      */
     nTabId {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 }

@@ -178,7 +178,7 @@ class ACTIVATION_CONTEXT_DETAILED_INFORMATION extends Win32Struct
 
     /**
      * Path of the application manifest.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpRootManifestPath {
         get => NumGet(this, 40, "ptr")
@@ -187,7 +187,7 @@ class ACTIVATION_CONTEXT_DETAILED_INFORMATION extends Win32Struct
 
     /**
      * Path of the configuration file.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpRootConfigurationPath {
         get => NumGet(this, 48, "ptr")
@@ -196,7 +196,7 @@ class ACTIVATION_CONTEXT_DETAILED_INFORMATION extends Win32Struct
 
     /**
      * Path of the application directory.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpAppDirPath {
         get => NumGet(this, 56, "ptr")

@@ -16,7 +16,7 @@ class WSD_EVENT extends Win32Struct
 
     /**
      * The result code of the event.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     Hr {
         get => NumGet(this, 0, "int")
@@ -34,7 +34,7 @@ class WSD_EVENT extends Win32Struct
 
     /**
      * Pointer to the protocol string when dispatch by tags is required.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     DispatchTag {
         get => NumGet(this, 8, "ptr")

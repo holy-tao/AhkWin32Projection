@@ -12,7 +12,7 @@ class D3D12_SHADER_NODE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     Shader {
         get => NumGet(this, 0, "ptr")

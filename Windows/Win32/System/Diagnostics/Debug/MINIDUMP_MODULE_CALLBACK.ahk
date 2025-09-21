@@ -10,13 +10,13 @@
  */
 class MINIDUMP_MODULE_CALLBACK extends Win32Struct
 {
-    static sizeof => 104
+    static sizeof => 120
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The fully qualified path of the module executable.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     FullPath {
         get => NumGet(this, 0, "ptr")
@@ -67,7 +67,7 @@ class MINIDUMP_MODULE_CALLBACK extends Win32Struct
     VersionInfo{
         get {
             if(!this.HasProp("__VersionInfo"))
-                this.__VersionInfo := VS_FIXEDFILEINFO(this.ptr + 28)
+                this.__VersionInfo := VS_FIXEDFILEINFO(this.ptr + 32)
             return this.__VersionInfo
         }
     }
@@ -77,8 +77,8 @@ class MINIDUMP_MODULE_CALLBACK extends Win32Struct
      * @type {Pointer<Void>}
      */
     CvRecord {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -86,8 +86,8 @@ class MINIDUMP_MODULE_CALLBACK extends Win32Struct
      * @type {Integer}
      */
     SizeOfCvRecord {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 
     /**
@@ -95,8 +95,8 @@ class MINIDUMP_MODULE_CALLBACK extends Win32Struct
      * @type {Pointer<Void>}
      */
     MiscRecord {
-        get => NumGet(this, 92, "ptr")
-        set => NumPut("ptr", value, this, 92)
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
@@ -104,7 +104,7 @@ class MINIDUMP_MODULE_CALLBACK extends Win32Struct
      * @type {Integer}
      */
     SizeOfMiscRecord {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
+        get => NumGet(this, 112, "uint")
+        set => NumPut("uint", value, this, 112)
     }
 }

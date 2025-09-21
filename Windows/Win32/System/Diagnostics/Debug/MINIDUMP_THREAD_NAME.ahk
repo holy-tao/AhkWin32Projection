@@ -7,9 +7,9 @@
  */
 class MINIDUMP_THREAD_NAME extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -23,7 +23,7 @@ class MINIDUMP_THREAD_NAME extends Win32Struct
      * @type {Integer}
      */
     RvaOfThreadName {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 }

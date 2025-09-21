@@ -12,7 +12,7 @@ class DNS_CONNECTION_POLICY_ENTRY extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszHost {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class DNS_CONNECTION_POLICY_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszAppId {
         get => NumGet(this, 8, "ptr")
@@ -52,7 +52,7 @@ class DNS_CONNECTION_POLICY_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ppwszConnections {
         get => NumGet(this, 40, "ptr")

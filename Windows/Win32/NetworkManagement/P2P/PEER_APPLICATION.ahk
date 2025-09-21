@@ -42,7 +42,7 @@ class PEER_APPLICATION extends Win32Struct
 
     /**
      * Pointer to a zero-terminated Unicode string that contains an optional  description of the local application. This description is limited to 255 unicode characters.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwzDescription {
         get => NumGet(this, 24, "ptr")

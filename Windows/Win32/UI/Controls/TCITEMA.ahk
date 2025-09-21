@@ -60,7 +60,7 @@ class TCITEMA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * Pointer to a null-terminated string that contains the tab text when item information is being set. If item information is being retrieved, this member specifies the address of the buffer that receives the tab text.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszText {
         get => NumGet(this, 16, "ptr")

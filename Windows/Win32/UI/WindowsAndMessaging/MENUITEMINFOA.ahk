@@ -183,7 +183,7 @@ class MENUITEMINFOA extends Win32Struct
      * A handle to the drop-down menu or submenu associated with the menu item. If the menu item is not an item that opens a drop-down menu or submenu, this member is <b>NULL</b>. Set 
      * 					<b>fMask</b>  to <b>MIIM_SUBMENU</b>  to use 
      * 					<b>hSubMenu</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hSubMenu {
         get => NumGet(this, 24, "ptr")
@@ -196,7 +196,7 @@ class MENUITEMINFOA extends Win32Struct
      * A handle to the bitmap to display next to the item if it is selected. If this member is <b>NULL</b>, a default bitmap is used. If the <b>MFT_RADIOCHECK</b> type value is specified, the default bitmap is a bullet. Otherwise, it is a check mark. Set 
      * 					<b>fMask</b> to <b>MIIM_CHECKMARKS</b> to use 
      * 					<b>hbmpChecked</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hbmpChecked {
         get => NumGet(this, 32, "ptr")
@@ -209,7 +209,7 @@ class MENUITEMINFOA extends Win32Struct
      * A handle to the bitmap to display next to the item if it is not selected. If this member is <b>NULL</b>, no bitmap is used. Set 
      * 					<b>fMask</b> to <b>MIIM_CHECKMARKS</b> to use 
      * 					<b>hbmpUnchecked</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hbmpUnchecked {
         get => NumGet(this, 40, "ptr")
@@ -248,7 +248,7 @@ class MENUITEMINFOA extends Win32Struct
      * 
      * <b>dwTypeData</b> is used only if the <b>MIIM_STRING</b> flag is set in the 
      * 						<b>fMask</b> member
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     dwTypeData {
         get => NumGet(this, 56, "ptr")
@@ -413,7 +413,7 @@ class MENUITEMINFOA extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hbmpItem {
         get => NumGet(this, 72, "ptr")

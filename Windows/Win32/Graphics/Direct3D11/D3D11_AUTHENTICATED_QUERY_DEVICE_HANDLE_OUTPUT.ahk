@@ -29,7 +29,7 @@ class D3D11_AUTHENTICATED_QUERY_DEVICE_HANDLE_OUTPUT extends Win32Struct
 
     /**
      * A handle to the device.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     DeviceHandle {
         get => NumGet(this, 40, "ptr")

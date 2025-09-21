@@ -13,7 +13,7 @@ class OPM_SET_PROTECTION_LEVEL_PARAMETERS extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Identifies the protection mechanism. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/medfound/opm-protection-type-flags">OPM Protection Type Flags</a>.

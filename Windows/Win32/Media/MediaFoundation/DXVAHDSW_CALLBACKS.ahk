@@ -19,7 +19,7 @@ class DXVAHDSW_CALLBACKS extends Win32Struct
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_createdevice">PDXVAHDSW_CreateDevice</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVAHDSW_CreateDevice>}
      */
     CreateDevice {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class DXVAHDSW_CALLBACKS extends Win32Struct
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_proposevideoprivateformat">PDXVAHDSW_ProposeVideoPrivateFormat</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVAHDSW_ProposeVideoPrivateFormat>}
      */
     ProposeVideoPrivateFormat {
         get => NumGet(this, 8, "ptr")
@@ -37,7 +37,7 @@ class DXVAHDSW_CALLBACKS extends Win32Struct
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_getvideoprocessordevicecaps">PDXVAHDSW_GetVideoProcessorDeviceCaps</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVAHDSW_GetVideoProcessorDeviceCaps>}
      */
     GetVideoProcessorDeviceCaps {
         get => NumGet(this, 16, "ptr")
@@ -46,7 +46,7 @@ class DXVAHDSW_CALLBACKS extends Win32Struct
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_getvideoprocessoroutputformats">PDXVAHDSW_GetVideoProcessorOutputFormats</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVAHDSW_GetVideoProcessorOutputFormats>}
      */
     GetVideoProcessorOutputFormats {
         get => NumGet(this, 24, "ptr")
@@ -55,7 +55,7 @@ class DXVAHDSW_CALLBACKS extends Win32Struct
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_getvideoprocessorinputformats">PDXVAHDSW_GetVideoProcessorInputFormats</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVAHDSW_GetVideoProcessorInputFormats>}
      */
     GetVideoProcessorInputFormats {
         get => NumGet(this, 32, "ptr")
@@ -64,7 +64,7 @@ class DXVAHDSW_CALLBACKS extends Win32Struct
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_getvideoprocessorcaps">PDXVAHDSW_GetVideoProcessorCaps</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVAHDSW_GetVideoProcessorCaps>}
      */
     GetVideoProcessorCaps {
         get => NumGet(this, 40, "ptr")
@@ -73,7 +73,7 @@ class DXVAHDSW_CALLBACKS extends Win32Struct
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_getvideoprocessorcustomrates">PDXVAHDSW_GetVideoProcessorCustomRates</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVAHDSW_GetVideoProcessorCustomRates>}
      */
     GetVideoProcessorCustomRates {
         get => NumGet(this, 48, "ptr")
@@ -82,7 +82,7 @@ class DXVAHDSW_CALLBACKS extends Win32Struct
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_getvideoprocessorfilterrange">PDXVAHDSW_GetVideoProcessorFilterRange</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVAHDSW_GetVideoProcessorFilterRange>}
      */
     GetVideoProcessorFilterRange {
         get => NumGet(this, 56, "ptr")
@@ -91,7 +91,7 @@ class DXVAHDSW_CALLBACKS extends Win32Struct
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_destroydevice">PDXVAHDSW_DestroyDevice</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVAHDSW_DestroyDevice>}
      */
     DestroyDevice {
         get => NumGet(this, 64, "ptr")
@@ -100,7 +100,7 @@ class DXVAHDSW_CALLBACKS extends Win32Struct
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_createvideoprocessor">PDXVAHDSW_CreateVideoProcessor</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVAHDSW_CreateVideoProcessor>}
      */
     CreateVideoProcessor {
         get => NumGet(this, 72, "ptr")
@@ -109,7 +109,7 @@ class DXVAHDSW_CALLBACKS extends Win32Struct
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_setvideoprocessbltstate">PDXVAHDSW_SetVideoProcessBltState</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVAHDSW_SetVideoProcessBltState>}
      */
     SetVideoProcessBltState {
         get => NumGet(this, 80, "ptr")
@@ -118,7 +118,7 @@ class DXVAHDSW_CALLBACKS extends Win32Struct
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_getvideoprocessbltstateprivate">PDXVAHDSW_GetVideoProcessBltStatePrivate</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVAHDSW_GetVideoProcessBltStatePrivate>}
      */
     GetVideoProcessBltStatePrivate {
         get => NumGet(this, 88, "ptr")
@@ -127,7 +127,7 @@ class DXVAHDSW_CALLBACKS extends Win32Struct
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_setvideoprocessstreamstate">PDXVAHDSW_SetVideoProcessStreamState</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVAHDSW_SetVideoProcessStreamState>}
      */
     SetVideoProcessStreamState {
         get => NumGet(this, 96, "ptr")
@@ -136,7 +136,7 @@ class DXVAHDSW_CALLBACKS extends Win32Struct
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_getvideoprocessstreamstateprivate">PDXVAHDSW_GetVideoProcessStreamStatePrivate</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVAHDSW_GetVideoProcessStreamStatePrivate>}
      */
     GetVideoProcessStreamStatePrivate {
         get => NumGet(this, 104, "ptr")
@@ -145,7 +145,7 @@ class DXVAHDSW_CALLBACKS extends Win32Struct
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_videoprocessblthd">PDXVAHDSW_VideoProcessBltHD</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVAHDSW_VideoProcessBltHD>}
      */
     VideoProcessBltHD {
         get => NumGet(this, 112, "ptr")
@@ -154,7 +154,7 @@ class DXVAHDSW_CALLBACKS extends Win32Struct
 
     /**
      * Function pointer of type <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_destroyvideoprocessor">PDXVAHDSW_DestroyVideoProcessor</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDXVAHDSW_DestroyVideoProcessor>}
      */
     DestroyVideoProcessor {
         get => NumGet(this, 120, "ptr")

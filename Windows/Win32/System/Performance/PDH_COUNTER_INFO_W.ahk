@@ -95,7 +95,7 @@ class PDH_COUNTER_INFO_W extends Win32Struct
 
     /**
      * <b>Null</b>-terminated string that specifies the full counter path. The string follows this structure in memory.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     szFullPath {
         get => NumGet(this, 40, "ptr")
@@ -125,7 +125,7 @@ class PDH_COUNTER_INFO_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     szMachineName {
         get => NumGet(this, 48, "ptr")
@@ -133,7 +133,7 @@ class PDH_COUNTER_INFO_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     szObjectName {
         get => NumGet(this, 56, "ptr")
@@ -141,7 +141,7 @@ class PDH_COUNTER_INFO_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     szInstanceName {
         get => NumGet(this, 64, "ptr")
@@ -149,7 +149,7 @@ class PDH_COUNTER_INFO_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     szParentInstance {
         get => NumGet(this, 72, "ptr")
@@ -165,7 +165,7 @@ class PDH_COUNTER_INFO_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     szCounterName {
         get => NumGet(this, 88, "ptr")
@@ -174,7 +174,7 @@ class PDH_COUNTER_INFO_W extends Win32Struct
 
     /**
      * Help text that describes the counter. Is <b>NULL</b> if the source is a log file.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     szExplainText {
         get => NumGet(this, 80, "ptr")

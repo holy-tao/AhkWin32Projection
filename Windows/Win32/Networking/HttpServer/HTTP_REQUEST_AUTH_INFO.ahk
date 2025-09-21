@@ -44,7 +44,7 @@ class HTTP_REQUEST_AUTH_INFO extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-acceptsecuritycontext">SECURITY_STATUS</a> value that indicates the security failure status when the <b>AuthStatus</b> member   is <b>HttpAuthStatusFailure</b>.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     SecStatus {
         get => NumGet(this, 4, "int")
@@ -90,7 +90,7 @@ class HTTP_REQUEST_AUTH_INFO extends Win32Struct
      * A  handle to the client token that the receiving process can use to impersonate the authenticated client.
      * 
      * The handle to the token should be closed by calling <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> when it is no longer required. This token is valid only for the lifetime of the request. Applications can regenerate the initial 401 challenge to reauthenticate when the token expires.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     AccessToken {
         get => NumGet(this, 16, "ptr")
@@ -148,7 +148,7 @@ class HTTP_REQUEST_AUTH_INFO extends Win32Struct
 
     /**
      * The Base64 encoded mutual authentication data used in  the WWW-Authenticate header.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pMutualAuthData {
         get => NumGet(this, 56, "ptr")
@@ -166,7 +166,7 @@ class HTTP_REQUEST_AUTH_INFO extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pPackageName {
         get => NumGet(this, 72, "ptr")

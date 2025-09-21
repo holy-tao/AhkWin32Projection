@@ -83,7 +83,7 @@ class AT_ENUM extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains the name of the command, batch program, or binary file to execute.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     Command {
         get => NumGet(this, 24, "ptr")

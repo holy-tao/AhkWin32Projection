@@ -9,9 +9,9 @@
  */
 class MIXERCONTROLDETAILS extends Win32Struct
 {
-    static sizeof => 28
+    static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Size, in bytes, of the <b>MIXERCONTROLDETAILS</b> structure. The size must be large enough to contain the base <b>MIXERCONTROLDETAILS</b> structure. When <a href="https://docs.microsoft.com/previous-versions/dd757299(v=vs.85)">mixerGetControlDetails</a> returns, this member contains the actual size of the information returned. The returned information will not exceed the requested size, nor will it be smaller than the base <b>MIXERCONTROLDETAILS</b> structure.
@@ -84,7 +84,7 @@ class MIXERCONTROLDETAILS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hwndOwner {
         get => NumGet(this, 12, "ptr")
@@ -171,7 +171,7 @@ class MIXERCONTROLDETAILS extends Win32Struct
      * @type {Pointer<Void>}
      */
     paDetails {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

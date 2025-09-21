@@ -30,7 +30,7 @@ class RIO_EXTENSION_FUNCTION_TABLE extends Win32Struct
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_rioreceive">RIOReceive</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPFN_RIORECEIVE>}
      */
     RIOReceive {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +39,7 @@ class RIO_EXTENSION_FUNCTION_TABLE extends Win32Struct
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_rioreceiveex">RIOReceiveEx</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPFN_RIORECEIVEEX>}
      */
     RIOReceiveEx {
         get => NumGet(this, 16, "ptr")
@@ -48,7 +48,7 @@ class RIO_EXTENSION_FUNCTION_TABLE extends Win32Struct
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_riosend">RIOSend</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPFN_RIOSEND>}
      */
     RIOSend {
         get => NumGet(this, 24, "ptr")
@@ -57,7 +57,7 @@ class RIO_EXTENSION_FUNCTION_TABLE extends Win32Struct
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/hh437216(v=vs.85)">RIOSendEx</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPFN_RIOSENDEX>}
      */
     RIOSendEx {
         get => NumGet(this, 32, "ptr")
@@ -66,7 +66,7 @@ class RIO_EXTENSION_FUNCTION_TABLE extends Win32Struct
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/hh448837(v=vs.85)">RIOCloseCompletionQueue</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPFN_RIOCLOSECOMPLETIONQUEUE>}
      */
     RIOCloseCompletionQueue {
         get => NumGet(this, 40, "ptr")
@@ -75,7 +75,7 @@ class RIO_EXTENSION_FUNCTION_TABLE extends Win32Struct
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_riocreatecompletionqueue">RIOCreateCompletionQueue</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPFN_RIOCREATECOMPLETIONQUEUE>}
      */
     RIOCreateCompletionQueue {
         get => NumGet(this, 48, "ptr")
@@ -84,7 +84,7 @@ class RIO_EXTENSION_FUNCTION_TABLE extends Win32Struct
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_riocreaterequestqueue">RIOCreateRequestQueue</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPFN_RIOCREATEREQUESTQUEUE>}
      */
     RIOCreateRequestQueue {
         get => NumGet(this, 56, "ptr")
@@ -93,7 +93,7 @@ class RIO_EXTENSION_FUNCTION_TABLE extends Win32Struct
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_riodequeuecompletion">RIODequeueCompletion</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPFN_RIODEQUEUECOMPLETION>}
      */
     RIODequeueCompletion {
         get => NumGet(this, 64, "ptr")
@@ -102,7 +102,7 @@ class RIO_EXTENSION_FUNCTION_TABLE extends Win32Struct
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_rioderegisterbuffer">RIODeregisterBuffer</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPFN_RIODEREGISTERBUFFER>}
      */
     RIODeregisterBuffer {
         get => NumGet(this, 72, "ptr")
@@ -111,7 +111,7 @@ class RIO_EXTENSION_FUNCTION_TABLE extends Win32Struct
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_rionotify">RIONotify</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPFN_RIONOTIFY>}
      */
     RIONotify {
         get => NumGet(this, 80, "ptr")
@@ -120,7 +120,7 @@ class RIO_EXTENSION_FUNCTION_TABLE extends Win32Struct
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/hh437199(v=vs.85)">RIORegisterBuffer</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPFN_RIOREGISTERBUFFER>}
      */
     RIORegisterBuffer {
         get => NumGet(this, 88, "ptr")
@@ -129,7 +129,7 @@ class RIO_EXTENSION_FUNCTION_TABLE extends Win32Struct
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/hh437202(v=vs.85)">RIOResizeCompletionQueue</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPFN_RIORESIZECOMPLETIONQUEUE>}
      */
     RIOResizeCompletionQueue {
         get => NumGet(this, 96, "ptr")
@@ -138,7 +138,7 @@ class RIO_EXTENSION_FUNCTION_TABLE extends Win32Struct
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/hh437204(v=vs.85)">RIOResizeRequestQueue</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPFN_RIORESIZEREQUESTQUEUE>}
      */
     RIOResizeRequestQueue {
         get => NumGet(this, 104, "ptr")

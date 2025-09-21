@@ -15,7 +15,7 @@ class MBN_DEVICE_SERVICE extends Win32Struct
 
     /**
      * A string that represents the unique ID of a Mobile Broadband device service. This matches the Device Service UUID reported by the Mobile Broadband device.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     deviceServiceID {
         get => NumGet(this, 0, "ptr")

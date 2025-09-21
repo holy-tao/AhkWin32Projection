@@ -38,7 +38,7 @@ class CERT_REVOCATION_INFO extends Win32Struct
 
     /**
      * Not currently used and is set to <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszRevocationOid {
         get => NumGet(this, 8, "ptr")

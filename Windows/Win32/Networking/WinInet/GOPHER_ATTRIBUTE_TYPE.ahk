@@ -98,7 +98,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SByte>}
      */
     Site {
         get => NumGet(this, 8, "ptr")
@@ -106,7 +106,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SByte>}
      */
     Organization {
         get => NumGet(this, 8, "ptr")
@@ -114,7 +114,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SByte>}
      */
     Location {
         get => NumGet(this, 8, "ptr")
@@ -141,7 +141,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SByte>}
      */
     Provider {
         get => NumGet(this, 8, "ptr")
@@ -149,7 +149,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SByte>}
      */
     Version {
         get => NumGet(this, 8, "ptr")
@@ -198,7 +198,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SByte>}
      */
     Unknown {
         get => NumGet(this, 8, "ptr")

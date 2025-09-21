@@ -12,7 +12,7 @@ class DOT11EXT_VIRTUAL_STATION_APIS extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DOT11EXT_REQUEST_VIRTUAL_STATION>}
      */
     Dot11ExtRequestVirtualStation {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class DOT11EXT_VIRTUAL_STATION_APIS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DOT11EXT_RELEASE_VIRTUAL_STATION>}
      */
     Dot11ExtReleaseVirtualStation {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class DOT11EXT_VIRTUAL_STATION_APIS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DOT11EXT_QUERY_VIRTUAL_STATION_PROPERTIES>}
      */
     Dot11ExtQueryVirtualStationProperties {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class DOT11EXT_VIRTUAL_STATION_APIS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<DOT11EXT_SET_VIRTUAL_STATION_AP_PROPERTIES>}
      */
     Dot11ExtSetVirtualStationAPProperties {
         get => NumGet(this, 24, "ptr")

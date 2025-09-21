@@ -65,7 +65,7 @@ class NMOBJECTNOTIFY extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * COM success or failure flags. The application processing the notification code sets this member.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hResult {
         get => NumGet(this, 48, "int")

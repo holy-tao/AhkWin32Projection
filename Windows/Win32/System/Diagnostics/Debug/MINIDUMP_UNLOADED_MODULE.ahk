@@ -11,7 +11,7 @@ class MINIDUMP_UNLOADED_MODULE extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The base address of the module executable image in memory.

@@ -10,9 +10,9 @@
  */
 class TXF_LOG_RECORD_AFFECTED_FILE extends Win32Struct
 {
-    static sizeof => 44
+    static sizeof => 48
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The version identifier for the replication record.
@@ -48,7 +48,7 @@ class TXF_LOG_RECORD_AFFECTED_FILE extends Win32Struct
     TxfFileId{
         get {
             if(!this.HasProp("__TxfFileId"))
-                this.__TxfFileId := TXF_ID(this.ptr + 12)
+                this.__TxfFileId := TXF_ID(this.ptr + 16)
             return this.__TxfFileId
         }
     }
@@ -58,8 +58,8 @@ class TXF_LOG_RECORD_AFFECTED_FILE extends Win32Struct
      * @type {Pointer<Guid>}
      */
     KtmGuid {
-        get => NumGet(this, 28, "ptr")
-        set => NumPut("ptr", value, this, 28)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -67,8 +67,8 @@ class TXF_LOG_RECORD_AFFECTED_FILE extends Win32Struct
      * @type {Integer}
      */
     FileNameLength {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -76,7 +76,7 @@ class TXF_LOG_RECORD_AFFECTED_FILE extends Win32Struct
      * @type {Integer}
      */
     FileNameByteOffsetInStructure {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 }

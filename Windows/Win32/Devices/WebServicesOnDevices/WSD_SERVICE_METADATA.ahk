@@ -33,7 +33,7 @@ class WSD_SERVICE_METADATA extends Win32Struct
 
     /**
      * The URI of the service. This URI must be valid when a <b>WSD_SERVICE_METADATA</b> structure is passed to <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nf-wsdhost-iwsddevicehost-setmetadata">IWSDDeviceHost::SetMetadata</a>. Applications are responsible for URI validation.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ServiceId {
         get => NumGet(this, 16, "ptr")

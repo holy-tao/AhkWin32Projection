@@ -44,7 +44,7 @@ class DDHAL_FLIPDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ddRVal {
         get => NumGet(this, 28, "int")
@@ -52,7 +52,7 @@ class DDHAL_FLIPDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALSURFCB_FLIP>}
      */
     Flip {
         get => NumGet(this, 32, "ptr")

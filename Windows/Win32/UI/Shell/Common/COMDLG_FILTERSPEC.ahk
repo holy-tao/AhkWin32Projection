@@ -17,7 +17,7 @@ class COMDLG_FILTERSPEC extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * A pointer to a buffer that contains the friendly name of the filter.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszName {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class COMDLG_FILTERSPEC extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * A pointer to a buffer that contains the filter pattern.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszSpec {
         get => NumGet(this, 8, "ptr")

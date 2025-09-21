@@ -13,9 +13,9 @@
  */
 class XAPO_REGISTRATION_PROPERTIES extends Win32Struct
 {
-    static sizeof => 1060
+    static sizeof => 1064
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * COM class ID for use with the CoCreateInstance function.

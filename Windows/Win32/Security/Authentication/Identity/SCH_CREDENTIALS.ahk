@@ -86,7 +86,7 @@ class SCH_CREDENTIALS extends Win32Struct
 
     /**
      * *Optional.* Valid for server applications only. Handle to a certificate store that contains self-signed root certificates for certification authorities (CAs) trusted by the application. This member is used only by server-side applications that require client authentication.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hRootStore {
         get => NumGet(this, 24, "ptr")

@@ -52,7 +52,7 @@ class DDHAL_UPDATENONLOCALHEAPDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ddRVal {
         get => NumGet(this, 40, "int")
@@ -60,7 +60,7 @@ class DDHAL_UPDATENONLOCALHEAPDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_UPDATENONLOCALHEAP>}
      */
     UpdateNonLocalHeap {
         get => NumGet(this, 48, "ptr")

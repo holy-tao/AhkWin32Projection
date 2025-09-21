@@ -185,7 +185,7 @@ class COPYFILE2_EXTENDED_PARAMETERS extends Win32Struct
      *       called each time another portion of the file has been copied. This parameter can be 
      *       <b>NULL</b>. For more information on the progress callback function, see the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nc-winbase-pcopyfile2_progress_routine">CopyFile2ProgressRoutine</a> callback function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PCOPYFILE2_PROGRESS_ROUTINE>}
      */
     pProgressRoutine {
         get => NumGet(this, 16, "ptr")

@@ -34,7 +34,7 @@ class CERT_PHYSICAL_STORE_INFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptinstalloidfunctionaddress">CryptInstallOIDFunctionAddress</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptregisteroidfunction">CryptRegisterOIDFunction</a>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/extending-certopenstore-functionality">CertOpenStore</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszOpenStoreProvider {
         get => NumGet(this, 8, "ptr")

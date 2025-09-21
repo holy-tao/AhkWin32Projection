@@ -29,7 +29,7 @@ class D3D11_AUTHENTICATED_CONFIGURE_CRYPTO_SESSION_INPUT extends Win32Struct
 
     /**
      * A handle to the decoder device. Get this from <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodecoder-getdriverhandle">ID3D11VideoDecoder::GetDriverHandle</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     DecoderHandle {
         get => NumGet(this, 40, "ptr")
@@ -38,7 +38,7 @@ class D3D11_AUTHENTICATED_CONFIGURE_CRYPTO_SESSION_INPUT extends Win32Struct
 
     /**
      * A handle to the cryptographic session. Get this from <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11cryptosession-getcryptosessionhandle">ID3D11CryptoSession::GetCryptoSessionHandle</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     CryptoSessionHandle {
         get => NumGet(this, 48, "ptr")
@@ -47,7 +47,7 @@ class D3D11_AUTHENTICATED_CONFIGURE_CRYPTO_SESSION_INPUT extends Win32Struct
 
     /**
      * A handle to the Direct3D device. Get this from <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videocontext-queryauthenticatedchannel">D3D11VideoContext::QueryAuthenticatedChannel</a> using <b>D3D11_AUTHENTICATED_QUERY_DEVICE_HANDLE</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     DeviceHandle {
         get => NumGet(this, 56, "ptr")

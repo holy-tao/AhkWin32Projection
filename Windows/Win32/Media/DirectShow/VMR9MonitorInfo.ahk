@@ -39,7 +39,7 @@ class VMR9MonitorInfo extends Win32Struct
 
     /**
      * Handle to the monitor.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hMon {
         get => NumGet(this, 24, "ptr")

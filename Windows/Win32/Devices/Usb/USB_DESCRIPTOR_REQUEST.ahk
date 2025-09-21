@@ -7,9 +7,9 @@
  */
 class USB_DESCRIPTOR_REQUEST extends Win32Struct
 {
-    static sizeof => 13
+    static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -23,40 +23,40 @@ class USB_DESCRIPTOR_REQUEST extends Win32Struct
      * @type {Integer}
      */
     bmRequest {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+        get => NumGet(this, 8, "char")
+        set => NumPut("char", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     bRequest {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
+        get => NumGet(this, 9, "char")
+        set => NumPut("char", value, this, 9)
     }
 
     /**
      * @type {Integer}
      */
     wValue {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
+        get => NumGet(this, 10, "ushort")
+        set => NumPut("ushort", value, this, 10)
     }
 
     /**
      * @type {Integer}
      */
     wIndex {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
+        get => NumGet(this, 12, "ushort")
+        set => NumPut("ushort", value, this, 12)
     }
 
     /**
      * @type {Integer}
      */
     wLength {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
+        get => NumGet(this, 14, "ushort")
+        set => NumPut("ushort", value, this, 14)
     }
 
     /**
@@ -65,7 +65,7 @@ class USB_DESCRIPTOR_REQUEST extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
+                this.__DataProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
             return this.__DataProxyArray
         }
     }

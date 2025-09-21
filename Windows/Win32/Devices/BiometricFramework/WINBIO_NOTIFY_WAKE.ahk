@@ -20,7 +20,7 @@ class WINBIO_NOTIFY_WAKE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     WinBioHresult {
         get => NumGet(this, 4, "int")

@@ -17,7 +17,7 @@ class PSS_HANDLE_TRACE_INFORMATION extends Win32Struct
 
     /**
      * A handle to a section containing the handle trace information.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     SectionHandle {
         get => NumGet(this, 0, "ptr")

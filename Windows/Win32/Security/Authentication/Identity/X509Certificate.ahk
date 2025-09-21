@@ -70,7 +70,7 @@ class X509Certificate extends Win32Struct
 
     /**
      * A pointer to a string that specifies the issuer of the certificate.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszIssuer {
         get => NumGet(this, 40, "ptr")
@@ -79,7 +79,7 @@ class X509Certificate extends Win32Struct
 
     /**
      * A pointer to a string that specifies the subject of the certificate.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszSubject {
         get => NumGet(this, 48, "ptr")

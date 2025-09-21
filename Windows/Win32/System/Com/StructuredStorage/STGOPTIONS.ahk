@@ -56,7 +56,7 @@ class STGOPTIONS extends Win32Struct
      * Specifies the name of a file whose Encrypted File System (EFS) metadata will be transferred to a newly created Structured Storage file. This member is valid only when <b>STGFMT_DOCFILE</b> is used with <a href="https://docs.microsoft.com/windows/desktop/api/coml2api/nf-coml2api-stgcreatestorageex">StgCreateStorageEx</a>.
      * 
      * <b>In Windows XP and later:  </b>The <b>pwcsTemplateFile</b> member is only valid if version 2 or later is specified in the <b>usVersion</b> member.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwcsTemplateFile {
         get => NumGet(this, 8, "ptr")

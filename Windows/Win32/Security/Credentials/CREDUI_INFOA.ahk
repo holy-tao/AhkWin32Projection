@@ -28,7 +28,7 @@ class CREDUI_INFOA extends Win32Struct
 
     /**
      * Specifies the handle to the parent window of the dialog box. The dialog box is modal with respect to the parent window. If this member is <b>NULL</b>, the desktop is the parent window of the dialog box.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hwndParent {
         get => NumGet(this, 8, "ptr")
@@ -37,7 +37,7 @@ class CREDUI_INFOA extends Win32Struct
 
     /**
      * Pointer to a string containing a brief message to display in the dialog box. The length of this string should not exceed CREDUI_MAX_MESSAGE_LENGTH.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszMessageText {
         get => NumGet(this, 16, "ptr")
@@ -46,7 +46,7 @@ class CREDUI_INFOA extends Win32Struct
 
     /**
      * Pointer to a string containing the title for the dialog box. The length of this string should not exceed CREDUI_MAX_CAPTION_LENGTH.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszCaptionText {
         get => NumGet(this, 24, "ptr")
@@ -55,7 +55,7 @@ class CREDUI_INFOA extends Win32Struct
 
     /**
      * Bitmap to display in the dialog box. If this member is <b>NULL</b>, a default bitmap is used. The bitmap size is limited to 320x60 pixels.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hbmBanner {
         get => NumGet(this, 32, "ptr")

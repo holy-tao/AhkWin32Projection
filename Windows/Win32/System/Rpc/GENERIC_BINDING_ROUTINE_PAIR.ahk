@@ -12,7 +12,7 @@ class GENERIC_BINDING_ROUTINE_PAIR extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<GENERIC_BINDING_ROUTINE>}
      */
     pfnBind {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class GENERIC_BINDING_ROUTINE_PAIR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<GENERIC_UNBIND_ROUTINE>}
      */
     pfnUnbind {
         get => NumGet(this, 8, "ptr")

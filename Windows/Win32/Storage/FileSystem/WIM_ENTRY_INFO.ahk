@@ -51,7 +51,7 @@ class WIM_ENTRY_INFO extends Win32Struct
 
     /**
      * Specifies a full path to the WIM file.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     WimPath {
         get => NumGet(this, 24, "ptr")

@@ -21,7 +21,7 @@ class SECPKG_NTLM_TARGETINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     MsvAvNbComputerName {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +29,7 @@ class SECPKG_NTLM_TARGETINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     MsvAvNbDomainName {
         get => NumGet(this, 16, "ptr")
@@ -37,7 +37,7 @@ class SECPKG_NTLM_TARGETINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     MsvAvDnsComputerName {
         get => NumGet(this, 24, "ptr")
@@ -45,7 +45,7 @@ class SECPKG_NTLM_TARGETINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     MsvAvDnsDomainName {
         get => NumGet(this, 32, "ptr")
@@ -53,7 +53,7 @@ class SECPKG_NTLM_TARGETINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     MsvAvDnsTreeName {
         get => NumGet(this, 40, "ptr")
@@ -80,7 +80,7 @@ class SECPKG_NTLM_TARGETINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     MsvAvTargetName {
         get => NumGet(this, 64, "ptr")

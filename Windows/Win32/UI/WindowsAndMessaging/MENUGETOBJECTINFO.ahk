@@ -45,7 +45,7 @@ class MENUGETOBJECTINFO extends Win32Struct
      * Type: <b>HMENU</b>
      * 
      * A handle to the menu the mouse cursor is on.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hmenu {
         get => NumGet(this, 8, "ptr")

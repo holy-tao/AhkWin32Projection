@@ -365,7 +365,7 @@ class REBARBANDINFOA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * Pointer to a buffer that contains the display text for the band. If band information is being requested from the control and  RBBIM_TEXT is specified in <b>fMask</b>, this member must be initialized to the address of the buffer that will receive the text.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     lpText {
         get => NumGet(this, 24, "ptr")
@@ -398,7 +398,7 @@ class REBARBANDINFOA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle to the child window contained in the band, if any.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hwndChild {
         get => NumGet(this, 40, "ptr")
@@ -442,7 +442,7 @@ class REBARBANDINFOA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HBITMAP</a></b>
      * 
      * Handle to a bitmap that is used as the background for this band.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hbmBack {
         get => NumGet(this, 64, "ptr")

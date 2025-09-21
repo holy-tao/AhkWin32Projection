@@ -76,7 +76,7 @@ class CRYPT_VERIFY_MESSAGE_PARA extends Win32Struct
      * An application defined–callback function that gets the signer's certificate can be used in place of the default. It is passed the certificate identifier of the signer (its issuer and serial number) and a handle to its cryptographic signed message's certificate store.
      * 
      * See <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_crypt_get_signer_certificate">CryptGetSignerCertificateCallback</a> for the callback functions signature and arguments.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CRYPT_GET_SIGNER_CERTIFICATE>}
      */
     pfnGetSignerCertificate {
         get => NumGet(this, 16, "ptr")

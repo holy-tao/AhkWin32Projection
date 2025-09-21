@@ -7,9 +7,9 @@
  */
 class HIDP_EXTENDED_ATTRIBUTES extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -34,8 +34,8 @@ class HIDP_EXTENDED_ATTRIBUTES extends Win32Struct
      * @type {Pointer<HIDP_UNKNOWN_TOKEN>}
      */
     GlobalUnknowns {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -44,7 +44,7 @@ class HIDP_EXTENDED_ATTRIBUTES extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "uint")
+                this.__DataProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "uint")
             return this.__DataProxyArray
         }
     }

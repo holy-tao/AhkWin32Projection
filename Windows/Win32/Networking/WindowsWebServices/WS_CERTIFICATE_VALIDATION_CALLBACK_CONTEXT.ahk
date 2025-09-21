@@ -15,7 +15,7 @@ class WS_CERTIFICATE_VALIDATION_CALLBACK_CONTEXT extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_certificate_validation_callback">WS_CERTIFICATE_VALIDATION_CALLBACK</a> callback that is an application specific callback for validating HTTP certificates.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WS_CERTIFICATE_VALIDATION_CALLBACK>}
      */
     callback {
         get => NumGet(this, 0, "ptr")

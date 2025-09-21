@@ -24,7 +24,7 @@ class CRYPT_TRUST_REG_ENTRY extends Win32Struct
 
     /**
      * A pointer to a null-terminated string for the DLL name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszDLLName {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class CRYPT_TRUST_REG_ENTRY extends Win32Struct
 
     /**
      * A pointer to a null-terminated string for the function name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszFunctionName {
         get => NumGet(this, 16, "ptr")

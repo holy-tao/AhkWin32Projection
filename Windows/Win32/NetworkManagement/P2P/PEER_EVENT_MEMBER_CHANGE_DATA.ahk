@@ -34,7 +34,7 @@ class PEER_EVENT_MEMBER_CHANGE_DATA extends Win32Struct
 
     /**
      * Pointer to a Unicode string that contains the peer name of the peer group member.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwzIdentity {
         get => NumGet(this, 8, "ptr")

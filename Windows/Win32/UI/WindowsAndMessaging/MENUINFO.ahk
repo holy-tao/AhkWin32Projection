@@ -57,7 +57,7 @@ class MENUINFO extends Win32Struct
      * Type: <b>HBRUSH</b>
      * 
      * A handle to the brush to be used for the menu's background.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hbrBack {
         get => NumGet(this, 16, "ptr")

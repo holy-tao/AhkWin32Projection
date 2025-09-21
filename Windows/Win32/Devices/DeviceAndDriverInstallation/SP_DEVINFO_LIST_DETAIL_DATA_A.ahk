@@ -13,9 +13,9 @@
  */
 class SP_DEVINFO_LIST_DETAIL_DATA_A extends Win32Struct
 {
-    static sizeof => 283
+    static sizeof => 288
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The size, in bytes, of the SP_DEVINFO_LIST_DETAIL_DATA structure.
@@ -31,19 +31,19 @@ class SP_DEVINFO_LIST_DETAIL_DATA_A extends Win32Struct
      * @type {Pointer<Guid>}
      */
     ClassGuid {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * If the device information set is for a remote computer, this member is a configuration manager machine handle for the remote computer. If the device information set is for the local computer, this member is <b>NULL</b>. 
      * 
      * This is typically the parameter that components use to access the remote computer. The <b>RemoteMachineName</b> contains a string, in case the component requires the name of the remote computer.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     RemoteMachineHandle {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -51,8 +51,8 @@ class SP_DEVINFO_LIST_DETAIL_DATA_A extends Win32Struct
      * @type {String}
      */
     RemoteMachineName {
-        get => StrGet(this.ptr + 20, 262, "UTF-8")
-        set => StrPut(value, this.ptr + 20, 262, "UTF-8")
+        get => StrGet(this.ptr + 24, 262, "UTF-8")
+        set => StrPut(value, this.ptr + 24, 262, "UTF-8")
     }
 
     /**
@@ -61,6 +61,6 @@ class SP_DEVINFO_LIST_DETAIL_DATA_A extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 283
+        this.cbSize := 288
     }
 }

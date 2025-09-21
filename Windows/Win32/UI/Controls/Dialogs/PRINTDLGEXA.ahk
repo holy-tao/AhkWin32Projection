@@ -25,9 +25,9 @@
  */
 class PRINTDLGEXA extends Win32Struct
 {
-    static sizeof => 120
+    static sizeof => 136
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b>DWORD</b>
@@ -44,11 +44,11 @@ class PRINTDLGEXA extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window that owns the property sheet. This member must be a valid window handle; it cannot be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hwndOwner {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -59,11 +59,11 @@ class PRINTDLGEXA extends Win32Struct
      * If <b>hDevMode</b> is <b>NULL</b> on input, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms646942(v=vs.85)">PrintDlgEx</a> allocates memory for the <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> structure, initializes its members to indicate the user's input, and returns a handle that identifies it. 
      * 
      * For more information about the <b>hDevMode</b> and <b>hDevNames</b> members, see the Remarks section at the end of this topic.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hDevMode {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -74,22 +74,22 @@ class PRINTDLGEXA extends Win32Struct
      * The <b>hDevNames</b> member can be <b>NULL</b>, in which case, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms646942(v=vs.85)">PrintDlgEx</a> allocates memory for the <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/ns-commdlg-devnames">DEVNAMES</a> structure, initializes its members to indicate the user's input, and returns a handle that identifies it. 
      * 
      * For more information about the <b>hDevMode</b> and <b>hDevNames</b> members, see the Remarks section at the end of this topic.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hDevNames {
-        get => NumGet(this, 20, "ptr")
-        set => NumPut("ptr", value, this, 20)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Type: <b>HDC</b>
      * 
      * A handle to a device context or an information context, depending on whether the <b>Flags</b> member specifies the <b>PD_RETURNDC</b> or <b>PC_RETURNIC</b> flag. If neither flag is specified, the value of this member is undefined. If both flags are specified, <b>PD_RETURNDC</b> has priority.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hDC {
-        get => NumGet(this, 28, "ptr")
-        set => NumPut("ptr", value, this, 28)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -97,8 +97,8 @@ class PRINTDLGEXA extends Win32Struct
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -106,8 +106,8 @@ class PRINTDLGEXA extends Win32Struct
      * @type {Integer}
      */
     Flags2 {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -117,8 +117,8 @@ class PRINTDLGEXA extends Win32Struct
      * @type {Integer}
      */
     ExclusionFlags {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -128,8 +128,8 @@ class PRINTDLGEXA extends Win32Struct
      * @type {Integer}
      */
     nPageRanges {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
@@ -139,8 +139,8 @@ class PRINTDLGEXA extends Win32Struct
      * @type {Integer}
      */
     nMaxPageRanges {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -150,8 +150,8 @@ class PRINTDLGEXA extends Win32Struct
      * @type {Pointer<PRINTPAGERANGE>}
      */
     lpPageRanges {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -161,8 +161,8 @@ class PRINTDLGEXA extends Win32Struct
      * @type {Integer}
      */
     nMinPage {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
@@ -172,8 +172,8 @@ class PRINTDLGEXA extends Win32Struct
      * @type {Integer}
      */
     nMaxPage {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
+        get => NumGet(this, 76, "uint")
+        set => NumPut("uint", value, this, 76)
     }
 
     /**
@@ -183,30 +183,30 @@ class PRINTDLGEXA extends Win32Struct
      * @type {Integer}
      */
     nCopies {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
     /**
      * Type: <b>HINSTANCE</b>
      * 
      * If the <b>PD_ENABLEPRINTTEMPLATE</b> flag is set in the <b>Flags</b> member, <b>hInstance</b> is a handle to the application or module instance that contains the dialog box template named by the <b>lpPrintTemplateName</b> member. If the <b>PD_ENABLEPRINTTEMPLATEHANDLE</b> flag is set in the <b>Flags</b> member, <b>hInstance</b> is a handle to a memory object containing a dialog box template. If neither of the template flags is set in the <b>Flags</b> member, <b>hInstance</b> should be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hInstance {
-        get => NumGet(this, 76, "ptr")
-        set => NumPut("ptr", value, this, 76)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * The name of the dialog box template resource in the module identified by the <b>hInstance</b> member. This template replaces the default dialog box template in the lower portion of the <b>General</b> page. The default template contains controls similar to those of the <b>Print</b> dialog box. This member is ignored unless the PD_ENABLEPRINTTEMPLATE flag is set in the <b>Flags</b> member.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     lpPrintTemplateName {
-        get => NumGet(this, 84, "ptr")
-        set => NumPut("ptr", value, this, 84)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
@@ -222,8 +222,8 @@ class PRINTDLGEXA extends Win32Struct
      * @type {Pointer<IUnknown>}
      */
     lpCallback {
-        get => NumGet(this, 92, "ptr")
-        set => NumPut("ptr", value, this, 92)
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
@@ -234,19 +234,19 @@ class PRINTDLGEXA extends Win32Struct
      * @type {Integer}
      */
     nPropertyPages {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
+        get => NumGet(this, 112, "uint")
+        set => NumPut("uint", value, this, 112)
     }
 
     /**
      * Type: <b>HPROPSHEETPAGE*</b>
      * 
      * Contains an array of property page handles to add to the <b>Print</b> property sheet. The additional property pages follow the <b>General</b> page. Use the <a href="https://docs.microsoft.com/windows/desktop/api/prsht/nf-prsht-createpropertysheetpagea">CreatePropertySheetPage</a> function to create these additional pages. When the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms646942(v=vs.85)">PrintDlgEx</a> function returns, all the <b>HPROPSHEETPAGE</b> handles in the <b>lphPropertyPages</b> array have been destroyed. If <b>nPropertyPages</b> is zero, <b>lphPropertyPages</b> should be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     lphPropertyPages {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 
     /**
@@ -256,8 +256,8 @@ class PRINTDLGEXA extends Win32Struct
      * @type {Integer}
      */
     nStartPage {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
+        get => NumGet(this, 128, "uint")
+        set => NumPut("uint", value, this, 128)
     }
 
     /**
@@ -265,7 +265,7 @@ class PRINTDLGEXA extends Win32Struct
      * @type {Integer}
      */
     dwResultAction {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
+        get => NumGet(this, 132, "uint")
+        set => NumPut("uint", value, this, 132)
     }
 }

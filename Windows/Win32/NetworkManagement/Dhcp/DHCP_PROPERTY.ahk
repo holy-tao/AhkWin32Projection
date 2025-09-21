@@ -53,7 +53,7 @@ class DHCP_PROPERTY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     StringValue {
         get => NumGet(this, 8, "ptr")

@@ -36,7 +36,7 @@ class VDS_LUN_PROP extends Win32Struct
 
     /**
      * The name of the LUN; a zero-terminated, human-readable string.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszFriendlyName {
         get => NumGet(this, 16, "ptr")
@@ -45,7 +45,7 @@ class VDS_LUN_PROP extends Win32Struct
 
     /**
      * The unique LUN identifier; a zero-terminated, human-readable string.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszIdentification {
         get => NumGet(this, 24, "ptr")
@@ -72,7 +72,7 @@ class VDS_LUN_PROP extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  The unmasking list can contain the same WWN or IQN more than once. Duplicates are ignored.</div>
      * <div> </div>
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszUnmaskingList {
         get => NumGet(this, 32, "ptr")

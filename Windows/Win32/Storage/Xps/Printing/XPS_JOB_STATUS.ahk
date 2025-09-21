@@ -60,7 +60,7 @@ class XPS_JOB_STATUS extends Win32Struct
 
     /**
      * The error state of the job.  If the job finishes without an error, this value will be <b>S_OK</b>. If an error causes the print job to exit, this value will be the error code of the failure.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     jobStatus {
         get => NumGet(this, 20, "int")

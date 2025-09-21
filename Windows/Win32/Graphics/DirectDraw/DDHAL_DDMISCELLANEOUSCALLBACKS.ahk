@@ -28,7 +28,7 @@ class DDHAL_DDMISCELLANEOUSCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_GETAVAILDRIVERMEMORY>}
      */
     GetAvailDriverMemory {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class DDHAL_DDMISCELLANEOUSCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_UPDATENONLOCALHEAP>}
      */
     UpdateNonLocalHeap {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class DDHAL_DDMISCELLANEOUSCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_GETHEAPALIGNMENT>}
      */
     GetHeapAlignment {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +52,7 @@ class DDHAL_DDMISCELLANEOUSCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALSURFCB_GETBLTSTATUS>}
      */
     GetSysmemBltStatus {
         get => NumGet(this, 32, "ptr")

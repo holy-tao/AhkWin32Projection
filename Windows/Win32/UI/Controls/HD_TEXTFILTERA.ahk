@@ -21,7 +21,7 @@ class HD_TEXTFILTERA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * A pointer to the buffer containing the filter.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszText {
         get => NumGet(this, 0, "ptr")

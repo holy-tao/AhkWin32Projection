@@ -36,7 +36,7 @@ class CERT_CHAIN_ENGINE_CONFIG extends Win32Struct
 
     /**
      * This configuration parameter can be used to restrict the root store. If used, it can be the handle of any HCERTSTORE containing only a proper subset of the certificates in the root store.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hRestrictedRoot {
         get => NumGet(this, 8, "ptr")
@@ -45,7 +45,7 @@ class CERT_CHAIN_ENGINE_CONFIG extends Win32Struct
 
     /**
      * Store handle. If used, restricts the stores searched to find CTLs.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hRestrictedTrust {
         get => NumGet(this, 16, "ptr")
@@ -54,7 +54,7 @@ class CERT_CHAIN_ENGINE_CONFIG extends Win32Struct
 
     /**
      * Store handle. If used, restricts the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">stores</a> searched for certificates and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">CRLs</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hRestrictedOther {
         get => NumGet(this, 24, "ptr")
@@ -72,7 +72,7 @@ class CERT_CHAIN_ENGINE_CONFIG extends Win32Struct
 
     /**
      * A pointer to an array of store handles for any additional stores to be searched in building chains.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     rghAdditionalStore {
         get => NumGet(this, 40, "ptr")
@@ -197,7 +197,7 @@ class CERT_CHAIN_ENGINE_CONFIG extends Win32Struct
      * Handle to a  certificate store that contains exclusive trust anchors.  If either the <b>hExclusiveRoot</b> or <b>hExclusiveTrustedPeople</b> member points to a valid store, exclusive trust mode is used for the chain building.
      * 
      * <b>Windows 7 and Windows Server 2008 R2:  </b>Support for this member begins.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hExclusiveRoot {
         get => NumGet(this, 64, "ptr")
@@ -208,7 +208,7 @@ class CERT_CHAIN_ENGINE_CONFIG extends Win32Struct
      * Handle to a certificate store that contains  application-specific peer trusted certificates. If either the <b>hExclusiveRoot</b> or <b>hExclusiveTrustedPeople</b> member points to a valid store, exclusive trust mode is used for the chain building.
      * 
      * <b>Windows 7 and Windows Server 2008 R2:  </b>Support for this member begins.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hExclusiveTrustedPeople {
         get => NumGet(this, 72, "ptr")

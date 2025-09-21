@@ -11,9 +11,9 @@
  */
 class NMPGSCROLL extends Win32Struct
 {
-    static sizeof => 58
+    static sizeof => 64
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a></b>
@@ -48,7 +48,7 @@ class NMPGSCROLL extends Win32Struct
     rcParent{
         get {
             if(!this.HasProp("__rcParent"))
-                this.__rcParent := RECT(this.ptr + 26)
+                this.__rcParent := RECT(this.ptr + 32)
             return this.__rcParent
         }
     }
@@ -58,8 +58,8 @@ class NMPGSCROLL extends Win32Struct
      * @type {Integer}
      */
     iDir {
-        get => NumGet(this, 42, "int")
-        set => NumPut("int", value, this, 42)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
@@ -69,8 +69,8 @@ class NMPGSCROLL extends Win32Struct
      * @type {Integer}
      */
     iXpos {
-        get => NumGet(this, 46, "int")
-        set => NumPut("int", value, this, 46)
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**
@@ -80,8 +80,8 @@ class NMPGSCROLL extends Win32Struct
      * @type {Integer}
      */
     iYpos {
-        get => NumGet(this, 50, "int")
-        set => NumPut("int", value, this, 50)
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 
     /**
@@ -91,7 +91,7 @@ class NMPGSCROLL extends Win32Struct
      * @type {Integer}
      */
     iScroll {
-        get => NumGet(this, 54, "int")
-        set => NumPut("int", value, this, 54)
+        get => NumGet(this, 60, "int")
+        set => NumPut("int", value, this, 60)
     }
 }

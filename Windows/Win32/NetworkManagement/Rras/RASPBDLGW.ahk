@@ -21,7 +21,7 @@ class RASPBDLGW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hwndOwner {
         get => NumGet(this, 8, "ptr")
@@ -61,7 +61,7 @@ class RASPBDLGW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<RASPBDLGFUNCW>}
      */
     pCallback {
         get => NumGet(this, 40, "ptr")

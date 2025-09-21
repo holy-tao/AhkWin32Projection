@@ -113,7 +113,7 @@ class RPC_INTERFACE_TEMPLATEW extends Win32Struct
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nc-rpcdce-rpc_interface_group_idle_callback_fn">RPC_INTERFACE_GROUP_IDLE_CALLBACK_FN</a> security-callback function, or <b>NULL</b> for no callback. Each registered interface can have a different callback function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<RPC_IF_CALLBACK_FN>}
      */
     IfCallback {
         get => NumGet(this, 48, "ptr")
@@ -133,7 +133,7 @@ class RPC_INTERFACE_TEMPLATEW extends Win32Struct
      * Pointer to the character-string comment applied to each cross-product element added to the local endpoint-map database. The string can be up to 64 characters long, including the null terminating character. Specify a null value or a null-terminated string ("\0") if there is no annotation string.
      * 
      * The annotation string is used by applications for information only. RPC does not use this string to determine which server instance a client communicates with or for enumerating elements in the endpoint-map database.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     Annotation {
         get => NumGet(this, 64, "ptr")

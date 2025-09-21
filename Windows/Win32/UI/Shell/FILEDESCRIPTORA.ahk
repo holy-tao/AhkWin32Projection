@@ -23,9 +23,9 @@
  */
 class FILEDESCRIPTORA extends Win32Struct
 {
-    static sizeof => 324
+    static sizeof => 336
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b>DWORD</b>
@@ -43,8 +43,8 @@ class FILEDESCRIPTORA extends Win32Struct
      * @type {Pointer<Guid>}
      */
     clsid {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -56,7 +56,7 @@ class FILEDESCRIPTORA extends Win32Struct
     sizel{
         get {
             if(!this.HasProp("__sizel"))
-                this.__sizel := SIZE(this.ptr + 12)
+                this.__sizel := SIZE(this.ptr + 16)
             return this.__sizel
         }
     }
@@ -70,7 +70,7 @@ class FILEDESCRIPTORA extends Win32Struct
     pointl{
         get {
             if(!this.HasProp("__pointl"))
-                this.__pointl := POINTL(this.ptr + 20)
+                this.__pointl := POINTL(this.ptr + 24)
             return this.__pointl
         }
     }
@@ -82,8 +82,8 @@ class FILEDESCRIPTORA extends Win32Struct
      * @type {Integer}
      */
     dwFileAttributes {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -95,7 +95,7 @@ class FILEDESCRIPTORA extends Win32Struct
     ftCreationTime{
         get {
             if(!this.HasProp("__ftCreationTime"))
-                this.__ftCreationTime := FILETIME(this.ptr + 32)
+                this.__ftCreationTime := FILETIME(this.ptr + 40)
             return this.__ftCreationTime
         }
     }
@@ -109,7 +109,7 @@ class FILEDESCRIPTORA extends Win32Struct
     ftLastAccessTime{
         get {
             if(!this.HasProp("__ftLastAccessTime"))
-                this.__ftLastAccessTime := FILETIME(this.ptr + 40)
+                this.__ftLastAccessTime := FILETIME(this.ptr + 48)
             return this.__ftLastAccessTime
         }
     }
@@ -123,7 +123,7 @@ class FILEDESCRIPTORA extends Win32Struct
     ftLastWriteTime{
         get {
             if(!this.HasProp("__ftLastWriteTime"))
-                this.__ftLastWriteTime := FILETIME(this.ptr + 48)
+                this.__ftLastWriteTime := FILETIME(this.ptr + 56)
             return this.__ftLastWriteTime
         }
     }
@@ -135,8 +135,8 @@ class FILEDESCRIPTORA extends Win32Struct
      * @type {Integer}
      */
     nFileSizeHigh {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
@@ -146,8 +146,8 @@ class FILEDESCRIPTORA extends Win32Struct
      * @type {Integer}
      */
     nFileSizeLow {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
+        get => NumGet(this, 68, "uint")
+        set => NumPut("uint", value, this, 68)
     }
 
     /**
@@ -157,7 +157,7 @@ class FILEDESCRIPTORA extends Win32Struct
      * @type {String}
      */
     cFileName {
-        get => StrGet(this.ptr + 64, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 64, 259, "UTF-8")
+        get => StrGet(this.ptr + 72, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 72, 259, "UTF-8")
     }
 }

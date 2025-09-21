@@ -68,7 +68,7 @@ class SCHANNEL_CRED extends Win32Struct
 
     /**
      * Optional. Valid for server applications only. Handle to a certificate store that contains self-signed <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">root certificates</a> for <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authorities</a> (CAs) trusted by the application. This member is used only by server-side applications that require client authentication.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hRootStore {
         get => NumGet(this, 16, "ptr")

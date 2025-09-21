@@ -25,7 +25,7 @@ class DS_DOMAIN_CONTROLLER_INFO_1W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the NetBIOS name of the domain controller.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     NetbiosName {
         get => NumGet(this, 0, "ptr")
@@ -34,7 +34,7 @@ class DS_DOMAIN_CONTROLLER_INFO_1W extends Win32Struct
 
     /**
      * Pointer to a null-terminated  string that specifies the DNS host name of the domain controller.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     DnsHostName {
         get => NumGet(this, 8, "ptr")
@@ -43,7 +43,7 @@ class DS_DOMAIN_CONTROLLER_INFO_1W extends Win32Struct
 
     /**
      * Pointer to a null-terminated  string that specifies the site to which the domain controller belongs.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     SiteName {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +52,7 @@ class DS_DOMAIN_CONTROLLER_INFO_1W extends Win32Struct
 
     /**
      * Pointer to a null-terminated  string that specifies the name of the computer object on the domain controller.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ComputerObjectName {
         get => NumGet(this, 24, "ptr")
@@ -61,7 +61,7 @@ class DS_DOMAIN_CONTROLLER_INFO_1W extends Win32Struct
 
     /**
      * Pointer to a null-terminated  string that specifies the name of the server object on the domain controller.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ServerObjectName {
         get => NumGet(this, 32, "ptr")

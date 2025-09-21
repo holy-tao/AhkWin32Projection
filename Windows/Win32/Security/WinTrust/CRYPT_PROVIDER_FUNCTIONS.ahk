@@ -24,7 +24,7 @@ class CRYPT_PROVIDER_FUNCTIONS extends Win32Struct
 
     /**
      * A pointer to the memory allocation function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CPD_MEM_ALLOC>}
      */
     pfnAlloc {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class CRYPT_PROVIDER_FUNCTIONS extends Win32Struct
 
     /**
      * A pointer to the memory deallocation function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CPD_MEM_FREE>}
      */
     pfnFree {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class CRYPT_PROVIDER_FUNCTIONS extends Win32Struct
 
     /**
      * A pointer to the function that adds a store to the chain.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CPD_ADD_STORE>}
      */
     pfnAddStore2Chain {
         get => NumGet(this, 24, "ptr")
@@ -51,7 +51,7 @@ class CRYPT_PROVIDER_FUNCTIONS extends Win32Struct
 
     /**
      * A pointer to the function that adds a signer structure to a message structure in a chain.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CPD_ADD_SGNR>}
      */
     pfnAddSgnr2Chain {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +60,7 @@ class CRYPT_PROVIDER_FUNCTIONS extends Win32Struct
 
     /**
      * A pointer to the function that adds a certificate structure to a signer structure in a chain.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CPD_ADD_CERT>}
      */
     pfnAddCert2Chain {
         get => NumGet(this, 40, "ptr")
@@ -69,7 +69,7 @@ class CRYPT_PROVIDER_FUNCTIONS extends Win32Struct
 
     /**
      * A pointer to the function that adds private data to a structure.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CPD_ADD_PRIVDATA>}
      */
     pfnAddPrivData2Chain {
         get => NumGet(this, 48, "ptr")
@@ -78,7 +78,7 @@ class CRYPT_PROVIDER_FUNCTIONS extends Win32Struct
 
     /**
      * A pointer to the function that initializes policy data.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PROVIDER_INIT_CALL>}
      */
     pfnInitialize {
         get => NumGet(this, 56, "ptr")
@@ -87,7 +87,7 @@ class CRYPT_PROVIDER_FUNCTIONS extends Win32Struct
 
     /**
      * A pointer to the function that builds information for the signer data.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PROVIDER_OBJTRUST_CALL>}
      */
     pfnObjectTrust {
         get => NumGet(this, 64, "ptr")
@@ -96,7 +96,7 @@ class CRYPT_PROVIDER_FUNCTIONS extends Win32Struct
 
     /**
      * A pointer to the function that builds information for the signing certificate.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PROVIDER_SIGTRUST_CALL>}
      */
     pfnSignatureTrust {
         get => NumGet(this, 72, "ptr")
@@ -105,7 +105,7 @@ class CRYPT_PROVIDER_FUNCTIONS extends Win32Struct
 
     /**
      * A pointer to the function that builds the chain.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PROVIDER_CERTTRUST_CALL>}
      */
     pfnCertificateTrust {
         get => NumGet(this, 80, "ptr")
@@ -114,7 +114,7 @@ class CRYPT_PROVIDER_FUNCTIONS extends Win32Struct
 
     /**
      * A pointer to the function that makes the final call to the policy.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PROVIDER_FINALPOLICY_CALL>}
      */
     pfnFinalPolicy {
         get => NumGet(this, 88, "ptr")
@@ -123,7 +123,7 @@ class CRYPT_PROVIDER_FUNCTIONS extends Win32Struct
 
     /**
      * A pointer to the function that checks each certificate while building a chain.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PROVIDER_CERTCHKPOLICY_CALL>}
      */
     pfnCertCheckPolicy {
         get => NumGet(this, 96, "ptr")
@@ -132,7 +132,7 @@ class CRYPT_PROVIDER_FUNCTIONS extends Win32Struct
 
     /**
      * A pointer to the function that allows structures to be dumped to a file.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PROVIDER_TESTFINALPOLICY_CALL>}
      */
     pfnTestFinalPolicy {
         get => NumGet(this, 104, "ptr")
@@ -150,7 +150,7 @@ class CRYPT_PROVIDER_FUNCTIONS extends Win32Struct
 
     /**
      * A pointer to the function that cleans up private data.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_PROVIDER_CLEANUP_CALL>}
      */
     pfnCleanupPolicy {
         get => NumGet(this, 120, "ptr")

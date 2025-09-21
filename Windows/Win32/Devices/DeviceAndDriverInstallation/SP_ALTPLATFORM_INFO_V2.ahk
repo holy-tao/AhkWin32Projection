@@ -11,7 +11,7 @@ class SP_ALTPLATFORM_INFO_V2 extends Win32Struct
 {
     static sizeof => 28
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Size of this structure, in bytes.

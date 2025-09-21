@@ -11,9 +11,9 @@
  */
 class WM_STREAM_PRIORITY_RECORD extends Win32Struct
 {
-    static sizeof => 6
+    static sizeof => 8
 
-    static packingSize => 2
+    static packingSize => 4
 
     /**
      * <b>WORD</b> containing the stream number.
@@ -29,7 +29,7 @@ class WM_STREAM_PRIORITY_RECORD extends Win32Struct
      * @type {Integer}
      */
     fMandatory {
-        get => NumGet(this, 2, "int")
-        set => NumPut("int", value, this, 2)
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 }

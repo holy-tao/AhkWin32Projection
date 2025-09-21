@@ -15,7 +15,7 @@ class WSD_SCOPES extends Win32Struct
 
     /**
      * A matching rule used for scopes.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     MatchBy {
         get => NumGet(this, 0, "ptr")

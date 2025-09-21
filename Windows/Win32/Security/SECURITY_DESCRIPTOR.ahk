@@ -49,7 +49,7 @@ class SECURITY_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     Owner {
         get => NumGet(this, 8, "ptr")
@@ -57,7 +57,7 @@ class SECURITY_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     Group {
         get => NumGet(this, 16, "ptr")

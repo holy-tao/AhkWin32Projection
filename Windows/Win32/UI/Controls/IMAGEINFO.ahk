@@ -18,7 +18,7 @@ class IMAGEINFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HBITMAP</a></b>
      * 
      * A handle to the bitmap that contains the images.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hbmImage {
         get => NumGet(this, 0, "ptr")
@@ -29,7 +29,7 @@ class IMAGEINFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HBITMAP</a></b>
      * 
      * A handle to a monochrome bitmap that contains the masks for the images. If the image list does not contain a mask, this member is <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hbmMask {
         get => NumGet(this, 8, "ptr")

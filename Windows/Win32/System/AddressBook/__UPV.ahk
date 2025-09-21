@@ -105,7 +105,7 @@ class __UPV extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     lpszA {
         get => NumGet(this, 0, "ptr")
@@ -124,7 +124,7 @@ class __UPV extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpszW {
         get => NumGet(this, 0, "ptr")

@@ -27,7 +27,7 @@ class DNS_SRV_DATAW extends Win32Struct
 
     /**
      * A pointer to a string that represents the target host.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pNameTarget {
         get => NumGet(this, 0, "ptr")

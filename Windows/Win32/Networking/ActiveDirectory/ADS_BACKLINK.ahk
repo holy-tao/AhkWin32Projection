@@ -26,7 +26,7 @@ class ADS_BACKLINK extends Win32Struct
 
     /**
      * The null-terminated Unicode string that specifies the name of an object to which the <b>Back Link</b> attribute is attached.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ObjectName {
         get => NumGet(this, 8, "ptr")

@@ -12,7 +12,7 @@ class CERT_REGISTRY_STORE_CLIENT_GPT_PARA extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hKeyBase {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class CERT_REGISTRY_STORE_CLIENT_GPT_PARA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszRegPath {
         get => NumGet(this, 8, "ptr")

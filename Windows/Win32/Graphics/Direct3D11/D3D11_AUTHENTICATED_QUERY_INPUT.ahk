@@ -215,7 +215,7 @@ class D3D11_AUTHENTICATED_QUERY_INPUT extends Win32Struct
 
     /**
      * A handle to the authenticated channel. To get the handle, call the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11authenticatedchannel-getchannelhandle">ID3D11AuthenticatedChannel::GetChannelHandle</a> method.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hChannel {
         get => NumGet(this, 8, "ptr")

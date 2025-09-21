@@ -96,7 +96,7 @@ class JAVA_TRUST extends Win32Struct
 
     /**
      * The zone index.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszZone {
         get => NumGet(this, 56, "ptr")
@@ -114,7 +114,7 @@ class JAVA_TRUST extends Win32Struct
 
     /**
      * The authenticode policy return code.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hVerify {
         get => NumGet(this, 72, "int")

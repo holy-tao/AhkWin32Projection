@@ -33,7 +33,7 @@ class DRVFN extends Win32Struct
      * ```
      * LONG_PTR  (APIENTRY * PFN) ();
      * ```
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN>}
      */
     pfn {
         get => NumGet(this, 8, "ptr")

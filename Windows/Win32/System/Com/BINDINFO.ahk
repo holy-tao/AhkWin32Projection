@@ -22,7 +22,7 @@ class BINDINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     szExtraInfo {
         get => NumGet(this, 8, "ptr")
@@ -57,7 +57,7 @@ class BINDINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     szCustomVerb {
         get => NumGet(this, 48, "ptr")

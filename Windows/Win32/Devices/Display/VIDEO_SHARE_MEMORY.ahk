@@ -12,7 +12,7 @@ class VIDEO_SHARE_MEMORY extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     ProcessHandle {
         get => NumGet(this, 0, "ptr")

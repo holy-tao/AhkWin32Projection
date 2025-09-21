@@ -20,7 +20,7 @@ class WINML_BINDING_DESC extends Win32Struct
 
     /**
      * The name of the WinML binding.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     Name {
         get => NumGet(this, 0, "ptr")

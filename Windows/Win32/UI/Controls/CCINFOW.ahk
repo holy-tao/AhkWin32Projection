@@ -101,7 +101,7 @@ class CCINFOW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPFNCCSTYLEW>}
      */
     lpfnStyle {
         get => NumGet(this, 680, "ptr")
@@ -109,7 +109,7 @@ class CCINFOW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPFNCCSIZETOTEXTW>}
      */
     lpfnSizeToText {
         get => NumGet(this, 688, "ptr")

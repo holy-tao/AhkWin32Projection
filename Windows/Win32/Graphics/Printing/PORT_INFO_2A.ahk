@@ -20,7 +20,7 @@ class PORT_INFO_2A extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that identifies a supported printer port (for example, "LPT1:").
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pPortName {
         get => NumGet(this, 0, "ptr")
@@ -29,7 +29,7 @@ class PORT_INFO_2A extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that identifies an installed monitor (for example, "PJL monitor"). This can be **NULL**.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pMonitorName {
         get => NumGet(this, 8, "ptr")
@@ -38,7 +38,7 @@ class PORT_INFO_2A extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that describes the port in more detail (for example, if **pPortName** is "LPT1:", **pDescription** is "printer port"). This can be **NULL**.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pDescription {
         get => NumGet(this, 16, "ptr")

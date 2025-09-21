@@ -20,7 +20,7 @@ class CODEBASEHOLD extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     szDistUnit {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class CODEBASEHOLD extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     szCodeBase {
         get => NumGet(this, 16, "ptr")

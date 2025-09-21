@@ -20,7 +20,7 @@ class CONFIG_CI_PROV_INFO_RESULT2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hr {
         get => NumGet(this, 4, "int")

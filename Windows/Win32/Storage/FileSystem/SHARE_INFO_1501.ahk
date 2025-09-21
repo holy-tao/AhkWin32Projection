@@ -25,7 +25,7 @@ class SHARE_INFO_1501 extends Win32Struct
     /**
      * Specifies the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> associated with the share.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     shi1501_security_descriptor {
         get => NumGet(this, 8, "ptr")

@@ -28,7 +28,7 @@ class PROXY_INFO extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * A pointer to a Unicode string buffer containing the user agent string.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pcwszUserAgent {
         get => NumGet(this, 8, "ptr")
@@ -72,7 +72,7 @@ class PROXY_INFO extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * A pointer to a Unicode string buffer that contains the name of the proxy server.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pcwszProxyName {
         get => NumGet(this, 32, "ptr")
@@ -83,7 +83,7 @@ class PROXY_INFO extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * The list of sites that will bypass the proxy.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pcwszBypassList {
         get => NumGet(this, 40, "ptr")

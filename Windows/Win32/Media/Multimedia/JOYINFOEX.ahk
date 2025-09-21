@@ -47,7 +47,7 @@ class JOYINFOEX extends Win32Struct
 {
     static sizeof => 52
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Size, in bytes, of this structure.

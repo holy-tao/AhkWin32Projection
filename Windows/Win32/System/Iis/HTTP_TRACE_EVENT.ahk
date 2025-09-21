@@ -44,7 +44,7 @@ class HTTP_TRACE_EVENT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszEventName {
         get => NumGet(this, 32, "ptr")

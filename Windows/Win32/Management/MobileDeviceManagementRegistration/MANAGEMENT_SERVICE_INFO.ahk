@@ -15,7 +15,7 @@ class MANAGEMENT_SERVICE_INFO extends Win32Struct
 
     /**
      * The URI of the Mobile Device Management service.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszMDMServiceUri {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class MANAGEMENT_SERVICE_INFO extends Win32Struct
 
     /**
      * The URI of the Authentication service.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszAuthenticationUri {
         get => NumGet(this, 8, "ptr")

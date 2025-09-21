@@ -21,7 +21,7 @@ class LINELOCATIONENTRY extends Win32Struct
 {
     static sizeof => 68
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Permanent. Identifies the location.

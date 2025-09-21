@@ -29,7 +29,7 @@ class NS_INFOA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     lpNameSpace {
         get => NumGet(this, 8, "ptr")

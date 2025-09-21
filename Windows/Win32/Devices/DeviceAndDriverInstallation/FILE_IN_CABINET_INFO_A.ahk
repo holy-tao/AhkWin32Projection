@@ -13,13 +13,13 @@
  */
 class FILE_IN_CABINET_INFO_A extends Win32Struct
 {
-    static sizeof => 282
+    static sizeof => 288
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * File name as it exists within the cabinet file.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     NameInCabinet {
         get => NumGet(this, 0, "ptr")

@@ -15,7 +15,7 @@ class CERT_TEMPLATE_EXT extends Win32Struct
 
     /**
      * <b>LPSTR</b> object identifier (OID).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszObjId {
         get => NumGet(this, 0, "ptr")

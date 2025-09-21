@@ -27,7 +27,7 @@ class DNS_NSEC_DATAW extends Win32Struct
 
     /**
      * A pointer to a string that represents the authoritative owner name of the next domain in the canonical ordering of the zone as specified in section 4.1.1 of <a href="https://www.ietf.org/rfc/rfc4034.txt">RFC 4034</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pNextDomainName {
         get => NumGet(this, 0, "ptr")

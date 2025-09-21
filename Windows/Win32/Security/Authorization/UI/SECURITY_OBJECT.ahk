@@ -17,7 +17,7 @@ class SECURITY_OBJECT extends Win32Struct
 
     /**
      * A pointer to the name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszName {
         get => NumGet(this, 0, "ptr")

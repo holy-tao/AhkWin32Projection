@@ -12,7 +12,7 @@ class SSERRORINFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszMessage {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class SSERRORINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszServer {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class SSERRORINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszProcedure {
         get => NumGet(this, 16, "ptr")

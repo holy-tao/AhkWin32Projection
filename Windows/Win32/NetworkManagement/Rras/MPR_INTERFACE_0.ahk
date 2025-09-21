@@ -24,7 +24,7 @@ class MPR_INTERFACE_0 extends Win32Struct
 
     /**
      * Handle to the interface.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hInterface {
         get => NumGet(this, 520, "ptr")

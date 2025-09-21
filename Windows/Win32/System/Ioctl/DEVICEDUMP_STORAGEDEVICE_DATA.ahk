@@ -10,9 +10,9 @@
  */
 class DEVICEDUMP_STORAGEDEVICE_DATA extends Win32Struct
 {
-    static sizeof => 292
+    static sizeof => 312
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {DEVICEDUMP_STRUCTURE_VERSION}
@@ -31,7 +31,7 @@ class DEVICEDUMP_STORAGEDEVICE_DATA extends Win32Struct
     SectionHeader{
         get {
             if(!this.HasProp("__SectionHeader"))
-                this.__SectionHeader := DEVICEDUMP_SECTION_HEADER(this.ptr + 12)
+                this.__SectionHeader := DEVICEDUMP_SECTION_HEADER(this.ptr + 16)
             return this.__SectionHeader
         }
     }
@@ -40,16 +40,16 @@ class DEVICEDUMP_STORAGEDEVICE_DATA extends Win32Struct
      * @type {Integer}
      */
     dwBufferSize {
-        get => NumGet(this, 248, "uint")
-        set => NumPut("uint", value, this, 248)
+        get => NumGet(this, 256, "uint")
+        set => NumPut("uint", value, this, 256)
     }
 
     /**
      * @type {Integer}
      */
     dwReasonForCollection {
-        get => NumGet(this, 252, "uint")
-        set => NumPut("uint", value, this, 252)
+        get => NumGet(this, 260, "uint")
+        set => NumPut("uint", value, this, 260)
     }
 
     /**
@@ -58,7 +58,7 @@ class DEVICEDUMP_STORAGEDEVICE_DATA extends Win32Struct
     PublicData{
         get {
             if(!this.HasProp("__PublicData"))
-                this.__PublicData := DEVICEDUMP_SUBSECTION_POINTER(this.ptr + 256)
+                this.__PublicData := DEVICEDUMP_SUBSECTION_POINTER(this.ptr + 264)
             return this.__PublicData
         }
     }
@@ -69,7 +69,7 @@ class DEVICEDUMP_STORAGEDEVICE_DATA extends Win32Struct
     RestrictedData{
         get {
             if(!this.HasProp("__RestrictedData"))
-                this.__RestrictedData := DEVICEDUMP_SUBSECTION_POINTER(this.ptr + 268)
+                this.__RestrictedData := DEVICEDUMP_SUBSECTION_POINTER(this.ptr + 280)
             return this.__RestrictedData
         }
     }
@@ -80,7 +80,7 @@ class DEVICEDUMP_STORAGEDEVICE_DATA extends Win32Struct
     PrivateData{
         get {
             if(!this.HasProp("__PrivateData"))
-                this.__PrivateData := DEVICEDUMP_SUBSECTION_POINTER(this.ptr + 280)
+                this.__PrivateData := DEVICEDUMP_SUBSECTION_POINTER(this.ptr + 296)
             return this.__PrivateData
         }
     }

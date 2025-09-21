@@ -33,7 +33,7 @@ class VTableProvStruc extends Win32Struct
      * This function pointer can be stored and used until the CSP context is released.
      * 
      * This is a version 1 member.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<CRYPT_VERIFY_IMAGE_A>}
      */
     FuncVerifyImage {
         get => NumGet(this, 8, "ptr")
@@ -46,7 +46,7 @@ class VTableProvStruc extends Win32Struct
      * This function pointer can be stored and used until the CSP context is released.
      * 
      * This is a version 1 member.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<CRYPT_RETURN_HWND>}
      */
     FuncReturnhWnd {
         get => NumGet(this, 16, "ptr")
@@ -96,7 +96,7 @@ class VTableProvStruc extends Win32Struct
      * A string that contains the name of the provider.
      * 
      * This is a version 3 member.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszProvName {
         get => NumGet(this, 48, "ptr")

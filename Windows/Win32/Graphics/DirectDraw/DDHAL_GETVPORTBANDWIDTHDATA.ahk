@@ -68,7 +68,7 @@ class DDHAL_GETVPORTBANDWIDTHDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ddRVal {
         get => NumGet(this, 48, "int")
@@ -76,7 +76,7 @@ class DDHAL_GETVPORTBANDWIDTHDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALVPORTCB_GETBANDWIDTH>}
      */
     GetVideoPortBandwidth {
         get => NumGet(this, 56, "ptr")

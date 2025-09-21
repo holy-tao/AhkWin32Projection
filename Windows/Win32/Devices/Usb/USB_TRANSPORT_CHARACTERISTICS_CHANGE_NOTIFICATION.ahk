@@ -10,10 +10,10 @@ class USB_TRANSPORT_CHARACTERISTICS_CHANGE_NOTIFICATION extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     Handle {
         get => NumGet(this, 0, "ptr")

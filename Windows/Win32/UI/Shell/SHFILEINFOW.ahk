@@ -20,13 +20,13 @@ class SHFILEINFOW extends Win32Struct
 {
     static sizeof => 696
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b>HICON</b>
      * 
      * A handle to the icon that represents the file. You are responsible for destroying this handle with <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroyicon">DestroyIcon</a> when you no longer need it.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hIcon {
         get => NumGet(this, 0, "ptr")

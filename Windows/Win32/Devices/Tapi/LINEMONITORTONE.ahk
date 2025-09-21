@@ -19,7 +19,7 @@ class LINEMONITORTONE extends Win32Struct
 {
     static sizeof => 20
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Used by the application for tagging the tone. When this tone is detected, the value of the <b>dwAppSpecific</b> member is passed back to the application.

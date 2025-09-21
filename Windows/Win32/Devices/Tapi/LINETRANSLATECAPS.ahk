@@ -13,7 +13,7 @@ class LINETRANSLATECAPS extends Win32Struct
 {
     static sizeof => 44
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Total size allocated to this data structure, in bytes.

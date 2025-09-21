@@ -13,9 +13,9 @@
  */
 class MXDC_PRINTTICKET_DATA_T extends Win32Struct
 {
-    static sizeof => 5
+    static sizeof => 8
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * The size of the print ticket in bytes.

@@ -21,7 +21,7 @@ class ENGSAFESEMAPHORE extends Win32Struct
 
     /**
      * Handle to the semaphore.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hsem {
         get => NumGet(this, 0, "ptr")

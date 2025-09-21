@@ -16,7 +16,7 @@ class XAUDIO2_VOICE_DETAILS extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Flags used to create the voice; see the individual voice <a href="https://docs.microsoft.com/windows/desktop/xaudio2/interfaces">interfaces</a> for more information.

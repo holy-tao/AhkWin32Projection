@@ -36,7 +36,7 @@ class CRITICAL_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     OwningThread {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class CRITICAL_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     LockSemaphore {
         get => NumGet(this, 24, "ptr")

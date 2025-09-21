@@ -192,7 +192,7 @@ class PROCESS_HEAP_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hMem {
         get => NumGet(this, 16, "ptr")

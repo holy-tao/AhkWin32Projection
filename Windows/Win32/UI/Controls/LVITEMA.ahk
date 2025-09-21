@@ -234,7 +234,7 @@ class LVITEMA extends Win32Struct
      * 
      * 
      * Do not set <b>pszText</b> to LPSTR_TEXTCALLBACK if the list-view control has the <a href="https://docs.microsoft.com/windows/desktop/Controls/list-view-window-styles">LVS_SORTASCENDING</a> or <a href="https://docs.microsoft.com/windows/desktop/Controls/list-view-window-styles">LVS_SORTDESCENDING</a> style.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszText {
         get => NumGet(this, 24, "ptr")

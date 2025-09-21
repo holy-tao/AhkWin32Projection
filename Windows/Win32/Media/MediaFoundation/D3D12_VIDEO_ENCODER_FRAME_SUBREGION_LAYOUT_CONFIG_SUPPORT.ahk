@@ -20,7 +20,7 @@ class D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_CONFIG_SUPPORT extends Win32Str
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<TypeHandle>}
      */
     Anonymous {
         get => NumGet(this, 8, "ptr")

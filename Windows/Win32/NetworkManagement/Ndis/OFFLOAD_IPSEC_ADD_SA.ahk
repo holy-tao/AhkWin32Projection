@@ -113,7 +113,7 @@ class OFFLOAD_IPSEC_ADD_SA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     OffloadHandle {
         get => NumGet(this, 64, "ptr")

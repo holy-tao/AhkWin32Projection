@@ -12,7 +12,7 @@ class COR_PRF_EVENTPIPE_PROVIDER_CONFIG extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     providerName {
         get => NumGet(this, 0, "ptr")
@@ -36,7 +36,7 @@ class COR_PRF_EVENTPIPE_PROVIDER_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     filterData {
         get => NumGet(this, 24, "ptr")

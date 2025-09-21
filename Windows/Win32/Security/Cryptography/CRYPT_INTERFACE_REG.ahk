@@ -42,7 +42,7 @@ class CRYPT_INTERFACE_REG extends Win32Struct
 
     /**
      * An array of null-terminated Unicode strings that contains the identifiers of the algorithms that are supported by this interface. These identifiers can be the standard <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-algorithm-identifiers">CNG Algorithm Identifiers</a> or the identifiers for other registered algorithms.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     rgpszFunctions {
         get => NumGet(this, 16, "ptr")

@@ -52,7 +52,7 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszUsageOid {
         get => NumGet(this, 32, "ptr")
@@ -76,7 +76,7 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     rghstoreRoots {
         get => NumGet(this, 56, "ptr")
@@ -92,7 +92,7 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     rghstoreCAs {
         get => NumGet(this, 72, "ptr")
@@ -108,7 +108,7 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     rghstoreTrust {
         get => NumGet(this, 88, "ptr")
@@ -124,7 +124,7 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFNTRUSTHELPER>}
      */
     pfnTrustHelper {
         get => NumGet(this, 104, "ptr")

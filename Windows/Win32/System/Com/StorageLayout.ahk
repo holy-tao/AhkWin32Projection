@@ -53,7 +53,7 @@ class StorageLayout extends Win32Struct
 
     /**
      * The null-terminated Unicode string name of the storage or stream. If the element is a substorage or embedded object, the fully qualified storage path must be specified; for example,  "RootStorageName\SubStorageName\Substream".
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwcsElementName {
         get => NumGet(this, 8, "ptr")

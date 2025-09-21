@@ -64,7 +64,7 @@ class DRMBOUNDLICENSEPARAMS extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains a comma-delimited list of the rights requested. This member cannot be <b>NULL</b>, and the string must contain valid rights such as EDIT and OWNER.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     wszRightsRequested {
         get => NumGet(this, 16, "ptr")
@@ -73,7 +73,7 @@ class DRMBOUNDLICENSEPARAMS extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the name of the rights group to use in the license; for more information, see Remarks. This member can be set to <b>NULL</b> if it is not used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     wszRightsGroup {
         get => NumGet(this, 24, "ptr")
@@ -112,7 +112,7 @@ class DRMBOUNDLICENSEPARAMS extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the certificate for the enabling principal (the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/r-gly">rights account certificate</a>). This member can be set to <b>NULL</b> if it is not used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     wszDefaultEnablingPrincipalCredentials {
         get => NumGet(this, 72, "ptr")

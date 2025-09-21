@@ -52,7 +52,7 @@ class DDHAL_GETVPORTINPUTFORMATDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ddRVal {
         get => NumGet(this, 36, "int")
@@ -60,7 +60,7 @@ class DDHAL_GETVPORTINPUTFORMATDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALVPORTCB_GETINPUTFORMATS>}
      */
     GetVideoPortInputFormats {
         get => NumGet(this, 40, "ptr")

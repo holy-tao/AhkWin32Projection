@@ -50,7 +50,7 @@ class DHCP_CLIENT_INFO_VQ extends Win32Struct
 
     /**
      * Ppointer to a null-terminated Unicode string that represents the DHCPv4 client's machine name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ClientName {
         get => NumGet(this, 24, "ptr")
@@ -59,7 +59,7 @@ class DHCP_CLIENT_INFO_VQ extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that represents the description given to the DHCPv4 client.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ClientComment {
         get => NumGet(this, 32, "ptr")

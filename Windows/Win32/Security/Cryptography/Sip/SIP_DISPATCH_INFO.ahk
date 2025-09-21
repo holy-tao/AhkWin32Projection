@@ -26,7 +26,7 @@ class SIP_DISPATCH_INFO extends Win32Struct
 
     /**
      * This member is reserved and must be set to <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hSIP {
         get => NumGet(this, 8, "ptr")
@@ -35,7 +35,7 @@ class SIP_DISPATCH_INFO extends Win32Struct
 
     /**
      * A pointer to the function that retrieves the signed data for the subject. The signature for this function pointer is described in <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nf-mssip-cryptsipgetsigneddatamsg">CryptSIPGetSignedDataMsg</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<pCryptSIPGetSignedDataMsg>}
      */
     pfGet {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class SIP_DISPATCH_INFO extends Win32Struct
 
     /**
      * A pointer to the function that stores the signed data for the subject. The signature for this function pointer is described in <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nf-mssip-cryptsipputsigneddatamsg">CryptSIPPutSignedDataMsg</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<pCryptSIPPutSignedDataMsg>}
      */
     pfPut {
         get => NumGet(this, 24, "ptr")
@@ -53,7 +53,7 @@ class SIP_DISPATCH_INFO extends Win32Struct
 
     /**
      * A pointer to the function that returns a [SIP_INDIRECT_DATA](/windows/desktop/api/mssip/ns-mssip-sip_indirect_data)  structure that contains the subject data. This structure contains the hash of the target. The signature for this function pointer is described in <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nf-mssip-cryptsipcreateindirectdata">CryptSIPCreateIndirectData</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<pCryptSIPCreateIndirectData>}
      */
     pfCreate {
         get => NumGet(this, 32, "ptr")
@@ -62,7 +62,7 @@ class SIP_DISPATCH_INFO extends Win32Struct
 
     /**
      * A pointer to the function that verifies the [SIP_INDIRECT_DATA](/windows/desktop/api/mssip/ns-mssip-sip_indirect_data)  structure that contains the subject data. This structure contains the hash of the target. The signature for this function pointer is described in <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nf-mssip-cryptsipverifyindirectdata">CryptSIPVerifyIndirectData</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<pCryptSIPVerifyIndirectData>}
      */
     pfVerify {
         get => NumGet(this, 40, "ptr")
@@ -71,7 +71,7 @@ class SIP_DISPATCH_INFO extends Win32Struct
 
     /**
      * A pointer to the function that removes the signed data for the subject. The signature for this function pointer is described in <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nf-mssip-cryptsipremovesigneddatamsg">CryptSIPRemoveSignedDataMsg</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<pCryptSIPRemoveSignedDataMsg>}
      */
     pfRemove {
         get => NumGet(this, 48, "ptr")

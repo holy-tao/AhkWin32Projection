@@ -20,7 +20,7 @@ class HCS_CREATE_OPTIONS_1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     UserToken {
         get => NumGet(this, 8, "ptr")
@@ -52,7 +52,7 @@ class HCS_CREATE_OPTIONS_1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HCS_EVENT_CALLBACK>}
      */
     Callback {
         get => NumGet(this, 40, "ptr")

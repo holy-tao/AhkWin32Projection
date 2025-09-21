@@ -19,7 +19,7 @@ class WINHTTP_HEADER_NAME extends Win32Struct
      * Type: IN **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * A wide string containing a name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszName {
         get => NumGet(this, 0, "ptr")
@@ -30,7 +30,7 @@ class WINHTTP_HEADER_NAME extends Win32Struct
      * Type: IN **[PCSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * A narrow string containing a name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszName {
         get => NumGet(this, 0, "ptr")

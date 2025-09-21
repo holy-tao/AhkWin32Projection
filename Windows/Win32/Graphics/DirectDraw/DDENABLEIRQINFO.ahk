@@ -35,7 +35,7 @@ class DDENABLEIRQINFO extends Win32Struct
 
     /**
      * Points to an <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/nc-dxmini-pdx_irqcallback">IRQCallback</a> that the video miniport driver calls when the miniport driver is managing IRQs, and an IRQ occurs.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDX_IRQCALLBACK>}
      */
     IRQCallback {
         get => NumGet(this, 8, "ptr")

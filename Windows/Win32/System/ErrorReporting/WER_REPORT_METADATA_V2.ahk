@@ -114,7 +114,7 @@ class WER_REPORT_METADATA_V2 extends Win32Struct
 
     /**
      * A pointer to hold the names of the files included in the report. It is in the format: FileName001\0FileName002\0\FileName003\0\0.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     FileNames {
         get => NumGet(this, 792, "ptr")

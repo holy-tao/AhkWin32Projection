@@ -16,7 +16,7 @@ class POLICYSETTINGSTATUSINFO extends Win32Struct
 
     /**
      * This member is optional. If it is <b>NULL</b>, the system generates a value.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     szKey {
         get => NumGet(this, 0, "ptr")
@@ -25,7 +25,7 @@ class POLICYSETTINGSTATUSINFO extends Win32Struct
 
     /**
      * Pointer to a string specifying the name of the source (application, service, driver, subsystem) that generated the log entry.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     szEventSource {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +34,7 @@ class POLICYSETTINGSTATUSINFO extends Win32Struct
 
     /**
      * Pointer to a string specifying the name of the event log.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     szEventLogName {
         get => NumGet(this, 16, "ptr")

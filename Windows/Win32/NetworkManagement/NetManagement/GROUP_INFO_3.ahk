@@ -21,7 +21,7 @@ class GROUP_INFO_3 extends Win32Struct
      * 
      * When you call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netgroupsetinfo">NetGroupSetInfo</a> function this member is ignored.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     grpi3_name {
         get => NumGet(this, 0, "ptr")
@@ -30,7 +30,7 @@ class GROUP_INFO_3 extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode character string that contains a remark associated with the global group. This member can be a null string. The comment can contain MAXCOMMENTSZ characters.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     grpi3_comment {
         get => NumGet(this, 8, "ptr")
@@ -43,7 +43,7 @@ class GROUP_INFO_3 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-identifiers">security identifier (SID)</a> that uniquely identifies the global group. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> functions ignore this member.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     grpi3_group_sid {
         get => NumGet(this, 16, "ptr")

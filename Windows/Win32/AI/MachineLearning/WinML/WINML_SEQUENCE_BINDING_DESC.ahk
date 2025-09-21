@@ -32,7 +32,7 @@ class WINML_SEQUENCE_BINDING_DESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pStrings {
         get => NumGet(this, 8, "ptr")

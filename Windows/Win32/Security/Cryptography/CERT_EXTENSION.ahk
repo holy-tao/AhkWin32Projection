@@ -17,7 +17,7 @@ class CERT_EXTENSION extends Win32Struct
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">Object identifier</a> (OID) that specifies the structure of the extension data contained in the <b>Value</b> member. For specifics on extension OIDs and their related structures, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/cryptography-structures">X.509 Certificate Extension Structures</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszObjId {
         get => NumGet(this, 0, "ptr")

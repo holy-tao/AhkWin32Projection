@@ -10,7 +10,7 @@ class GENERIC_XML_TOKEN extends Win32Struct
 {
     static sizeof => 40
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {FILETIME}
@@ -35,7 +35,7 @@ class GENERIC_XML_TOKEN extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     xmlToken {
         get => NumGet(this, 16, "ptr")
@@ -43,7 +43,7 @@ class GENERIC_XML_TOKEN extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     internalTokenReference {
         get => NumGet(this, 24, "ptr")
@@ -51,7 +51,7 @@ class GENERIC_XML_TOKEN extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     externalTokenReference {
         get => NumGet(this, 32, "ptr")

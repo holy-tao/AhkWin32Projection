@@ -41,7 +41,7 @@ class CERT_HASHED_URL extends Win32Struct
 
     /**
      * The address of a null-terminated Unicode string that contains the URL. This member is optional for biometric data and may be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszUrl {
         get => NumGet(this, 40, "ptr")

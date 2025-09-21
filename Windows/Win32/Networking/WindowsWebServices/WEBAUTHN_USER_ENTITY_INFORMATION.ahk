@@ -44,7 +44,7 @@ class WEBAUTHN_USER_ENTITY_INFORMATION extends Win32Struct
 
     /**
      * Contains a detailed name for this account, such as "john.p.smith@example.com".
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszName {
         get => NumGet(this, 16, "ptr")
@@ -53,7 +53,7 @@ class WEBAUTHN_USER_ENTITY_INFORMATION extends Win32Struct
 
     /**
      * Optional URL that can be used to retrieve an image containing the user's current avatar or a data URI that contains the image data.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszIcon {
         get => NumGet(this, 24, "ptr")
@@ -62,7 +62,7 @@ class WEBAUTHN_USER_ENTITY_INFORMATION extends Win32Struct
 
     /**
      * Contains the friendly name associated with the user account by the Relying Party, such as "John P. Smith".
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszDisplayName {
         get => NumGet(this, 32, "ptr")

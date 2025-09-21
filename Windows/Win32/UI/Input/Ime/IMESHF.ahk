@@ -11,7 +11,7 @@ class IMESHF extends Win32Struct
 {
     static sizeof => 868
 
-    static packingSize => 1
+    static packingSize => 2
 
     /**
      * The size of this structure. You must set this value before using the structure.

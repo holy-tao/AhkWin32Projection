@@ -12,7 +12,7 @@ class CERT_TPM_SPECIFICATION_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszFamily {
         get => NumGet(this, 0, "ptr")

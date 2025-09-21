@@ -9,7 +9,7 @@ class USB_NODE_CONNECTION_ATTRIBUTES extends Win32Struct
 {
     static sizeof => 12
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * @type {Integer}

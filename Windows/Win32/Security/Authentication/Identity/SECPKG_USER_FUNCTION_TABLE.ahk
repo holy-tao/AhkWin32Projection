@@ -15,7 +15,7 @@ class SECPKG_USER_FUNCTION_TABLE extends Win32Struct
 
     /**
      * Pointer to the <b>InstanceInit</b> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SpInstanceInitFn>}
      */
     InstanceInit {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class SECPKG_USER_FUNCTION_TABLE extends Win32Struct
 
     /**
      * Pointer to the <b>InitUserModeContext</b> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SpInitUserModeContextFn>}
      */
     InitUserModeContext {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class SECPKG_USER_FUNCTION_TABLE extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-makesignature">MakeSignature</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SpMakeSignatureFn>}
      */
     MakeSignature {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class SECPKG_USER_FUNCTION_TABLE extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-verifysignature">VerifySignature</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SpVerifySignatureFn>}
      */
     VerifySignature {
         get => NumGet(this, 24, "ptr")
@@ -51,7 +51,7 @@ class SECPKG_USER_FUNCTION_TABLE extends Win32Struct
 
     /**
      * Pointer to the <b>SealMessage</b> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SpSealMessageFn>}
      */
     SealMessage {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +60,7 @@ class SECPKG_USER_FUNCTION_TABLE extends Win32Struct
 
     /**
      * Pointer to the <b>UnsealMessage</b> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SpUnsealMessageFn>}
      */
     UnsealMessage {
         get => NumGet(this, 40, "ptr")
@@ -69,7 +69,7 @@ class SECPKG_USER_FUNCTION_TABLE extends Win32Struct
 
     /**
      * Pointer to the <b>GetContextToken</b> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SpGetContextTokenFn>}
      */
     GetContextToken {
         get => NumGet(this, 48, "ptr")
@@ -77,7 +77,7 @@ class SECPKG_USER_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SpQueryContextAttributesFn>}
      */
     QueryContextAttributesA {
         get => NumGet(this, 56, "ptr")
@@ -86,7 +86,7 @@ class SECPKG_USER_FUNCTION_TABLE extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-completeauthtoken">CompleteAuthToken</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SpCompleteAuthTokenFn>}
      */
     CompleteAuthToken {
         get => NumGet(this, 64, "ptr")
@@ -95,7 +95,7 @@ class SECPKG_USER_FUNCTION_TABLE extends Win32Struct
 
     /**
      * Pointer to the <b>DeleteUserModeContext</b> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SpDeleteContextFn>}
      */
     DeleteUserModeContext {
         get => NumGet(this, 72, "ptr")
@@ -104,7 +104,7 @@ class SECPKG_USER_FUNCTION_TABLE extends Win32Struct
 
     /**
      * Pointer to the <b>FormatCredentials</b> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SpFormatCredentialsFn>}
      */
     FormatCredentials {
         get => NumGet(this, 80, "ptr")
@@ -113,7 +113,7 @@ class SECPKG_USER_FUNCTION_TABLE extends Win32Struct
 
     /**
      * Pointer to the <b>MarshallSupplementalCreds</b> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SpMarshallSupplementalCredsFn>}
      */
     MarshallSupplementalCreds {
         get => NumGet(this, 88, "ptr")
@@ -122,7 +122,7 @@ class SECPKG_USER_FUNCTION_TABLE extends Win32Struct
 
     /**
      * Pointer to the <b>ExportContext</b> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SpExportSecurityContextFn>}
      */
     ExportContext {
         get => NumGet(this, 96, "ptr")
@@ -131,7 +131,7 @@ class SECPKG_USER_FUNCTION_TABLE extends Win32Struct
 
     /**
      * Pointer to the <b>ImportContext</b> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SpImportSecurityContextFn>}
      */
     ImportContext {
         get => NumGet(this, 104, "ptr")
@@ -139,7 +139,7 @@ class SECPKG_USER_FUNCTION_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<SpMarshalAttributeDataFn>}
      */
     MarshalAttributeData {
         get => NumGet(this, 112, "ptr")

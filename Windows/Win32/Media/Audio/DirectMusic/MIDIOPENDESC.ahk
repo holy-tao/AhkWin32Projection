@@ -10,13 +10,13 @@
  */
 class MIDIOPENDESC extends Win32Struct
 {
-    static sizeof => 44
+    static sizeof => 48
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Specifies the handle that the client uses to reference the device. This handle is assigned by WINMM. Use this handle when you notify the client with the <a href="https://docs.microsoft.com/previous-versions//ms708182(v=vs.85)">DriverCallback</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hMidi {
         get => NumGet(this, 0, "ptr")
@@ -66,7 +66,7 @@ class MIDIOPENDESC extends Win32Struct
     rgIds{
         get {
             if(!this.HasProp("__rgIdsProxyArray"))
-                this.__rgIdsProxyArray := Win32FixedArray(this.ptr + 36, 1, MIDIOPENSTRMID, "")
+                this.__rgIdsProxyArray := Win32FixedArray(this.ptr + 40, 1, MIDIOPENSTRMID, "")
             return this.__rgIdsProxyArray
         }
     }

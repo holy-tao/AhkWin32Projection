@@ -21,7 +21,7 @@ class JET_INSTANCE_INFO_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     szInstanceName {
         get => NumGet(this, 8, "ptr")

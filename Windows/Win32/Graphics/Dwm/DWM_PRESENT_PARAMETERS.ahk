@@ -14,7 +14,7 @@ class DWM_PRESENT_PARAMETERS extends Win32Struct
 {
     static sizeof => 40
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The size of the <b>DWM_PRESENT_PARAMETERS</b> structure.

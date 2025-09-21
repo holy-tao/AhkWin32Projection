@@ -26,7 +26,7 @@ class CRYPT_XML_TRANSFORM_INFO extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the <b>Algorithm</b> attribute.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     wszAlgorithm {
         get => NumGet(this, 8, "ptr")
@@ -54,7 +54,7 @@ class CRYPT_XML_TRANSFORM_INFO extends Win32Struct
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nc-cryptxml-pfn_crypt_xml_create_transform">PFN_CRYPT_XML_CREATE_TRANSFORM</a> callback function used to create the transform.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CRYPT_XML_CREATE_TRANSFORM>}
      */
     pfnCreateTransform {
         get => NumGet(this, 24, "ptr")

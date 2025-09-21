@@ -10,7 +10,7 @@ class NVME_OCP_DEVICE_UNSUPPORTED_REQUIREMENTS_LOG extends Win32Struct
 {
     static sizeof => 2064
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}

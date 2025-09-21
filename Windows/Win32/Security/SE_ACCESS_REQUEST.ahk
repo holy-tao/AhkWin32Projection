@@ -44,7 +44,7 @@ class SE_ACCESS_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     PrincipalSelfSid {
         get => NumGet(this, 24, "ptr")

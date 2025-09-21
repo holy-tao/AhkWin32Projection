@@ -13,7 +13,7 @@ class AVIMAINHEADER extends Win32Struct
 {
     static sizeof => 64
 
-    static packingSize => 2
+    static packingSize => 4
 
     /**
      * Specifies a FOURCC code. The value must be 'avih'.

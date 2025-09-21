@@ -93,7 +93,7 @@ class RASDIALPARAMSA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     szEncPassword {
         get => NumGet(this, 1072, "ptr")

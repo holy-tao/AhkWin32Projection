@@ -15,7 +15,7 @@ class AAAccountingData extends Win32Struct
 
     /**
      * The user name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     userName {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class AAAccountingData extends Win32Struct
 
     /**
      * The name of the client computer.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     clientName {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class AAAccountingData extends Win32Struct
 
     /**
      * The name of the remote computer.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     resourceName {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +60,7 @@ class AAAccountingData extends Win32Struct
 
     /**
      * The name of the protocol used by the connection.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     protocolName {
         get => NumGet(this, 40, "ptr")
@@ -87,7 +87,7 @@ class AAAccountingData extends Win32Struct
 
     /**
      * The reason the connection was disconnected.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     reasonForDisconnect {
         get => NumGet(this, 56, "ptr")

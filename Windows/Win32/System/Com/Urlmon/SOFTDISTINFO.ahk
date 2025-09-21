@@ -48,7 +48,7 @@ class SOFTDISTINFO extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A string that contains the contents of the TITLE flag from the associated .cdf file.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     szTitle {
         get => NumGet(this, 16, "ptr")
@@ -59,7 +59,7 @@ class SOFTDISTINFO extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A string that contains the contents of the ABSTRACT flag from the associated .cdf file.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     szAbstract {
         get => NumGet(this, 24, "ptr")
@@ -70,7 +70,7 @@ class SOFTDISTINFO extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A string that contains the URL of the webpage to advertise or install the update.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     szHREF {
         get => NumGet(this, 32, "ptr")

@@ -7,9 +7,9 @@
  */
 class DBPROPINFOSET extends Win32Struct
 {
-    static sizeof => 20
+    static sizeof => 24
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
      * @type {Pointer<DBPROPINFO>}
@@ -31,7 +31,7 @@ class DBPROPINFOSET extends Win32Struct
      * @type {Pointer<Guid>}
      */
     guidPropertySet {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

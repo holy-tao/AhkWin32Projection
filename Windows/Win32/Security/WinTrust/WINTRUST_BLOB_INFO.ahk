@@ -33,7 +33,7 @@ class WINTRUST_BLOB_INFO extends Win32Struct
 
     /**
      * A string that contains the name of the memory object pointed to by <b>pbMem</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pcwszDisplayName {
         get => NumGet(this, 16, "ptr")

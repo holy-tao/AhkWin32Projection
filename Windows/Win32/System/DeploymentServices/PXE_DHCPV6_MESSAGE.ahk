@@ -10,9 +10,9 @@
  */
 class PXE_DHCPV6_MESSAGE extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The DHCPv6 message type.
@@ -57,7 +57,7 @@ class PXE_DHCPV6_MESSAGE extends Win32Struct
     Options{
         get {
             if(!this.HasProp("__OptionsProxyArray"))
-                this.__OptionsProxyArray := Win32FixedArray(this.ptr + 4, 1, PXE_DHCPV6_OPTION, "")
+                this.__OptionsProxyArray := Win32FixedArray(this.ptr + 8, 1, PXE_DHCPV6_OPTION, "")
             return this.__OptionsProxyArray
         }
     }

@@ -90,7 +90,7 @@ class DHCP_CLIENT_INFO_V6 extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string containing the name of the DHCPv6 client.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ClientName {
         get => NumGet(this, 40, "ptr")
@@ -99,7 +99,7 @@ class DHCP_CLIENT_INFO_V6 extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string containing a comment relating to the DHCPv6 client.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ClientComment {
         get => NumGet(this, 48, "ptr")

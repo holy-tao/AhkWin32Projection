@@ -15,7 +15,7 @@ class PARAMDATA extends Win32Struct
 
     /**
      * The parameter name. Names should follow standard conventions for programming language access; that is, no embedded spaces or control characters, and 32 or fewer characters. The name should be localized because each type description provides names for a particular locale.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     szName {
         get => NumGet(this, 0, "ptr")

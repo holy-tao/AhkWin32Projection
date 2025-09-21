@@ -171,7 +171,7 @@ class PPP_EAP_INPUT extends Win32Struct
      * 
      * 
      * If the authentication protocol is able to derive the user's identity from an additional source, for example a certificate, it should verify that the derived identity matches the value of <b>pwszIdentity</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszIdentity {
         get => NumGet(this, 16, "ptr")
@@ -180,7 +180,7 @@ class PPP_EAP_INPUT extends Win32Struct
 
     /**
      * Pointer to a Unicode string that contains the user's account password. Available only if <b>fAuthenticator</b> is <b>FALSE</b>. This member may be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszPassword {
         get => NumGet(this, 24, "ptr")
@@ -228,7 +228,7 @@ class PPP_EAP_INPUT extends Win32Struct
 
     /**
      * Handle to an impersonation token for the user requesting authentication. This member is valid only on the client side. For more information on impersonation tokens, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-tokens">Access Tokens</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hTokenImpersonateUser {
         get => NumGet(this, 56, "ptr")
@@ -327,7 +327,7 @@ class PPP_EAP_INPUT extends Win32Struct
 
     /**
      * This member is reserved.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hReserved {
         get => NumGet(this, 120, "ptr")

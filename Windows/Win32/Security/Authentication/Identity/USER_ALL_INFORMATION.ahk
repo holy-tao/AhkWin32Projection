@@ -12,9 +12,9 @@
  */
 class USER_ALL_INFORMATION extends Win32Struct
 {
-    static sizeof => 316
+    static sizeof => 320
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * Indicates the date and time of the last logon.

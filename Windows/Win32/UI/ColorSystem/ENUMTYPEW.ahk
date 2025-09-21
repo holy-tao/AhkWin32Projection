@@ -79,7 +79,7 @@ class ENUMTYPEW extends Win32Struct
 
     /**
      * User friendly name of the device.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pDeviceName {
         get => NumGet(this, 16, "ptr")

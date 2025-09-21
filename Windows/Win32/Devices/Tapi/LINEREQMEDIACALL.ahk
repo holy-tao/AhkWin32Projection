@@ -12,11 +12,11 @@ class LINEREQMEDIACALL extends Win32Struct
 {
     static sizeof => 344
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * A handle to the window of the application that  made the request.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hWnd {
         get => NumGet(this, 0, "ptr")

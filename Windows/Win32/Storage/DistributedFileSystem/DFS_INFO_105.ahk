@@ -16,7 +16,7 @@ class DFS_INFO_105 extends Win32Struct
     /**
      * Pointer to a null-terminated Unicode string that contains a comment associated with the DFS root or 
      *       link.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     Comment {
         get => NumGet(this, 0, "ptr")

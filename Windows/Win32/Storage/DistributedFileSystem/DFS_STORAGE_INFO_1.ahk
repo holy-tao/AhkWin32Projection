@@ -27,7 +27,7 @@ class DFS_STORAGE_INFO_1 extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that specifies the DFS root target or link target server name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ServerName {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class DFS_STORAGE_INFO_1 extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that specifies the DFS root target or link target share name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ShareName {
         get => NumGet(this, 16, "ptr")

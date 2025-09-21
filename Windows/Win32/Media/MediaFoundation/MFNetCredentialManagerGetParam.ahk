@@ -15,7 +15,7 @@ class MFNetCredentialManagerGetParam extends Win32Struct
 
     /**
      * The response code of the authentication challenge. For example, NS_E_PROXY_ACCESSDENIED.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hrOp {
         get => NumGet(this, 0, "int")
@@ -42,7 +42,7 @@ class MFNetCredentialManagerGetParam extends Win32Struct
 
     /**
      * The original URL that requires authentication.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszUrl {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +51,7 @@ class MFNetCredentialManagerGetParam extends Win32Struct
 
     /**
      * The name of the site or proxy that requires authentication.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszSite {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +60,7 @@ class MFNetCredentialManagerGetParam extends Win32Struct
 
     /**
      * The name of the realm for this authentication.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszRealm {
         get => NumGet(this, 32, "ptr")
@@ -69,7 +69,7 @@ class MFNetCredentialManagerGetParam extends Win32Struct
 
     /**
      * The name of the authentication package. For example, "Digest" or "MBS_BASIC".
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszPackage {
         get => NumGet(this, 40, "ptr")

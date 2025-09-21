@@ -22,7 +22,7 @@ class PHONEBUTTONINFO extends Win32Struct
 {
     static sizeof => 40
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Total size allocated to this data structure, in bytes.

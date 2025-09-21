@@ -275,7 +275,7 @@ class RAS_CONNECTION_EX extends Win32Struct
 
     /**
      * A handle to the RAS connection.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hConnection {
         get => NumGet(this, 1600, "ptr")
@@ -284,7 +284,7 @@ class RAS_CONNECTION_EX extends Win32Struct
 
     /**
      * A handle to the RAS connection interface.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hInterface {
         get => NumGet(this, 1608, "ptr")

@@ -36,7 +36,7 @@ class WSMAN_OPTION_SETEX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     optionTypes {
         get => NumGet(this, 24, "ptr")

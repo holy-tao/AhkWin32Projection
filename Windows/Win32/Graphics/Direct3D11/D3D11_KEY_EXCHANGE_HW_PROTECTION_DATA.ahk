@@ -44,7 +44,7 @@ class D3D11_KEY_EXCHANGE_HW_PROTECTION_DATA extends Win32Struct
 
     /**
      * The result of the hardware DRM command.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     Status {
         get => NumGet(this, 24, "int")

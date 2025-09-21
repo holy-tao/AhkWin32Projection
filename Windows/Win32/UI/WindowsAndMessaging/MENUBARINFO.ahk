@@ -43,7 +43,7 @@ class MENUBARINFO extends Win32Struct
      * Type: <b>HMENU</b>
      * 
      * A handle to the menu bar or popup menu.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hMenu {
         get => NumGet(this, 24, "ptr")
@@ -54,7 +54,7 @@ class MENUBARINFO extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the submenu.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hwndMenu {
         get => NumGet(this, 32, "ptr")

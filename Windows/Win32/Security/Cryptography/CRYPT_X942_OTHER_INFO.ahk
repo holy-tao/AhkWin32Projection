@@ -16,7 +16,7 @@ class CRYPT_X942_OTHER_INFO extends Win32Struct
 
     /**
      * OID of the content encryption algorithm.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszContentEncryptionObjId {
         get => NumGet(this, 0, "ptr")

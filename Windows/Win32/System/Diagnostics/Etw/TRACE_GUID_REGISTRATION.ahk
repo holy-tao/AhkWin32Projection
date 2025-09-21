@@ -37,7 +37,7 @@ class TRACE_GUID_REGISTRATION extends Win32Struct
      * when calling the
      * [TraceEventInstance](/windows/win32/api/evntrace/nf-evntrace-traceeventinstance)
      * function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     RegHandle {
         get => NumGet(this, 8, "ptr")

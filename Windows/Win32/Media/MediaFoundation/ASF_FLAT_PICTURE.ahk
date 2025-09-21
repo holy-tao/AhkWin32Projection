@@ -27,9 +27,9 @@
  */
 class ASF_FLAT_PICTURE extends Win32Struct
 {
-    static sizeof => 5
+    static sizeof => 8
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Specifies the type of image. This member is equivalent to the <b>bPictureType</b> member in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-wm_picture">WM_PICTURE</a> structure.
@@ -45,7 +45,7 @@ class ASF_FLAT_PICTURE extends Win32Struct
      * @type {Integer}
      */
     dwDataLen {
-        get => NumGet(this, 1, "uint")
-        set => NumPut("uint", value, this, 1)
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 }

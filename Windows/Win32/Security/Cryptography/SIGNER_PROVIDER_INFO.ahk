@@ -24,7 +24,7 @@ class SIGNER_PROVIDER_INFO extends Win32Struct
 
     /**
      * The name of the CSP used to create the digital signature. If the value of this member is **NULL**, the default provider is used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszProviderName {
         get => NumGet(this, 8, "ptr")
@@ -66,7 +66,7 @@ class SIGNER_PROVIDER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszPvkFileName {
         get => NumGet(this, 32, "ptr")
@@ -74,7 +74,7 @@ class SIGNER_PROVIDER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszKeyContainer {
         get => NumGet(this, 32, "ptr")

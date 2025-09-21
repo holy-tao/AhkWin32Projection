@@ -9,7 +9,7 @@ class MINIDUMP_PROCESS_VM_COUNTERS_1 extends Win32Struct
 {
     static sizeof => 80
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}

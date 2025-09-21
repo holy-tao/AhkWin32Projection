@@ -49,7 +49,7 @@ class OLEUILINKPROPSW extends Win32Struct
 
     /**
      * Pointer to the hook callback (not used in this dialog box).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPFNOLEUIHOOK>}
      */
     lpfnHook {
         get => NumGet(this, 16, "ptr")

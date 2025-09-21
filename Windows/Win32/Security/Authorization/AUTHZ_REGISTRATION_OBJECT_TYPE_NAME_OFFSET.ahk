@@ -15,7 +15,7 @@ class AUTHZ_REGISTRATION_OBJECT_TYPE_NAME_OFFSET extends Win32Struct
 
     /**
      * A pointer to a wide character string that represents the name of the object type.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     szObjectTypeName {
         get => NumGet(this, 0, "ptr")

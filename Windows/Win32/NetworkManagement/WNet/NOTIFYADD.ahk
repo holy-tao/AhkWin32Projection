@@ -16,7 +16,7 @@ class NOTIFYADD extends Win32Struct
 
     /**
      * A handle to a window which should own any messages or dialog boxes the application receiving the notification might display.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hwndOwner {
         get => NumGet(this, 0, "ptr")

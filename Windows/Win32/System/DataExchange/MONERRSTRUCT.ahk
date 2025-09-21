@@ -50,7 +50,7 @@ class MONERRSTRUCT extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * A handle to the task (application instance) that called the DDE function that caused the error.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hTask {
         get => NumGet(this, 16, "ptr")

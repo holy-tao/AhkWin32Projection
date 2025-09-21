@@ -170,7 +170,7 @@ class WSANAMESPACE_INFOW extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A display string that identifies the namespace provider.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpszIdentifier {
         get => NumGet(this, 24, "ptr")

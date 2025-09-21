@@ -15,7 +15,7 @@ class ADS_CLASS_DEF extends Win32Struct
 
     /**
      * The null-terminated Unicode string that specifies the class name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszClassName {
         get => NumGet(this, 0, "ptr")
@@ -33,7 +33,7 @@ class ADS_CLASS_DEF extends Win32Struct
 
     /**
      * Pointer to an array of  null-terminated Unicode strings that contain the names of the mandatory attributes.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ppszMandatoryAttrs {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +51,7 @@ class ADS_CLASS_DEF extends Win32Struct
 
     /**
      * Pointer to an array of null-terminated Unicode strings that contain the names of the optional attributes.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ppszOptionalAttrs {
         get => NumGet(this, 32, "ptr")
@@ -69,7 +69,7 @@ class ADS_CLASS_DEF extends Win32Struct
 
     /**
      * Pointer to an array of null-terminated Unicode strings that contain the names of the naming attributes.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ppszNamingAttrs {
         get => NumGet(this, 48, "ptr")
@@ -87,7 +87,7 @@ class ADS_CLASS_DEF extends Win32Struct
 
     /**
      * Pointer to an array of null-terminated Unicode strings that contain the names of the super classes.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ppszSuperClasses {
         get => NumGet(this, 64, "ptr")

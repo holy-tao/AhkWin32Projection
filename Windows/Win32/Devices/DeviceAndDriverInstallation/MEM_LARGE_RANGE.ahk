@@ -9,7 +9,7 @@ class MEM_LARGE_RANGE extends Win32Struct
 {
     static sizeof => 40
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}

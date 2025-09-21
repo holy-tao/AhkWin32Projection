@@ -35,7 +35,7 @@ class DNS_QUERY_REQUEST3 extends Win32Struct
      * 
      * > [!NOTE]
      * > If *QueryName* is **NULL**, then the query is for the local machine name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     QueryName {
         get => NumGet(this, 8, "ptr")
@@ -93,7 +93,7 @@ class DNS_QUERY_REQUEST3 extends Win32Struct
      * 
      * > [!NOTE]
      * > If **NULL**, then [DnsQueryEx](/windows/win32/api/windns/nf-windns-dnsqueryex) is called synchronously.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PDNS_QUERY_COMPLETION_ROUTINE>}
      */
     pQueryCompletionCallback {
         get => NumGet(this, 48, "ptr")

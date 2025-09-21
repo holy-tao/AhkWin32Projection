@@ -7,12 +7,12 @@
  */
 class ERRORINFO extends Win32Struct
 {
-    static sizeof => 28
+    static sizeof => 32
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hrError {
         get => NumGet(this, 0, "int")

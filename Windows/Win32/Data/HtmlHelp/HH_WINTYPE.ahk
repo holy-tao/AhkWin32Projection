@@ -126,7 +126,7 @@ class HH_WINTYPE extends Win32Struct
 
     /**
      * Specifies the handle of the window if the window has been created.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hwndHelp {
         get => NumGet(this, 64, "ptr")
@@ -135,7 +135,7 @@ class HH_WINTYPE extends Win32Struct
 
     /**
      * Specifies the window that will receive HTML Help notification messages. <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/about-notification-messages">Notification messages</a> are sent via Windows <b>WM_NOTIFY</b> messages.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hwndCaller {
         get => NumGet(this, 72, "ptr")
@@ -153,7 +153,7 @@ class HH_WINTYPE extends Win32Struct
 
     /**
      * Specifies the handle of the toolbar.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hwndToolBar {
         get => NumGet(this, 88, "ptr")
@@ -162,7 +162,7 @@ class HH_WINTYPE extends Win32Struct
 
     /**
      * Specifies the handle of the Navigation pane.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hwndNavigation {
         get => NumGet(this, 96, "ptr")
@@ -171,7 +171,7 @@ class HH_WINTYPE extends Win32Struct
 
     /**
      * Specifies the handle of the Topic pane, which hosts Shdocvw.dll.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hwndHTML {
         get => NumGet(this, 104, "ptr")

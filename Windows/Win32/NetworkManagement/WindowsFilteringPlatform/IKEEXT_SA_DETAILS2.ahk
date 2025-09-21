@@ -54,7 +54,7 @@ class IKEEXT_SA_DETAILS2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<TypeHandle>}
      */
     Anonymous {
         get => NumGet(this, 16, "ptr")

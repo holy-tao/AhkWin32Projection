@@ -95,7 +95,7 @@ class MapiFileDesc extends Win32Struct
 
     /**
      * Pointer to the fully qualified path of the attached file. This path should include the disk drive letter and directory name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     lpszPathName {
         get => NumGet(this, 16, "ptr")
@@ -104,7 +104,7 @@ class MapiFileDesc extends Win32Struct
 
     /**
      * Pointer to the attachment filename seen by the recipient, which may differ from the filename in the <b>lpszPathName</b> member if temporary files are being used. If the <b>lpszFileName</b> member is empty or <b>NULL</b>, the filename from <b>lpszPathName</b> is used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     lpszFileName {
         get => NumGet(this, 24, "ptr")

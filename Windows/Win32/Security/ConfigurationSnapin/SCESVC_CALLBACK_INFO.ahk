@@ -25,7 +25,7 @@ class SCESVC_CALLBACK_INFO extends Win32Struct
     /**
      * Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/scesvc/nc-scesvc-pfsce_query_info">PFSCE_QUERY_INFO</a> callback function that queries information in the security database.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFSCE_QUERY_INFO>}
      */
     pfQueryInfo {
         get => NumGet(this, 8, "ptr")
@@ -35,7 +35,7 @@ class SCESVC_CALLBACK_INFO extends Win32Struct
     /**
      * Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/scesvc/nc-scesvc-pfsce_set_info">PFSCE_SET_INFO</a> callback function that sets information in the security database.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFSCE_SET_INFO>}
      */
     pfSetInfo {
         get => NumGet(this, 16, "ptr")
@@ -45,7 +45,7 @@ class SCESVC_CALLBACK_INFO extends Win32Struct
     /**
      * Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/scesvc/nc-scesvc-pfsce_free_info">PFSCE_FREE_INFO</a> callback function that frees information in the security database.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFSCE_FREE_INFO>}
      */
     pfFreeInfo {
         get => NumGet(this, 24, "ptr")
@@ -55,7 +55,7 @@ class SCESVC_CALLBACK_INFO extends Win32Struct
     /**
      * Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/scesvc/nc-scesvc-pfsce_log_info">PFSCE_LOG_INFO</a> callback function that logs messages to the configuration log file or analysis log file.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFSCE_LOG_INFO>}
      */
     pfLogInfo {
         get => NumGet(this, 32, "ptr")

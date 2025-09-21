@@ -58,7 +58,7 @@ class CERT_CONTEXT extends Win32Struct
 
     /**
      * A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> that contains the certificate <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">context</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hCertStore {
         get => NumGet(this, 32, "ptr")

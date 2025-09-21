@@ -15,7 +15,7 @@ class CRYPT_IMAGE_REG extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains only the file name of the provider module.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszImage {
         get => NumGet(this, 0, "ptr")

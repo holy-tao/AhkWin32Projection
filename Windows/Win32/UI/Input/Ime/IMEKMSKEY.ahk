@@ -7,9 +7,9 @@
  */
 class IMEKMSKEY extends Win32Struct
 {
-    static sizeof => 78
+    static sizeof => 80
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}

@@ -124,7 +124,7 @@ class HTTPSPolicyCallbackData extends Win32Struct
      * If the string is Punycode encoded, then the server name from the certificate, either the DNS name or common name, is converted to a Punycode encoded string. Matching is then performed, label-by-label if the name contains wildcards, or a case-insensitive exact match otherwise. 
      * 
      * If the string contains Unicode characters outside of the ASCII character set and the subject name, either the DNS name or common name, is a Punycode encoded string then it is Punycode encoded before comparison.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszServerName {
         get => NumGet(this, 16, "ptr")

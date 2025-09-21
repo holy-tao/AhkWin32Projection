@@ -19,7 +19,7 @@ class DS_REPSYNCALL_SYNCW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the DNS GUID of the source server.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszSrcId {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class DS_REPSYNCALL_SYNCW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the DNS GUID of the destination server.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszDstId {
         get => NumGet(this, 8, "ptr")
@@ -37,7 +37,7 @@ class DS_REPSYNCALL_SYNCW extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszNC {
         get => NumGet(this, 16, "ptr")

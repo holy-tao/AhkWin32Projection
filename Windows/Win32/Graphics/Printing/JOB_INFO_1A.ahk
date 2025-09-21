@@ -28,7 +28,7 @@ class JOB_INFO_1A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the name of the printer for which the job is spooled.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pPrinterName {
         get => NumGet(this, 8, "ptr")
@@ -37,7 +37,7 @@ class JOB_INFO_1A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the name of the machine that created the print job.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pMachineName {
         get => NumGet(this, 16, "ptr")
@@ -46,7 +46,7 @@ class JOB_INFO_1A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the name of the user that owns the print job.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pUserName {
         get => NumGet(this, 24, "ptr")
@@ -55,7 +55,7 @@ class JOB_INFO_1A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the name of the print job (for example, "MS-WORD: Review.doc").
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pDocument {
         get => NumGet(this, 32, "ptr")
@@ -64,7 +64,7 @@ class JOB_INFO_1A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the type of data used to record the print job.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pDatatype {
         get => NumGet(this, 40, "ptr")
@@ -73,7 +73,7 @@ class JOB_INFO_1A extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that specifies the status of the print job. This member should be checked prior to *Status* and, if *pStatus* is **NULL**, the status is defined by the contents of the Status member.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pStatus {
         get => NumGet(this, 48, "ptr")

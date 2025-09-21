@@ -7,9 +7,9 @@
  */
 class BDA_ISDBCAS_RESPONSEDATA extends Win32Struct
 {
-    static sizeof => 17
+    static sizeof => 20
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * @type {Integer}

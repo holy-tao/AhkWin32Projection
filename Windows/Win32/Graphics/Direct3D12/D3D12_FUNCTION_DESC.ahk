@@ -27,7 +27,7 @@ class D3D12_FUNCTION_DESC extends Win32Struct
 
     /**
      * The name of the originator of the function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     Creator {
         get => NumGet(this, 8, "ptr")
@@ -270,7 +270,7 @@ class D3D12_FUNCTION_DESC extends Win32Struct
 
     /**
      * The name of the function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     Name {
         get => NumGet(this, 128, "ptr")

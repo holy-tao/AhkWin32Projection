@@ -7,9 +7,9 @@
  */
 class TCP_OPT_SACK extends Win32Struct
 {
-    static sizeof => 10
+    static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -31,15 +31,15 @@ class TCP_OPT_SACK extends Win32Struct
      * @type {Integer}
      */
     Left {
-        get => NumGet(this, 2, "uint")
-        set => NumPut("uint", value, this, 2)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     Right {
-        get => NumGet(this, 6, "uint")
-        set => NumPut("uint", value, this, 6)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 }

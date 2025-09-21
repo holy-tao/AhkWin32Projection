@@ -61,7 +61,7 @@ class SL_LICENSING_STATUS extends Win32Struct
      * Type: <b>HRESULT</b>
      * 
      * The error of unlicensed status.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hrReason {
         get => NumGet(this, 20, "int")

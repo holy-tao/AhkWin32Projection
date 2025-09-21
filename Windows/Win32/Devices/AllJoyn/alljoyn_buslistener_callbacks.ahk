@@ -12,7 +12,7 @@ class alljoyn_buslistener_callbacks extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_buslistener_listener_registered_ptr>}
      */
     listener_registered {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class alljoyn_buslistener_callbacks extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_buslistener_listener_unregistered_ptr>}
      */
     listener_unregistered {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class alljoyn_buslistener_callbacks extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_buslistener_found_advertised_name_ptr>}
      */
     found_advertised_name {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class alljoyn_buslistener_callbacks extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_buslistener_lost_advertised_name_ptr>}
      */
     lost_advertised_name {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class alljoyn_buslistener_callbacks extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_buslistener_name_owner_changed_ptr>}
      */
     name_owner_changed {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +52,7 @@ class alljoyn_buslistener_callbacks extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_buslistener_bus_stopping_ptr>}
      */
     bus_stopping {
         get => NumGet(this, 40, "ptr")
@@ -60,7 +60,7 @@ class alljoyn_buslistener_callbacks extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_buslistener_bus_disconnected_ptr>}
      */
     bus_disconnected {
         get => NumGet(this, 48, "ptr")
@@ -68,7 +68,7 @@ class alljoyn_buslistener_callbacks extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_buslistener_bus_prop_changed_ptr>}
      */
     property_changed {
         get => NumGet(this, 56, "ptr")

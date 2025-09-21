@@ -29,7 +29,7 @@ class D3D11_AUTHENTICATED_QUERY_OUTPUT_ID_OUTPUT extends Win32Struct
 
     /**
      * A handle to the device.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     DeviceHandle {
         get => NumGet(this, 40, "ptr")
@@ -38,7 +38,7 @@ class D3D11_AUTHENTICATED_QUERY_OUTPUT_ID_OUTPUT extends Win32Struct
 
     /**
      * A handle to the cryptographic session.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     CryptoSessionHandle {
         get => NumGet(this, 48, "ptr")

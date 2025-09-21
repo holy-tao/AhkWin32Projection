@@ -44,7 +44,7 @@ class WINHTTP_PROXY_RESULT_ENTRY extends Win32Struct
 
     /**
      * A string that contains the hostname of the proxy.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszProxy {
         get => NumGet(this, 16, "ptr")

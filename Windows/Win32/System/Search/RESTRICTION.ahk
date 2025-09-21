@@ -107,7 +107,7 @@ class RESTRICTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<TypeHandle>}
      */
     nr {
         get => NumGet(this, 8, "ptr")

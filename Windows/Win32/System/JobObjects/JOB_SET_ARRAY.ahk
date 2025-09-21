@@ -12,7 +12,7 @@ class JOB_SET_ARRAY extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     JobHandle {
         get => NumGet(this, 0, "ptr")

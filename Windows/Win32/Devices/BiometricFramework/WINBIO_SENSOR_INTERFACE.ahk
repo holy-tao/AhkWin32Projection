@@ -61,7 +61,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_attach_fn">SensorAdapterAttach</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_ATTACH_FN>}
      */
     Attach {
         get => NumGet(this, 24, "ptr")
@@ -70,7 +70,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_detach_fn">SensorAdapterDetach</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_DETACH_FN>}
      */
     Detach {
         get => NumGet(this, 32, "ptr")
@@ -79,7 +79,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_clear_context_fn">SensorAdapterClearContext</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_CLEAR_CONTEXT_FN>}
      */
     ClearContext {
         get => NumGet(this, 40, "ptr")
@@ -88,7 +88,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_query_status_fn">SensorAdapterQueryStatus</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_QUERY_STATUS_FN>}
      */
     QueryStatus {
         get => NumGet(this, 48, "ptr")
@@ -97,7 +97,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_reset_fn">SensorAdapterReset</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_RESET_FN>}
      */
     Reset {
         get => NumGet(this, 56, "ptr")
@@ -106,7 +106,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_set_mode_fn">SensorAdapterSetMode</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_SET_MODE_FN>}
      */
     SetMode {
         get => NumGet(this, 64, "ptr")
@@ -115,7 +115,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_set_indicator_status_fn">SensorAdapterSetIndicatorStatus</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_SET_INDICATOR_STATUS_FN>}
      */
     SetIndicatorStatus {
         get => NumGet(this, 72, "ptr")
@@ -124,7 +124,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_get_indicator_status_fn">SensorAdapterGetIndicatorStatus</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_GET_INDICATOR_STATUS_FN>}
      */
     GetIndicatorStatus {
         get => NumGet(this, 80, "ptr")
@@ -133,7 +133,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the   <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_start_capture_fn">SensorAdapterStartCapture</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_START_CAPTURE_FN>}
      */
     StartCapture {
         get => NumGet(this, 88, "ptr")
@@ -142,7 +142,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the   <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_finish_capture_fn">SensorAdapterFinishCapture</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_FINISH_CAPTURE_FN>}
      */
     FinishCapture {
         get => NumGet(this, 96, "ptr")
@@ -151,7 +151,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the   <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_export_sensor_data_fn">SensorAdapterExportSensorData</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_EXPORT_SENSOR_DATA_FN>}
      */
     ExportSensorData {
         get => NumGet(this, 104, "ptr")
@@ -160,7 +160,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the   <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_cancel_fn">SensorAdapterCancel</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_CANCEL_FN>}
      */
     Cancel {
         get => NumGet(this, 112, "ptr")
@@ -169,7 +169,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the   <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_push_data_to_engine_fn">SensorAdapterPushDataToEngine</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_PUSH_DATA_TO_ENGINE_FN>}
      */
     PushDataToEngine {
         get => NumGet(this, 120, "ptr")
@@ -178,7 +178,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_control_unit_fn">SensorAdapterControlUnit</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_CONTROL_UNIT_FN>}
      */
     ControlUnit {
         get => NumGet(this, 128, "ptr")
@@ -187,7 +187,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_control_unit_privileged_fn">SensorAdapterControlUnitPrivileged</a>   function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_CONTROL_UNIT_PRIVILEGED_FN>}
      */
     ControlUnitPrivileged {
         get => NumGet(this, 136, "ptr")
@@ -196,7 +196,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_notify_power_change_fn">SensorAdapterNotifyPowerChange</a> function.  This member is supported starting in Windows 8.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_NOTIFY_POWER_CHANGE_FN>}
      */
     NotifyPowerChange {
         get => NumGet(this, 144, "ptr")
@@ -205,7 +205,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_pipeline_init_fn">SensorAdapterPipelineInit</a> function. This member is supported starting in Windows 10.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_PIPELINE_INIT_FN>}
      */
     PipelineInit {
         get => NumGet(this, 152, "ptr")
@@ -214,7 +214,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_pipeline_cleanup_fn">SensorAdapterPipelineCleanup</a> function. This member is supported starting in Windows 10.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_PIPELINE_CLEANUP_FN>}
      */
     PipelineCleanup {
         get => NumGet(this, 160, "ptr")
@@ -223,7 +223,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_activate_fn">SensorAdapterActivate</a> function. This member is supported starting in Windows 10.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_ACTIVATE_FN>}
      */
     Activate {
         get => NumGet(this, 168, "ptr")
@@ -232,7 +232,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_deactivate_fn">SensorAdapterDeactivate</a> function. This member is supported starting in Windows 10.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_DEACTIVATE_FN>}
      */
     Deactivate {
         get => NumGet(this, 176, "ptr")
@@ -241,7 +241,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_query_extended_info_fn">SensorAdapterQueryExtendedInfo</a> function. This member is supported starting in Windows 10.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_QUERY_EXTENDED_INFO_FN>}
      */
     QueryExtendedInfo {
         get => NumGet(this, 184, "ptr")
@@ -250,7 +250,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_query_calibration_formats_fn">SensorAdapterQueryCalibrationFormats</a> function. This member is supported starting in Windows 10.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_QUERY_CALIBRATION_FORMATS_FN>}
      */
     QueryCalibrationFormats {
         get => NumGet(this, 192, "ptr")
@@ -259,7 +259,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_set_calibration_format_fn">SensorAdapterSetCalibrationFormat</a> function. This member is supported starting in Windows 10.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_SET_CALIBRATION_FORMAT_FN>}
      */
     SetCalibrationFormat {
         get => NumGet(this, 200, "ptr")
@@ -268,7 +268,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * A pointer to your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_sensor_accept_calibration_data_fn">SensorAdapterAcceptCalibrationData</a> function. This member is supported starting in Windows 10.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_ACCEPT_CALIBRATION_DATA_FN>}
      */
     AcceptCalibrationData {
         get => NumGet(this, 208, "ptr")
@@ -277,7 +277,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_ASYNC_IMPORT_RAW_BUFFER_FN>}
      */
     AsyncImportRawBuffer {
         get => NumGet(this, 216, "ptr")
@@ -286,7 +286,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_ASYNC_IMPORT_SECURE_BUFFER_FN>}
      */
     AsyncImportSecureBuffer {
         get => NumGet(this, 224, "ptr")
@@ -295,7 +295,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_QUERY_PRIVATE_SENSOR_TYPE_FN>}
      */
     QueryPrivateSensorType {
         get => NumGet(this, 232, "ptr")
@@ -304,7 +304,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_CONNECT_SECURE_FN>}
      */
     ConnectSecure {
         get => NumGet(this, 240, "ptr")
@@ -313,7 +313,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_START_CAPTURE_EX_FN>}
      */
     StartCaptureEx {
         get => NumGet(this, 248, "ptr")
@@ -322,7 +322,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_START_NOTIFY_WAKE_FN>}
      */
     StartNotifyWake {
         get => NumGet(this, 256, "ptr")
@@ -331,7 +331,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_FINISH_NOTIFY_WAKE_FN>}
      */
     FinishNotifyWake {
         get => NumGet(this, 264, "ptr")

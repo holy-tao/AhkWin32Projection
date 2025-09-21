@@ -18,7 +18,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
 
     /**
      * The handle value.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     Handle {
         get => NumGet(this, 0, "ptr")
@@ -132,7 +132,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
 
     /**
      * The type name of the object referenced by this handle. The buffer may not terminated by a <b>NULL</b> character. The pointer is valid for the lifetime of the walk marker passed to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/nf-processsnapshot-psswalksnapshot">PssWalkSnapshot</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     TypeName {
         get => NumGet(this, 64, "ptr")
@@ -150,7 +150,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
 
     /**
      * Specifies the name of the object referenced by this handle. The buffer may not terminated by a <b>NULL</b> character. The pointer is valid for the lifetime of the walk marker passed to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/nf-processsnapshot-psswalksnapshot">PssWalkSnapshot</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ObjectName {
         get => NumGet(this, 80, "ptr")

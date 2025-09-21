@@ -40,16 +40,16 @@ class USB_COMPOSITE_DEVICE_INFO extends Win32Struct
      * @type {Integer}
      */
     CurrentConfigurationValue {
-        get => NumGet(this, 33, "char")
-        set => NumPut("char", value, this, 33)
+        get => NumGet(this, 34, "char")
+        set => NumPut("char", value, this, 34)
     }
 
     /**
      * @type {Integer}
      */
     NumberOfFunctions {
-        get => NumGet(this, 34, "char")
-        set => NumPut("char", value, this, 34)
+        get => NumGet(this, 35, "char")
+        set => NumPut("char", value, this, 35)
     }
 
     /**

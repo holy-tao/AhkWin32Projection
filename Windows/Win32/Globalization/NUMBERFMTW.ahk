@@ -49,7 +49,7 @@ class NUMBERFMTW extends Win32Struct
 
     /**
      * Pointer to a null-terminated decimal separator string.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpDecimalSep {
         get => NumGet(this, 16, "ptr")
@@ -58,7 +58,7 @@ class NUMBERFMTW extends Win32Struct
 
     /**
      * Pointer to a null-terminated thousand separator string.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpThousandSep {
         get => NumGet(this, 24, "ptr")

@@ -15,7 +15,7 @@ class CERT_LOGOTYPE_DETAILS extends Win32Struct
 
     /**
      * The address of a null-terminated Unicode string that contains the Multipurpose Internet Mail Extensions (MIME) type of the logotype.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszMimeType {
         get => NumGet(this, 0, "ptr")

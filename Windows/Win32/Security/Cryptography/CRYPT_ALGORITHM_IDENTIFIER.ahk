@@ -16,7 +16,7 @@ class CRYPT_ALGORITHM_IDENTIFIER extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszObjId {
         get => NumGet(this, 0, "ptr")

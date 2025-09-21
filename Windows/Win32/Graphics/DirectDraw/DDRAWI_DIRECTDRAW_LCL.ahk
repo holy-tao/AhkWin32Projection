@@ -124,7 +124,7 @@ class DDRAWI_DIRECTDRAW_LCL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hD3DInstance {
         get => NumGet(this, 96, "ptr")
@@ -212,7 +212,7 @@ class DDRAWI_DIRECTDRAW_LCL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDGAMMACALIBRATORPROC>}
      */
     lpGammaCalibrator {
         get => NumGet(this, 176, "ptr")

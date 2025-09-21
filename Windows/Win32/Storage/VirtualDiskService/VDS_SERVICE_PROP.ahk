@@ -17,7 +17,7 @@ class VDS_SERVICE_PROP extends Win32Struct
 
     /**
      * The version of VDS; a zero-terminated, human-readable string.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszVersion {
         get => NumGet(this, 0, "ptr")

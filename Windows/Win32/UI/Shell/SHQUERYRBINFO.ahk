@@ -9,9 +9,9 @@
  */
 class SHQUERYRBINFO extends Win32Struct
 {
-    static sizeof => 20
+    static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b>DWORD</b>
@@ -31,8 +31,8 @@ class SHQUERYRBINFO extends Win32Struct
      * @type {Integer}
      */
     i64Size {
-        get => NumGet(this, 4, "int64")
-        set => NumPut("int64", value, this, 4)
+        get => NumGet(this, 8, "int64")
+        set => NumPut("int64", value, this, 8)
     }
 
     /**
@@ -42,8 +42,8 @@ class SHQUERYRBINFO extends Win32Struct
      * @type {Integer}
      */
     i64NumItems {
-        get => NumGet(this, 12, "int64")
-        set => NumPut("int64", value, this, 12)
+        get => NumGet(this, 16, "int64")
+        set => NumPut("int64", value, this, 16)
     }
 
     /**
@@ -52,6 +52,6 @@ class SHQUERYRBINFO extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 20
+        this.cbSize := 24
     }
 }

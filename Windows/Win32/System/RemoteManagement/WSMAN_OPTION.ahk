@@ -15,7 +15,7 @@ class WSMAN_OPTION extends Win32Struct
 
     /**
      * Specifies the name of the option.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     name {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class WSMAN_OPTION extends Win32Struct
 
     /**
      * Specifies the value of the option.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     value {
         get => NumGet(this, 8, "ptr")

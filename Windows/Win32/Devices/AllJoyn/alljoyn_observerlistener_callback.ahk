@@ -12,7 +12,7 @@ class alljoyn_observerlistener_callback extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_observer_object_discovered_ptr>}
      */
     object_discovered {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class alljoyn_observerlistener_callback extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<alljoyn_observer_object_lost_ptr>}
      */
     object_lost {
         get => NumGet(this, 8, "ptr")

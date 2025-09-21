@@ -33,7 +33,7 @@ class WSD_OPERATION extends Win32Struct
 
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/nc-wsdtypes-wsd_stub_function">WSD_STUB_FUNCTION</a> function that specifies the address of a stub function which translates a generic SOAP message structure into a method call with a signature specific to the incoming message of the operation.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<WSD_STUB_FUNCTION>}
      */
     RequestStubFunction {
         get => NumGet(this, 16, "ptr")

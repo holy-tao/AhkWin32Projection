@@ -32,7 +32,7 @@ class WSD_EVENTING_FILTER extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     Dialect {
         get => NumGet(this, 0, "ptr")
@@ -41,7 +41,7 @@ class WSD_EVENTING_FILTER extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<TypeHandle>}
      */
     FilterAction {
         get => NumGet(this, 8, "ptr")

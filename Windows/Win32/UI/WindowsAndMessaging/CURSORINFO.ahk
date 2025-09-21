@@ -38,7 +38,7 @@ class CURSORINFO extends Win32Struct
      * Type: <b>HCURSOR</b>
      * 
      * A handle to the cursor.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hCursor {
         get => NumGet(this, 8, "ptr")

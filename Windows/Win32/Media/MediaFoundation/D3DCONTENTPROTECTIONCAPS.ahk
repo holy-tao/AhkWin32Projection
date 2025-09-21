@@ -9,9 +9,9 @@
  */
 class D3DCONTENTPROTECTIONCAPS extends Win32Struct
 {
-    static sizeof => 28
+    static sizeof => 32
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * Bitwise <b>OR</b> of zero or more flags.
@@ -160,8 +160,8 @@ class D3DCONTENTPROTECTIONCAPS extends Win32Struct
      * @type {Pointer<Guid>}
      */
     KeyExchangeType {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -169,8 +169,8 @@ class D3DCONTENTPROTECTIONCAPS extends Win32Struct
      * @type {Integer}
      */
     BufferAlignmentStart {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -178,8 +178,8 @@ class D3DCONTENTPROTECTIONCAPS extends Win32Struct
      * @type {Integer}
      */
     BlockAlignmentSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -187,7 +187,7 @@ class D3DCONTENTPROTECTIONCAPS extends Win32Struct
      * @type {Integer}
      */
     ProtectedMemorySize {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 }

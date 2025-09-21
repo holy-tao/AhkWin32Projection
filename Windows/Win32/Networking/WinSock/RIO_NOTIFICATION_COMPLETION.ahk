@@ -35,7 +35,7 @@ class RIO_NOTIFICATION_COMPLETION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     EventHandle {
         get => NumGet(this, 8, "ptr")
@@ -51,7 +51,7 @@ class RIO_NOTIFICATION_COMPLETION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     IocpHandle {
         get => NumGet(this, 8, "ptr")

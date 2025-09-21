@@ -19,7 +19,7 @@ class WINHTTP_HOST_CONNECTION_GROUP extends Win32Struct
      * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * A string containing the host name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszHost {
         get => NumGet(this, 0, "ptr")

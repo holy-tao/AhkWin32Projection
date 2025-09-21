@@ -61,7 +61,7 @@ class DRT_SETTINGS extends Win32Struct
 
     /**
      * This string forms the basis of the name of the DRT instance. The name of the instance can be used to locate the Windows performance counters associated with it.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwzDrtInstancePrefix {
         get => NumGet(this, 16, "ptr")

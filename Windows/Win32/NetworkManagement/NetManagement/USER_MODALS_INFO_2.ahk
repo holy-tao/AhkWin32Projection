@@ -15,7 +15,7 @@ class USER_MODALS_INFO_2 extends Win32Struct
 
     /**
      * Specifies the name of the Security Account Manager (SAM) domain. For a domain controller, this is the name of the domain that the controller is a member of. For workstations, this is the name of the computer.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     usrmod2_domain_name {
         get => NumGet(this, 0, "ptr")
@@ -25,7 +25,7 @@ class USER_MODALS_INFO_2 extends Win32Struct
     /**
      * Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that contains the security identifier (SID) of the domain named by the <b>usrmod2_domain_name</b> member.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     usrmod2_domain_id {
         get => NumGet(this, 8, "ptr")

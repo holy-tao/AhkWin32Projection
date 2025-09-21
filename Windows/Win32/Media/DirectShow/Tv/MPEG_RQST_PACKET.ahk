@@ -9,9 +9,9 @@
  */
 class MPEG_RQST_PACKET extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Specifies the length of the buffer that <b>pSection</b> points to. The minimum size for section data is 4096 bytes.
@@ -27,7 +27,7 @@ class MPEG_RQST_PACKET extends Win32Struct
      * @type {Pointer<SECTION>}
      */
     pSection {
-        get => NumGet(this, 4, "ptr")
-        set => NumPut("ptr", value, this, 4)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

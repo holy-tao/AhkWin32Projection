@@ -24,9 +24,9 @@
  */
 class XAUDIO2_BUFFER extends Win32Struct
 {
-    static sizeof => 44
+    static sizeof => 48
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Flags that provide additional information about the audio buffer. May be 0, or the following value.
@@ -139,7 +139,7 @@ class XAUDIO2_BUFFER extends Win32Struct
      * @type {Pointer<Void>}
      */
     pContext {
-        get => NumGet(this, 36, "ptr")
-        set => NumPut("ptr", value, this, 36)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

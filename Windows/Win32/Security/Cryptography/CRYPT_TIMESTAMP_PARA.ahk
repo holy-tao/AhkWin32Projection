@@ -17,7 +17,7 @@ class CRYPT_TIMESTAMP_PARA extends Win32Struct
     /**
      * Optional. A pointer to a null-terminated character string that contains the Time Stamping Authority (TSA) policy under which the time stamp token
      * should be provided.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszTSAPolicyId {
         get => NumGet(this, 0, "ptr")

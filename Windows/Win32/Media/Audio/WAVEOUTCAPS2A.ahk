@@ -8,9 +8,9 @@
  */
 class WAVEOUTCAPS2A extends Win32Struct
 {
-    static sizeof => 76
+    static sizeof => 80
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -80,23 +80,23 @@ class WAVEOUTCAPS2A extends Win32Struct
      * @type {Pointer<Guid>}
      */
     ManufacturerGuid {
-        get => NumGet(this, 52, "ptr")
-        set => NumPut("ptr", value, this, 52)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     ProductGuid {
-        get => NumGet(this, 60, "ptr")
-        set => NumPut("ptr", value, this, 60)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     NameGuid {
-        get => NumGet(this, 68, "ptr")
-        set => NumPut("ptr", value, this, 68)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 }

@@ -44,7 +44,7 @@ class WEBAUTHN_CLIENT_DATA extends Win32Struct
 
     /**
      * Hash algorithm ID used to hash the **pbClientDataJSON** field.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszHashAlgId {
         get => NumGet(this, 16, "ptr")

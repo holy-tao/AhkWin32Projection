@@ -30,7 +30,7 @@ class LDAPControlW extends Win32Struct
 
     /**
      * Pointer to a wide, null-terminated string that indicates  control type, such as "1.2.840.113556.1.4.805".
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ldctl_oid {
         get => NumGet(this, 0, "ptr")

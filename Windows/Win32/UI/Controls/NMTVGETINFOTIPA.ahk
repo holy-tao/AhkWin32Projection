@@ -38,7 +38,7 @@ class NMTVGETINFOTIPA extends Win32Struct
      * 
      * Address of a character buffer that contains the text to be displayed. If you want to change the text displayed in the tooltip, you will need to modify the contents of this buffer. The size of this buffer is specified by the 
      * 					<b>cchTextMax</b> structure.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszText {
         get => NumGet(this, 24, "ptr")

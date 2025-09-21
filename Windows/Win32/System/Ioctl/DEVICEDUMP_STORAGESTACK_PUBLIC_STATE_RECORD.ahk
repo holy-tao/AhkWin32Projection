@@ -7,9 +7,9 @@
  */
 class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD extends Win32Struct
 {
-    static sizeof => 60
+    static sizeof => 64
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Array<Byte>}

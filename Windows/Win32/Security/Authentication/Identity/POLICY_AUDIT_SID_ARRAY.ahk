@@ -24,7 +24,7 @@ class POLICY_AUDIT_SID_ARRAY extends Win32Struct
 
     /**
      * A pointer to an array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structures that specify Windows users or groups.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     UserSidArray {
         get => NumGet(this, 8, "ptr")

@@ -44,7 +44,7 @@ class HIGHCONTRASTA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * Points to a string that contains the name of the color scheme that will be set to the default scheme.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     lpszDefaultScheme {
         get => NumGet(this, 8, "ptr")

@@ -34,7 +34,7 @@ class PEER_APPLICATION_REGISTRATION_INFO extends Win32Struct
 
     /**
      * Zero-terminated Unicode string that contains the local path to the executable peer application. Note that this data is for local use only and that this structure is never transmitted remotely.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwzApplicationToLaunch {
         get => NumGet(this, 32, "ptr")
@@ -43,7 +43,7 @@ class PEER_APPLICATION_REGISTRATION_INFO extends Win32Struct
 
     /**
      * Zero-terminated Unicode string that contains command-line arguments that must be supplied to the application when the application is launched. This data is for local use only. The PEER_APPLICATION_REGISTRATION_INFO  structure is never transmitted remotely.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwzApplicationArguments {
         get => NumGet(this, 40, "ptr")

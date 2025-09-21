@@ -16,7 +16,7 @@ class DS_REPL_VALUE_META_DATA extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the LDAP display name of the attribute corresponding to this metadata.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszAttributeName {
         get => NumGet(this, 0, "ptr")
@@ -25,7 +25,7 @@ class DS_REPL_VALUE_META_DATA extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the distinguished name of the object that this attribute belongs to.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszObjectDn {
         get => NumGet(this, 8, "ptr")

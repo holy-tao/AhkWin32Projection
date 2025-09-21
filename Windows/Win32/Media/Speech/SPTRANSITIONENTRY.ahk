@@ -12,7 +12,7 @@ class SPTRANSITIONENTRY extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     ID {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class SPTRANSITIONENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hNextState {
         get => NumGet(this, 8, "ptr")
@@ -60,7 +60,7 @@ class SPTRANSITIONENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hRuleInitialState {
         get => NumGet(this, 32, "ptr")
@@ -68,7 +68,7 @@ class SPTRANSITIONENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hRule {
         get => NumGet(this, 40, "ptr")
@@ -84,7 +84,7 @@ class SPTRANSITIONENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hWord {
         get => NumGet(this, 32, "ptr")
@@ -100,7 +100,7 @@ class SPTRANSITIONENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     Anonymous3 {
         get => NumGet(this, 32, "ptr")

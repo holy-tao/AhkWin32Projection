@@ -16,7 +16,7 @@ class PDH_DATA_ITEM_PATH_ELEMENTS_W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of the computer where the data item resides.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     szMachineName {
         get => NumGet(this, 0, "ptr")
@@ -43,7 +43,7 @@ class PDH_DATA_ITEM_PATH_ELEMENTS_W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of the data item instance.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     szInstanceName {
         get => NumGet(this, 24, "ptr")

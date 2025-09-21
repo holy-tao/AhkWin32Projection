@@ -10,7 +10,7 @@ class ACMFORMATTAGDETAILSW extends Win32Struct
 {
     static sizeof => 120
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * @type {Integer}

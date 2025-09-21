@@ -9,7 +9,7 @@ class USB_DEVICE_QUALIFIER_DESCRIPTOR extends Win32Struct
 {
     static sizeof => 10
 
-    static packingSize => 1
+    static packingSize => 2
 
     /**
      * @type {Integer}

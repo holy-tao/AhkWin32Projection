@@ -11,7 +11,7 @@ class AVITIMECODEINDEX extends Win32Struct
 {
     static sizeof => 8208
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
      * @type {Integer}

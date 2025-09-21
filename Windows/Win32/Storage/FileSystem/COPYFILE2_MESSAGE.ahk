@@ -141,7 +141,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hSourceFile {
         get => NumGet(this, 16, "ptr")
@@ -149,7 +149,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hDestinationFile {
         get => NumGet(this, 24, "ptr")
@@ -293,7 +293,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hrFailure {
         get => NumGet(this, 16, "int")

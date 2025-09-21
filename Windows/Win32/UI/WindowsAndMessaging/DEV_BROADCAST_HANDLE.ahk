@@ -42,7 +42,7 @@ class DEV_BROADCAST_HANDLE extends Win32Struct
 
     /**
      * A handle to the device to be checked.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     dbch_handle {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +52,7 @@ class DEV_BROADCAST_HANDLE extends Win32Struct
     /**
      * A handle to the device notification. This handle is returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerdevicenotificationa">RegisterDeviceNotification</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     dbch_hdevnotify {
         get => NumGet(this, 24, "ptr")

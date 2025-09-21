@@ -9,13 +9,13 @@
  */
 class IMEWRD extends Win32Struct
 {
-    static sizeof => 44
+    static sizeof => 48
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The reading string.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwchReading {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class IMEWRD extends Win32Struct
 
     /**
      * The display string.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwchDisplay {
         get => NumGet(this, 8, "ptr")
@@ -90,7 +90,7 @@ class IMEWRD extends Win32Struct
      * @type {Pointer<Void>}
      */
     pvComment {
-        get => NumGet(this, 36, "ptr")
-        set => NumPut("ptr", value, this, 36)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

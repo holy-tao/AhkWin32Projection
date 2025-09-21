@@ -44,7 +44,7 @@ class WEBAUTHN_CREDENTIAL extends Win32Struct
 
     /**
      * Well-known credential type specifying the type of this particular credential.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszCredentialType {
         get => NumGet(this, 16, "ptr")

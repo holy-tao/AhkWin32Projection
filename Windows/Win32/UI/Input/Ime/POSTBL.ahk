@@ -9,9 +9,9 @@
  */
 class POSTBL extends Win32Struct
 {
-    static sizeof => 10
+    static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * The number of the part of speech.
@@ -27,7 +27,7 @@ class POSTBL extends Win32Struct
      * @type {Pointer<Byte>}
      */
     szName {
-        get => NumGet(this, 2, "ptr")
-        set => NumPut("ptr", value, this, 2)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

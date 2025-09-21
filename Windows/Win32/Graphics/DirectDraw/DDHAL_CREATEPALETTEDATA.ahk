@@ -36,7 +36,7 @@ class DDHAL_CREATEPALETTEDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ddRVal {
         get => NumGet(this, 24, "int")
@@ -44,7 +44,7 @@ class DDHAL_CREATEPALETTEDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_CREATEPALETTE>}
      */
     CreatePalette {
         get => NumGet(this, 32, "ptr")

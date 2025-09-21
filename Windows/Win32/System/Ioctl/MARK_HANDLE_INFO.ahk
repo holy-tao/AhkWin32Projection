@@ -46,7 +46,7 @@ class MARK_HANDLE_INFO extends Win32Struct
      * 
      * The caller must have the <b>SE_MANAGE_VOLUME_NAME</b> privilege. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privileges">Privileges</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     VolumeHandle {
         get => NumGet(this, 8, "ptr")

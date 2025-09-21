@@ -12,7 +12,7 @@ class CONFIGURATION_ENTRY extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     bstrKey {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class CONFIGURATION_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     bstrValue {
         get => NumGet(this, 8, "ptr")

@@ -9,9 +9,9 @@
  */
 class METAHEADER extends Win32Struct
 {
-    static sizeof => 18
+    static sizeof => 24
 
-    static packingSize => 2
+    static packingSize => 4
 
     /**
      * 
@@ -45,8 +45,8 @@ class METAHEADER extends Win32Struct
      * @type {Integer}
      */
     mtSize {
-        get => NumGet(this, 6, "uint")
-        set => NumPut("uint", value, this, 6)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -54,8 +54,8 @@ class METAHEADER extends Win32Struct
      * @type {Integer}
      */
     mtNoObjects {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
+        get => NumGet(this, 12, "ushort")
+        set => NumPut("ushort", value, this, 12)
     }
 
     /**
@@ -63,8 +63,8 @@ class METAHEADER extends Win32Struct
      * @type {Integer}
      */
     mtMaxRecord {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -72,7 +72,7 @@ class METAHEADER extends Win32Struct
      * @type {Integer}
      */
     mtNoParameters {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
+        get => NumGet(this, 20, "ushort")
+        set => NumPut("ushort", value, this, 20)
     }
 }

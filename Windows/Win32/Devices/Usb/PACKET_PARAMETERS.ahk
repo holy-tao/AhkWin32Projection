@@ -9,7 +9,7 @@ class PACKET_PARAMETERS extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * @type {Integer}

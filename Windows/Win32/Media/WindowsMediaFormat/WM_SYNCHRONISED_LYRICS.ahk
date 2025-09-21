@@ -11,9 +11,9 @@
  */
 class WM_SYNCHRONISED_LYRICS extends Win32Struct
 {
-    static sizeof => 22
+    static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * 
@@ -35,11 +35,11 @@ class WM_SYNCHRONISED_LYRICS extends Win32Struct
 
     /**
      * Pointer to a wide-character null-terminated string containing data from the encoding application. An individual application can use this member in any way desired.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszContentDescriptor {
-        get => NumGet(this, 2, "ptr")
-        set => NumPut("ptr", value, this, 2)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -47,8 +47,8 @@ class WM_SYNCHRONISED_LYRICS extends Win32Struct
      * @type {Integer}
      */
     dwLyricsLen {
-        get => NumGet(this, 10, "uint")
-        set => NumPut("uint", value, this, 10)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -56,7 +56,7 @@ class WM_SYNCHRONISED_LYRICS extends Win32Struct
      * @type {Pointer<Byte>}
      */
     pbLyrics {
-        get => NumGet(this, 14, "ptr")
-        set => NumPut("ptr", value, this, 14)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

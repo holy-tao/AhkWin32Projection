@@ -28,7 +28,7 @@ class MPR_CERT_EKU extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszEKU {
         get => NumGet(this, 8, "ptr")

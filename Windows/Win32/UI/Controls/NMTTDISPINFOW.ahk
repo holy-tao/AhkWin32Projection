@@ -42,7 +42,7 @@ class NMTTDISPINFOW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * Pointer to a null-terminated string that will be displayed as the tooltip text. If <b>hinst</b> specifies an instance handle, this member must be the identifier of a string resource.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpszText {
         get => NumGet(this, 24, "ptr")
@@ -64,7 +64,7 @@ class NMTTDISPINFOW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HINSTANCE</a></b>
      * 
      * Handle to the instance that contains a string resource to be used as the tooltip text. If <b>lpszText</b> is the address of the tooltip text string, this member must be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hinst {
         get => NumGet(this, 192, "ptr")

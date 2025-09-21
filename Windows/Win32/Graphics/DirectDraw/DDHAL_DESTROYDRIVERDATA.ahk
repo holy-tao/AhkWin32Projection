@@ -20,7 +20,7 @@ class DDHAL_DESTROYDRIVERDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     ddRVal {
         get => NumGet(this, 8, "int")
@@ -28,7 +28,7 @@ class DDHAL_DESTROYDRIVERDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHAL_DESTROYDRIVER>}
      */
     DestroyDriver {
         get => NumGet(this, 16, "ptr")

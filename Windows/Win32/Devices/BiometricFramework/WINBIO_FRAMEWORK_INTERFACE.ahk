@@ -48,7 +48,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_FRAMEWORK_SET_UNIT_STATUS_FN>}
      */
     SetUnitStatus {
         get => NumGet(this, 24, "ptr")
@@ -56,7 +56,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_STORAGE_ATTACH_FN>}
      */
     VsmStorageAttach {
         get => NumGet(this, 32, "ptr")
@@ -64,7 +64,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_STORAGE_DETACH_FN>}
      */
     VsmStorageDetach {
         get => NumGet(this, 40, "ptr")
@@ -72,7 +72,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_STORAGE_CLEAR_CONTEXT_FN>}
      */
     VsmStorageClearContext {
         get => NumGet(this, 48, "ptr")
@@ -80,7 +80,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_STORAGE_CREATE_DATABASE_FN>}
      */
     VsmStorageCreateDatabase {
         get => NumGet(this, 56, "ptr")
@@ -88,7 +88,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_STORAGE_OPEN_DATABASE_FN>}
      */
     VsmStorageOpenDatabase {
         get => NumGet(this, 64, "ptr")
@@ -96,7 +96,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_STORAGE_CLOSE_DATABASE_FN>}
      */
     VsmStorageCloseDatabase {
         get => NumGet(this, 72, "ptr")
@@ -104,7 +104,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_STORAGE_DELETE_RECORD_FN>}
      */
     VsmStorageDeleteRecord {
         get => NumGet(this, 80, "ptr")
@@ -112,7 +112,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_STORAGE_NOTIFY_POWER_CHANGE_FN>}
      */
     VsmStorageNotifyPowerChange {
         get => NumGet(this, 88, "ptr")
@@ -120,7 +120,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_STORAGE_PIPELINE_INIT_FN>}
      */
     VsmStoragePipelineInit {
         get => NumGet(this, 96, "ptr")
@@ -128,7 +128,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_STORAGE_PIPELINE_CLEANUP_FN>}
      */
     VsmStoragePipelineCleanup {
         get => NumGet(this, 104, "ptr")
@@ -136,7 +136,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_STORAGE_ACTIVATE_FN>}
      */
     VsmStorageActivate {
         get => NumGet(this, 112, "ptr")
@@ -144,7 +144,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_STORAGE_DEACTIVATE_FN>}
      */
     VsmStorageDeactivate {
         get => NumGet(this, 120, "ptr")
@@ -152,7 +152,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_STORAGE_QUERY_EXTENDED_INFO_FN>}
      */
     VsmStorageQueryExtendedInfo {
         get => NumGet(this, 128, "ptr")
@@ -160,7 +160,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_FRAMEWORK_VSM_CACHE_CLEAR_FN>}
      */
     VsmStorageCacheClear {
         get => NumGet(this, 136, "ptr")
@@ -168,7 +168,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_FRAMEWORK_VSM_CACHE_IMPORT_BEGIN_FN>}
      */
     VsmStorageCacheImportBegin {
         get => NumGet(this, 144, "ptr")
@@ -176,7 +176,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_FRAMEWORK_VSM_CACHE_IMPORT_NEXT_FN>}
      */
     VsmStorageCacheImportNext {
         get => NumGet(this, 152, "ptr")
@@ -184,7 +184,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_FRAMEWORK_VSM_CACHE_IMPORT_END_FN>}
      */
     VsmStorageCacheImportEnd {
         get => NumGet(this, 160, "ptr")
@@ -192,7 +192,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_FRAMEWORK_VSM_CACHE_EXPORT_BEGIN_FN>}
      */
     VsmStorageCacheExportBegin {
         get => NumGet(this, 168, "ptr")
@@ -200,7 +200,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_FRAMEWORK_VSM_CACHE_EXPORT_NEXT_FN>}
      */
     VsmStorageCacheExportNext {
         get => NumGet(this, 176, "ptr")
@@ -208,7 +208,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_FRAMEWORK_VSM_CACHE_EXPORT_END_FN>}
      */
     VsmStorageCacheExportEnd {
         get => NumGet(this, 184, "ptr")
@@ -216,7 +216,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_ATTACH_FN>}
      */
     VsmSensorAttach {
         get => NumGet(this, 192, "ptr")
@@ -224,7 +224,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_DETACH_FN>}
      */
     VsmSensorDetach {
         get => NumGet(this, 200, "ptr")
@@ -232,7 +232,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_CLEAR_CONTEXT_FN>}
      */
     VsmSensorClearContext {
         get => NumGet(this, 208, "ptr")
@@ -240,7 +240,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_PUSH_DATA_TO_ENGINE_FN>}
      */
     VsmSensorPushDataToEngine {
         get => NumGet(this, 216, "ptr")
@@ -248,7 +248,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_NOTIFY_POWER_CHANGE_FN>}
      */
     VsmSensorNotifyPowerChange {
         get => NumGet(this, 224, "ptr")
@@ -256,7 +256,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_PIPELINE_INIT_FN>}
      */
     VsmSensorPipelineInit {
         get => NumGet(this, 232, "ptr")
@@ -264,7 +264,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_PIPELINE_CLEANUP_FN>}
      */
     VsmSensorPipelineCleanup {
         get => NumGet(this, 240, "ptr")
@@ -272,7 +272,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_ACTIVATE_FN>}
      */
     VsmSensorActivate {
         get => NumGet(this, 248, "ptr")
@@ -280,7 +280,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_DEACTIVATE_FN>}
      */
     VsmSensorDeactivate {
         get => NumGet(this, 256, "ptr")
@@ -288,7 +288,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_ASYNC_IMPORT_RAW_BUFFER_FN>}
      */
     VsmSensorAsyncImportRawBuffer {
         get => NumGet(this, 264, "ptr")
@@ -296,7 +296,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_SENSOR_ASYNC_IMPORT_SECURE_BUFFER_FN>}
      */
     VsmSensorAsyncImportSecureBuffer {
         get => NumGet(this, 272, "ptr")
@@ -304,7 +304,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_FRAMEWORK_VSM_STORAGE_RESERVED_1_FN>}
      */
     Reserved1 {
         get => NumGet(this, 280, "ptr")
@@ -312,7 +312,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_FRAMEWORK_VSM_STORAGE_RESERVED_2_FN>}
      */
     Reserved2 {
         get => NumGet(this, 288, "ptr")
@@ -320,7 +320,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_FRAMEWORK_VSM_STORAGE_RESERVED_3_FN>}
      */
     Reserved3 {
         get => NumGet(this, 296, "ptr")
@@ -328,7 +328,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_STORAGE_RESERVED_1_FN>}
      */
     Reserved4 {
         get => NumGet(this, 304, "ptr")
@@ -336,7 +336,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_STORAGE_RESERVED_2_FN>}
      */
     Reserved5 {
         get => NumGet(this, 312, "ptr")
@@ -344,7 +344,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_FRAMEWORK_ALLOCATE_MEMORY_FN>}
      */
     AllocateMemory {
         get => NumGet(this, 320, "ptr")
@@ -352,7 +352,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_FRAMEWORK_FREE_MEMORY_FN>}
      */
     FreeMemory {
         get => NumGet(this, 328, "ptr")
@@ -360,7 +360,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_FRAMEWORK_GET_PROPERTY_FN>}
      */
     GetProperty {
         get => NumGet(this, 336, "ptr")
@@ -368,7 +368,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_FRAMEWORK_LOCK_AND_VALIDATE_SECURE_BUFFER_FN>}
      */
     LockAndValidateSecureBuffer {
         get => NumGet(this, 344, "ptr")
@@ -376,7 +376,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_FRAMEWORK_RELEASE_SECURE_BUFFER_FN>}
      */
     ReleaseSecureBuffer {
         get => NumGet(this, 352, "ptr")
@@ -384,7 +384,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_FRAMEWORK_VSM_QUERY_AUTHORIZED_ENROLLMENTS_FN>}
      */
     QueryAuthorizedEnrollments {
         get => NumGet(this, 360, "ptr")
@@ -392,7 +392,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PIBIO_FRAMEWORK_VSM_DECRYPT_SAMPLE_FN>}
      */
     DecryptSample {
         get => NumGet(this, 368, "ptr")

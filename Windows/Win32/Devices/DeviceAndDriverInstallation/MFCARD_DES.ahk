@@ -11,7 +11,7 @@ class MFCARD_DES extends Win32Struct
 {
     static sizeof => 20
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Must be 1.

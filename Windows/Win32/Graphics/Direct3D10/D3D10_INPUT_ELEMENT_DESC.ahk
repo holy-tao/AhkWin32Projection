@@ -19,7 +19,7 @@ class D3D10_INPUT_ELEMENT_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-semantics">HLSL semantic</a> associated with this element in a <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-signatures">shader input-signature</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     SemanticName {
         get => NumGet(this, 0, "ptr")

@@ -42,7 +42,7 @@ class D3DDEVICE_CREATION_PARAMETERS extends Win32Struct
      * 
      * 
      * Window handle to which focus belongs for this Direct3D device. The value of this parameter mirrors the value passed to the [**CreateDevice**](/windows/win32/api/d3d9/nf-d3d9-idirect3d9-createdevice) call that created this device.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hFocusWindow {
         get => NumGet(this, 8, "ptr")

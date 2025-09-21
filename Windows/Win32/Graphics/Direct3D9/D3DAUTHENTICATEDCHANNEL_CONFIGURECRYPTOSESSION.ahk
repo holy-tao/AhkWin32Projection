@@ -29,7 +29,7 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURECRYPTOSESSION extends Win32Struct
 
     /**
      * A handle to the DirectX Video Acceleration 2 (DXVA-2) decoder device.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     DXVA2DecodeHandle {
         get => NumGet(this, 40, "ptr")
@@ -38,7 +38,7 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURECRYPTOSESSION extends Win32Struct
 
     /**
      * A handle to the cryptographic session.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     CryptoSessionHandle {
         get => NumGet(this, 48, "ptr")
@@ -47,7 +47,7 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURECRYPTOSESSION extends Win32Struct
 
     /**
      * A handle to the Direct3D device.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     DeviceHandle {
         get => NumGet(this, 56, "ptr")

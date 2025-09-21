@@ -24,7 +24,7 @@ class ROUTING_PROTOCOL_CONFIG extends Win32Struct
 
     /**
      * Callback into a routing protocol to perform an RPF check.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PMGM_RPF_CALLBACK>}
      */
     pfnRpfCallback {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class ROUTING_PROTOCOL_CONFIG extends Win32Struct
 
     /**
      * Callback into a routing protocol to determine the subset of interfaces owned by the routing protocol on which a multicast packet from a new source or to a new group should be forwarded.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PMGM_CREATION_ALERT_CALLBACK>}
      */
     pfnCreationAlertCallback {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class ROUTING_PROTOCOL_CONFIG extends Win32Struct
 
     /**
      * Callback into a routing protocol to notify the protocol that receivers for the specified source and group are no longer present on an interface owned by other routing protocols.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PMGM_PRUNE_ALERT_CALLBACK>}
      */
     pfnPruneAlertCallback {
         get => NumGet(this, 24, "ptr")
@@ -51,7 +51,7 @@ class ROUTING_PROTOCOL_CONFIG extends Win32Struct
 
     /**
      * Callback into a routing protocol to notify the protocol that new receivers for the specified source and group are present on an interface owned by another routing protocol.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PMGM_JOIN_ALERT_CALLBACK>}
      */
     pfnJoinAlertCallback {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +60,7 @@ class ROUTING_PROTOCOL_CONFIG extends Win32Struct
 
     /**
      * Callback into a routing protocol to notify the protocol that a packet has been received from the specified source and for the specified group on the wrong interface.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PMGM_WRONG_IF_CALLBACK>}
      */
     pfnWrongIfCallback {
         get => NumGet(this, 40, "ptr")
@@ -69,7 +69,7 @@ class ROUTING_PROTOCOL_CONFIG extends Win32Struct
 
     /**
      * Callback into a routing protocol to notify the protocol that IGMP has detected new receivers for a group on an interface.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PMGM_LOCAL_JOIN_CALLBACK>}
      */
     pfnLocalJoinCallback {
         get => NumGet(this, 48, "ptr")
@@ -78,7 +78,7 @@ class ROUTING_PROTOCOL_CONFIG extends Win32Struct
 
     /**
      * Callback into a routing protocol to notify the protocol that IGMP has detected that there are no more receivers for a group on an interface.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PMGM_LOCAL_LEAVE_CALLBACK>}
      */
     pfnLocalLeaveCallback {
         get => NumGet(this, 56, "ptr")
@@ -87,7 +87,7 @@ class ROUTING_PROTOCOL_CONFIG extends Win32Struct
 
     /**
      * Callback into IGMP to notify IGMP that a protocol is taking or releasing ownership of an interface on which IGMP is enabled.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PMGM_DISABLE_IGMP_CALLBACK>}
      */
     pfnDisableIgmpCallback {
         get => NumGet(this, 64, "ptr")
@@ -96,7 +96,7 @@ class ROUTING_PROTOCOL_CONFIG extends Win32Struct
 
     /**
      * Callback into IGMP to notify IGMP that a protocol has finished taking or releasing ownership of an interface on which IGMP is enabled.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PMGM_ENABLE_IGMP_CALLBACK>}
      */
     pfnEnableIgmpCallback {
         get => NumGet(this, 72, "ptr")

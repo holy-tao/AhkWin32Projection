@@ -19,7 +19,7 @@ class WSPUPCALLTABLE extends Win32Struct
      * Type: **LPWPUCLOSEEVENT**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wpucloseevent">WPUCloseEvent</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWPUCLOSEEVENT>}
      */
     lpWPUCloseEvent {
         get => NumGet(this, 0, "ptr")
@@ -30,7 +30,7 @@ class WSPUPCALLTABLE extends Win32Struct
      * Type: **LPWPUCLOSESOCKETHANDLE**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wpuclosesockethandle">WPUCloseSocketHandle</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWPUCLOSESOCKETHANDLE>}
      */
     lpWPUCloseSocketHandle {
         get => NumGet(this, 8, "ptr")
@@ -41,7 +41,7 @@ class WSPUPCALLTABLE extends Win32Struct
      * Type: **LPWPUCREATEEVENT**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wpucreateevent">WPUCreateEvent</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWPUCREATEEVENT>}
      */
     lpWPUCreateEvent {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +52,7 @@ class WSPUPCALLTABLE extends Win32Struct
      * Type: **LPWPUCREATESOCKETHANDLE**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nf-ws2spi-wpucreatesockethandle">WPUCreateSocketHandle</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWPUCREATESOCKETHANDLE>}
      */
     lpWPUCreateSocketHandle {
         get => NumGet(this, 24, "ptr")
@@ -63,7 +63,7 @@ class WSPUPCALLTABLE extends Win32Struct
      * Type: **LPWPUFDISSET**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wpufdisset">WPUFDIsSet</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWPUFDISSET>}
      */
     lpWPUFDIsSet {
         get => NumGet(this, 32, "ptr")
@@ -74,7 +74,7 @@ class WSPUPCALLTABLE extends Win32Struct
      * Type: **LPWPUGETPROVIDERPATH**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wpugetproviderpath">WPUGetProviderPath</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWPUGETPROVIDERPATH>}
      */
     lpWPUGetProviderPath {
         get => NumGet(this, 40, "ptr")
@@ -85,7 +85,7 @@ class WSPUPCALLTABLE extends Win32Struct
      * Type: **LPWPUMODIFYIFSHANDLE**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wpumodifyifshandle">WPUModifyIFSHandle</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWPUMODIFYIFSHANDLE>}
      */
     lpWPUModifyIFSHandle {
         get => NumGet(this, 48, "ptr")
@@ -96,7 +96,7 @@ class WSPUPCALLTABLE extends Win32Struct
      * Type: **LPWPUPOSTMESSAGE**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wpupostmessage">WPUPostMessage</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWPUPOSTMESSAGE>}
      */
     lpWPUPostMessage {
         get => NumGet(this, 56, "ptr")
@@ -107,7 +107,7 @@ class WSPUPCALLTABLE extends Win32Struct
      * Type: **LPWPUQUERYBLOCKINGCALLBACK**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wpuqueryblockingcallback">WPUQueryBlockingCallback</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWPUQUERYBLOCKINGCALLBACK>}
      */
     lpWPUQueryBlockingCallback {
         get => NumGet(this, 64, "ptr")
@@ -118,7 +118,7 @@ class WSPUPCALLTABLE extends Win32Struct
      * Type: **LPWPUQUERYSOCKETHANDLECONTEXT**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wpuquerysockethandlecontext">WPUQuerySocketHandleContext</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWPUQUERYSOCKETHANDLECONTEXT>}
      */
     lpWPUQuerySocketHandleContext {
         get => NumGet(this, 72, "ptr")
@@ -129,7 +129,7 @@ class WSPUPCALLTABLE extends Win32Struct
      * Type: **LPWPUQUEUEAPC**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wpuqueueapc">WPUQueueApc</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWPUQUEUEAPC>}
      */
     lpWPUQueueApc {
         get => NumGet(this, 80, "ptr")
@@ -140,7 +140,7 @@ class WSPUPCALLTABLE extends Win32Struct
      * Type: **LPWPURESETEVENT**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wpuresetevent">WPUResetEvent</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWPURESETEVENT>}
      */
     lpWPUResetEvent {
         get => NumGet(this, 88, "ptr")
@@ -151,7 +151,7 @@ class WSPUPCALLTABLE extends Win32Struct
      * Type: **LPWPUSETEVENT**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wpusetevent">WPUSetEvent</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWPUSETEVENT>}
      */
     lpWPUSetEvent {
         get => NumGet(this, 96, "ptr")
@@ -162,7 +162,7 @@ class WSPUPCALLTABLE extends Win32Struct
      * Type: **LPWPUOPENCURRENTTHREAD**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wpuopencurrentthread">WPUOpenCurrentThread</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWPUOPENCURRENTTHREAD>}
      */
     lpWPUOpenCurrentThread {
         get => NumGet(this, 104, "ptr")
@@ -173,7 +173,7 @@ class WSPUPCALLTABLE extends Win32Struct
      * Type: **LPWPUCLOSETHREAD**
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wpuclosethread">WPUCloseThread</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPWPUCLOSETHREAD>}
      */
     lpWPUCloseThread {
         get => NumGet(this, 112, "ptr")

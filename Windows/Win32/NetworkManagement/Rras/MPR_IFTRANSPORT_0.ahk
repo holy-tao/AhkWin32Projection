@@ -24,7 +24,7 @@ class MPR_IFTRANSPORT_0 extends Win32Struct
 
     /**
      * Handle to the interface transport.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hIfTransport {
         get => NumGet(this, 8, "ptr")

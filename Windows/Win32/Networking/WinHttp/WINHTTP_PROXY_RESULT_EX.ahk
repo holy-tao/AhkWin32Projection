@@ -28,7 +28,7 @@ class WINHTTP_PROXY_RESULT_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hProxyDetectionHandle {
         get => NumGet(this, 16, "ptr")

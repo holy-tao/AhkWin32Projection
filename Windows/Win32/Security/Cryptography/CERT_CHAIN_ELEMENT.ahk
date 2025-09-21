@@ -73,7 +73,7 @@ class CERT_CHAIN_ELEMENT extends Win32Struct
 
     /**
      * A pointer to a <b>null</b>-terminated wide character string that contains extended error information. If <b>NULL</b>, there is no extended error information.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszExtendedErrorInfo {
         get => NumGet(this, 48, "ptr")

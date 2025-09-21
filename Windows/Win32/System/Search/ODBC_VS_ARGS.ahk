@@ -28,7 +28,7 @@ class ODBC_VS_ARGS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     wszArg {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class ODBC_VS_ARGS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     szArg {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class ODBC_VS_ARGS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     wszCorrelation {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +52,7 @@ class ODBC_VS_ARGS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     szCorrelation {
         get => NumGet(this, 24, "ptr")

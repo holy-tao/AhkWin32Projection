@@ -25,7 +25,7 @@ class CRYPTCATMEMBER extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the reference tag value.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszReferenceTag {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +34,7 @@ class CRYPTCATMEMBER extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the file name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszFileName {
         get => NumGet(this, 16, "ptr")
@@ -88,7 +88,7 @@ class CRYPTCATMEMBER extends Win32Struct
 
     /**
      * Reserved; do not use.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hReserved {
         get => NumGet(this, 56, "ptr")

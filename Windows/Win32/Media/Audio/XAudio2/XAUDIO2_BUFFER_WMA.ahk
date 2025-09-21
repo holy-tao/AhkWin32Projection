@@ -31,9 +31,9 @@
  */
 class XAUDIO2_BUFFER_WMA extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Decoded packet cumulative data size array, each element is the number of bytes accumulated after the corresponding xWMA packet is decoded in order, must have <b>PacketCount</b> elements.

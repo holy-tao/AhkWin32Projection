@@ -274,7 +274,7 @@ class RPC_SECURITY_QOS_V3_W extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<TypeHandle>}
      */
     u {
         get => NumGet(this, 24, "ptr")

@@ -37,7 +37,7 @@ class WTS_PROCESS_INFOA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string containing the name of the executable file associated with the process.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pProcessName {
         get => NumGet(this, 8, "ptr")
@@ -48,7 +48,7 @@ class WTS_PROCESS_INFOA extends Win32Struct
      * Pointer to the user 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-identifiers">Security Identifiers</a> in the process's primary access token. For more information about SIDs and access tokens, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control">Access Control</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     pUserSid {
         get => NumGet(this, 16, "ptr")

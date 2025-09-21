@@ -28,7 +28,7 @@ class MFVideoAlphaBitmap extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hdc {
         get => NumGet(this, 8, "ptr")

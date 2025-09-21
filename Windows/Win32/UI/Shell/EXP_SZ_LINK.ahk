@@ -11,7 +11,7 @@ class EXP_SZ_LINK extends Win32Struct
 {
     static sizeof => 1048
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * Type: <b>DWORD</b>

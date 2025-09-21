@@ -27,7 +27,7 @@ class MINIDUMP_MEMORY64_LIST extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The number of structures in the <b>MemoryRanges</b> array.

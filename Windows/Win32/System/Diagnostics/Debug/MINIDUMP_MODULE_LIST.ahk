@@ -12,9 +12,9 @@
  */
 class MINIDUMP_MODULE_LIST extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The number of structures in the <b>Modules</b> array.
@@ -33,7 +33,7 @@ class MINIDUMP_MODULE_LIST extends Win32Struct
     Modules{
         get {
             if(!this.HasProp("__ModulesProxyArray"))
-                this.__ModulesProxyArray := Win32FixedArray(this.ptr + 4, 1, MINIDUMP_MODULE, "")
+                this.__ModulesProxyArray := Win32FixedArray(this.ptr + 8, 1, MINIDUMP_MODULE, "")
             return this.__ModulesProxyArray
         }
     }

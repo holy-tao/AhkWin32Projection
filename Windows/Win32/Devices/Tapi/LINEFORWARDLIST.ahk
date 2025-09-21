@@ -17,7 +17,7 @@ class LINEFORWARDLIST extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Total size of the data structure, in bytes.

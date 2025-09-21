@@ -59,7 +59,7 @@ class ASSEMBLY_INFO extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the path to the manifest file.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszCurrentAssemblyPathBuf {
         get => NumGet(this, 16, "ptr")

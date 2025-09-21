@@ -20,7 +20,7 @@ class HDV_PCI_DEVICE_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HDV_PCI_DEVICE_INITIALIZE>}
      */
     Initialize {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class HDV_PCI_DEVICE_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HDV_PCI_DEVICE_TEARDOWN>}
      */
     Teardown {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class HDV_PCI_DEVICE_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HDV_PCI_DEVICE_SET_CONFIGURATION>}
      */
     SetConfiguration {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class HDV_PCI_DEVICE_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HDV_PCI_DEVICE_GET_DETAILS>}
      */
     GetDetails {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +52,7 @@ class HDV_PCI_DEVICE_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HDV_PCI_DEVICE_START>}
      */
     Start {
         get => NumGet(this, 40, "ptr")
@@ -60,7 +60,7 @@ class HDV_PCI_DEVICE_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HDV_PCI_DEVICE_STOP>}
      */
     Stop {
         get => NumGet(this, 48, "ptr")
@@ -68,7 +68,7 @@ class HDV_PCI_DEVICE_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HDV_PCI_READ_CONFIG_SPACE>}
      */
     ReadConfigSpace {
         get => NumGet(this, 56, "ptr")
@@ -76,7 +76,7 @@ class HDV_PCI_DEVICE_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HDV_PCI_WRITE_CONFIG_SPACE>}
      */
     WriteConfigSpace {
         get => NumGet(this, 64, "ptr")
@@ -84,7 +84,7 @@ class HDV_PCI_DEVICE_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HDV_PCI_READ_INTERCEPTED_MEMORY>}
      */
     ReadInterceptedMemory {
         get => NumGet(this, 72, "ptr")
@@ -92,7 +92,7 @@ class HDV_PCI_DEVICE_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<HDV_PCI_WRITE_INTERCEPTED_MEMORY>}
      */
     WriteInterceptedMemory {
         get => NumGet(this, 80, "ptr")

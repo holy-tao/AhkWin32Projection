@@ -20,7 +20,7 @@ class CKCL_LISTHEAD extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     Heap {
         get => NumGet(this, 8, "ptr")

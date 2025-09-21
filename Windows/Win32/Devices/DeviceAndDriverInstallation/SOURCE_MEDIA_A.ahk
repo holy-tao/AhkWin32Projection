@@ -13,13 +13,13 @@
  */
 class SOURCE_MEDIA_A extends Win32Struct
 {
-    static sizeof => 44
+    static sizeof => 48
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * This member is not currently used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     Reserved {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class SOURCE_MEDIA_A extends Win32Struct
 
     /**
      * Optional  tag file that can be used to identify the source media.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     Tagfile {
         get => NumGet(this, 8, "ptr")
@@ -37,7 +37,7 @@ class SOURCE_MEDIA_A extends Win32Struct
 
     /**
      * Human-readable description of the source media.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     Description {
         get => NumGet(this, 16, "ptr")
@@ -46,7 +46,7 @@ class SOURCE_MEDIA_A extends Win32Struct
 
     /**
      * Path to the source that needs the new media.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     SourcePath {
         get => NumGet(this, 24, "ptr")
@@ -55,7 +55,7 @@ class SOURCE_MEDIA_A extends Win32Struct
 
     /**
      * Source file to be retrieved from the new media.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     SourceFile {
         get => NumGet(this, 32, "ptr")

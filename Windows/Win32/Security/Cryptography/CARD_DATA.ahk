@@ -36,7 +36,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszCardName {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CSP_ALLOC>}
      */
     pfnCspAlloc {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +52,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CSP_REALLOC>}
      */
     pfnCspReAlloc {
         get => NumGet(this, 40, "ptr")
@@ -60,7 +60,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CSP_FREE>}
      */
     pfnCspFree {
         get => NumGet(this, 48, "ptr")
@@ -68,7 +68,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CSP_CACHE_ADD_FILE>}
      */
     pfnCspCacheAddFile {
         get => NumGet(this, 56, "ptr")
@@ -76,7 +76,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CSP_CACHE_LOOKUP_FILE>}
      */
     pfnCspCacheLookupFile {
         get => NumGet(this, 64, "ptr")
@@ -84,7 +84,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CSP_CACHE_DELETE_FILE>}
      */
     pfnCspCacheDeleteFile {
         get => NumGet(this, 72, "ptr")
@@ -100,7 +100,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CSP_PAD_DATA>}
      */
     pfnCspPadData {
         get => NumGet(this, 88, "ptr")
@@ -132,7 +132,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_DELETE_CONTEXT>}
      */
     pfnCardDeleteContext {
         get => NumGet(this, 120, "ptr")
@@ -140,7 +140,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_QUERY_CAPABILITIES>}
      */
     pfnCardQueryCapabilities {
         get => NumGet(this, 128, "ptr")
@@ -148,7 +148,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_DELETE_CONTAINER>}
      */
     pfnCardDeleteContainer {
         get => NumGet(this, 136, "ptr")
@@ -156,7 +156,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_CREATE_CONTAINER>}
      */
     pfnCardCreateContainer {
         get => NumGet(this, 144, "ptr")
@@ -164,7 +164,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_GET_CONTAINER_INFO>}
      */
     pfnCardGetContainerInfo {
         get => NumGet(this, 152, "ptr")
@@ -172,7 +172,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_AUTHENTICATE_PIN>}
      */
     pfnCardAuthenticatePin {
         get => NumGet(this, 160, "ptr")
@@ -180,7 +180,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_GET_CHALLENGE>}
      */
     pfnCardGetChallenge {
         get => NumGet(this, 168, "ptr")
@@ -188,7 +188,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_AUTHENTICATE_CHALLENGE>}
      */
     pfnCardAuthenticateChallenge {
         get => NumGet(this, 176, "ptr")
@@ -196,7 +196,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_UNBLOCK_PIN>}
      */
     pfnCardUnblockPin {
         get => NumGet(this, 184, "ptr")
@@ -204,7 +204,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_CHANGE_AUTHENTICATOR>}
      */
     pfnCardChangeAuthenticator {
         get => NumGet(this, 192, "ptr")
@@ -212,7 +212,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_DEAUTHENTICATE>}
      */
     pfnCardDeauthenticate {
         get => NumGet(this, 200, "ptr")
@@ -220,7 +220,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_CREATE_DIRECTORY>}
      */
     pfnCardCreateDirectory {
         get => NumGet(this, 208, "ptr")
@@ -228,7 +228,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_DELETE_DIRECTORY>}
      */
     pfnCardDeleteDirectory {
         get => NumGet(this, 216, "ptr")
@@ -252,7 +252,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_CREATE_FILE>}
      */
     pfnCardCreateFile {
         get => NumGet(this, 240, "ptr")
@@ -260,7 +260,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_READ_FILE>}
      */
     pfnCardReadFile {
         get => NumGet(this, 248, "ptr")
@@ -268,7 +268,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_WRITE_FILE>}
      */
     pfnCardWriteFile {
         get => NumGet(this, 256, "ptr")
@@ -276,7 +276,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_DELETE_FILE>}
      */
     pfnCardDeleteFile {
         get => NumGet(this, 264, "ptr")
@@ -284,7 +284,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_ENUM_FILES>}
      */
     pfnCardEnumFiles {
         get => NumGet(this, 272, "ptr")
@@ -292,7 +292,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_GET_FILE_INFO>}
      */
     pfnCardGetFileInfo {
         get => NumGet(this, 280, "ptr")
@@ -300,7 +300,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_QUERY_FREE_SPACE>}
      */
     pfnCardQueryFreeSpace {
         get => NumGet(this, 288, "ptr")
@@ -308,7 +308,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_QUERY_KEY_SIZES>}
      */
     pfnCardQueryKeySizes {
         get => NumGet(this, 296, "ptr")
@@ -316,7 +316,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_SIGN_DATA>}
      */
     pfnCardSignData {
         get => NumGet(this, 304, "ptr")
@@ -324,7 +324,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_RSA_DECRYPT>}
      */
     pfnCardRSADecrypt {
         get => NumGet(this, 312, "ptr")
@@ -332,7 +332,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_CONSTRUCT_DH_AGREEMENT>}
      */
     pfnCardConstructDHAgreement {
         get => NumGet(this, 320, "ptr")
@@ -340,7 +340,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_DERIVE_KEY>}
      */
     pfnCardDeriveKey {
         get => NumGet(this, 328, "ptr")
@@ -348,7 +348,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_DESTROY_DH_AGREEMENT>}
      */
     pfnCardDestroyDHAgreement {
         get => NumGet(this, 336, "ptr")
@@ -356,7 +356,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CSP_GET_DH_AGREEMENT>}
      */
     pfnCspGetDHAgreement {
         get => NumGet(this, 344, "ptr")
@@ -364,7 +364,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_GET_CHALLENGE_EX>}
      */
     pfnCardGetChallengeEx {
         get => NumGet(this, 352, "ptr")
@@ -372,7 +372,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_AUTHENTICATE_EX>}
      */
     pfnCardAuthenticateEx {
         get => NumGet(this, 360, "ptr")
@@ -380,7 +380,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_CHANGE_AUTHENTICATOR_EX>}
      */
     pfnCardChangeAuthenticatorEx {
         get => NumGet(this, 368, "ptr")
@@ -388,7 +388,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_DEAUTHENTICATE_EX>}
      */
     pfnCardDeauthenticateEx {
         get => NumGet(this, 376, "ptr")
@@ -396,7 +396,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_GET_CONTAINER_PROPERTY>}
      */
     pfnCardGetContainerProperty {
         get => NumGet(this, 384, "ptr")
@@ -404,7 +404,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_SET_CONTAINER_PROPERTY>}
      */
     pfnCardSetContainerProperty {
         get => NumGet(this, 392, "ptr")
@@ -412,7 +412,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_GET_PROPERTY>}
      */
     pfnCardGetProperty {
         get => NumGet(this, 400, "ptr")
@@ -420,7 +420,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_SET_PROPERTY>}
      */
     pfnCardSetProperty {
         get => NumGet(this, 408, "ptr")
@@ -428,7 +428,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CSP_UNPAD_DATA>}
      */
     pfnCspUnpadData {
         get => NumGet(this, 416, "ptr")
@@ -436,7 +436,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_MD_IMPORT_SESSION_KEY>}
      */
     pfnMDImportSessionKey {
         get => NumGet(this, 424, "ptr")
@@ -444,7 +444,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_MD_ENCRYPT_DATA>}
      */
     pfnMDEncryptData {
         get => NumGet(this, 432, "ptr")
@@ -452,7 +452,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_IMPORT_SESSION_KEY>}
      */
     pfnCardImportSessionKey {
         get => NumGet(this, 440, "ptr")
@@ -460,7 +460,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_GET_SHARED_KEY_HANDLE>}
      */
     pfnCardGetSharedKeyHandle {
         get => NumGet(this, 448, "ptr")
@@ -468,7 +468,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_GET_ALGORITHM_PROPERTY>}
      */
     pfnCardGetAlgorithmProperty {
         get => NumGet(this, 456, "ptr")
@@ -476,7 +476,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_GET_KEY_PROPERTY>}
      */
     pfnCardGetKeyProperty {
         get => NumGet(this, 464, "ptr")
@@ -484,7 +484,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_SET_KEY_PROPERTY>}
      */
     pfnCardSetKeyProperty {
         get => NumGet(this, 472, "ptr")
@@ -492,7 +492,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_DESTROY_KEY>}
      */
     pfnCardDestroyKey {
         get => NumGet(this, 480, "ptr")
@@ -500,7 +500,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_PROCESS_ENCRYPTED_DATA>}
      */
     pfnCardProcessEncryptedData {
         get => NumGet(this, 488, "ptr")
@@ -508,7 +508,7 @@ class CARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CARD_CREATE_CONTAINER_EX>}
      */
     pfnCardCreateContainerEx {
         get => NumGet(this, 496, "ptr")

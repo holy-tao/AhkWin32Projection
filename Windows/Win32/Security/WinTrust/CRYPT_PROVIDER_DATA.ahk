@@ -43,7 +43,7 @@ class CRYPT_PROVIDER_DATA extends Win32Struct
 
     /**
      * A handle to the parent window. If not specified, a handle to the desktop  window is used.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hWndParent {
         get => NumGet(this, 24, "ptr")
@@ -133,7 +133,7 @@ class CRYPT_PROVIDER_DATA extends Win32Struct
 
     /**
      * An array of certificate store handles.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     pahStores {
         get => NumGet(this, 96, "ptr")
@@ -204,7 +204,7 @@ class CRYPT_PROVIDER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<TypeHandle>}
      */
     Anonymous {
         get => NumGet(this, 160, "ptr")
@@ -213,7 +213,7 @@ class CRYPT_PROVIDER_DATA extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the usage <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID).
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszUsageOID {
         get => NumGet(this, 168, "ptr")
@@ -243,7 +243,7 @@ class CRYPT_PROVIDER_DATA extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that represents the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate trust list</a> (CTL) signer usage OID.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszCTLSignerUsageOID {
         get => NumGet(this, 192, "ptr")

@@ -28,7 +28,7 @@ class CBTACTIVATESTRUCT extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the active window.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hWndActive {
         get => NumGet(this, 8, "ptr")

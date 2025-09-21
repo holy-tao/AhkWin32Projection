@@ -24,7 +24,7 @@ class CERT_POLICY_ID extends Win32Struct
 
     /**
      * Array of pointers to policy element identifier strings.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     rgpszCertPolicyElementId {
         get => NumGet(this, 8, "ptr")

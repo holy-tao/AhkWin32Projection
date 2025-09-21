@@ -9,9 +9,9 @@
  */
 class NVME_OCP_DEVICE_ERROR_RECOVERY_LOG_V2 extends Win32Struct
 {
-    static sizeof => 504
+    static sizeof => 512
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -44,8 +44,8 @@ class NVME_OCP_DEVICE_ERROR_RECOVERY_LOG_V2 extends Win32Struct
      * @type {Integer}
      */
     PanicId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -54,7 +54,7 @@ class NVME_OCP_DEVICE_ERROR_RECOVERY_LOG_V2 extends Win32Struct
     DeviceCapabilitiesA{
         get {
             if(!this.HasProp("__DeviceCapabilitiesA"))
-                this.__DeviceCapabilitiesA := NVME_WCS_DEVICE_CAPABILITIES(this.ptr + 12)
+                this.__DeviceCapabilitiesA := NVME_WCS_DEVICE_CAPABILITIES(this.ptr + 16)
             return this.__DeviceCapabilitiesA
         }
     }
@@ -63,8 +63,8 @@ class NVME_OCP_DEVICE_ERROR_RECOVERY_LOG_V2 extends Win32Struct
      * @type {Integer}
      */
     VendorSpecificRecoveryCode {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+        get => NumGet(this, 20, "char")
+        set => NumPut("char", value, this, 20)
     }
 
     /**
@@ -73,7 +73,7 @@ class NVME_OCP_DEVICE_ERROR_RECOVERY_LOG_V2 extends Win32Struct
     Reserved0{
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 17, 3, Primitive, "char")
+                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 21, 3, Primitive, "char")
             return this.__Reserved0ProxyArray
         }
     }
@@ -82,14 +82,6 @@ class NVME_OCP_DEVICE_ERROR_RECOVERY_LOG_V2 extends Win32Struct
      * @type {Integer}
      */
     VendorSpecificCommandCDW12 {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    VendorSpecificCommandCDW13 {
         get => NumGet(this, 24, "uint")
         set => NumPut("uint", value, this, 24)
     }
@@ -97,25 +89,33 @@ class NVME_OCP_DEVICE_ERROR_RECOVERY_LOG_V2 extends Win32Struct
     /**
      * @type {Integer}
      */
+    VendorSpecificCommandCDW13 {
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
+    }
+
+    /**
+     * @type {Integer}
+     */
     VendorSpecificCommandTimeout {
-        get => NumGet(this, 28, "char")
-        set => NumPut("char", value, this, 28)
+        get => NumGet(this, 32, "char")
+        set => NumPut("char", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     DeviceRecoveryAction2 {
-        get => NumGet(this, 29, "char")
-        set => NumPut("char", value, this, 29)
+        get => NumGet(this, 33, "char")
+        set => NumPut("char", value, this, 33)
     }
 
     /**
      * @type {Integer}
      */
     DeviceRecoveryAction2Timeout {
-        get => NumGet(this, 30, "char")
-        set => NumPut("char", value, this, 30)
+        get => NumGet(this, 34, "char")
+        set => NumPut("char", value, this, 34)
     }
 
     /**
@@ -124,7 +124,7 @@ class NVME_OCP_DEVICE_ERROR_RECOVERY_LOG_V2 extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 31, 463, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 35, 463, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }
@@ -133,15 +133,15 @@ class NVME_OCP_DEVICE_ERROR_RECOVERY_LOG_V2 extends Win32Struct
      * @type {Integer}
      */
     LogPageVersionNumber {
-        get => NumGet(this, 494, "ushort")
-        set => NumPut("ushort", value, this, 494)
+        get => NumGet(this, 498, "ushort")
+        set => NumPut("ushort", value, this, 498)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     LogPageGUID {
-        get => NumGet(this, 496, "ptr")
-        set => NumPut("ptr", value, this, 496)
+        get => NumGet(this, 504, "ptr")
+        set => NumPut("ptr", value, this, 504)
     }
 }

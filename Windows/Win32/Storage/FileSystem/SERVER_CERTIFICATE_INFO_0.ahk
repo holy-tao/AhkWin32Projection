@@ -12,7 +12,7 @@ class SERVER_CERTIFICATE_INFO_0 extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     srvci0_name {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class SERVER_CERTIFICATE_INFO_0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     srvci0_subject {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class SERVER_CERTIFICATE_INFO_0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     srvci0_issuer {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class SERVER_CERTIFICATE_INFO_0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     srvci0_thumbprint {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class SERVER_CERTIFICATE_INFO_0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     srvci0_friendlyname {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +52,7 @@ class SERVER_CERTIFICATE_INFO_0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     srvci0_notbefore {
         get => NumGet(this, 40, "ptr")
@@ -60,7 +60,7 @@ class SERVER_CERTIFICATE_INFO_0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     srvci0_notafter {
         get => NumGet(this, 48, "ptr")
@@ -68,7 +68,7 @@ class SERVER_CERTIFICATE_INFO_0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     srvci0_storelocation {
         get => NumGet(this, 56, "ptr")
@@ -76,7 +76,7 @@ class SERVER_CERTIFICATE_INFO_0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     srvci0_storename {
         get => NumGet(this, 64, "ptr")
@@ -84,7 +84,7 @@ class SERVER_CERTIFICATE_INFO_0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     srvci0_renewalchain {
         get => NumGet(this, 72, "ptr")

@@ -16,7 +16,7 @@ class XAUDIO2_PERFORMANCE_DATA extends Win32Struct
 {
     static sizeof => 64
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * CPU cycles spent on audio processing since the last call to the <a href="https://docs.microsoft.com/windows/desktop/api/xaudio2/nf-xaudio2-ixaudio2-startengine">IXAudio2::StartEngine</a> or <a href="https://docs.microsoft.com/windows/desktop/api/xaudio2/nf-xaudio2-ixaudio2-getperformancedata">IXAudio2::GetPerformanceData</a> function.

@@ -12,7 +12,7 @@ class DSPROPERTY_DIRECTSOUNDDEVICE_ENUMERATE_W_DATA extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPFNDIRECTSOUNDDEVICEENUMERATECALLBACKW>}
      */
     Callback {
         get => NumGet(this, 0, "ptr")

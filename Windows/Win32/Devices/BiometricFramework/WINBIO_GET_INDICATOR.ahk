@@ -20,7 +20,7 @@ class WINBIO_GET_INDICATOR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     WinBioHresult {
         get => NumGet(this, 4, "int")

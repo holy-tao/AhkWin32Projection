@@ -17,9 +17,9 @@
  */
 class BTH_QUERY_SERVICE extends Win32Struct
 {
-    static sizeof => 116
+    static sizeof => 120
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type of service to perform. Choose from the following:
@@ -74,7 +74,7 @@ class BTH_QUERY_SERVICE extends Win32Struct
     pRange{
         get {
             if(!this.HasProp("__pRangeProxyArray"))
-                this.__pRangeProxyArray := Win32FixedArray(this.ptr + 108, 1, SdpAttributeRange, "")
+                this.__pRangeProxyArray := Win32FixedArray(this.ptr + 112, 1, SdpAttributeRange, "")
             return this.__pRangeProxyArray
         }
     }

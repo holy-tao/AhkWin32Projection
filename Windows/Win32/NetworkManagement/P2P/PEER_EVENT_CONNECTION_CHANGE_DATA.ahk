@@ -119,7 +119,7 @@ class PEER_EVENT_CONNECTION_CHANGE_DATA extends Win32Struct
      * <td>A connection is lost during the authentication phase. This is the result of a network failure or the  remote node breaking the connection.</td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hrConnectionFailedReason {
         get => NumGet(this, 32, "int")

@@ -42,7 +42,7 @@ class LPM_INIT_INFO extends Win32Struct
 
     /**
      * Memory allocation function used to initialize memory for local policy modules, in the form of a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/lpmapi/nc-lpmapi-pallocmem">PALLOCMEM</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PALLOCMEM>}
      */
     AllocMemory {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +51,7 @@ class LPM_INIT_INFO extends Win32Struct
 
     /**
      * Memory freeing function used to free memory allocated for the local policy module.  See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/lpmapi/nc-lpmapi-pfreemem">PFREEMEM</a> for more information.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFREEMEM>}
      */
     FreeMemory {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +60,7 @@ class LPM_INIT_INFO extends Win32Struct
 
     /**
      * Callback function used to admit results. See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/lpmapi/nc-lpmapi-cbadmitresult">cbAdmitResult</a> for more information.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<CBADMITRESULT>}
      */
     PcmAdmitResultCallback {
         get => NumGet(this, 32, "ptr")
@@ -69,7 +69,7 @@ class LPM_INIT_INFO extends Win32Struct
 
     /**
      * Callback function used to obtain RSVP objects. See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/lpmapi/nc-lpmapi-cbgetrsvpobjects">cbGetRsvpObjects</a> for more information.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<CBGETRSVPOBJECTS>}
      */
     GetRsvpObjectsCallback {
         get => NumGet(this, 40, "ptr")

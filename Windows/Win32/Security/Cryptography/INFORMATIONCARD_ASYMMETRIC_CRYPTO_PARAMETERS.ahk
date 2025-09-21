@@ -20,7 +20,7 @@ class INFORMATIONCARD_ASYMMETRIC_CRYPTO_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     keyExchangeAlgorithm {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class INFORMATIONCARD_ASYMMETRIC_CRYPTO_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     signatureAlgorithm {
         get => NumGet(this, 16, "ptr")

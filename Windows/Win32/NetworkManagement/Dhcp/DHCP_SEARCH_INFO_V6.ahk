@@ -47,7 +47,7 @@ class DHCP_SEARCH_INFO_V6 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ClientName {
         get => NumGet(this, 8, "ptr")

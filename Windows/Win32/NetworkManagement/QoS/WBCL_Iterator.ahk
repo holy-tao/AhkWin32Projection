@@ -7,9 +7,9 @@
  */
 class WBCL_Iterator extends Win32Struct
 {
-    static sizeof => 46
+    static sizeof => 56
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * @type {Pointer<Void>}
@@ -31,63 +31,63 @@ class WBCL_Iterator extends Win32Struct
      * @type {Pointer<Void>}
      */
     currentElementPtr {
-        get => NumGet(this, 12, "ptr")
-        set => NumPut("ptr", value, this, 12)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     currentElementSize {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     digestSize {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
+        get => NumGet(this, 28, "ushort")
+        set => NumPut("ushort", value, this, 28)
     }
 
     /**
      * @type {Integer}
      */
     logFormat {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
+        get => NumGet(this, 30, "ushort")
+        set => NumPut("ushort", value, this, 30)
     }
 
     /**
      * @type {Integer}
      */
     numberOfDigests {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     digestSizes {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * @type {Integer}
      */
     supportedAlgorithms {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
      * @type {Integer}
      */
     hashAlgorithm {
-        get => NumGet(this, 44, "ushort")
-        set => NumPut("ushort", value, this, 44)
+        get => NumGet(this, 52, "ushort")
+        set => NumPut("ushort", value, this, 52)
     }
 }

@@ -9,7 +9,7 @@ class AVIEXTHEADER extends Win32Struct
 {
     static sizeof => 256
 
-    static packingSize => 2
+    static packingSize => 4
 
     /**
      * @type {Integer}

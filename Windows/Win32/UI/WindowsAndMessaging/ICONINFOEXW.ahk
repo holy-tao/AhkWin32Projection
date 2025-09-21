@@ -71,7 +71,7 @@ class ICONINFOEXW extends Win32Struct
      * Type: <b>HBITMAP</b>
      * 
      * A handle to the icon monochrome mask <a href="https://docs.microsoft.com/windows/win32/gdi/bitmaps">bitmap</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hbmMask {
         get => NumGet(this, 16, "ptr")
@@ -82,7 +82,7 @@ class ICONINFOEXW extends Win32Struct
      * Type: <b>HBITMAP</b>
      * 
      * A handle to the icon color <a href="https://docs.microsoft.com/windows/win32/gdi/bitmaps">bitmap</a>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hbmColor {
         get => NumGet(this, 24, "ptr")

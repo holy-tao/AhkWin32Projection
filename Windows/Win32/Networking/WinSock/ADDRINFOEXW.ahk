@@ -474,7 +474,7 @@ class ADDRINFOEXW extends Win32Struct
      * Type: <b>PCTSTR</b>
      * 
      * The canonical name for the host.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ai_canonname {
         get => NumGet(this, 24, "ptr")

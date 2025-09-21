@@ -56,7 +56,7 @@ class LVCOLUMNW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * If column information is being set, this member is the address of a null-terminated string that contains the column header text. If the structure is receiving information about a column, this member specifies the address of the buffer that receives the column header text.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszText {
         get => NumGet(this, 16, "ptr")

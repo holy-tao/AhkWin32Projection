@@ -13,7 +13,7 @@ class SPPATHENTRY extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hTransition {
         get => NumGet(this, 0, "ptr")

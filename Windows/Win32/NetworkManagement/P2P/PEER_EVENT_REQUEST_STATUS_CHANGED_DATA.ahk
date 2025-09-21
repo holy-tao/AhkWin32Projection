@@ -27,7 +27,7 @@ class PEER_EVENT_REQUEST_STATUS_CHANGED_DATA extends Win32Struct
 
     /**
      * HRESULT value that indicates the change in request status that occurred.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hrChange {
         get => NumGet(this, 8, "int")

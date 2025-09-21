@@ -28,7 +28,7 @@ class uCLSSPEC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pFileExt {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class uCLSSPEC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pMimeType {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +44,7 @@ class uCLSSPEC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pProgId {
         get => NumGet(this, 8, "ptr")
@@ -52,7 +52,7 @@ class uCLSSPEC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pFileName {
         get => NumGet(this, 8, "ptr")
@@ -60,7 +60,7 @@ class uCLSSPEC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pPackageName {
         get => NumGet(this, 8, "ptr")

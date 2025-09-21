@@ -80,7 +80,7 @@ class PEER_EVENT_NODE_CHANGE_DATA extends Win32Struct
 
     /**
      * Specifies the peer ID of the node that has  changed.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwzPeerId {
         get => NumGet(this, 16, "ptr")

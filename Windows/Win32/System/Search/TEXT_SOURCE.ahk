@@ -32,7 +32,7 @@ class TEXT_SOURCE extends Win32Struct
      * Type: <b>PFNFILLTEXTBUFFER</b>
      * 
      * Pointer to a function, <b>PFNFILLTEXTBUFFER</b> that refills the <b>awcBuffer</b> with text from the source document.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFNFILLTEXTBUFFER>}
      */
     pfnFillTextBuffer {
         get => NumGet(this, 0, "ptr")
@@ -43,7 +43,7 @@ class TEXT_SOURCE extends Win32Struct
      * Type: <b>WCHAR*</b>
      * 
      * Pointer to a buffer that contains text from the source document for the word breaker to parse.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     awcBuffer {
         get => NumGet(this, 8, "ptr")

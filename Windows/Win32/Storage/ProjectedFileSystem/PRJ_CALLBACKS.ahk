@@ -27,7 +27,7 @@ class PRJ_CALLBACKS extends Win32Struct
 
     /**
      * A pointer to the StartDirectoryEnumerationCallback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PRJ_START_DIRECTORY_ENUMERATION_CB>}
      */
     StartDirectoryEnumerationCallback {
         get => NumGet(this, 0, "ptr")
@@ -36,7 +36,7 @@ class PRJ_CALLBACKS extends Win32Struct
 
     /**
      * A pointer to the EndDirectoryEnumerationCallback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PRJ_END_DIRECTORY_ENUMERATION_CB>}
      */
     EndDirectoryEnumerationCallback {
         get => NumGet(this, 8, "ptr")
@@ -45,7 +45,7 @@ class PRJ_CALLBACKS extends Win32Struct
 
     /**
      * A pointer to the GetDirectoryEnumerationCallback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PRJ_GET_DIRECTORY_ENUMERATION_CB>}
      */
     GetDirectoryEnumerationCallback {
         get => NumGet(this, 16, "ptr")
@@ -54,7 +54,7 @@ class PRJ_CALLBACKS extends Win32Struct
 
     /**
      * A pointer to the GetPlaceholderInformationCallback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PRJ_GET_PLACEHOLDER_INFO_CB>}
      */
     GetPlaceholderInfoCallback {
         get => NumGet(this, 24, "ptr")
@@ -63,7 +63,7 @@ class PRJ_CALLBACKS extends Win32Struct
 
     /**
      * A pointer to the GetFileDataCallback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PRJ_GET_FILE_DATA_CB>}
      */
     GetFileDataCallback {
         get => NumGet(this, 32, "ptr")
@@ -72,7 +72,7 @@ class PRJ_CALLBACKS extends Win32Struct
 
     /**
      * A pointer to the QueryFileNameCallback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PRJ_QUERY_FILE_NAME_CB>}
      */
     QueryFileNameCallback {
         get => NumGet(this, 40, "ptr")
@@ -81,7 +81,7 @@ class PRJ_CALLBACKS extends Win32Struct
 
     /**
      * A pointer to the NotifyOperationCallback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PRJ_NOTIFICATION_CB>}
      */
     NotificationCallback {
         get => NumGet(this, 48, "ptr")
@@ -90,7 +90,7 @@ class PRJ_CALLBACKS extends Win32Struct
 
     /**
      * A pointer to the CancelCommandCallback.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PRJ_CANCEL_COMMAND_CB>}
      */
     CancelCommandCallback {
         get => NumGet(this, 56, "ptr")

@@ -20,7 +20,7 @@ class SecPkgContext_KeyingMaterial_Inproc extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pszLabel {
         get => NumGet(this, 8, "ptr")

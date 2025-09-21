@@ -28,7 +28,7 @@ class DDHAL_DDKERNELCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALKERNELCB_SYNCSURFACE>}
      */
     SyncSurfaceData {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class DDHAL_DDKERNELCALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPDDHALKERNELCB_SYNCVIDEOPORT>}
      */
     SyncVideoPortData {
         get => NumGet(this, 16, "ptr")

@@ -30,7 +30,7 @@ class ENCRYPTION_PROTECTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpProtectorDescriptor {
         get => NumGet(this, 16, "ptr")

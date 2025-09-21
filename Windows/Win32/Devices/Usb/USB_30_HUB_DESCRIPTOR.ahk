@@ -7,9 +7,9 @@
  */
 class USB_30_HUB_DESCRIPTOR extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 14
 
-    static packingSize => 1
+    static packingSize => 2
 
     /**
      * @type {Integer}
@@ -39,22 +39,14 @@ class USB_30_HUB_DESCRIPTOR extends Win32Struct
      * @type {Integer}
      */
     wHubCharacteristics {
-        get => NumGet(this, 3, "ushort")
-        set => NumPut("ushort", value, this, 3)
+        get => NumGet(this, 4, "ushort")
+        set => NumPut("ushort", value, this, 4)
     }
 
     /**
      * @type {Integer}
      */
     bPowerOnToPowerGood {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    bHubControlCurrent {
         get => NumGet(this, 6, "char")
         set => NumPut("char", value, this, 6)
     }
@@ -62,7 +54,7 @@ class USB_30_HUB_DESCRIPTOR extends Win32Struct
     /**
      * @type {Integer}
      */
-    bHubHdrDecLat {
+    bHubControlCurrent {
         get => NumGet(this, 7, "char")
         set => NumPut("char", value, this, 7)
     }
@@ -70,16 +62,24 @@ class USB_30_HUB_DESCRIPTOR extends Win32Struct
     /**
      * @type {Integer}
      */
+    bHubHdrDecLat {
+        get => NumGet(this, 8, "char")
+        set => NumPut("char", value, this, 8)
+    }
+
+    /**
+     * @type {Integer}
+     */
     wHubDelay {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
+        get => NumGet(this, 10, "ushort")
+        set => NumPut("ushort", value, this, 10)
     }
 
     /**
      * @type {Integer}
      */
     DeviceRemovable {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
+        get => NumGet(this, 12, "ushort")
+        set => NumPut("ushort", value, this, 12)
     }
 }

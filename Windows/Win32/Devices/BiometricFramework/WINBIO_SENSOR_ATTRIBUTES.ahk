@@ -22,7 +22,7 @@ class WINBIO_SENSOR_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HRESULT}
      */
     WinBioHresult {
         get => NumGet(this, 4, "int")

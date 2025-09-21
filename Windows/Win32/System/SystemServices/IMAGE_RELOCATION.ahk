@@ -7,9 +7,9 @@
  */
 class IMAGE_RELOCATION extends Win32Struct
 {
-    static sizeof => 10
+    static sizeof => 12
 
-    static packingSize => 2
+    static packingSize => 4
 
     /**
      * @type {Integer}

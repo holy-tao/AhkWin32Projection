@@ -39,7 +39,7 @@ class OPENCARDNAME_EXA extends Win32Struct
 
     /**
      * The window that owns the dialog box. This member can be any valid window handle, or it can be <b>NULL</b> for the desktop default.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hwndOwner {
         get => NumGet(this, 16, "ptr")
@@ -94,7 +94,7 @@ class OPENCARDNAME_EXA extends Win32Struct
 
     /**
      * A pointer to a string to be placed in the title bar of the dialog box. If this member is <b>NULL</b>, the system uses the default title "Select Card:".
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     lpstrTitle {
         get => NumGet(this, 32, "ptr")
@@ -103,7 +103,7 @@ class OPENCARDNAME_EXA extends Win32Struct
 
     /**
      * A pointer to a string to be displayed to the user as a prompt to insert the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a>. If this member is <b>NULL</b>, the system uses the default text "Please insert a smart card".
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     lpstrSearchDesc {
         get => NumGet(this, 40, "ptr")
@@ -112,7 +112,7 @@ class OPENCARDNAME_EXA extends Win32Struct
 
     /**
      * A handle to an icon (32 x 32 pixels). You can specify a vendor-specific icon to display in the dialog box. If this value is <b>NULL</b>, a generic, smart card reader–loaded icon is displayed.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hIcon {
         get => NumGet(this, 48, "ptr")
@@ -148,7 +148,7 @@ class OPENCARDNAME_EXA extends Win32Struct
      * );
      * 
      * ```
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<LPOCNCONNPROCA>}
      */
     lpfnConnect {
         get => NumGet(this, 64, "ptr")
@@ -185,7 +185,7 @@ class OPENCARDNAME_EXA extends Win32Struct
 
     /**
      * If the card is located, the <b>lpstrRdr</b> buffer contains the name of the reader that contains the located card. The buffer should be at least 256 characters long.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     lpstrRdr {
         get => NumGet(this, 88, "ptr")
@@ -204,7 +204,7 @@ class OPENCARDNAME_EXA extends Win32Struct
 
     /**
      * If the card is located, the <i>lpstrCard</i> buffer contains the name of the located card. The buffer should be at least 256 characters long.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     lpstrCard {
         get => NumGet(this, 104, "ptr")

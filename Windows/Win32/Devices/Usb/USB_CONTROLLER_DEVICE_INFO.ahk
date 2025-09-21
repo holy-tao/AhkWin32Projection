@@ -9,7 +9,7 @@ class USB_CONTROLLER_DEVICE_INFO extends Win32Struct
 {
     static sizeof => 20
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * @type {Integer}

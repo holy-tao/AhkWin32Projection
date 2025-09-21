@@ -138,7 +138,7 @@ class CAPSTATUS extends Win32Struct
 
     /**
      * Handle to current palette.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hPalCurrent {
         get => NumGet(this, 64, "ptr")

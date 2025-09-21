@@ -13,7 +13,7 @@ class LSA_FOREST_TRUST_SCANNER_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     DomainSid {
         get => NumGet(this, 0, "ptr")

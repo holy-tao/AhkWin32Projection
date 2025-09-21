@@ -18,7 +18,7 @@ class LVINSERTGROUPSORTED extends Win32Struct
      * Type: <b>PFNLVGROUPCOMPARE</b>
      * 
      * Pointer to application-defined function <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nc-commctrl-pfnlvgroupcompare">LVGroupCompare</a> that is used to sort the groups.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFNLVGROUPCOMPARE>}
      */
     pfnGroupCompare {
         get => NumGet(this, 0, "ptr")

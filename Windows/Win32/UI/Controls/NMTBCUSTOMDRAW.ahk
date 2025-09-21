@@ -36,7 +36,7 @@ class NMTBCUSTOMDRAW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HBRUSH</a></b>
      * 
      * HBRUSH that the control will use when drawing the background of marked or dithered items. This member is ignored if TBCDRF_NOMARK is returned from the <a href="https://docs.microsoft.com/windows/desktop/Controls/nm-customdraw-toolbar">NM_CUSTOMDRAW</a> notification code.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hbrMonoDither {
         get => NumGet(this, 80, "ptr")
@@ -47,7 +47,7 @@ class NMTBCUSTOMDRAW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HBRUSH</a></b>
      * 
      * HBRUSH that the control will use when drawing lines on the buttons.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hbrLines {
         get => NumGet(this, 88, "ptr")
@@ -58,7 +58,7 @@ class NMTBCUSTOMDRAW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HPEN</a></b>
      * 
      * HPEN that the control will use when drawing lines on the buttons.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hpenLines {
         get => NumGet(this, 96, "ptr")

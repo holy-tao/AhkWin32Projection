@@ -131,7 +131,7 @@ class IMAGE_DEBUG_INFORMATION extends Win32Struct
 
     /**
      * A pointer to a series of null-terminated strings that name all the functions exported from the image.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     ReservedExportedNames {
         get => NumGet(this, 72, "ptr")
@@ -232,7 +232,7 @@ class IMAGE_DEBUG_INFORMATION extends Win32Struct
 
     /**
      * The relative path to the image file name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     ImageFilePath {
         get => NumGet(this, 152, "ptr")
@@ -241,7 +241,7 @@ class IMAGE_DEBUG_INFORMATION extends Win32Struct
 
     /**
      * The image file name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     ImageFileName {
         get => NumGet(this, 160, "ptr")
@@ -250,7 +250,7 @@ class IMAGE_DEBUG_INFORMATION extends Win32Struct
 
     /**
      * The full path to the symbol file.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     ReservedDebugFilePath {
         get => NumGet(this, 168, "ptr")

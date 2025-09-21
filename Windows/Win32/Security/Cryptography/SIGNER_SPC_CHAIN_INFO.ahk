@@ -24,7 +24,7 @@ class SIGNER_SPC_CHAIN_INFO extends Win32Struct
 
     /**
      * The name of the SPC file to use to sign a document.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwszSpcFile {
         get => NumGet(this, 8, "ptr")
@@ -50,7 +50,7 @@ class SIGNER_SPC_CHAIN_INFO extends Win32Struct
 
     /**
      * Optional. A handle to an additional certificate store.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hCertStore {
         get => NumGet(this, 24, "ptr")

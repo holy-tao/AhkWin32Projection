@@ -41,7 +41,7 @@ class SI_INHERIT_TYPE extends Win32Struct
      * Alternatively, <b>pszName</b> can be a string resource identifier returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nf-aclui-isecurityinformation-getobjectinformation">ISecurityInformation::GetObjectInformation</a> method to identify the module that contains the string resource.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pszName {
         get => NumGet(this, 16, "ptr")

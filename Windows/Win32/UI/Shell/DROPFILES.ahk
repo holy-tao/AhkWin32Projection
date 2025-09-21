@@ -10,9 +10,9 @@
  */
 class DROPFILES extends Win32Struct
 {
-    static sizeof => 20
+    static sizeof => 24
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Type: <b>DWORD</b>
@@ -34,7 +34,7 @@ class DROPFILES extends Win32Struct
     pt{
         get {
             if(!this.HasProp("__pt"))
-                this.__pt := POINT(this.ptr + 4)
+                this.__pt := POINT(this.ptr + 8)
             return this.__pt
         }
     }
@@ -46,8 +46,8 @@ class DROPFILES extends Win32Struct
      * @type {Integer}
      */
     fNC {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
@@ -57,7 +57,7 @@ class DROPFILES extends Win32Struct
      * @type {Integer}
      */
     fWide {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 }

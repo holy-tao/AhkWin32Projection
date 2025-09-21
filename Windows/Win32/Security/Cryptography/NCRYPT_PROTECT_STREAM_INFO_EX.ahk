@@ -12,7 +12,7 @@ class NCRYPT_PROTECT_STREAM_INFO_EX extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFNCryptStreamOutputCallbackEx>}
      */
     pfnStreamOutput {
         get => NumGet(this, 0, "ptr")

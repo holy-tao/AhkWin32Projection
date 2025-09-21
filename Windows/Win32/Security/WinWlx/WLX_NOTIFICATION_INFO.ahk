@@ -33,7 +33,7 @@ class WLX_NOTIFICATION_INFO extends Win32Struct
 
     /**
      * String that specifies the name of the user currently logged on to the system. If the event occurs before a user logs on, this value is <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     UserName {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class WLX_NOTIFICATION_INFO extends Win32Struct
 
     /**
      * String that specifies the name of the domain the user is currently logged on to. If the event occurs before a user logs on, this value is <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     Domain {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +52,7 @@ class WLX_NOTIFICATION_INFO extends Win32Struct
     /**
      * Specifies the name of the window station the user is currently logged on to. If the event occurs before a user logs on, this value is <b>NULL</b>. Note that most configurations use a single, default window station. Some applications, such as 
      * <a href="https://docs.microsoft.com/windows/desktop/TermServ/about-terminal-services">About Terminal Services</a>, use multiple window stations.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     WindowStation {
         get => NumGet(this, 24, "ptr")
@@ -61,7 +61,7 @@ class WLX_NOTIFICATION_INFO extends Win32Struct
 
     /**
      * A handle to the user's token. This value is <b>NULL</b> if the event occurs before a user logs on.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hToken {
         get => NumGet(this, 32, "ptr")
@@ -70,7 +70,7 @@ class WLX_NOTIFICATION_INFO extends Win32Struct
 
     /**
      * A handle to the desktop that is currently active.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hDesktop {
         get => NumGet(this, 40, "ptr")
@@ -79,7 +79,7 @@ class WLX_NOTIFICATION_INFO extends Win32Struct
 
     /**
      * Reserved for internal use.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFNMSGECALLBACK>}
      */
     pStatusCallback {
         get => NumGet(this, 48, "ptr")

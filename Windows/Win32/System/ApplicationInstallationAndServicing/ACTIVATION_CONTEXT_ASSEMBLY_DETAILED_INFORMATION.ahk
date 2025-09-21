@@ -221,7 +221,7 @@ class ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains a textually-encoded format of the assembly's identity.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpAssemblyEncodedAssemblyIdentity {
         get => NumGet(this, 64, "ptr")
@@ -230,7 +230,7 @@ class ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that indicates the original path to this assembly's manifest.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpAssemblyManifestPath {
         get => NumGet(this, 72, "ptr")
@@ -239,7 +239,7 @@ class ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that indicates the path of whatever policy assembly was used to determine that this version of the assembly should be loaded. If this member is null, no policy was used to decide to load this version.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpAssemblyPolicyPath {
         get => NumGet(this, 80, "ptr")
@@ -248,7 +248,7 @@ class ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that indicates the folder from which this assembly was loaded.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     lpAssemblyDirectoryName {
         get => NumGet(this, 88, "ptr")

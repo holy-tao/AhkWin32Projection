@@ -15,7 +15,7 @@ class D3DAES_CTR_IV extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The IV, in big-endian format.

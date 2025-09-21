@@ -75,7 +75,7 @@ class ACTRL_ACCESS_ENTRYA extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that identifies the object types that can inherit the entry. If you are using this structure with the COM implementation of <a href="https://docs.microsoft.com/windows/desktop/api/iaccess/nn-iaccess-iaccesscontrol">IAccessControl</a>, this member must be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     lpInheritProperty {
         get => NumGet(this, 48, "ptr")

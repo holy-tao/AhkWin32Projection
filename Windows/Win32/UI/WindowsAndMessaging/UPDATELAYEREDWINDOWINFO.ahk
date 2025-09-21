@@ -32,7 +32,7 @@ class UPDATELAYEREDWINDOWINFO extends Win32Struct
      *                     
      * 
      * If <b>hdcSrc</b> is <b>NULL</b>, <b>hdcDst</b> must be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hdcDst {
         get => NumGet(this, 8, "ptr")
@@ -65,7 +65,7 @@ class UPDATELAYEREDWINDOWINFO extends Win32Struct
      * Type: <b>HDC</b>
      * 
      * A handle to the DC for the surface that defines the layered window. This handle can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createcompatibledc">CreateCompatibleDC</a> function. If the shape and visual context of the window will not change, <b>hdcSrc</b> can be <b>NULL</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hdcSrc {
         get => NumGet(this, 32, "ptr")

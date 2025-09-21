@@ -83,7 +83,7 @@ class MODULEENTRY32 extends Win32Struct
 
     /**
      * A handle to the module in the context of the owning process.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hModule {
         get => NumGet(this, 40, "ptr")

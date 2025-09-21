@@ -102,7 +102,7 @@ class TABLE_NOTIFICATION extends Win32Struct
 
     /**
      * > HRESULT value for the error that has occurred, if the **ulTableEvent** member is set to TABLE_ERROR.
-     * @type {Integer}
+     * @type {HRESULT}
      */
     hResult {
         get => NumGet(this, 4, "int")

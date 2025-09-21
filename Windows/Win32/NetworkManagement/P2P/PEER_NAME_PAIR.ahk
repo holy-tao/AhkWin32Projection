@@ -30,7 +30,7 @@ class PEER_NAME_PAIR extends Win32Struct
 
     /**
      * Specifies the peer name of the peer identity or peer group.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwzPeerName {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +39,7 @@ class PEER_NAME_PAIR extends Win32Struct
 
     /**
      * Specifies the friendly name of the peer identity or peer group.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     pwzFriendlyName {
         get => NumGet(this, 16, "ptr")

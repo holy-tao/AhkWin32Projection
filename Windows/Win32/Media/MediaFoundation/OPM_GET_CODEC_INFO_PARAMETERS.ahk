@@ -11,7 +11,7 @@ class OPM_GET_CODEC_INFO_PARAMETERS extends Win32Struct
 {
     static sizeof => 4056
 
-    static packingSize => 1
+    static packingSize => 4
 
     /**
      * The amount of valid data in the <b>Verifier</b> array, in bytes.

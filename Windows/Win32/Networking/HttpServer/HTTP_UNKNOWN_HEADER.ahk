@@ -33,7 +33,7 @@ class HTTP_UNKNOWN_HEADER extends Win32Struct
 
     /**
      * A pointer to a string of octets that specifies the header name. Use <b>NameLength</b> to determine the end of the string, rather than relying on a terminating <b>null</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pName {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class HTTP_UNKNOWN_HEADER extends Win32Struct
 
     /**
      * A pointer to a string of octets that specifies the values for this header. Use <b>RawValueLength</b> to determine the end of the string, rather than relying on a terminating <b>null</b>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Byte>}
      */
     pRawValue {
         get => NumGet(this, 16, "ptr")

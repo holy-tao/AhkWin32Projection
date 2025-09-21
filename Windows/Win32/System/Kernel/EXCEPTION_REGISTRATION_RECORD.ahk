@@ -20,7 +20,7 @@ class EXCEPTION_REGISTRATION_RECORD extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<EXCEPTION_ROUTINE>}
      */
     Handler {
         get => NumGet(this, 8, "ptr")

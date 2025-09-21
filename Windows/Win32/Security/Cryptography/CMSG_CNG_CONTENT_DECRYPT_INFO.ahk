@@ -38,7 +38,7 @@ class CMSG_CNG_CONTENT_DECRYPT_INFO extends Win32Struct
 
     /**
      * A pointer to an installable function used to allocate memory for any updated member.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CMSG_ALLOC>}
      */
     pfnAlloc {
         get => NumGet(this, 32, "ptr")
@@ -47,7 +47,7 @@ class CMSG_CNG_CONTENT_DECRYPT_INFO extends Win32Struct
 
     /**
      * A pointer to an installable function used to free memory allocated by <i>pfnAlloc</i>.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<PFN_CMSG_FREE>}
      */
     pfnFree {
         get => NumGet(this, 40, "ptr")
@@ -83,7 +83,7 @@ class CMSG_CNG_CONTENT_DECRYPT_INFO extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_cmsg_cng_import_content_encrypt_key">PFN_CMSG_CNG_IMPORT_CONTENT_ENCRYPT_KEY</a> function must update this member with the generated <b>BCRYPT_KEY_HANDLE</b> to be used for content decryption. Even for an error, you must release this handle by using the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroykey">BCryptDestroyKey</a> function.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Void>}
      */
     hCNGContentEncryptKey {
         get => NumGet(this, 72, "ptr")

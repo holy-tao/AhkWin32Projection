@@ -13,9 +13,9 @@
  */
 class SOCKADDR_BTH extends Win32Struct
 {
-    static sizeof => 22
+    static sizeof => 32
 
-    static packingSize => 1
+    static packingSize => 8
 
     /**
      * Address family of the socket. This member is always AF_BTH.
@@ -34,8 +34,8 @@ class SOCKADDR_BTH extends Win32Struct
      * @type {Integer}
      */
     btAddr {
-        get => NumGet(this, 2, "uint")
-        set => NumPut("uint", value, this, 2)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -43,8 +43,8 @@ class SOCKADDR_BTH extends Win32Struct
      * @type {Pointer<Guid>}
      */
     serviceClassId {
-        get => NumGet(this, 10, "ptr")
-        set => NumPut("ptr", value, this, 10)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -52,7 +52,7 @@ class SOCKADDR_BTH extends Win32Struct
      * @type {Integer}
      */
     port {
-        get => NumGet(this, 18, "uint")
-        set => NumPut("uint", value, this, 18)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 }

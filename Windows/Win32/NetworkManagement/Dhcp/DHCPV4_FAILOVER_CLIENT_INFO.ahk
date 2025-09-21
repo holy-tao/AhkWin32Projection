@@ -48,7 +48,7 @@ class DHCPV4_FAILOVER_CLIENT_INFO extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that represents the DHCPv4 client machine name.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ClientName {
         get => NumGet(this, 24, "ptr")
@@ -57,7 +57,7 @@ class DHCPV4_FAILOVER_CLIENT_INFO extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that represents the description of the DHCPv4 client.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     ClientComment {
         get => NumGet(this, 32, "ptr")
@@ -435,7 +435,7 @@ class DHCPV4_FAILOVER_CLIENT_INFO extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that represents the DHCP server policy name that resulted in the IPv4 address assignment to the DHCPv4 client in the lease.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     PolicyName {
         get => NumGet(this, 120, "ptr")

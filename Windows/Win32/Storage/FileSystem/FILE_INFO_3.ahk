@@ -44,7 +44,7 @@ class FILE_INFO_3 extends Win32Struct
      * Pointer to a string that specifies the path of the opened resource.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     fi3_pathname {
         get => NumGet(this, 16, "ptr")
@@ -55,7 +55,7 @@ class FILE_INFO_3 extends Win32Struct
      * Pointer to a string that specifies which user (on servers that have user-level security) or which computer (on servers that have share-level security) opened the resource. Note that Windows does not support share-level security.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<Ptr>}
+     * @type {Pointer<Char>}
      */
     fi3_username {
         get => NumGet(this, 24, "ptr")
