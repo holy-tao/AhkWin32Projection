@@ -30,10 +30,13 @@ class Win32Struct extends Object{
      * @see {@link https://learn.microsoft.com/en-us/windows/win32/winprog/using-the-windows-headers#controlling-structure-packing "Controlling Structure Packing" in Using the Windows Headers - Win32 apps | Microsoft Learn}
      * @type {Integer}
      */
-    packedSize {
+    static packedSize {
         get{
-            packingSize := %this.__Class%.packingSize
-            return this.size + Mod(packingSize - Mod(this.size, packingSize), packingSize)
+            ; Ignore these warnings - classes extending this must have these properties
+            packingSize := this.packingSize
+            sizeof := this.sizeof
+
+            return sizeof + Mod(packingSize - Mod(sizeof, packingSize), packingSize)
         }
     }
 
